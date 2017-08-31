@@ -1,0 +1,29 @@
+Bucket instructions:
+
+In my computer
+fg bring to foreground
+bg or ctrl+z suspend bring to background
+
+count files in dir
+ls -lR *.pdf | wc -l
+
+remove all json files
+rm -r -- *.json
+
+
+Copy files from current directory to s3 bucket:
+aws s3 cp --recursive . s3://capstone.pdfs/ --exclude "*.qpw"
+
+list files in s3 bucket
+aws s3 ls s3://capstone.pdfs/
+
+more readable
+aws s3 ls s3://capstone.pdfs/ --recursive --human-readable --summarize
+
+remove everything that is not pdf
+aws s3 rm --recursive --exclude "*.pdf" s3://capstone.pdfs/
+
+remove indx folder
+aws s3 rm --recursive  s3://capstone.pdfs/index
+
+remove all json files
