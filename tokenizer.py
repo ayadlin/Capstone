@@ -33,7 +33,7 @@ with open("greek_alphabet.pickle", "rb") as dict_greek:
 greek_keys = set(greek_alphabet_dict.keys())
 greek_values = set(greek_alphabet_dict.values())
 
-def read_file(r_filename)
+def read_file(r_filename):
     '''read file and remove nuisances'''
     with open(r_filename),'rb') as r_file:
         txt = (r_file.read().decode('latin-1').replace('/',' ')
