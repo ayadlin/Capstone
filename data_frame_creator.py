@@ -3,6 +3,14 @@ import tokenizer
 from sklearn.feature_extraction.text import CountVectorizer
 import pandas as pd
 import numpy as np
+import os
+import pickle
+import string
+from nltk.tokenize import sent_tokenize
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem.porter import PorterStemmer
+from nltk.util import ngrams
 
 
 path = '/Users/ale/Dropbox (Yadlin Family)/galvanize/capstone/*.txt'
