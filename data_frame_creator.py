@@ -1,20 +1,25 @@
-from tokenizer import tokenize
-from tokenizer import tokenize_many_docs
+import tokenizer
+from sklearn.feature_extraction.text import CountVectorizer
+import pandas as pd
+import numpy as np
 
 
 path = '/Users/ale/Dropbox (Yadlin Family)/galvanize/capstone/*.txt'
-output = list(tokenize_many_docs(path))
-doc_names, orig_sentences = zip(*output)
 
-corpus = orig_sentences
-#print(corpus)
-from sklearn.feature_extraction.text import CountVectorizer
+def create_data_frame(path=path,
+                      doc_reader=tokenizer.tokenize_many_docs,
+                      tokenizer=tokenizer.tokenize,
+                      min_df=0.005):
+    output = list(doc_reader(path))
+    doc_names, orig_sentences = zip(*output)
+    corpus = orig_sentences
+    tf = CountVectorizer(tokenizer=tokenizer, min_df=min_df)
+    document_tf_matrix =tf.fit_transform(corpus).todense()
+    papers_df = pd.DataFrame(document_tf_matrix)
+    papers_df.columns = tf.get_feature_names()
+    papers_df.sort_index(axis=1, inplace=True)
+    papers_df.insert(0,'sentences',orig_sentences)
+    papers_df.insert(0,'files',doc_names)
+    papers_df = papers_df[papers_df[tf.get_feature_names()].any(axis=1)].reset_index().drop('index',axis=1)
 
-tf = CountVectorizer(tokenizer=tokenize)#, min_df=0.01, vocabulary=vocab)#tokenizer=lambda doc: tokenize(str(doc)), lowercase=False)#vocabulary=vocab,tokenizer=lambda doc: doc, lowercase=False)
-
-document_tf_matrix =tf.fit_transform(corpus).todense()
-
-#print(sorted(tf.vocabulary_))
-
-document_tf_matrix
-#sorted(tf.vocabulary_.items(), key=lambda x: x[1])
+    return papers_df
