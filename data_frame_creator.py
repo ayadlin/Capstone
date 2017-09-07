@@ -5,7 +5,7 @@ import numpy as np
 
 
 
-#path = '/Users/ale/Dropbox (Yadlin Family)/galvanize/capstone/*.txt'
+path = '/Users/ale/Dropbox (Yadlin Family)/galvanize/capstone/*.txt'
 path_aws = '/home/ubuntu/Capstone/data/txt/*.txt'
 
 def create_data_frame(path=path_aws,

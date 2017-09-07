@@ -2,6 +2,7 @@ import glob
 import os
 import pickle
 import string
+import multiprocessing
 from nltk.tokenize import sent_tokenize
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
@@ -15,23 +16,32 @@ with open('capstone_stopwords','r') as f:
 punctuation_ = set(string.punctuation)
 #path = '/Users/ale/Dropbox (Yadlin Family)/galvanize/capstone/*.txt'
 
-with open("gene_dictionary_lower.pickle", "rb") as dict_gene:
-        gene_dict_lower = pickle.load(dict_gene)
+with open("gene_dictionary_final.pickle", "rb") as dict_gene:
+        gene_dict = pickle.load(dict_gene)
 
-gene_keys_lower = set(gene_dict_lower.keys())
-gene_values_lower = set(gene_dict_lower.values())
+gene_keys = set(gene_dict.keys())
+gene_values = set(gene_dict.values())
 
-with open("drug_dictionary_lower.pickle", "rb") as dict_drug:
-        drug_dict_lower = pickle.load(dict_drug)
+with open("drug_dictionary_final.pickle", "rb") as dict_drug:
+        drug_dict = pickle.load(dict_drug)
 
-drug_keys_lower = set(drug_dict_lower.keys())
-drug_values_lower = set(drug_dict_lower.values())
+drug_keys = set(drug_dict.keys())
+drug_values = set(drug_dict.values())
+
 
 with open("greek_alphabet.pickle", "rb") as dict_greek:
         greek_alphabet_dict = pickle.load(dict_greek)
 
 greek_keys = set(greek_alphabet_dict.keys())
 greek_values = set(greek_alphabet_dict.values())
+
+def union(a, b):
+    ''' return the union of two lists '''
+    return set(list(set(a) | set(b)))
+
+def intersect(a, b):
+    ''' return the intersection of two lists '''
+    return set(list(set(a) & set(b)))
 
 def read_file(r_filename):
     '''read file and remove nuisances'''
@@ -57,10 +67,10 @@ def dict_replace(sentence):  #(text)
     '''replace alternative gene and drug names for main names'''
     #for sentence in text:
     for idx, term in enumerate(sentence):
-        if term in gene_keys_lower:
-            sentence[idx] = gene_dict_lower[term]
-        if term in drug_keys_lower:
-            sentence[idx] = drug_dict_lower[term]
+        if term in gene_keys:
+            sentence[idx] = gene_dict[term]
+        if term in drug_keys:
+            sentence[idx] = drug_dict[term]
         if term in greek_keys:
             sentence[idx] = greek_dict[term]
     return sentence #text
@@ -116,16 +126,21 @@ def tokenize(txt):
     txt=txt.lower()
     tokens = word_tokenize(txt)
     tokens_filtered = filter_tokens(tokens)
-    tokens_filtered = [x.replace(x,x[:-1]) if x[-1]=='-' or x[-1]=='+' else x for x in tokens_filtered]
+    tokens_filtered = [x.replace(x,x[:-1]) if x[-1]=='-' or x[-1]=='+'
+                        else x for x in tokens_filtered]
+    tokens_filtered = split_hyphen_words(tokens_filtered)
     tokens_filtered = dict_replace(tokens_filtered)
+    tokens_filtered = [token for token in tokens_filtered if len(token)>0]
     stemmer_porter = PorterStemmer()
-    tokens_stemporter = [stemmer_porter.stem(token) for token in tokens_filtered]
+    tokens_stemporter = [stemmer_porter.stem(token) if not token[0]=='#'
+                          and not token[-1]=='#' else token
+                          for token in tokens_filtered]
     tokens_stemporter = [x.replace('relaps','resist') for x in tokens_stemporter]
     tokens_ngrams = join_sent_ngrams(tokens_stemporter, 2)
     tokens_ngrams = [x.replace('not-sensit','resist') for x in tokens_ngrams]
     tokens_ngrams = [x.replace('not-resist','sensit') for x in tokens_ngrams]
     tokens_ngrams = [x.replace('egfr1','egfr') for x in tokens_ngrams]
-    tokens_ngrams = split_hyphen_words(tokens_ngrams)
+    #tokens_ngrams = split_hyphen_words(tokens_ngrams)
     return [word for word in tokens_ngrams if is_valid_word(word)]
 
 def tokenize_doc(doc_name,doc_txt):
@@ -143,3 +158,8 @@ def tokenize_many_docs(file_path):
     assert len(file_dict)>0
     for file_name, file_txt in file_dict.items():
         yield from tokenize_doc(file_name,file_txt)
+
+def parallel_tokenize_many_docs(file_path):
+    pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
+    results = pool.list(map(tokenize_many_docs, file_path))
+    return union(results,results)
