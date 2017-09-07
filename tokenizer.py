@@ -138,6 +138,8 @@ def tokenize_doc(doc_name,doc_txt):
 def tokenize_many_docs(file_path):
     '''tokenize all docs in filepath'''
     files = glob.glob(path)
+    assert len(files)>0
     file_dict = read_files(files)
+    assert len(file_dict)>0
     for file_name, file_txt in file_dict.items():
         yield from tokenize_doc(file_name,file_txt)
