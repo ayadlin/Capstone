@@ -13,7 +13,7 @@ from nltk.util import ngrams
 with open('capstone_stopwords','r') as f:
     stopwords_ = set(word.strip('\n') for word in f)
 punctuation_ = set(string.punctuation)
-path = '/Users/ale/Dropbox (Yadlin Family)/galvanize/capstone/*.txt'
+#path = '/Users/ale/Dropbox (Yadlin Family)/galvanize/capstone/*.txt'
 
 with open("gene_dictionary_lower.pickle", "rb") as dict_gene:
         gene_dict_lower = pickle.load(dict_gene)
@@ -137,7 +137,7 @@ def tokenize_doc(doc_name,doc_txt):
 
 def tokenize_many_docs(file_path):
     '''tokenize all docs in filepath'''
-    files = glob.glob(path)
+    files = glob.glob(file_path)
     assert len(files)>0
     file_dict = read_files(files)
     assert len(file_dict)>0
