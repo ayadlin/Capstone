@@ -33,9 +33,9 @@ with open("greek_alphabet.pickle", "rb") as dict_greek:
 greek_keys = set(greek_alphabet_dict.keys())
 greek_values = set(greek_alphabet_dict.values())
 
-def read_file(r_filename):
+def read_file(r_filename, path='.'):
     '''read file and remove nuisances'''
-    with open(r_filename,'rb') as r_file:
+    with open(os.path.join(path,r_filename),'rb') as r_file:
         txt = (r_file.read().decode('latin-1').replace('/',' ')
                  .replace('\n',' ').replace('\'', '').replace('"',"").replace("'",''))
     return txt
@@ -44,8 +44,8 @@ def read_files(files):
     '''read files from list of file names (path included)'''
     file_dict = {}
     for file in files:
-        file_name = os.path.split(file)[1]
-        file_dict[file_name] = read_file(file)
+        path, file_name = os.path.split(file)
+        file_dict[file_name] = read_file(file, path=path)
     return file_dict
 
 def filter_tokens(sent):
