@@ -8,7 +8,7 @@ import numpy as np
 #path = '/Users/ale/Dropbox (Yadlin Family)/galvanize/capstone/*.txt'
 path_aws = '/home/ubuntu/Capstone/data/txt/*.txt'
 
-def create_data_frame(path=path,
+def create_data_frame(path=path_aws,
                       doc_reader=tokenizer.tokenize_many_docs,
                       tokenizer=tokenizer.tokenize,
                       min_df=0.005):
