@@ -42,4 +42,4 @@ def sparse_create_data_frame(path=path_aws,
     #papers_df.insert(0,'files',doc_names)
     #papers_df = papers_df[papers_df[tf.get_feature_names()].any(axis=1)].reset_index().drop('index',axis=1)
 
-    return papers_df
+    return [vocab_matrix, vocab_columns, doc_names, orig_sentences]
