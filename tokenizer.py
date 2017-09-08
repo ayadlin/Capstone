@@ -121,7 +121,16 @@ def is_valid_word(word):
             return True
     return False
 
-def tokenize(txt):
+def in_short_list(word):
+    ''' check if word in short list'''
+    short_list = ['sensit', 'resist']
+    if word[0]=='#' and word[-1]=='#':
+        return True
+    if word in short_list:
+        return True
+    return False
+
+def tokenize(txt, short_list=False):
     '''tokenize txt -->sentneces'''
     txt=txt.lower()
     tokens = word_tokenize(txt)
@@ -140,7 +149,9 @@ def tokenize(txt):
     tokens_ngrams = [x.replace('not-sensit','resist') for x in tokens_ngrams]
     tokens_ngrams = [x.replace('not-resist','sensit') for x in tokens_ngrams]
     tokens_ngrams = [x.replace('egfr1','egfr') for x in tokens_ngrams]
-    #tokens_ngrams = split_hyphen_words(tokens_ngrams)
+    if short_list:
+        #tokens_ngrams = [word for word in tokens_ngrams if is_valid_word(word)]
+        return [word for word in tokens_ngrams if in_short_list(word)]
     return [word for word in tokens_ngrams if is_valid_word(word)]
 
 def tokenize_doc(doc_name,doc_txt):
