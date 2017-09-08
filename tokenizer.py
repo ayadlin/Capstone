@@ -161,5 +161,5 @@ def tokenize_many_docs(file_path):
 
 def parallel_tokenize_many_docs(file_path):
     pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
-    results = pool.list(map(tokenize_many_docs, file_path))
+    results = pool.map(tokenize_doc, file_path)
     return union(results,results)
