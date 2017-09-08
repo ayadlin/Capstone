@@ -2,7 +2,7 @@
 
 for file in *.pdf
   do
-    if [ ! -e "$file.txt" ] ; then
-      pdftotext "$file" "$file.txt"
+    if [ ! -e "../txt/$file.txt" ] ; then
+      pdftotext "$file" "../txt/$file.txt"
     fi
-  done 
+  done
