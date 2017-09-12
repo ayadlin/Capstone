@@ -1,6 +1,27 @@
 import numpy as np
 import scipy.sparse as scs
 from itertools import compress
+import string
+import pickle
+
+with open("gene_dictionary_final.pickle", "rb") as dict_gene:
+        gene_dict = pickle.load(dict_gene)
+
+gene_keys = set(gene_dict.keys())
+gene_values = set(gene_dict.values())
+
+with open("drug_dictionary_final.pickle", "rb") as dict_drug:
+        drug_dict = pickle.load(dict_drug)
+
+drug_keys = set(drug_dict.keys())
+drug_values = set(drug_dict.values())
+
+
+with open("greek_alphabet.pickle", "rb") as dict_greek:
+        greek_alphabet_dict = pickle.load(dict_greek)
+
+greek_keys = set(greek_alphabet_dict.keys())
+greek_values = set(greek_alphabet_dict.values())
 
 def non_zero_rows(M):
     'identify all indeces in sparse matrix with value different to 0'
@@ -18,6 +39,17 @@ def column_indexing(columns):
     for idx,name in enumerate(columns):
         column_index[name]=idx
     return column_index
+
+def select_rows(X,kind='A'):
+    if kind == 'r' or kind =='R':
+        ind =vocab_matrix[:,vocab_columns.index('resist')]
+        X=X[ind.nonzero()[0],:]
+    elif kind == 's' or kind =='S':
+        ind =vocab_matrix[:,vocab_columns.index('sensit')]
+        X=X[ind.nonzero()[0],:]
+    else:
+        X==X
+    return X
 
 def drop_columns(X,index_to_drop):
     to_keep = list(set(range(X.shape[1]-1))-set(index_to_drop))
@@ -48,7 +80,7 @@ def get_network_columns(vocabulary):
         drugs[idx]=name
     return drugs
 
-def extract_gene_drug_pairs(matrix):
+def extract_gene_drug_pairs(matrix, network_genes, network_drugs):
     a =zip(list(matrix.nonzero()[0]),list(matrix.nonzero()[1]))
     pairs = []
     counts = []
@@ -70,18 +102,22 @@ def extract_gene_drug_pairs(matrix):
 #         original_index.append(original)
 #     return original_index
 
-def back_to_original_index(pair):
-    original = (col_idx[pair[0]],col_idx[pair[1]])
+def back_to_original_index(pair, orig_dict):
+    original = (orig_dict[pair[0]],orig_dict[pair[1]])
     return pair, original
 
-def back_to_original_indeces(pairs):
+def back_to_original_indeces(pairs, orig_dict):
     original_indeces = {}
     for item in pairs:
-        original = back_to_original_index(item)
+        original = back_to_original_index(item, orig_dict)
         original_indeces[original[0]]=original[1]
     return original_indeces
 
-def get_evidence_sentences(gene, drug, max_number):
+def get_evidence_sentences(gene, drug, r_s, max_number,data,original_indeces):
+    vocab_matrix = data[0]
+
+    doc_names = data[2]
+    orig_sentences = data[3]
     gen = '#'+gene+'#'
     drg = '#'+drug+'#'
     gene = gene.lower()
@@ -102,8 +138,15 @@ def get_evidence_sentences(gene, drug, max_number):
         return('There is no evidence of interaction'
         ' between the gene {} and the drug {}'. format(gen[1:-1],drg[1:-1]))
     test_col = scs.lil_matrix((vocab_matrix.shape[1],1))
+    #print(test_col.shape)
     test_col[list(indices)]=1
-    index_evidence = (vocab_matrix*test_col>1).nonzero()[0]
+    if r_s == 'S' or r_s == 's':
+        test_col[vocab_matrix.shape[1]-1]=1
+    elif r_s == 'R'or r_s == 'r':
+         test_col[vocab_matrix.shape[1]-2]=1
+    else:
+         print('Returning evidence of both sensitivity and resistant')
+    index_evidence = (vocab_matrix*test_col>2).nonzero()[0]
     evidence_list = []
     #gene_key = [k for k, v in gene_dict.items() if v == gen]
     #drug_key = [k for k, v in drug_dict.items() if v == drg]
