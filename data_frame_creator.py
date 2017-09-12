@@ -74,6 +74,10 @@ def open_pickle(filepath):
     with open(filepath, 'rb') as handle:
         return pickle.load(handle)
 
+def write_pickle(filepath, var):
+    with open(filepath, 'wb') as handle:
+        pickle.dump(var, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
 def pandify_data(sparse_mat,vocabulary):
     if isinstance(sparse_mat, str):
         sparse_mat = open_pickle(sparse_mat)

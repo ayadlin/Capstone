@@ -94,6 +94,31 @@ for key, value in drug_dict.items():
 drug_keys_lower = set(drug_dict_lower.keys())
 drug_values_lower = set(drug_dict_lower.values())
 
+''' Add # to help with tokenization process#'''
+drug_dict_final ={}
+for k,v in dict_lower.items():
+    drug_dict_final[k]='#'+v+'#'
+    drug_dict_final[v]='#'+v+'#'
+
+''' Clean up duplicat drug names'''
+drug_keys = set(drug_dict_final.keys())
+drug_values = set(drug_dict_final.values())
+
+almost_vocab = data_frame_creator.open_pickle('almost_vocab_columns.pickle')
+almost_vocab_drug_name =[i for i in almost_vocab if i in drug_values]
+
+for repeat in repeat_names:
+    drug_dict_final[repeat[1][1:-1]] = repeat[0]
+    drug_key = [k for k, v in drug_dict.items() if v == repeat[1]]
+    for drug in drug_key:
+        #print(drug,repeat[0])
+        drug_dict_final[drug]=repeat[0]
+
+
+
+
+
+
 ################################################################################
 
 ''' THIRD GREEK CHARACTERS DICTIONARY '''
