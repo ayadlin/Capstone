@@ -130,6 +130,7 @@ def back_to_original_indeces(pairs, orig_dict):
 
 def get_evidence_sentences(gene, drug, r_s, max_number,data,original_indeces):
     vocab_matrix = data[0]
+    vocab_matrix[vocab_matrix>1]=1
 
     doc_names = data[2]
     orig_sentences = data[3]
