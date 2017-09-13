@@ -40,21 +40,36 @@ def column_indexing(columns):
         column_index[name]=idx
     return column_index
 
-def select_rows(X,kind='A'):
+def select_rows(X,vocabulary,kind='a'):
     if kind == 'r' or kind =='R':
-        ind =vocab_matrix[:,vocab_columns.index('resist')]
-        X=X[ind.nonzero()[0],:]
+        ind =X[:,vocabulary.index('resist')]
+        Y=X[ind.nonzero()[0],:]
     elif kind == 's' or kind =='S':
-        ind =vocab_matrix[:,vocab_columns.index('sensit')]
-        X=X[ind.nonzero()[0],:]
+        ind =X[:,vocabulary.index('sensit')]
+        Y=X[ind.nonzero()[0],:]
     else:
-        X==X
-    return X
+        Y=X
+    return Y
 
 def drop_columns(X,index_to_drop):
     to_keep = list(set(range(X.shape[1]-1))-set(index_to_drop))
     new_X = X[:,to_keep]
     return new_X
+
+def pick_network_type(X, vocabulary, kind='a'):
+    if kind == 'r' or kind =='R':
+        Y=select_rows(X, vocabulary,'r')
+        Z=drop_columns(Y, [vocabulary.index('sensit')])
+    elif kind == 's' or kind =='S':
+        Y=select_rows(X,vocabulary,'s')
+        Z=drop_columns(Y, [vocabulary.index('resist')])
+    else:
+        Y=drop_columns(X,[vocabulary.index('resist'),vocabulary.index('sensit')])
+        a=np.ones((X.shape[0],1))
+        W=scs.hstack([Y,a])
+        Z=scs.csr_matrix(W)
+    return Z
+
 
 def make_network_matrix(X, vocabulary):
     #drug_columns_name =[i for i in vocabulary if i in drug_values]
@@ -135,18 +150,31 @@ def get_evidence_sentences(gene, drug, r_s, max_number,data,original_indeces):
     try:
         indices = original_indeces[(gen, drg)]
     except KeyError:
-        return('There is no evidence of interaction'
-        ' between the gene {} and the drug {}'. format(gen[1:-1],drg[1:-1]))
+        if r_s == 'S' or r_s == 's':
+            return('There is no evidence that the prensece of'
+            ' the gene {} confers sensitivity to the drug {}'. format(gene,drug))
+        elif r_s == 'R'or r_s == 'r':
+            return('There is no evidence that the prensece of'
+            ' the gene {} confers resistance to the drug {}'. format(gene,drug))
+        else:
+            return('No studies containing'
+            ' the gene {} and the drug {} were found'. format(gene,drug))
+
     test_col = scs.lil_matrix((vocab_matrix.shape[1],1))
     #print(test_col.shape)
     test_col[list(indices)]=1
     if r_s == 'S' or r_s == 's':
         test_col[vocab_matrix.shape[1]-1]=1
+        X=vocab_matrix
     elif r_s == 'R'or r_s == 'r':
          test_col[vocab_matrix.shape[1]-2]=1
+         X=vocab_matrix
     else:
          print('Returning evidence of both sensitivity and resistant')
-    index_evidence = (vocab_matrix*test_col>2).nonzero()[0]
+         test_col[vocab_matrix.shape[1]-1]=1
+         X = vocab_matrix
+         X[:,vocab_matrix.shape[1]-1]=1
+    index_evidence = (X*test_col>2).nonzero()[0]
     evidence_list = []
     #gene_key = [k for k, v in gene_dict.items() if v == gen]
     #drug_key = [k for k, v in drug_dict.items() if v == drg]
@@ -155,8 +183,8 @@ def get_evidence_sentences(gene, drug, r_s, max_number,data,original_indeces):
             sent = orig_sentences[index]#.lower()
             #gene_evd = [word for word in sent.replace(',','').replace('.','').replace(':','').split(' ') if word in gene_key][0]
             #drug_evd = [word for word in sent.replace(',','').replace('.','').replace(':','').split(' ') if word in drug_key][0]
-            if len(sent)<500:
-                evidence_list.append('{}: {}'.format(doc_names[index] ,sent))
-            else:
-                evidence_list.append('{}: sentence too long to display'.format(doc_names[index]))
+            #if len(sent)<500:
+            evidence_list.append((doc_names[index] ,sent))
+            #else:
+            #    evidence_list.append('{}: sentence too long to display'.format(doc_names[index]))
     return evidence_list
