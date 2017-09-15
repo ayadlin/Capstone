@@ -120,7 +120,7 @@ pairs_a, counts_a = sparse_matrix_functions.extract_gene_drug_pairs(all_network_
 
 with open('pairs_any.pickle', 'wb') as handle:
     pickle.dump(pairs_a, handle, protocol=pickle.HIGHEST_PROTOCOL)
- with open('counts_any.pickle', 'wb') as handle:
+with open('counts_any.pickle', 'wb') as handle:
      pickle.dump(counts_a, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 pairs_r, counts_r = sparse_matrix_functions.extract_gene_drug_pairs(resist_network_matrix, network_genes, network_drugs)
@@ -158,7 +158,7 @@ with open('original_indices_sensit.pickle', 'wb') as handle:
     pickle.dump(original_indeces_s, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-TEST
+TTEST
 ################################################################################
 sensit_evidence_akt_lapatinib = sparse_matrix_functions.get_evidence_sentences(
 'akt','lapatinib','s',7,final_read, original_indeces_s)
