@@ -24,18 +24,18 @@ s_path='Final_Run_Results/'
 #def read_data():
 #READ/SAVE DATA#
 ################################################################################
-final_read = data_frame_creator.sparse_create_data_frame(short_list =True,min_df=0)
-
-with open(s_path+'final_vocab_matrix.pickle', 'wb') as handle:
-    pickle.dump(final_read[0], handle, protocol=pickle.HIGHEST_PROTOCOL)
-with open(s_path+'final_vocabulary.pickle', 'wb') as handle:
-    pickle.dump(final_read[1], handle, protocol=pickle.HIGHEST_PROTOCOL)
-with open(s_path+'final_doc_list.pickle', 'wb') as handle:
-    pickle.dump(final_read[2], handle, protocol=pickle.HIGHEST_PROTOCOL)
-with open(s_path+'final_sentence_list.pickle', 'wb') as handle:
-    pickle.dump(final_read[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
-with open(s_path+'final_data.pickle', 'wb') as handle:
-    pickle.dump(final_read, handle, protocol=pickle.HIGHEST_PROTOCOL)
+# final_read = data_frame_creator.sparse_create_data_frame(short_list =True,min_df=0)
+#
+# with open(s_path+'final_vocab_matrix.pickle', 'wb') as handle:
+#     pickle.dump(final_read[0], handle, protocol=pickle.HIGHEST_PROTOCOL)
+# with open(s_path+'final_vocabulary.pickle', 'wb') as handle:
+#     pickle.dump(final_read[1], handle, protocol=pickle.HIGHEST_PROTOCOL)
+# with open(s_path+'final_doc_list.pickle', 'wb') as handle:
+#     pickle.dump(final_read[2], handle, protocol=pickle.HIGHEST_PROTOCOL)
+# with open(s_path+'final_sentence_list.pickle', 'wb') as handle:
+#     pickle.dump(final_read[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
+# with open(s_path+'final_data.pickle', 'wb') as handle:
+#     pickle.dump(final_read, handle, protocol=pickle.HIGHEST_PROTOCOL)
 ################################################################################
 #return None
 
@@ -84,7 +84,7 @@ network_genes=sparse_matrix_functions.get_network_rows(final_vocabulary)
 with open(s_path+'network_genes.pickle', 'wb') as handle:
     pickle.dump(network_genes, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-inverse_network_drugs = dict((v, k) for k, v in network_drugs.items())
+inverse_network_genes = dict((v, k) for k, v in network_genes.items())
 
 with open(s_path+'inverse_network_genes.pickle', 'wb') as handle:
     pickle.dump(Inverse_network_genes, handle, protocol=pickle.HIGHEST_PROTOCOL)

@@ -35,18 +35,27 @@ drug_dict = data_frame_creator.open_pickle("drug_dictionary_final.pickle")
 drug_keys = set(drug_dict.keys())
 drug_values = set(drug_dict.values())
 
+network_genes=data_frame_creator.open_pickle('network_genes.pickle')
+network_drugs =data_frame_creator.open_pickle('network_drugs.pickle')
+
+resist_network_matrix = data_frame_creator.open_pickle('resist_network_matrix.pickle')
+sensit_network_matrix = data_frame_creator.open_pickle('sensit_network_matrix.pickle')
+all_network_matrix = data_frame_creator.open_pickle('any_network_matrix.pickle')
 
 
 def process_genes():
-    genes = input('For what genes would you like to get drug interaction information? ')
-    gene_list=genes.split(', ')
-    processed_gene_list = []
-    for id in gene_list:
-        try:
-            gene_dict[id]
-            processed_gene_list.append(gene_dict[id])
-        except KeyError:
-            print("Gene: {} not in list".format(id))
+    genes = input('For what genes would you like to get drug interaction information?:, enter "all" for full network  ')
+    if genes == 'all':
+        processed_gene_list=list(network_genes.values())
+    else:
+        gene_list=genes.split(', ')
+        processed_gene_list = []
+        for id in gene_list:
+            try:
+                gene_dict[id]
+                processed_gene_list.append(gene_dict[id])
+            except KeyError:
+                print("Gene: {} not in list".format(id))
     return processed_gene_list
 
 
@@ -146,11 +155,6 @@ def make_display_network(lst):
         plt.savefig("weighted_graph.png") # save as png
         plt.show() # display
         Graphs = G
-
-
-
-
-
 
 
     if len(lst) == 3:
