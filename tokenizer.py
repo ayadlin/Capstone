@@ -11,7 +11,7 @@ from nltk.util import ngrams
 
 
 
-with open('capstone_stopwords','r') as f:
+with open('capstone_stopwords.pickle','r') as f:
     stopwords_ = set(word.strip('\n') for word in f)
 punctuation_ = set(string.punctuation)
 #path = '/Users/ale/Dropbox (Yadlin Family)/galvanize/capstone/*.txt'
