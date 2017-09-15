@@ -20,6 +20,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 # %matplotlib inline
 
+vocabulary = data_frame_creator.open_pickle('final_vocabulary')
 
 inverse_network_genes = data_frame_creator.open_pickle('inverse_network_genes.pickle')
 inverse_network_drugs = data_frame_creator.open_pickle('inverse_network_drugs.pickle')
