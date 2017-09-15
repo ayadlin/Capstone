@@ -87,7 +87,7 @@ with open(s_path+'network_genes.pickle', 'wb') as handle:
 inverse_network_genes = dict((v, k) for k, v in network_genes.items())
 
 with open(s_path+'inverse_network_genes.pickle', 'wb') as handle:
-    pickle.dump(Inverse_network_genes, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    pickle.dump(inverse_network_genes, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 #GET DRUGS IN NETWORK
 network_drugs =sparse_matrix_functions.get_network_columns(final_vocabulary)
