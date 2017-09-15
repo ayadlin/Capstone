@@ -14,7 +14,7 @@ import json
 import sparse_matrix_functions
 import scipy.sparse as scs
 from IPython.display import display
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 #%matplotlib inline
 
 import data_frame_creator
