@@ -140,7 +140,7 @@ with open('counts_sensit.pickle', 'wb') as handle:
      pickle.dump(counts_s, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-DICTIONARY BACK TO ORIGINAL DATA COLUMNS FOR INTERACTING GENE AND DRUG PAIRS
+#DICTIONARY BACK TO ORIGINAL DATA COLUMNS FOR INTERACTING GENE AND DRUG PAIRS
 ###############################################################################
 
 original_indeces_a = sparse_matrix_functions.back_to_original_indeces(pairs_a, vocab_idx)
@@ -158,7 +158,7 @@ with open('original_indices_sensit.pickle', 'wb') as handle:
     pickle.dump(original_indeces_s, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-TTEST
+#TEST
 ################################################################################
 sensit_evidence_akt_lapatinib = sparse_matrix_functions.get_evidence_sentences(
 'akt','lapatinib','s',7,final_read, original_indeces_s)
