@@ -20,23 +20,23 @@ import matplotlib.pyplot as plt
 import data_frame_creator
 import sparse_matrix_functions
 
-def read_data():
+#def read_data():
 #READ/SAVE DATA#
 ################################################################################
-    final_read = data_frame_creator.sparse_create_data_frame(short_list =True,min_df=0)
+final_read = data_frame_creator.sparse_create_data_frame(short_list =True,min_df=0)
 
-    with open('final_vocab_matrix.pickle', 'wb') as handle:
-        pickle.dump(final_read[0], handle, protocol=pickle.HIGHEST_PROTOCOL)
-    with open('final_vocabulary.pickle', 'wb') as handle:
-        pickle.dump(final_read[1], handle, protocol=pickle.HIGHEST_PROTOCOL)
-    with open('final_doc_list.pickle', 'wb') as handle:
-        pickle.dump(final_read[2], handle, protocol=pickle.HIGHEST_PROTOCOL)
-    with open('final_sentence_list.pickle', 'wb') as handle:
-        pickle.dump(final_read[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
-    with open('final_data.pickle', 'wb') as handle:
-        pickle.dump(final_read, handle, protocol=pickle.HIGHEST_PROTOCOL)
+with open('final_vocab_matrix.pickle', 'wb') as handle:
+    pickle.dump(final_read[0], handle, protocol=pickle.HIGHEST_PROTOCOL)
+with open('final_vocabulary.pickle', 'wb') as handle:
+    pickle.dump(final_read[1], handle, protocol=pickle.HIGHEST_PROTOCOL)
+with open('final_doc_list.pickle', 'wb') as handle:
+    pickle.dump(final_read[2], handle, protocol=pickle.HIGHEST_PROTOCOL)
+with open('final_sentence_list.pickle', 'wb') as handle:
+    pickle.dump(final_read[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
+with open('final_data.pickle', 'wb') as handle:
+    pickle.dump(final_read, handle, protocol=pickle.HIGHEST_PROTOCOL)
 ################################################################################
-return None
+#return None
 
 #GET DATA PROCESSED AND READY
 ################################################################################
