@@ -42,11 +42,13 @@ resist_network_matrix = data_frame_creator.open_pickle('resist_network_matrix.pi
 sensit_network_matrix = data_frame_creator.open_pickle('sensit_network_matrix.pickle')
 all_network_matrix = data_frame_creator.open_pickle('any_network_matrix.pickle')
 
+dg = data_frame_creator.open_pickle('gene_or_drug.pickle')
 
 def process_genes():
     genes = input('For what genes would you like to get drug interaction information?:, enter "all" for full network  ')
     if genes == 'all':
         processed_gene_list=list(network_genes.values())
+        #processed_gene_list = ['a']
     else:
         gene_list=genes.split(', ')
         processed_gene_list = []
@@ -90,6 +92,8 @@ def get_user_input():
                 'if you are interested on all of above interactions press "a" ')
     interaction_list =[]
     if kind == 'r' or kind =='R':
+        #if gene_list = ['a']:
+
         X = resist_network_matrix
         resistant_dict = extract_gene_drug_interaction(X,genes_list)
         interaction_list.append(resistant_dict)
@@ -125,7 +129,7 @@ def gene_or_drug(vocabulary):
 
 
 def draw_graph(G, gene_nodes, drug_nodes, weights, style='solid'):
-    pos=nx.spring_layout(G) # positions for all nodes
+    pos=nx.circular_layout(G) # positions for all nodes
     plt.figure(1,figsize=(12,12))
     nx.draw_networkx_nodes(G,pos,nodelist=gene_nodes,node_shape='s', node_color = 'gold', node_size = 2000)
     nx.draw_networkx_nodes(G,pos,nodelist=drug_nodes,node_shape='o', node_color = 'deepskyblue', node_size = 1000)
@@ -138,6 +142,20 @@ def draw_graph(G, gene_nodes, drug_nodes, weights, style='solid'):
     #plt.savefig("weighted_graph.png") # save as png
     #plt.show() # display
     return G
+
+def get_node_set(edges):
+    node_set=set()
+    for node in edges():
+        node_set.update(node)
+    gene_nodes = []
+    drug_nodes = []
+    for item in list(node_set):
+    #print(item)
+        if dg['#'+item+'#']=='gene':
+            gene_nodes.append(item)
+        if dg['#'+item+'#']=='drug':
+            drug_nodes.append(item)
+    return [gene_nodes, drug_nodes]
 
 def make_display_network(lst):
 
