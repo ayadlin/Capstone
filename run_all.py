@@ -14,7 +14,7 @@ import json
 import sparse_matrix_functions
 import scipy.sparse as scs
 from IPython.display import display
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 #%matplotlib inline
 
 import data_frame_creator
@@ -173,4 +173,4 @@ with open(s_path+'original_indices_sensit.pickle', 'wb') as handle:
 sensit_evidence_akt_lapatinib = sparse_matrix_functions.get_evidence_sentences(
 'akt','lapatinib','s',7,final_read, original_indeces_s)
 
-sensit_evidence_akt_lapatinib
+display(sensit_evidence_akt_lapatinib)
