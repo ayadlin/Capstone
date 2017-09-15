@@ -42,7 +42,7 @@ s_path='Final_Run_Results/'
 #GET DATA PROCESSED AND READY
 ################################################################################
 
-
+final_read = data_frame_creator.open_pickle(final_data.pickle)
 #PLACE DATA INTO VARIABLES
 final_vocab_matrix=final_read[0]
 final_vocab_matrix[final_vocab_matrix>1]=1
