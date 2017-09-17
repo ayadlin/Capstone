@@ -1,7 +1,10 @@
 
-#from pyspark import SparkContext, SparkConf
-#sc =SparkContext()
+from pyspark.context import SparkContext
+from pyspark.sql.session import SparkSession
+sc = SparkContext('local')
+spark = SparkSession(sc)
 
+import pickle
 import pandas as pd
 import numpy as np
 import pyspark
@@ -13,13 +16,18 @@ import scipy.sparse as scs
 import data_frame_creator
 import sparse_matrix_functions
 
-resist_network_matrix=data_frame_creator.open_pickle('resist_network_matrix.pickle')
-sensit_network_matrix=data_frame_creator.open_pickle('sensit_network_matrix.pickle')
-any_network_matrix=data_frame_creator.open_pickle('any_network_matrix.pickle')
+resist_network_matrix=data_frame_creator.open_pickle('spark/resist_network_matrix.pickle')
+sensit_network_matrix=data_frame_creator.open_pickle('spark/sensit_network_matrix.pickle')
+any_network_matrix=data_frame_creator.open_pickle('spark/any_network_matrix.pickle')
 
+#with open('resist_network_matrix.pickle', 'rb') as handle:
+#    resist_network_matrix=pickle.load(handle)
 
+#with open('sensit_network_matrix.pickle', 'rb') as handle:
+#    sensit_network_matrix=pickle.load(handle)
 
-
+#with open('any_network_matrix.pickle', 'rb') as handle:
+#    any_network_matrix=pickle.load(handle)
 
 R = scs.coo_matrix(resist_network_matrix)
 S = scs.coo_matrix(sensit_network_matrix)
@@ -33,7 +41,7 @@ S_df=pd.DataFrame({'gene_id':S.row, 'drug_id':S.col, 'data':S.data})
 S_df['log_data'] = np.log(S_df['data']+1)
 spark_S_df = spark.createDataFrame(S_df)
 
-A_df=pd.DataFrame({'gene_id':A.row, 'drug_id':A.col, 'data':R.data})
+A_df=pd.DataFrame({'gene_id':A.row, 'drug_id':A.col, 'data':A.data})
 A_df['log_data'] = np.log(A_df['data']+1)
 spark_A_df = spark.createDataFrame(A_df)
 
