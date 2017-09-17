@@ -1,6 +1,6 @@
 
-from pyspark import SparkContext, SparkConf
-sc =SparkContext()
+#from pyspark import SparkContext, SparkConf
+#sc =SparkContext()
 
 import pandas as pd
 import numpy as np
