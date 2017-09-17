@@ -131,7 +131,7 @@ def gene_or_drug(vocabulary):
     return gene_or_drug
 
 
-def draw_graph(G, gene_nodes, drug_nodes, weights, style='solid',layout=spring_layout):
+def draw_graph(G, gene_nodes, drug_nodes, weights, style='solid',layout='spring_layout'):
     pos=nx.layout(G) # positions for all nodes
     plt.figure(1,figsize=(120,120))
     nx.draw_networkx_nodes(G,pos,nodelist=gene_nodes,node_shape='s', node_color = 'gold', node_size = 2000)
