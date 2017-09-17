@@ -173,7 +173,7 @@ def make_display_network(lst, path):
         plt.figure(1,figsize=(12,12))
         G = draw_graph(G, gene_nodes, drug_nodes, weights, style='solid')
         plt.axis('off')
-        plt.savefig(path+."png") # save as png
+        plt.savefig(path+".png") # save as png
         plt.show() # display
         Graphs = G
 
