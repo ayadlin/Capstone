@@ -132,7 +132,7 @@ def gene_or_drug(vocabulary):
 
 
 def draw_graph(G, gene_nodes, drug_nodes, weights, style='solid', labels=False):
-    pos=nx.spring_layout(G) # positions for all nodes
+    pos=nx.graphviz_layout(G) # positions for all nodes
     plt.figure(1,figsize=(120,120))
     nx.draw_networkx_nodes(G,pos,nodelist=gene_nodes,node_shape='s', node_color = 'gold', node_size = 2000)
     nx.draw_networkx_nodes(G,pos,nodelist=drug_nodes,node_shape='o', node_color = 'deepskyblue', node_size = 1000)
@@ -170,7 +170,7 @@ def make_display_network(lst, path, labels=False):
         weights = list(np.array(list(lst[0].values())))
         gene_nodes = get_node_set(G.edges)[0]
         drug_nodes = get_node_set(G.edges)[1]
-        plt.figure(1,figsize=(120,120))
+        plt.figure(1,figsize=(20,20))
         G = draw_graph(G, gene_nodes, drug_nodes, weights, style='solid', labels=labels)
         plt.axis('off')
         plt.savefig(path+".png") # save as png
@@ -204,7 +204,7 @@ def make_display_network(lst, path, labels=False):
         #for edge in G3.edges:
         #    if edge in G1.edges:
         #        G1.remove_edge(edge)
-        plt.figure(1,figsize=(120,120))
+        plt.figure(1,figsize=(20,20))
 
         G1 = draw_graph(G1, gene_nodes_1, drug_nodes_1, weights_1, style='dotted', labels=labels)
         G2 = draw_graph(G2, gene_nodes_2, drug_nodes_2, weights_2, style='dashed', labels=labels)
