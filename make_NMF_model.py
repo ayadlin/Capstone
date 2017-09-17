@@ -1,9 +1,4 @@
 
-from pyspark.context import SparkContext
-from pyspark.sql.session import SparkSession
-#sc = SparkContext('local')
-#spark = SparkSession(sc)
-spark = pyspark.sql.SparkSession.builder.master("local[32]").getOrCreate()
 
 import pickle
 import pandas as pd
@@ -16,6 +11,13 @@ from pyspark.ml.evaluation import RegressionEvaluator
 import scipy.sparse as scs
 import data_frame_creator
 import sparse_matrix_functions
+
+from pyspark.context import SparkContext
+from pyspark.sql.session import SparkSession
+#sc = SparkContext('local')
+#spark = SparkSession(sc)
+spark = pyspark.sql.SparkSession.builder.master("local[32]").getOrCreate()
+
 
 resist_network_matrix=data_frame_creator.open_pickle('spark/resist_network_matrix.pickle')
 sensit_network_matrix=data_frame_creator.open_pickle('spark/sensit_network_matrix.pickle')
@@ -46,8 +48,8 @@ A_df=pd.DataFrame({'gene_id':A.row, 'drug_id':A.col, 'data':A.data})
 A_df['log_data'] = np.log(A_df['data']+1)
 spark_A_df = spark.createDataFrame(A_df)
 
-ranks = [5,10,15,20,25,30,50]
-regs = [0, 0.001, 0.01, 0.1]
+ranks = [12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+regs = [ 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2]
 
 def best_model_values (spark_df, ranks, regs):
     train_df, test_df = spark_df.randomSplit([0.8, 0.2], seed=427471138)
