@@ -131,7 +131,7 @@ def gene_or_drug(vocabulary):
     return gene_or_drug
 
 
-def draw_graph(G, gene_nodes, drug_nodes, weights, style='solid'):
+def draw_graph(G, gene_nodes, drug_nodes, weights, style='solid', labels=False):
     pos=nx.spring_layout(G) # positions for all nodes
     plt.figure(1,figsize=(120,120))
     nx.draw_networkx_nodes(G,pos,nodelist=gene_nodes,node_shape='s', node_color = 'gold', node_size = 2000)
@@ -140,7 +140,8 @@ def draw_graph(G, gene_nodes, drug_nodes, weights, style='solid'):
     nx.draw_networkx_edges(G, pos, edgelist=G.edges(), edge_color=weights, width=5.0, edge_cmap=plt.cm.coolwarm, style = style)
         #plt.savefig('edges.png')
         # labels
-    nx.draw_networkx_labels(G,pos,font_size=10,font_family='arial')
+    if labels:
+        nx.draw_networkx_labels(G,pos,font_size=10,font_family='arial')
     plt.axis('off')
     #plt.savefig("weighted_graph.png") # save as png
     #plt.show() # display
@@ -160,7 +161,7 @@ def get_node_set(edges):
             drug_nodes.append(item)
     return [gene_nodes, drug_nodes]
 
-def make_display_network(lst, path):
+def make_display_network(lst, path, labels=False):
 
     if len(lst) ==1:
         G=nx.Graph()
@@ -170,7 +171,7 @@ def make_display_network(lst, path):
         gene_nodes = get_node_set(G.edges)[0]
         drug_nodes = get_node_set(G.edges)[1]
         plt.figure(1,figsize=(120,120))
-        G = draw_graph(G, gene_nodes, drug_nodes, weights, style='solid')
+        G = draw_graph(G, gene_nodes, drug_nodes, weights, style='solid', labels=labels)
         plt.axis('off')
         plt.savefig(path+".png") # save as png
         plt.show() # display
@@ -205,9 +206,9 @@ def make_display_network(lst, path):
         #        G1.remove_edge(edge)
         plt.figure(1,figsize=(120,120))
 
-        G1 = draw_graph(G1, gene_nodes_1, drug_nodes_1, weights_1, style='dotted')
-        G2 = draw_graph(G2, gene_nodes_2, drug_nodes_2, weights_2, style='dashed')
-        G3 = draw_graph(G3, gene_nodes_3, drug_nodes_3, weights_3, style='solid')
+        G1 = draw_graph(G1, gene_nodes_1, drug_nodes_1, weights_1, style='dotted', labels=labels)
+        G2 = draw_graph(G2, gene_nodes_2, drug_nodes_2, weights_2, style='dashed', labels=labels)
+        G3 = draw_graph(G3, gene_nodes_3, drug_nodes_3, weights_3, style='solid', labels=labels)
         Graphs = [G1, G2, G3]
 
         plt.axis('off')
