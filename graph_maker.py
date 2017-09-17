@@ -16,7 +16,9 @@ import json
 import sparse_matrix_functions
 import scipy.sparse as scs
 from IPython.display import display
-import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
 import networkx as nx
 # %matplotlib inline
 
@@ -211,6 +213,6 @@ def make_display_network(lst):
 
         plt.axis('off')
         plt.savefig("weighted_graph.png") # save as png
-        plt.show() # display
+        #plt.show() # display
 
     return Graphs
