@@ -1,8 +1,9 @@
 
 from pyspark.context import SparkContext
 from pyspark.sql.session import SparkSession
-sc = SparkContext('local')
-spark = SparkSession(sc)
+#sc = SparkContext('local')
+#spark = SparkSession(sc)
+spark = pyspark.sql.SparkSession.builder.master("local[32]").getOrCreate()
 
 import pickle
 import pandas as pd
