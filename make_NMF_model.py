@@ -1,3 +1,7 @@
+#! /bin/python
+from pyspark import SparkContext, SparkConf
+sc =SparkContext()
+
 import pandas as pd
 import numpy as np
 import pyspark
@@ -23,15 +27,15 @@ A = scs.coo_matrix(any_network_matrix)
 
 R_df=pd.DataFrame({'gene_id':R.row, 'drug_id':R.col, 'data':R.data})
 R_df['log_data'] = np.log(R_df['data']+1)
-spark_R_df = spark.createDataFrame(R_df)
+spark_R_df = sc.createDataFrame(R_df)
 
 S_df=pd.DataFrame({'gene_id':S.row, 'drug_id':S.col, 'data':S.data})
 S_df['log_data'] = np.log(S_df['data']+1)
-spark_S_df = spark.createDataFrame(S_df)
+spark_S_df = sc.createDataFrame(S_df)
 
 A_df=pd.DataFrame({'gene_id':A.row, 'drug_id':A.col, 'data':R.data})
 A_df['log_data'] = np.log(A_df['data']+1)
-spark_A_df = spark.createDataFrame(A_df)
+spark_A_df = sc.createDataFrame(A_df)
 
 ranks = [5,10,15,20,25,30,50]
 regs = [0, 0.001, 0.01, 0.1]
