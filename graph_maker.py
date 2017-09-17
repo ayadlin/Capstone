@@ -160,7 +160,7 @@ def get_node_set(edges):
             drug_nodes.append(item)
     return [gene_nodes, drug_nodes]
 
-def make_display_network(lst):
+def make_display_network(lst, path):
 
 
     if len(lst) ==1:
@@ -212,7 +212,7 @@ def make_display_network(lst):
         Graphs = [G1, G2, G3]
 
         plt.axis('off')
-        plt.savefig("weighted_graph.png") # save as png
+        plt.savefig(path+".png") # save as png
         #plt.show() # display
 
     return Graphs
