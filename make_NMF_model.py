@@ -1,4 +1,4 @@
-#! /bin/python
+
 from pyspark import SparkContext, SparkConf
 sc =SparkContext()
 
