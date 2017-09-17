@@ -33,9 +33,12 @@ import data_frame_creator
 # A_df['log_data'] = np.log(A_df['data']+1)
 # spark_A_df = spark.createDataFrame(A_df)
 
+#ranks = [5,10,15,20,25,30,50]
+#regs = [0, 0.001, 0.01, 0.1]
+
 def best_model_values (spark_df, ranks, regs):
     train_df, test_df = spark_df.randomSplit([0.8, 0.2], seed=427471138)
-    rmse=1000000
+    model_rmse=1000000
     params = []
     for rank in ranks:
         for reg in regs:
@@ -52,10 +55,13 @@ def best_model_values (spark_df, ranks, regs):
             #drug_pred_not_null.show()
             rmse_eval=RegressionEvaluator(metricName="rmse",  labelCol='log_data', predictionCol='prediction')
             error = rmse_eval.evaluate(drug_pred_not_null)
-            if error < rmse:
+            if error < model_rmse:
                 model = als_model
                 model_rank = rank
                 model_regParam = reg
                 model_rmse = error
             params.append([rank, reg, error])
     return [model, (model_rank, model_regParam, model_rmse), params]
+
+
+#def best_models():
