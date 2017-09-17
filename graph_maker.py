@@ -160,7 +160,7 @@ def get_node_set(edges):
             drug_nodes.append(item)
     return [gene_nodes, drug_nodes]
 
-def make_display_network(lst, path, layout=spring_layout):
+def make_display_network(lst, path, layout='spring_layout'):
 
     layout=layout
     if len(lst) ==1:
