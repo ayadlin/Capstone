@@ -1,5 +1,5 @@
 
-
+import graph_maker
 import pickle
 import pandas as pd
 import numpy as np
@@ -103,18 +103,20 @@ def make_model(X, rank, reg, path):
 
 
 
-def predict_drugs(predict_gene, model, kind='r', drug_number=10, desc = False):
+
+
+def predict_drugs(predict_gene, kind='r', drug_number=10, desc = False):
     gene =gene_dict[predict_gene]
     gen_num = inverse_network_genes[gene]
     if kind == 'r' or kind == 'R':
         col_num = resist_network_matrix.shape[1]
-        #model = resist_NMF_model
+        model = pyspark.ml.recommendation.ALSModel.load('resist_NMF_model')
     if kind == 's' or kind == 'S':
         col_num = sensit_network_matrix.shape[1]
-        #model = sensit_NMF_model
+        model = pyspark.ml.recommendation.ALSModel.load('sensit_NMF_model')
     if kind == 'a' or kind == 'A':
         col_num = sensit_network_matrix.shape[1]
-        #model = any_NMF_model
+        model = pyspark.ml.recommendation.ALSModel.load('any_NMF_model')
     r = [gen_num for n in range(0,col_num)]
     c = [n for n in range(0,col_num)]
     test_df=pd.DataFrame({'gene_id':r,'drug_id': c})
@@ -136,3 +138,29 @@ def predict_drugs(predict_gene, model, kind='r', drug_number=10, desc = False):
         drug_lst.append(drug[1:-1])
     print('the top {} predicted for gene {} are {}.'. format(drug_number, predict_gene, drug_lst))
     return drug_lst
+
+
+def get_user_input():
+    genes = input('For what genes would you like to get drug interaction information?:, enter "all" for full network  ')
+    genes_list = graph_maker.process_genes(genes)
+    kind = input('if you are interested on drug resistance evidence press "r"'
+                'if you are interested on drug resistance evidence press "s"'
+                 'if you are interested on general interactions press "g" '
+                'if you are interested on all of above interactions press "a" ')
+    drug_number = input('How many drug names would you like to see? ' )
+    order = input ('Would you like to display the drugs in ascending or descendicg order. a/d: ')
+    if order == 'd' or order == 'D':
+        desc = True
+    else:
+        desc = False
+    return genes_list, kind, drug_number, desc
+
+
+
+def provide_drug_predictions():
+    genes_list, kind, drug_number, desc = get_user_input():
+    predict_dict={}
+    for gene in gene_list:
+        drug_lst = predict_drugs(gene, kind, drug_number, desc):
+        predict_dict[gene] = drug_lst
+    return predict_dict

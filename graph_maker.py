@@ -47,8 +47,10 @@ all_network_matrix = data_frame_creator.open_pickle('any_network_matrix.pickle')
 
 dg = data_frame_creator.open_pickle('gene_or_drug.pickle')
 
-def process_genes():
-    genes = input('For what genes would you like to get drug interaction information?:, enter "all" for full network  ')
+
+#genes = input('For what genes would you like to get drug interaction information?:, enter "all" for full network  ')
+def process_genes(genes):
+
     if genes == 'all':
         processed_gene_list=list(network_genes.values())
         #processed_gene_list = ['a']
@@ -88,11 +90,27 @@ def extract_gene_drug_interaction(X,genes_list):
 
 
 def get_user_input():
-    genes_list = process_genes()
+    genes = input('For what genes would you like to get drug interaction information?:, enter "all" for full network  ')
+    genes_list = process_genes(genes)
     kind = input('if you are interested on drug resistance evidence press "r"'
                 'if you are interested on drug resistance evidence press "s"'
                  'if you are interested on general interactions press "g" '
                 'if you are interested on all of above interactions press "a" ')
+    path = input('Enter the name for saving your graph figure' )
+    lab = input ('Would you like to display labels?. y/n: ')
+    if lab == 'y' or lab == 'Y':
+        labels = True
+    else:
+        labels = False
+    return genes_list, kind, path, labels
+
+def make_graph_interactive():
+    genes_list, kind, path, labels = get_user_input()
+    interaction_list = interaction_list(genes_list, kind)
+    G = make_display_network(interaction_list, path, labels)
+    return G
+
+def interaction_list(genes_list, kind):
     interaction_list =[]
     if kind == 'r' or kind =='R':
         #if gene_list = ['a']:
@@ -131,7 +149,7 @@ def gene_or_drug(vocabulary):
     return gene_or_drug
 
 
-def draw_graph(G, gene_nodes, drug_nodes, weights, style='solid', labels=False):
+def draw_graph(G, gene_nodes, drug_nodes, weights, style='solid', labels=True):
     pos=nx.spring_layout(G) # positions for all nodes
     plt.figure(1,figsize=(120,120))
     nx.draw_networkx_nodes(G,pos,nodelist=gene_nodes,node_shape='s', node_color = 'gold', node_size = 1000)
@@ -161,7 +179,7 @@ def get_node_set(edges):
             drug_nodes.append(item)
     return [gene_nodes, drug_nodes]
 
-def make_display_network(lst, path, labels=False):
+def make_display_network(lst, path='network', labels=True):
 
     if len(lst) ==1:
         G=nx.Graph()

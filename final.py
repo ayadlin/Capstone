@@ -1,28 +1,22 @@
 import tokenizer
 import data_frame_creator
 import sparse_matrix_functions
-#import graph_maker
+import graph_maker
 import make_NMF_model as NMF
+import pyspark.ml.recommendation
 
 #def get_evidence_sentences(gene, drug, r_s, max_number,data,original_indeces):
 data  = data_frame_creator.open_pickle('final_data.pickle')
 
 
-def find_evidence():
-    gene = input('Which gene are you interested in?: ')
-    drug = input('Interaction with which drug are you interested in?: ')
-    max_number = input('How many evidence sentences, if available, would you like to see?: ')
-    max_number =int(max_number) 
-    r_s = input('For resistance intearctions press "r".\n'
-                'For sensitivity interactions press "s".\n'
-                'For general studies press "g".')
-    if r_s == 'r' or r_s =='R':
-        original_indeces = data_frame_creator.open_pickle('original_indices_resist.pickle')
-    elif r_s == 's' or r_s == 'S':
-        original_indeces = data_frame_creator.open_pickle('original_indices_sensit.pickle')
-    else:
-        original_indeces = data_frame_creator.open_pickle('original_indices_any.pickle')
-    evidence = sparse_matrix_functions.get_evidence_sentences(gene, drug, r_s, max_number, data,original_indeces)
-    #print(original_indeces)
+def find_network():
+    G = graph_maker.make_graph_interactive()
+    return G
 
-    return evidence
+#def find_evidence():
+#    evidence = provide_evidence(data)
+#    return evidence
+
+def drug_predictions():
+    predict_dict = provide_drug_predictions()
+    return predict_dict

@@ -128,6 +128,36 @@ def back_to_original_indeces(pairs, orig_dict):
         original_indeces[original[0]]=original[1]
     return original_indeces
 
+
+def get_user_input():
+    gene = input('Which gene are you interested in?: ')
+    drug = input('Interaction with which drug are you interested in?: ')
+    max_number = input('How many evidence sentences, if available, would you like to see?: ')
+    max_number =int(max_number)
+    r_s = input('\nFor resistance intearctions press "r".\n'
+            'For sensitivity interactions press "s".\n'
+            'For general studies press "g".\n'
+            'Enter your choice: \n')
+    if r_s == 'r' or r_s =='R':
+        original_indeces = data_frame_creator.open_pickle('original_indices_resist.pickle')
+    elif r_s == 's' or r_s == 'S':
+        original_indeces = data_frame_creator.open_pickle('original_indices_sensit.pickle')
+    else:
+        original_indeces = data_frame_creator.open_pickle('original_indices_any.pickle')
+
+    return gene, drug, max_number, original_indices
+
+
+def provide_evidence(data):
+    gene, drug, max_number, original_indices = get_user_input()
+    evidence = get_evidence_sentences(gene, drug, r_s, max_number,data,original_indeces)
+    return evidence
+
+
+
+
+
+
 def get_evidence_sentences(gene, drug, r_s, max_number,data,original_indeces):
     vocab_matrix = data[0]
     vocab_matrix[vocab_matrix>1]=1
@@ -180,8 +210,10 @@ def get_evidence_sentences(gene, drug, r_s, max_number,data,original_indeces):
     #gene_key = [k for k, v in gene_dict.items() if v == gen]
     #drug_key = [k for k, v in drug_dict.items() if v == drg]
     #print(type(len(evidence_list)), type(max_number), type(len(index_evidence)))
+    #while len(evidence_list) < max_number and len(evidence_list) < len(index_evidence) :
+
     for index in index_evidence:
-        while len(evidence_list) < max_number and len(evidence_list) < len(index_evidence) :
+        if len(evidence_list) < max_number and len(evidence_list) < len(index_evidence):
             sent = orig_sentences[index]#.lower()
             #gene_evd = [word for word in sent.replace(',','').replace('.','').replace(':','').split(' ') if word in gene_key][0]
             #drug_evd = [word for word in sent.replace(',','').replace('.','').replace(':','').split(' ') if word in drug_key][0]
