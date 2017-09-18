@@ -179,8 +179,9 @@ def get_evidence_sentences(gene, drug, r_s, max_number,data,original_indeces):
     evidence_list = []
     #gene_key = [k for k, v in gene_dict.items() if v == gen]
     #drug_key = [k for k, v in drug_dict.items() if v == drg]
-    while len(evidence_list) < max_number and len(evidence_list) < len(index_evidence) :
-        for index in index_evidence:
+    #print(type(len(evidence_list)), type(max_number), type(len(index_evidence)))
+    for index in index_evidence:
+        while len(evidence_list) < max_number and len(evidence_list) < len(index_evidence) :
             sent = orig_sentences[index]#.lower()
             #gene_evd = [word for word in sent.replace(',','').replace('.','').replace(':','').split(' ') if word in gene_key][0]
             #drug_evd = [word for word in sent.replace(',','').replace('.','').replace(':','').split(' ') if word in drug_key][0]

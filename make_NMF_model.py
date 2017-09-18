@@ -14,23 +14,25 @@ import sparse_matrix_functions
 
 from pyspark.context import SparkContext
 from pyspark.sql.session import SparkSession
+from pyspark.sql.functions import desc
 #sc = SparkContext('local')
 #spark = SparkSession(sc)
 spark = pyspark.sql.SparkSession.builder.master("local[32]").getOrCreate()
 
 
+with open("gene_dictionary_final.pickle", "rb") as dict_gene:
+        gene_dict = pickle.load(dict_gene)
+
+with open("inverse_network_genes.pickle", "rb") as inverse_dict_gene:
+        inverse_network_genes = pickle.load(inverse_dict_gene)
+
+with open("network_drugs.pickle", "rb") as drugs:
+        network_drugs = pickle.load(drugs)
+
+
 resist_network_matrix=data_frame_creator.open_pickle('spark/resist_network_matrix.pickle')
 sensit_network_matrix=data_frame_creator.open_pickle('spark/sensit_network_matrix.pickle')
 any_network_matrix=data_frame_creator.open_pickle('spark/any_network_matrix.pickle')
-
-#with open('resist_network_matrix.pickle', 'rb') as handle:
-#    resist_network_matrix=pickle.load(handle)
-
-#with open('sensit_network_matrix.pickle', 'rb') as handle:
-#    sensit_network_matrix=pickle.load(handle)
-
-#with open('any_network_matrix.pickle', 'rb') as handle:
-#    any_network_matrix=pickle.load(handle)
 
 R = scs.coo_matrix(resist_network_matrix)
 S = scs.coo_matrix(sensit_network_matrix)
@@ -98,3 +100,39 @@ def make_model(X, rank, reg, path):
     drug_recommender = als_model.fit(X)
     #data_frame_creator.write_pickle(filename, drug_recommender)
     return drug_recommender
+
+
+
+def predict_drugs(predict_gene, model, kind='r', drug_number=10, desc = False):
+    gene =gene_dict[predict_gene]
+    gen_num = inverse_network_genes[gene]
+    if kind == 'r' or kind == 'R':
+        col_num = resist_network_matrix.shape[1]
+        #model = resist_NMF_model
+    if kind == 's' or kind == 'S':
+        col_num = sensit_network_matrix.shape[1]
+        #model = sensit_NMF_model
+    if kind == 'a' or kind == 'A':
+        col_num = sensit_network_matrix.shape[1]
+        #model = any_NMF_model
+    r = [gen_num for n in range(0,col_num)]
+    c = [n for n in range(0,col_num)]
+    test_df=pd.DataFrame({'gene_id':r,'drug_id': c})
+    spark_test_df = spark.createDataFrame(test_df)
+    prediction = model.transform(spark_test_df)
+    selected = prediction.select("gene_id", "drug_id", "prediction")
+    if desc:
+        top = selected.sort(desc('prediction')).collect()[0:drug_number]
+    else:
+        top = selected.sort('prediction').collect()[0:drug_number]
+    drug_nums = []
+    for drug in top:
+        print(drug)
+        if not(np.isnan(drug[1])):
+            drug_nums.append(drug[1])
+    drug_lst = []
+    for num in drug_nums:
+        drug = network_drugs[num]
+        drug_lst.append(drug[1:-1])
+    print('the top {} predicted for gene {} are {}.'. format(drug_number, predict_gene, drug_lst))
+    return drug_lst
