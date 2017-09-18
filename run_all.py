@@ -24,7 +24,7 @@ s_path=''
 #def read_data():
 #READ/SAVE DATA#
 ################################################################################
- final_read = data_frame_creator.sparse_create_data_frame(short_list =True,min_df=0)
+final_read = data_frame_creator.sparse_create_data_frame(short_list =True,min_df=0)
 
  with open(s_path+'final_vocab_matrix.pickle', 'wb') as handle:
      pickle.dump(final_read[0], handle, protocol=pickle.HIGHEST_PROTOCOL)
