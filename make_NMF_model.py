@@ -84,3 +84,17 @@ def best_models(R, S, A, ranks, regs):
     best_S = best_model_values (S, ranks, regs)
     best_A = best_model_values (A, ranks, regs)
     return [bestR, best_S, best_A]
+
+
+def make_model(X, rank, reg, path):
+    filename=path+'.pickle'
+    als_model = pyspark.ml.recommendation.ALS(
+    itemCol='drug_id',
+    userCol='gene_id',
+    ratingCol='log_data',
+    nonnegative=True,
+    regParam=reg,
+    rank=rank)
+    drug_recommender = als_model.fit(X)
+    #data_frame_creator.write_pickle(filename, drug_recommender)
+    return drug_recommender
