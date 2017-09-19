@@ -54,6 +54,7 @@ def get_user_input():
         gene_factors = gene_any_pd.loc[gene_idx,'features']
         drug_factors = drug_any_pd.loc[:,'features']
     drug_number = input('How many drug names would you like to see? ' )
+    drug_number = int(drug_number)
     order = input ('Would you like to display the drugs in ascending or descendicg order. a/d: ')
     if order == 'a' or order == 'A':
         asc = True
@@ -68,10 +69,10 @@ def provide_drug_predictions():
         drug_list = []
         gene = network_genes[gene_factors.index[idx]]
         new_drugs = drug_factors.apply(lambda x:np.dot(x,row))
-        new_drugs = new_drugs.sort_values(ascending=False)
+        new_drugs = new_drugs.sort_values(ascending=False)[0:drug_number]
         print(new_drugs)
-        if asc:
-            new_drugs = new_drugs.sort_values(ascending=True)
+        if asc == True:
+            new_drugs = new_drugs.sort_values(ascending=True)[0:drug_number]
             print(new_drugs)
         #print(new_drugs)
         for idx, drug in enumerate(new_drugs):
