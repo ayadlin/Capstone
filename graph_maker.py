@@ -196,7 +196,7 @@ def make_display_network(lst, path='network', labels=True):
         plt.savefig(path+".png") # save as png
         plt.show() # display
         Graphs = G
-        nx.write_gml(G,'G.gml')
+        nx.write_gml(G,path+'.gml')
         plt.close(1)
 
 
@@ -237,7 +237,7 @@ def make_display_network(lst, path='network', labels=True):
         plt.savefig(path+".png") # save as png
         #plt.show() # display
         plt.close(1)
-        nx.write_gml(G1,'Gr.gml')
-        nx.write_gml(G2,'Gs.gml')
-        nx.write_gml(G3,'Ga.gml')
+        nx.write_gml(G1,path+'r.gml')
+        nx.write_gml(G2,path+'s.gml')
+        nx.write_gml(G3,path+'a.gml')
     return Graphs
