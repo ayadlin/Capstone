@@ -150,7 +150,7 @@ def get_user_input():
 
 
 def provide_evidence(data):
-    gene, drug, max_number, r_s, original_indices = get_user_input()
+    gene, drug, max_number, r_s, original_indeces = get_user_input()
     evidence = get_evidence_sentences(gene, drug, r_s, max_number,data,original_indeces)
     return evidence
 
