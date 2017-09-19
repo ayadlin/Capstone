@@ -55,7 +55,7 @@ def process_genes(genes):
         processed_gene_list=list(network_genes.values())
         #processed_gene_list = ['a']
     else:
-        gene_list=genes.split(',').strip(' ')
+        gene_list=genes.strip(' ').split(',')
         processed_gene_list = []
         for id in gene_list:
             try:
