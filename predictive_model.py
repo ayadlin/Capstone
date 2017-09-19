@@ -68,7 +68,7 @@ def provide_drug_predictions():
         drug_list = []
         gene = network_genes[gene_factors.index[idx]]
         new_drugs = drug_factors.apply(lambda x:np.dot(x,row))
-        if des:
+        if asc:
             new_drugs = new_drugs.sort_values(ascending=asc)[0:drug_number]
         print(new_drugs)
         for idx, drug in new_drugs:
