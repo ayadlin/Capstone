@@ -61,16 +61,16 @@ def get_user_input():
         des = False
     return genes_list, kind, gene_factors, drug_factors,drug_number, des
 
-    def provide_drug_predictions():
-        genes_list, kind, gene_factors, drug_factors,drug_number, des = get_user_input()
-        predicted_drugs = {}
-        for idx,row in enumerate(gene_factors):
-            drug_list = []
-            gene = network_genes[gene_factors.index[idx]]
-            new_drugs = drug_factors.apply(lambda x:np.dot(x,row))
-            if des:
-                new_drugs = new_drugs.sort_values(ascending=False)[0]
-            for drug in new_drugs:
-                drug_list.append(network_drugs[drug[1:-1]])
-            predicted_drugs[gene] = drug_list
-        return predicted_drugs
+def provide_drug_predictions():
+    genes_list, kind, gene_factors, drug_factors,drug_number, des = get_user_input()
+    predicted_drugs = {}
+    for idx,row in enumerate(gene_factors):
+        drug_list = []
+        gene = network_genes[gene_factors.index[idx]]
+        new_drugs = drug_factors.apply(lambda x:np.dot(x,row))
+        if des:
+            new_drugs = new_drugs.sort_values(ascending=False)[0]
+        for drug in new_drugs:
+            drug_list.append(network_drugs[drug[1:-1]])
+        predicted_drugs[gene] = drug_list
+    return predicted_drugs
