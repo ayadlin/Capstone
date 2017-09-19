@@ -195,6 +195,7 @@ def make_display_network(lst, path='network', labels=True):
         plt.savefig(path+".png") # save as png
         plt.show() # display
         Graphs = G
+        plt.close(1)
 
 
     if len(lst) == 3:
@@ -233,5 +234,5 @@ def make_display_network(lst, path='network', labels=True):
         plt.axis('off')
         plt.savefig(path+".png") # save as png
         #plt.show() # display
-
+        plt.close(1)
     return Graphs
