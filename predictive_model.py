@@ -37,7 +37,7 @@ def get_user_input():
     gene_idx = []
     for gene in genes_list:
         idx = inverse_network_genes[gene]
-        gene_idx.attach(idx)
+        gene_idx.append(idx)
     kind = input('if you are interested on drug resistance evidence press "r"'
                 'if you are interested on drug resistance evidence press "s"'
                  'if you are interested on general interactions press "g" '
