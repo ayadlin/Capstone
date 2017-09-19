@@ -13,9 +13,9 @@ def find_network():
     G = graph_maker.make_graph_interactive()
     return G
 
-#def find_evidence():
-#    evidence = provide_evidence(data)
-#    return evidence
+def find_evidence():
+    evidence = provide_evidence(data)
+    return evidence
 
 def drug_predictions():
     predict_dict = provide_drug_predictions()

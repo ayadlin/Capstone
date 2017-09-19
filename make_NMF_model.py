@@ -105,25 +105,26 @@ def make_model(X, rank, reg, path):
 
 
 
-def predict_drugs(predict_gene, kind='r', drug_number=10, desc = False):
+def predict_drugs(predict_gene, model, kind='r', drug_number=10, des = False):
     gene =gene_dict[predict_gene]
     gen_num = inverse_network_genes[gene]
     if kind == 'r' or kind == 'R':
         col_num = resist_network_matrix.shape[1]
-        model = pyspark.ml.recommendation.ALSModel.load('resist_NMF_model')
+        #model = pyspark.ml.recommendation.ALSModel.load('resist_NMF_model')
     if kind == 's' or kind == 'S':
         col_num = sensit_network_matrix.shape[1]
-        model = pyspark.ml.recommendation.ALSModel.load('sensit_NMF_model')
+        #model = pyspark.ml.recommendation.ALSModel.load('sensit_NMF_model')
     if kind == 'a' or kind == 'A':
         col_num = sensit_network_matrix.shape[1]
-        model = pyspark.ml.recommendation.ALSModel.load('any_NMF_model')
+        #model = pyspark.ml.recommendation.ALSModel.load('any_NMF_model')
     r = [gen_num for n in range(0,col_num)]
     c = [n for n in range(0,col_num)]
     test_df=pd.DataFrame({'gene_id':r,'drug_id': c})
     spark_test_df = spark.createDataFrame(test_df)
     prediction = model.transform(spark_test_df)
     selected = prediction.select("gene_id", "drug_id", "prediction")
-    if desc:
+    print(desc)
+    if des:
         top = selected.sort(desc('prediction')).collect()[0:drug_number]
     else:
         top = selected.sort('prediction').collect()[0:drug_number]
@@ -147,20 +148,26 @@ def get_user_input():
                 'if you are interested on drug resistance evidence press "s"'
                  'if you are interested on general interactions press "g" '
                 'if you are interested on all of above interactions press "a" ')
+    if kind == 'r' or kind == 'R':
+        model = pyspark.ml.recommendation.ALSModel.load('resist_NMF_model')
+    if kind == 's' or kind == 'S':
+        model = pyspark.ml.recommendation.ALSModel.load('sensit_NMF_model')
+    if kind == 'a' or kind == 'A':
+        model = pyspark.ml.recommendation.ALSModel.load('any_NMF_model')
     drug_number = input('How many drug names would you like to see? ' )
     order = input ('Would you like to display the drugs in ascending or descendicg order. a/d: ')
     if order == 'd' or order == 'D':
-        desc = True
+        des = True
     else:
-        desc = False
-    return genes_list, kind, drug_number, desc
+        des = False
+    return genes_list, kind, model, drug_number, des
 
 
 
 def provide_drug_predictions():
-    genes_list, kind, drug_number, desc = get_user_input():
+    genes_list, kind, model, drug_number, des = get_user_input()
     predict_dict={}
     for gene in gene_list:
-        drug_lst = predict_drugs(gene, kind, drug_number, desc):
+        drug_lst = predict_drugs(gene, model, kind, drug_number, des)
         predict_dict[gene] = drug_lst
     return predict_dict
