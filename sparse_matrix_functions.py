@@ -138,7 +138,7 @@ def get_user_input():
     r_s = input('\nFor resistance intearctions press "r".\n'
             'For sensitivity interactions press "s".\n'
             'For general studies press "g".\n'
-            'Enter your choice: \n')
+            'Enter your choice: ')
     if r_s == 'r' or r_s =='R':
         original_indeces = data_frame_creator.open_pickle('original_indices_resist.pickle')
     elif r_s == 's' or r_s == 'S':
@@ -146,7 +146,7 @@ def get_user_input():
     else:
         original_indeces = data_frame_creator.open_pickle('original_indices_any.pickle')
 
-    return gene, drug, max_number, original_indices
+    return gene, drug, max_number, original_indeces
 
 
 def provide_evidence(data):
