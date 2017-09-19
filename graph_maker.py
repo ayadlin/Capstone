@@ -92,12 +92,13 @@ def extract_gene_drug_interaction(X,genes_list):
 def get_user_input():
     genes = input('For what genes would you like to get drug interaction information?:, enter "all" for full network  ')
     genes_list = process_genes(genes)
-    kind = input('if you are interested on drug resistance evidence press "r"'
-                'if you are interested on drug resistance evidence press "s"'
-                 'if you are interested on general interactions press "g" '
-                'if you are interested on all of above interactions press "a" ')
-    path = input('Enter the name for saving your graph figure' )
-    lab = input ('Would you like to display labels?. y/n: ')
+    kind = input('\nif you are interested on drug resistance evidence press "r"\n'
+                'if you are interested on drug resistance evidence press "s"\n'
+                 'if you are interested on general interactions press "g"\n'
+                'if you are interested on all of above interactions press "a".\n'
+                'Please eneter your choice: ')
+    path = input('\nEnter the name for saving your graph figure' )
+    lab = input ('\nWould you like to display labels?. y/n: ')
     if lab == 'y' or lab == 'Y':
         labels = True
     else:
@@ -106,8 +107,8 @@ def get_user_input():
 
 def make_graph_interactive():
     genes_list, kind, path, labels = get_user_input()
-    interaction_list = interaction_list(genes_list, kind)
-    G = make_display_network(interaction_list, path, labels)
+    inter_list = interaction_list(genes_list, kind)
+    G = make_display_network(inter_list, path, labels)
     return G
 
 def interaction_list(genes_list, kind):
