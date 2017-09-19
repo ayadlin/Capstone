@@ -165,9 +165,37 @@ def get_user_input():
 
 
 def provide_drug_predictions():
-    genes_list, kind, model, drug_number, des = get_user_input()
+    gene_list, kind, model, drug_number, des = get_user_input()
     predict_dict={}
     for gene in gene_list:
         drug_lst = predict_drugs(gene, model, kind, drug_number, des)
         predict_dict[gene] = drug_lst
     return predict_dict
+
+
+def to pandas():
+    resist_NMF_model = pyspark.ml.recommendation.ALSModel.load('resist_NMF_model')
+    gene_resist_pd = resist_NMF_model.userFactors.toPandas()
+    gene_resist_pd.index = gene_resist_pd['id']
+    drug_resist_pd = resist_NMF_model.itemFactors.toPandas()
+    drug_resist_pd.index = drug_resist_pd['id']
+    gene_resist_pd.to_pickle('gene_resist_pd.pickle')
+    drug_resist_pd.to_pickle('drug_resist_pd.pickle')
+
+    sensit_NMF_model = pyspark.ml.recommendation.ALSModel.load('sensit_NMF_model')
+    gene_sensit_pd = sensit_NMF_model.userFactors.toPandas()
+    gene_sensit_pd.index = gene_sensit_pd['id']
+    drug_sensit_pd = sensit_NMF_model.itemFactors.toPandas()
+    drug_sensit_pd.index = drug_sensit_pd['id']
+    gene_sensit_pd.to_pickle('gene_sensit_pd.pickle')
+    drug_sensit_pd.to_pickle('drug_sensit_pd.pickle')
+
+    any_NMF_model = pyspark.ml.recommendation.ALSModel.load('any_NMF_model')
+    gene_any_pd = any_NMF_model.userFactors.toPandas()
+    gene_any_pd.index = gene_any_pd['id']
+    drug_any_pd = any_NMF_model.itemFactors.toPandas()
+    drug_any_pd.index = drug_any_pd['id']
+    gene_any_pd.to_pickle('gene_any_pd.pickle')
+    drug_any_pd.to_pickle('drug_any_pd.pickle')
+
+    return None
