@@ -146,11 +146,11 @@ def get_user_input():
     else:
         original_indeces = data_frame_creator.open_pickle('original_indices_any.pickle')
 
-    return gene, drug, max_number, original_indeces
+    return gene, drug, max_number, r_s, original_indeces
 
 
 def provide_evidence(data):
-    gene, drug, max_number, original_indices = get_user_input()
+    gene, drug, max_number, r_s, original_indices = get_user_input()
     evidence = get_evidence_sentences(gene, drug, r_s, max_number,data,original_indeces)
     return evidence
 
