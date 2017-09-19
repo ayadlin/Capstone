@@ -67,9 +67,11 @@ def provide_drug_predictions():
     for idx,row in enumerate(gene_factors):
         drug_list = []
         gene = network_genes[gene_factors.index[idx]]
-        new_drugs = drug_factors.apply(lambda x:np.dot(x,row))
+        new_drugs = drug_factors.apply(lambda x:np.dot(x,row))[0:drug_number]
+        print(new_drugs)
         if asc:
             new_drugs = new_drugs.sort_values(ascending=asc)[0:drug_number]
+            print(new_drugs)
         #print(new_drugs)
         for idx, drug in enumerate(new_drugs):
            drug_list.append(network_drugs[new_drugs.index[idx]][1:-1])
