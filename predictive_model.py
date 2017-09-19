@@ -23,13 +23,13 @@ network_genes=data_frame_creator.open_pickle('network_genes.pickle')
 network_drugs =data_frame_creator.open_pickle('network_drugs.pickle')
 
 gene_any_pd = data_frame_creator.open_pickle('gene_any_pd.pickle')
-gene_any_pd = data_frame_creator.open_pickle('drug_any_pd.pickle')
+drug_any_pd = data_frame_creator.open_pickle('drug_any_pd.pickle')
 
 gene_resist_pd = data_frame_creator.open_pickle('gene_resist_pd.pickle')
-gene_resist_pd = data_frame_creator.open_pickle('drug_resist_pd.pickle')
+drug_resist_pd = data_frame_creator.open_pickle('drug_resist_pd.pickle')
 
 gene_sensit_pd = data_frame_creator.open_pickle('gene_sensit_pd.pickle')
-gene_sensit_pd = data_frame_creator.open_pickle('drug_sensit_pd.pickle')
+drug_sensit_pd = data_frame_creator.open_pickle('drug_sensit_pd.pickle')
 
 def get_user_input():
     genes = input('For what genes would you like to get drug interaction information?:, enter "all" for full network  ')
