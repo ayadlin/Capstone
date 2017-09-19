@@ -38,10 +38,10 @@ def get_user_input():
     for gene in genes_list:
         idx = inverse_network_genes[gene]
         gene_idx.append(idx)
-    kind = input('if you are interested on drug resistance evidence press "r"'
-                'if you are interested on drug resistance evidence press "s"'
-                 'if you are interested on general interactions press "g" '
-                'if you are interested on all of above interactions press "a" ')
+    kind = input('\nif you are interested on drug resistance evidence press "r"\n'
+                'if you are interested on drug resistance evidence press "s"\n'
+                 'if you are interested on general interactions press "g"\n'
+                'if you are interested on all of above interactions press "a".\n')
     if kind == 'r' or kind == 'R':
         gene_factors = gene_resist_pd.loc[gene_idx,'features']
         drug_factors = drug_resist_pd.loc[:,'features']
@@ -70,6 +70,6 @@ def provide_drug_predictions():
         if des:
             new_drugs = new_drugs.sort_values(ascending=False)[0]
         for drug in new_drugs:
-            drug_list.append(network_drugs[drug[1:-1]])
+            drug_list.append(network_drugs[drug][1:-1])
         predicted_drugs[gene] = drug_list
     return predicted_drugs
