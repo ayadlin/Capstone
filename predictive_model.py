@@ -72,6 +72,6 @@ def provide_drug_predictions():
             new_drugs = new_drugs.sort_values(ascending=asc)[0:drug_number]
         #print(new_drugs)
         for idx, drug in enumerate(new_drugs):
-           drug_list.append(network_drugs[new_drug.index[idx]][1:-1])
+           drug_list.append(network_drugs[new_drugs.index[idx]][1:-1])
         predicted_drugs[gene] = drug_list
     return None#predicted_drugs
