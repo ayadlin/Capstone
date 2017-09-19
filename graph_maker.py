@@ -56,6 +56,7 @@ def process_genes(genes):
         #processed_gene_list = ['a']
     else:
         gene_list=genes.strip(' ').split(',')
+        print(gene_list)
         processed_gene_list = []
         for id in gene_list:
             try:
