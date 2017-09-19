@@ -36,7 +36,6 @@ def get_user_input():
     genes_list = graph_maker.process_genes(genes)
     gene_idx = []
     for gene in genes_list:
-        multiplier = np.zeros((X.shape[0],1))
         idx = inverse_network_genes[gene]
         gene_idx.attach(idx)
     kind = input('if you are interested on drug resistance evidence press "r"'
