@@ -97,7 +97,7 @@ def get_user_input():
                  'if you are interested on general interactions press "g"\n'
                 'if you are interested on all of above interactions press "a".\n'
                 'Please eneter your choice: ')
-    path = input('\nEnter the name for saving your graph figure' )
+    path = input('\nEnter the name for saving your graph figure: ' )
     lab = input ('\nWould you like to display labels?. y/n: ')
     if lab == 'y' or lab == 'Y':
         labels = True
