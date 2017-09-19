@@ -41,7 +41,8 @@ def get_user_input():
     kind = input('\nif you are interested on drug resistance evidence press "r"\n'
                 'if you are interested on drug resistance evidence press "s"\n'
                  'if you are interested on general interactions press "g"\n'
-                'if you are interested on all of above interactions press "a".\n')
+                'if you are interested on all of above interactions press "a".\n'
+                'Please eneter your choice: ')
     if kind == 'r' or kind == 'R':
         gene_factors = gene_resist_pd.loc[gene_idx,'features']
         drug_factors = drug_resist_pd.loc[:,'features']
@@ -54,24 +55,23 @@ def get_user_input():
         drug_factors = drug_any_pd.loc[:,'features']
     drug_number = input('How many drug names would you like to see? ' )
     order = input ('Would you like to display the drugs in ascending or descendicg order. a/d: ')
-    if order == 'd' or order == 'D':
-        des = True
+    if order == 'a' or order == 'A':
+        asc = True
     else:
-        des = False
-    return genes_list, kind, gene_factors, drug_factors,drug_number, des
+        asc = False
+    return genes_list, kind, gene_factors, drug_factors,drug_number, asc
 
 def provide_drug_predictions():
-    genes_list, kind, gene_factors, drug_factors,drug_number, des = get_user_input()
+    genes_list, kind, gene_factors, drug_factors,drug_number, asc = get_user_input()
     predicted_drugs = {}
     for idx,row in enumerate(gene_factors):
         drug_list = []
         gene = network_genes[gene_factors.index[idx]]
         new_drugs = drug_factors.apply(lambda x:np.dot(x,row))
         if des:
-            new_drugs = new_drugs.sort_values(ascending=False)
+            new_drugs = new_drugs.sort_values(ascending=asc)[0:drug_number]
         print(new_drugs)
-
-        #for idx, drug in new_drugs:
-        #    drug_list.append(network_drugs[drug][1:-1])
-        #predicted_drugs[gene] = drug_list
+        for idx, drug in new_drugs:
+           drug_list.append(network_drugs[new_drug.index[idx]][1:-1])
+        predicted_drugs[gene] = drug_list
     return None#predicted_drugs
