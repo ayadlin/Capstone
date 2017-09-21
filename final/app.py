@@ -33,6 +33,8 @@ def get_evidence():
         max_number=int(request.form['max_number']),
         r_s=request.form['r_s'],
         data=data)
+    if type(evidence) is not list:
+        return "Either the gene or drug names entered are invalid - download the dictionaries - or there is no evidence of interaction for the requested pair."
     result = ''
     df= pd.DataFrame(columns=['paper', 'sentences'])
     evd_list =[]
@@ -54,9 +56,14 @@ def get_evidence():
         #}]
         }
     #return result
+
+
     table = json2html.convert(json=evd_list,escape=False,table_attributes="id=\"info-table\" class=\"table table-bordered table-hover\"")#df.to_json())
     #table = table_raw.replace('"<a', '<a').replace('/a>"', '/a>')
+
     return render_template('table.html',table=table, title='Evidence')
+
+
     #return render_template("templates/evidence.html",table=df.to_html,name ='Evidence')
 
 @app.route('/select_network', methods=['POST'])
