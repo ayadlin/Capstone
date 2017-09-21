@@ -95,7 +95,7 @@ def get_user_input():
     genes_list = process_genes(genes)
     kind = input('\nif you are interested on drug resistance evidence press "r"\n'
                 'if you are interested on drug resistance evidence press "s"\n'
-                 'if you are interested on general interactions press "g"\n'
+                'if you are interested on general interactions press "g"\n'
                 'if you are interested on all of above interactions press "a".\n'
                 'Please eneter your choice: ')
     path = input('\nEnter the name for saving your graph figure: ' )

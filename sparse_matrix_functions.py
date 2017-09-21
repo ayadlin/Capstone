@@ -149,8 +149,15 @@ def get_user_input():
     return gene, drug, max_number, r_s, original_indeces
 
 
-def provide_evidence(data):
-    gene, drug, max_number, r_s, original_indeces = get_user_input()
+def provide_evidence(gene, drug, max_number, r_s, data):
+    gene, drug, max_number, r_s, original_indeces = get_user_input() #
+    if r_s == 'r' or r_s =='R':
+        original_indeces = data_frame_creator.open_pickle('original_indices_resist.pickle')
+    elif r_s == 's' or r_s == 'S':
+        original_indeces = data_frame_creator.open_pickle('original_indices_sensit.pickle')
+    else:
+        original_indeces = data_frame_creator.open_pickle('original_indices_any.pickle')
+
     evidence = get_evidence_sentences(gene, drug, r_s, max_number,data,original_indeces)
     return evidence
 

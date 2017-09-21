@@ -21,3 +21,5 @@ def find_evidence():
 def drug_predictions():
     predict_dict = predictive_model.provide_drug_predictions()
     return predict_dict
+
+if name == __main__:
