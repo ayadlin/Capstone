@@ -17,9 +17,6 @@ data  = data_frame_creator.open_pickle('final_data.pickle')
 app = Flask(__name__)
 
 @app.route('/')
-def inputs():
-    return render_template('inputs.html')
-
 @app.route('/index.html')
 def index():
     return render_template('index.html')
@@ -75,7 +72,7 @@ def select_network():
     ####
     image = "<img src={} height=1000 width=1000>".format(filename)
     graph_link = f'''<a href="{graphname}">Download as .gml</a>'''
-    table = image + '<br/>' + graph_link
+    table =  graph_link + '<br/>' + image
     return render_template('table.html',table=table, title='Graph')
     #return "<img src={} height=1000 width=1000>".format(filename)
 
