@@ -15,6 +15,16 @@
 
     <!-- Custom styles for this template -->
     <link href="static/css/logo-nav.css" rel="stylesheet">
+    <style>
+    body {
+        padding-top: 100px;
+          }
+
+    @media screen and (max-width: 768px) {
+        h1#title {font-size: 140%;}
+                                        }
+
+    </style>
 
   </head>
 
@@ -26,7 +36,7 @@
         <a class="navbar-brand" href="#">
           <img src="static/img/Logo.png" width="50" height="50" alt="network representation">
         </a>
-          <h1 style="color:white; padding:0px; margin:0px">gene-drug interaction analysis</h1>
+          <h1 id="title" style="color:white; padding:0px; margin:0px">gene-drug interaction analysis</h1>
         <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -52,27 +62,34 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container" style="padding-top:100px">
+    <div class="container"> <!-- style="padding-top:100px"> -->
         <h3> Make a gene-drug interactions graph </h3>
       <form action="/select_network" method=POST>
         Which genes would you like to get drug interaction information for?:
         <input type="text" name="genes" value="akt,erk1,mtor"><br><br>
-        if you are interested on drug resistance evidence press "r"<br>
+        Enter the name for saving your graph:
+        <input type="text" name="path" value="graph"><br><br>
+        <!-- if you are interested on drug resistance evidence press "r"<br>
         if you are interested on drug sensitivity evidence press "s"<br>
         if you are interested on general interactions press "g"<br>
         if you are interested on all of above interactions press "a".<br>
+        <input type="text" name="kind" value="r"><br><br>-->
 
-        <input type="text" name="kind" value="r"><br><br>
-        Enter the name for saving your graph:
-        <input type="text" name="path" value="graph"><br><br>
-        Would you like to display labels?. y/n:
-        <input type="text" name="lab" value="y"><br><br>
-        Would you like to download your graph.gml file for further work? y/n:
-        <input type="text" name="download" value="y"><br><br>
+        What type of graph are you interested in?<br>
+        <input type="radio" name="kind" value="r" checked="checked"> Resistance<br>
+        <input type="radio" name="kind" value="s"> Sensitivity<br>
+        <input type="radio" name="kind" value="g"> General<br><br>
+
+
+        Would you like to display labels? <br>
+        <!-- <input type="text" name="lab" value="y"><br><br> -->
+        <input type="radio" name="lab" value="y" checked="checked"> Yes<br>
+        <input type="radio" name="lab" value="n"> No<br><br>
         <input type="submit" value="Submit">
       </form>
       <br>
       <br>
+
       <h3> Get evidence of gene-drug interactions </h3>
       <form action="/get_evidence" method="POST">
           Which gene are you interested in?
@@ -81,12 +98,16 @@
           <input type="text" name="drug" value="lapatinib"><br><br>
           How many evidence sentences, if available, would you like to see?
           <input type="text" name="max_number" value="5"><br><br>
-          if you are interested on drug resistance evidence press "r"<br>
+          <!-- if you are interested on drug resistance evidence press "r"<br>
           if you are interested on drug sensitivity evidence press "s"<br>
           if you are interested on general interactions press "g"<br>
           if you are interested on all of above interactions press "a".<br>
 
-          <input type="text" name="r_s" value="r"><br><br>
+          <input type="text" name="r_s" value="r"><br><br> -->
+          What type of evidence are you interested in?<br>
+          <input type="radio" name="r_s" value="r" checked="checked"> Resistance<br>
+          <input type="radio" name="r_s" value="s"> Sensitivity<br>
+          <input type="radio" name="r_s" value="g"> General<br><br>
           <input type="submit" value="Submit">
       </form>
 
@@ -96,16 +117,25 @@
       <form action="/make_prediction" method="POST">
           Which genes would you like to make drug interaction predictions for?:
           <input type="text" name="genes" value="akt,erk1,mtor"><br><br>
-          if you are interested on drug resistance predictions press "r"<br>
+          How many drugs do you want your list to display?
+          <input type="text" name="drug_number" value="10"><br><br>
+        <!--  if you are interested on drug resistance predictions press "r"<br>
           if you are interested on drug sensitivity predictions press "s"<br>
           if you are interested on general interactions press "g"<br>
           if you are interested on all of above interactions press "a".<br>
 
-          <input type="text" name="kind" value="r"><br><br>
-          How many drugs do you want your list to display?
-          <input type="text" name="drug_number" value="10"><br><br>
-          Would you like to display the drugs in ascending or descendicg order. a/d:
-          <input type="text" name="order" value="a"><br><br>
+          <input type="text" name="kind" value="r"><br><br> -->
+          What type of predictions are you interested in?<br>
+          <input type="radio" name="kind" value="r" checked="checked"> Resistance<br>
+          <input type="radio" name="kind" value="s"> Sensitivity<br>
+          <input type="radio" name="kind" value="a"> General<br><br>
+
+
+
+          Would you like to display the drugs in ascending or descendicg order?<br>
+          <input type="radio" name="order" value="a"> Ascending<br>
+          <input type="radio" name="order" value="d" checked="checked"> Descending<br><br>
+
           <input type="submit" value="Submit">
       </form>
       <br>
@@ -113,14 +143,14 @@
       <h3> Disclaimer </h3>
       <p> Gene and drug names with more than one association or not in our
           synonyms database will be ignored. For example if you are interested
-          in erk, please choosee erk1 or erk2 - not simply erk.
+          in erk, please choose erk1 or erk2 - not simply erk.
        </p>
 
-       <h3> Download dictionaries in pickle format </h3>
+       <h3> Download dictionaries in json format </h3>
        <ul>
-           <li><a href="static/pickle/gene_dictionary_final.pickle"> Gene synonyms dictionary </li>
-           <li><a href="static/pickle/drug_dictionary_final.pickle"> Drug synonyms dictionary </li>
-           <li><a href="static/pickle/gene_or_drug.pickle"> Gene or Drug labeler dictionary   </li>
+           <li><a href="static/json/gene_dictionary_final.json"> Gene synonyms dictionary </li>
+           <li><a href="static/json/drug_dictionary_final.json"> Drug synonyms dictionary </li>
+           <li><a href="static/json/gene_or_drug.json"> Gene or Drug labeler dictionary   </li>
        </ul>
     </div>
     <!-- /.container -->

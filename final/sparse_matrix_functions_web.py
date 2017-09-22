@@ -6,6 +6,7 @@ import pickle
 import data_frame_creator
 from IPython.display import HTML
 
+#### Changed X TO scs.lil_matrix in lines 90,91 and 224 to save memory. Otherwise app.py doesn't work.
 with open("gene_dictionary_final.pickle", "rb") as dict_gene:
         gene_dict = pickle.load(dict_gene)
 
@@ -86,8 +87,8 @@ def make_network_matrix(X, vocabulary):
     drug_columns_index =[vocabulary.index(i) for i in vocabulary if i in drug_values]
     gene_columns_index =[vocabulary.index(i) for i in vocabulary if i in gene_values]
     #gene_columns_name =[i for i in vocabulary if i in gene_values]
-    gene_mat=X[:,gene_columns_index]
-    drug_mat=X[:,drug_columns_index]
+    gene_mat=scs.lil_matrix(X)[:,gene_columns_index] ######HERE IS CHANGE
+    drug_mat=scs.lil_matrix(X)[:,drug_columns_index] ######HERE IS CHANGE
     network_matrix = gene_mat.T*drug_mat
     return network_matrix
 
@@ -220,7 +221,7 @@ def get_evidence_sentences(gene, drug, r_s, max_number,data,original_indeces):
     else:
          #print('Returning evidence of both sensitivity and resistant')
          test_col[vocab_matrix.shape[1]-1]=1
-         X = vocab_matrix
+         X = scs.lil_matrix(vocab_matrix) #####change here
          X[:,vocab_matrix.shape[1]-1]=1
     index_evidence = (X*test_col>2).nonzero()[0]
     evidence_list = []

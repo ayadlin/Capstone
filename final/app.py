@@ -21,9 +21,9 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/choose_action', methods=['POST'])
-def choose_action():
-    return 'the answer is' + request.form['choice']
+#@app.route('/choose_action', methods=['POST'])
+#def choose_action():
+#    return 'the answer is' + request.form['choice']
 
 @app.route('/get_evidence', methods=['POST'])
 def get_evidence():
@@ -34,7 +34,7 @@ def get_evidence():
         r_s=request.form['r_s'],
         data=data)
     if type(evidence) is not list:
-        return "Either the gene or drug names entered are invalid - download the dictionaries - or there is no evidence of interaction for the requested pair."
+        return "<h3>Either the gene or drug names entered are invalid - download the dictionaries - or there is no evidence of interaction for the requested pair.</h3>"
     result = ''
     df= pd.DataFrame(columns=['paper', 'sentences'])
     evd_list =[]
@@ -90,6 +90,8 @@ def make_prediction():
         kind=request.form['kind'],
         drug_number=request.form['drug_number'],
         order=request.form['order'])
+    if not predicted_drugs:
+        return "<h3>Either the gene or drug names entered are invalid - download the dictionaries</h3>"
     if request.form['kind'] in ('r','R'):
         word = 'resistance'
     elif request.form['kind'] in ('s','S'):
