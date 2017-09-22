@@ -1,0 +1,1555 @@
+Published OnlineFirst July 18, 2014; DOI: 10.1158/0008-5472.CAN-13-3540
+
+Cancer
+Research
+
+Integrated Systems and Technologies
+
+Novel Drug Candidates for the Treatment of Metastatic
+Colorectal Cancer through Global Inverse Gene-Expression
+Proﬁling
+€ lch3, Murat Iskar1, Georg Zeller1, Kristina Ostertag4,
+Vera van Noort1,2, Sebastian Scho
+3
+€rgen Weitz3, Moritz Koch3, and Peer Bork1,5
+Christine Schweitzer , Kristin Werner3, Ju
+
+Abstract
+Drug-induced gene-expression proﬁles that invert disease proﬁles have recently been illustrated to be a
+starting point for drug repositioning. In this study, we validate this approach and focus on prediction of novel
+drugs for colorectal cancer, for which there is a pressing need to ﬁnd novel antimetastatic compounds. We
+computationally predicted three novel and still unknown compounds against colorectal cancer: citalopram
+(an antidepressant), troglitazone (an antidiabetic), and enilconazole (a fungicide). We veriﬁed the compounds by in vitro assays of clonogenic survival, proliferation, and migration and in a subcutaneous mouse
+model. We found evidence that the mode of action of these compounds may be through inhibition of TGFb
+signaling. Furthermore, one compound, citalopram, reduced tumor size as well as the number of circulating
+tumor cells and metastases in an orthotopic mouse model of colorectal cancer. This study proposes
+citalopram as a potential therapeutic option for patients with colorectal cancer, illustrating the potential
+of systems pharmacology. Cancer Res; 74(20); 5690–9. 2014 AACR.
+
+Introduction
+Rational drug discovery has gained momentum by the
+recently increased availability of large-scale datasets on biologic activities of small molecules. Integration and utilization
+of these heterogeneous resources require computational tools,
+as well as expert knowledge to guide the drug discovery or
+repositioning process. To enable the latter, a pioneering systems pharmacology study built the Connectivity Map (CMap),
+a collection of genome-wide gene-expression readouts of
+cell lines treated with more than 1,000 drug-like chemicals
+(1). This approach is fundamentally based on the observation
+1
+Structural and Computational Biology Unit, European Molecular Biology
+Laboratory, Meyerhofstrasse, Heidelberg, Germany. 2Centre of Microbial
+and Plant Genetics, KU Leuven, Kasteelpark Arenberg, Leuven, Belgium.
+3
+Department of Gastrointestinal, Thoracic and Vascular Surgery, Medizi€t Carl Gustav Carus, Technische Universita
+€t Dresden, Dresnische Fakulta
+den, Germany. 4Department of General, Gastrointestinal and Transplant
+Surgery, University Hospital Heidelberg, University of Heidelberg, Heidel€ck-Centre (MDC) for Molecular Medicine,
+berg, Germany. 5Max-Delbru
+Berlin, Germany.
+
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+€ lch, and M. Iskar contributed equally to this article.
+V. van Noort, S. Scho
+Corresponding Authors: P. Bork, European Molecular Biology Laboratory, meyerhofstrasse 1, Heidelberg, Germany 69117. Phone: 49-6221387-8361; Fax: 49-6221-387-8517; E-mail: bork@embl.de; and M. Koch,
+Department of Gastrointestinal, Thoracic and Vascular Surgery, Medizi€t Carl Gustav Carus, Technische Universita
+€t Dresden, Dresnische Fakulta
+den, Germany. Phone: 49-351-458-2863 Fax: 49- 351-458-4317; E-mail:
+Moritz.Koch@uniklinikum
+doi: 10.1158/0008-5472.CAN-13-3540
+2014 American Association for Cancer Research.
+
+5690
+
+that, in many cases, drugs with similar mechanism of action
+in vivo also elicit similar expression responses in this in vitro
+model system, thus providing a starting point for drug repositioning based on expression proﬁle similarity (1, 2). Moreover, it was proposed that a drug-induced gene-expression
+proﬁle that (partially) inverts a disease-associated expression
+proﬁle could hint at a potential treatment for the respective
+disease and indeed, by applying this concept, novel compounds
+have been recently proposed for inﬂammatory bowel disease,
+non–small cell lung cancer, and muscle atrophy (3–6). Thus,
+the repositioning of drugs based on speciﬁcally tailored gene
+signatures has been demonstrated for these diseases. However,
+although an enrichment of drug–disease relations has been
+found among anticorrelated proﬁles when all diseases are
+considered together, it remains to be investigated how well
+this approach works for each individual disease where an
+expression proﬁle is available.
+A systematic analysis requires addressing various biases
+that are inherent to the CMap data, such as batch effects, which
+can be partially removed with a normalization procedure (7).
+Furthermore, to predict new treatment candidates for a disease,
+the disease itself needs to be clearly deﬁned and characterized at
+the molecular level. Finally, a robust gene-expression proﬁle,
+associated with the disease that is also relevant for the disease
+etiology, is necessary to make accurate predictions.
+Here, we present a global, unbiased approach for using
+drug-induced gene-expression proﬁles to retrieve novel candidate drugs with many cancer proﬁles being inversely
+matched. Our analysis shows a particularly strong signal for
+colorectal cancer, which is the third most common cancer in
+Western countries (8). Patients with colorectal cancer with
+
+Cancer Res; 74(20) October 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst July 18, 2014; DOI: 10.1158/0008-5472.CAN-13-3540
+
+New Drug Candidates for Metastatic Colorectal Cancer
+
+nonmetastatic disease have excellent long-term survival as in
+most cases localized primary tumors can be surgically
+removed. However, survival rates drop signiﬁcantly with the
+occurrence of distant metastases. Although hepatic metastases
+can be surgically removed in a curative intention, thereby
+providing long-term cure in a signiﬁcant number of patients,
+metastatic disease often recurs, and patients succumb to
+recurrent metastatic disease or primarily unresectable multifocal metastases (9, 10). The fate of patients with colorectal
+cancer is therefore closely linked to the occurrence of distant
+metastases. Although the clinical signiﬁcance of metastasis in
+colorectal cancer is evident, the process of metastasis is still
+poorly understood (11). It is widely accepted that circulating
+tumor cells play a pivotal role in distant tumor dissemination
+and their detection is closely linked to the prognosis of patients
+with colorectal cancer (12–16). To actively leave the tumor,
+enter the blood stream, attach to the vessel endothelium in the
+target organ, invade, proliferate, and form new lesions, abilities
+far beyond those of a bulk tumor cells (e.g., migration and
+invasion capacities) are essential for metastatic tumor cells. In
+that respect, to reduce the risk of (further) tumor cell dissemination in patients with colorectal cancer, especially in the
+neoadjuvant situation (e.g., in locally advanced rectal cancer
+requiring neoadjuvant treatment or the "liver ﬁrst" approach in
+synchronously metastasized colorectal cancer; ref. 17), there is
+a huge clinical need for (novel) antimetastatic drugs.
+We illustrate the power of our approach by experimentally
+validating three predicted novel drugs that could be repositioned for colorectal cancer. We speciﬁcally test the three
+predicted drugs for their potential to inhibit metastasis. We
+conﬁrm in vitro that these drugs inhibit cell migration. Second,
+we validate that they inhibit tumor growth in vivo in a subcutaneous mouse model. Finally, using an orthotopic mouse
+model of colorectal cancer, we conﬁrm the antimetastatic
+properties of citalopram in vivo. Taken together, from a broad
+and comprehensive bioinformatics approach, via various
+computational and experimental ﬁltering and validation procedures, we arrived at a very speciﬁc, clinical relevant indication in the context of colorectal cancer and propose that the
+antidepressant drug citalopram can serve at least as a lead for
+treatment of metastatic colorectal cancer.
+
+Materials and Methods
+CMap data
+The CMap (build 02) is a large-scale microarray resource
+cataloguing transcriptomic responses of four human cell
+lines (promyelocytic leukemia HL60, breast adenocarcinoma
+MCF7, prostate cancer PC3, and skin melanoma SKMEL5
+cell lines) to various small-molecule treatments (referred
+to as drugs for simplicity). It contains 6,100 treatment
+instances for 1,309 unique drugs, of which approximately
+650 are FDA approved (1, 18). To eliminate various biases in
+CMap (e.g., batch effect, microarray platforms), we ﬁltered
+and normalized the raw CMap dataset (downloaded from
+http://www.broadinstitute.org/cmap/) as described in detail
+previously (7). For this study, we retrieved 4,849 druginduced gene-expression proﬁles from three main cell lines
+
+www.aacrjournals.org
+
+(HL60, MCF7, and PC3) representing 1,144 distinct drugs (for
+a detailed list, refer to Supplementary Table S3).
+Disease-associated microarrays
+Microarray experiments on speciﬁc diseases were identiﬁed
+in the public microarray repository of NCBI Gene Expression
+Omnibus (GEO; http://www.ncbi.nlm.nih.gov/geo/; ref. 19)
+using disease medical subject heading (MeSH) terms that were
+attributed to each study (20–22). In this study, we restricted
+our analysis to disease MeSH terms that are associated with
+at least one CMap drug. Moreover, we only analyzed raw
+datasets conducted on HG-U133A and HG-U133-Plus2 microarray platforms to maximize comparability across resources.
+Next, all individual samples were manually annotated as
+"disease" or "healthy controls." To obtain reliable disease signatures, microarray samples (disease vs. healthy) were
+retained only if derived from disease-relevant primary tissues.
+The RMA procedure was employed to normalize each dataset
+separately (23). In cases, where multiple studies were found for
+the same disease, we selected one representative per disease,
+such that distinction between disease and healthy samples is
+maximized on the basis of interarray Pearson correlation
+(highest AUC in receiver operating characteristic analysis),
+and discarded the others. Finally, in each disease-related geneexpression proﬁle, only probe sets present in HT_HG-U133A
+(HT Human Genome U133 Array Plate Set, 22277 probe sets)
+were kept and ranked according to their fold change. In total,
+we obtained here a total of 40 disease-associated gene-expression proﬁles from 1,748 individual microarray samples (for
+details refer to Supplementary Table S1).
+Similarity score of drugs and diseases
+To calculate proﬁle similarity of a drug with a disease, we
+adapted a proﬁle comparison method initially developed for
+drug–drug comparisons (7). First, a disease-related signature
+was deﬁned from the top and bottom 250 ranked probe sets of
+drug-associated gene-expression proﬁles. We then computed
+disease–drug similarity by querying the up- and downregulated signatures of the disease within drug-induced geneexpression proﬁles (HT_HG-U133A, 22277 probe sets without
+Present/Absent call ﬁltering) using gene set enrichment analysis (GSEA, weighted; ref. 24). At last, two enrichments scores
+for up/down disease signatures were averaged to derive a ﬁnal
+score for disease–drug similarity. We assessed whether known
+drug–disease associations (indications, excluding "antidotes"
+from http://www.drugs.com/medical_conditions.html updated October 7, 2013) are signiﬁcantly anticorrelated using a
+nonparametric Wilcoxon signed rank test. To this end, similarity scores from each cell line were ranked in the range of
+(0–1) and pooled together. For each disease, we compared the
+similarity scores of known drug associations to all other drugs
+present in CMap (Supplementary Fig. S1 and Supplementary
+Table S2). Signiﬁcantly, anticorrelated diseases were deﬁned
+as P < 0.05 after FDR correction for multiple testing.
+Metastatic colon cancer gene signature
+To identify novel therapeutics against metastatic colorectal
+cancer, we utilized a consensus gene signature deﬁned by
+
+Cancer Res; 74(20) October 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+5691
+
+Published OnlineFirst July 18, 2014; DOI: 10.1158/0008-5472.CAN-13-3540
+
+van Noort et al.
+
+Jorissen and colleagues (25). From two independent sets of
+colorectal cancers, a metastatic signature was derived that
+showed consistent expression changes between early-stage
+(A) and metastatic stage (D) tumors. In total, there were
+86 stage A tumors, 91 stage D primary tumors, and 30 stage
+D metastases. The signature was derived from consistent
+changes between three comparisons: (i) early-stage (A; n ¼
+44) and metastatic stage (D; n ¼ 61) primary tumors from the
+ﬁrst independent set; (ii) early-stage (A; n ¼ 42) and metastatic
+stage (D; n ¼ 32) primary tumors from the second set; and
+(iii) early-stage (A; n ¼ 42) primary tumors and metastatic
+stage (D; n ¼ 30) metastases from the second set. The signature
+consists of 163 probe sets representing in total 127 unique
+genes (73 up- and 54 downregulated; Supplementary Table S3).
+Probe sets not present in the CMap dataset (HT_HG-U133A
+platform) were removed from the signature. After ﬁltering, the
+metastasis signature was compared against the CMap reference collection that contains 4,849 gene-expression proﬁles
+from three cell lines treated with 1,144 distinct drugs. We used
+the scoring approach described above to quantify proﬁle
+similarity between drugs and the metastasis signature. For
+each drug, a ﬁnal score was obtained by averaging the enrichment scores across all replicates from three cell lines (Supplementary Table S4). We further examined the top 20 drugs
+with lowest scores (anticorrelated) and manually searched in
+the literature whether these drugs were previously associated
+with colon cancer or metastasis.
+Cell lines and reagents
+The colorectal cancer cell lines, HCT 116 and HT-29, were
+obtained from ATCC and maintained in DMEM (PAA) þ 10%
+FCS (PAA), 100 U/mL penicillin (PAA), and 100 mg/mL streptomycin (PAA) in a humidiﬁed atmosphere of 5% CO2 at 37 C.
+The cell lines were tested for authenticity by DSMZ on a regular
+basis. Enilconazole (Imazalil) and troglitazone were obtained
+from Sigma-Aldrich and Neochema, citalopram was obtained
+from Lundbeck.
+MTT proliferation assay
+The WST-1 reagent (Roche) is reduced by metabolically
+active cells to formazan, an insoluble purple dye that can be
+measured in a spectrophotometer, and was used according to
+the manufacturer's instructions. Cells were seeded in quadruplicates in increasing cell numbers in 96-well plates (125, 250,
+500, 1,000 per well). After 12-hour adhesion time, the cells were
+treated with the compounds as indicated. One hundred and
+twenty hours later, 10 mL of WST-1 reagent were added to each
+well and the cells were again incubated for 4 hours at 37 C and
+5% CO2. After incubation and 1 minute shaking, the absorbance
+was measured on a Genios Microplate Reader (Tecan).
+Clonogenic survival assay
+Clonogenic survival assay was done as previously described
+(26, 27). In brief, tumor cells were plated in triplicates to yield
+50 to 100 colonies per culture ﬂask, treated with the compounds in various concentrations, and incubated for 14 to
+21 days. Colonies of more than 50 cells, as assessed by microscopic inspection, were scored as survivors and counted.
+
+5692
+
+Cancer Res; 74(20) October 15, 2014
+
+Migration assay
+The migration of tumor cells under treatment was measured via Transwell assays as described previously (26, 27).
+Brieﬂy, cells were incubated with the compounds in various
+concentrations for 2 hours. Then 200 mL of cell suspension
+(3  105 cells/mL) were added in triplicate Transwells
+(Matrigel-coated Transwell inserts; 8 mmol/L pore size;
+Becton Dickinson). After 18 hours of incubation, migratory
+tumor cells had invaded the underside of the membrane,
+were ﬁxed, stained in thiazine and eosin solution, and
+sealed on slides. Quantiﬁcation was done by microscopic
+counting.
+TGFb signaling assay
+To demonstrate the effects of the three compounds on the
+TGFb signaling pathway, we used a cell line stably expressing a
+secreted alkaline phosphatase reporter inducible by SMAD3/4inducible elements (SBE), called HEK-Blue TGFb sensor cell
+line (Invivogen). This way, downstream activation of the TGFb
+signaling pathway can be measured spectrophotometrically in
+the cell culture supernatants. The effects of the three compounds on TGFb signaling pathway were analyzed using the
+HEK-Blue TGFb Kit (Invivogen) according to the manufacturer's instructions.
+Animal experiments
+All animal experiments strictly adhered to local and federal
+regulations as well as FELASA guidelines, and were approved
+by the local authorities before initiation.
+For the subcutaneous experiments, 107 tumor cells in 100 mL
+of PBS were injected bilaterally into the ﬂanks of NOD.CgPrkdcscid Il2rgtm1Wjl/SzJ (NSG) mice. When tumors reached a
+size of 10 to 12 mm in largest diameter, the mice were
+euthanized, the tumors excised, and cut into tumor fragments
+of 1  1 mm size. The tumor fragments were implanted
+subcutaneously into recipient NSG mice and monitored thrice
+weekly for tumor growth. Once tumors were established,
+growing, and had a size of 7 to 8 mm in largest diameter, the
+treatment was initiated.
+For orthotopic tumor cell injection, the mice were anesthetized by isoﬂurane inhalation. A midline laparotomy was
+performed and the cecum was exteriorized and 105 HCT
+116 tumor cells in 20 mL Matrigel (BD) were injected subserosally by help of a microinjection pump (WPI) under microscopic visual control. After injection, the abdomen was closed
+with PDS II 6-0 (J&J Ethicon) and wound clips.
+The treatment regimens were as follows:
+Citalopram: 60 mg/kg body weight (BW) i.p. daily, dissolved in
+100 mL NaCl 0.9% in the subcutaneous experiment. Because
+of low tolerability (signiﬁcant weight loss due to loss of
+appetite), the dose was reduced to 20 mg/kg i.p. daily for the
+orthotopic experiment.
+Enilconazole: 20 mg/kg BW i.p. daily, dissolved in 20 mL
+DMSO
+Troglitazone: 30 mg/kg BW i.p. every third day, dissolved in
+100 mL 9% Solutol HS 15
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst July 18, 2014; DOI: 10.1158/0008-5472.CAN-13-3540
+
+New Drug Candidates for Metastatic Colorectal Cancer
+
+Quantiﬁcation of circulating tumor cells
+Thirty-ﬁve days after orthotopic tumor cell injection, the
+mice in the control group were moribund and the experiment
+was terminated. The mice were anesthesized by isoﬂurane
+inhalation, blood samples were taken via intracardiac puncture, and the mice were euthanized. The blood was layered over
+LSM 1077 lymphocyte gradient medium (PAA) and the peripheral blood mononuclear cell (PBMC) fraction was enriched
+according to the manufacturer's instructions. The resulting
+PBMCs were stained with Alexa-Fluor488-anti-human EpCAM
+antibody (Biolegend), EpCAM-positive cells were identiﬁed
+and counted under a ﬂuorescence microscope (Leica). The
+number of circulating tumor cells (CTC) per mL of blood was
+calculated according to the total blood volume obtained by
+cardiac puncture.
+Histologic work-up
+Upon euthanasia, the livers and lungs of the animals were
+removed and immediately ﬁxed in 4% paraformaldehyde.
+After parafﬁn embedding, the FFPE tissue was cut in 10 mm
+(liver) or 2 mm (lung) sections using a Leica microtome.
+Lungs were cut in a representative layer in the coronal plane;
+livers were cut in three representative layers (cranial third,
+middle third, and caudal third) in the transversal plane to be
+able to detect the majority of metastatic lesions. The tissue
+sections were stained with a standard hematoxylin and eosin
+protocol and metastases were counted.
+Statistical analysis
+Datasets were screened for outliers with the ROUT method
+(Q ¼ 10%; ref. 28), a total of four statistically signiﬁcant outliers
+were identiﬁed (all in the orthotopic citalopram experiment:
+1 among the tumor weight values, 2 among the tumor volume
+values, 1 among the CTC number values). The ﬁndings were
+checked for biologic validity and the values were excluded
+when the cause of the deviation was considered artiﬁcial (e.g.,
+faulty measurements). Three out of 4 outliers were found to be
+biologically invalid values and excluded from further analysis;
+the outlier among the CTC values was considered biologically
+possible and was therefore not excluded. Student t test was
+used to compare means. In case of time series, only the last
+time-point was tested. All analyses were two tailed, and P < 0.05
+was considered statistically signiﬁcant ( , P < 0.05;  , P < 0.01;
+
+, P < 0.001).
+Propidium iodide/Annexin V apoptosis assay
+A total of 5  104 (HT-29) or 3  104 (HCT116) colorectal
+cancer cells per well were seeded in 24-well plates, allowed to
+adhere for 12 hours, and then treated with the compounds,
+negative or positive controls as indicated. Seventy-two hours
+after incubation, the cells were harvested with trypsin and
+washed twice with FACS-binding buffer (10 mmol/L Hepes, pH
+7.4, 2.5 mmol/L CaCl2, 140 mmol/L NaCl). Then the cells were
+stained with propidium iodide (PI) and Annexin V–FITC
+(Becton Dickinson) and 10,000 cells were analyzed and quantiﬁed by ﬂow cytometry on a FACS Calibur (Becton Dickinson).
+Annexin-positive cells were considered apoptotic and the ratio
+of apoptotic cells/total cells was calculated.
+
+www.aacrjournals.org
+
+Results
+Reverse proﬁle searches for retrieval of drug–disease
+associations
+To evaluate the general validity of the inverse signature
+approach, we assessed how well the known disease–drug
+indications were recapitulated by the expression-based
+inverse correlation of disease–drug relations for individual
+diseases. To this end, we ﬁrst normalized the CMap dataset
+to obtain 4,849 drug-induced gene-expression proﬁles from
+three main cell lines (HL60, MCF7, and PC3) treated with
+1,144 distinct drugs (7). In addition, we extracted diseaseassociated microarray experiments from publicly available
+NCBI GEO microarray repository using MeSH descriptors
+(19). For this analysis, we next generated disease-associated
+gene-expression proﬁles for 40 distinct diseases (details in
+Materials and Methods).
+Indeed, in the normalized CMap data, signiﬁcant anticorrelations were found between drug and disease gene-expression proﬁles for known drug–disease associations for seven out
+of 40 diseases (Supplementary Fig. S1). Anticorrelations were
+most successful in the retrieval of disease–drug relations
+involving anticancer agents that were additionally linked to
+multiple cancers (six out of seven signiﬁcant diseases), including colorectal cancer (Supplementary Fig. S1). On the basis of
+this result, we focused on colorectal cancer to predict novel
+drug compounds aiming speciﬁcally at an inhibition of metastasis as the latter is of considerable clinical relevance.
+Prediction of novel drug compounds for metastatic
+colorectal cancer
+As colorectal cancer scored very prominently among the
+general disease–drug relations and because there are insufﬁcient treatment options, particularly for inhibiting metastasis,
+we chose to illustrate the power of the inverse-signature
+method by predicting and validating drugs used in other
+indications as candidates for colorectal cancer treatment.
+Several gene-expression signatures for colorectal cancer are
+available, but the most pressing need is for drugs that inhibit
+metastasis, which could also be used as an adjuvant therapy. As
+opposed to previous studies that have used healthy versus
+diseased states (29), we rather chose to compare nonmetastatic tumors versus metastatic primary tumors and metastases, to deﬁne a gene signature of metastatic potential rather
+than a general cancer signature. Several groups have studied
+the gene-expression differences between primary and metastatic colon cancers to explain the molecular basis of the
+metastatic process and predict clinical outcomes (25, 30–
+32). In this study, we decided to employ the reproducible
+gene-expression signature from (25) that emerged as a consensus from two independent comparisons of Dukes' stage D
+versus stage A colorectal cancers (Supplementary Table S3; for
+details see Materials and Methods). This signature is based on
+primary and metastatic tumors from patients in different
+stages of colorectal cancer and includes genes that have been
+implicated in the development of metastasis before. We predict novel antimetastatic drugs by ﬁnding anticorrelated druginduced gene-expression proﬁles, that is, we are looking
+for genes that are upregulated in the metastasis proﬁle, but
+
+Cancer Res; 74(20) October 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+5693
+
+Published OnlineFirst July 18, 2014; DOI: 10.1158/0008-5472.CAN-13-3540
+
+van Noort et al.
+
+Metastatic
+disease signature
+
+Connectivity map
+Drug-induced expression profiles
+
+Upregulated
+71 genes
+
+Nonmetastatic
+colon tumor
+Metastatic
+colon tumor
+
+Downregulated
+57 genes
+
+Candidate drugs
+with similar profiles
+
+GSEA
+Reverse profile
+search
+
+Average difference
+
+Drug-induced expression
+profile clustering
+
+Candidate drugs
+
+Rank
+1
+
+Chemical name
+Verteporfin
+
+2
+3
+4
+5
+6
+7
+8
+9
+...
+19
+
+Resveratrol
+Novobiocin
+Mycophenolic acid
+N-acetyl-L-Leucine
+Enilconazole
+Hydrocortisone
+Feldipine
+Citalopram
+
+Drug indication
+Photosensitizer for
+photodynamic therapy
+Natural phenol
+Antibiotic
+Immunosuppressive
+Vertigo treatment
+Antifungal
+Immunosuppressive
+Antihypertensive
+Antidepressant
+
+Troglitazone
+
+Antidiabetic
+
+Figure 1. Using anticorrelated
+proﬁles to ﬁnd candidate
+therapeutic chemicals. First, a
+metastatic disease signature was
+created by comparing metastatic
+colorectal cancers with
+nonmetastatic cancers. The
+disease signature was then used to
+search for reverse signatures in the
+CMap data by Gene Set
+Enrichment Analysis. The resulting
+candidate drugs do not necessarily
+have similar gene-expression
+proﬁles; for example, different
+subsets of upregulated genes from
+the disease signature can be
+downregulated in the druginduced expression proﬁle.
+Therefore, an extra reﬁnement step
+was added by clustering the
+expression proﬁles of candidate
+drugs and selecting from the
+candidates those that have similar
+gene proﬁles for further validation.
+
+and/or the metastatic development of cancer cells (Table 1;
+refs. 33–35). Upon drug treatment by any of these three drugs
+(Fig. 2), ﬁbronectin 1, collagen type V, notch homolog 3,
+platelet-derived growth factor C, versican, integrin-b5, and
+secreted phosphoprotein 1 are downregulated. Four of the
+proteins encoded by these genes are involved in interactions
+between the extracellular matrix (ECM) and ECM-receptors
+(Supplementary Fig. S2). The proteins ﬁbronectin 1 and its
+
+downregulated by adding a drug to one of the three CMap
+cell lines (Fig. 1).
+The validity of the procedure is illustrated by the fact that
+among the top chemicals with inverse drug-induced geneexpression proﬁles, compared with the metastatic colon cancer gene signature (Fig. 1 and Supplementary Table S4), were
+verteporﬁn (33), resveratrol (34), and novobiocin (35), all
+of which have already been shown to inhibit migration
+
+Table 1. Per cell line best inverse signature GSEA scores (1 to 1) for candidate and proposed drugs
+Small molecule
+
+PUBCHEM ID
+
+CMap cell line
+
+CMap batch
+
+CMap experiment ID
+
+GSEA score
+
+Verteporﬁn
+Enilconazole
+N-acetyl-L-leucine
+Troglitazone
+Resveratrol
+Felodipine
+Mycophenolic acid
+Citalopram
+Novobiocin
+Hydrocortisone
+
+5362420
+37175
+1995
+5591
+5056
+3333
+4272
+2771
+4545
+3640
+
+MCF7
+HL60
+HL60
+PC3
+HL60
+HL60
+MCF7
+MCF7
+HL60
+PC3
+
+678
+661
+660
+727
+640
+634
+690
+720
+658
+714
+
+5500024028849050407172.F09
+5500024030700072107987.B09
+5500024030700072107987.E06
+5500024031723100807773.C04
+640641112706.G01
+5500024024214122006604.F03
+5500024030403071907257.B06
+5500024031723100807770.B03
+5500024030760072207028.G04
+5500024031723100807776.H03
+
+0.58
+0.57
+0.53
+0.47
+0.46
+0.45
+0.40
+0.39
+0.38
+0.37
+
+NOTE: Proposed drugs are in bold.
+
+5694
+
+Cancer Res; 74(20) October 15, 2014
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst July 18, 2014; DOI: 10.1158/0008-5472.CAN-13-3540
+
+New Drug Candidates for Metastatic Colorectal Cancer
+
+ﬁbronectin (FN)-coated plates independent of its PPARg
+action (37, 39) and inhibits pulmonary metastasis of osteosarcoma (38). Second, citalopram, an antidepressant drug of the
+selective serotonin reuptake inhibitor class is approved to be
+used in humans but not an obvious candidate for screening
+against metastatic colorectal cancer. The third candidate
+enilconazole is a fungicide that has only been approved for
+topical use in veterinary medicine. Hence, the three candidates
+to be validated experimentally for their efﬁcacy against metastatic colorectal cancer are not only chemically diverse, but
+also come with different levels of expectation.
+
+Enilconazole:HL60
+
+Troglitazone:HL60
+
+N-acetyl-L-leucine:HL60
+
+Verteporfin:MCF7
+
+Verteporfin:MCF7
+
+Verteporfin:HL60
+
+Novobiocin:HL60
+
+Resveratrol:HL60
+
+Mode of action
+To better understand the underlying basis of our predictions, we set out to ﬁnd the main mode of action of the three
+selected compounds. There are various signaling pathways
+that could play a role. One of them, TGFb exerts its effects on
+cell proliferation, differentiation, and migration in part
+through its modulation of extracellular matrix components,
+such as ﬁbronectin and plasminogen activator inhibitor-1
+(40), which we ﬁnd downregulated by the candidate drugs. It
+has recently been shown that resveratrol inhibits the TGFb1induced increase in cell adhesion, migration, and invasion
+
+Hydrocortisone:MCF7
+
+Felodipine:HL60
+
+Troglitazone:PC3
+
+Felodipine:MCF7
+
+N-acetyl-L-leucine:MCF7
+
+Citalopram.MCF7
+
+Citalopram.MCF7
+
+N-acetyl-L-leucine:PC3
+
+Felodipine:PC3
+
+Hydrocortisone:PC3
+
+Mycophenolic acid:MCF7
+
+Enilconazole:MCF7
+
+Troglitazone:MCF7
+
+Enilconazole:PC3
+
+receptor integrin-b5 together are vital for cell migration (36).
+This conﬁrms the metastatic colorectal cancer gene signature
+to be appropriate for our purpose. The candidate drugs found
+by inverse proﬁle search do not fully overlap in the set of genes
+whose expression is inverted relative to the disease proﬁle.
+Thus, to ﬁnd the most relevant drug candidates, we reﬁned our
+list of top 20 candidate compounds by hierarchical clustering
+of the drug-induced gene-expression data from individual
+experiments in different cell lines and batches (Fig. 1) and
+continue with those that cluster together (Fig. 2). The clustering shows that some marketed drugs such as enilconazole
+(antifungal), citalopram (antidepressant), and troglitazone
+(antidiabetic) induce regulatory responses similar to verteporﬁn and resveratrol (Fig. 2).
+The best scoring candidate drugs, namely enilconazole,
+citalopram, and troglitazone, were selected for further experimental validations. Among these, only troglitazone (an antidiabetic and anti-inﬂammatory drug) has been previously
+associated with decreased migratory behavior of various cell
+types (37–39) but not with colorectal cancer. For example,
+troglitazone has been screened in breast cancer metastasis. It
+has been reported that troglitazone reduces the migration,
+adhesion, and spreading of human breast cancer cells on
+
+208626_s_at:VAT1
+212488_at:COL5A1
+209747_at:TGFB3
+203238_s_at:NOTCH3
+211719_x_at:FN1
+216442_x_at:FN1
+210495_x_at:FN1
+201162_at:IGFBP7
+217949_s_at:VKORC1
+218718_at:PDGFC
+219922_s_at:LTBP3
+204619_s_at:VCAN
+211071_s_at:MLLT11
+201125_s_at:ITGB5
+213351_s_at:TMCC1
+204301_at:KBTBD11
+209397_at:ME2
+204279_at:PSMB9
+211368_s_at:CASP1
+205891_at:ADORA2B
+221841_s_at:KLF4
+209970_x_at:CASP1
+214440_at:NAT1
+209208_at:MPDU1
+209040_s_at:PSMB8
+202659_at:PSMB10
+219450_at:C4orf19
+203110_at:PTK2B
+218096_at:AGPAT5
+211366_x_at:CASP1
+Z-score
+
+–4 –2
+
+0
+
+2
+
+4
+
+Metastasis-related signature
+Upregulated
+Downregulated
+
+Figure 2. Evaluation of gene-expression proﬁle clustering of candidate chemicals. Clustering of CMap data of individual experiments of 10 reﬁned drug
+candidates (most anticorrelated proﬁles per cell line) and top 30 anticorrelated genes. Purple, upregulated in metastatic colorectal cancer signature; blue,
+downregulated in metastatic colorectal cancer signature. Dark blue, normalized fold changes, downregulated in drug-induced proﬁle; yellow, upregulated in
+the drug-induced proﬁle.
+
+www.aacrjournals.org
+
+Cancer Res; 74(20) October 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+5695
+
+Published OnlineFirst July 18, 2014; DOI: 10.1158/0008-5472.CAN-13-3540
+
+van Noort et al.
+
+TGFβ
+β signaling activity
+Citalopram
+
+Normalized extinction
+
+1.0
+
+Troglitazone
+Enilconazole
+
+0.5
+
+0.0
+0
+
+50
+nmol/L
+
+100
+
+Figure 3. Mode of action of candidate chemicals. Normalized TGFb
+signaling activity with different concentrations of citalopram,
+troglitazone, and enilconazole. Mean and SEMs for ﬁve replicates are
+indicated by symbols and error bars.
+
+of A549 lung cancer cells (41). Troglitazone has also been
+shown to have antimigratory properties in glioma cells, associated with transcriptional repression of TGFb (1–3) and their
+receptors I and II and with reduced TGFb release (42) and to
+inhibit the TGFb-induced epithelial–mesenchymal transition
+of primary alveolar epithelial cells (43). On the basis of similarity in downregulated genes (Fig. 2), in particular the strong
+inhibition of the ﬁbronectin 1 gene and integrin-b5, our
+expectation is that our other candidate drugs would also exert
+their antimigratory effect through inhibition of TGFb signaling. To demonstrate the effects of the three compounds on
+
+Relative proliferation
+(mean ± SEM)
+Clonogenic survival
+relative number of
+colonies
+(mean ± SEM)
+Relative number
+of migrating cells
+(mean ± SEM)
+
+Experimental validation of citalopram, troglitazone, and
+enilconazole against metastatic colorectal cancer
+We veriﬁed the predictions by in vitro tests showing that
+the three compounds troglitazone, citalopram, and enilconazole signiﬁcantly inhibited cell migration and clonogenic
+survival of HCT 116 and HT-29 human colorectal cancer
+cells, both important hallmarks of metastasis (Fig. 4).
+Although we were speciﬁcally searching for antimetastatic
+compounds, we additionally sought to avoid growth stimulatory effects on primary tumors. For this purpose, the
+three compounds were tested for effects on proliferation.
+They did in fact inhibit this process albeit to a different
+extent (Fig. 4).
+On the basis of the promising results of the in vitro assays,
+next we tested the three compounds in a subcutaneous tumor
+model in mice (Fig. 5A; ref. 44). We anticipated inhibition of
+tumor growth as all three compounds had demonstrated
+antiproliferative effects. Immunodeﬁcient mice (NOD scid-g)
+were subcutaneously implanted with tumor fragments and
+monitored for tumor growth. All three compounds signiﬁcantly inhibited the growth of subcutaneous tumors, but enilconazole and citalopram showed the most profound effects
+(Fig. 5A). Of these two, citalopram was tolerated best by the
+mice and was investigated further. PI/Annexin-based FACS
+
+Troglitazone
+
+Citalopram
+
+5696
+
+the TGFb signaling pathway, we utilized a cell line stably
+expressing a reporter of TGFb signaling (see Materials and
+Methods). The three compounds demonstrated signiﬁcant
+inhibition of TGFb signaling and are likely to inhibit cell
+migration and invasion with the same mode of action as
+resveratrol (Fig. 3), thus strengthening our predictions based
+on a global computational screen.
+
+Enilconazole
+
+1
+
+1
+
+1
+
+0.5
+
+0.5
+
+0.5
+
+0 10 25
+50
+100
+Concentration (μmol/L)
+1
+
+0.5
+
+0
+
+0
+
+0
+
+0
+
+HCT 116
+HT-29
+0 10
+25
+40 50
+Concentration (μmol/L)
+
+0 10 25
+50
+100
+Concentration (μmol/L)
+
+0 10 25
+50
+100
+Concentration (μmol/L)
+
+1
+
+1
+
+0.5
+
+0.5
+
+0
+
+0 10
+25
+40 50
+Concentration (μmol/L)
+
+0
+
+1
+
+1
+
+1
+
+0.5
+
+0.5
+
+0.5
+
+0
+
+0 1 10
+50
+100
+Concentration (μmol/L)
+
+Cancer Res; 74(20) October 15, 2014
+
+0
+
+0 1 10
+50
+100
+Concentration (μmol/L)
+
+0
+
+0 10
+25
+40 50
+Concentration (μmol/L)
+
+Figure 4. Inhibition of proliferation,
+clonogenic survival, and migration
+of Human HCT 116 and HT-29
+colorectal cancer cell lines. Graphs
+represent the mean and SEMs of
+relative proliferation, clonogenic
+survival rates, and relative number
+of migrating cells at different
+concentrations of citalopram,
+troglitazone, and enilconazole (see
+Materials and Methods).
+Proliferation assay, mean and
+SEMs for quadruplicate wells in
+increasing cell numbers per well
+(250, 500, 1,000, 2,000 cells per
+well) are indicated by symbols and
+error bars. Migration and
+clonogenic survival assays, mean
+and SEMs for triplicate wells are
+indicated by symbols and error
+bars.
+
+0 1 10
+50
+100
+Concentration (μmol/L)
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst July 18, 2014; DOI: 10.1158/0008-5472.CAN-13-3540
+
+New Drug Candidates for Metastatic Colorectal Cancer
+
+Citalopram
+40
+35
+30
+25
+20
+15
+10
+5
+0
+
+Troglitazone
+
+Control
+Treatment
+
+0 2 4 6 8 10 12 14 16 18 20
+
+60
+50
+40
+30
+20
+10
+0
+
+* P < 0.05
+** P < 0.01
+*** P < 0.001
+
+0 3
+
+C
+
+Tumor weight (g)
+
+Orthotopic
+HCT116 on NOD scid γ mice
+
+0.6
+0.5
+0.4
+0.3
+0.2
+0.1
+0
+
+600
+400
+200
+0
+
+2.5
+2
+1.5
+1
+0.5
+
+Control
+Citalopram
+
+Citalopram
+
+200 μm
+
+0 2 4 8 10121416182022 2426
+
+Day of therapy
+
+800
+
+Liver
+
+Control
+
+6 9 12 15 18 21
+
+Day of therapy
+
+Tumor volume (mm3)
+
+Day of therapy
+
+B
+
+Enilconazole
+60
+50
+40
+30
+20
+10
+0
+
+Circulating tumor cells
+number/mL of blood
+
+Fold tumor volume
+(mean ± SEM)
+
+Subcutaneous
+HCT 116 on NOD scid γ mice
+
+200 μm
+
+0
+* P < 0.05
+** P < 0.01
+*** P < 0.001
+
+Liver metastases
+
+Metastases/liver section
+(mean ± SEM)
+
+A
+
+100
+80
+60
+40
+20
+0
+
+100 μm
+
+100 μm
+
+Metastases/lung section
+(mean ± SEM)
+
+Lung
+
+Lung metastases
+15
+10
+5
+0
+
+Figure 5. Inhibition of in vivo colorectal cancer tumor growth and colorectal cancer metastasis. A, immunodeﬁcient (NOD scid gamma) mice were injected
+subcutaneously with HCT 116 colorectal cancer and treated with citalopram, troglitazone, or enilconazole or their respective vehicles (see Materials
+and Methods). Tumor volumes were measured in both treatments and control mice as indicated. B, NOD scid g mice were injected with HCT
+116 colorectal cancer cells in the cecal wall and treated with either citalopram or vehicle (NaCl 0.9%). After euthanasia, the total tumor size and volumes
+were measured. Blood was taken from control and treated mice and circulating tumor cells counted. C, histology of livers and lungs of
+orthotopic colorectal cancer mice as in B. Exemplary pictures of hematoxylin and eosin stainings of livers and lungs of control animals (left) and
+citalopram-treated animals (middle). Histograms (right) show mean numbers of liver and lung metastases in control animals and citalopram-treated
+animals. In s.c. experiments, the symbols and error bars represent mean and SEM of 12 to 15 animals/group. In orthotopic experiments, data (mean 
+SEM) of 11 animals per group are depicted.
+
+assays evaluating the fraction of apoptotic cells conﬁrmed that
+the compounds were indeed inhibiting metastasis and not
+generally cytotoxic on tumors (Supplementary Fig. S3).
+As subcutaneous tumor models primarily simulate growth
+of the primary tumor and can reproduce the metastatic
+cascade only to a limited extent, we next investigated citalopram in an orthotopic mouse model of colorectal cancer,
+which is able to reproduce the metastatic cascade and mimic
+the clinical course of colorectal cancer (44). We established an
+orthotopic model of colorectal cancer by surgical implantation
+
+www.aacrjournals.org
+
+of a tumor in the cecal wall (see Materials and Methods). Mice
+were treated with citalopram or vehicle. After 35 days, all mice
+in the control group were moribund due to extensive tumor
+burden, whereas the mice in the treatment group were in
+signiﬁcantly better condition. The mice were sacriﬁced and
+tumor volume and tumor weight were measured, which were
+both signiﬁcantly reduced in the citalopram group as compared with the controls (Fig. 5B). As a direct correlate of the
+metastatic activity of a tumor, we also quantiﬁed the CTC in
+the blood of the animals (Supplementary Fig. S4). CTC
+
+Cancer Res; 74(20) October 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+5697
+
+Published OnlineFirst July 18, 2014; DOI: 10.1158/0008-5472.CAN-13-3540
+
+van Noort et al.
+
+numbers were signiﬁcantly reduced in the citalopram-treated
+mice, indicating a reduced metastatic activity of the tumors
+after citalopram treatment. Finally, the number of metastases
+in the livers and lungs were quantiﬁed and revealed a significantly reduced number of metastatic deposits in the livers of
+the animals (Fig. 5C; P < 0.01). The number of metastatic
+nodules in the lungs was also reduced by citalopram treatment,
+however, failed to reach statistical signiﬁcance (P ¼ 0.27).
+These results show that citalopram can inhibit both tumor
+growth as well as metastasis of colorectal cancer.
+
+Discussion
+Using a system pharmacology approach based on the integration of publicly available drug-induced gene-expression
+data, we inferred that the antidiabetic drug troglitazone, the
+antifungal drug enilconazole, and the antidepressant citalopram could potentially lead to novel therapeutics for the
+prevention of metastasis in colorectal cancer, thereby reducing
+the leading cause of death in patients with colorectal cancer.
+On the basis of the known mode of action of the top correlated
+drugs and functional analysis of inhibited genes, we propose
+that the main mode of action of these compounds is via the
+inhibition of TGFb signaling. We performed experimental
+validations for the anticancer activities of all three compounds
+using in vitro and subcutaneous tumor models in mice and we
+showed the efﬁcacy of citalopram in an orthotopic mouse
+model of colorectal cancer, which is the clinically most relevant
+model to examine the effects of a compound on the process of
+metastasis.
+In an orthotopic model, we demonstrated that citalopram
+had effects on both CTC numbers, the gold-standard surrogate
+marker for metastatic activity (45) as well as on the number of
+hepatic metastases, which is the clinically apparent outcome of
+a tumor's metastatic activity.
+Because of low tolerability in the subcutaneous model, we
+could not test enilconazole and troglitazone in the orthotopic
+colorectal cancer model. Still, the in vitro experiments show the
+desired effect so that they represent promising leads to arrive
+at similar compounds, which are tolerated better and can be
+tested against metastatic colorectal cancer in the future.
+Although the number of hepatic metastases was signiﬁcantly reduced in the citalopram-treated orthotopic colorectal
+cancer mice, the number of pulmonary foci was reduced as
+well, although this effect failed to reach statistical signiﬁcance.
+This can most likely be explained by the ﬁlter effect of the
+hepatic capillary bed. As previously shown, the number of
+circulating tumor cells is signiﬁcantly reduced in the blood
+after having passed the liver (i.e., the hepatic veins) as compared with before passing the liver (i.e., in the portal vein;
+
+ref. 46). This ﬁlter effect may have weakened the impact of the
+treatment on pulmonary metastasis.
+The heterogeneity of cancers and especially colorectal cancer makes us hypothesize that even better novel therapies
+could be developed through systems pharmacology. There are
+many different subtypes, both genetically, such as microsatellite-stable versus unstable or BRAF-driven versus KRASdriven and histologically, such as serrated versus classical
+colorectal cancer (47). In the future, the subclassiﬁcation and
+molecular characterization of these colorectal cancer subtypes
+into more speciﬁc diseases as well as the development of
+corresponding murine disease models that mimic the speciﬁc
+disease subtypes will allow for the discovery of better targeted,
+stratiﬁed therapies.
+We conclude that our implementation of the reverse geneexpression proﬁling concept shows very promising results for
+the retrieval of novel candidate drugs; in particular, for the
+treatment of cancer-like disease as we have shown in our
+general analysis. Indeed, CMap employs cancer cell lines to
+establish drug-induced gene-expression proﬁles where many
+genes involved in cancer-relevant pathways are expressed.
+In the LINCS consortium, more data are being generated
+for various types of human primary cells and cell lines that
+will even improve the power of this approach (http://www.
+lincsproject.org). More relevant cell line or tissue models will
+make this approach more broadly applicable to other types of
+diseases in addition to cancer.
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+Authors' Contributions
+Conception and design: V. van Noort, S. Sch€olch, M. Iskar, M. Koch, P. Bork
+Development of methodology: V. van Noort, S. Sch€olch, M. Iskar, G. Zeller,
+C. Schweitzer, K. Werner
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): S. Sch€
+olch, K. Ostertag, C. Schweitzer, J. Weitz
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics, computational analysis): V. van Noort, S. Sch€olch, M. Iskar,
+G. Zeller, K. Ostertag, C. Schweitzer, K. Werner
+Writing, review, and/or revision of the manuscript: V. van Noort, S. Sch€
+olch,
+M. Iskar, G. Zeller, K. Ostertag, J. Weitz, M. Koch, P. Bork
+Administrative, technical, or material support (i.e., reporting or organizing data, constructing databases): V. van Noort, S. Sch€
+olch, C. Schweitzer,
+K. Werner
+Study supervision: V. van Noort, S. Sch€olch, M. Koch, P. Bork
+
+Grant Support
+This work received funding through the CancerBiome project (European
+Research Council project reference 268985).
+The costs of publication of this article were defrayed in part by the payment
+of page charges. This article must therefore be hereby marked advertisement
+in accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+Received December 13, 2013; revised June 25, 2014; accepted July 3, 2014;
+published OnlineFirst July 18, 2014.
+
+References
+1.
+
+2.
+
+5698
+
+Lamb J, Crawford ED, Peck D, Modell JW, Blat IC, Wrobel MJ, et al. The
+Connectivity Map: using gene-expression signatures to connect small
+molecules, genes, and disease. Science 2006;313:1929–35.
+Iorio F, Tagliaferri R, di Bernardo D. Identifying network of drug mode of
+action by gene expression proﬁling. J Comput Biol 2009;16:241–51.
+
+Cancer Res; 74(20) October 15, 2014
+
+3.
+
+4.
+
+Dudley JT, Sirota M, Shenoy M, Pai RK, Roedder S, Chiang AP, et al.
+Computational repositioning of the anticonvulsant topiramate for
+inﬂammatory bowel disease. Sci Transl Med 2011;3:96ra76.
+Sirota M, Dudley JT, Kim J, Chiang AP, Morgan AA, Sweet-Cordero A,
+et al. Discovery and preclinical validation of drug indications using
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst July 18, 2014; DOI: 10.1158/0008-5472.CAN-13-3540
+
+New Drug Candidates for Metastatic Colorectal Cancer
+
+5.
+
+6.
+
+7.
+
+8.
+9.
+10.
+11.
+12.
+
+13.
+14.
+
+15.
+
+16.
+
+17.
+
+18.
+19.
+
+20.
+
+21.
+
+22.
+
+23.
+
+24.
+
+25.
+
+26.
+
+compendia of public gene expression data. Sci Transl Med 2011;
+3:96ra77.
+Kunkel SD, Suneja M, Ebert SM, Bongers KS, Fox DK, Malmberg SE,
+et al. mRNA expression signatures of human skeletal muscle atrophy
+identify a natural compound that increases muscle mass. Cell Metab
+2011;13:627–38.
+Jahchan NS, Dudley JT, Mazur PK, Flores N, Yang D, Palmerton A,
+et al. A drug repositioning approach identiﬁes tricyclic antidepressants
+as inhibitors of small cell lung cancer and other neuroendocrine
+tumors. Cancer Discov 2013;3:1364–77.
+Iskar M, Campillos M, Kuhn M, Jensen LJ, van Noort V, Bork P.
+Drug-induced regulation of target expression. PLoS Comput Biol
+2010;6.
+Siegel R, Naishadham D, Jemal A. Cancer statistics, 2013. CA Cancer
+J Clin 2013;63:11–30.
+Weitz J, Koch M, Debus J, Hohler T, Galle PR, Buchler MW. Colorectal
+cancer. Lancet 2005;365:153–65.
+Cunningham D, Atkin W, Lenz HJ, Lynch HT, Minsky B, Nordlinger B,
+et al. Colorectal cancer. Lancet 2010;375:1030–47.
+Vogelstein B, Papadopoulos N, Velculescu VE, Zhou S, Diaz LA Jr,
+Kinzler KW. Cancer genome landscapes. Science 2013;339:1546–58.
+Rahbari NN, Aigner M, Thorlund K, Mollberg N, Motschall E, Jensen K,
+et al. Meta-analysis shows that detection of circulating tumor cells
+indicates poor prognosis in patients with colorectal cancer. Gastroenterology 2010;138:1714–26.
+Pantel K, Riethdorf S. Pathology: are circulating tumor cells predictive
+of overall survival? Nat Rev Clin Oncol 2009;6:190–1.
+Steinert G, Scholch S, Koch M, Weitz J. Biology and signiﬁcance of
+circulating and disseminated tumour cells in colorectal cancer. Langenbecks Arch Surg 2012;397:535–42.
+Cohen SJ, Punt CJ, Iannotti N, Saidman BH, Sabbath KD, Gabrail NY,
+et al. Relationship of circulating tumor cells to tumor response, progression-free survival, and overall survival in patients with metastatic
+colorectal cancer. J Clin Oncol 2008;26:3213–21.
+Steinert G, Scholch S, Niemietz T, Iwata N, Garcia SA, Behrens B, et al.
+Immune escape and survival mechanisms in circulating tumor cells of
+colorectal cancer. Cancer Res 2014;74:1694–704.
+van der Bij GJ, Oosterling SJ, Beelen RH, Meijer S, Coffey JC, van
+Egmond M. The perioperative period is an underutilized window of
+therapeutic opportunity in patients with colorectal cancer. Ann Surg
+2009;249:727–34.
+Lamb J. The Connectivity Map: a new tool for biomedical research. Nat
+Rev Cancer 2007;7:54–60.
+Barrett T, Troup DB, Wilhite SE, Ledoux P, Evangelista C, Kim IF, et al.
+NCBI GEO: archive for functional genomics data sets–10 years on.
+Nucleic Acids Res 2011;39:D1005–10.
+Butte AJ, Chen R. Finding disease-related genomic experiments within
+an international repository: ﬁrst steps in translational bioinformatics.
+AMIA Annu Symp Proc 2006:106–10.
+Dudley JT, Butte AJ. Identiﬁcation of discriminating biomarkers for
+human disease using integrative network biology. Pac Symp Biocomput 2009:27–38.
+Pacini C, Iorio F, Goncalves E, Iskar M, Klabunde T, Bork P, et al. DvD:
+an R/Cytoscape pipeline for drug repurposing using public repositories
+of gene expression data. Bioinformatics 2013;29:132–4.
+Irizarry RA, Bolstad BM, Collin F, Cope LM, Hobbs B, Speed TP.
+Summaries of Affymetrix GeneChip probe level data. Nucleic Acids
+Res 2003;31:e15.
+Subramanian A, Tamayo P, Mootha VK, Mukherjee S, Ebert BL, Gillette
+MA, et al. Gene set enrichment analysis: a knowledge-based approach
+for interpreting genome-wide expression proﬁles. Proc Natl Acad Sci U
+S A 2005;102:15545–50.
+Jorissen RN, Gibbs P, Christie M, Prakash S, Lipton L, Desai J, et al.
+Metastasis-associated gene expression changes predict poor outcomes in patients with dukes stage B and C colorectal cancer. Clin
+Cancer Res 2009;15:7642–51.
+Abdollahi A, Lipson KE, Han X, Krempien R, Trinh T, Weber KJ, et al.
+SU5416 and SU6668 attenuate the angiogenic effects of radiationinduced tumor cell growth factor production and amplify the direct
+
+www.aacrjournals.org
+
+27.
+
+28.
+
+29.
+30.
+
+31.
+
+32.
+
+33.
+
+34.
+
+35.
+
+36.
+37.
+
+38.
+
+39.
+
+40.
+
+41.
+
+42.
+
+43.
+
+44.
+
+45.
+46.
+
+47.
+
+anti-endothelial action of radiation in vitro. Cancer Res 2003;63:
+3755–63.
+Huber PE, Bischof M, Jenne J, Heiland S, Peschke P, Saffrich R, et al.
+Trimodal cancer treatment: beneﬁcial effects of combined antiangiogenesis, radiation, and chemotherapy. Cancer Res 2005;65:3643–55.
+Motulsky HJ, Brown RE. Detecting outliers when ﬁtting data with
+nonlinear regression - a new method based on robust nonlinear regression and the false discovery rate. BMC Bioinformatics 2006;7:123.
+Qu XA, Rajpal DK. Applications of Connectivity Map in drug discovery
+and development. Drug Discov Today 2012;17:1289–98.
+Ki DH, Jeung HC, Park CH, Kang SH, Lee GY, Lee WS, et al. Whole
+genome analysis for liver metastasis gene signatures in colorectal
+cancer. Int J Cancer 2007;121:2005–12.
+Pantaleo MA, Astolﬁ A, Nannini M, Paterini P, Piazzi G, Ercolani G, et al.
+Gene expression proﬁling of liver metastases from colorectal cancer as
+potential basis for treatment choice. Br J Cancer 2008;99:1729–34.
+Ganepola GA, Mazziotta RM, Weeresinghe D, Corner GA, Parish CJ,
+Chang DH, et al. Gene expression proﬁling of primary and metastatic
+colon cancers identiﬁes a reduced proliferative rate in metastatic
+tumors. Clin Exp Metastasis 2010;27:1–9.
+Rousset N, Vonarx V, Eleouet S, Carre J, Kerninon E, Lajat Y, et al.
+Effects of photodynamic therapy on adhesion molecules and metastasis. J Photochem Photobiol B 1999;52:65–73.
+Wu H, Liang X, Fang Y, Qin X, Zhang Y, Liu J. Resveratrol inhibits
+hypoxia-induced metastasis potential enhancement by restricting
+hypoxia-induced factor-1 alpha expression in colon carcinoma cells.
+Biomed Pharmacother 2008;62:613–21.
+Luo XG, Zou JN, Wang SZ, Zhang TC, Xi T. Novobiocin decreases
+SMYD3 expression and inhibits the migration of MDA-MB-231 human
+breast cancer cells. IUBMB Life 2010;62:194–9.
+Pankov R, Yamada KM. Fibronectin at a glance. J Cell Sci 2002;
+115:3861–3.
+Wang PS, Chou FS, Porchia L, Saji M, Pinzone JJ. Troglitazone inhibits
+cell migration, adhesion, and spreading by modulating cytoskeletal
+rearrangement in human breast cancer cells. Mol Carcinog 2008;
+47:905–15.
+Aizawa J, Sakayama K, Kamei S, Kidani T, Yamamoto H, Norimatsu Y,
+et al. Effect of troglitazone on tumor growth and pulmonary metastasis
+development of the mouse osteosarcoma cell line LM8. BMC Cancer
+2010;10:51.
+Steffan JJ, Cardelli JA. Thiazolidinediones induce Rab7-RILP-MAPKdependent juxtanuclear lysosome aggregation and reduce tumor cell
+invasion. Trafﬁc 2010;11:274–86.
+Hocevar BA, Brown TL, Howe PH. TGF-beta induces ﬁbronectin
+synthesis through a c-Jun N-terminal kinase-dependent, Smad4independent pathway. EMBO J 1999;18:1345–56.
+Wang H, Zhang H, Tang L, Chen H, Wu C, Zhao M, et al. Resveratrol
+inhibits TGF-beta1-induced epithelial-to-mesenchymal transition and
+suppresses lung cancer invasion and metastasis. Toxicology 2013;
+303:139–46.
+Coras R, Holsken A, Seufert S, Hauke J, Eyupoglu IY, Reichel M, et al.
+The peroxisome proliferator-activated receptor-gamma agonist troglitazone inhibits transforming growth factor-beta-mediated glioma
+cell migration and brain invasion. Mol Cancer Ther 2007;6:1745–54.
+Zhou B, Buckley ST, Patel V, Liu Y, Luo J, Krishnaveni MS, et al.
+Troglitazone attenuates TGF-beta1-induced EMT in alveolar epithelial
+cells via a PPARgamma-independent mechanism. PLoS ONE 2012;7:
+e38827.
+Guilbaud N, Kraus-Berthier L, Meyer-Losic F, Malivet V, Chacun C, Jan
+M, et al. Marked antitumor activity of a new potent acronycine derivative in orthotopic models of human solid tumors. Clin Cancer Res
+2001;7:2573–80.
+Pantel K, Alix-Panabieres C, Riethdorf S. Cancer micrometastases.
+Nat Rev Clin Oncol 2009;6:339–51.
+Rahbari NN, Bork U, Kircher A, Nimitz T, Scholch S, Kahlert C, et al.
+Compartmental differences of circulating tumor cells in colorectal
+cancer. Ann Surg Oncol 2012;19:2195–202.
+Comprehensive molecular characterization of human colon and rectal
+cancer. Nature 2012;487:330–7.
+
+Cancer Res; 74(20) October 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+5699
+
+Published OnlineFirst July 18, 2014; DOI: 10.1158/0008-5472.CAN-13-3540
+
+Novel Drug Candidates for the Treatment of Metastatic Colorectal
+Cancer through Global Inverse Gene-Expression Profiling
+Vera van Noort, Sebastian Schölch, Murat Iskar, et al.
+Cancer Res 2014;74:5690-5699. Published OnlineFirst July 18, 2014.
+
+Updated version
+Supplementary
+Material
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-13-3540
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2014/07/21/0008-5472.CAN-13-3540.DC1
+
+Cited articles
+
+This article cites 44 articles, 15 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/74/20/5690.full#ref-list-1
+
+E-mail alerts
+
+Sign up to receive free email-alerts related to this article or journal.
+
+Reprints and
+Subscriptions
+Permissions
+
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+

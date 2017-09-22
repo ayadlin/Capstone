@@ -1,0 +1,1151 @@
+Oncotarget, Vol. 7, No. 39
+
+www.impactjournals.com/oncotarget/
+
+Research Paper
+
+Modeling of signaling crosstalk-mediated drug resistance and its
+implications on drug combination
+Xiaoqiang Sun1,2,3, Jiguang Bao4, Zhuhong You5, Xing Chen6, Jun Cui3,7
+1
+
+Zhongshan School of Medicine, Sun Yat-Sen University, Guangzhou, 510080, China
+
+2
+
+School of Mathematical and Computational Science, Sun Yat-Sen University, Guangzhou, 510000, China
+
+3
+
+School of Life Science, Sun Yat-Sen University, Guangzhou, 510275, China
+
+4
+
+School of Mathematical Sciences, Beijing Normal University, Beijing, 100875, China
+
+5
+
+School of Computer Science and Technology, China University of Mining and Technology, Xuzhou, 221116, China
+
+6
+
+School of Information and Electrical Engineering, China University of Mining and Technology, Xuzhou, Jiangsu, 221116, China
+
+7
+
+Collaborative Innovation Center of Cancer Medicine, Sun Yat-sen University, Guangzhou, 510060, China
+
+Correspondence to: Xiaoqiang Sun, email: xiaoqiangsun88@gmail.com, dongbusun@163.com
+Xing Chen, email: xingchen@amss.ac.cn
+Jun Cui, email: cuij5@mail.sysu.edu.cn
+Keywords: signaling crosstalk, drug resistance, drug combination, synergism
+Received: June 16, 2016     Accepted: August 26, 2016     Published: August 31, 2016
+
+Abstract
+The efficacy of pharmacological perturbation to the signaling transduction
+network depends on the network topology. However, whether and how signaling
+dynamics mediated by crosstalk contributes to the drug resistance are not fully
+understood and remain to be systematically explored. In this study, motivated by
+a realistic signaling network linked by crosstalk between EGF/EGFR/Ras/MEK/
+ERK pathway and HGF/HGFR/PI3K/AKT pathway, we develop kinetic models for
+several small networks with typical crosstalk modules to investigate the role of the
+architecture of crosstalk in inducing drug resistance. Our results demonstrate that
+crosstalk inhibition diminishes the response of signaling output to the external stimuli.
+Moreover, we show that signaling crosstalk affects the relative sensitivity of drugs,
+and some types of crosstalk modules that could yield resistance to the targeted drugs
+were identified. Furthermore, we quantitatively evaluate the relative efficacy and
+synergism of drug combinations. For the modules that are resistant to the targeted
+drug, we identify drug targets that can not only increase the relative drug efficacy but
+also act synergistically. In addition, we analyze the role of the strength of crosstalk
+in switching a module between drug-sensitive and drug-resistant. Our study provides
+mechanistic insights into the signaling crosstalk-mediated mechanisms of drug
+resistance and provides implications for the design of synergistic drug combinations
+to reduce drug resistance.
+
+INTRODUCTION
+
+and how the signaling dynamics mediated by crosstalk
+contributes to the drug resistance are intriguing and remain
+to be systematically investigated.
+Various cancer studies for targeted therapy
+suggested that the signaling crosstalk could provide subtle
+posttranslational activation of signaling pathways which
+can bypass the stress of the therapeutic target and further
+modulate the expression patterns of oncogenes [12–14]. For
+example, a crosstalk (ERK inhibiting HGFR) exists between
+EGF/EGFR/Ras/Raf/MEK/ERK pathway and HGF/HGFR/
+PI3K/AKT pathway [15]. Relief of profound crosstalk
+
+Drug resistance is often an inevitable obstacle
+in drug efficacy of the targeted therapeutics for cancer
+patients [1–3]. Many paradigms of mechanisms have
+been revealed to explain the drug resistance at molecular,
+cellular and microenvironmental levels [4–9]. Intracellular
+signaling pathways link the cell’s genome to the
+extracellular microenvironment [10]. Various types of
+crosstalk among such signaling pathways enable dynamic
+modulations of signal transduction network [11]. Whether
+www.impactjournals.com/oncotarget
+
+63995
+
+Oncotarget
+
+inhibition of HGFR signaling by drugs (or  inhibitors)
+targeting BRAF attenuates the drug efficacy in BRAFV600E
+melanomas [15, 16]. Moreover, crosstalk among signaling
+pathways may occur at multiple levels of signal transduction
+[17, 18]. For instance, EGFR/HER2 signaling pathways can
+crosstalk with other receptor tyrosine kinases, including
+MET, IGF1R, FGFR and EphA2, at the receptor level via
+the shared downstream targets of EGFR/HER2. At mediator
+level, the activation of mutated BRAF crosstalks with the
+upstream receptors such as EGFR and can independently
+activate downstream effectors [19].
+Biological signaling pathways in cells are known
+to often interact with each other via extensive signaling
+crosstalk. Crosstalk-linked signaling modules [20]
+or motifs [21, 22] may carry out key functions of the
+signaling network. Therefore, it’s instructive to analyze
+the key kinetics of small signaling networks to get
+more mechanistic understanding on the properties and
+functions of typical modules. Previous studies have
+developed some motif-based models to investigate the
+dependence of drug efficacy on the network topology.
+Behar, M. et al. [10] examined how the combinations of
+signaling hub topologies and dynamical signals affect
+the relative sensitivity of the stimulus response to the
+pharmacological perturbations. Zhang, Y. et al. [23]
+computationally analyzed how variations in pairs of
+parameters synergistically (or antagonistically) affect the
+response in a series of small molecular network motifs.
+Van, W.R. et al. [24] investigated non-monotonic inputoutput relation arising from simple network topologies by
+analyzing two simple interacting linear signaling pathways
+that carry two different signals with different physiological
+responses. However, these works did not investigate the
+causal relationship between the architectures of crosstalk
+in the signaling network and drug resistance.
+In this study, we investigated the contributions
+of signaling crosstalk to the drug resistance using
+module-based kinetic modeling approach. Motivated
+by experimental evidence of drug resistance mediated
+by crosstalk between signaling pathways, we developed
+kinetic models for eight small molecular networks with
+typical crosstalk modules. We investigated the signaling
+dynamics of proteins in the modules with or without the
+drug treatment. Our simulations demonstrated that various
+types of signaling crosstalk could afford rich dynamics of
+proteins in the modules, and that crosstalk inhibition could
+diminish the response of signaling output to the stimuli.
+Moreover, we found that signaling crosstalk affects the
+relative sensitivity of drugs, and we further identified some
+crosstalk modules that could result in resistance to the
+targeted drugs. In addition to the structure of the crosstalk,
+the kinetic parameters of crosstalk, i.e., the strength of
+the crosstalk, might also be important in determining the
+network dynamics. Therefore, we further analyzed the role
+of the crosstalk strength in switching a module between
+drug-sensitive and drug-resistant responses.
+www.impactjournals.com/oncotarget
+
+As a promising strategy to overcome drug
+resistance, combination therapy has been suggested to
+improve the effects of targeted therapeutics [25–29].
+As demonstrated by Yin, N., et al. [30], the synergism
+or antagonism of drug combinations largely depends on
+the network topology. Moreover, the synergism of drug
+combinations is not always identical to effectiveness.
+Therefore, to both synergistically and effectively reduce
+drug resistance, it’s important to select drug targets in the
+signaling network for rationally designing optimal drug
+combinations [29, 31, 32]. We therefore quantitatively
+evaluated both the relative efficacy and synergism of
+drug combinations. For the modules that were resistant
+to the targeted drug, we identified pairs of drug targets
+that could not only increase the relative drug efficacy but
+also exhibit synergistic effect when they were targeted
+in a combinatorial manner. Our results indicated that
+the downstream proteins or transcriptional factors in the
+crosstalk-linked signaling pathways might be important
+potential targets of drug combination to reduce the
+resistance of targeted therapeutics.
+
+RESULTS
+Experimental evidence and computational
+modeling
+We first examined a realistic case of widely studied
+signaling pathways as shown in Figure 1. Stimulated
+by growth factors EGF and HGF respectively, EGFR/
+Ras/Raf/MEK/ERK and HGFR/PI3K/AKT pathways
+[15] converge to phosphorylate BAD [16] that plays
+a critical anti-apoptotic role in many types of tumor
+cells [33]. A crosstalk inhibition from ERK to HGFR
+exists between these two pathways. Relief of profound
+crosstalk inhibition of HGFR signaling by drugs (or
+inhibitors) targeting BRAF attenuates the drug efficacy
+in BRAFV600E melanomas [19]. As such, this signaling
+crosstalk contributes to drug resistance.
+Motivated by this experimental evidence, we then
+asked a more general question about how signaling
+dynamics of crosstalk-linked modules affect the drug
+efficacy and which types of signaling crosstalk could result
+in the drug resistance. For simplicity, we investigated two
+interacting pathways stimulated by two growth factors G1
+and G2, respectively, as shown in Figure 2A (left panel).
+G1 promotes the phosphorylation of protein R1 into R1*,
+and G2 promotes the phosphorylation of protein R2 into
+R2*. The signaling cascades from R1 and R2 activate P1 and
+P2, respectively. The activated P1* and P2* converge to the
+output, O, and promote its activation or expression. The
+drug was considered to inhibit the activation of P1. Since
+our study focuses on the effects of crosstalk between two
+signaling pathways in the core module (blue dashed line)
+on the drug efficacy, we represented this module of
+enzyme-catalyzed cascades as an abbreviated reaction
+63996
+
+Oncotarget
+
+form, module 0 (M0). As shown in the right panel of
+Figure 2A, these two pathways were simply and generally
+represented as G1-A-B and G2-C-D, where G1 and G2 are
+two growth factors, A and C represent upstream receptors
+or proteins, and B and D represent downstream proteins or
+transcriptional factors.
+We then considered 8 typical modules that contain
+different types of signaling crosstalk (Figure 2B): M1, A
+activating D; M2, A inhibiting D; M3, B activating C; M4,
+B inhibiting C; M5, B activating C, and D activating A;
+M6, B inhibiting C, and D inhibiting A; M7, B inhibiting
+C, and D activating A; M8, B activating C, and D
+inhibiting A. For simplicity, only these 8 typical modules
+were considered, with the assumption of network
+symmetry. The basic module 0 without crosstalk was
+chosen as a control case for comparison. A drug inhibiting
+B was incorporated for all modules. We used kinetic
+equations (see Materials and Methods) to simulate the
+temporal activations of proteins in each signaling module.
+
+identical, so were that of B and D. Their activation levels
+were elevated up by the stimuli and then decreased due
+to their degradation after the elimination of the stimuli.
+In the module 1, due to the crosstalk activation from A
+to D, the level of D was higher than that in the module 0.
+Whereas in the module 2, the activation level of D was
+diminished due to the crosstalk inhibition from A to D.
+In the module 3, the activation levels of C and D were
+higher than that in the module 0, the opposite situation
+was observed for the module 4 where the activation of
+C as well as D was inhibited by B. Interestingly, the
+activations of proteins in module 5 exhibited persistence
+even after the elimination of the stimuli, which was due to
+the mutual crosstalk activation between two pathways. In
+the module 6, we assumed the crosstalk inhibition from D
+to A was stronger than that from B to C, so the pathway
+A-B-O was repressed. In the modules 7 and 8, incoherent
+mutual crosstalk between two pathways enhanced one
+side of signaling but inhibited another side. Overall, the
+levels of signaling outputs in the modules with crosstalk
+inhibition (modules 2, 4, 6, 7 and 8) were lower than that
+in other modules (modules 0, 1, 3 and 5).
+
+Signaling crosstalk affects stimuli-response
+dynamics
+We investigated the dynamics of components in
+various signaling modules in response to the stimuli of G1
+and G2 without drug treatment (Figure 3). Different types
+of crosstalk resulted in different dynamics of proteins
+and signaling output. In the basic module 0, due to the
+assumption of symmetry, the time courses of A and C were
+
+Signaling crosstalk affects drug sensitivity
+Next, we incorporated the drug effects into the model
+and investigated the influence of signaling crosstalk on the
+kinetics of proteins in various modules. In our simulation,
+component B was chosen as the drug target. Different
+
+Figure 1: Drug resistance mediated by crosstalk inhibition between EGF/EGFR/Ras/Raf/MEK/ERK and HGF/
+HGFR/PI3K/AKT pathways in BRAFV600E melanomas [15]. These two pathways promote the phosphorylation of BAD [16]
+
+that plays a critical role in anti-apoptosis of many types of tumor cells [33]. High levels of ERK-dependent crosstalk inhibition suppress
+HGFR signaling and PI3K activation. BRAFV600E is sensitive to RAF inhibitor that potently inhibits BRAF and ERK signaling, resulting
+in relief of ERK-dependent crosstalk inhibition and reactivation of HGFR signal transduction. This, in turn, sustains the activation and
+function of downstream BAD signaling and attenuates the drug efficacy in BRAFV600E melanomas [15].
+www.impactjournals.com/oncotarget
+
+63997
+
+Oncotarget
+
+types of signaling crosstalk have different impacts on the
+drug-induced dynamics of proteins and signaling output
+(Figure 4). Under the drug treatment, the activation of
+B was significantly decreased in all the modules. Other
+proteins presented various distinct dynamics in different
+modules. Particularly, in module 2, due to the crosstalk
+inhibition of D by A, both the activation of B and D were
+downregulated thus the signaling output was significantly
+decreased. Notably, the persistence of signaling activation
+in module 5 without drug treatment (Figure 3) was
+disappeared due to the drug treatment.
+We calculated relative drug efficacy (see Materials
+and Methods) for 8 different modules. The drug efficacies
+in modules 1, 4, 6, 7 and 8 were less than 0 (Figure 5),
+indicating that the drug-induced relative reduction of
+output in these modules were lower than that in the basic
+module 0. This result demonstrated that the signaling
+crosstalk in these modules could dampen the efficacy of
+B-targeting drug and thus contribute to the drug resistance.
+We then take a close look at the kinetics of these
+drug-resistant modules (1, 4, 6, 7 and 8) to get more
+mechanistic insights into the crosstalk-mediated drug
+
+resistance. The module 1 represents a common molecular
+mechanism underlying the drug resistance of targeted
+therapy. Although component B in one side of the pathway
+was inhibited by the drug, the bypassing signaling from
+A to D increased the signaling in the other pathway thus
+maintained the signaling output. The module 4 contains
+a crosstalk inhibition from B to C. The B-targeting drug
+relieved this inhibition and thus restored the signals of
+C and D and the activation of the output. The crosstalkmediated dynamic adaptation of the cell signaling system
+to the drug treatment provides an important mechanism
+underlying drug resistance, which is consistent with
+Figure 1 and validated by experiments in [19]. In addition,
+our simulation (Figure 5) also suggested that the mutual
+crosstalk inhibition in module 6 could result in drug
+resistance, which is consistent with a realistic module as
+shown in Figure S1 and the experimental results in [34].
+Similar mechanism holds for modules 7 and 8 where
+crosstalk inhibition exists.
+We also examined the relative efficacy of B-targeting
+drug under various forms of input stimuli (Figure S2). In
+the simulation, the stimuli of G1 and G2 were varied alone
+
+Figure 2: Typical crosstalk-linked signaling modules. Various modules contain different types of crosstalk between two signaling
+pathways. (A) A small network of enzyme-catalyzed cascades with crosstalk between two pathways stimulated by two growth factors G1
+and G2, respectively. G1 promotes the phosphorylation of protein R1 into R1*, and G2 promotes the phosphorylation of protein R2 into R2*.
+The signals from R1* or R2* activates P1 or P2, respectively. The activated P1* and P2* converge to promote the activation or expression of
+the signaling output, O. The drug is considered to inhibit the activation of P1. This study focuses on the effects of crosstalk between two
+pathways in the core module (blue dashed line) of the signaling network on the drug efficacy. We reduced this module to a simplified
+form represented as module 0 (M0) as shown in the right panel. This basic module 0 without crosstalk was chosen as a control case
+for comparison. (B) Various modules that contain different types of signaling crosstalk: M1, A activating D; M2, A inhibiting D; M3,
+B activating C; M4, B inhibiting C; M5, B activating (C and D) activating A; M6, B inhibiting C, and D inhibiting A; M7, B inhibiting C,
+and D activating A; M8, B activating C, and D inhibiting A. For simplicity, we only considered these 8 typical modules containing one- and
+two-crosstalk links that were commonly found in intracellular signaling networks.
+www.impactjournals.com/oncotarget
+
+63998
+
+Oncotarget
+
+of drug combinations than the basic module. Moreover,
+compared to the effects of single B-targeting drug
+(Figure 5), only a portion of drug targets in combination
+with B resulted in the increase of the relative drug efficacy
+(Table 1). This implies that, in order to improve the
+efficacy of the targeted therapy using drug combination,
+the appropriate drug targets should be chosen and
+combined.
+We then quantitatively evaluated synergism for
+various drug combinations using Bliss combination index
+(see Materials and Methods). The values of combination
+index (CI) of different drug combinations used for modules
+1–8 were computed (Figure 6B). The synergism patterns
+of different modules with various drug combinations
+were shown in Figure 6C, where white represented
+synergy (CI > 0.05), gray additivity (CI < − 0.05) and
+black antagonism (−0.05 < CI < 0.05). It should be noted
+that in this work 5% perturbation by noise is tolerated to
+separate the synergy and antagonism, taking into account
+of noise effects [37]. These results demonstrated that drug
+combinations in different modules exhibited differential
+synergism or antagonism, indicating that the topology of
+crosstalk played an important role in affecting the efficacy
+and synergism of drug combinations. In addition, we
+found that not all drug targets combined with B exhibited
+synergistic effects in various modules (Table 2).
+For modules 1, 4, 6, 7, and 8 that were resistant to the
+B-targeting drug, combining D with B as drug targets could
+
+or simultaneously to various types. Modules 1, 4, 6, 7 and 8
+are more prone to resisting B-targeting drugs (Figure S3),
+which is consistent with the above results (Figure 5).
+
+In silico screening of drug combinations
+The rational application of drug combinations
+has been suggested to be beneficial for combating drug
+resistance [27]. Given the limitation of the molecularly
+targeted agents currently available, the traditional
+experimental screening approach is expensive, time
+consuming and practically unfeasible. In silico screening
+of drug combinations provides an alternative rational
+approach [35, 36]. Here we employed the kinetic model
+to examine whether combinatorial drugs perform better
+than the single drug in the context of drug resistance based
+on various module structures. We used the relative drug
+efficacy and synergism as two indices to evaluate the drug
+combinations for various modules.
+The relative efficacies of drug combinations for
+different modules were shown in Figure 6A. For module
+i, if the relative efficacy of drug combination is greater
+than 0, then the drug combination induced more reduction
+in integrated output compared to the basic module, vice
+versa. Different drug combinations and different modules
+exhibited different drug efficacy. For a specific module,
+some drug combinations had positive relative efficacy,
+indicating that this module allowed better performance
+
+Figure 3: Temporal dynamics of proteins in various modules without drug treatment. Different types of crosstalk resulted
+in different dynamics of proteins and signaling output. “Active (frac)” indicates fraction of activation of each protein.
+www.impactjournals.com/oncotarget
+
+63999
+
+Oncotarget
+
+The impacts of strength of signaling crosstalk on
+the drug efficacy and synergism patterns
+
+not only increase the relative drug efficacies of these modules
+(Table 1) but also exhibit synergistic effects (Table 2). This
+indicates that the downstream proteins or transcriptional
+factors in two parallel pathways of crosstalk-linked signaling
+modules might be important potential targets of drug
+combination that effectively and synergistically reduces the
+resistance of targeted therapeutics.
+
+We then examined how the changes in the strength
+of signaling crosstalk in various modules affected the drug
+efficacy and synergism patterns of the drug combination.
+Our simulation demonstrated that the increasing strength
+
+Figure 4: Temporal dynamics of proteins in various modules under the treatment of B-targeting drug. Different types of
+signaling crosstalk have different impacts on the drug-induced dynamics of proteins and signaling output. “Active (frac)” indicates fraction
+of activation of each protein.
+
+Figure 5: Relative drug efficacies of 8 modules under the treatment of B-targeting drug. Modules 1, 4, 6, 7 and 8 exhibited
+lower drug efficacies as compared to the basic module 0, indicating that the crosstalk in these modules could render cells insensitive to the
+drug treatment.
+www.impactjournals.com/oncotarget
+
+64000
+
+Oncotarget
+
+of signaling crosstalk affected drug sensitivities,
+particularly for module 4, 5 and 7 (Figure 7). As the
+strength of crosstalk increased, modules 4 and 7 switched
+from drug-resistance to be drug-sensitive, whereas the
+mode of module 5 switched from drug-sensitive to drugresistant. Furthermore, the increase in the strength of
+crosstalk enhanced the drug resistance in modules 1, 6
+and 8 and amplified the drug sensitivity in module 2. The
+relative drug efficacy in module 3 was affected slightly by
+the strength of crosstalk.
+We further investigated the signaling dynamics in
+modules 4, 5 and 7 with increased strengths of crosstalk
+(10 folds of the normal strength). The signaling kinetics
+in modules 4, 5 and 7 without and with drug treatment
+were shown in Figure 8A–8C and Figure 8D–8F,
+respectively. Compared to the normal situation in Figure 3,
+the stronger crosstalk inhibition of C by B in modules
+4 and 7 resulted in more repression of C and D
+(Figure 8A, 8C). Following the drug treatment, in module
+4 and 7 (Figure 8D), although B was decreased at a low
+level by drug treatment, C and D were still repressed by
+B due to the strong crosstalk inhibition. Therefore, in this
+situation, the signaling output was reduced more than that
+in normal situation (Figure 4) and, thus, more sensitive
+to the drug treatment. For module 5, the strong mutual
+activation between two pathways resulted in a more robust
+
+persistence of the signaling activation (Figure 8B). As
+such, the persistence of the signaling in module 5 was not
+lost when the strength of crosstalk was increased, which
+switched module 5 to be insensitive to the drug treatment.
+
+DISCUSSION
+In this study, we analyzed the effects of signaling
+crosstalk on the efficacy and resistance of targeted
+drugs and drug combinations by employing modulebased modeling approach. We demonstrated how the
+architecture of signaling crosstalk contributes to the drug
+resistance and analyzed the related signaling dynamics.
+We also identified the principles for selecting targets to
+effectively and synergistically reduce drug resistance
+using combinatorial drugs.
+Recently, increasingly more attention has been paid
+to drug resistance to improve the efficacy of the targeted
+therapy for cancer patients. Several mechanisms have been
+proposed to account for the origin and acquisition of drug
+resistance. For example, at molecular scale, genetic and
+epigenetic modifications can render tumor cells insensitive
+to targeted drugs [23], resulting in drug resistance. At
+the cellular scale, tumor stem cells are thought to be left
+behind by chemotherapy although it kills most cells in a
+tumor, which might serve as an important mechanism of
+
+Figure 6: Drug combination evaluation. (A) Relative efficacies of drug combinations (A, B, C and D) for different modules. The
+efficacy of drug combination was dependent on the topology of crosstalk-linked signaling modules. (B) Synergism evaluations for various
+drug combinations using Bliss combination index. Various drug combinations for different modules exhibited different values of synergism.
+(C) Synergism patterns of different modules with various drug combinations. White, synergy; Gray, additivity; Black, antagonism.
+www.impactjournals.com/oncotarget
+
+64001
+
+Oncotarget
+
+Table 1: Comparing the relative efficacies of drug combinations to that of single B-targeting drug
+Drug targets combined with B
+Module 1
+Module 2
+Module 3
+Module 4
+Module 5
+Module 6
+Module 7
+Module 8
+
+A
+▲
+▲
+▲
+▼
+▲
+▼
+▼
+▼
+
+B
+▼
+▲
+▲
+▼
+▲
+▼
+▼
+▼
+
+C
+▲
+▲
+▲
+▼
+▲
+▼
+▼
+▼
+
+D
+▲
+▼
+▼
+▲
+▼
+▲
+▲
+▲
+
+Remark: ▲ indicates that the drug combination increased the relative drug efficacy compared to the single B-targeting drug.
+Whereas ▼ indicates that the drug combination had lower relative drug efficacy than the single B-targeting drug.
+
+Table 2: Synergisms of drug combinations with B-targeting drug
+
+Module 1
+Module 2
+Module 3
+Module 4
+Module 5
+Module 6
+Module 7
+Module 8
+
+A
+Additivity
+Additivity
+Additivity
+Additivity
+Antagonism
+Synergy
+Additivity
+Synergy
+
+Drug targets combined with B
+B
+C
+Antagonism
+Additivity
+Additivity
+Additivity
+Antagonism
+Antagonism
+Antagonism
+Synergy
+Antagonism
+Antagonism
+Additivity
+Additivity
+Antagonism
+Synergy
+Antagonism
+Additivity
+
+drug resistance [38, 39]. In addition, spatial intra-tumor
+heterogeneity might also contribute to the drug resistance
+[40, 41]. At the microenvironmental scale, due to the
+drug-induced secretion of various cytokines or growth
+factors, the dynamic microenvironment adaptation [42]
+
+D
+Synergy
+Additivity
+Synergy
+Synergy
+Additivity
+Synergy
+Synergy
+Synergy
+
+also plays an important role in facilitating the ability of
+cancer cells to withstand therapeutic assaults [43]. Our
+study focused on the role of crosstalk among intracellular
+signaling pathways in drug resistance. We systematically
+verified the hypothesis that at molecular scale, in addition
+
+Figure 7: Impacts of the strength of signaling crosstalk on the relative drug efficacies of various modules. The increasing
+
+strength of signaling crosstalk switches drug sensitivities of module 4, 5 and 7.
+www.impactjournals.com/oncotarget
+
+64002
+
+Oncotarget
+
+to genetic or epigenetic mutations, the dynamic adaptation
+in posttranslational activation of signaling pathways
+mediated by crosstalk might also render cancer cells to be
+insensitive to the drug treatment.
+The topology of signaling network has been
+demonstrated to have profound impacts on the biological
+functions such as biochemical adaptation [44] and cell
+fate decision [45]. Jensen, K.J. et. al. [46] investigated the
+effect of the architecture of small molecular network on
+the drug efficacy and synergism. Charlebois, D. A et. al.
+[47] also demonstrated that coherent feedforward loop in
+transcriptional regulatory motifs could contribute to the
+drug resistance. Our work further revealed that some types
+of signaling crosstalk could also reduce the sensitivity of
+cancer cells to the drug inhibition. At the normal strength
+of crosstalk, a feedforward crosstalk in module 1 could
+yield drug resistance, which is consistent with the results
+in Ref. [47]. Moreover, our results also revealed some
+other crosstalk-linked modules (Modules 4, 6, 7, and 8)
+could also resist to the drug treatment. The predictions of
+modules 4 and 6 are supported by the experimental studies
+of drug resistance [19, 34].
+Our model revealed a network architecturedependent mechanism of signaling crosstalk-mediated
+drug resistance. The typical resistant modules (modules
+1, 4, 6, 7, and 8) revealed by our model might be used to
+design robust modules in synthetic biology. Our model also
+predicted that the downstream proteins or transcriptional
+factors in two parallel pathways within crosstalk-linked
+
+signaling modules might be potential targets of drug
+combination that effectively and synergistically reduces
+the resistance of targeted therapeutics. The predicted
+synergistic effect of combination of B-targeting drug
+and D-targeting drug for module 4 is consistent with
+experimental studies [48, 49]. The principle revealed by
+our model might be useful for guiding the experimental
+design of drug combination.
+With the increased strength of crosstalk, the relative
+efficacies and synergism patterns of drug combinations for
+different modules were shown in Figure S4. Compared
+to Figure 6, the increased strength of signaling crosstalk
+significantly influenced the synergism patterns of different
+modules. More specifically, the increase in strength of
+the crosstalk could trigger the switch of some signaling
+modules between drug sensitivity and drug resistance. For
+example, module 5, containing mutual crosstalk activation
+between two pathways, is drug-sensitive at lower strength
+of crosstalk but drug-resistant at higher strength of
+crosstalk. The mutual crosstalk activation could be viewed
+as positive feedback within the signaling network, which is
+able to maintain the persistence of the signaling activation
+of network as the strength of the crosstalk increases.
+Feedback and feedforward loops in the signaling
+network have been demonstrated to significantly
+influence the drug effects [46]. In the future studies, we
+will extend our model to systematically investigate the
+effects of feedback and feedforward loops on the drug
+resistance and drug combinations. In addition, the drug
+
+Figure 8: Signaling dynamics in modules 4, 5 and 7 with increased strengths of crosstalk. The strength of crosstalk was set
+to 10-fold of the normal strength. Shown are signaling dynamics in modules 4, 5 and 7, respectively, (A–C) without and (D–F) with drug
+treatment. “Active (frac)” indicates fraction of activation of each protein.
+www.impactjournals.com/oncotarget
+
+64003
+
+Oncotarget
+
+administration of different dosages is very important but
+beyond the scope of this study that focuses on the effect
+of signaling crosstalk on drug response. In the future
+work, we will use the developed model to investigate
+the effect of drug dosages on the relative drug efficacies
+and synergism patterns of drug combinations for various
+signaling modules. Furthermore, we will try to study how
+to optimize dosing of drug combinations for different
+signaling modules.
+As the signaling transduction and gene expression
+are often stochastic and noise exists extensively in the
+biochemical reaction networks [50], the effect of noise on
+the drug efficacy for various module structures should be
+examined to reveal how molecular noise interferes drug
+efficacy and contributes to drug resistance. In the future
+work, we are going to develop a stochastic model using
+chemical Langevian equations [51] for various signaling
+modules to simulate stochastic dynamics of molecules (e.g.,
+proteins, transcriptional factors and genes). Such stochastic
+model might be helpful for our understanding on the causal
+relationship between the noise and the drug resistance.
+In summary, our study investigated the role of
+signaling crosstalk in cell’s adaptation to the drug
+treatment. Our study provides insight into the signaling
+crosstalk-mediated mechanisms underlying the drug
+resistance and delineates the implications associated with
+optimal targets of combination therapy for cancer patients.
+
+To incorporate the drug effects into the model, we
+defined a function g=i 1 + Drug  to multiply K j ,i in
+K Di 
+
+Equation (1) if the drug inhibits X i , as in Ref. [30].
+Concentrations and time in the model were nondimensional and the total concentration normalized to 1.
+Standard parameter values were used to reproduce the key
+kinetic features of a realistic signaling network [16, 19] as
+shown in Figure 1. These values of parameters are listed
+below (for all i = 1, 2, ..., 5 and j = 0, 1, ..., 8):
+Vj, i = 0.4 if X activates X i ; Vj, i = −1 if X inhibits X i ;
+Vj, i = 0 if no link between X and X i . K j ,i = 0.8, di = 0.2,
+VA = 0.2, K A = 0.5, VC = 0.2, K C = 0.5, K Di = 0.1.
+The profiles of various types of stimuli (G1 and G2)
+are shown in Figure S2. In the typical simulation, a
+basic stimulus S0 was used for G1 and G2, while in the
+simulations with varied stimulus (Figure S3), S1–S6
+for G1 and/or G2 were used. The above ODEs were
+numerically solved using 4-th order Runge-Kutta method.
+The in silico experiments was performed in MATLAB
+R2007b (MathWorks, USA).
+j
+
+The relative drug efficacy
+To evaluate the relative drug efficacy (RDE) for
+different modules, we defined the following index to
+quantify the relative decrease of integrated output (IO)
+due to the drug treatment in module i as compared to that
+in the basic module (module 0),
+
+MATERIALS AND METHODS
+
+=
+RDE ( i )
+
+Computational modeling
+
+V j ,i ⋅ (1 − X i )
+
+5
+
+∑ g ⋅K
+j =1
+
+i
+
+j ,i
+
++ (1 − X i )
+
+⋅ X j − di ⋅ X i + fi (t ) 
+
+(1)
+
+where X i , i = 1, 2, 3, 4, and 5, represents component
+A, B, C, D and output O in the signaling network,
+respectively. V is the maximal activation rate of X i by
+X , and K j ,i is the corresponding Michealis constant.
+Different values of the matrix V characterize different
+module topologies. di is the degradation rate of X i . fi (t )
+(i = 1 or 3) is an input function describing the effect of
+stimulus G1 on A or that of G2 on C, which is defined as
+follows,
+
+(0)
+(0)
+IOno
+_ drug − IOdrug
+(0)
+IOno
+_ drug
+
+
+
+(3)
+
+Bliss combination index [53] was employed to
+evaluate the synergism between two drugs targeting “two”
+(same or different) components in the modules, which was
+defined as follows:
+CI (i ) ( d1 , d=
+R12 (i ) ( d1 , d 2 ) − ( R1(i ) ( d1 ) + R2 (i ) ( d 2 ) − R1(i ) ( d1 ) ⋅ R2 (i ) ( d 2 ) )  (4)
+2)
+
+j ,i
+
+www.impactjournals.com/oncotarget
+
+(i )
+IOno
+_ drug
+
+−
+
+Synergism evaluation of drug combination
+
+j
+
+ VA ⋅ G1 (t )
+ K + G (t ) , i = 1;
+1
+ A
+ VC ⋅ G2 (t )
+
+fi (t ) =
+, i 3;
+=
+ K C + G2 (t )
+
+0,
+Otherwise.
+
+
+
+(i )
+(i )
+IOno
+_ drug − IOdrug
+
+(i )
+where IOdrug
+and IOno(i )_ drug represent time-integrated
+output in the module i with or without drug treatment,
+T
+respectively, that is, IO (i ) = ∫0 O (i ) (t )dt , with T set as 100 in
+this work. If the relative drug efficacy is greater than 0
+for module i, then the drug induced more reduction in
+integrated output of module i compared to the basic
+module, vice versa.
+
+According to the Michaelis-Menten kinetics
+[52], we formulated the following ordinary differential
+equations (ODEs) to model the kinetics of proteins in each
+module (Figure 2):
+
+dX i
+=
+dt
+
+j
+
+j
+
+where R12 (i ) ( d1 , d 2 ) is relative ratio of integrated
+output reduced by the combinatorial drug 1 and drug 2 to
+that without drug treatment in the module i. R12 (i ) ( d1 , d 2 )
+was computed as
+
+(2)
+
+R12 (i ) ( d1 , d 2 ) =
+
+IO (i ) (d1 , d 2 ) − IOno(i )_ drug
+IOno(i )_ drug
+
+.
+
+(5)
+
+Similarly, R1 ( d1 ) or R1(i ) ( d 2 ) is relative ratio of
+integrated output under the treatment of single drug 1 or
+(i )
+
+64004
+
+Oncotarget
+
+drug 2 compared to that without drug treatment in the
+module i. R ( d ) + R ( d ) − R1(i ) ( d1 ) ⋅ R2(i ) ( d 2 ) in Equation (4)
+models the expected effect of two combinatorial drugs [53].
+If the combination index is greater than 0, the
+combination effect of the drug 1 and drug 2 was evaluated
+to be synergistic, while if this index is less than 0, these
+two drugs were considered to be antagonistic, otherwise
+additive.
+(i )
+1
+
+1
+
+2
+
+(i )
+
+  9.	 Pazarentzos E, Bivona TG. Adaptive stress signaling
+in targeted cancer therapy resistance. Oncogene. 2015;
+34:5599–5606.
+
+2
+
+10.	 Behar M, Barken D, Werner S, Hoffmann A. The Dynamics
+of Signaling as a Pharmacological Target. Cell. 2013;
+155:448–461.
+11.	 Kolch W, Halasz M, Granovskaya M, Kholodenko BN. The
+dynamic control of signal transduction networks in cancer
+cells. Nat Rev Cancer. 2015; 15:515–527.
+
+ACKNOWLEDGMENTS and funding
+
+12.	 Lee H-J, Zhuang G, Cao Y, Du P, Kim H-J, Settleman J.
+Drug resistance via feedback activation of Stat3 in oncogeneaddicted cancer cells. Cancer Cell. 2014; 26:207–221.
+
+We would like to acknowledge Prof. Tianshou
+Zhou and Prof. Jiajun Zhang at Sun Yat-sen University
+for valuable discussion. This work was supported by the
+National Key Basic Research Program of China (No.
+2015CB859800, 2014CB910800), National Natural
+Science Foundation of China (No. 61572506, 31522018,
+61503419, 11301517), Guangdong Nature Science
+Foundation (No. 2014A030310355, 2016A030313234).
+
+13.	 Wagle N, Van Allen EM, Treacy DJ, Frederick DT,
+Cooper ZA, Taylor-Weiner A, Rosenberg M, Goetz EM,
+Sullivan RJ, Farlow DN. MAP kinase pathway alterations
+in BRAF-mutant melanoma patients with acquired
+resistance to combined RAF/MEK inhibition. Cancer
+Discov. 2014; 4:61–68.
+14.	 Pazarentzos E, Bivona T. Adaptive stress signaling in
+targeted cancer therapy resistance. Oncogene. 2015.
+34:5599–606.
+
+CONFLICTS OF INTEREST
+
+15.	 Holderfield M, Deuker MM, McCormick F, McMahon M.
+Targeting RAF kinases for cancer therapy: BRAF-mutated
+melanoma and beyond. Nat Rev Cancer. 2014; 14:455–467.
+
+The authors declare no conflict(s) of interest.
+
+References
+
+16.	 Perna D, Karreth FA, Rust AG, Perezmancera PA, Rashid M,
+Iorio F, Alifrangis C, Arends MJ, Bosenberg MW, Bollag G.
+BRAF inhibitor resistance mediated by the AKT pathway
+in an oncogenic BRAF mouse melanoma model. Proc Natl
+Acad Sci USA. 2015; 112:536–545.
+
+  1.	 Camidge DR, Pao W, Sequist LV. Acquired resistance to
+TKIs in solid tumours: learning from lung cancer. Nat Rev
+Clin Oncol. 2014; 11:473–481.
+  2.	 Foo J, Michor F. Evolution of acquired resistance to anticancer therapy. J Theor Biol. 2014; 355:10–20.
+
+17.	 Azad A, Lawen A, Keith JM. Prediction of signaling crosstalks contributing to acquired drug resistance in breast
+cancer cells by Bayesian statistical modeling. BMC Syst
+Biol. 2015; 9:1–17.
+
+  3.	 Chen X, Yan CC, Zhang X, Zhang X, Dai F, Yin J, Zhang Y.
+Drug–target interaction prediction: databases, web servers and
+computational models. Brief Bioinform. 2016: 17:696–712.
+  4.	 Brown R, Curry E, Magnani L, Wilhelmbenartzi CS, Borley J.
+Poised epigenetic states and acquired drug resistance in
+cancer. Nat Rev Cancer. 2014; 14:747–753.
+
+18.	 Yamaguchi H, Chang SS, Hsu JL, Hung MC. Signaling
+cross-talk in the resistance to HER family receptor targeted
+therapy. Oncogene. 2013; 33:1073–1081.
+
+  5.	 Ivanov M, Barragan I, Ingelman-Sundberg M. Epigenetic
+mechanisms of importance for drug treatment. Trends
+Pharmacol Sci. 2014; 35:384–396.
+
+19.	 Lito P, Pratilas C, Joseph E, Tadi M, Halilovic E,
+Zubrowski  M, Huang A, Wong WL, Callahan M,
+Merghoub  T. Relief of Profound Feedback Inhibition of
+Mitogenic Signaling by RAF Inhibitors Attenuates Their
+Activity in BRAFV600E Melanomas. Cancer Cell. 2012;
+22:668–682.
+
+  6.	 Shetzer Y, Solomon H, Koifman G, Molchadsky A,
+Horesh S, Rotter V. The paradigm of mutant p53-expressing
+cancer stem cells and drug resistance. Carcinogenesis. 2014;
+35:1196–1208.
+
+20.	 Barabasi A-L, Oltvai ZN. Network biology: understanding
+the cell’s functional organization. Nat Rev Genet. 2004;
+5:101–113.
+
+  7.	 Lee HJ, Zhuang G, Cao Y, Du P, Kim HJ, Settleman J. Drug
+Resistance via Feedback Activation of Stat3 in OncogeneAddicted Cancer Cells. Cancer Cell. 2014; 26:207–221.
+
+21.	 Mangan S, Alon U. Structure and function of the feedforward loop network motif. Proc Natl Acad Sci USA.
+2003; 100:11980–11985.
+
+  8.	 Nikhil W, Allen EM, Van, Treacy DJ, Frederick DT,
+Cooper ZA, Amaro TW, Mara R, Goetz EM, Sullivan RJ,
+Farlow DN. MAP kinase pathway alterations in BRAF-mutant
+melanoma patients with acquired resistance to combined
+RAF/MEK inhibition. Cancer Discov. 2013; 4:61–68.
+
+www.impactjournals.com/oncotarget
+
+22.	 Milo R, Shen-Orr S, Itzkovitz S, Kashtan N, Chklovskii D,
+Alon U. Network motifs: simple building blocks of complex
+networks. Science. 2002; 298:824–827.
+
+64005
+
+Oncotarget
+
+23.	 Zhang Y, Smolen P, Baxter DA, Byrne JH. Computational
+analyses of synergism in small molecular network motifs.
+PLoS Comput Biol. 2014; 10:e1003524.
+
+39.	 Cojoc M, Mäbert K, Muders MH, Dubrovska A. A role
+for cancer stem cells in therapy resistance: cellular and
+molecular mechanisms. Semin Cancer Biol. 2014; 31:16–27.
+
+24.	 Van WR, Tans SJ, Wolde PR, Mashaghi A. Non-monotonic
+dynamics and crosstalk in signaling pathways and their
+implications for pharmacology. Sci Re. 2015; 5:11376.
+
+40.	 Fu F, Nowak MA, Bonhoeffer S. Spatial heterogeneity
+in drug concentrations can facilitate the emergence of
+resistance to cancer therapy. PLoS Comput Biol. 2015;
+11:e1004142.
+
+25.	 White N. Preventing antimalarial drug resistance through
+combinations. Drug Resist Updat. 1998; 1:3–9.
+
+41.	 Wellbrock C. Spatial intra-tumour heterogeneity in acquired
+resistance to targeted therapy complicates the use of PDX
+models for co-clinical cancer studies. EMBO Mol Med.
+2015; 7:1087–1089.
+
+26.	 Holohan C, Van Schaeybroeck S, Longley DB, Johnston PG.
+Cancer drug resistance: an evolving paradigm. Nat Rev
+Cancer. 2013; 13:714–726.
+
+42.	 Sun X, Bao J, Shao Y. Mathematical Modeling of Therapyinduced Cancer Drug Resistance: Connecting Cancer
+Mechanisms to Population Survival Rates. Sci Rep. 2016;
+6:22498.
+
+27.	 Hu C-MJ, Zhang L. Nanoparticle-based combination
+therapy toward overcoming drug resistance in cancer.
+Biochem Pharmacol. 2012; 83:1104–1111.
+28.	 Chen X, Ren B, Chen M, Liu MX, Ren W, Wang QX,
+Zhang LX, Yan GY. ASDCD: antifungal synergistic drug
+combination database. PLoS One. 2014; 9:e86499.
+
+43.	 Obenauf AC, Zou Y, Ji AL, Vanharanta S, Shu W, Shi H,
+Kong X, Bosenberg MC, Wiesner T, Rosen N. Therapyinduced tumour secretomes promote resistance and tumour
+progression. Nature. 2015; 520:368–72.
+
+29.	 Chen X, Liu MX, Yan GY. Drug–target interaction
+prediction by random walk on the heterogeneous network.
+Mol Biosyst. 2012; 8:1970–1978.
+30.	 Yin N, Ma W, Pei J, Ouyang Q, Tang C, Lai L. Synergistic
+and antagonistic drug combinations depend on network
+topology. PLoS One. 2014; 9:e93960.
+
+44.	 Ma W, Trusina A, El-Samad H, Lim WA, Tang C. Defining
+network topologies that can achieve biochemical adaptation.
+Cell. 2009; 138:760–773.
+45.	 Avraham R, Yarden Y. Feedback regulation of EGFR
+signalling: decision making by early and delayed loops. Nat
+Rev Mol Cell Biol. 2011; 12:104–117.
+
+31.	 Chen X, Ren B, Chen M, Wang Q, Zhang L, Yan G.
+NLLSS: Predicting Synergistic Drug Combinations based
+on semi-supervised learning. PLoS Comput Biol. 2016.
+12:e1004975.
+
+46.	 Jensen KJ, Moyer CB, Janes KA. Network Architecture
+Predisposes an Enzyme to Either Pharmacologic or Genetic
+Targeting. Cell Syst. 2016; 2:112–121.
+
+32.	 Xing C, Yan CC, Zhang X, Xu Z, Feng D, Jian Y, Zhang Y.
+Drug-target interaction prediction: databases, web servers and
+computational models. Brief Bioinform. 2015; 17:696–712.
+33.	 Sun X, Bao J, Nelson KC, Li KC, Kulik G, Zhou X.
+Systems modeling of anti-apoptotic pathways in prostate
+cancer: psychological stress triggers a synergism pattern
+switch in drug combination therapy. PLoS Comput Biol.
+2013; 9:e1003358.
+
+47.	 Charlebois DA, Balázsi G, Kærn M. Coherent feedforward
+transcriptional regulatory motifs enhance drug resistance.
+Phys Rev E. 2014; 89:052708.
+48.	 Greger JG, Eastman SD, Zhang V, Bleam MR, Hughes AM,
+Smitheman KN, Dickerson SH, Laquerre SG, Liu L,
+Gilmer  TM. Combinations of BRAF, MEK, and PI3K/
+mTOR inhibitors overcome acquired resistance to the BRAF
+inhibitor GSK2118436 dabrafenib, mediated by NRAS or
+MEK mutations. Mol Cancer Ther. 2012; 11:909–920.
+
+34.	 Carver B, Chapinski C, Wongvipat J, Hieronymus H,
+Chen  Y, Chandarlapaty S, Arora V, Le C, Koutcher J,
+Scher  H. Reciprocal Feedback Regulation of PI3K and
+Androgen Receptor Signaling in PTEN-Deficient Prostate
+Cancer. Cancer Cell. 2011; 19:575–586.
+
+49.	 Mao M, Tian F, Mariadason JM, Tsao CC, Jr LR, Dayyani F,
+Gopal YN, Jiang ZQ, Wistuba II, Tang XM. Resistance to
+BRAF inhibition in BRAF-mutant colon cancer can be
+overcome with PI3K inhibition or demethylating agents. Clin
+Cancer Res. 2012; 19:657–667.
+
+35.	 Kirouac DC, Du JY, Lahdenranta J, Overland R, Yarar D,
+Paragas V, Pace E, Mcdonagh CF, Nielsen UB, Onsum MD.
+Computational modeling of ERBB2-amplified breast cancer
+identifies combined ErbB2/3 blockade as superior to the
+combination of MEK and AKT inhibitors. Sci Signal. 2013;
+6:ra68.
+
+50.	 Warren PB, Tănasenicola S, Wolde PRT. Exact results
+for noise power spectra in linear biochemical reaction
+networks. J Chem Phys. 2006; 125:120–124.
+51.	 Gillespie DT. The Chemical Langevin Equation. Journal of
+Chemical Physics. 2000; 113:297–306.
+
+36.	 Iyengar R, Zhao S, Chung SW, Mager DE, Gallo JM.
+Merging systems biology with pharmacodynamics. Sci
+Transl Med. 2012; 4:126ps7.
+
+52.	 Michaelis L, Menten ML. Die Kinetik der Invertinwirkun.
+Biochem Z. 1913; 49:333–369.
+
+37.	 Peng H, Wen J, Li H, Chang J, Zhou X. Drug inhibition
+profile prediction for NFκB pathway in multiple myeloma.
+PLoS One. 2011; 6:e14750.
+
+53.	 Loewe S. The problem of synergism and antagonism of
+combined drugs. Arzneimittelforschung. 1953; 3:404–404.
+
+38.	 Dean M, Fojo T, Bates S. Tumour stem cells and drug
+resistance. Nat Rev Cancer. 2005; 5:275–284.
+www.impactjournals.com/oncotarget
+
+64006
+
+Oncotarget
+
+

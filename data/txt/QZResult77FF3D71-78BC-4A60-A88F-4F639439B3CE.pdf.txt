@@ -1,0 +1,1009 @@
+Published OnlineFirst September 10, 2015; DOI: 10.1158/0008-5472.CAN-15-0611
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+Implication of the Autologous Immune System in
+BCR–ABL Transcript Variations in Chronic
+Myelogenous Leukemia Patients Treated with
+Imatinib
+ re
+ my Ruby3,
+Geoffrey D. Clapp1, Thomas Lepoutre2, Raouf El Cheikh2, Samuel Bernard2, Je
+3
+3
+4
+ le
+ ne Labussie
+ re-Wallet , Franck E. Nicolini , and Doron Levy
+He
+
+Abstract
+Imatinib and other tyrosine kinase inhibitors (TKI) have
+improved treatment of chronic myelogenous leukemia (CML);
+however, most patients are not cured. Deeper mechanistic understanding may improve TKI combination therapies to better control the residual leukemic cell population. In analyzing our
+patients' data, we found that many patients who otherwise
+responded well to imatinib therapy still showed variations in
+their BCR–ABL transcripts. To investigate this phenomenon, we
+applied a mathematical model that integrates CML and an autologous immune response to the patients' data. We deﬁne an
+immune window or a range of leukemic loads for which the
+autologous immune system induces an improved response. Our
+
+Major Findings
+On the basis of patient data and our model, we hypothesize
+that the autologous immune system plays a signiﬁcant role in
+the dynamics of CML during imatinib therapy. Moreover,
+variations in BCR–ABL transcripts during imatinib therapy
+may represent a signature of the patient's individual autologous immune response. Immunotherapy may complement
+imatinib and other TKIs by helping to maintain a patient's
+autologous immune response when the leukemia stimulus
+alone is insufﬁcient. Our mathematical model is a potentially
+valuable tool in studying and designing patient-speciﬁc schedules for these combination therapies.
+
+1
+Department of Mathematics, University of Maryland, College Park,
+ de Lyon, Universite
+ Claude Bernard
+Maryland. 2Inria, and Universite
+Lyon 1, CNRS UMR 5208, Institut Camille Jordan, Villeurbanne Cedex,
+ nite France and CRCL,
+France. 3Centre Hospitalier Lyon, Sud, Pierre-Be
+ on Be
+ rard, Lyon, France. 4Department of Mathematics and
+Centre Le
+Center for Scientiﬁc Computation and Mathematical Modeling
+(CSCAMM), University of Maryland, College Park, Maryland.
+
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+Corresponding Author: Doron Levy, Department of Mathematics and Center for
+Scientiﬁc Computation and Mathematical Modeling (CSCAMM), University of
+Maryland, College Park, MD 20742. Phone: 301-405-5140; Fax: 301-314-6674;
+E-mail: dlevy@math.umd.edu
+doi: 10.1158/0008-5472.CAN-15-0611
+2015 American Association for Cancer Research.
+
+modeling results suggest that, at diagnosis, a patient's leukemic
+load is able to partially or fully suppress the autologous immune
+response developed in a majority of patients, toward the CML
+clone(s). Imatinib therapy drives the leukemic population into
+the "immune window," allowing the patient's autologous
+immune cells to expand and eventually mount an efﬁcient recognition of the residual leukemic burden. This response drives the
+leukemic load below this immune window, allowing the leukemic population to partially recover until another weaker immune
+response is initiated. Thus, the autologous immune response may
+explain the oscillations in BCR–ABL transcripts regularly observed
+in patients on imatinib. Cancer Res; 75(19); 4053–62. 2015 AACR.
+
+Introduction
+Chronic myelogenous leukemia (CML) is a myeloproliferative
+disorder caused by the BCR–ABL fusion oncogene, which encodes
+for a constitutively active tyrosine kinase. Tyrosine kinase inhibitors (TKI), such as imatinib, are targeted therapies that have
+revolutionized the treatment of CML, producing durable remissions in many patients and resulting in substantially improved
+long-term survival rates (1, 2). Despite their success, their global
+therapeutic effect remains incompletely understood. Moreover, it
+is unclear whether TKIs alone are capable of eliminating the entire
+leukemic burden, as many patients in long-term remissions
+continue to harbor small residual leukemic loads even after many
+years of therapy (3). A better understanding of TKIs would allow
+us to improve the way that these drugs are administered and also
+to identify their limitations. If TKIs prove to be incapable of curing
+most patients, then understanding the drugs' mechanisms of
+action may inform our use of combination therapies.
+There is compelling evidence that a patient's autologous
+immune response plays a signiﬁcant role in the dynamics of
+CML. It is known that immune cells are capable of detecting
+and eliminating cancer cells (4). Immunotherapy is a major
+goal of immunology and cancer research because of the ability
+of the immune system to target and eliminate abnormal cells
+while leaving healthy cells intact. In the allogeneic setting, the
+immune system has demonstrated its power in the elimination
+of residual CML disease (5). Several combination therapies
+involving interferon-a (IFNa) are currently being investigated
+(6, 7, 8), in part, because of this drug's effects on the autologous
+immune system (8), which participates in the control of the
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+4053
+
+Published OnlineFirst September 10, 2015; DOI: 10.1158/0008-5472.CAN-15-0611
+
+Clapp et al.
+
+Quick Guide to Equations and Assumptions
+We developed an ordinary differential equation (ODE) model of chronic myelogenous leukemia (CML) and the immune
+system to study the dynamics of imatinib therapy. Speciﬁcally, we seek to understand patients whose BCR–ABL ratios vary
+nonmonotonically during therapy.
+Let y0, y1, y2, and y3 represent the concentrations of quiescent leukemic stem cells, cycling leukemic stem cells, progenitor leukemic
+cells, and mature leukemic cells. Let z denote the concentration of immune cells. We consider the following system of ODEs:
+y_ 0 ¼ b1 y1  a0 y0 
+
+my0 z
+1 þ "y32
+
+
+y1 
+my1 z
+ d1 y1 
+y_ 1 ¼ a0 y0  b1 y1 þ ry1 1 
+1 þ ey32
+K
+
+ðAÞ
+ðBÞ
+
+y_ 2 ¼ a1 y1  d2 y2 
+
+my2 z
+1 þ ey32
+
+ðCÞ
+
+y_ 3 ¼ a2 y2  d3 y3 
+
+my3 z
+1 þ ey32
+
+ðDÞ
+
+z_ ¼ sz  dz z þ
+
+ay3 z
+1 þ ey32
+
+ðEÞ
+
+In Eqs. A and B, a0 and b1 represent the transition rates of leukemic stem cells from quiescence to cycling and cycling to
+quiescence, respectively. We assume logistic growth of cycling stem cells, with growth rate r and carrying capacity K. Cycling
+stem cells die naturally at a rate d1. In Eq. C, the ﬁrst term represents the differentiation of stem cells into progenitors. The
+coefﬁcient a1 is the product of the differentiation rate and the ampliﬁcation factor upon differentiation due to cell proliferation.
+Progenitors die naturally at a rate d2. Equation D is similar to C, with differentiation rate a2 and death rate d3. The last terms in
+Eqs. A to D represent the death of leukemic cells caused by an immune response. The mass action term m yi z represents the
+killing of leukemic cells by the immune system, where m is the maximal rate (per immune cell) at which an immune cell will
+engage and kill a leukemic cell. Equation E represents the concentration of autologous immune cells. The ﬁrst term sz is a
+constant source term. Immune cells die at a rate dz. The mass action term ay3z represents the expansion (proliferation) of the
+immune cell pool in response to its leukemia stimulus, which occurs with maximal rate per leukemic cell a. We include only the
+contributions of the mature leukemic cells y3 to immune stimulation because they are a much larger population than the
+immature leukemic cells (ytotal  y3).
+Our model is based on the assumption that immunosuppression acts in two ways. First, mature leukemic cells inhibit the
+expansion of immune cells. In Eq. E, the immune cell expansion term ay3z is divided by 1 þ ey23 , where the constant e determines
+the strength of the immunosuppression. Second, mature leukemic cells are assumed to decrease the killing capacity m of activated
+immune cells, also by a factor of 1 þ ey23 . This effect is represented in the last terms in Eqs. A to D. This approach is similar to the one
+used in ref. 9. By implementing immunosuppression in this way, we encode an autologous immune response that is effective
+only with intermediate levels of leukemic cells. When the leukemic load is small, only a small number of immune cells
+are stimulated to respond. On the other hand, although large leukemic loads provide a stronger stimulus, the leukemic cells
+are able to suppress the efﬁcacy of the immune system. Thus, the immune response will be negligible when the leukemic load is
+either very small, at levels undetectable by the immune system, or very large, at levels that overwhelm and suppress the immune
+system. A strong immune response can occur only when the leukemic load y3 is at an intermediate level, within a range [ymin, ymax]
+that we call the immune window. In our model, we deﬁne the immune window as the range of y3, for which the rate of immune
+
+stimulation ay3 =ð1 þ "y23 Þ exceeds the death rate (dz). Imatinib therapy may be used to drive the leukemic load into this immune
+window, allowing the autologous immune system to assist the drug in the elimination of the leukemic cells.
+Imatinib is known to block the kinase activity of the BCR–ABL protein, which results in a signiﬁcant decrease in the
+proliferation rates of the BCR–ABLþ leukemic cells (1, 10) and apoptotic death (11). However, we focus here on the effects
+of imatinib on proliferation and leave incorporation of other mechanisms to a future work. We implement imatinib
+therapy, starting at time t ¼ 0, by decreasing the differentiation/ampliﬁcation rates a1 and a2 to lower values a10 ¼ a1/inh1
+and a20 ¼ a2/inh2. It is unknown how imatinib affects leukemic stem cells and whether quiescent leukemic stem cells are
+affected at all, so we assume no direct effect of imatinib on these populations. However, our model provides a framework for
+testing various mechanisms of actions of imatinib, which we leave for a future work.
+It is also unclear whether imatinib is capable of completely eliminating the leukemic cell burden or whether small residual
+populations will persist indeﬁnitely. In our model, a leukemic load of zero can only be approached asymptotically, so we deﬁne cure
+as a cancer stem cell concentration less than 1.67(10)4 cells/mL, which corresponds to less than one leukemic stem cell. We stop all
+simulations of the model whenever this is achieved.
+
+4054 Cancer Res; 75(19) October 1, 2015
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst September 10, 2015; DOI: 10.1158/0008-5472.CAN-15-0611
+
+Autologous Immune System and Chronic Phase CML
+
+disease. In addition, IFNa may drive quiescent leukemic stem
+cells into the cell cycle (12, 13), where they become exposed to
+the effects of TKIs.
+In the Stop imatinib (STIM; ref. 14) and TWISTER (3) trials,
+patients who responded well to imatinib were taken off therapy in
+order to determine whether treatment-free remission (TFR) could
+be achieved. They found that approximately 40% of patients
+remained in TFR for at least 2 years after stopping treatment.
+Moreover, although not statistically signiﬁcant, the TFR rate
+was higher in patients that had received IFNa prior to imatinib
+(14). In many of these patients, BCR–ABL DNA and mRNA were
+still detectable (3). Moreover, in ref. 15, patients still harbored
+BCR–ABLþ leukemic stem cells, despite having remained in TFR
+for up to 8 years. In these cases, because treatment did not
+completely eradicate the disease, some other mechanisms, such
+as the autologous immune system, must be preventing this
+residual cancer population from expanding. Motivated by these
+results, we constructed a mathematical model integrating CML
+and the autologous immune response.
+
+Materials and Methods
+A group of 104 patients with CML was monitored during
+imatinib therapy in the Centre Hospitalier Lyon Sud (Lyon,
+France). These patients were all treated with ﬁrst-line imatinib
+400 mg daily. Patients' BCR–ABL ratios were measured in the
+same laboratory according to the guidelines of European LeukemiaNet, with the same techniques at diagnosis, months 3, 6, 9,
+and 12 of therapy, and every 6 months thereafter; in order to limit
+variability, each measurement was run in duplicate, and the two
+resulting measurements were averaged. Overall, the patients had
+an average follow-up time of 62.76 months (range, 2.96–148.70),
+with an average of 12.69 measurements taken (range, 2–26). We
+excluded patients who changed TKIs for safety reasons (n ¼ 33)
+and patients whose disease progressed (n ¼ 14), as we focused
+exclusively in this study on patients obtaining a residual disease
+on imatinib. Thus, a population of 65 patients who responded
+well to imatinib remained for analysis.
+
+BCR–ABL ratios were serially measured by quantitative RTPCR in the peripheral blood of patients in the same laboratory
+according to the European standards of European Leukemia
+Net recommendations (16, 17) and expressed as a percentage
+on the International Scale (IS; ref. 18). Each sampling was run
+in duplicate in order to reduce variability and additionally run
+in parallel to the previous (frozen) sample from each patient in
+order to exclude technical problems, at each time point (except
+diagnosis) for all patients. A 2-fold variation was considered as
+signiﬁcant (19).
+Our mathematical model divides leukemic cells into quiescent
+stem cells (y0), cycling stem cells (y1), progenitors (y2), and mature
+cells (y3). We also represent a single autologous immune cell
+population (z). For simplicity, we do not distinguish further
+between immune subpopulations. Leukemia cells stimulate
+immune cells to proliferate at a maximum rate a, while immune
+cells kill leukemia cells at a maximum rate m. We incorporate
+immunosuppression by inhibiting the proliferation of the
+immune cells as well as their action on leukemic cells. Our model
+is summarized in Fig. 1. A more thorough description of the
+model is provided in the Quick Guide to Equations and
+Assumptions.
+The BCR–ABL ratio is a blood measurement that quantiﬁes the
+amount of BCR–ABL transcript relative to a control gene transcript, BCR, GUS, or ABL (here, ABL). Each leukemic cell possesses
+the BCR–ABL gene and the normal allele of the ABL gene, while
+healthy cells (x) possess two alleles of the ABL gene. Therefore,
+BCR–ABL transcripts are proportional to y3 (the immature leukemia cell populations are much smaller than the mature population and can be neglected), while control transcripts are
+approximately proportional to 2x þ y3. For simplicity, the number
+of healthy cells (x) is assumed to be constant and is estimated on
+the basis of the patient's initial BCR–ABL ratio at diagnosis. For all
+later measurements, the BCR–ABL ratio is approximated by
+ratio  100b
+
+y3
+2x þ y3
+
+Progenitor
+cells
+(y2 )
+
+a2
+
+r(1 − y1/K)
+Figure 1.
+Mathematical model including the intervention
+of the autologous immune system. In our model
+of CML and the immune response, we divide
+leukemic cells into quiescent stem cells (y0),
+cycling stem cells (y1), progenitors (y2), and
+mature cells (y3). Stem cells transition between
+quiescence and cycling, and some cycling stem
+cells differentiate into progenitors cells, which
+can further differentiate into mature cells.
+Leukemic cells can die naturally at rates di or as a
+result of an interaction with immune cells (z).
+Immune cells are supposed in this disease to be
+supplied at a constant rate sz and to die at a rate
+dz. They can also be stimulated by leukemic cells
+to divide to produce more immune cells. Large
+leukemic populations are able to suppress the
+autologous immune system by limiting immune
+cell expansion and limiting immune effector cells'
+ability to kill cancer cells.
+
+www.aacrjournals.org
+
+a0
+
+Quiescent
+stem cells
+(y0 )
+
+b1
+
+μz
+
+d1+
+
+1 + εy
+
+2
+3
+
+sz
+
+Cycling
+stem cells
+(y1 )
+
+Immune
+cells
+(z)
+
+a1
+
+μz
+1 + εy
+
+2
+3
+
+d2+
+
+μz
+1 + εy
+
+2
+3
+
+Mature
+cells
+(y3 )
+d3+
+
+μz
+1 + εy32
+
+αy3
+1 + εy32
+
+dz
+
+Cancer Res; 75(19) October 1, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+4055
+
+Published OnlineFirst September 10, 2015; DOI: 10.1158/0008-5472.CAN-15-0611
+
+Clapp et al.
+
+Figure 2.
+Oscillations of the BCR–ABL ratio in two representative patients. During TKI therapy, a patient's progress is monitored by measuring their BCR–ABL ratio,
+which is a ratio of BCR–ABL mRNA expression to the expression of a control gene, in this case ABL. Both patients shown above were treated with standard
+imatinib 400 mg daily. During treatment, both patients showed multiple increases in BCR–ABL ratio without overt relapse. Here, dots represent clinical data, and
+the dashed line approximates the detection threshold or the lowest detectable leukemia level. Dots along this line indicate measurements of zero, meaning
+the leukemia was undetectable within the limits of the assay. These ﬁgures correspond to patients 4 and 12 in Supplementary Table S2.
+
+The multiplication factor b accounts for differences in mRNA
+expression between BCR–ABL and the control gene. We multiply
+by 100, in order to convert the ratio into a percentage when b ¼ 1
+and a value between 0 and 100b otherwise.
+
+Results
+Many patients who otherwise respond well to therapy exhibit
+oscillations in their BCR–ABL ratios. Of the 104 patients in our
+dataset, only 15 showed monotonically decreasing BCR–ABL
+ratios throughout therapy. Each of the remaining 89 patients
+showed increases in BCR–ABL ratios in, on average, 28.82% of
+their measurements. Two representative patients are shown
+in Fig. 2. These ﬂuctuations occurred in many patients who
+responded well to imatinib therapy and did not have any adverse
+events. This lack of monotonicity in patients who responded well
+to therapy motivated this study.
+We applied our mathematical model, which is summarized
+in Fig. 1, to the patient data in order to study these oscillations. As
+previously mentioned, our model represents leukemic cells of
+varying maturity and a single immune cell population. We
+applied Latin hypercube sampling in order to determine the effect
+of the drug (a10 and a20 ) and the immune parameters (m, dz, a, and
+e). The parameters dz, a, and e determine the patient's immune
+window [ymin, ymax], or the range of leukemia loads that will
+stimulate a strong immune response. We deﬁne [ymin, ymax] by the
+range of y3, for which the level of immune stimulation exceeds the
+death rate. For each patient, we selected the parameter set that
+minimizes the squared log distance between the patient data and
+
+the results of the model simulation (sampled at the same time as
+the data). All other parameters were held constant across all
+patients; their values can be found in Supplementary Table S1.
+The patient-speciﬁc parameter values are summarized in
+Table 1. Figures 3 and 4 show representative ﬁts of our model to
+patient data. (The patient-speciﬁc parameters producing these ﬁts
+are provided in Supplementary Table S2.) Keeping in mind that
+these ﬁts are plotted on a logarithmic scale, we see that our model is
+able to reproduce many patients' dynamics during therapy.
+The patient data and modeling results suggest that patients who
+respond well to imatinib therapy go through three to four phases
+of tumor reduction. During the ﬁrst few months, there is a rapid
+exponential decline in BCR–ABL ratio. In our model, this effect is
+due primarily to the action of the drug on the mature leukemic
+population. The immune response is negligible at this stage
+because the large leukemic load suppresses the immune system.
+Beginning around month 6, there is a second, slower exponential
+decline in BCR–ABL ratio. In some patients, the second phase is a
+plateau in BCR–ABL ratio rather than a decline (see Fig. 3D). The
+location of this plateau is determined primarily by the direct
+effects of imatinib on the leukemic cell population (parameters
+inh1 and inh2). This biphasic exponential decline has been previously observed in refs. 20, and 21. A few patients show a
+triphasic exponential decline (Fig. 4B–D), which was discussed
+in ref. 22. The duration of the biphasic or triphasic decline can
+vary signiﬁcantly between patients, from the ﬁrst 2 years (Fig. 3A,
+C, D, and F) to several years of therapy (Fig. 4B–D).
+After this period of monotonic decline, many patients' leukemic loads begin to vary nonmonotonically. These ﬂuctuations are
+
+Table 1. Summary of parameter values used in our model simulations
+Parameter
+Mean
+STD
+Max
+Min
+
+log(inh1)
+1.132
+0.830
+2.772
+0.024
+
+log(inh2)
+2.487
+0.754
+3.880
+1.073
+
+dz
+0.099
+0.097
+0.371
+0.005
+
+log(m)
+7.047
+0.636
+5.896
+7.954
+
+log(ymin)
+3.970
+0.888
+5.483
+2.548
+
+log(ymax)
+5.024
+0.804
+6.024
+3.226
+
+log(ymax/ymin)
+1.053
+0.499
+2.006
+0.197
+
+NOTE: Of the 65 imatinib patients who did not relapse, develop drug resistance, or progress, 22 changed their imatinib dose during therapy. An additional 6 patients
+had non-international standard (non-IS) measurements, and 11 patients had ﬁve or fewer measurements. We focused on the remaining 25 patients and present the
+mean, standard deviation, maximum, and minimum parameter values.
+
+4056 Cancer Res; 75(19) October 1, 2015
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst September 10, 2015; DOI: 10.1158/0008-5472.CAN-15-0611
+
+Autologous Immune System and Chronic Phase CML
+
+Figure 3.
+Fits of our mathematical model to 6 representative patients. The base-10 log of the BCR–ABL ratio is plotted against time, in months. The dots represent patient
+data, and the solid lines represent our simulations. Dashed lines show the BCR–ABL ratios that correspond to the ends of immune window, ymin and ymax.
+These ﬁgures correspond to patients 1 to 6 in Supplementary Table S2.
+
+often preceded by a sudden sharp decline in the leukemic population, as illustrated in Figs. 3F, 4B, D–F. If this effect is sufﬁciently strong, the leukemic stem cell population may be driven to
+less than one cell, which we interpret as cure in our model.
+Otherwise, the leukemic population is able to partially recover.
+Several oscillations in both the leukemic and immune cell populations follow, with their amplitudes decreasing over time as the
+populations approach an equilibrium, as seen in Fig. 5.
+
+www.aacrjournals.org
+
+The patient-speciﬁc parameters are summarized in Table 1. Of
+the six parameters varied, the ﬁts seem to be most sensitive to inh1
+and inh2, followed by ymin and ymax. The parameters dz and m seem
+to be less important. This is not surprising, as inh1 and inh2
+determine the effect of the drug, and ymin and ymax determine at
+what point the autologous immune response becomes signiﬁcant.
+Scatter plots depicting parameter sensitivities for a representative
+patient are shown in Fig. 6.
+
+Cancer Res; 75(19) October 1, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+4057
+
+Published OnlineFirst September 10, 2015; DOI: 10.1158/0008-5472.CAN-15-0611
+
+Clapp et al.
+
+Figure 4.
+Fits of our model to 6 additional patients. The base-10 log of the BCR–ABL ratio is plotted against time, in months. As in Fig. 3, the dots represent patient data,
+and the solid lines represent our simulations. Dashed lines show the BCR–ABL ratios that correspond to the ends of immune window, ymin and ymax. Dotted
+lines approximate the minimum leukemic level that is detectable by quantitative RT-PCR. Dots along this line represent zero measurements, meaning CML cells
+were not detected. These ﬁgures correspond to patients 7 to 12 in Supplementary Table S2.
+
+The parameter values in Table 1 suggest that imatinib alone
+results in a 3.5-log decrease in the total leukemia load, on average
+(SD: 0.786, max: 5.158, min: 2.426). This effect is divided into a
+2.5-log decrease in the proliferation of mature cells and a 1-log
+decrease in the proliferation of progenitors. Each patient's
+immune window covers approximately one order of magnitude
+of leukemic populations, generally falling between 102.5 cells/mL
+
+4058 Cancer Res; 75(19) October 1, 2015
+
+and 106 cells/mL. We assume an initial mature leukemic population of 1.5(10)8 cells/mL. Thus, imatinib must decrease the
+leukemia load by several orders of magnitude before the leukemia
+enters the immune window and an immune response is initiated.
+After the leukemic population enters this window, the leukemia
+and immune populations oscillate, with the amplitude of oscillations decreasing over time.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst September 10, 2015; DOI: 10.1158/0008-5472.CAN-15-0611
+
+Autologous Immune System and Chronic Phase CML
+
+7
+6
+5
+4
+
+10
+
+log [Concentration (cells/mL)]
+
+8
+
+3
+2
+
+0
+
+20
+
+40
+
+60
+
+80
+
+100
+
+120
+
+Time (months)
+Figure 5.
+Model simulation for a single representative patient. The base-10 log of the
+leukemia and immune cell populations, in cells/mL, are plotted as a function of
+time, in months. The thick solid line represents the total leukemic population
+(y ¼ y0 þ y1 þ y2 þ y3), and the thick dashed line represents the immune cell
+population (z). The thin solid lines show the immune window [ymin, ymax] ¼
+4.58
+5.44
+[10 ,10 ] cells/mL. For the ﬁrst 20 months, the patient's leukemia load
+decreases monotonically, while the immune cells begin to expand. The
+leukemic population enters the immune window at around month 7. The
+immune cells mount an attack starting around month 18. This ﬁrst attack
+4
+results in the minimum leukemia load achieved during therapy, at around 10
+cells/mL. The immune cells drive the leukemia load below the immune
+window, allowing the leukemic population to partially recover. The two
+populations oscillate with decreasing amplitudes as they approach their
+4.61
+5.85
+equilibrium concentrations of (y, z) ¼ (10 , 10 ) cells/mL. This simulation
+corresponds to the plot in Fig. 3D (patient 4 in Supplementary Table S2).
+
+Discussion
+Despite the success of imatinib and other TKI therapies, many
+questions about the underlying mechanisms of action remain.
+Mathematical modeling is a complementary tool to clinical and
+experimental data that can help us understand these mechanisms.
+Several mathematical modeling groups have already studied
+various aspects of CML (9, 20–26). We brieﬂy review some of
+these contributions but note that a more thorough review can be
+found in ref. 27.
+Michor and colleagues (20) constructed an ordinary differential equations (ODE) model of CML that divides leukemic cells
+into stem cells, progenitors, differentiated cells, and terminally
+differentiated cells. Upon analyzing patients' initial responses to
+imatinib therapy, they found that imatinib often leads to biphasic
+exponential declines in the leukemic cell populations. Their
+modeling results suggested that the ﬁrst, steeper decline represents
+the action of imatinib on the differentiated leukemic cell population, while the second, slower decline represents an effect on the
+leukemic progenitors. They later hypothesized that long-term
+therapy leads to a triphasic exponential decline, where the third
+decline may represent an effect on immature leukemic cells and
+possibly leukemic stem cells (22).
+On the other hand, Roeder and colleagues (21) developed an
+agent-based model of CML that divides leukemic stem cells into
+cycling and quiescent compartments. In their model, imatinib
+results in the degradation and inhibition of cycling leukemic
+stem cells while having no direct effect on quiescent leukemic
+
+www.aacrjournals.org
+
+stem cells. They interpreted the biphasic exponential decline
+as an initial degradation effect, followed by a change in the
+regulatory response of leukemic stem cells that produces
+the second decline. A similar interpretation to the biphasic
+decline is proposed in ref. 24.
+Although these modeling frameworks are capable of reproducing the dynamics of some patients during therapy, both are
+limited to those who show a monotonic decline in their leukemic
+burdens. Neither model includes a mechanism that would allow
+patients to show oscillations in leukemia load. However, in our
+data, we found that many patients who respond well to imatinib
+and achieve long-term remissions exhibit increases in leukemic
+burden. The fact that the Michor and Roeder models are unable to
+reproduce such oscillations suggests that there may be (an)
+additional mechanism(s) that contribute(s) to patients' dynamics
+during therapy.
+Motivated by this, we developed a mathematical model that
+integrates CML and an autologous immune response. As previously mentioned, there is strong evidence that the immune
+system plays a role in the dynamics of CML (3–8, 15, 28, 29). In
+our modeling framework, we deﬁned an immune window, or a
+range of leukemic loads that will provoke a strong autologous
+immune response. At diagnosis, the leukemic load is above this
+window, and the large leukemic population is able to partially
+or fully suppress the autologous immune system's response to
+CML. Imatinib therapy generally reduces a patient's leukemic
+load by several orders of magnitude, representing a signiﬁcant
+reduction in immunosuppression. We hypothesize that imatinib may drive the leukemic population into the immune
+window, allowing a patient's autologous immune system to
+mount a response to CML.
+In our model, oscillations in leukemic load occur after the
+leukemia enters the immune window. Without the autologous
+immune response, our model produces monotonically decreasing cancer loads, as seen in Supplementary Fig. S1. Once the
+autologous immune cells have expanded sufﬁciently, they attack
+the residual leukemic population. This ﬁrst attack by the autologous immune system results in the minimum detectable leukemic load achieved during imatinib therapy. However, because the
+leukemia is driven below the immune window, the patient's
+immune cell population begins to contract. If the leukemia is
+not eradicated, it is able to rebound, until it reenters the immune
+window, thus stimulating another weaker immune response. The
+immune and leukemic cell populations continue to oscillate in
+this way, with the amplitude of these oscillations decreasing over
+time. Eventually, the oscillations dampen, and an equilibrium is
+achieved between the leukemic and autologous immune cells.
+Our modeling results suggest that oscillations in BCR–ABL ratio
+during therapy may be partially explained by the patient's autologous immune response to the residual CML population.
+Moreover, the oscillations may be a signature of the autologous immune response that can be used to characterize a
+patient's individual immune system. This result is reminiscent
+of previous tumor-immune models, for example, Kuznetsov
+and colleagues (30).
+On the basis of a patient's data over the course of TKI therapy,
+we determine their immune proﬁle in the context of our model.
+Each patient's immune proﬁle is different, as demonstrated by
+differences in the immune windows and in the timing and
+magnitude of the autologous immune response to CML. Our
+modeling framework provides a potential tool to help quantify
+
+Cancer Res; 75(19) October 1, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+4059
+
+Published OnlineFirst September 10, 2015; DOI: 10.1158/0008-5472.CAN-15-0611
+
+Clapp et al.
+
+B
+
+log10 (inh2)
+
+log10 [µ (cells/mL)−1 day−1)]
+
+A
+
+dz (day−1)
+
+log10 (inh1)
+
+log10 [ymax (cells/mL)]
+
+C
+
+log10 [ymin (cells/mL)]
+Figure 6.
+Quality of the ﬁt as a function of a pair of parameters, for a single representative patient. This is the same patient whose simulation is shown in Figs. 3D and 5
+(patient 4 in Supplementary Table S2). Red dots indicate worse ﬁts, and dark blue dots indicate better ﬁts. Here, we only show simulations that resulted in a
+total cost of less than 10, where cost is the squared log distance between the patient data and model simulation. A, log(inh2) versus log(inh1). For this patient,
+inhibition values satisfying log(inh1 inh2) in interval [2,4] were tested. These two parameters are strongly related to the quality of the ﬁt. B, log(m) versus
+dz. These two parameters seem to be the least important, as it is difﬁcult to see any correlation between the ﬁt and either of these parameters. C, ymax versus ymin.
+There is a deﬁnite relationship between the ﬁt and these two variables. The worse ﬁts tend to be in the upper left corner, while the better ﬁts tend to be in the lower
+right corner. The parameters ymax and ymin determine the immune window and therefore affect the timing and magnitude of the autologous immune response.
+
+these differences, which may play a signiﬁcant role in designing
+personalized therapies or combination therapies aimed at further
+reducing or eradicating the residual CML burden. This framework
+will serve as a basis for future studies of treatment cessation and
+personalized combination therapies consisting of TKIs and
+immunotherapy.
+
+Conclusion
+The potentially signiﬁcant role of the immune system in the
+dynamics of imatinib therapy suggests that immunotherapy may
+help to eliminate the residual leukemic burden. In our simulations, when imatinib therapy drives the leukemia into the
+immune window, an initially strong immune response occurs
+that weakens over time. Eventually, the immune cell population
+contracts, allowing the leukemia to partially recover. A combination of imatinib and immunotherapy may help to maintain a
+strong immune response, to prevent such a recovery in the
+leukemic population. As suggested in ref. 9, carefully timed
+vaccines may stimulate the patient's immune system when the
+
+4060 Cancer Res; 75(19) October 1, 2015
+
+residual CML burden is no longer sufﬁcient. A sustained immune
+response may result in a further decrease of the leukemic population and may even drive the leukemia to extinction. An optimal
+vaccine schedule would depend heavily on each patient's immune
+proﬁle, and our model offers a tool for characterizing this.
+Although we focus on the autologous immune response as a
+possible explanation of the oscillations that occur during imatinib
+therapy, many other factors may contribute to this behavior. The
+microenvironment of the leukemic cells is known to have a strong
+inﬂuence on both healthy and leukemic cells (31, 32), but is not
+included in our model. In addition, we do not account for patients
+who do not properly or regularly take their drugs, which is known
+to be an important factor (33). Moreover, for simplicity, we do not
+distinguish between various subtypes of immune cells, each of
+which may interact and play different roles in CML. Our model
+can be expanded in order to achieve a more accurate representation of the autologous immune response to CML. We leave this for
+a future work.
+Still, the oscillations in patients' leukemic loads suggest an
+additional mechanism during therapy that has not previously
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst September 10, 2015; DOI: 10.1158/0008-5472.CAN-15-0611
+
+Autologous Immune System and Chronic Phase CML
+
+been included in mathematical models. Our modeling results
+support the hypothesis that the autologous immune system
+contributes to the dynamics of imatinib therapy. If this is the
+case, our model may serve as a valuable tool for characterizing a
+patient's immune response to CML. This immune proﬁle may
+then help in designing personalized combination therapies in
+order to further control or eliminate the residual leukemic burden.
+
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): G.D. Clapp, T. Lepoutre, R. El Cheikh, S. Bernard,
+F.E. Nicolini, D. Levy
+Writing, review, and/or revision of the manuscript: G.D. Clapp, T. Lepoutre,
+R. El Cheikh, S. Bernard, J. Ruby, F.E. Nicolini, D. Levy
+Administrative, technical, or material support (i.e., reporting or organizing
+data, constructing databases): J. Ruby, F.E. Nicolini
+Study supervision: F.E. Nicolini
+
+Disclosure of Potential Conﬂicts of Interest
+
+Acknowledgments
+
+F.E. Nicolini reports receiving a commercial research grant from Novartis
+Pharma; has received speakers bureau honoraria from Novartis Pharma, BristolMyers Squibb, and Ariad Pharmaceuticals; and is a consultant/advisory board
+member for Novartis Pharma and Bristol-Myers Squibb. No potential conﬂicts
+of interest were disclosed by the other authors.
+
+F.E. Nicolini thanks all the members of the clinical and routine laboratory
+teams for the valuable and continuous work for the care of their patients, the
+association "Regarde un jour le monde" for its support, and patients themselves
+for participating in this study.
+
+Disclaimer
+Any opinions, ﬁndings, and conclusions or recommendations expressed in
+this article are those of the authors and do not necessarily reﬂect the views of the
+National Science Foundation.
+
+Authors' Contributions
+Conception and design: F.E. Nicolini, D. Levy
+Development of methodology: G.D. Clapp, T. Lepoutre, R. El Cheikh,
+S. Bernard, F.E. Nicolini, D. Levy
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): H. Labussiere-Wallet, F.E. Nicolini
+
+Grant Support
+The work of G.D. Clapp was supported by the National Science Foundation
+Graduate Research Fellowship under grant no. DGE1322106. The work of
+D. Levy was supported, in part, by the John Simon Guggenheim Memorial
+Foundation and by the National Science Foundation under grant no. DMS0758374.
+The costs of publication of this article were defrayed in part by the payment
+of page charges. This article must therefore be hereby marked advertisement
+in accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+Received March 6, 2015; revised July 24, 2015; accepted July 29, 2015;
+published OnlineFirst September 10, 2015.
+
+References
+1. An X, Tiwari AK, Sun Y, Ding P-R, Ashby CR Jr, Chen Z-S. BCR–ABL tyrosine
+kinase inhibitors in the treatment of Philadelphia chromosome positive
+chronic myeloid leukemia: a review. Leukemia Res 2010;34:1255–68.
+2. O'Brien SG, Guilhot F, Larson RA, Gathmann I, Baccarani M, Cervantes F,
+et al. Imatinib compared with interferon and low-dose cytarabine for newly
+diagnosed chronic-phase chronic myeloid leukemia. N Engl J Med
+2003;348:994–1004.
+3. Ross DM, Branford S, Seymour JF, Schwarer AP, Arthur C, Yeung DT, et al.
+Safety and efﬁcacy of imatinib cessation for CML patients with stable
+undetectable minimal residual disease: results from the TWISTER study.
+Blood 2013;122:515–22.
+4. Murphy K, Travers P. Janeway's immunobiology. 8th ed. New York:
+Garland Science; 2012.
+5. Kolb HJ, Schattenberg A, Goldman JM, Hertenstein B, Jacobsen N, Arcese
+W, et al. Graft-versus-leukemia effect of donor lymphocyte transfusions in
+marrow grafted patients European Group for Blood and Marrow Transplantation Working Party Chronic Leukemia. Blood 1995;86:2041–50.
+6. Hehlmann R, Lauseker M, Jung-Munkwitz S, Leitner A, M€
+uller MC, Pletsch
+N, et al. Tolerability-adapted imatinib 800 mg/d versus 400 mg/d versus
+400 mg/d plus interferon-a in newly diagnosed chronic myeloid leukemia.
+J Clin Oncol 2011;29:1634–42.
+7. Nicolini F, Etienne G, Dubruille V, Roy L, Huguet F, Legros L, et al. Nilotinib
+and pegylated interferon alfa 2a for newly diagnosed chronic phase chronic
+myeloid leukaemia patients Results of a multicentric phase II study. Lancet
+Haematol 2015;2:e37–45.
+8. Talpaz M, Hehlmann R, Quintas-Cardama A, Mercer J, Cortes J. Reemergence of interferon-a in the treatment of chronic myeloid leukemia.
+Leukemia 2013;27:803–12.
+9. Kim P, Lee P, Levy D. Dynamics and potential impact of the immune
+response to chronic myelogenous leukemia. PLoS Comp Biol 2008;4:
+e1000095.
+10. Kantarjian HM, Giles F, Quintas-Cardama A, Cortes J. Important therapeutic targets in chronic myelogenous leukemia. Clin Cancer Res 2007;
+13:1089–97.
+11. Deininger M, Buchdunger E, Druker BJ. The development of imatinib as a
+therapeutic agent for chronic myeloid leukemia. Blood 2005;105:2640–53.
+12. Essers MAG, Offner S, Blanco-Bose WE, Waibler Z, Kalinke U, Duchosal
+MA, et al. IFNa activates dormant haematopoietic stem cells in vivo. Nature
+2009;458:904–909.
+
+www.aacrjournals.org
+
+13. Sato T, Onai N, Yoshihara H, Arai F, Suda T, Ohteki T. Interferon regulatory
+factor-2 protects quiescent hematopoietic stem cells from type I interferondependent exhaustion. Nature Med 2009;15:696–700.
+14. Mahon FX, Rea D, Guilhot J, Guilhot F, Huguet F, Nicolini F, et al.
+Discontinuation of imatinib in patients with chronic myeloid leukaemia
+who have maintained complete molecular remission for at least 2 years: the
+prospective, multicentre Stop Imatinib (STIM) trial. Lancet Oncol 2010;
+11:1029–35.
+15. Chomel J-C, Bonnet M-L, Sorel N, Bertrand A, Meunier M-C, Fichelson S,
+et al. Leukemic stem cell persistence in chronic myeloid leukemia patients
+with sustained undetectable molecular residual disease. Blood 2011;118:
+3657–60.
+16. Beillard E, Pallisgaard N, van der Velden VH, Bi W, Dee R, van der Schoot E,
+et al. Evaluation of candidate control genes for diagnosis and residual
+disease detection in leukemic patients using `real-time' quantitative
+reverse-transcriptase polymerase chain reaction (RQ-PCR)—a Europe
+against cancer program. Leukemia 2003;17:2474–86.
+17. Cross NC, White HE, M€
+uller MC, Saglio G, Hochhaus A. Standardized
+deﬁnitions of molecular response in chronic myeloid leukemia. Leukemia
+2012;26:2172–5.
+18. Hughes T, Deininger M, Hochhaus A, Branford S, Radich J, Kaeda J, et al.
+Monitoring CML patients responding to treatment with tyrosine kinase
+inhibitors: review and recommendations for harmonizing current methodology for detecting BCR–ABL transcripts and kinase domain mutations
+and for expressing results. Blood 2006;108:28–37.
+19. Branford S, Rudzki Z, Walsh S, Parkinson I, Grigg A, Szer J, et al. Detection
+of BCR–ABL mutations in patients with CML treated with imatinib is
+virtually always accompanied by clinical resistance, and mutations in the
+ATP phosphate-binding loop (P-loop) are associated with a poor prognosis. Blood 2003;102:276–83.
+20. Michor F, Hughes F, Iwasa Y, Branford S, Shah N, Sawyers C, et al. Dynamics
+of chronic myeloid leukaemia. Nature 2005;435:1267–1270.
+21. Roeder I, Horn M, Glauche I, Hochhaus A, Mueller M, Loefﬂer M. Dynamic
+modeling of imatinib-treated chronic myeloid leukemia: functional
+insights and clinical implications. Nature Med 2006;12:1181–4.
+22. Tang M, Gonen M, Quintas-Cardama A, Cortes J, Kantarjian H, Field C,
+et al. Dynamics of chronic myeloid leukemia response to long-term
+targeted therapy reveal treatment effects on leukemic stem cells. Blood
+2011;118:1622–31.
+
+Cancer Res; 75(19) October 1, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+4061
+
+Published OnlineFirst September 10, 2015; DOI: 10.1158/0008-5472.CAN-15-0611
+
+Clapp et al.
+
+23. Colijn C, Mackey M. A mathematical model of hematopoiesis—I Periodic
+chronic myelogenous leukemia. J Theoret Biol 2005;237:117–32.
+24. Komarova N, Wodarz D. Effect of cellular quiescence on the success of
+targeted CML therapy. PLoS ONE 2007;10:e990.
+25. Komarova N, Katouli AA, Wodarz D. Combination of two but no three
+current targeted drugs can improve therapy of chronic myeloid leukemia.
+PLoS ONE 2009;4:e4423.
+26. Marciniak-Czochra A, Stiehl T, Ho AD, J€ager W, Wagner W. Modeling of
+asymmetric cell division in hematopoietic stem cells—regulation of self
+renewal is essential for efﬁcient repopulation. Stem Cells and Development
+2009;18:377–85.
+27. Clapp G, Levy D. A review of mathematical models for treating leukemia
+and lymphoma. Drug Discovery Today: Disease Models 2015. http://dx.
+doi.org/10.1016/j.ddmod.2014.10.002.
+28. Burchert A, M€
+uller MC, Kostrewa P, Erben P, Bostel T, Liebler S, et al.
+Sustained molecular response with interferon alfa maintenance after
+
+4062 Cancer Res; 75(19) October 1, 2015
+
+29.
+30.
+
+31.
+
+32.
+33.
+
+induction therapy with imatinib plus interferon alfa in patients with
+chronic myeloid leukemia. J Clin Oncol 2010;28:1429–35.
+Burchert A. Chronic myeloid leukemia stem cell biology and interferon
+alpha. Hematol Educ 2014;8:87–96.
+Kuznetsov V, Makalkin I, Taylor M, Perelson A. Nonlinear dynamics of
+immunogenic tumors: parameter estimation and global bifurcation analysis. Bull Math Biol 1994;56:295–321.
+Laperrousaz B, Jeanpierre S, Sagorny K, Voeltzel T, Ramas S, Kaniewski B, et al.
+Primitive CML cell expansion relies on abnormal levels of BMPs provided
+by the niche and BMPRIb overexpression. Blood 2013;122:3767–77.
+Mendelson A, Frenette PS. Hematopoietic stem cell niche maintenance
+during homeostasis and regeneration. Nat Med 2014;20:833–46.
+Marin D, Bazeos A, Mahon F-X, Eliasson L, Milojkovic D, Bua M, et al.
+Adherence is the critical factor for achieving molecular responses in
+patients with chronic myeloid leukemia who achieve complete cytogenetic
+responses on imatinib. J Clin Oncol 2010;28:2381–8.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst September 10, 2015; DOI: 10.1158/0008-5472.CAN-15-0611
+
+Implication of the Autologous Immune System in BCR−ABL
+Transcript Variations in Chronic Myelogenous Leukemia Patients
+Treated with Imatinib
+Geoffrey D. Clapp, Thomas Lepoutre, Raouf El Cheikh, et al.
+Cancer Res 2015;75:4053-4062. Published OnlineFirst September 10, 2015.
+
+Updated version
+Supplementary
+Material
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-15-0611
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2015/09/10/0008-5472.CAN-15-0611.DC1
+
+Cited articles
+
+This article cites 31 articles, 12 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/75/19/4053.full#ref-list-1
+
+E-mail alerts
+
+Sign up to receive free email-alerts related to this article or journal.
+
+Reprints and
+Subscriptions
+Permissions
+
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+

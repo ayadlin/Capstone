@@ -1,0 +1,954 @@
+HHS Public Access
+Author manuscript
+Author Manuscript
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+Published in final edited form as:
+Nature. 2015 October 22; 526(7574): 525–530. doi:10.1038/nature15395.
+
+Mutations driving CLL and their evolution in progression and
+relapse
+
+Author Manuscript
+
+Dan A. Landau*,1,2,3,4, Eugen Tausch*,5, Amaro N Taylor-Weiner*,1, Chip Stewart1, Johannes
+G. Reiter1,2,6,8, Jasmin Bahlo7,14, Sandra Kluth7,14, Ivana Bozic8,9, Mike Lawrence1,
+Sebastian Böttcher10, Scott L. Carter1,11, Kristian Cibulskis1, Daniel Mertens12, Carrie
+Sougnez1, Mara Rosenberg1, Julian M. Hess1, Jennifer Edelmann5, Sabrina Kless5, Michael
+Kneba10, Matthias Ritgen10, Anna Fink7,13, Kirsten Fischer7,13, Stacey Gabriel1, Eric
+Lander1, Martin A. Nowak8,9,14, Hartmut Döhner5, Michael Hallek**,7,13,15, Donna Neuberg**,
+16, Gad Getz**,1,17,†, Stephan Stilgenbauer**,5,†, and Catherine J. Wu**,1,2,3,4,†
+1
+
+Broad Institute of Harvard and MIT, Cambridge, MA
+
+2
+
+Department of Medical Oncology, Dana-Farber Cancer Institute, Boston, MA
+
+3
+
+Department of Internal Medicine, Brigham and Women's Hospital, Boston, MA
+
+4
+
+Harvard Medical School, Boston MA
+
+5
+
+Department of Internal Medicine III, Ulm University, Ulm, Germany
+
+6
+
+IST Austria (Institute of Science and Technology Austria), Klosterneuburg, Austria
+
+Author Manuscript
+
+7
+
+Department I of Internal Medicine and Center of Integrated Oncology Cologne Bonn, University
+Hospital, Cologne, Germany
+
+8
+
+Program for Evolutionary Dynamics, Harvard University, Cambridge, MA
+
+9
+
+Department of Mathematics, Harvard University, Cambridge, MA
+
+10
+
+Department of Internal Medicine II, University Hospital of Schleswig-Holstein, Campus Kiel,
+Kiel, Germany
+
+Author Manuscript
+
+Users may view, print, copy, and download text and data-mine the content in such documents, for the purposes of academic research,
+subject always to the full Conditions of use:http://www.nature.com/authors/editorial_policies/license.html#terms
+†
+Correspondence to: 1. Catherine J. Wu, MD, Dana-Farber Cancer Institute, 450 Brookline Avenue, Boston MA, USA 02215,
+cwu@partners.org, 2. Stephan Stilgenbauer MD, Department of Internal Medicine III, Ulm University, Ulm, Germany,
+Stephan.Stilgenbauer@uniklinik-ulm.de, 3. Gad Getz PhD, Broad Institute, Cambridge MA, gadgetz@broadinstitute.org.
+*co-first author
+**co-senior author
+All authors contributed extensively to the work presented in this paper. D.A.L., D.N., G.G., E.T. S.S. and C.J.W. contributed to study
+conception and design. E.T., S.B., J.E., S.K., M.K., M.R., A.F., K.F., H.D., M.H., and S.S. performed patient selection, provided the
+DNA samples, and prior matched clinical and genetic datasets. C.L.S., S.G. and E.S.L. enabled sample sequencing. D.A.L., A.N.T.,
+C.S., M.L., K.C., M.R., J.M.H., S.L.C. and G.G. contributed to the computational genomics analysis. D.A.L., E.T., J.G.R,. J.B., S.K.,
+I.B., D.M., M.A.N., D.N., G.G., S.S., and C. J.W contributed to additional data analysis as well as manuscript preparation. All authors
+contributed to the writing of the manuscript
+Conflict of interest statement: SB, SS and MH has received research support and honoraria from Supported by F. Hoffmann-La
+Roche. SB is a recipient of honoraria and research support from AbbVie and of research support from Celgene. All other authors have
+no conflicts of interest.
+Data accession information: CLL8 WES data is deposited in dbGaP (phs000922.v1.p1).
+
+Landau et al.
+
+Page 2
+
+11
+
+Author Manuscript
+
+Joint Center for Cancer Precision Medicine, Dana-Farber Cancer Institute, Brigham and
+Women's Hospital, Harvard Medical School, Boston, MA 02215, USA
+12
+
+German Cancer Research Center (DKFZ), Heidelberg, Germany
+
+13
+
+German CLL Study Group, central office, Cologne.
+
+14
+
+Department of Organismic and Evolutionary Biology, Harvard University, Cambridge, MA
+
+15
+
+Cologne Cluster of Excellence in Cellular Stress Responses in Aging-associated Diseases
+(CECAD).
+
+16
+
+Biostatistics and Computational Biology, Dana-Farber Cancer Institute, Boston, MA
+
+17
+
+Cancer Center and Department of Pathology, Massachusetts General Hospital, Boston, MA,
+USA
+
+Author Manuscript
+
+SUMMARY
+
+Author Manuscript
+
+Which genetic alterations drive tumorigenesis and how they evolve over the course of disease and
+therapy are central questions in cancer biology. We identify 44 recurrently mutated genes and 11
+recurrent somatic copy number variations through whole-exome sequencing of 538 chronic
+lymphocytic leukemia (CLL) and matched germline DNA samples, 278 of which were collected in
+a prospective clinical trial. These include previously unrecognized cancer drivers (RPS15, IKZF3)
+and collectively identify RNA processing and export, MYC activity and MAPK signaling as
+central pathways involved in CLL. Clonality analysis of this large dataset further enabled
+reconstruction of temporal relationships between driver events. Direct comparison between
+matched pre-treatment and relapse samples from 59 patients demonstrated highly frequent clonal
+evolution. Thus, large sequencing datasets of clinically informative samples enable the discovery
+of novel cancer genes and the network of relationships between the driver events and their impact
+on disease relapse and clinical outcome.
+
+INTRODUCTION
+
+Author Manuscript
+
+In recent years, unbiased massively parallel sequencing of whole exomes (WES) in chronic
+lymphocytic leukemia (CLL) has yielded fresh insights into the genetic basis of this
+disease1-4. Two important constraints have limited previous WES analyses. First, cohort size
+is critical for statistical inference of cancer drivers5, and prior CLL WES series3 had a power
+of only 68%, 23% and 7%, to detect putative CLL genes mutated in 5%, 3% and 2% of
+patients, respectively (http://www.tumorportal.org/power)5. Limited cohort size has also
+curtailed the ability to effectively learn the relationships between CLL driver events, such as
+their co-occurrence and the temporal order of their acquisition. Second, the composition of
+the cohort of prior WES studies has limited the ability to accurately determine the impact of
+drivers and clonal heterogeneity on clinical outcome since they included samples collected
+at variable times from subjects exposed to a variety of therapies.
+To overcome these challenges, we analyzed WES data from 538 CLLs, including 278 pretreatment samples collected from subjects enrolled on the phase III CLL8 study6. This trial
+established the combination of fludarabine (F), cyclophosphamide (C) and rituximab (R) as
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 3
+
+Author Manuscript
+
+the current standard-of-care first-line treatment for patients of good physical fitness, with a
+median of >6 years of follow-up. We herein report the discovery of novel CLL cancer genes,
+the comprehensive genetic characterization of samples from patients prior to exposure to a
+uniform and contemporary treatment, and the uncovering of features contributing to relapse
+from this therapy.
+
+RESULTS
+Unbiased candidate CLL genes discovery
+
+Author Manuscript
+
+We performed WES of CLL and matched germline samples, collected from 278 subjects
+enrolled on the CLL8 trial, with mean read depth of 95.0 and 95.7, respectively
+(Supplementary Tables 1 & 2). Consistent with previous CLL WES studies, we detected a
+mean+/−SD rate of 21.5+/−7.9 silent and non-silent single nucleotide variants [sSNVs] and
+somatic insertions and deletions [sINDELs] per exome (Supplementary Tables 2 & 3)1,3.
+We inferred candidate cancer genes in CLL through implementation of MutSig2CV5,7. To
+maximize statistical sensitivity for driver detection5 we combined the CLL8 cohort with two
+previously reported and non-overlapping WES cohorts1,3, thereby increasing the size of the
+cohort to 538 CLLs. This cohort size is expected to saturate candidate CLL gene discovery
+for genes mutated in 5% of patients, and provides 94% and 61% power to detect genes
+mutated in 3% and 2% of patients, respectively5.
+
+Author Manuscript
+
+We detected 44 putative CLL driver genes, including 18 CLL mutated drivers that we
+previously identified3, as well as 26 additional putative CLL genes (Fig. 1-2, Extended Data
+Fig. 1-2). In total, 33.5% of CLLs harbored mutation in at least one of these 26 additional
+genes. Targeted DNA sequencing as well as variant allele expression by RNAseq
+demonstrated high rates of orthogonal validation (Extended Data Fig. 3).
+Of the newly identified putative cancer genes, some were previously suggested as CLL
+drivers in studies using other detection platforms. For example, the suppressor of MYC
+MGA (n=17, 3.2%), which we detected as recurrently inactivated by insertions and nonsense
+mutations, was previously found to be inactivated through deletions8 and truncating
+mutations8,9 in high-risk CLL (Extended Data Fig. 4). A gene set enrichment analysis of
+matched RNAseq data revealed down-regulation of genes that are suppressed upon MYC
+activation in B-cells10 (Supplementary Table 4). In addition to MGA, we report two
+additional candidate driver genes that likely modulate MYC activity (PTPN1111 [n=7, 1.3%]
+and FUBP112 [n=9, 1.7%]), highlighting MYC-related proteins as drivers of CLL.
+
+Author Manuscript
+
+Another cellular process affected by novel CLL drivers is the MAPK-ERK pathway, with
+8.7% of patients harboring at least one mutation in CLL genes in this pathway. These
+included mutations in RAS genes (NRAS, n=9 and KRAS n=14, totaling 4.1%); BRAF
+(n=21, 3.7%); or the novel putative driver MAP2K1 (n=12, 2%). This finding suggests
+further therapeutic exploration of MAPK-ERK pathway inhibitors in CLL. Intriguingly,
+BRAF mutations in CLL did not involve the canonical hotspot (V600E) seen in other
+malignancies5,13,14, but rather clustered heavily around the activation segment of the kinase
+domain (Fig. 2). This may hint at a different mechanism of activity15,16, and has clinical
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 4
+
+Author Manuscript
+
+implications, as BRAF inhibitors are thought to be less effective for non-canonical BRAF
+mutations17,18.
+In addition to highlighting novel cellular processes and pathways affected in CLL, many of
+the 26 additional CLL genes more densely annotated pathways or functional categories
+previously identified in CLL19, including RNA processing and export (FUBP1, XPO4,
+ESWR1, NXF1), DNA damage (CHEK2, BRCC3, ELF420 and DYRK1A21), chromatin
+modification (ASXL1, HIST1H1B, BAZ2B, IKZF3) and B cell activity related pathways
+(TRAF2, TRAF3, CARD11).
+
+Author Manuscript
+
+We discovered a number of putative CLL drivers previously unrecognized in human cancer.
+In a first example, we found that RPS15 was recurrently mutated (n=23, 4.3%), with
+mutations localized to the C-terminal region (Fig. 2) at highly conserved sites (median
+conservation score of 94/100). This component of the S40 ribosomal subunit, has not been
+extensively studied in cancer, although rare mutations have been identified in DiamondBlackfan anemia22. A gene set enrichment analysis revealed upregulation of gene sets
+related to adverse outcome in CLL as well as immune response gene sets (Supplementary
+Table 4). In another example of a previously unrecognized cancer gene, we identified
+recurrent L162R substitutions (n=11, 2.0%) in IKZF3, targeting a highly conserved amino
+acid (93/100 conservation score). This gene is a key transcription factor in B cell
+development23, and its upregulation has been associated with adverse outcome24,25.
+
+Author Manuscript
+
+In addition to sSNVs and sINDELs, we characterized somatic copy number variations
+(sCNVs) directly from the WES data (Extended Data Fig. 5, Supplementary Tables 5 & 6).
+When we accounted for all 55 identified driver events – including non-silent sSNVs and
+sINDELs in putative CLL genes (n=44), and recurrent sCNVs (n=11) —91.1% of CLLs
+contained at least one driver. Moreover, 65.4% of CLLs now harbor at least 2 drivers, and
+44.4% at least 3 drivers, compared with 55.9% and 31.8% were we to exclude the 26
+additional CLL genes.
+Drivers and CLL characteristics
+The larger cohort size also provided statistical power to examine associations between
+genetic alterations and key CLL features. First, we examined whether mutations differed
+between IGHV mutated and unmutated subtypes, the two main subtypes of CLL. In
+agreement with the relative clinical aggressiveness of IGHV unmutated CLL, most drivers
+were found in a higher proportion in this subtype (Extended Data Fig. 6A). Only three
+driver genes were enriched in the IGHV mutated CLL (del(13q), MYD88, CHD2),
+suggesting a role for these specific alterations within the oncogenic process of this subtype.
+
+Author Manuscript
+
+Second, since therapy could lead to selection of particular driver events, we examined the 33
+samples (6.2%, none enrolled on CLL8) that had received therapy prior to sampling. Prior
+treatment was associated with enrichment in TP53 and BIRC3 mutations, del(17p) and
+del(11q) as previously indicated26, as well as in mutated DDX3X and MAP2K1, suggesting
+their selection by therapeutic interventions (Extended Data Fig. 6B).
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 5
+
+Author Manuscript
+
+Third, we examined whether coherent patterns of co-occurrence of driver events were
+evident, limiting our analysis to the 31 drivers with >10 affected patients. Of 465 possible
+pairs, 11 combinations had statistically significant high or low co-occurrence (Extended
+Data Fig. 6C-D). As expected, a high degree of co-occurrence was found between mutated
+TP53 and del(17p), and between mutated ATM and del(11q). Both mutated ATM and
+del(11q) significantly co-occurred with amp(2p), and associations between presence of
+tri(12) with mutated BIRC3 and with mutated BCOR were also found. A significantly low
+rate of co-occurrence was seen between del(13q) and tri(12).
+
+Author Manuscript
+
+Fourth, we examined the temporal sequence of driver acquisition in the evolutionary history
+of CLL. To do this, we computed the cancer-cell fraction (CCF) of each mutation across the
+538 samples, and identified mutations as either clonal or subclonal27 (58.1% of mutations
+classified as subclonal). Both clonal and subclonal sSNVs were similarly dominated by C>T
+transitions at C*pG sites (Extended Data Fig. 7).
+
+Author Manuscript
+
+We first classified driver events likely acquired earlier or later in the disease course based on
+the proportion of cases in which the driver was found as clonal (Fig. 3A). This large dataset
+further enabled the inference of temporal relationships between pairs of drivers. We
+systematically identified instances in which a clonal driver was found together with a
+subclonal driver within the same sample, as these pairs reflect the acquisition of one lesion
+(clonal) followed by another (subclonal), providing a temporal ‘edge’ leading from the
+former to the latter28,29. For each driver, we calculated the relative enrichment of out-going
+edges compared to in-going edges to define early, late and intermediary drivers
+(Supplementary Table 7). For 23 pairs connected by at least 5 edges, we further established
+the temporal relationship between the two drivers in each pair, and thereby constructed a
+temporal map of the evolutionary trajectories of CLL (Supplementary Table 8, Fig. 3B).
+This network highlights sCNVs as the earliest events with two distinct points of departure
+involving del(13q) and tri(12). It further demonstrates an early convergence towards
+del(11q) and substantial diversity in late drivers. Finally, this analysis suggests that in the
+case of the tumor suppressor genes ATM and BIRC3, copy loss precedes sSNVs and
+sINDELs in biallelic inactivation.
+Impact on clinical outcome
+
+Author Manuscript
+
+We examined whether presence of any of the drivers detected in at least 10 of the 278 pretreatment CLL8 samples was associated with impact on clinical outcome (Fig. 4A,
+Extended Data Fig. 8-9; the genomics analysis team was blinded to the clinical outcome
+data). Previous investigations suggested an impact for 7 CLL genes (SF3B1, ATM, TP53,
+XPO1, EGR2, POT1 and BIRC3)30-33. We found shorter progression-free survival (PFS)
+associated only with TP53 and SF3B1 mutations. Of the newly identified recurrent lesions
+evaluated (MGA, BRAF and RPS15), we observed a shorter PFS with mutated RPS15
+(Bonferroni P = 0.024).
+Presence of a detectable pre-treatment subclonal driver has been previously associated with
+shorter remissions in patients treated with heterogeneous therapies3. In the CLL8 cohort, we
+again found that the presence of a pre-treatment subclonal driver was associated with a
+significantly shorter PFS (hazard ratio (HR) 1.6 [95%CI 1.2-2.2, P = 0.004). This
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 6
+
+Author Manuscript
+
+association remained significant in both the FC and FCR treatment arms (Fig. 4B), with a
+non-significant trend when IGHV mutation status was added to a multivariable model in
+addition to the treatment arm (1.3 [0.9-1.9], P=0.102).
+Clonal evolution at disease relapse
+
+Author Manuscript
+
+To define clonal evolution in disease relapse, we performed WES on matched samples
+collected at the time of relapse from 59 of 278 CLL8 subjects (Supplementary Tables 9 &
+10). We observed large clonal shifts between pre-treatment and relapse samples in the
+majority of cases (57 of 59), thus demonstrating that CLL evolution after therapy is the rule
+rather than the exception (Fig. 5A). The relapse clone was already detectable in pretreatment WES in 18 of 59 (30%) cases, demonstrating that the study of pre-treatment
+diversity anticipates the future evolutionary trajectories of the relapsed disease34. By
+targeted deep sequencing, we detected relapse drivers in 11 of the 41 of pre-treatment
+samples in which WES did not detect the relapse driver. In 7 of these 11 CLLs, at least one
+relapse driver was detected in the pretreatment sample (Supplementary Table 10).
+
+Author Manuscript
+
+We further compared the pre-treatment and relapse CCF for each driver, and observed three
+general patterns. First, tri(12), del(13q) and del(11q), suggested as early drivers (Fig. 3B),
+tended to remain stably clonal despite marked, often branched, evolution (Fig. 5B [CLL
+cases: GCLL-115, 307], Fig. 5C-top; Extended Data Fig. 10). This confirms that these are
+indeed early events likely shared by the entire malignant population. Second, TP53
+mutations and del(17p) demonstrated increases in CCF upon relapse, suggesting a fitness
+advantage under therapeutic selection (Fig. 5B [GCLL-27, Fig. 5C-middle]). The novel
+driver IKZF3 increased in CCF in 3 of 4 relapse cases (and remained clonal in the fourth),
+supporting that these mutations likely enhance fitness. Third, mutations in SF3B1 and ATM,
+identified as a temporally intermediate or late drivers, seemed just as likely to fall in CCF as
+they were to rise (Fig. 5C-Bottom). These results suggest that within this therapeutic context
+such mutations do not provide as strong of a fitness advantage as TP53 disruption. In
+addition, we observed 9 instances each of multiple distinct alleles of ATM and SF3B1
+mutations within the same CLL, (e.g., GCLL-307 in Fig. 5B), indicating convergent
+evolution of these late-occurring CLL drivers.
+
+Author Manuscript
+
+This series also informs us regarding the mutagenesis of the tumor suppressor genes TP53
+and ATM, where biallelic inactivation is common. In the case of ATM, we typically find a
+fixed clonal del(11q22.3) and subclones harboring sSNVs affecting the other allele that shift
+in CCF over time (e.g., GCLL -307). We confirmed that the breakpoints of sCNVs in
+matched relapse and pre-treatment samples were highly consistent, likely representing the
+same deletion event. These data thus suggest that mono-allelic ATM deletion provides a
+fitness advantage that enables the expansion of the malignant population with subsequent
+growth of multiple co-existing clones that harbor a second hit in the remaining allele. Thus
+while a biallelic lesion is clearly selected for (Extended Data Fig. 6C), the longitudinal data
+support the temporal analysis (Fig. 3B) in which del(11q) precedes ATM mutations,
+reflecting the higher likelihood of a focal copy number loss compared with a deleterious
+point mutation35,36. In contrast, we consistently observed a concordant rise of del(17p) and
+TP53 mutations in all 12 CLLs harboring both of these events, and none of these cases
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 7
+
+Author Manuscript
+
+exhibited multiple shifting TP53 sSNVs/sINDELs. These observations suggest that a true
+biallelic inactivation of TP53 is required, and indeed, across the 538 CLL samples, the odds
+ratio for co-occurrence of del(17p) and TP53 mutation was far greater than the odds ratio for
+co-occurrence of del(11q) and ATM mutation (97.22 vs. 10.99, respectively). These
+observations are in agreement with a recent analysis that suggested that with the exception
+of a few genes such as TP53, tumor suppressor genes in sporadic cancers are
+haploinsufficient to begin with, and that the second hit only further builds on this fitness
+advantage37.
+
+CONCLUSIONS
+
+Author Manuscript
+
+This study of WES in CLL enabled a comprehensive identification of putative cancer genes
+in CLL, generating novel hypotheses regarding the biology of this disease, and identifying
+previously unrecognized putative CLL drivers such as RPS15 and IKZF3. The detailed
+characterization of the compendium of driver lesions in cancer is of particular importance as
+we strive to develop personalized medicine, as driver genes may inform prognosis (e.g.,
+RPS15 mutations) and identify lesions that may be targeted by therapeutic intervention (e.g.,
+MAPK pathway mutations and specifically the unexpected enrichment for non-canonical
+BRAF mutations). Through the inclusion of samples collected within a landmark clinical
+trial with mature outcome data, we could further study of the impact of genetic alterations in
+the context of the current standard-of-care front line therapy. As targeted therapy is rapidly
+transforming the treatment algorithms for CLL, future studies will be required to reexamine
+these associations in this context38.
+
+Author Manuscript
+
+An important benefit of the larger cohort size is the enhanced ability to explore relationships
+between driver lesions based on patterns of their co-occurrence. Focusing on temporal
+patterns of driver acquisition – based on the distinction between clonal versus subclonal
+alterations in a cross-sectional analysis – we derived a temporal map for the evolutionary
+history of CLL. In the context of relapse after first-line fludarabine based therapy, we note
+highly frequent clonal evolution, and that the future evolutionary trajectories were already
+anticipated in the pre-treatment sample in one third of cases with WES.
+This study provides a glimpse of some of the anticipated fruits of the application of novel
+genomic technologies to growing cohort sizes across leukemias: the continued discovery of
+novel candidate cancer genes, the deeper integration of genetic analysis with standardized
+clinical information (collected within clinical trials) to inform prognosis and therapy, and the
+ability to delineate the complex network of relationships between cancer drivers in the
+history and progression of the malignant process.
+
+Author Manuscript
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 8
+
+Author Manuscript
+
+Extended Data
+
+Author Manuscript
+Author Manuscript
+
+Extended Data Figure 1. Candidate CLL cancer genes discovered in the combined cohort of 538
+primary CLL samples
+
+Author Manuscript
+
+Significantly mutated genes identified in 538 primary CLL. Top panel: the rate of coding
+mutations (mutations per megabase) per sample. Center panel: Detection of individual gene
+found to be mutated (sSNVs or sINDELs) in each of the 538 patient samples (columns),
+color-coded by type of mutation. Only one mutation per gene is shown if multiple mutations
+from the same gene were found in a sample. Right panel: Q-values (red: Q<0.1; purple
+dashed: Q<0.05) and Hugo Symbol gene identification. New candidate CLL genes are
+marked with asterisks (*) Left panel: The percentages of samples affected with mutations
+(sSNVs and sINDELs) in each gene. Bottom panel: plots showing allelic fractions and the
+spectrum of mutations (sSNVs and sINDELs) for each sample.
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 9
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Extended Data Figure 2. Cellular networks and processes affected by putative CLL drivers
+
+Putative CLL cancer genes cluster in pathways that are central to CLL biology such as
+Notch signaling, inflammatory response and B cell receptor signaling. In addition, proteins
+that participate in central cellular processes such as DNA damage repair, chromatin
+modification and mRNA processing, export and translation are also recurrently affected.
+Boxed in yellow—new CLL subpathways highlighted by the current driver discovery effort.
+Red circles- putative driver genes previously identified3 ; purple circles- newly identified in
+the current study.
+
+Author Manuscript
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 10
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Extended Data Figure 3. RNAseq expression data for candidate CLL genes and targeted
+candidate driver validation
+
+Author Manuscript
+
+A. Matched RNAseq and WES data were available for 156 CLLs (103 CLLs previously
+reported in Landau et al.3 and 53 CLLs from the ICGC studies1). From the WES of these
+156 cases, we identified 318 driver mutations (sSNVs and sINDELs). For each site, we
+quantified the number of alternate reads corresponding to the somatic mutation in matched
+RNAseq data. We subsequently counted the number of instances in which a mutation was
+detected (‘detected’) and compared it to the number of instances in which mutation detection
+had >90% power based on the allelic fraction in the WES and the read depth in the RNAseq
+data (‘powered’). Overall, we detected 78.1% of putative CLL gene mutations at sites that
+had >90% power for detection in RNAseq data B. Targeted orthogonal validation (Access
+Array System, Fluidigm) was performed for 71 mutations (sSNVs and sINDELs) in putative
+CLL genes, affecting 47 CLLs from the CLL8 cohort (selected based on sample
+availability). With a mean depth of coverage of 7472X, 65 of the 71 mutations (91.55%)
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 11
+
+Author Manuscript
+
+validated, with a higher variant allele fraction compared with normal sample DNA (binomial
+P <0.01).
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Extended Data Figure 4. Gene mutation maps for candidate CLL genes
+
+Individual gene mutation maps are shown for all newly identified candidate CLL cancer
+genes not included in Fig. 2. The plots show mutation subtype (e.g., missense, nonsense etc)
+and position along the gene.
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 12
+
+Author Manuscript
+Author Manuscript
+
+Extended Data Figure 5. CLL copy number profiles
+
+Copy number profile across 538 CLLs detected from WES data from primary samples (see
+Methods).
+
+Author Manuscript
+Author Manuscript
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 13
+
+Author Manuscript
+
+Extended Data Figure 6. Annotation of drivers based on clinical characteristics and cooccurrence patterns
+
+A. Putative drivers affecting greater than 10 patients were assessed for enrichment in IGHV
+mutated vs. unmutated CLL subtype (Fisher's exact test, magenta line denotes P = 0.05). B.
+Putative drivers affecting greater than 10 patients were assessed for enrichment in samples
+that received therapy prior to sampling (Fisher's exact test). Putative drivers affecting greater
+than 10 patients were tested for co-occurrence. Significantly high (C) or low (D) cooccurrences are shown (Q<0.1, Fisher's exact test with BH FDR, after accounting for prior
+therapy and IGHV mutation status, see Methods).
+
+Author Manuscript
+Author Manuscript
+
+Extended Data Figure 7. Mutation spectrum analysis, clonal vs. subclonal sSNVs
+
+The spectrum of mutation is shown for the clonal and subclonal subsets of coding somatic
+sSNVs across WES of 538 samples. The rate is calculated by dividing the number of
+trinucleotides with the specified sSNVs by the covered territory containing the specified
+trinucleotide. Both clonal and subclonal sSNVs were similarly dominated by C>T
+transitions at C*pG sites. Thus, this mutational process that was previously associated with
+aging39, not only predates oncogenic transformation (since clonal mutations will be highly
+enriched in mutations that precede the malignant transformation40), but also is the dominant
+mechanism of malignant diversification after transformation in CLL.
+
+Author Manuscript
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 14
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Extended Data Figure 8. The CLL driver landscape in the CLL8 cohort
+
+Somatic mutation information shown across the 55 candidate CLL cancer genes and
+recurrent sCNVs (rows) for 278 CLL samples collected from patients enrolled on the CLL8
+clinical trial primary that underwent WES (columns). Recurrent sCNA labels are listed in
+blue, and candidate CLL cancer genes are listed in bold if previously identified in Landau et
+al.3, and with an asterisk (*) if newly identified in the current study.
+
+Author Manuscript
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 15
+
+Author Manuscript
+Author Manuscript
+Extended Data Figure 9. CLL8 patient cohort clinical outcome (from 278 patients) information
+by CLL cancer gene
+
+Author Manuscript
+
+Kaplan-Meier analysis (with logrank P values) for putative drivers not associated with
+significant impact on progression free survival (PFS) or overall survival (OS) in the cohort
+of 278 patients that were treated as part of the CLL8 trial. For candidate CLL genes tested
+here for the first time regarding impact on outcome, a Bonferroni P value is also shown.
+
+Author Manuscript
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 16
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Extended Data Figure 10. Comparison of pre-treatment and relapse cancer cell fraction (CCF)
+for non-silent mutations in candidate CLL genes across 59 CLLs
+
+Author Manuscript
+
+For each CLL gene mutated across the 59 CLLs that were sampled longitudinally, the modal
+CCF is compared between the pre-treatment and relapse samples. CCF increases (red),
+decreases (blue) or stable (grey) over time are shown (in addition to CLL genes shown in
+Figure 6). A significant change in CCF over time (red or blue) was determined if the 95%CI
+of the CCF in the pre-treatment and relapse samples did not overlap.
+
+Supplementary Material
+Refer to Web version on PubMed Central for supplementary material.
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 17
+
+Author Manuscript
+
+ACKNOWLEDGMENTS
+We thank all members of the Broad Institute's Biological Samples, Genetic Analysis, and Genome Sequencing
+Platforms, who made this work possible (NHGRI-U54HG003067). We further thank all patients and their
+physicians for CLL8 trial participation and donation of samples; Myriam Mendila, Nancy Valente, Stephan Zurfluh,
+Michael Wenger, and Jamie Wingate for their support in conception and conduct of the CLL8 trial. DAL is
+supported by an ACS Postdoctoral Fellowship, ASH Scholar Award, and the Burroughs Wellcome Fund Career
+Award for Medical Scientists and by the NIH Big Data to Knowledge initiative (BD2K, 1K01ES025431-01). JGR
+was supported by the European Research Council (ERC) start grant 279307: Graph Games, Austrian Science Fund
+(FWF) grant no. P23499-N23, FWF NFN grant no S11407-N23 RiSE. SB is supported by the German Jose
+Carreras Leukemia Foundation (project R 06/03v). MH is supported by the Deutsche Forschungsgemeinschaft,
+(KFO 286, Project 6). SS is supported by the Else Kröner-Fresenius-Stiftung (2010_Kolleg24, 2012_A146), Virtual
+Helmholtz Institute (VH-VI-404), CLL Global Research Foundation (Alliance), and Deutsche
+Forschungsgemeinschaft (SFB 1074 projects B1, B2). CJW acknowledges support from the Blavatnik Family
+Foundation, AACR (SU2C Innovative Research Grant), NIH/NCI (1R01CA182461-02; 1R01CA184922-01;
+1U10CA180861-01).
+
+Author Manuscript
+
+REFERENCES
+
+Author Manuscript
+Author Manuscript
+
+1. Quesada V, et al. Exome sequencing identifies recurrent mutations of the splicing factor SF3B1 gene
+in chronic lymphocytic leukemia. Nat Genet. 2012; 44:47–52. doi:10.1038/ng.1032. [PubMed:
+22158541]
+2. Puente XS, et al. Whole-genome sequencing identifies recurrent mutations in chronic lymphocytic
+leukaemia. Nature. 2011; 475:101–105. doi:10.1038/nature10113. [PubMed: 21642962]
+3. Landau DA, et al. Evolution and impact of subclonal mutations in chronic lymphocytic leukemia.
+Cell. 2013; 152:714–726. doi:10.1016/j.cell.2013.01.019. [PubMed: 23415222]
+4. Schuh A, et al. Monitoring chronic lymphocytic leukemia progression by whole genome sequencing
+reveals heterogeneous clonal evolution patterns. Blood. 2012; 120:4191–4196. doi:10.1182/
+blood-2012-05-433540. [PubMed: 22915640]
+5. Lawrence MS, et al. Discovery and saturation analysis of cancer genes across 21 tumour types.
+Nature. 2014; 505:495–501. doi:10.1038/nature12912. [PubMed: 24390350]
+6. Hallek M, et al. Addition of rituximab to fludarabine and cyclophosphamide in patients with chronic
+lymphocytic leukaemia: a randomised, open-label, phase 3 trial. Lancet. 2010; 376:1164–1174. doi:
+10.1016/S0140-6736(10)61381-5. [PubMed: 20888994]
+7. Lawrence MS, et al. Mutational heterogeneity in cancer and the search for new cancer-associated
+genes. Nature. 2013; 499:214–218. doi:10.1038/nature12213. [PubMed: 23770567]
+8. Edelmann J, et al. High-resolution genomic profiling of chronic lymphocytic leukemia reveals new
+recurrent genomic alterations. Blood. 2012; 120:4783–4794. doi:10.1182/blood-2012-04-423517.
+[PubMed: 23047824]
+9. De Paoli L, et al. MGA, a suppressor of MYC, is recurrently inactivated in high risk chronic
+lymphocytic leukemia. Leuk Lymphoma. 2013; 54:1087–1090. doi:
+10.3109/10428194.2012.723706. [PubMed: 23039309]
+10. Schlosser I, et al. Dissection of transcriptional programmes in response to serum and c-Myc in a
+human B-cell line. Oncogene. 2005; 24:520–524. doi:10.1038/sj.onc.1208198. [PubMed:
+15516975]
+11. Jiang X, et al. Critical role of SHP2 (PTPN11) signaling in germinal center-derived lymphoma.
+Haematologica. 2014; 99:1834–1845. doi:10.3324/haematol.2014.106401. [PubMed: 25193962]
+12. Zhang J, Chen QM. Far upstream element binding protein 1: a commander of transcription,
+translation and beyond. Oncogene. 2013; 32:2907–2916. doi:10.1038/onc.2012.350. [PubMed:
+22926519]
+13. Tiacci E, et al. BRAF mutations in hairy-cell leukemia. N Engl J Med. 2011; 364:2305–2315. doi:
+10.1056/NEJMoa1014209. [PubMed: 21663470]
+14. Brastianos PK, et al. Exome sequencing identifies BRAF mutations in papillary
+craniopharyngiomas. Nat Genet. 2014; 46:161–165. doi:10.1038/ng.2868. [PubMed: 24413733]
+15. Heidorn SJ, et al. Kinase-dead BRAF and oncogenic RAS cooperate to drive tumor progression
+through CRAF. Cell. 2010; 140:209–221. doi:10.1016/j.cell.2009.12.040. [PubMed: 20141835]
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 18
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+16. Cancer Genome Atlas Research, N. Integrated genomic characterization of papillary thyroid
+carcinoma. Cell. 2014; 159:676–690. doi:10.1016/j.cell.2014.09.050. [PubMed: 25417114]
+17. Yang H, et al. RG7204 (PLX4032), a selective BRAFV600E inhibitor, displays potent antitumor
+activity in preclinical melanoma models. Cancer Res. 2010; 70:5518–5527. doi:
+10.1158/0008-5472.CAN-10-0646. [PubMed: 20551065]
+18. Jebaraj BM, et al. BRAF mutations in chronic lymphocytic leukemia. Leuk Lymphoma. 2013;
+54:1177–1182. doi:10.3109/10428194.2012.742525. [PubMed: 23088640]
+19. Landau DA, Wu CJ. Chronic lymphocytic leukemia: molecular heterogeneity revealed by highthroughput genomics. Genome Med. 2013; 5:47. doi:10.1186/gm451. [PubMed: 23731665]
+20. Sashida G, et al. ELF4/MEF activates MDM2 expression and blocks oncogene-induced p16
+activation to promote transformation. Mol Cell Biol. 2009; 29:3687–3699. doi:10.1128/MCB.
+01551-08. [PubMed: 19380490]
+21. Park J, et al. Dyrk1A phosphorylates p53 and inhibits proliferation of embryonic neuronal cells. J
+Biol Chem. 2010; 285:31895–31906. doi:10.1074/jbc.M110.147520. [PubMed: 20696760]
+22. Gazda HT, et al. Ribosomal protein L5 and L11 mutations are associated with cleft palate and
+abnormal thumbs in Diamond-Blackfan anemia patients. Am J Hum Genet. 2008; 83:769–780.
+doi:10.1016/j.ajhg.2008.11.004. [PubMed: 19061985]
+23. Ferreiros-Vidal I, et al. Genome-wide identification of Ikaros targets elucidates its contribution to
+mouse B-cell lineage specification and pre-B-cell differentiation. Blood. 2013; 121:1769–1782.
+doi:10.1182/blood-2012-08-450114. [PubMed: 23303821]
+24. Billot K, et al. Deregulation of Aiolos expression in chronic lymphocytic leukemia is associated
+with epigenetic modifications. Blood. 2011; 117:1917–1927. doi:10.1182/blood-2010-09-307140.
+[PubMed: 21139082]
+25. Nuckel H, et al. The IKZF3 (Aiolos) transcription factor is highly upregulated and inversely
+correlated with clinical progression in chronic lymphocytic leukaemia. Br J Haematol. 2009;
+144:268–270. doi:10.1111/j.1365-2141.2008.07442.x. [PubMed: 19016725]
+26. Bea S, et al. Genetic imbalances in progressed B-cell chronic lymphocytic leukemia and
+transformed large-cell lymphoma (Richter's syndrome). Am J Pathol. 2002; 161:957–968. doi:
+10.1016/S0002-9440(10)64256-3. [PubMed: 12213724]
+27. Carter SL, et al. Absolute quantification of somatic DNA alterations in human cancer. Nature
+Biotechnol. 2012; 30:413–421. doi:10.1038/nbt.2203. [PubMed: 22544022]
+28. Papaemmanuil E, et al. Clinical and biological implications of driver mutations in myelodysplastic
+syndromes. Blood. 2013; 122:3616–3627. quiz 3699, doi:10.1182/blood-2013-08-518886.
+[PubMed: 24030381]
+29. Wang J, et al. Tumor evolutionary directed graphs and the history of chronic lymphocytic
+leukemia. Elife. 2014; 3 doi:10.7554/eLife.02869.
+30. Stilgenbauer S, et al. Gene mutations and treatment outcome in chronic lymphocytic leukemia:
+results from the CLL8 trial. Blood. 2014; 123:3247–3254. doi:10.1182/blood-2014-01-546150.
+[PubMed: 24652989]
+31. Rossi D, et al. Integrated mutational and cytogenetic analysis identifies new prognostic subgroups
+in chronic lymphocytic leukemia. Blood. 2013; 121:1403–1412. doi:10.1182/
+blood-2012-09-458265. [PubMed: 23243274]
+32. Damm F, et al. Acquired initiating mutations in early hematopoietic cells of CLL patients. Cancer
+Discov. 2014; 4:1088–1101. doi:10.1158/2159-8290.CD-14-0104. [PubMed: 24920063]
+33. Winkelmann N, et al. Low frequency mutations independently predict poor treatment-free survival
+in early stage chronic lymphocytic leukemia and monoclonal B-cell lymphocytosis.
+Haematologica. 2015; 100:e237–239. doi:10.3324/haematol.2014.120238. [PubMed: 25710457]
+34. Puente XS, Lopez-Otin C. The evolutionary biography of chronic lymphocytic leukemia. Nature
+Genet. 2013 doi:10.1038/ng.2556.
+35. Nowak MA, et al. The role of chromosomal instability in tumor initiation. PNAS. 2002; 99:16226–
+16231. doi:10.1073/pnas.202617399. [PubMed: 12446840]
+36. Bozic I, et al. Accumulation of driver and passenger mutations during tumor progression. PNAS.
+2010; 107:18545–18550. doi:10.1073/pnas.1010978107. [PubMed: 20876136]
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 19
+
+Author Manuscript
+
+37. Davoli T, et al. Cumulative haploinsufficiency and triplosensitivity drive aneuploidy patterns and
+shape the cancer genome. Cell. 2013; 155:948–962. doi:10.1016/j.cell.2013.10.011. [PubMed:
+24183448]
+38. Hallek M. Chronic lymphocytic leukemia: 2015 Update on diagnosis, risk stratification, and
+treatment. Am J Hematol. 2015; 90:446–460. doi:10.1002/ajh.23979. [PubMed: 25908509]
+
+Additional bibliography for Extended Data Figures
+39. Alexandrov LB, et al. Signatures of mutational processes in human cancer. Nature. 2013; 500:415–
+421. doi:10.1038/nature12477. [PubMed: 23945592]
+40. Vogelstein B, et al. Cancer genome landscapes. Science. 2013; 339:1546–1558. doi:10.1126/
+science.1235122. [PubMed: 23539594]
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 20
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Figure 1. The landscape of putative driver gene mutations and recurrent somatic copy number
+variations in CLL
+
+Somatic mutation information is shown across the 55 putative driver genes and recurrent
+sCNVs (rows) for 538 primary patient samples (from CLL8 [green], Spanish ICGC [red],
+DFCI/Broad [blue]) that underwent WES (columns). Blue labels- recurrent sCNVs; Bold
+labels- putative CLL cancer genes previously identified in Landau et al.3); asterisked labelsadditional cancer genes identified in this study. Samples were annotated for IGHV status
+(black-mutated; white-unmutated; red-unknown), and for exposure to therapy prior to
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 21
+
+Author Manuscript
+
+sampling (black-prior therapy; white – no prior therapy; red-unknown prior treatment
+status).
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 22
+
+Author Manuscript
+Author Manuscript
+
+Figure 2. Selected novel putative driver gene maps
+
+Individual gene mutation maps for select putative drivers, showing mutation subtype (e.g.,
+missense), position and evidence of mutational hotspots, based on COSMIC database
+information (remaining gene maps shown in Extended Data Fig. 4).
+
+Author Manuscript
+Author Manuscript
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 23
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Figure 3. Inferred evolutionary history of CLL
+
+A. The proportion in which a recurrent driver is found as clonal or subclonal across the 538
+samples is provided (top), along with the individual cancer cell fraction (CCF) values for
+each sample affected by a driver (tested for each driver with a Fisher's exact test, comparing
+to the cumulative proportions of clonal and subclonal drivers excluding the driver evaluated).
+Median CCF values are shown (bottom, bars represent the median and IQR for each driver).
+B. Temporally direct edges are drawn when two drivers are found in the same sample, one in
+clonal and the other in subclonal frequency. These edges are used to infer the temporal
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 24
+
+Author Manuscript
+
+sequences in CLL evolution, leading from early, through intermediate to late drivers. Note
+that only driver pairs with at least 5 connecting edges were tested for statistical significance
+and only drivers connected by at least one statistically significant edge are displayed (see
+Methods, and Supplementary Tables 6 & 7).
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 25
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Figure 4. Associations of CLL drivers with clinical outcome
+
+A. Kaplan-Meier analysis (with logrank P values) for putative drivers with associated impact
+on progression free survival (PFS) or overall survival (OS) in the cohort of 278 patients that
+were treated as part of the CLL8 trial. For candidate CLL genes tested here for the first time
+regarding impact on outcome, a Bonferroni Q value is also shown. B. Presence of a
+subclonal driver is associated with shorter PFS, in both the FC and FCR arms, and a trend
+towards shorter OS.
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 26
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Figure 5. Matched pre-treatment and relapse samples reveal patterns of clonal evolution in
+relation to therapy
+
+A. The number and proportion of the patterns of clonal evolution of CLLs studied at pretreatment and at relapse. B. Selected plots of 2D clustering of pre-treatment and relapse
+cancer cell fraction (CCF) demonstrating clonal stability of tri(12) (CLL case: GCLL115),
+concordant increase in CCFs of TP53 and del(17p) (GCLL27), clonal shifts in ATM sSNVs
+in a sample with clonally stable monoallelic deletion of ATM (GCLL307). Red coloring was
+added when greater than half of the CCF probability indicated >0.1 increase in CCF at
+
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+Landau et al.
+
+Page 27
+
+Author Manuscript
+
+relapse. C. Clonal evolution of CLL drivers. Left panel – for each driver with at least 4
+instances detected across the 59 CLLs, the proportion of instances where the CCF increased
+(red), decreased (blue) or remained stable (grey) over time is shown (see Methods for details
+of the statistical analysis). The driver events were distributed to three main groups:
+predominately stable events (top); predominately increasing CCF (middle), and all other
+patterns (bottom). Right panel - Comparison (modal CCF with 95%CI) between pretreatment and relapse samples for select CLL drivers (see Extended Data Fig. 10 for the
+remaining driver events from the cohort of 59 CLLs).
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Nature. Author manuscript; available in PMC 2016 April 22.
+
+

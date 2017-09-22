@@ -1,0 +1,2564 @@
+Cancer
+Research
+
+Integrated Systems and Technologies
+
+CellMiner: A Web-Based Suite of Genomic and
+Pharmacologic Tools to Explore Transcript and Drug
+Patterns in the NCI-60 Cell Line Set
+William C. Reinhold1, Margot Sunshine1,3, Hongfang Liu1,4, Sudhir Varma1,5, Kurt W. Kohn1, Joel Morris2,
+James Doroshow1,2, and Yves Pommier1
+
+Abstract
+High-throughput and high-content databases are increasingly important resources in molecular medicine,
+systems biology, and pharmacology. However, the information usually resides in unwieldy databases, limiting ready
+data analysis and integration. One resource that offers substantial potential for improvement in this regard is the
+NCI-60 cell line database compiled by the U.S. National Cancer Institute, which has been extensively characterized
+across numerous genomic and pharmacologic response platforms. In this report, we introduce a CellMiner (http://
+discover.nci.nih.gov/cellminer/) web application designed to improve the use of this extensive database. CellMiner
+tools allowed rapid data retrieval of transcripts for 22,379 genes and 360 microRNAs along with activity reports for
+20,503 chemical compounds including 102 drugs approved by the U.S. Food and Drug Administration. Converting
+these differential levels into quantitative patterns across the NCI-60 clariﬁed data organization and crosscomparisons using a novel pattern match tool. Data queries for potential relationships among parameters can
+be conducted in an iterative manner speciﬁc to user interests and expertise. Examples of the in silico discovery
+process afforded by CellMiner were provided for multidrug resistance analyses and doxorubicin activity; identiﬁcation of colon-speciﬁc genes, microRNAs, and drugs; microRNAs related to the miR-17-92 cluster; and drug
+identiﬁcation patterns matched to erlotinib, geﬁtinib, afatinib, and lapatinib. CellMiner greatly broadens applications of the extensive NCI-60 database for discovery by creating web-based processes that are rapid, ﬂexible, and
+readily applied by users without bioinformatics expertise. Cancer Res; 72(14); 3499–511. 2012 AACR.
+
+Introduction
+Access to bioinformatics frequently acts as a choke point in
+the ﬂow of information between large-scale technologies and
+the researchers who have the expertise to assess the data.
+Difﬁculty in ﬂuid data access leads to restricted ability to
+integrate diverse data types, reducing understanding of complex biologic and pharmacologic systems. One such large-scale
+information set with multiple genomic and drug response
+platforms is the NCI-60 cancer cell line database. These cell
+lines, due to the extensive pharmacology and genomic data
+available, are prime candidates for data integration and broad
+public access.
+The NCI-60 cell line panel was initially developed as an anticancer drug efﬁcacy screen by the Developmental Therapeu-
+
+Authors' Afﬁliations: 1Laboratory of Molecular Pharmacology, CCR,
+2
+Developmental Therapeutics Program, DCTD, National Cancer Institute,
+NIH, Bethesda, Maryland; 3SRA International, Fairfax, Virginia; 4Division of
+Biomedical Statistics and Informatics, Mayo Clinic, Rochester, Minnesota;
+and 5HiThru Analytics LLC, Laurel, Maryland
+Corresponding Authors: William C. Reinhold, WCR, NIH, 9000 Rockville
+Pike, Bethesda, MD 20892. Phone: 301-496-5944; Fax: 301-402-0752;
+E-mail: wcr@mail.nih.gov; and Yves Pommier, E-mail: pommier@nih.gov
+doi: 10.1158/0008-5472.CAN-12-1370
+2012 American Association for Cancer Research.
+
+tics Program (DTP; http://dtp.nci.nih.gov/) of the U.S. National Cancer Institute (NCI). Many thousands of compounds have
+been and continue to be applied to the NCI-60 (1, 2). In parallel,
+multiple platforms have been used to characterize the cells
+including (i) array comparative genomic hybridization (aCGH;
+ref. 3) and karyotypic analysis (4), (ii) DNA mutational analysis (5), (iii) DNA ﬁngerprinting (6), (iv) microarrays for
+transcript expression (7–9), (v) microarrays for microRNA
+expression (9, 10), and (vi) protein reverse-phase lysate microarrays (11).
+An emphasis within our group is integration and openaccess dissemination of molecular biology and molecular
+pharmacology information. One form of data integration we
+have developed over the last several years is the combination
+of multiple transcript microarray platforms. This integration
+saves time by preventing researchers from having to review
+data from each platform individually and improves the
+accuracy and reliability of the results. Starting with a 3platform integration (12), we next tested the use of z-score
+averages for probes to facilitate integration of results of
+different platforms done at different times (13). A z-score is a
+mathematical transformation that for each probe measurement, for example, ABCB1 gene expression across the NCI60, subtracts the mean (to center the data) and then divides
+by the SD (to normalize the range). This approach has
+recently been expanded to integrate 5 platforms (14) and
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 4, 2017. © 2012 American Association for Cancer Research.
+
+3499
+
+Reinhold et al.
+
+has proven to be both reliable and informative (15–18). Here,
+we show this approach can be adopted for the DTP drug
+activity as well.
+In the current study, we introduce for noninformaticists a
+set of web-based tools accessible through our CellMiner web
+application (19) that allows rapid access to and comparison
+of transcript expression levels of 22,379 genes, 360 microRNAs, and 20,503 compounds including 102 Food and Drug
+Administration (FDA)-approved drugs. The tools allow easy
+identiﬁcation of drugs with similar activity proﬁles across
+the NCI-60. The gene and drug assessments, having been
+derived from widely varying numbers of probes or experiments, include all probe or experimental results that pass
+quality control, allowing the assessment of data reliability. In
+addition, we introduce our Pattern Comparison tool, which
+rapidly searches for robust connections between these parameters, as well as any independent pattern of interest, and
+allows the user to mine data not only for speciﬁc genes or
+drugs but also for systems biology and systems pharmacology investigations.
+
+Materials and Methods
+Quantitation of gene transcript expression levels in the
+NCI-60 using ﬁve microarray platforms
+Transcript expression for each gene was determined
+through the integration of all pertinent probes from ﬁve platforms. From Affymetrix (Affymetrix Inc.), we used the Human
+Genome U95 Set (HG-U95, GEO accession GSE5949; ref. 8); the
+Human Genome U133 (HG-U133, GEO accession GSE5720;
+ref. 8); the Human Genome U133 Plus 2.0 Arrays (HG-U133
+Plus 2.0, GEO accession GSE32474; ref. 13); and the GeneChip
+Human Exon 1.0 ST array (GH Exon 1.0 ST, GEO accession
+GSE29682; ref. 14). From Agilent (Agilent Technologies, Inc.),
+we used the Whole Human Genome Oligo Microarray (WHG,
+GEO accession GSE29288; ref. 9). Affymetrix microarrays were
+normalized by GCRMA (20). All WHG mRNA probes detected
+in at least 10% of cell lines were normalized using GeneSpring
+GX by (i) setting gProcessedSignal values less than 5 to 5, (ii)
+transforming gProcessedSignal or gTotalGeneSignal to log2,
+and (iii) normalizing per array to the 75th percentile (9). Data
+for these microarrays are accessible at our web-based data
+
+A
+Go to the Genomics and Bioinformatics Group web site
+http://discover.nci.nih.gov/cellminer/
+
+NCI-60 Analysis Tools
+
+Click on the Analysis Tools tab.
+
+B
+NCI-60 Analysis Tools
+Step 1: Select analysis type:
+Z score determination
+
+Gene transcript level (input HUGO name)
+
+Drug Activity (input NSC#)1
+
+Include Cross-correlations
+Mean centered graphs for microRNAs2
+Pattern comparisons
+
+Gene (HUGO) name
+
+microRNA2
+
+Drug NSC#1
+
+Pattern in 60 element array3
+
+1
+
+List of NSC numbers available for analysis [download].
+2
+List of microRNA identifiers available for analysis [download].
+3
+Pattern Comparison template file [download]. Edit the pattern name and add values next to the
+appropriate cell lines.
+Step 2 - Identifiers may be input as a list of file (maximun 150 names). Select input format:
+
+Input list
+
+Upload file
+
+Input the identifier(s):
+
+Figure 1. Snapshot of the NCI-60
+analysis web site, a suite of webbased tools designed to facilitate
+rapid pharmacologic and genomic
+bioinformatics for the NCI-60 cell
+lines. A, these tools are accessible
+at the CellMiner web site (http://
+discover.nci.nih.gov/cellminer/) by
+clicking on the NCI-60 Analysis
+Tools tab. B, the analysis of interest
+(Z score determination, Mean
+centered graphs for microRNAs, or
+Pattern comparisons) is selected in
+step1 using the check boxes. The
+speciﬁc identiﬁer or pattern of
+interest is selected in step 2, either
+by typing in an identiﬁer using the
+"Input list" function, or by
+uploading a ﬁle using the "Upload
+ﬁle" function. A maximum of 150
+identiﬁers (genes, microRNAs, or
+drugs) can be input at once. The
+results are e-mailed to the address
+entered in step 3. Multiple check
+boxes may be selected for a single
+input. Radio buttons (circles) for an
+analysis type are mutually
+exclusive.
+
+Step 3: Your E-mail Address youremail@org
+Your results will be e-mailed to you when they are complete.
+Get data
+
+3500
+
+Cancer Res; 72(14) July 15, 2012
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 4, 2017. © 2012 American Association for Cancer Research.
+
+Bioinformatics of the NCI-60
+
+retrieval and integration tool, CellMiner (http://discover.nci.
+nih.gov/cellminer/; ref. 19). Affymetrix probe sets are referred
+to as probes for ease of description within the manuscript.
+Quality control for genes is done as follows. For every probe
+for that gene, the intensity range across the NCI-60 is determined, and all probes with a range of 1.2 log2 are dropped.
+The number of probes that pass this criterion is determined
+and 25% of that number calculated (keeping a minimum of 2
+and a maximum of 253). For the remaining probes, Pearson
+correlations are determined for all probe/probe combinations.
+The average correlation for each probe is determined compared with all other (remaining) probes. Probes whose average
+correlations are less than 0.30 (P < 0.02 for 60 cell lines in the
+absence of multiple comparisons correction) and not correlated to any other individual probes at 0.30 are dropped. The
+average correlation for remaining probes is then recalculated.
+Next, for probes with average correlations less than 0.60 (P <
+0.0000004 for 60 cell lines), the lowest of these are dropped, and
+average correlations recalculated for all remaining probe
+combinations. Probes are dropped until either all are 0.60
+or the 25% (of probes that passed the 1.2 log2 range criteria)
+level is reached. This ensures signiﬁcant pattern match across
+probes.
+Probe intensity values that pass these quality controls are
+transformed to z-scores (21). Average z-scores were determined
+for each gene for each cell line. Probes with only one experiment that passes the 1.2 log2 range test are included as they are
+potentially informative but must be considered less reliable.
+Quantitation of drug and compound activity levels
+Drug activity levels expressed as 50% growth-inhibitory
+levels (GI50) are determined by the DTP (http://dtp.nci.nih.
+gov/) at 48 hours using the sulforhodamine B assay (22). Repeat
+experiments must pass quality control criteria, similar to those
+for gene transcript levels. Experiments with range less than 1.2
+log10 or with information on less than 35 cell lines are dropped.
+This serves to eliminate nonresponsive and out of proper range
+data. The number of experiments that pass these criteria is
+determined and 25% of that number calculated (keeping a
+minimum of 2 and a maximum of 253). Pearson correlations
+are determined for all remaining possible experiment/experiment combinations. Experiments whose average correlations
+are less than 0.334 (P < 0.05 for the 35 cell line minimum in the
+absence of multiple comparisons correction) and were not
+correlated to individual probes at 0.334 are dropped. For the
+remaining experiments with average correlations less than 0.60
+(P < 0.00014 for the 35 cell line minimum), the lowest is
+dropped, and the correlations recalculated for all remaining
+possible experiment/experiment combinations. Experiments
+are dropped in this fashion until either all are 0.60 or the 25%
+(of experiments that passed the 1.2 log2 range criteria) level is
+reached. This ensures signiﬁcant pattern match across experiments. Drugs with only one experiment but that pass the 1.2
+log10 range test are included as output as they are potentially
+informative but must be considered less reliable. For the
+purpose of the manuscript, compounds that have not yet
+undergone clinical trials, as well as those that have, will
+sometimes be referred to as drugs.
+
+www.aacrjournals.org
+
+MicroRNA expression levels
+MicroRNA expression levels were determined as described
+previously (9) for the Agilent Technologies 15k feature Human
+miRNA Microarray (V2) following the manufacturer's recommendations and are available at CellMiner (http://discover.nci.
+nih.gov/cellminer/) as well as at GEO (accession GSE22821).
+Pattern comparisons
+The comparisons of gene transcript expression, microRNA
+expression, and drug activity across the NCI-60 use the data
+prepared as described in the previous 3 sections. Pearson
+correlations between these parameters were calculated using
+Java 5.0.
+
+Results
+Web-based bioinformatics tool access for the NCI-60
+Several important forms of bioinformatics analyses, made to
+be easily accessible for the noninformaticist, are now available
+at the Genomics and Bioinformatics Group's CellMiner (http://
+discover.nci.nih.gov/cellminer/) site (Fig. 1A). To access those,
+click the "NCI-60 Analysis Tools" tab. These tools (Fig. 1B) allow
+the user to rapidly obtain information for the NCI-60 that
+would otherwise require lengthy data retrieval, compilation,
+and assessment. Included are data for relative transcript and
+microRNA levels, as well as drug activity. The tools include
+pattern comparison functionality that enables the identiﬁcation of relationships between these and other parameters, as
+driven by the user's interest.
+In each case (Fig. 1B), users select the tool in step 1.
+Identiﬁers or patterns are typed in if one chooses "Input list,"
+or uploaded as a .txt or .xls ﬁle if "Upload ﬁle" is chosen in step 2.
+Next, users enter their e-mail address for receipt of the data in
+step 3, and click "Get data" to receive data (as an Excel ﬁle).
+Data are generally available within a few minutes. Error ﬁles are
+returned if no results are provided, stating the reason. These
+tools are described with examples in the subsequent ﬁgures.
+Relative transcript levels tool
+To obtain high-deﬁnition, easily interpretable transcriptlevel data, select the "Z score determination" tool and "Gene
+transcript level" shown in step 1 of Fig. 2A. Check "Input list"
+and input your gene of interest in step 2 (Fig. 2A and B). Ofﬁcial
+gene names are required [(see the Human Genome Organization, HUGO (http://www.genenames.org)]. In the example,
+ABCB1 is the HUGO name of the gene encoding the P-glycoprotein MDR (P-gp) drug efﬂux transporter. The tool compiles
+all probe information available for the selected gene from 5
+microarray platforms, the Affymetrix HG-U95, HG-133, HGU133 Plus 2.0, and the GeneChip Human Exon 1.0 ST array.
+Quality control is included on the basis of single probe variation, as well as probe-to-probe correlation to eliminate poor
+quality, dead, or background-level probes.
+The tool output includes relative transcript intensity presented as z-scores and visualized as a bar graph (Fig. 2C). The
+bars for each cell line are color-coded by tissue of origin.
+Parameters of the Affymetrix probe intensities (range, minimum, maximum, average, and SD) are included (Fig. 2D) to
+provide an untransformed reﬂection of transcript-level
+
+Cancer Res; 72(14) July 15, 2012
+
+Downloaded from cancerres.aacrjournals.org on September 4, 2017. © 2012 American Association for Cancer Research.
+
+3501
+
+Reinhold et al.
+
+A
+Step 1: Select analysis type:
+Z score determination
+Gene transcript level (input HUGO name)
+Drug activity (input
+NSC#) (Include Cross-correlations?
+)
+Step 2 - Identifiers may be input as a list of file (maximun 150 names). Select input format:
+Upload file
+Input list
+
+B
+
+E
+
+Input the identifier(s):
+
+Input the identifier(s):
+
+ABCB1
+
+123127
+
+C
+
+F
+
+ABCB1
+
+Doxorubicin (123127)
+BR:MCF7
+BR:MDA_MB_231
+BR:HS578T
+BR:BT_549
+BR:T47D
+CNS:SF_268
+CNS:SF_295
+CNS:SF_539
+CNS:SNB_19
+CNS:SNB_75
+CNS:U251
+CO:COLO205
+CO:HCC_2998
+CO:HCT_116
+CO:HCT_15
+CO:HT29
+CO:KM12
+CO:SW_620
+LE:CCRF_CEM
+LE:HL_60
+LE:K_562
+LE:MOLT_4
+LE:RPMI_8226
+LE:SR
+ME:LOXIMVI
+ME:MALME_3M
+ME:M14
+ME:SK_MEL_2
+ME:SK_MEL_28
+ME:SK_MEL_5
+ME:UACC_257
+ME:UACC_62
+ME:MDA_MB_435
+ME:MDA_N
+LC:A549
+LC:EKVX
+LC:HOP_62
+LC:HOP_92
+LC:NCI_H226
+LC:NCI_H23
+LC:NCI_H322M
+LC:NCI_H460
+LC:NCI_H522
+OV:IGROV1
+OV:OVCAR_3
+OV:OVCAR_4
+OV:OVCAR_5
+OV:OVCAR_8
+OV:SK_OV_3
+OV:NCI_ADR_RES
+PR:PC_3
+PR:DU_145
+RE:786_0
+RE:A498
+RE:ACHN
+RE:CAKI_1
+RE:RXF_393
+RE:SN12C
+RE:TK_10
+RE:UO_31
+
+BR:MCF7
+BR:MDA_MB_231
+BR:HS578T
+BR:BT_549
+BR:T47D
+CNS:SF_268
+CNS:SF_295
+CNS:SF_539
+CNS:SNB_19
+CNS:SNB_75
+CNS:U251
+CO:COLO205
+CO:HCC_2998
+CO:HCT_116
+CO:HCT_15
+CO:HT29
+CO:KM12
+CO:SW_620
+LE:CCRF_CEM
+LE:HL_60
+LE:K_562
+LE:MOLT_4
+LE:RPMI_8226
+LE:SR
+ME:LOXIMVI
+ME:MALME_3M
+ME:M14
+ME:SK_MEL_2
+ME:SK_MEL_28
+ME:SK_MEL_5
+ME:UACC_257
+ME:UACC_62
+ME:MDA_MB_435
+ME:MDA_N
+LC:A549
+LC:EKVX
+LC:HOP_62
+LC:HOP_92
+LC:NCI_H226
+LC:NCI_H23
+LC:NCI_H322M
+LC:NCI_H460
+LC:NCI_H522
+OV:IGROV1
+OV:OVCAR_3
+OV:OVCAR_4
+OV:OVCAR_5
+OV:OVCAR_8
+OV:SK_OV_3
+OV:NCI_ADR_RES
+PR:PC_3
+PR:DU_145
+RE:786_0
+RE:A498
+RE:ACHN
+RE:CAKI_1
+RE:RXF_393
+RE:SN12C
+RE:TK_10
+RE:UO_31
+
+-1
+
+0
+
+1
+
+2
+
+3
+
+4
+
+-4
+
+5
+
+-3
+-2
+Resistant
+
+D
+
+Average log2
+intensities
+Range
+6.44
+Minimum
+2.79
+Maximum
+9.23
+Average
+3.56
+SD
+1.27
+
+ABCB1
+Chromosome
+Cytogenetic band
+Start
+End
+Size
+Orientation
+
+[GeneCards]
+
+7
+q21.12
+87,132,947
+87,342,563
+209,616
+-
+
+-1
+
+0
+
+1
+
+2
+3
+Sensitive
+
+Activities Z scores
+
+Transcript intensity (Z scores)
+
+G
+
+Average negative
+log10 activities
+Range
+Minimum
+Maximum
+Average
+SD
+
+3.63
+4.71
+8.33
+6.86
+0.59
+
+40
+
+30
+
+20
+
+10
+
+0
+
+4.4 4.9 5.4 5.9 6.4 6.9 7.4 7.9 8.4
+
+Figure 2. Relative transcript expression and drug activity levels in the NCI-60. A, check the "Z score determination" check-box and then choose either the
+"Gene transcript level" or the "Drug activity" radio button in step 1. In those instances in which multiple genes or drugs are entered, a cross-correlation of all
+
+3502
+
+Cancer Res; 72(14) July 15, 2012
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 4, 2017. © 2012 American Association for Cancer Research.
+
+Bioinformatics of the NCI-60
+
+variation. Chromosomal location is also included (Fig. 2D). In
+the example shown in Fig. 2C, NCI-ADR-RES and HCT-15 are
+the top 2 expressers of ABCB1. Notably, most cell lines appear
+to the left of the mean with uniformly low values. Those low
+values all approach 2.79 log2 intensity units (Fig. 2D), which is
+within background and indicates that all those cell lines have
+undetectable or low ABCB1 transcript levels.
+In each data ﬁle for individual genes, the user also receives (i)
+the total number of probes for the gene (including those that
+failed), (ii) all intensity values (for those probes that passed
+quality control) to a maximum of 122, (iii) the z-score transforms for each probe, (iv) the platform that each probe
+originated from, (v) the exon to which the probe hybridizes,
+(vi) the average z-score for each cell line, and (vii) the distribution of the individual cell line average intensities presented
+as a histogram. Currently information on 22,379 genes is
+available.
+The "Z score determination" tool also allows multiple gene
+entries in the input box (Fig. 2B; with each gene on a separate
+line). Each gene is then returned as separate Excel ﬁle with its
+own plots and data. In the case of multiple genes being entered,
+a cross-correlation table of the resultant z-scores can be
+generated by clicking the "Include Cross-correlations" box
+in Fig. 2A, step 1.
+Relative drug activities tool
+To obtain curated GI50 data (50% growth inhibition), select
+the "Z score determination" tool shown in Fig. 1A (top right)
+and then select "Drug activity" Specify the compound using the
+National Service Center number (NSC) as the input (Fig. 2E, the
+NSC of doxorubicin is 123127). This tool will compile all
+experimental information available from the DTP (http://
+dtp.nci.nih.gov/) for the selected compound(s). Quality control
+is included on the basis of single experiment variation as well as
+experiment-to-experiment correlation to eliminate out of
+appropriate concentration, weak or invariant response, and
+irreproducible experiments. The compound must have a minimum of 35 cell lines with activity information to be included.
+The tool output includes relative compound activity presented
+as z-scores and visualized as a bar graph (Fig. 2F). Parameters
+of the compound activities (range, minimum, maximum, average, and SD) are included (Fig. 2G) to provide the user with an
+untransformed reﬂection of compound activity. The distribution of the individual cell line average responses is presented as
+a histogram. In the example shown, NCI-ADR-RES and HCT-15
+are the two cell lines most resistant to doxorubicin in the NCI60, which is consistent with the fact they overexpress ABCB1,
+whose gene product P-gp pumps the drug from the cell (23, 24).
+
+In the case of multiple drugs being entered, a cross-correlation
+table of the resultant z-scores for each drug may also be
+generated by clicking the "Include Cross-correlations" box
+in Figs. 2A and 1B, step 1.
+The user also receives (i) the total number of experiments
+done for the compound (including those that failed), (ii)
+whether the compound has been FDA-approved, (iii) all activity values (for those experiments that passed quality control, to
+a maximum of 253), (iv) the z-score transforms for each
+experiment, and (v) the average z-score for each cell line.
+Currently, 50,703 compounds have passed through these
+ﬁlters, resulting in data for 20,503 compounds. NSC numbers
+are the required input (download the list of currently available
+NSCs at "List of NSC numbers available for analysis"; Fig. 1B).
+NSC numbers can be cross-referenced to other identifying
+parameters, including their chemical structures (http://dtp.
+nci.nih.gov/dtpstandard/dwindex/index.jsp).
+Relative microRNA levels tool
+To rapidly obtain the log2 intensity values for microRNAs,
+the "microRNA mean centered graphs" tool is selected as
+shown in step 1 of Fig. 3A. Input your microRNA(s) of interest
+in step 2 using the name from the provided "List of microRNA
+identiﬁers available for analysis" accessed by clicking
+[download] in Step 1. The microRNA tool provides access to
+the average log2 intensity values for the Agilent Technologies
+Human miRNA Microarray (V2; ref. 9). The z-scores are not
+used as this is a single platform analysis done at a single time.
+The tool output includes relative transcript intensities visualized as a bar graph. In the example shown in Fig. 3B, we queried
+the data for a microRNA from the miR-17-92 oncogenic cluster
+(25). Other microRNAs from the same cluster showed the same
+pattern of expression, with high levels in leukemia and colon
+cancer lines (data not shown; see Discussion). Parameters of
+probe intensities (range, minimum, maximum, average, and
+SD), as well as the chromosomal location are included (Fig. 3C).
+The distribution of the individual cell line average intensities is
+presented as a histogram. Currently information on 360 microRNAs is available.
+Pattern comparison tools
+To make comparisons between an input pattern of interest (including expression of a gene or microRNA, activity of a
+drug, or any pattern of interest) and (i) gene expression, (ii)
+microRNA expression, and (iii) drug activity levels, start by
+selecting the "Pattern comparison" tool shown in step 1
+of Fig. 4A, and 1 of the 4 possible types of input, "Gene
+symbol," "microRNA," "Drug NSC#," or "Pattern in 60 element
+
+genes or drugs entered may be included by checking the "Include Cross-correlations" check box. In step 2, the user chooses whether to type in the input or
+upload it as a ﬁle by selecting "Input list" or "Upload ﬁle" (as .txt or .xls, respectively). B, for relative transcript expression levels, input the gene
+name(s) using the "ofﬁcial" (HUGO) name. C, a graphical z-score composite of all transcript probes that pass quality control is generated, along with the
+numerical values (data not shown). D. mean log2 intensity values for range, minimum, maximum, average, and SD for all Affymetrix probes are
+included to assist in data interpretation, as well as chromosomal location. E, for relative drug activity levels, input the drug "ofﬁcial" NSC number(s)
+(see "Download NSCs" ﬁle from Fig. 1B, step 1, for a listing of these). F, a graphical z-score composite of all drug experiments that pass quality control is
+generated, along with the numerical values (data not shown). G, mean log10 intensity values for range, minimum, maximum, average, and SD for all
+experiments are included to assist in data interpretation, as well as a histogram of the cell lines average activities. For the histogram, the x-axis is the average
+experiment activity for the cell lines and the y-axis the frequency at which they occur. The red arrow indicates the most resistant cell line to doxorubicin,
+NCI-ADR-RES.
+
+www.aacrjournals.org
+
+Cancer Res; 72(14) July 15, 2012
+
+Downloaded from cancerres.aacrjournals.org on September 4, 2017. © 2012 American Association for Cancer Research.
+
+3503
+
+Reinhold et al.
+
+A
+Step 1: Select analysis type:
+microRNA mean centered graphs 2
+2
+
+List of microRNA identifiers available for analysis [download]
+
+Step 2 - Identifiers may be input as a list or a file (maximun 150 names). Select input format:
+Upload file
+Input list
+Input the identifier(s):
+hsa-miR-18a
+
+Step 3: Your E-mail Address youremail@org
+
+B
+
+C
+hsa-miR-18a
+
+Average log2 intensities
+Range
+Minimun
+Maximun
+Average
+SD
+
+BR:MCF7
+BR:MDA_MB_231
+BR:HS578T
+BR:BT_549
+BR:T47D
+CNS:SF_268
+CNS:SF_295
+CNS:SF_539
+CNS:SNB_19
+CNS:SNB_75
+CNS:U251
+CO:COLO205
+CO:HCC_2998
+CO:HCT_116
+CO:HCT_15
+CO:HT29
+CO:KM12
+CO:SW_620
+LE:CCRF_CEM
+LE:HL_60
+LE:K_562
+LE:MOLT_4
+LE:RPMI_8226
+LE:SR
+ME:LOXIMVI
+ME:MALME_3M
+ME:M14
+ME:SK_MEL_2
+ME:SK_MEL_28
+ME:SK_MEL_5
+ME:UACC_257
+ME:UACC_62
+ME:MDA_MB_435
+ME:MDA_N
+LC:A549
+LC:EKVX
+LC:HOP_62
+LC:HOP_92
+LC:NCI_H226
+LC:NCI_H23
+LC:NCI_H322M
+LC:NCI_H460
+LC:NCI_H522
+OV:IGROV1
+OV:OVCAR_3
+OV:OVCAR_4
+OV:OVCAR_5
+OV:OVCAR_8
+OV:SK_OV_3
+OV:NCI_ADR_RES
+PR:PC_3
+PR:DU_145
+RE:786_0
+RE:A498
+RE:ACHN
+RE:CAKI_1
+RE:RXF_393
+RE:SN12C
+RE:TK_10
+RE:UO_31
+
+30
+
+6.04
+-0.44
+5.61
+1.25
+1.11
+
+miRNA hsa-mir-18a
+Chromosome
+13
+Cytogenetic band
+13q31.3
+Start 92,003,005
+End 92,003,075
+Size
+70
+Orientation
++
+
+Distribution of cell line average intensities
+
+Frequency
+
+20
+
+10
+
+0
+-0.4 0.3
+
+-2
+
+-1
+
+0
+
+1
+
+2
+
+3
+
+1
+
+1.7 2.4 3.1 3.8
+Average intensities
+
+4.5
+
+5.2
+
+4
+
+Mean-centered average log2 intensity
+
+Figure 3. Relative microRNA transcript expression levels in the NCI-60. A, input of data. Check the "microRNA mean centered graphs" check box in step 1.
+To access the list of microRNAs names to use, go to footnote 2, "List of microRNA identiﬁers" and click "download". In step 2, the user chooses whether
+to type in the input or upload it as a ﬁle (.txt or .xls) by selecting "Input list" or "Upload ﬁle," respectively. If typing in the input, input the microRNA name(s) in the
+"Input the identiﬁers" box. In step 3, enter the e-mail address to send the results to. B, the output includes a plot of the mean-centered average log2
+intensities along with their numerical values (data not shown). C, mean log2 intensity values for range, minimum, maximum, average, and SD for all cell lines are
+included to assist in data interpretation, as well as a histogram of the cell lines average intensities. For the histogram, the x-axis is the average intensity
+for the cell lines and the y-axis the frequency at which they occur.
+
+3504
+
+Cancer Res; 72(14) July 15, 2012
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 4, 2017. © 2012 American Association for Cancer Research.
+
+Bioinformatics of the NCI-60
+
+A
+Step 1: Select analysis type:
+Pattern comparison
+Gene symbol (input HUGO name)
+microRNA2 Drug NSC#1 Pattern in 60 element array3
+1
+List of NSC numbers available for analysis (download).
+2
+List of microRNA identifiers available for analysis (download).
+3
+Pattern comparison template file (download). Just file in the values next to the appropriate cell line.
+Step 2 - Identifiers may be input as a list or a file (maximun 150 names). Select input format:
+Upload file
+Input list
+Input the identifier(s):
+ABCB1
+
+Step 3: Your E-mail Address youremail@org
+
+B
+
+Significant gene correlationsb
+Name
+ABCB1
+RUNDC3B
+DNAJC5G
+RGS7BP
+SLC13A5
+RASIP1
+RPL17P4
+ZCWPW2
+
+/
+SMG7
+EDEM3
+B2M
+PDCD10
+MRI1
+
+D
+
+Correlationsf Annotations Location
+1.000
+Efflux
+7q21.12
+0.750
+na
+7q21.12
+0.691
+na
+2p23.3
+0.688
+na
+5q12.3
+0.649
+Drug uptake 17p13.2
+0.639
+na
+19q13.31
+0.629
+na
+14q32.33
+0.615
+na
+3p24.1
+/
+/
+/
+-0.419
+na
+1q25.3
+-0.429
+na
+1q31.1
+-0.430
+na
+15q21.1
+-0.447
+DNA damage 3q26.1
+-0.460
+na
+19p13.12
+
+C
+
+Significant microRNA correlationsd
+Name
+hsa-miR-517c
+hsa-miR-521
+hsa-miR-522
+hsa-miR-519a
+hsa-miR-516a-5p
+
+/
+hsa-miR-106b
+hsa-miR-598
+hsa-miR-362-3p
+hsa-miR-93
+hsa-miR-16-2*
+hsa-miR-362-5p
+hsa-miR-25
+hsa-miR-652
+
+Correlationsf
+0.411
+0.381
+0.360
+0.337
+0.315
+/
+-0.273
+-0.274
+-0.282
+-0.284
+-0.285
+-0.294
+-0.319
+-0.368
+
+Location
+19q13.33
+19q13.33
+19q13.33
+19q13.33
+19q13.33
+/
+7q22.1
+8p23.1
+Xp11.22
+7q22.1
+3q25.33
+Xp11.22
+7q22.1
+Xq22.3
+
+Significant drug correlationsb
+NSC number
+Name
+665724
+na
+661908
+na
+673294
+na
+698964
+na
+710857
+na
+39688
+na
+57969
+na
+/
+/
+123127
+Doxorubicin
+630176
+Romidepsin
+58514
+Chromomycin
+76411
+na
+259968
+Bouvardin
+685703
+na
+
+Mechanism Correlationsf FDA status
+0.707
+Not approved
+na
+na
+0.706
+Not approved
+na
+0.690
+Not approved
+0.687
+Not approved
+na
+0.652
+Not approved
+na
+0.650
+Not approved
+na
+0.641
+Not approved
+na
+/
+/
+/
+T2
+-0.551
+FDA approved
+-0.854
+FDA approved
+HDAC
+-0.855
+Not approved
+na
+-0.864
+Not approved
+na
+-0.872
+Not approved
+na
+-0.918
+Not approved
+na
+
+Figure 4. Pattern comparison to transcript expression, microRNA expression, and drug activity levels in the NCI-60. A, choose your input type by checking the
+"Pattern comparison" check box and then choose either the "Gene symbol," "microRNA," "Drug NSC#," or "Pattern in 60 element array" radio buttons
+in step 1. In step 2, the user chooses whether to type in the input or upload it as a ﬁle by selecting "Input list" or "Upload ﬁle," respectively (use the same
+identiﬁers as in Figs. 2 and 3). To input your own template, use the "Pattern comparison template ﬁle" download from footnote 3, with your numerical
+values and "na" for missing or to be ignored values. B, signiﬁcant gene correlation output, given for all genes that match your input pattern at a signiﬁcance level
+of P < 0.05. C, signiﬁcant microRNA correlations output, given for all microRNAs that match your input pattern at a signiﬁcance level of P < 0.05. D, signiﬁcant
+drug correlations output, given for all compounds that match your input pattern at a signiﬁcance level of P < 0.05. Only the top and bottom of the lists
+are shown in each case.
+
+www.aacrjournals.org
+
+Cancer Res; 72(14) July 15, 2012
+
+Downloaded from cancerres.aacrjournals.org on September 4, 2017. © 2012 American Association for Cancer Research.
+
+3505
+
+Reinhold et al.
+
+Significant gene correlationsb
+Name
+
+*
+*
+
+TRIM15
+RNF43
+VIL1
+
+Correlationsg Annotationsh
+0.901
+–
+0.868
+–
+0.844
+–
+
+Location
+6p21.33
+17q23.2
+2q35
+
+Genes
+
+BR:MCF7
+BR:MDA_MB_231
+BR:HS578T
+BR:BT_549
+BR:T47D
+CNS:SF_268
+CNS:SF_295
+CNS:SF_539
+CNS:SNB_19
+CNS:SNB_75
+CNS:U251
+CO:COLO205
+CO:HCC_2998
+CO:HCT_116
+CO:HCT_15
+CO:HT29
+CO:KM12
+CO:SW_620
+LE:CCRF_CEM
+LE:HL_60
+LE:K_562
+LE:MOLT_4
+LE:RPMI_8226
+LE:SR
+ME:LOXIMVI
+ME:MALME_3M
+ME:M14
+ME:SK_MEL_2
+ME:SK_MEL_28
+ME:SK_MEL_5
+ME:UACC_257
+ME:UACC_62
+ME:MDA_MB_435
+ME:MDA_N
+LC:A549
+LC:EKVX
+LC:HOP_62
+LC:HOP_92
+LC:NCI_H226
+LC:NCI_H23
+LC:NCI_H322M
+LC:NCI_H460
+LC:NCI_H522
+OV:IGROV1
+OV:OVCAR_3
+OV:OVCAR_4
+OV:OVCAR_5
+OV:OVCAR_8
+OV:SK_OV_3
+OV:NCI_ADR_RES
+PR:PC_3
+PR:DU_145
+RE:786_0
+RE:A498
+RE:ACHN
+RE:CAKI_1
+RE:RXF_393
+RE:SN12C
+RE:TK_10
+RE:UO_31
+
+BR:MCF7
+BR:MDA_MB_231
+BR:HS578T
+BR:BT_549
+BR:T47D
+CNS:SF_268
+CNS:SF_295
+CNS:SF_539
+CNS:SNB_19
+CNS:SNB_75
+CNS:U251
+CO:COLO205
+CO:HCC_2998
+CO:HCT_116
+CO:HCT_15
+CO:HT29
+CO:KM12
+CO:SW_620
+LE:CCRF_CEM
+LE:HL_60
+LE:K_562
+LE:MOLT_4
+LE:RPMI_8226
+LE:SR
+ME:LOXIMVI
+ME:MALME_3M
+ME:M14
+ME:SK_MEL_2
+ME:SK_MEL_28
+ME:SK_MEL_5
+ME:UACC_257
+ME:UACC_62
+ME:MDA_MB_435
+ME:MDA_N
+LC:A549
+LC:EKVX
+LC:HOP_62
+LC:HOP_92
+LC:NCI_H226
+LC:NCI_H23
+LC:NCI_H322M
+LC:NCI_H460
+LC:NCI_H522
+OV:IGROV1
+OV:OVCAR_3
+OV:OVCAR_4
+OV:OVCAR_5
+OV:OVCAR_8
+OV:SK_OV_3
+OV:NCI_ADR_RES
+PR:PC_3
+PR:DU_145
+RE:786_0
+RE:A498
+RE:ACHN
+RE:CAKI_1
+RE:RXF_393
+RE:SN12C
+RE:TK_10
+RE:UO_31
+
+-1
+
+0
+
+1
+
+2
+
+CO
+
+-1
+
+3
+
+0
+
+BR:MCF7
+
+Colonspecific
+input
+pattern
+
+CNS:SF_268
+CNS:SF_295
+CNS:SF_539
+CNS:SNB_19
+CNS:SNB_75
+CNS:U251
+CO:COLO205
+CO:HCC_2998
+CO:HCT_116
+CO:HCT_15
+CO:HT29
+CO:KM12
+CO:SW_620
+LE:CCRF_CEM
+LE:HL_60
+LE:K_562
+LE:MOLT_4
+LE:RPMI_8226
+LE:SR
+
+1
+1
+1
+1
+1
+1
+5
+5
+5
+5
+5
+5
+5
+1
+1
+1
+1
+1
+1
+
+microRNAs
+
+RE:UO_31
+
+Drugs
+
+Significant drug correlationsf
+NSC number
+
+**
+*
+
+732298
+366140
+741078
+750690
+
+i
+
+Name
+–
+Pyrazoloacridine
+Selumetinib
+Sunitinib
+
+Correlations g FDA status
+0.653
+0.425
+0.367
+0.403
+
+-2
+0
+2
+4
+6
+Mean-centered average log intensity
+2
+
+8
+
+Not approved
+Clinical trial
+Clinical trial
+Clinical trial
+
+0
+
+2
+
+4
+
+6
+
+8
+
+* mir-194
+r = 0.739
+BR:MCF7
+BR:MDA_MB_231
+BR:HS578T
+BR:BT_549
+BR:T47D
+CNS:SF_268
+CNS:SF_295
+CNS:SF_539
+CNS:SNB_19
+CNS:SNB_75
+CNS:U251
+CO:COLO205
+CO:HCC_2998
+CO:HCT_116
+CO:HCT_15
+CO:HT29
+CO:KM12
+CO:SW_620
+LE:CCRF_CEM
+LE:HL_60
+LE:K_562
+LE:MOLT_4
+LE:RPMI_8226
+LE:SR
+ME:LOXIMVI
+ME:MALME_3M
+ME:M14
+ME:SK_MEL_2
+ME:SK_MEL_28
+ME:SK_MEL_5
+ME:UACC_257
+ME:UACC_62
+ME:MDA_MB_435
+ME:MDA_N
+LC:A549
+LC:EKVX
+LC:HOP_62
+LC:HOP_92
+LC:NCI_H226
+LC:NCI_H23
+LC:NCI_H322M
+LC:NCI_H460
+LC:NCI_H522
+OV:IGROV1
+OV:OVCAR_3
+OV:OVCAR_4
+OV:OVCAR_5
+OV:OVCAR_8
+OV:SK_OV_3
+OV:NCI_ADR_RES
+PR:PC_3
+PR:DU_145
+RE:786_0
+RE:A498
+RE:ACHN
+RE:CAKI_1
+RE:RXF_393
+RE:SN12C
+RE:TK_10
+RE:UO_31
+
+0
+
+1
+
+Resistant
+
+2
+Sensitive
+
+Activities z-scores
+
+* Selumetinib
+741078
+
+Cancer Res; 72(14) July 15, 2012
+
+-2
+
+Mean-centered average log intensity
+2
+
+BR:MCF7
+BR:MDA_MB_231
+BR:HS578T
+BR:BT_549
+BR:T47D
+CNS:SF_268
+CNS:SF_295
+CNS:SF_539
+CNS:SNB_19
+CNS:SNB_75
+CNS:U251
+CO:COLO205
+CO:HCC_2998
+CO:HCT_116
+CO:HCT_15
+CO:HT29
+CO:KM12
+CO:SW_620
+LE:CCRF_CEM
+LE:HL_60
+LE:K_562
+LE:MOLT_4
+LE:RPMI_8226
+LE:SR
+ME:LOXIMVI
+ME:MALME_3M
+ME:M14
+ME:SK_MEL_2
+ME:SK_MEL_28
+ME:SK_MEL_5
+ME:UACC_257
+ME:UACC_62
+ME:MDA_MB_435
+ME:MDA_N
+LC:A549
+LC:EKVX
+LC:HOP_62
+LC:HOP_92
+LC:NCI_H226
+LC:NCI_H23
+LC:NCI_H322M
+LC:NCI_H460
+LC:NCI_H522
+OV:IGROV1
+OV:OVCAR_3
+OV:OVCAR_4
+OV:OVCAR_5
+OV:OVCAR_8
+OV:SK_OV_3
+OV:NCI_ADR_RES
+PR:PC_3
+PR:DU_145
+RE:786_0
+RE:A498
+RE:ACHN
+RE:CAKI_1
+RE:RXF_393
+RE:SN12C
+RE:TK_10
+RE:UO_31
+
+-1
+
+3506
+
+CO
+
+-4
+
+* mir-215
+r = 0.745
+
+1
+
+3
+
+BR:MCF7
+BR:MDA_MB_231
+BR:HS578T
+BR:BT_549
+BR:T47D
+CNS:SF_268
+CNS:SF_295
+CNS:SF_539
+CNS:SNB_19
+CNS:SNB_75
+CNS:U251
+CO:COLO205
+CO:HCC_2998
+CO:HCT_116
+CO:HCT_15
+CO:HT29
+CO:KM12
+CO:SW_620
+LE:CCRF_CEM
+LE:HL_60
+LE:K_562
+LE:MOLT_4
+LE:RPMI_8226
+LE:SR
+ME:LOXIMVI
+ME:MALME_3M
+ME:M14
+ME:SK_MEL_2
+ME:SK_MEL_28
+ME:SK_MEL_5
+ME:UACC_257
+ME:UACC_62
+ME:MDA_MB_435
+ME:MDA_N
+LC:A549
+LC:EKVX
+LC:HOP_62
+LC:HOP_92
+LC:NCI_H226
+LC:NCI_H23
+LC:NCI_H322M
+LC:NCI_H460
+LC:NCI_H522
+OV:IGROV1
+OV:OVCAR_3
+OV:OVCAR_4
+OV:OVCAR_5
+OV:OVCAR_8
+OV:SK_OV_3
+OV:NCI_ADR_RES
+PR:PC_3
+PR:DU_145
+RE:786_0
+RE:A498
+RE:ACHN
+RE:CAKI_1
+RE:RXF_393
+RE:SN12C
+RE:TK_10
+RE:UO_31
+
+BR:MCF7
+BR:MDA_MB_231
+BR:HS578T
+BR:BT_549
+BR:T47D
+CNS:SF_268
+CNS:SF_295
+CNS:SF_539
+CNS:SNB_19
+CNS:SNB_75
+CNS:U251
+CO:COLO205
+CO:HCC_2998
+CO:HCT_116
+CO:HCT_15
+CO:HT29
+CO:KM12
+CO:SW_620
+LE:CCRF_CEM
+LE:HL_60
+LE:K_562
+LE:MOLT_4
+LE:RPMI_8226
+LE:SR
+ME:LOXIMVI
+ME:MALME_3M
+ME:M14
+ME:SK_MEL_2
+ME:SK_MEL_28
+ME:SK_MEL_5
+ME:UACC_257
+ME:UACC_62
+ME:MDA_MB_435
+ME:MDA_N
+LC:A549
+LC:EKVX
+LC:HOP_62
+LC:HOP_92
+LC:NCI_H226
+LC:NCI_H23
+LC:NCI_H322M
+LC:NCI_H460
+LC:NCI_H522
+OV:IGROV1
+OV:OVCAR_3
+OV:OVCAR_4
+OV:OVCAR_5
+OV:OVCAR_8
+OV:SK_OV_3
+OV:NCI_ADR_RES
+PR:PC_3
+PR:DU_145
+RE:786_0
+RE:A498
+RE:ACHN
+RE:CAKI_1
+RE:RXF_393
+RE:SN12C
+RE:TK_10
+RE:UO_31
+
+-4
+
+/
+
+2
+
+* RNF43
+
+* VIL1
+
+1
+
+/
+
+1
+
+Transcript intensity (z-scores)
+
+Transcript intensity (z-scores)
+
+CO
+
+-1
+
+0
+
+1
+
+2
+
+3
+
+Resistant
+
+4
+
+5
+
+Sensitive
+Activities z-scores
+
+732298
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 4, 2017. © 2012 American Association for Cancer Research.
+
+Bioinformatics of the NCI-60
+
+array." Input your identiﬁer(s) in step 2, using a gene,
+microRNA, drug, or pattern. The ﬁrst 3 of these are the
+same 22,379 gene expression levels, 20,503 drugs activity
+levels, and 360 microRNA expression levels, described above
+(see Figs. 1–3). The fourth option is to input any pattern
+across the NCI-60 that is of interest to the user. A "Pattern
+comparison template ﬁle" for this option is accessible for
+download in step 1, footnote 3 (Fig. 4A).
+The output is returned as a single Excel spreadsheet ﬁle
+that includes 6 main sections: "All" and "Signiﬁcant gene
+correlations" (Fig. 4B), "All" and "Signiﬁcant microRNA correlations" (Fig. 4C), and "All" and "Signiﬁcant drug correlations" (Fig. 4D; the 3 All columns are not shown in B–D). The
+top and bottom portions of these sets from the input of
+ABCB1 are shown in Fig. 4. The "all" versions of these outputs
+contain the same columns as do the "signiﬁcant," with the
+exception of the FDA status column in Fig. 4D but include all
+possible correlations and are in either alphabetical (for
+genes and microRNAs) or numerical (for drugs by NSC
+number) order. The signiﬁcant correlations outputs, are
+based on statistical signiﬁcance (P < 0.05) in the absence
+of multiple comparisons correction and are ordered by
+descending correlations with color-coding (red- and bluebold fonts for positive and negative signiﬁcant correlations,
+respectively). The data used for the correlation calculations
+for the genes, drugs, and microRNAs are those generated in
+the gene transcript level, drug activity, and microRNA tools
+in Figs. 2 and 3, respectively. Information included for the
+genes sections will be Gene Ontology annotations accessed
+from the mAdb (https://madb.nci.nih.gov) database (see the
+Annotations column, Fig. 4B), as well as the chromosomal
+locations for the signiﬁcant correlations section (see the
+Location column, Fig. 4B). Gene names for the signiﬁcant
+correlations section are hyperlinked to GeneCards (http://
+www.genecards.org). Information included for the signiﬁcant correlations microRNA section is the chromosomal
+locations of the microRNAs (see the Location column, Fig.
+4C). microRNA names for the signiﬁcant correlations section
+are hyperlinked to miRBase (http://www.mirbase.org). Information included for the drug sections are name (where
+available, see the Name column, Fig. 4D), mechanism of
+action (for 355 drugs currently, see the Mechanism
+column, Fig. 4D), and for the signiﬁcantly correlated section,
+the FDA approval status (see the FDA status column, Fig.
+4D). A footnotes page is included with the output to provide
+details on the deﬁnitions, approaches, abbreviations, and
+background.
+Additional uses of the pattern tools (starting with a predeﬁned pattern or a given drug) are presented as examples in
+the Discussion (see Figs. 5 and 6).
+
+Discussion
+The sheer quantity of data generated by current highthroughput platforms have encumbered their use and access.
+However, because of the emergence of new "omic" technologies
+and the questions to be asked in dealing with issues of human
+disease, it is extremely important to open such data to clinicians, molecular biologists, and others with insights into
+aspects of disease. This is clearly the case in the difﬁcult and
+complex case of cancer.
+Our web-based tools provide assistance in this area for the
+NCI-60. They allow rapid determination of (i) a composite "best"
+gene transcript expression level pattern from 5 microarray
+platforms, (ii) drug activity from all experimental repeats done
+by the DTP, and (iii) transcript levels of microRNAs from duplicate microarrays (ref. 9; Figs. 2 and 3). The "Pattern comparison"
+tools (Figs. 4–6) allow rapid, global exploration of relationships
+between these parameters and any input pattern of interest.
+This accession of relative levels of transcript expression (Fig.
+2C) provides several advantages. The tool (i) compiles all
+probes for a single gene, (ii) incorporates built-in quality
+control, and (iii) includes probe remapping based on HG-19,
+eliminating the need to spend time or have expertise in those
+areas. Allowing the user to see the input probes for a single gene
+allows assessment of reliability and accuracy. For example, an
+expression pattern for a gene with 46 highly correlated probes
+(as is the case for ABCB1 in Fig. 2C) shows both high reliability
+and accuracy. Conversely, a gene with 2 probes that barely pass
+quality control should be considered both less reliable and
+accurate. Availability of reliable patterns of relative transcript
+expression in turn facilitates comparison with other data, such
+as drug activity and microRNA expression. For ABCB1 and
+doxorubicin (Fig. 2), there is obvious correlation between high
+ABCB1 expression and doxorubicin resistance, consistent with
+prior results (23, 24).
+During development of the tools derived for gene transcript
+z-score patterns, we have validated and exploited them to
+elucidate novel gene regulation mechanisms for MYC, TOP1,
+and CHEK2 (15–17). The cross-correlation function illustrated
+in Fig. 2A, step1, identiﬁed transcriptional coregulation among
+kinetochore genes (17) and across genes driving cell migration
+and adhesion (26).
+That regulatory elements may be identiﬁed using these tools
+is shown by the example of the cell–cell adhesion factor CDH1
+(E-cadherin). Using the pattern comparison tool with CDH1 as
+input, one ﬁnds that each of transcriptional repressors ZEB1
+(TCF8), SNAI2 (SLUG), ZEB2 (SIP1), and TWIST1 has signiﬁcant
+negative correlation to CDH1 transcript levels, at 0.63, 0.47,
+0.37, and 0.47, respectively. These repressors have been
+reported previously to negatively regulate CDH1 (27–31). In
+
+Figure 5. Pattern comparison example for a colon-speciﬁc input pattern. The input for this analysis consisted of 1 for all non-colon cell lines and 5 for all colon.
+The 3 forms of output described in Fig. 4, genes, microRNAs, and drugs, are shown. The top 3 genes by correlation are shown in tabular fashion.
+Bar graphs for 2 of the genes, generated as described in Fig. 2, display the data visually. The top 2 microRNAs by correlation are shown next in graphical
+fashion, generated as described in Fig. 3. The top 3 drugs with either the FDA-approved or clinical trials by correlation and one clinically untested
+compound are shown in tabular fashion. Bar graphs for 2 of these, generated as described in Fig. 2, are displayed. The red star in all cases indicates
+prior literature association with colon cancer.
+
+www.aacrjournals.org
+
+Cancer Res; 72(14) July 15, 2012
+
+Downloaded from cancerres.aacrjournals.org on September 4, 2017. © 2012 American Association for Cancer Research.
+
+3507
+
+Reinhold et al.
+
+B
+
+A
+BR:MCF7
+BR:MDA_MB_231
+BR:HS578T
+BR:BT_549
+BR:T47D
+CNS:SF_268
+CNS:SF_295
+CNS:SF_539
+CNS:SNB_19
+CNS:SNB_75
+CNS:U251
+CO:COLO205
+CO:HCC_2998
+CO:HCT_116
+CO:HCT_15
+CO:HT29
+CO:KM12
+CO:SW_620
+LE:CCRF_CEM
+LE:HL_60
+LE:K_562
+LE:MOLT_4
+LE:RPMI_8226
+LE:SR
+ME:LOXIMVI
+ME:MALME_3M
+ME:M14
+ME:SK_MEL_2
+ME:SK_MEL_28
+ME:SK_MEL_5
+ME:UACC_257
+ME:UACC_62
+ME:MDA_MB_435
+ME:MDA_N
+LC:A549
+LC:EKVX
+LC:HOP_62
+LC:HOP_92
+LC:NCI_H226
+LC:NCI_H23
+LC:NCI_H322M
+LC:NCI_H460
+LC:NCI_H522
+OV:IGROV1
+OV:OVCAR_3
+OV:OVCAR_4
+OV:OVCAR_5
+OV:OVCAR_8
+OV:SK_OV_3
+OV:NCI_ADR_RES
+PR:PC_3
+PR:DU_145
+RE:786_0
+RE:A498
+RE:ACHN
+RE:CAKI_1
+RE:RXF_393
+RE:SN12C
+RE:TK_10
+RE:UO_31
+
+Significant drug correlationsf
+i
+
+NSC number
+718781
+693255
+750691
+669365
+715055
+745750
+
+Pattern
+comparison
+
+-2
+
+-1
+
+0
+
+1
+
+Resistant
+
+2
+
+Name
+Correlationsg
+1.000
+Erlotinib hydrochloride
+–
+0.761
+Afatinib (BIBW-2992)
+0.745
+0.680
+–
+0.670
+Gefitinib
+Lapatinib ditosylate
+0.660
+
+FDA status
+FDA approved
+Not approved
+Clinical trial
+Not approved
+FDA approved
+FDA approved
+
+Z-score determination
+Drug activity
+
+3
+
+Sensitive
+
+Activities z-scores
+
+Erlotinib, 718781
+(input pattern)
+
+C
+
+BR:MCF7
+BR:MDA_MB_231
+BR:HS578T
+BR:BT_549
+BR:T47D
+CNS:SF_268
+CNS:SF_295
+CNS:SF_539
+CNS:SNB_19
+CNS:SNB_75
+CNS:U251
+CO:COLO205
+CO:HCC_2998
+CO:HCT_116
+CO:HCT_15
+CO:HT29
+CO:KM12
+CO:SW_620
+LE:CCRF_CEM
+LE:HL_60
+LE:K_562
+LE:MOLT_4
+LE:RPMI_8226
+LE:SR
+ME:LOXIMVI
+ME:MALME_3M
+ME:M14
+ME:SK_MEL_2
+ME:SK_MEL_28
+ME:SK_MEL_5
+ME:UACC_257
+ME:UACC_62
+ME:MDA_MB_435
+ME:MDA_N
+LC:A549
+LC:EKVX
+LC:HOP_62
+LC:HOP_92
+LC:NCI_H226
+LC:NCI_H23
+LC:NCI_H322M
+LC:NCI_H460
+LC:NCI_H522
+OV:IGROV1
+OV:OVCAR_3
+OV:OVCAR_4
+OV:OVCAR_5
+OV:OVCAR_8
+OV:SK_OV_3
+OV:NCI_ADR_RES
+PR:PC_3
+PR:DU_145
+RE:786_0
+RE:A498
+RE:ACHN
+RE:CAKI_1
+RE:RXF_393
+RE:SN12C
+RE:TK_10
+RE:UO_31
+
+BR:MCF7
+BR:MDA_MB_231
+BR:HS578T
+BR:BT_549
+BR:T47D
+CNS:SF_268
+CNS:SF_295
+CNS:SF_539
+CNS:SNB_19
+CNS:SNB_75
+CNS:U251
+CO:COLO205
+CO:HCC_2998
+CO:HCT_116
+CO:HCT_15
+CO:HT29
+CO:KM12
+CO:SW_620
+LE:CCRF_CEM
+LE:HL_60
+LE:K_562
+LE:MOLT_4
+LE:RPMI_8226
+LE:SR
+ME:LOXIMVI
+ME:MALME_3M
+ME:M14
+ME:SK_MEL_2
+ME:SK_MEL_28
+ME:SK_MEL_5
+ME:UACC_257
+ME:UACC_62
+ME:MDA_MB_435
+ME:MDA_N
+LC:A549
+LC:EKVX
+LC:HOP_62
+LC:HOP_92
+LC:NCI_H226
+LC:NCI_H23
+LC:NCI_H322M
+LC:NCI_H460
+LC:NCI_H522
+OV:IGROV1
+OV:OVCAR_3
+OV:OVCAR_4
+OV:OVCAR_5
+OV:OVCAR_8
+OV:SK_OV_3
+OV:NCI_ADR_RES
+PR:PC_3
+PR:DU_145
+RE:786_0
+RE:A498
+RE:ACHN
+RE:CAKI_1
+RE:RXF_393
+RE:SN12C
+RE:TK_10
+RE:UO_31
+
+-2
+
+-1
+
+0
+
+1
+
+Resistant
+
+2
+Sensitive
+
+Activities z-scores
+
+Afatinib
+750691
+
+3
+
+BR:MCF7
+BR:MDA_MB_231
+BR:HS578T
+BR:BT_549
+BR:T47D
+CNS:SF_268
+CNS:SF_295
+CNS:SF_539
+CNS:SNB_19
+CNS:SNB_75
+CNS:U251
+CO:COLO205
+CO:HCC_2998
+CO:HCT_116
+CO:HCT_15
+CO:HT29
+CO:KM12
+CO:SW_620
+LE:CCRF_CEM
+LE:HL_60
+LE:K_562
+LE:MOLT_4
+LE:RPMI_8226
+LE:SR
+ME:LOXIMVI
+ME:MALME_3M
+ME:M14
+ME:SK_MEL_2
+ME:SK_MEL_28
+ME:SK_MEL_5
+ME:UACC_257
+ME:UACC_62
+ME:MDA_MB_435
+ME:MDA_N
+LC:A549
+LC:EKVX
+LC:HOP_62
+LC:HOP_92
+LC:NCI_H226
+LC:NCI_H23
+LC:NCI_H322M
+LC:NCI_H460
+LC:NCI_H522
+OV:IGROV1
+OV:OVCAR_3
+OV:OVCAR_4
+OV:OVCAR_5
+OV:OVCAR_8
+OV:SK_OV_3
+OV:NCI_ADR_RES
+PR:PC_3
+PR:DU_145
+RE:786_0
+RE:A498
+RE:ACHN
+RE:CAKI_1
+RE:RXF_393
+RE:SN12C
+RE:TK_10
+RE:UO_31
+
+-2
+
+-1
+
+0
+
+1
+
+Resistant
+
+2
+Sensitive
+
+Activities z-scores
+
+Gefitinib
+715055
+
+3
+
+-2
+
+-1
+
+0
+
+1
+
+Resistant
+
+2
+
+3
+
+Sensitive
+
+Activities z-scores
+
+Lapatinib
+745750
+
+Figure 6. Recognition of drugs with similar mechanism of action, using erlotinib as an input for pattern comparison. A, use the "Pattern comparison" tool (Fig. 4)
+selected for "Drug NSC" and input 718781 (the NSC for erlotinib). The bar graph shown is that from the "Z score determination" tool from Fig. 2,
+selected for "Gene transcript level". B, the top 6 rows of the signiﬁcant drug correlations output from the "Pattern comparison" tool, identifying 2 other
+FDA-approved drugs and 1 in advanced clinical trials. C, the bar graphs shown are from the "Z score determination" tool from Fig. 2, selected for
+"Gene transcript level" for the 2 FDA-approved and 1 in clinical trials drugs identiﬁed in B.
+
+addition, they show robust positive correlations to hsa-miR200c, -200a, -200b, -200b , and -200a , with values of 0.73, 0.59,
+0.55, 0.48, and 0.41, respectively. The microRNA-200 family has
+been previously associated with E-cadherin regulation through
+ZEB1 and ZEB2 targeting (32, 33).
+The microRNA mean-centered graph tool (Fig. 3A and B)
+simply provides raw data and mean-centered graphical representation of the data determined previously (9). In the example
+shown, miR-18a exhibits notable speciﬁcities for colon and
+
+3508
+
+Cancer Res; 72(14) July 15, 2012
+
+especially leukemia cell lines. miR-18a has previously been
+shown to be part of a polycistronic oncogenic microRNA
+cluster, which includes 6 consecutive mature microRNAs,
+miR-17, -18a, -19a, -19b, -20a, and -92a co-expressed as a single
+primary transcript (25, 34). Notably, the pattern comparison
+tool for miR-18a retrieves the 5 other microRNAs at the top of
+the signiﬁcantly correlated microRNA list (with Pearson correlation coefﬁcients between 0.96 and 0.77) and MYC ranked
+37th in the gene list with a correlation coefﬁcient of 0.61. The
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 4, 2017. © 2012 American Association for Cancer Research.
+
+Bioinformatics of the NCI-60
+
+MYC correlation is consistent with the fact that the miR-17-92
+cluster is a transcriptional MYC target (35).
+The ability to rapidly compare patterns of transcript
+expression, microRNA expression, and drug activity (Figs.
+2 and 3) both with themselves and other patterns of interest
+provides a powerful and ﬂexible tool to the user. The tool
+automatically (i) allows the input of multiple types of data,
+(ii) calculates the correlation to 3 types of data, and (iii)
+identiﬁes those correlations that are statistically signiﬁcant.
+Allowing the user to see the correlation level and order in
+which genes, microRNAs, or compounds are ranked for any
+single input provides criteria by which to identify potential
+relationships between disparate parameters and to access
+the robustness of these relationships. Of the named drugs
+in Fig. 4D other than doxorubicin, romidepsin (FK228) has
+previously been shown to undergo efﬂux by ABCB1 (36) and
+bouvardin to have cross-resistance with doxorubicin (37). To
+the best of our knowledge, chromomycin had not been
+previously associated with ABCB1. Signiﬁcant microRNA
+expression versus gene expression, gene expression versus
+drug activity, and microRNA expression versus drug activity
+correlations have previously been identiﬁed in this fashion
+(14, 17).
+A novel example is provided in Fig. 5, in which a colonspeciﬁc pattern is entered into the pattern comparison tool.
+The input was 1 for all non-colon cell lines and 5 for all colon
+cell lines. The top 3 genes from the signiﬁcant gene correlations output are shown. The top gene, TRIM15, is a little
+studied tripartite motif family gene, but its high correlation
+(0.901) to the colon-speciﬁc input makes it a candidate for
+being a colon cancer–speciﬁc marker. RNF43 is an ubiquitin
+ligase known to be upregulated in colon cancer (38). VIL1 is
+an actin-binding protein previously identiﬁed as a diagnostic
+marker for colon cancer (39). The bar graphs for VIL1 and
+RNF43, derived from the "Z score determination" tool (Fig. 2)
+illustrate their colon speciﬁcity. The bar plots for the top 2
+microRNAs from the signiﬁcant microRNA correlations are
+shown next. Both miR-215 and -194 (with correlations of
+0.745 and 0.739, respectively) have previously been described
+as prognostic indicators for colorectal cancer (40, 41). The
+bar graphs, from the "microRNA mean centered graphs" tool
+from Fig. 3, illustrate their colon speciﬁcity. Four of the top 7
+drugs from the signiﬁcant drug correlations list are also
+shown. Of these, 3 have some clinical trial history. Pyrazoloacridine has been tested in colon cancer with modest
+success (42). Selumetinib (AZD6244) has been proposed as
+a potential therapy for colorectal cancer (43). From our bar
+graph, it appears to have speciﬁcity for melanoma in addition to colon cancers. Sunitinib is in clinical trial for colorectal cancer (44). The additional compound presented as a
+bar graph, NSC732298, has better speciﬁcity for colon that
+any of these (r ¼ 0.653) but has not gone through clinical
+trials. The bar graphs for selumetinib and 732298 from the "Z
+score determination" tool from Fig. 2 illustrate their level of
+colon speciﬁcity. Together, these genes, microRNAs, and
+drugs illustrate how one can, from a single pattern input,
+rapidly obtain multiple types of both known and novel
+information relevant to a users' area of interest.
+
+www.aacrjournals.org
+
+The ability to access relative drug activity levels and patterns
+(Fig. 2F) provides advantages similar to those for relative
+transcript levels. The tool automatically (i) compiles all experiments for a single drug from all experiments done and (ii)
+incorporates quality control into the approach. It allows the
+user to see the input experiments, allowing assessment of
+reliability and accuracy. This is especially important for the
+activity data, as there are many compounds with small numbers of experiments and some with reduced numbers of cell
+lines tested. An example of a highly reliable activity pattern is
+that for doxorubicin, which has 253 highly correlated experiments (Fig. 2F). The identiﬁcation of a reliable pattern of
+relative compound activity facilitates its comparison with
+other types of data. Drug patterns derived in this fashion have
+been used previously for comparison with mRNA and microRNA expression (14).
+A ﬁnal example of the ﬂexibility of the new tools is
+depicted in Fig. 6. As illustrated, the pattern comparison
+tools can be readily adapted to do COMPARE-like (1, 45)
+drug analyses, in which the user can query the 20,503 drugs
+and chemicals from the DTP database to identify similar
+drugs. In Fig. 6, the input is erlotinib (NSC 718781), an
+inhibitor of the EGF receptor (EGFR) tyrosine kinase. Pleasingly, the 2 other FDA-approved EGFR-targeted drugs geﬁtinib and lapatinib ranked ﬁfth and sixth, and afatinib
+(BIBW2992), which is in advanced clinical trials and also
+targets EGFR-ERB kinase, ranked third among the 20,503
+drugs (Fig. 6B). Compound 693255, which ranked second is a
+tyrphostin derivative, a class of drugs shown to inhibit
+tyrosine kinase including EGFR (46). The plots shown
+in Fig. 6C were obtained using the z-score tool (see Fig.
+2F). They show pattern similarity among the 4 highly correlated drugs. Conversely, the piperidinium compounds
+(618757, 636676, 638634, and 630602 with r ¼ 0.587,
+0.536, 0.532, and 0.504, respectively) have consistently
+high inverse correlation. That is, they work well when the
+EGFR inhibitors work poorly. This example illustrates the
+usefulness of tools in the comparison of drugs with similar
+mechanisms of action, including those that are in clinical
+development (such as afatinib), as well as identifying novel
+compounds that either might work in a similar fashion, or
+are inverse to it.
+The ease, rapidity, and ﬂexibility of the new tools provide
+users with an important new data integration capacity.
+One of our goals is to update and enhance these tools in
+an ongoing fashion. Our next 2 additional tools will be the
+Comparative Genomic Hybridization tool and database
+(aCGH), which will assist in interpretation of DNA copy
+number using our Roche NimbleGen 385k CGH array,
+and the Whole Exome Sequencing tool and database (WES),
+which will provide access to the whole genome sequences
+for all exons across the NCI-60 (http://discover.nci.nih.gov/
+cellminer/). Together, these databases and tools provide
+publicly available and unique opportunities for systems
+biology and systems pharmacology investigations.
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+Cancer Res; 72(14) July 15, 2012
+
+Downloaded from cancerres.aacrjournals.org on September 4, 2017. © 2012 American Association for Cancer Research.
+
+3509
+
+Reinhold et al.
+
+Authors' Contributions
+
+Grant Support
+
+Conception and design: W.C. Reinhold, M. Sunshine, H. Liu, Y. Pommier
+Development of methodology: W.C. Reinhold, M. Sunshine, H. Liu, Y. Pommier
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): W.C. Reinhold, J. Morris, J. Doroshow
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): W.C. Reinhold, H. Liu, S. Varma, Y. Pommier
+Writing, review, and/or revision of the manuscript: W.C. Reinhold, M.
+Sunshine, S. Varma, K.W. Kohn, J. Doroshow, Y. Pommier
+Administrative, technical, or material support (i.e., reporting or organizing data, constructing databases): M. Sunshine, S. Varma
+Study supervision: W.C. Reinhold, Y. Pommier
+
+This work is supported by the Center for Cancer Research, the intramural
+program of NCI, and the DTP, Division of Cancer Treatment and Diagnosis
+(DCTD), NCI.
+The costs of publication of this article were defrayed in part by the
+payment of page charges. This article must therefore be hereby marked
+advertisement in accordance with 18 U.S.C. Section 1734 solely to indicate this
+fact.
+
+Received April 16, 2012; accepted April 27, 2012; published July 16, 2012.
+
+References
+1.
+
+2.
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
+3510
+
+Holbeck SL, Collins JM, Doroshow JH. Analysis of Food and Drug
+Administration-approved anticancer agents in the NCI60 panel of
+human tumor cell lines. Mol Cancer Ther 2010;9:1451–60.
+Shoemaker R. The NCI60 human tumour cell line anticancer drug
+screen. Nat Rev Cancer 2006;6:813–23.
+Bussey K, Chin K, Lababidi S, Reimers M, Reinhold W, Kuo W, et al.
+Integrating data on DNA copy number with gene expression levels and
+drug sensitivities in the NCI-60 cell line panel. Mol Cancer Ther
+2006;5:853–67.
+Roschke A, Tonon G, Gehlhaus K, McTyre N, Bussey K, Lababidi S,
+et al. Karyotypic complexity of the NCI-60 drug-screening panel.
+Cancer Res 2003;63:8634–47.
+Ikediobi O, Davies H, Bignell G, Edkins S, Stevens C, O'Meara S, et al.
+Mutation analysis of twenty-four known cancer genes in the NCI-60
+cell line set. Mol Cancer Ther 2006;5:2606–12.
+Lorenzi P, Reinhold W, Varma S, Hutchinson A, Pommier Y, Chanock
+S, et al. DNA ﬁngerprinting of the NCI-60 cell line panel. Mol Cancer
+Ther 2009;8:713–24.
+Scherf U, Ross D, Waltham M, Smith L, Lee J, Tanabe L, et al. A gene
+expression database for the molecular pharmacology of cancer. Nat
+Genet 2000;24:236–44.
+Shankavaram U, Reinhold W, Nishizuka S, Major S, Morita D, Reimers
+M, et al. Transcript and protein expression proﬁles of the NCI-60
+cancer cell panel: an integromic microarray study. Mol Cancer Ther
+2007;6:820–32.
+Liu H, D'Andrade P, Fulmer-Smentek S, Lorenzi P, Kohn KW, Weinstein JN, et al. mRNA and microRNA expression proﬁles of the NCI-60
+integrated with drug activities. Mol Cancer Ther 2010;9:1080–91.
+Blower PE, Verducci JS, Lin S, Zhou J, Chung J, Dai Z, et al. MicroRNA
+expression proﬁles for the NCI-60 cancer cell panel. Mol Cancer Ther
+2007;6:1483–91.
+Nishizuka S, Charboneau L, Young L, Major S, Reinhold W, Waltham
+M, et al. Proteomic proﬁling of the NCI60 cancer cell lines using new
+high-density 'reverse-phase' lysate microarrays. Proc Natl Acad Sci U
+S A 2003;100:14229–34.
+Pﬁster TD, Reinhold WC, Agama K, Gupta S, Khin SA, Kinders RJ, et al.
+Topoisomerase I levels in the NCI-60 cancer cell line panel determined
+by validated ELISA and microarray analysis and correlation with
+indenoisoquinoline sensitivity. Mol Cancer Ther 2009;8:1878–84.
+Reinhold WC, Mergny JL, Liu H, Ryan M, Pﬁster TD, Kinders R, et al.
+Exon array analyses across the NCI-60 reveal potential regulation of
+TOP1 by transcription pausing at guanosine quartets in the ﬁrst intron.
+Cancer Res 2010;70:2191–203.
+Gmeiner WH, Reinhold WC, Pommier Y. Genome-wide mRNA and
+microRNA proﬁling of the NCI 60 cell-line screen and comparison of
+FdUMP[10] with ﬂuorouracil, ﬂoxuridine, and topoisomerase 1 poisons. Mol Cancer Ther 2010;9:3105–14.
+Zoppoli G, Douarre C, Dalla Rosa I, Liu H, Reinhold W, Pommier Y.
+Coordinated regulation of mitochondrial topoisomerase IB with mitochondrial nuclear encoded genes and MYC. Nucleic Acids Res
+2011;39:6620–32.
+Zoppoli G, Solier S, Reinhold WC, Liu H, Connelly JW Jr, Monks A, et al.
+CHEK2 genomic and proteomic analyses reveal genetic inactivation or
+endogenous activation across the 60 cell lines of the US National
+Cancer Institute. Oncogene 2012;31:403–18.
+
+Cancer Res; 72(14) July 15, 2012
+
+17. Reinhold WC, Erliandri I, Liu H, Zoppoli G, Pommier Y, Larionov V.
+Identiﬁcation of a predominant co-regulation among kinetochore
+genes, prospective regulatory elements, and association with genomic
+instability. PLoS One 2011;6:e25991.
+18. Zeeberg BR, Reinhold W, Snajder R, Thallinger GG, Weinstein JN,
+Kohn KW, et al. Functional categories associated with clusters of
+genes that are co-expressed across the NCI-60 cancer cell lines. PLoS
+One 2012;7:e30317.
+19. Shankavaram UT, Varma S, Kane D, Sunshine M, Chary KK, Reinhold
+WC, et al. CellMiner: a relational database and query tool for the NCI-60
+cancer cell lines. BMC Genomics 2009;10:277.
+20. Wu Z, Irizarry RA. Stochastic models inspired by hybridization theory
+for short oligonucleotide arrays. J Comput Biol 2005;12:882–93.
+21. Larsen RJ, Marx ML. An introduction to mathematical statistics and its
+applications. 3rd ed. Englewood Cliffs, NJ: Prentice Hall; 2000.
+22. Rubinstein LV, Shoemaker RH, Paull KD, Simon RM, Tosini S, Skehan
+P, et al. Comparison of in vitro anticancer-drug-screening data generated with a tetrazolium assay versus a protein assay against a diverse
+panel of human tumor cell lines. J Natl Cancer Inst 1990;82:1113–8.
+23. Doyle LA, Yang W, Abruzzo LV, Krogmann T, Gao Y, Rishi AK, et al. A
+multidrug resistance transporter from human MCF-7 breast cancer
+cells. Proc Natl Acad Sci U S A 1998;95:15665–70.
+24. Szakacs G, Annereau JP, Lababidi S, Shankavaram U, Arciello A,
+Bussey KJ, et al. Predicting drug sensitivity and resistance: proﬁling
+ABC transporter genes in cancer cells. Cancer Cell 2004;6:129–37.
+25. He L, Thomson JM, Hemann MT, Hernando-Monge E, Mu D, Goodson
+S, et al. A microRNA polycistron as a potential human oncogene.
+Nature 2005;435:828–33.
+26. Kohn KW, Zeeberg BR, Reinhold WC, Sunshine M, Luna A, Pommier Y.
+Gene expression proﬁles of the NCI-60 human tumor cell lines deﬁne
+molecular interaction networks governing cell-matrix attachments in
+migrating cells. PLoS One 2012;7:e35716.
+27. Reinhold WC, Reimers MA, Lorenzi P, Ho J, Shankavaram UT, Ziegler
+MS, et al. Multifactorial regulation of E-cadherin expression: an integrative study. Mol Cancer Ther 2010;9:1–16.
+28. Sanchez-Tillo E, Lazaro A, Torrent R, Cuatrecasas M, Vaquero EC,
+Castells A, et al. ZEB1 represses E-cadherin and induces an EMT by
+recruiting the SWI/SNF chromatin-remodeling protein BRG1. Oncogene 2010;29:3490–500.
+29. Montserrat N, Gallardo A, Escuin D, Catasus L, Prat J, GutierrezAvigno FJ, et al. Repression of E-cadherin by SNAIL, ZEB1, and TWIST
+in invasive ductal carcinomas of the breast: a cooperative effort? Hum
+Pathol 2011;42:103–10.
+30. Comijn J, Berx G, Vermassen P, Verschueren K, van Grunsven L,
+Bruyneel E, et al. The two-handed E box binding zinc ﬁnger protein
+SIP1 downregulates E-cadherin and induces invasion. Mol Cell
+2001;7:1267–78.
+31. Bolos V, Peinado H, Perez-Moreno M, Fraga M, Esteller M, Cano A. The
+transcription factor Slug represses E-cadherin expression and induces
+epithelial to mesenchymal transitions: a comparison with Snail and E47
+repressors. J Cell Sci 2003;116:499–511.
+32. Xiong M, Jiang L, Zhou Y, Qiu W, Fang L, Tan R, et al. MiR-200 family
+regulates TGF-{beta}1-induced renal tubular epithelial to mesenchymal transition through Smad pathway by targeting ZEB1 and ZEB2
+expression. Am J Physiol Renal Physiol 2012;302:F369–79.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 4, 2017. © 2012 American Association for Cancer Research.
+
+Bioinformatics of the NCI-60
+
+33. Tryndyak VP, Beland FA, Pogribny IP. E-cadherin transcriptional
+down-regulation by epigenetic and microRNA-200 family alterations
+is related to mesenchymal and drug-resistant phenotypes in human
+breast cancer cells. Int J Cancer 2010;126:2575–83.
+34. Lujambio A, Lowe SW. The microcosmos of cancer. Nature 2012;482:
+347–55.
+35. van Haaften G, Agami R. Tumorigenicity of the miR-17-92 cluster
+distilled. Genes Dev 2010;24:1–4.
+36. Xiao JJ, Foraker AB, Swaan PW, Liu S, Huang Y, Dai Z, et al. Efﬂux of
+depsipeptide FK228 (FR901228, NSC-630176) is mediated by Pglycoprotein and multidrug resistance-associated protein 1. J Pharmacol Exp Ther 2005;313:268–76.
+37. Chitnis MP, Joshi SS, Gude RP, Menon RS. Induced resistance in
+leukaemia L1210 to adriamycin and its cross-resistance to vincristine
+and bouvardin. Chemotherapy 1982;28:209–12.
+38. Yagyu R, Furukawa Y, Lin YM, Shimokawa T, Yamamura T, Nakamura
+Y. A novel oncoprotein RNF43 functions in an autocrine manner in
+colorectal cancer. Int J Oncol 2004;25:1343–8.
+39. Nishizuka S, Chen S, Gwadry F, Alexander J, Major S, Scherf U, et al.
+Diagnostic markers that distinguish colon and ovarian adenocarcinomas: identiﬁcation by genomic, proteomic, and tissue array proﬁling.
+Cancer Res 2003;63:5243–50.
+40. Kahlert C, Klupp F, Brand K, Lasitschka F, Diederichs S, Kirchberg J,
+et al. Invasion front-speciﬁc expression and prognostic signiﬁcance of
+
+www.aacrjournals.org
+
+41.
+
+42.
+
+43.
+
+44.
+
+45.
+
+46.
+
+microRNA in colorectal liver metastases. Cancer Sci 2011;102:
+1799–807.
+Karaayvaz M, Pal T, Song B, Zhang C, Georgakopoulos P, Mehmood
+S, et al. Prognostic signiﬁcance of miR-215 in colon cancer. Clin
+Colorectal Cancer 2011;10:340–7.
+Dees EC, Rowinsky EK, Noe DA, O'Reilly S, Adjei AA, Elza-Brown K,
+et al. A phase I and pharmacologic study of pyrazoloacridine and
+cisplatin in patients with advanced cancer. Invest New Drugs
+2003;21:75–84.
+Yoon J, Koo KH, Choi KY. MEK1/2 inhibitors AS703026 and AZD6244
+may be potential therapies for KRAS mutated colorectal cancer that is
+resistant to EGFR monoclonal antibody therapy. Cancer Res 2011;71:
+445–53.
+Yoshino T, Yamazaki K, Hamaguchi T, Shimada Y, Kato K, Yasui H,
+et al. Phase I study of sunitinib plus modiﬁed FOLFOX6 in Japanese
+patients with treatment-naive colorectal cancer. Anticancer Res
+2012;32:973–9.
+Paull KD, Shoemaker RH, Hodes L, Monks A, Scudiero DA, Rubinstein L, et al. Display and analysis of patterns of differential activity
+of drugs against human tumor cell lines: development of a mean
+graph and COMPARE algorithm. J Natl Cancer Inst 1989;81:
+1088–92.
+Levitzki A, Mishani E. Tyrphostins and other tyrosine kinase inhibitors.
+Annu Rev Biochem 2006;75:93–109.
+
+Cancer Res; 72(14) July 15, 2012
+
+Downloaded from cancerres.aacrjournals.org on September 4, 2017. © 2012 American Association for Cancer Research.
+
+3511
+
+CellMiner: A Web-Based Suite of Genomic and Pharmacologic
+Tools to Explore Transcript and Drug Patterns in the NCI-60 Cell
+Line Set
+William C. Reinhold, Margot Sunshine, Hongfang Liu, et al.
+Cancer Res 2012;72:3499-3511.
+
+Updated version
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+http://cancerres.aacrjournals.org/content/72/14/3499
+
+This article cites 45 articles, 21 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/72/14/3499.full#ref-list-1
+This article has been cited by 7 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/72/14/3499.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 4, 2017. © 2012 American Association for Cancer Research.
+
+

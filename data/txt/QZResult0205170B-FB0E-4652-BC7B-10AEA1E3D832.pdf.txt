@@ -1,0 +1,1276 @@
+Published OnlineFirst September 2, 2015; DOI: 10.1158/0008-5472.CAN-14-2945
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+Predicting the Response of Breast Cancer to
+Neoadjuvant Therapy Using a Mechanically
+Coupled Reaction–Diffusion Model
+Jared A. Weis1,2,3, Michael I. Miga1,2,3,4,5, Lori R. Arlinghaus1, Xia Li1, Vandana Abramson5,6,
+A. Bapsi Chakravarthy5,7, Praveen Pendyala7, and Thomas E. Yankeelov1,2,3,5,8,9
+
+Abstract
+Although there are considerable data on the use of mathematical modeling to describe tumor growth and response to therapy,
+previous approaches are often not of the form that can be easily
+applied to clinical data to generate testable predictions in individual patients. Thus, there is a clear need to develop and apply
+clinically relevant oncologic models that are amenable to available patient data and yet retain the most salient features of
+response prediction. In this study we show how a biomechanical
+model of tumor growth can be initialized and constrained by
+serial patient-speciﬁc magnetic resonance imaging data, obtained
+at two time points early in the course of therapy (before initiation
+and following one cycle of therapy), to predict the response for
+individual patients with breast cancer undergoing neoadjuvant
+therapy. Using our mechanics coupled modeling approach, we are
+
+able to predict, after the ﬁrst cycle of therapy, breast cancer patients
+that would eventually achieve a complete pathologic response
+and those who would not, with receiver operating characteristic
+area under the curve (AUC) of 0.87, sensitivity of 92%, and
+speciﬁcity of 84%. Our approach signiﬁcantly outperformed the
+AUCs achieved by standard (i.e., not mechanically coupled)
+reaction–diffusion predictive modeling (0.75), simple analysis
+of the tumor cellularity estimated from imaging data (0.73), and
+the Response Evaluation Criteria in Solid Tumors (0.71). Thus, we
+show the potential for mathematical model prediction for use as a
+prognostic indicator of response to therapy. The work indicates
+the considerable promise of image-driven biophysical modeling
+for predictive frameworks within therapeutic applications. Cancer
+Res; 75(22); 4697–707. 2015 AACR.
+
+Introduction
+Major Findings
+Using a mathematical model based on basic tissue mechanical properties and constrained by patient-speciﬁc imaging
+data can provide predictions of outcome that outperform
+conventional RECIST-based approaches.
+
+1
+
+Institute of Imaging Science,Vanderbilt University, Nashville,Tennessee.
+Department of Radiology and Radiological Sciences, Vanderbilt University, Nashville, Tennessee. 3Department of Biomedical Engineering,
+Vanderbilt University, Nashville, Tennessee. 4Department of Neurosurgery, Vanderbilt University, Nashville, Tennessee. 5Vanderbilt-Ingram
+Cancer Center,Vanderbilt University, Nashville,Tennessee. 6Department
+of Medicine, Division of Hematology/Oncology, Vanderbilt University,
+Nashville, Tennessee. 7Department of Radiation Oncology, Vanderbilt
+University, Nashville, Tennessee. 8Department of Physics, Vanderbilt
+University, Nashville, Tennessee. 9Department of Cancer Biology, Vanderbilt University, Nashville, Tennessee.
+2
+
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+Corresponding Authors: Jared A. Weis, Vanderbilt University, VU Station B,
+Nashville, TN 37235. Phone: 615-322-3521; Fax: 615-343-7919; E-mail:
+jared.a.weis@Vanderbilt.Edu; and Thomas E. Yankeelov,
+thomas.yankeelov@vanderbilt.edu
+doi: 10.1158/0008-5472.CAN-14-2945
+2015 American Association for Cancer Research.
+
+Neoadjuvant therapy is often administered to patients with
+locally advanced breast cancer in order to reduce the tumor
+burden prior to surgery (10). Patients exhibiting pathologic
+complete response (pCR; deﬁned as no residual viable tumor on
+histologic analysis in breast or nodes at the completion of therapy) demonstrate signiﬁcantly enhanced disease-free progression/survival; thus, this metric has emerged as the gold standard
+for evaluating response to neoadjuvant therapy (11, 12). With
+numerous neoadjuvant therapy regimens available, and many
+more treatments emerging, reliable prediction of patients that will
+go on to achieve pCR is highly signiﬁcant. If accurate predictions
+that the regimen is not effective can be made early in a patient's
+treatment, the treatment could be changed to another, potentially
+more effective approach, thereby avoiding unnecessary treatmentrelated toxicities and providing a greater chance of achieving
+pCR (13).
+Assessing early treatment response with the goal of predicting
+pCR remains a challenging clinical problem with no current
+uniform approach. Because of their quantitative and noninvasive
+nature, imaging-based biomarkers are attractive surrogate metrics
+for response assessment. Several imaging-based metrics have been
+investigated as biomarkers for predicting response in the neoadjuvant setting (14–22), with many efforts focusing on monitoring
+changes in morphologic characteristics. However, morphologybased characteristics are downstream from the underlying treatment-induced biologic response, and are, therefore, indicative
+only of late stage response. More recent efforts have focused on
+using functional parameters available from quantitative magnetic
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+4697
+
+Published OnlineFirst September 2, 2015; DOI: 10.1158/0008-5472.CAN-14-2945
+
+Weis et al.
+
+Quick Guide to Model Equations and Assumptions
+Our modeling approach uses serial diffusion weighted magnetic resonance imaging (DW-MRI) data of tumor cellularity obtained
+before and after the ﬁrst cycle of neoadjuvant therapy to generate spatial estimates of tumor cell proliferation/death in response to
+therapy. Because of the timing of data acquisition, the estimated spatial proliferation term is based on measured changes in cell
+density with treatment and therefore represents the net difference between cell growth and death. To separately estimate cell growth
+and death rates independently, additional data would be required. We assume a constant antitumor effect in time during therapy,
+and use our estimates of proliferation/death to run the model forward in time to predict the residual tumor burden at the conclusion
+of therapy. DW-MRI data sets are ﬁt to Eq. A to return apparent diffusion coefﬁcient (ADC) values on a voxel-by-voxel basis:
+
+P
+
+ADC ¼
+
+i¼x;y;z
+
+lnðS0 =Si Þ=bi
+3
+
+;
+
+ðAÞ
+
+where i is the direction of diffusion weighting, bi is the amount of diffusion weighting imparted to the sample, S0 denotes the signal
+intensity in the absence of diffusion gradients, and Si is the signal intensity in the presence of the diffusion-sensitizing gradient. Using
+Eq. B, the ADC data for voxels satisfying the dynamic contrast enhanced magnetic resonance imaging (DCE-MRI) threshold criteria
+of 80% enhancement (1) were transformed to an estimate of tumor cell number, N(x, t):
+
+
+
+ADCw  ADCðx; t Þ
+N ðx; t Þ ¼ 
+;
+ADCw  ADCmin
+
+ðBÞ
+
+where u is the carrying capacity (i.e., the total number of tumor cells that ﬁt within a voxel), ADCw is the ADC of free water at 37 C (3
+ 103 mm2/s), ADC(x, t) is the ADC value at position (x,y) in image space, and ADCmin is the minimum ADC value measured
+within the tumor for each patient, which corresponds to the voxel with the largest number of cells. The carrying capacity, u, was
+calculated as the ratio of the imaging voxel volume to the assumed tumor cell volume, assuming spherical tumor cells with packing
+density of 0.7405 (2) and a nominal tumor cell radius of 10 mm (tumor cell volume of 4189 mm3). Details of this approach are
+provided in refs. 3 and 4.
+The set of coupled, partial differential equations governing the tumor growth model is shown in Eqs. C–E:
+
+
+
+qN ðx; t Þ
+N ðx; t Þ
+¼ r  ðDrN ðx; t ÞÞþkðxÞN ðx; t Þ 1 
+;
+qt
+
+
+ðCÞ
+
+D ¼ Do egsvmðx;tÞ ;
+
+ðDÞ
+
+*
+þr
+r  Gru
+
+G
+u ÞlrN ðx; t Þ ¼ 0:
+ðr  *
+1  2n
+
+ðEÞ
+
+Equation C models the spatiotemporal rate of change of tumor cell number as the sum of random cell diffusion and logistic
+growth. The apparent cell diffusion term, D, is linked to surrounding tissue mechanics via Eq. D, where s vm is the von Mises stress, g is
+an empirically derived coupling constant, and D0 is the diffusion of tumor cells in the absence of external stress (5). Eq. E deﬁnes
+linear elastic, isotropic mechanical equilibrium subject to an external expansive force determined by changes in tumor cell number,
+N(x, t), and a coupling constant l. This equation governs the response of the displacement vector, u, to tumor cell growth.
+G represents shear modulus, an intrinsic mechanical property of breast and tumor tissue.
+In this model, a growing tumor imparts an external force on the surrounding tissue, which induces tissue deformation. This
+"mass effect" is the phenomenon by which a growing tumor displaces surrounding tissue. The overall deformation serves to
+increase the total mechanical distortion energy of the tissue, which depends on the local tissue mechanical properties of the
+immediately surrounding tissue (breast ﬁbroglandular tissue is typically reported to be twice as stiff as adipose tissue; ref. 6). As
+tumors have been shown to be sensitive to their mechanical microenvironment, exhibiting reduced outward growth/expansion
+in areas of high stress (7, 8), accumulated distortion energy serves to inhibit tumor invasiveness in our model through a
+mechano-inhibitory reduction in the apparent tumor cell diffusion coefﬁcient, D. More details of the model implementation
+are provided in ref. 9.
+We acquire DW-MRI data at two time points, prior to initiating therapy and after one cycle of therapy, and use Eq. A to calculate
+ADC values. These serial ADC maps are then transformed to estimate the tumor cell density distribution at each time point using
+Eq. B. We then ﬁt these data to a model of tumor growth/response, Eqs. C–E, to yield estimates of tumor cell proliferation/death and
+diffusion. The estimated parameters are then used in conjunction with the model to predict, by projecting the model forward in time,
+the residual tumor burden at the conclusion of neoadjuvant therapy.
+Major assumptions in our modeling approach include a reduction in dimensionality to two-dimensional analysis of centralslice MR data, constant proliferation/diffusion values throughout neoadjuvant therapy following initial parameter estimation,
+and the nature of the mechanoinhibitory effect on tumor cell diffusivity. We return to these important assumptions in the
+Discussion.
+
+4698 Cancer Res; 75(22) November 15, 2015
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst September 2, 2015; DOI: 10.1158/0008-5472.CAN-14-2945
+
+Biomechanical Model for Predicting Breast Cancer Response
+
+resonance imaging (MRI) techniques. For example, in the recent
+multisite American College of Radiology Imaging Network
+(ACRIN) 6657/Investigation of Serial Studies to Predict Your
+Therapeutic Response with Imaging And moLecular Analysis
+(I-SPY TRIAL) (22), Hylton and colleagues examined traditional
+clinical assessment combined with imaging morphologic measurements and contrast enhanced signal enhancement ratio
+(SER). A four-predictor multivariate statistical model (clinical
+size, longest diameter, volume, and SER) was shown to have
+receiver operator characteristic (ROC) area under the curve (AUC)
+of 0.73 for prediction of pCR at an early imaging time point, prior
+to the second cycle of neoadjuvant therapy. A preliminary extension of this approach to combine quantitative region of interest
+(ROI) and voxel-level analysis metrics from both dynamic contrast-enhanced (DCE) and diffusion-weighted (DW) MRI, efﬂux
+rate transfer constant (kep), and apparent diffusion coefﬁcient
+(ADC), respectively, in a multivariate regression statistical analysis showed promise for achieving a higher predictive ability, with
+AUC for pCR prediction of 0.87 at an early imaging time point,
+after the ﬁrst cycle of neoadjuvant therapy (17). These studies
+extract a single parameter or sets of parameters from quantitative
+imaging data analysis and perform a statistical correlation to
+clinical outcomes. However, the physiologic interpretation of
+statistical combinations of extracted parameters as they pertain
+to pCR or reduction in tumor burden is often largely unknown.
+One promising way to maximize the impact of quantitative
+noninvasive imaging data is to use mathematical models of tumor
+growth driven by early time point imaging data in order to
+determine and predict therapeutic response. Major advances in
+mathematical modeling of tumor growth have occurred, where
+sophisticated simulations can be generated that recapitulate many
+cellular and bulk-level aspects of tumor growth and treatment
+response (23–25). Unfortunately, many such models are fundamentally limited in that they cannot readily incorporate clinical
+data and require knowledge of many different parameters of tumor
+growth/status that are either impractical or impossible to measure
+clinically (e.g., immune response, extracellular matrix status, genetic mutations, etc.). As complex, multiparametric models often
+require an extensive array of model parameters either obtained
+from literature values or empirically derived, they cannot be
+practically applied to individual patients. Thus, the ﬁeld of mathematical oncology has been limited to more fundamental investigations and patient-speciﬁc predictive modeling has only seen
+limited clinical application. There is a clear need to develop
+clinically relevant oncological models that are amenable to available patient data and yet retain the most salient features of response
+prediction (13).
+We and others (4, 26–31) have recently suggested using quantitative in vivo imaging data to drive mathematical models of tumor
+growth for predicting response. Following parameterization, these
+models can then be projected forward in space and time to predict
+eventual tumor distribution outcomes on a patient-speciﬁc basis.
+Rather than taking a classical reductionist approach where each
+appropriate physiologic constituent tumor-associated process is
+described mathematically and coupled into a comprehensive, yet
+increasingly complex representation, we have chosen to begin with
+a more traditional spatiotemporal growth model that captures ﬁrstorder effects. In this approach, we use patient-speciﬁc quantitative
+imaging data in two ways: (i) to ﬁt the model-associated parameters and (ii) to guide decisions whether to add complexity to the
+model based not purely on the existence of more sophisticated
+
+www.aacrjournals.org
+
+tumor-dynamic processes but rather how well incorporation can
+match patient outcome as determined at the time of surgery. We
+posit that systematically incorporating (additional) appropriate
+complexity to maximize clinical prediction, rather than constructing from the myriad of reduced fundamental interactions, has
+considerable merit for the ultimate realization of practical mathematical oncology in the clinical setting.
+Recently, we have developed and shown preliminary results for
+a biomechanical modeling framework where tumor response is
+parameterized using data from both before and after the ﬁrst cycle
+of neoadjuvant therapy and the model is driven forward in time to
+predict tumor burden at the time of surgery (9). The model is
+based on the standard reaction–diffusion equation of tumor
+growth/response, with terms to describe tumor cell diffusion and
+proliferation; in our formulation, the model is initialized and
+constrained using the serial imaging data. We extend this basic
+macroscopic tumor model to incorporate a mechano-inhibitory
+effect of surrounding tissue stroma on tumor cell diffusivity/
+motility. In this study, we build upon the previous efforts and
+apply patient-speciﬁc predictive modeling, constrained by quantitative imaging data, to a group of patients exhibiting a varying
+degree of response to therapy. We adopt a patient-scale spatiotemporal tumor growth model framework and allow readily
+available clinical imaging data to guide the determination of
+model parameters in a best-ﬁt sense. The goal of this study is to
+determine if a patient-speciﬁc mechanically coupled reaction–
+diffusion model of tumor response to therapy can be used as a
+predictive indicator of pCR.
+
+Materials and Methods
+Subject description
+An existing database of patients with breast cancer receiving
+quantitative MRI before (t1), after one cycle (t2), and at the
+conclusion (t3) of neoadjuvant therapy from a previous study
+(17) was utilized for this retrospective analysis. Brieﬂy, 33 patients
+with stage II/III breast cancer who underwent neoadjuvant therapy as a component of their clinical care were selected for this
+study. Inclusion criteria were as follows: no prior systemic therapies for breast cancer and histologically documented invasive
+carcinoma of the breast with a sufﬁcient risk of recurrence, based
+on pretreatment clinical parameters of size, grade, age, and nodal
+status, to warrant the use of neoadjuvant therapy. Neoadjuvant
+therapy was administered at the discretion of the treating medical
+oncologist based on pretreatment clinical parameters.
+Tumor type was classiﬁed based on expression status for estrogen
+receptor (ER), progesterone receptor (PR), and human epidermal
+growth factor 2 (HER2) and categorized as ER and/or PR positive,
+HER2 positive, or triple-negative (ER, PR, and HER2 negative);
+see Table 1. Most patients with HER2 positive tumors received
+paclitaxel, carboplatin, and trastuzumab every 3 weeks for six
+cycles. Most patients with ER and/or PR positive tumors received
+doxorubicin and cyclophosphamide every 2 weeks for four cycles
+followed by 12 weekly cycles of paclitaxel. Most patients with
+triple-negative tumors participated in an ongoing clinical trial and
+received weekly cisplatin and paclitaxel with or without everolimus
+for 12 weeks. Response status was determined at the time of surgery
+by a pathologist as either pCR, which is deﬁned as no residual
+viable tumor on histologic analysis of the breast or nodes at the
+completion of neoadjuvant therapy, or non-pCR, which designates
+any residual invasive tumor on histologic analysis in breast or
+
+Cancer Res; 75(22) November 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+4699
+
+Published OnlineFirst September 2, 2015; DOI: 10.1158/0008-5472.CAN-14-2945
+
+Weis et al.
+
+Table 1. Patient and tumor characteristics of the study population
+Age
+Tumor
+Patient no.
+(years)
+Tumor type
+grade
+3
+1
+50
+ERþ and/or PRþ
+2
+52
+HER2þ
+3
+1
+3
+60
+HER2þ
+4
+36
+Triple negative
+2
+þ
+þ
+5
+48
+ER and/or PR
+1
+6
+43
+ERþ and/or PRþ
+2
+2
+7
+59
+ERþ and/or PRþ
+8
+53
+Triple negative
+2
+þ
+9
+35
+HER2
+3
+10
+28
+Triple negative
+3
+3
+11
+33
+ERþ and/or PRþ
+12
+39
+ERþ and/or PRþ
+1
+13
+57
+Triple negative
+3
+þ
+14
+67
+HER2
+3
+15
+45
+Triple negative
+3
+16
+46
+HER2þ
+3
+17
+47
+ERþ and/or PRþ
+1
+þ
+2
+18
+36
+HER2
+3
+19
+43
+HER2þ
+20
+55
+ERþ and/or PRþ
+2
+21
+58
+ERþ and/or PRþ
+2
+þ
+22
+53
+HER2
+3
+3
+23
+46
+ERþ and/or PRþ
+2
+24
+46
+HER2þ
+25
+33
+Triple negative
+3
+þ
+2
+26
+39
+HER2
+27
+46
+ERþ and/or PRþ
+3
+28
+42
+Triple negative
+3
+29
+34
+Triple negative
+3
+þ
+30
+44
+HER2
+3
+31
+37
+Triple negative
+3
+32
+39
+Triple negative
+3
+3
+33
+48
+HER2þ
+
+Pathologic
+response
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+Non-pCR
+pCR
+pCR
+pCR
+pCR
+pCR
+pCR
+pCR
+pCR
+pCR
+pCR
+pCR
+pCR
+
+nodes at the completion of neoadjuvant therapy. Participating
+patients provided informed written consent to an Institutional
+Review Board approved study. For more information on the patient
+population, the reader is referred to Li and colleagues (17).
+Data acquisition
+MRI was performed using a Philips 3T Achieva MR scanner
+(Philips Healthcare). A four-channel receive double-breast coil
+was used for 20 patients (Invivo), and a 16-channel double-breast
+coil was used for 13 patients. THRIVE (T1 high-resolution isotropic volume examination) anatomical data were acquired via a 400
+ 400  129 acquisition matrix over a 20 cm  20 cm  12.9 cm
+transverse ﬁeld of view (FOV) with one signal acquisition, and TR/
+TE/a ¼ 6.43 ms/3.4 ms/10 . Dynamic contrast enhanced MRI
+(DCE-MRI) utilized an acquisition matrix of 192  192  20 (full
+breast) over a sagittal square FOV (22 cm  22 cm) with slice
+thickness of 5 mm, one signal acquisition, and a SENSE factor of 2.
+Dynamic scans used a ﬂip angle of 20 . Each dynamic set was
+collected in 16 s at 25 time points. A catheter placed within an
+antecubital vein delivered 0.1 mmol/kg (9–15 mL, depending on
+patient weight) of gadopentetate dimeglumine, Gd-DTPA (Magnevist) at 2 mL/s, followed by a saline ﬂush, via a power injector
+(Medrad) after the acquisition of three baseline dynamic scans.
+DW-MRI was acquired with a single-shot spin echo (SE) echo
+planar imaging sequence in three orthogonal diffusion encoding
+directions, with b-values of 0 and 500 or 600 s/mm2, FOV of 19.2
+cm  19.2 cm, and an acquisition matrix of 96  96 reconstructed
+to 144  144. SENSE parallel imaging (acceleration factor ¼ 2)
+
+4700 Cancer Res; 75(22) November 15, 2015
+
+Days between
+t1 and t2
+14
+18
+13
+7
+14
+14
+28
+9
+25
+9
+9
+13
+13
+11
+17
+19
+17
+15
+7
+24
+7
+21
+13
+24
+15
+14
+13
+15
+16
+7
+7
+14
+29
+
+Therapeutic regimen
+AC!Taxol
+Taxotere
+AC!Taxol þ concurent trastuzumab
+Taxol þ cisplatin  everolimus
+Dose-dense AC!Taxol
+Dose-dense AC!Taxol
+Dose-dense AC!Taxol
+Taxol þ cisplatin  everolimus
+Trastuzumab þ carboplatin þ ixabepilone
+Taxol þ cisplatin  everolimus
+AC!Taxol
+AC!Taxol
+AC!Taxol
+Dose-dense AC!Taxol
+Taxol þ cisplatin  everolimus
+Taxotere þ carboplatin þ Herceptin
+Taxotere!AC
+AC!Taxol
+Cisplatin þ Taxol  everolimus
+AC!Taxol
+Cisplatin þ Taxol  everolimus
+AC!concurent Taxol þ trastuzumab
+Taxotere!AC
+AC!concurent Taxol þ trastuzumab
+AC!weekly Taxol
+Trastuzumab þ Lapatinib
+AC!Taxol
+Taxol þ cisplatin  everolimus
+Taxotere!AC
+Trastuzumab þ Lapatinib
+Taxol þ cisplatin  everolimus
+AC!Taxol
+Taxotere þ carboplatin þ Herceptin
+
+and spectrally selective adiabatic inversion recovery fat saturation
+were implemented to reduce image artifacts. Subjects were breathing freely with no gating applied. The DW-MRIs consisted of
+12 sagittal slices with slice thickness of 5 mm (no slice gap),
+TR ¼ 3080 ms, TE ¼ "shortest" (41 or 60 ms), D ¼ 19.8 or 29 ms,
+and d ¼ 10.7 or 21 ms, NSA ¼ 10. The total scan time for THRIVE,
+DCE-MRI, and DW-MRI data was approximately 2.7, 6.7, and 4.7
+minutes, respectively.
+
+Data analysis
+A mechanically coupled reaction diffusion model of tumor
+response to therapy that used the MRI data obtained at time points
+t1 and t2 was used to predict tumor burden at the conclusion of
+neoadjuvant therapy. Although a brief description follows, the
+interested reader is referred to Weis and colleagues for details of the
+modeling methodology (9). Brieﬂy, THRIVE, DCE-MRI, and DWMRI data were longitudinally coregistered (32) across all time
+points. Central-slice images through the midpoint of the tumor
+were extracted from MRI volumes for further analysis. DCE-MRI
+data were used to deﬁne a tumor region-of-interest for voxels
+satisfying 80% signal enhancement threshold (9) between the
+precontrast images (i.e., the average signal intensity from DCEMRI time points 1–3) and the postcontrast images (i.e., the average
+signal intensity from DCE-MRI time points 4–25). Voxels that
+showed a signal intensity increase more than the 80% threshold
+between the pre- and postcontrast data were deﬁned as tumor (1).
+ADC maps were calculated from DW-MRI datasets using Eq. A
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst September 2, 2015; DOI: 10.1158/0008-5472.CAN-14-2945
+
+Biomechanical Model for Predicting Breast Cancer Response
+
+and transformed to estimates of tumor cell number using Eq. B
+(3, 4). A two-dimensional, mechanically coupled reaction diffusion tumor model, Eqs. C–E, was used to describe tumor cell
+logistic growth/decay and diffusion based on the central slice of the
+MR data. This model incorporates a tumor growth "mass effect"
+where accumulated mechanical distortion energy has an inhibitory
+effect on tumor cell invasiveness (5). Tumor cellularity at baseline
+(t1) and after one cycle of neoadjuvant therapy (t2) was used to
+estimate the spatially varying proliferation rates and a global tumor
+cell diffusion parameter by a conjugate-gradient nonlinear optimization. Following parameter ﬁtting, the model was projected
+forward in time (using the estimated proliferation and tumor
+cell diffusion parameters) to the ﬁnal time point at the conclusion
+of neoadjuvant therapy (t3), and the tumor cellularity was calculated as a model prediction. A schematic of the model parameter
+estimation and prediction framework is shown in Fig. 1. In
+addition, the cellularity maps for each patient at each time point
+for both the experimentally observed (t1 and t2) and model
+predicted (t3) cellularity data were summed to yield an estimate
+of the total tumor cellularity. To eliminate volumetric bias, these
+numbers are expressed as a percent change relative to a reference
+time point; for example, a percent change in cellularity from t1 to t2
+is deﬁned as 100(t2  t1)/t1.
+Statistical analysis
+Statistical analysis between non-pCR and pCR patient groups
+for percent changes in each analysis metric was performed using
+the Wilcoxon test. Statistical signiﬁcance was set at P < 0.05.
+Receiver operating characteristic (ROC) curves were generated
+for prediction of pCR for both the mechanically coupled model
+and a standard reaction–diffusion model. ROC curves were analyzed and area under the curve (AUC) and 95% conﬁdence
+intervals (CI) were generated for each model. The optimal cutoff
+was selected utilizing the Youden index, which maximizes the
+difference between the true positive rate and the false positive rate
+(33). Data were analyzed using GraphPad Prism (GraphPad
+Software).
+
+Results
+Clinical patient data
+Thirty-three patients (median age, 46; range, 28–67) completed
+scanning at t1 and at t2. The median time between t1 and t2 was 14
+days (range, 7–29 days). Table 1 summarizes the salient features
+of the patient data set, including their tumor type and pathologic
+response. After neoadjuvant therapy, 12 of 33 patients (36%)
+were deﬁned as having achieved pCR.
+Representative imaging and modeling data
+Imaging data and model predictions for tumors from two
+representative patients are shown in Figs. 2 and 3. Fig. 2 displays
+data from a patient that achieved pCR at the conclusion of
+neoadjuvant therapy that was scanned before, after the ﬁrst cycle,
+and at the conclusion of neoadjuvant therapy in the form of
+anatomical images (Fig. 2A–C), ADC (from DW-MRI) values
+superimposed on the averaged postcontrast images (Fig. 2D–
+F), and the estimated cellularity (using Eq. B) as a fraction of the
+carrying capacity (Fig. 2G–I). The mechanically coupled reaction–
+diffusion model is used to reconstruct parameter estimates of
+global diffusion and spatial proliferation rate (Fig. 2J) based on
+observed cellularity data from the baseline and post-one cycle
+
+www.aacrjournals.org
+
+Figure 1.
+Schema of patient-speciﬁc mathematical modeling response predication
+framework. ADC maps at baseline and after one cycle of neoadjuvant therapy
+are converted to tumor cellularity. The mathematical model is then used to
+reconstruct parameter estimates of cellular proliferation and diffusion
+between these two time points. The model is then evaluated forward in time
+to predict the pathologic response at the time of surgery.
+
+time points. The model is then evaluated forward in time based on
+the estimated parameters and observed cellularity data in order to
+predict cellularity at the conclusion of neoadjuvant therapy
+(Fig. 2K). Model prediction strongly agrees with data observations
+from imaging and pathology of complete response to therapy.
+Qualitatively, the estimated cellularity map is shown to exhibit a
+signiﬁcant trend of decrease between t1 and t2. The prediction of
+the mechanically coupled reaction–diffusion model is seen to
+continue the trend of decreasing cellularity at t3, with a prediction
+of near complete response. Figure 3 displays similar data for a
+representative patient with residual disease at the time of surgery
+
+Cancer Res; 75(22) November 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+4701
+
+Published OnlineFirst September 2, 2015; DOI: 10.1158/0008-5472.CAN-14-2945
+
+Weis et al.
+
+Figure 2.
+The model prediction for one
+representative patient achieving pCR.
+Anatomical THRIVE images (A–C) and
+baseline DCE with ADC overlays (D–F)
+are shown for baseline (left column),
+after one cycle (middle column), and
+at the conclusion of neoadjuvant
+therapy (right column). Tumor
+cellularity is estimated (G–I) and used
+in conjunction with the mechanics
+coupled reaction–diffusion model to
+estimate key model parameters of
+tumor cell diffusion and proliferation
+(J) between the baseline and early
+imaging time points. Parameter
+estimates are then used in the model
+to predict tumor cellularity at the time
+of surgery (K) and compared to
+observation (I). The mechanics
+coupled reaction–diffusion model
+predicts a signiﬁcant, near complete,
+response to neoadjuvant therapy,
+reﬂected by a signiﬁcant decrease in
+tumor burden, in agreement of
+pathological determination of pCR at
+the time of surgery.
+
+(i.e., a non-pCR). The estimated cellularity map for this patient
+exhibits an opposite trend from that of the pCR patient, with
+increasing estimated cellularity observations from t1 to t2. The
+mechanically coupled reaction–diffusion model prediction is
+then shown to predict a lack of response to therapy with an
+increase in cellularity at t3. Compared to observed cellularity data,
+the model overpredicts cellularity at the ﬁnal time point. Combined, representative images and associated estimated parameter
+
+4702 Cancer Res; 75(22) November 15, 2015
+
+maps of proliferation rates depict overall prediction of regression
+of disease for a responding patient and signiﬁcant progression of
+disease for a nonresponding patient.
+Predictive performance of analysis metrics
+Table 2 reports the overall performance for predicting pCR from
+a group of 33 patients exhibiting a varying degree of responsiveness to neoadjuvant therapy for analysis metrics based on RECIST
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst September 2, 2015; DOI: 10.1158/0008-5472.CAN-14-2945
+
+Biomechanical Model for Predicting Breast Cancer Response
+
+Figure 3.
+The model prediction for one
+representative patient not achieving
+pCR. Anatomical THRIVE images
+(A–C) and baseline DCE with ADC
+overlays (D–F) are shown for baseline
+(left column), after one cycle (middle
+column), and at the conclusion of
+neoadjuvant therapy (right column).
+Tumor cellularity is estimated (G–I)
+and used in conjunction with the
+mechanics coupled reaction–diffusion
+model to estimate key model
+parameters of tumor cell diffusion and
+proliferation (J) between the baseline
+and early imaging time points.
+Parameter estimates are then used in
+the model to predict tumor cellularity
+at the time of surgery (K) and
+compared to observation (I). The
+mechanics coupled reaction–diffusion
+model predicts a lack of response to
+neoadjuvant therapy, reﬂected by a
+signiﬁcant increase in tumor burden,
+in agreement of pathologic
+determination of non-pCR at the time
+of surgery.
+
+(i.e., measurement of tumor longest dimension), observed cellularity (based on ADC values from DW-MRI), reaction–diffusion
+model prediction, and mechanics coupled reaction–diffusion
+model prediction. Area under the receiver operating characteristic
+curve, sensitivity, and speciﬁcity are reported for each metric,
+along with 95% conﬁdence intervals. Figure 4 depicts the average
+value, 95% conﬁdence interval as indicated by error bars, and P
+
+www.aacrjournals.org
+
+value for comparisons between non-pCR and pCR tumors for
+each analysis metric, along with ROC curves.
+Simple analysis of differences in tumor morphologic and
+cellularity observations before and after the ﬁrst cycle of neoadjuvant therapy exhibit a modest ability to predict pCR status at the
+conclusion of therapy. The change in tumor longest dimension
+between imaging time points t1 and t2, based on RECIST criteria,
+
+Cancer Res; 75(22) November 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+4703
+
+Published OnlineFirst September 2, 2015; DOI: 10.1158/0008-5472.CAN-14-2945
+
+Weis et al.
+
+Table 2. Table of ROC analysis parameters for RECIST, cellularity (input data to model), reaction–diffusion model, and mechanics coupled model
+Analysis metric
+AUC (95% CI)
+Sensitivity % (95% CI)
+Speciﬁcity % (95% CI)
+0.71 (0.53–0.90)
+92 (62–100)
+53 (29–76)
+RECIST % change t1 to t2
+Cellularity % change t1 to t2
+0.73 (0.55–0.91)
+100 (74–100)
+47 (24–71)
+Reaction diffusion model % change t2 to t3
+0.75 (0.58–0.92)
+100 (75–100)
+55 (32–77)
+0.87 (0.74–1.0)
+92 (62–100)
+84 (60–97)
+Mechanics coupled model % change t2 to t3
+NOTE: '% change t1 to t2' denotes observed cellularity or RECIST measures at the post one cycle time point expressed as a percent change to the initial time point.
+Similarly, '% change t2 to t3' denotes model predicted cellularity at the ﬁnal time point expressed as a percent change to the post one cycle time point.
+
+reﬂect an AUC and sensitivity of 0.71% and 92%, respectively;
+however, RECIST exhibits a poor speciﬁcity of 53% in this study.
+Similarly, the estimated tumor cellularity based on ADC values
+from DW-MRI is shown to have modest predictive performance,
+with ROC AUC and sensitivity of 0.73% and 100%, respectively,
+and poor speciﬁcity of 47%.
+Using image-based mathematical modeling in order to predict
+tumor response to therapy is seen to improve pCR predictive
+performance. Reaction–diffusion model predictions of tumor
+cellularity at the conclusion of neoadjuvant therapy, expressed
+as a percent change from cellularity after one cycle of neoadjuvant
+therapy, exhibit an AUC, sensitivity, and speciﬁcity of 0.75%,
+100%, and 55%, respectively. Here, model predictions are
+expressed as a percent change to eliminate volumetric bias from
+prediction results. Incorporating mechanical coupling into the
+reaction–diffusion model signiﬁcantly improves pCR predictive
+performance, achieving an ROC AUC, sensitivity, and speciﬁcity
+of 0.87%, 92%, and 84%, respectively.
+
+Discussion
+We previously introduced a novel mathematical framework
+for predictive modeling that is centered on integrating quantitative in vivo imaging data with biomechanical models of tumor
+growth (9). This approach represents a signiﬁcant departure from
+existing paradigms in mathematical oncology modeling by using
+patient-speciﬁc data to parameterize a model that can then be
+used to make a prediction at a future time point that can then be
+checked directly against patient response. In this work, we retrospectively apply this framework to a database of patients exhibiting varying degrees of responsiveness to neoadjuvant therapy. We
+compared model predictions of responsiveness to pathologic
+response assessment at the time of surgery. Our results demonstrate a signiﬁcant predictive ability of our mechanics coupled
+modeling approach in identifying patients that would go on to
+achieve pCR, as indicated by a strong AUC of 0.87. Our mechanics
+coupled reaction–diffusion modeling approach signiﬁcantly outperformed other, commonly used metrics, including analysis of
+tumor longest dimension (i.e., RECIST), early-cycle changes in
+DW-MRI (used as empirical input data to the models), and
+standard reaction–diffusion predictive modeling. Compared with
+the standard reaction–diffusion model, the mechanically coupled
+model exhibits signiﬁcantly improved prediction speciﬁcity,
+reﬂected by improved prediction of true non-pCR patients
+(55% vs. 84%, respectively). Further analysis of the patients for
+which mechanically coupled modeling improved predictability
+over standard modeling (data not shown), failed to reveal correlations with any other known factor (including breast density,
+patient age, and breast cancer subtype, among others).
+Our results also conﬁrm previous reports of the use of early
+cycle DW-MRI ADC data alone in predicting neoadjuvant therapy
+response (34–39). Trends of decreasing/increasing cellularity are
+
+4704 Cancer Res; 75(22) November 15, 2015
+
+clearly visible between the observed cellularity before and after the
+ﬁrst cycle of therapy, as shown in Figs. 2 and 3, with predictive
+AUC of 0.73. However, analysis of these data is seen to exhibit
+limited speciﬁcity, as has been previously demonstrated (35, 40).
+The results from this study are promising, but we recognize that
+there are several limitations in our current approach. First, we
+estimate the key model parameters (i.e., proliferation and tumor
+cell diffusion) from data obtained before and after the ﬁrst cycle of
+neoadjuvant therapy; this is an admittedly (temporally) sparse set
+of measurements for attempting to capture the dynamics through
+a model ﬁtting procedure. In addition, we have assumed that
+reconstructed model parameters do not vary in time; this is
+essentially equivalent to assuming a constant antitumor effect
+during neoadjuvant therapy treatment and this is clearly a simpliﬁcation of the response of tumor cells to neoadjuvant therapy.
+True response undoubtedly exhibits strong nonlinear temporal
+response to therapy; indeed, the evolution of a resistant phenotype in the presence of continued chemotherapeutic administration speaks directly to a nonlinear effect that is not currently taken
+into account in our approach. However, it is clinically infeasible to
+acquire sufﬁcient imaging time points throughout the course of
+therapy to accurately predict the temporal changes in proliferation
+rates and tumor cell diffusion with the current model. We are
+currently exploring acquisition of one additional early imaging
+time point, collected after two cycles of therapy, in order to better
+understand the temporal evolution of parameters and more
+accurate prediction of response.
+A second limitation, as also noted in Li and colleagues (17), is
+the variation in the breast cancer subtype, therapeutic regimen
+(including the speciﬁc therapeutic agent and dosing frequency),
+and number of days elapsed between imaging time points, t1 and
+t2. Thus, it is possible that the modeling approach could be
+inﬂuenced by the underlying dynamics and biology of speciﬁc
+breast cancer subtypes as well as the particular therapy regimen
+utilized. This source of uncertainty due to patient-speciﬁc biologic
+variability is particularly difﬁcult to control, due to the nature of
+clinical research data acquisition constraints. It will be important,
+as a greater number of patients are analyzed with this methodology, to statistically analyze the model relative to cancer subtype,
+therapeutic regimen, and imaging time point delay to determine
+these effects. In addition, future work toward model validation in
+preclinical and in vitro systems will facilitate greater experimental
+control and provide further understanding toward model robustness in the presence of such biological variability. Of course, the
+encouraging preliminary results achieved with our modeling
+approach in spite of this variability points to the importance,
+and potential generalizability, of using models based on patientspeciﬁc information.
+Another limitation is that our current approach utilizes centralslice MR data to initialize and constrain two-dimensional mathematical models, rather than using full image volumes and threedimensional models. We do note, however, that we are utilizing
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst September 2, 2015; DOI: 10.1158/0008-5472.CAN-14-2945
+
+Biomechanical Model for Predicting Breast Cancer Response
+
+Figure 4.
+Tumors from patients either achieving pCR or not were assessed as a percent change from t1 to t2 by RECIST criteria (A) and observed cellularity (B) and as a percent
+change from t2 to predicted t3 by reaction diffusion model prediction (C) and mechanics coupled model prediction (D). Data are expressed as mean
+with 95% conﬁdence intervals, with P values indicated for statistically signiﬁcant differences between groups. ROC curves for all analysis metrics are shown
+along with the dashed line of identity (E).
+
+somewhat thick slices, 5 mm, due to the spatio-temporal acquisition requirements of the trial for which the MRI data were
+originally acquired. Extension of our approach to three-dimensional analysis is straightforward, and we would expect an
+enhanced predictive capability through the use of additional
+volumetric data. However, the current computational demands
+for iterative reconstruction of volumetric parameter maps
+
+www.aacrjournals.org
+
+signiﬁcantly limit the feasibility of extending our approach to
+three-dimensional analysis for an entire patient database at this
+time. Currently, efforts are underway to reﬁne our approach
+by exploring signiﬁcant computational speed enhancements
+though the use of high-performance computing cluster and/or
+graphics processing unit processing in addition to algorithmic
+enhancements.
+
+Cancer Res; 75(22) November 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+4705
+
+Published OnlineFirst September 2, 2015; DOI: 10.1158/0008-5472.CAN-14-2945
+
+Weis et al.
+
+The mechanically coupled reaction diffusion model adds two
+additional degrees of freedom to each node in the ﬁnite element
+mesh (in addition to the existing degree of freedom for tumor cell
+number) due to the need for calculation of a displacement
+solution. This added complexity increases the computation time
+for the forward model by approximately 40%, without parallelization of matrix assembly and/or matrix inversion. In addition,
+the impact on total wall-clock time is relatively limited as the
+entire mechanically coupled reaction diffusion model prediction
+approach typically requires only 1 to 2 hours for each patient.
+At present, our mechanics coupled approach relies on the use of
+literature values for the elastic properties of the breast (9). In
+addition, our approach currently ignores other important biologic
+factors beyond simple growth and mechanoinhibitory diffusion.
+Other ongoing efforts are designed to address these limitations
+through incorporation of additional quantitative patient-speciﬁc
+imaging methodologies to inform more complex models (13).
+Given these limitations, we note that our approach compares
+very favorably, with similar AUC, to previous multimodal statistical regression analysis of this same patient population in previous work that combines ROI and voxel-level DW-MRI and DCEMRI analysis (17). Importantly, our approach currently includes
+data from only one quantitative imaging source, DW-MRI. Contrast-enhanced MRI data are used in this work only to identify
+tumor ROI, with no sensitivity to pharmacokinetic parameters ﬁt
+from dynamic DCE-MRI data. It is therefore very encouraging that
+our model-based analysis framework, based on unimodal and
+two-dimensional central-slice input data, achieves similar predictive results to multimodal full-volume analysis.
+In summary, we have demonstrated a model-based analysis
+method that provides predictions of therapeutic response using
+patient-speciﬁc early time point imaging data within the course of
+therapy. The framework provides good agreement with pathologic response observations as demonstrated by a strong predictive ability. The results suggest that an imaging-driven biophysically constrained modeling approach that combines reaction–
+diffusion with mechanical effects is a predictive indicator of
+response to therapy. Future work will seek to further enhance
+the predictive capacity of our approach by expanding the math-
+
+ematical model of tumor response to include model terms that
+can be populated with other sources of quantitative patientspeciﬁc noninvasive imaging, including DCE-MRI, ﬂudeoxyglucose positron emission tomography (FDG-PET), and magnetic
+resonance elastography (MRE).
+
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+Authors' Contributions
+Conception and design: J.A. Weis, M.I. Miga, T.E. Yankeelov
+Development of methodology: J.A. Weis, M.I. Miga, T.E. Yankeelov
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): J.A. Weis, L.R. Arlinghaus, V. Abramson,
+A.B. Chakravarthy, T.E. Yankeelov
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): J.A. Weis, X. Li, T.E. Yankeelov
+Writing, review, and/or revision of the manuscript: J.A. Weis, M.I. Miga,
+L.R. Arlinghaus, X. Li, V. Abramson, A.B. Chakravarthy, T.E. Yankeelov
+Administrative, technical, or material support (i.e., reporting or organizing
+data, constructing databases): J.A. Weis, A.B. Chakravarthy, P. Pendyala
+Study supervision: J.A. Weis, A.B. Chakravarthy, T.E. Yankeelov
+
+Acknowledgments
+The authors offer their sincerest appreciation to the women who volunteered
+to participate in this study. The authors thank the National Institutes of Health
+for funding through NCI 1U01CA142565, NCI U01CA174706, NCI
+R25CA092043, NCI 1P50 098131, NCI P30CA68485, NCI R01CA138599,
+and NINDS 2R01NS049251. The authors also thank the Kleberg Foundation for
+generous support of the imaging program at Vanderbilt and the support
+provided by the Vanderbilt Initiative in Surgery and Engineering Pilot Award
+Program.
+
+Grant Support
+This work was supported by the National Institutes of Health: NCI
+1U01CA142565, NCI U01CA174706, NCI R25CA092043, NCI 1P50
+098131, NCI P30CA68485, NCI R01CA138599, and NINDS 2R01NS049251
+The costs of publication of this article were defrayed in part by the payment of
+page charges. This article must therefore be hereby marked advertisement in
+accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+Received October 3, 2014; revised May 26, 2015; accepted July 29, 2015;
+published OnlineFirst September 2, 2015.
+
+References
+1. Li X, Arlinghaus LR, Ayers GD, Chakravarthy AB, Abramson RG, Abramson
+VG, et al. DCE-MRI analysis methods for predicting the response of breast
+cancer to neoadjuvant chemotherapy: pilot study ﬁndings. Magn Reson
+Med 2014;71:1592–602.
+2. Martin I, Dozin B, Quarto R, Cancedda R, Beltrame F. Computer-based
+technique for cell aggregation analysis and cell aggregation in in vitro
+chondrogenesis. Cytometry 1997;28:141–6.
+3. Anderson AW, Xie J, Pizzonia J, Bronen RA, Spencer DD, Gore JC. Effects of
+cell volume fraction changes on apparent diffusion in human cells. Magn
+Reson Imaging 2000;18:689–95.
+4. Atuegwu NC, Colvin DC, Loveless ME, Xu L, Gore JC, Yankeelov TE.
+Incorporation of diffusion-weighted magnetic resonance imaging data
+into a simple mathematical model of tumor growth. Phys Med Biol
+2012;57:225–40.
+5. Garg I, Miga MI. Preliminary investigation of the inhibitory effects of
+mechanical stress in tumor growth. SPIE Medical Imaging 2008: Visualization, Image-Guided Procedures, and Modeling Conference 2008;6918:
+69182L1–11.
+6. McKnight AL, Kugel JL, Rossman PJ, Manduca A, Hartmann LC, Ehman RL.
+MR elastography of breast cancer: Preliminary results. Am J Roentgenol
+2002;178:1411–7.
+
+4706 Cancer Res; 75(22) November 15, 2015
+
+7. Helmlinger G, Netti PA, Lichtenbeld HC, Melder RJ, Jain RK. Solid stress
+inhibits the growth of multicellular tumor spheroids. Nat Biotechnol
+1997;15:778–83.
+8. Levental KR, Yu H, Kass L, Lakins JN, Egeblad M, Erler JT, et al. Matrix
+crosslinking forces tumor progression by enhancing integrin signaling. Cell
+2009;139:891–906.
+9. Weis JA, Miga MI, Arlinghaus LR, et al. A mechanically coupled reaction–
+diffusion model for predicting the response of breast tumors to neoadjuvant chemotherapy. Phys Med Biol 2013;58:5851–66.
+10. Kaufmann M, von Minckwitz G, Bear HD, Buzdar A, McGale P,
+Bonnefoi H, et al. Recommendations from an international expert
+panel on the use of neoadjuvant (primary) systemic treatment of
+operable breast cancer: new perspectives 2006. Ann Oncol 2007;18:
+1927–34.
+11. Chollet P, Amat S, Cure H, de Latour M, LeBouedec G, Mouret-Reynier MA,
+et al. Prognostic signiﬁcance of a complete pathological response after
+induction chemotherapy in operable breast cancer. Br J Cancer 2002;86:
+1041–6.
+12. Wolff AC, Berry D, Carey LA, Colleoni M, Dowsett M, Ellis M, et al. Research
+issues affecting preoperative systemic therapy for operable breast cancer.
+J Clin Oncol 2008;26:806–13.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst September 2, 2015; DOI: 10.1158/0008-5472.CAN-14-2945
+
+Biomechanical Model for Predicting Breast Cancer Response
+
+13. Yankeelov TE, Atuegwu N, Hormuth D, Weis JA, Barnes SL, Miga MI, et al.
+Clinically relevant modeling of tumor growth and treatment response. Sci
+Transl Med 2013;5:187ps9.
+14. Abramson RG, Li X, Hoyt TL, Su PF, Arlinghaus LR, Wilson KJ, et al. Early
+assessment of breast cancer response to neoadjuvant chemotherapy by
+semi-quantitative analysis of high-temporal resolution DCE-MRI: preliminary results. Magn Reson Imaging 2013;31:1457–64.
+15. Atuegwu NC, Li X, Arlinghaus LR, Abramson RG, Williams JM, Chakravarthy AB, et al. Longitudinal, intermodality registration of quantitative
+breast PET and MRI data acquired before and during neoadjuvant chemotherapy: preliminary results. Med Phys 2014;41:052302.
+16. Huang W, Li X, Chen Y, Chang MC, Oborski MJ, Malyarenko DI, et al.
+Variations of dynamic contrast-enhanced magnetic resonance imaging in
+evaluation of breast cancer therapy response: a multicenter data analysis
+challenge. Transl Oncol 2014;7:153–66.
+17. Li X, Kang H, Arlinghaus LR, Abramson RG, Chakravarthy AB, Abramson
+VG, et al. Analyzing Spatial Heterogeneity in DCE- and DW-MRI parametric maps to optimize prediction of pathologic response to neoadjuvant
+chemotherapy in breast cancer. Transl Oncol 2014;7:14–22.
+18. Li J, Jamin Y, Boult JK, Cummings C, Waterton JC, Ulloa J, et al. Tumour
+biomechanical response to the vascular disrupting agent ZD6126 in
+vivo assessed by magnetic resonance elastography. Br J Cancer 2014;
+110:1727–32.
+19. Cho N, Im SA, Park IA, Lee KH, Li M, Han W, et al. Breast cancer: early
+prediction of response to neoadjuvant chemotherapy using parametric
+response maps for MR imaging. Radiology 2014;272:385–96.
+20. Cheung YC, Chen SC, Su MY, See LC, Hsueh S, Chang HK, et al. Monitoring
+the size and response of locally advanced breast cancers to neoadjuvant
+chemotherapy (weekly paclitaxel and epirubicin) with serial enhanced
+MRI. Breast Cancer Res Treat 2003;78:51–8.
+21. Abraham DC, Jones RC, Jones SE, Cheek JH, Peters GN, Knox SM, et al.
+Evaluation of neoadjuvant chemotherapeutic response of locally advanced
+breast cancer by magnetic resonance imaging. Cancer 1996;78:91–100.
+22. Hylton NM, Blume JD, Bernreuter WK, Pisano ED, Rosen MA, Morris EA,
+et al. Locally advanced breast cancer: MR imaging for prediction of response
+to neoadjuvant chemotherapy–results from ACRIN 6657/I-SPY TRIAL.
+Radiology 2012;263:663–72.
+23. Brocato T, Dogra P, Koay EJ, Day A, Chuang Y-L, Wang Z, et al. Understanding Drug Resistance in Breast Cancer with Mathematical Oncology.
+Curr Breast Cancer Rep 2014;6:110–20.
+24. Wang Z, Butner JD, Kerketta R, Cristini V, Deisboeck TS. Simulating cancer
+growth with multiscale agent-based modeling. Semin Cancer Biol 2015;
+30:70–8.
+25. Quaranta V, Tyson DR. What lies beneath: looking beyond tumor genetics
+shows the complexity of signaling networks underlying drug sensitivity. Sci
+Signal 2013;6:pe32.
+26. Harpold HL, Alvord EC Jr., Swanson KR. The evolution of mathematical
+modeling of glioma proliferation and invasion. J Neuropathol Exp Neurol
+2007;66:1–9.
+27. Rockne R, Rockhill JK, Mrugala M, Spence AM, Kalet I, Hendrickson K, et al.
+Predicting the efﬁcacy of radiotherapy in individual glioblastoma patients
+
+www.aacrjournals.org
+
+28.
+
+29.
+
+30.
+
+31.
+
+32.
+
+33.
+
+34.
+
+35.
+
+36.
+
+37.
+
+38.
+
+39.
+
+40.
+
+in vivo: a mathematical modeling approach. Phys Med Biol 2010;55:
+3271–85.
+Swanson KR, Rockne RC, Claridge J, Chaplain MA, Alvord EC Jr., Anderson
+AR. Quantifying the role of angiogenesis in malignant progression of
+gliomas: in silico modeling integrates imaging and histology. Cancer Res
+2011;71:7366–75.
+Szeto MD, Chakraborty G, Hadley J, Rockne R, Muzi M, Alvord EC Jr.,
+et al. Quantitative metrics of net proliferation and invasion link
+biological aggressiveness assessed by MRI with hypoxia assessed by
+FMISO-PET in newly diagnosed glioblastomas. Cancer Res 2009;69:
+4502–9.
+Wang CH, Rockhill JK, Mrugala M, Peacock DL, Lai A, Jusenius K, et al.
+Prognostic signiﬁcance of growth kinetics in newly diagnosed glioblastomas revealed by combining serial imaging with a novel biomathematical
+model. Cancer Res 2009;69:9133–40.
+Baldock AL, Yagle K, Born DE, Ahn S, Trister AD, Neal M, et al. Invasion and
+proliferation kinetics in enhancing gliomas predict IDH1 mutation status.
+Neuro Oncol 2014;16:779–86.
+Li X, Dawant BM, Welch EB, Chakravarthy AB, Freehardt D, Mayer I,
+et al. A nonrigid registration algorithm for longitudinal breast MR
+images and the analysis of breast tumor response. Magn Reson Imaging
+2009;27:1258–70.
+Perkins NJ, Schisterman EF. The inconsistency of "optimal" cutpoints
+obtained using two criteria based on the receiver operating characteristic
+curve. Am J Epidemiol 2006;163:670–5.
+Pickles MD, Gibbs P, Lowry M, Turnbull LW. Diffusion changes precede
+size reduction in neoadjuvant treatment of breast cancer. Magn Reson
+Imaging 2006;24:843–7.
+Sharma U, Danishad KK, Seenu V, Jagannathan NR. Longitudinal study of
+the assessment by MRI and diffusion-weighted imaging of tumor response
+in patients with locally advanced breast cancer undergoing neoadjuvant
+chemotherapy. NMR Biomed 2009;22:104–13.
+Belli P, Costantini M, Ierardi C, et al. Diffusion-weighted imaging in
+evaluating the response to neoadjuvant breast cancer treatment. Breast J
+2011;17:610–9.
+Woodhams R, Kakita S, Hata H, Iwabuchi K, Kuranami M, Gautam S, et al.
+Identiﬁcation of residual breast carcinoma following neoadjuvant chemotherapy: diffusion-weighted imaging—comparison with contrast-enhanced
+MR imaging and pathologic ﬁndings. Radiology 2010;254:357–66.
+Nilsen L, Fangberget A, Geier O, Olsen DR, Seierstad T. Diffusionweighted magnetic resonance imaging for pretreatment prediction and
+monitoring of treatment response of patients with locally advanced
+breast cancer undergoing neoadjuvant chemotherapy. Acta Oncol
+2010;49:354–60.
+Fujimoto H, Kazama T, Nagashima T, Sakakibara M, Suzuki TH, Okubo Y,
+et al. Diffusion-weighted imaging reﬂects pathological therapeutic
+response and relapse in breast cancer. Breast Cancer 2014;21:724–31.
+Hahn SY, Ko EY, Han BK, Shin JH, Ko ES. Role of diffusion-weighted
+imaging as an adjunct to contrast-enhanced breast MRI in evaluating
+residual breast cancer following neoadjuvant chemotherapy. Eur J Radiol
+2014;83:283–8.
+
+Cancer Res; 75(22) November 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+4707
+
+Published OnlineFirst September 2, 2015; DOI: 10.1158/0008-5472.CAN-14-2945
+
+Predicting the Response of Breast Cancer to Neoadjuvant Therapy
+Using a Mechanically Coupled Reaction−Diffusion Model
+Jared A. Weis, Michael I. Miga, Lori R. Arlinghaus, et al.
+Cancer Res 2015;75:4697-4707. Published OnlineFirst September 2, 2015.
+
+Updated version
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-14-2945
+
+This article cites 38 articles, 6 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/75/22/4697.full#ref-list-1
+This article has been cited by 1 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/75/22/4697.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+

@@ -1,0 +1,935 @@
+Europe PMC Funders Group
+Author Manuscript
+Nature. Author manuscript; available in PMC 2012 September 29.
+Published in final edited form as:
+Nature. ; 483(7391): 570–575. doi:10.1038/nature11005.
+
+Europe PMC Funders Author Manuscripts
+
+Systematic identification of genomic markers of drug sensitivity
+in cancer cells
+Mathew J. Garnett1,*, Elena J. Edelman2,*, Sonja J. Heidorn1,*, Chris D. Greenman1,†,‡,
+Anahita Dastur2, King Wai Lau1, Patricia Greninger2, I. Richard Thompson1, Xi Luo2, Jorge
+Soares1, Qingsong Liu3,4, Francesco Iorio1,5, Didier Surdez6, Li Chen2, Randy J. Milano2,
+Graham R. Bignell1, Ah T. Tam2, Helen Davies1, Jesse A. Stevenson2, Syd Barthorpe1,
+Stephen R. Lutz2, Fiona Kogera1, Karl Lawrence1, Anne McLaren-Douglas1, Xeni
+Mitropoulos2, Tatiana Mironenko1, Helen Thi2, Laura Richardson1, Wenjun Zhou3,4,
+Frances Jewitt1, Tinghu Zhang3,4, Patrick O’Brien1, Jessica L. Boisvert2, Stacey Price1,
+Wooyoung Hur3,4, Wanjuan Yang1, Xianming Deng3,4, Adam Butler1, Hwan Geun Choi3,4,
+Jae Won Chang3,4, Jose Baselga2, Ivan Stamenkovic7, Jeffrey A. Engelman2, Sreenath V.
+Sharma2,§, Olivier Delattre6, Julio Saez-Rodriguez5, Nathanael S. Gray3,4, Jeffrey
+Settleman2, P. Andrew Futreal1, Daniel A. Haber2,8, Michael R. Stratton1, Sridhar
+Ramaswamy2, Ultan McDermott1, and Cyril H. Benes2
+1Cancer
+
+Genome Project, Wellcome Trust Sanger Institute, Hinxton CB10 1SA, UK
+General Hospital Cancer Center, Harvard Medical School, Charlestown MA
+02129, USA 3Department of Cancer Biology, Dana Farber Cancer Institute, 44 Binney Street,
+Boston MA 02115, USA 4Department of Biological Chemistry and Molecular Pharmacology,
+Harvard Medical School, 250 Longwood Ave. Boston MA 02115, USA 5EMBL-EBI, Wellcome
+Trust Genome Campus, Cambridge CB10 1SD, UK 6Laboratoire de génétique et biologie des
+cancers, Institut Curie, 75248 Paris, Cedex 05, France 7Division of Experimental Pathology,
+Institute of Pathology, Centre Hospitalier Universitaire Vaudois (CHUV), University of Lausanne,
+Lausanne, Switzerland 8Howard Hughes Medical Institute, Chevy Chase MD 20815, USA
+2Massachusetts
+
+Europe PMC Funders Author Manuscripts
+
+Abstract
+Clinical responses to anticancer therapies are often restricted to a subset of patients. In some cases,
+mutated cancer genes are potent biomarkers of response to targeted agents. To uncover new
+biomarkers of sensitivity and resistance to cancer therapeutics, we screened a panel of several
+
+Correspondence and requests for material should be addressed to U.M. (um1@sanger.ac.uk) or C.B. (cbenes@partners.org).
+†Present Address: Department of Computing, University of East Anglia, Norwich NR4 7TJ, UK.
+‡Present Address: The Genome Analysis Centre, Norwich Research Park, Norwich NR4 7UH, UK
+§Present address: Oncology Drug Discovery, Novartis Institutes for Biomedical Research, 250 Massachusetts Avenue, Cambridge,
+MA 02139
+*These authors contributed equally to this work.
+AUTHOR CONTRIBUTIONS
+M.J.G, U.M, S.V.S and C.B. supervised data collection and analysis. C.D.G. and K.W. conceived and wrote the curve-fitting
+algorithm and performed the MANOVA; E.J.E and S.R. performed elastic net analysis and analyzed the data. P.G., I.R.T, and J.So.
+developed and managed screening databases with assistance from A.B and W.Y.; S.J.H. performed most of the Ewing’s sarcoma
+related studies with contribution from D.S. A.D., X.L, F.K. and L.C., with I.S and O.D. providing critical reagents; R.J.M., A.T.T.,
+J.A.S., S.B., S.R.L., K.L., A. M., X.M., T.M, H.T., L.R., F.J. P.O. performed cell line screening experiments. Q.L.,W.Z., T.Z., W.H.,
+X.D, H.G.C. and J.W.C. synthesized screening compounds and N.S.G provided guidance on their selection and use; F.I. and J.SR.
+performed compound activity clustering; G.R.B. and H.D. performed cell line genotyping and genetic analysis; J.A.E. and J.B.
+provided guidance regarding clinical relevance of the work; M.J.G. and C.B. wrote the manuscript with major contributions from S.R.,
+S.J.H. and U.M.; M.R.S., D.A.H, J.Se. and P.A.F conceived the study, analyzed the data and edited the manuscript.
+AUTHOR INFORMATION
+The authors declare competing financial interests. J.Se. is currently an employee of Genentech and is a shareholder of Roche.
+
+Garnett et al.
+
+Page 2
+
+Europe PMC Funders Author Manuscripts
+
+hundred cancer cell lines, which represent much of the tissue-type and genetic diversity of human
+cancers, with 130 drugs under clinical and preclinical investigation. In aggregate, we found
+mutated cancer genes were associated with cellular response to most currently available cancer
+drugs. Classic oncogene addiction paradigms were modified by additional tissue-specific or
+expression biomarkers, and some frequently mutated genes were associated with sensitivity to a
+broad range of therapeutic agents. Unexpected relationships were revealed, including the marked
+sensitivity of Ewing’s sarcoma cells harboring the EWS-FLI1 gene translocation to PARP
+inhibitors. By linking drug activity to the functional complexity of cancer genomes, systematic
+pharmacogenomic profiling in cancer cell lines provides a powerful biomarker discovery platform
+to guide rational cancer therapeutic strategies.
+
+INTRODUCTION
+There is compelling evidence that the likelihood of a patient’s cancer responding to
+treatment can be strongly influenced by alterations in the cancer genome. For example, the
+use of drugs to selectively target the protein product of the BCR-ABL translocation in
+chronic myeloid leukemia (CML) has revolutionized the treatment of this disease, with 5year survival rates of 90% in treated patients1. While targeting of specific genetic changes in
+defined patient subsets has been successful, a poorly explained range of responses to
+appropriately selected therapies is often still observed in patients2,3. Moreover, a large
+number of cancer drugs have not been linked to specific genomic alterations that could be
+used as biomarkers to specify their selective therapeutic effectiveness4. As drug pipelines
+generate new classes of compounds, systematic methods to identify predictive biomarkers
+during their early development could have a profound effect on the design, cost and ultimate
+success of new cancer drug development.
+
+Europe PMC Funders Author Manuscripts
+
+The NCI60 cell line panel and associated drug screens pioneered the approach of using
+cancer cell lines to link drug sensitivity with genotype data5,6. Cancer cell lines have
+subsequently been used to identify rare drug-sensitizing genotypes, including mutant EGFR,
+BRAF and EML4-ALK, that are highly predictive of clinical responses2,3,7. Here, we report
+the results of a large-scale screen of human cancer cell lines, incorporating detailed genomic
+and gene expression analysis, to systematically identify drug sensitivity biomarkers to a
+broad range of cancer drugs.
+
+RESULTS
+Systematic screening for therapeutic biomarkers
+In order to capture the high degree of genomic diversity in cancer and to identify rare mutant
+subsets with altered drug sensitivity, we assembled 639 human tumour cell lines,
+representing the spectrum of common and rare types of adult and childhood cancers of
+epithelial, mesenchymal and haematopoietic origin (Fig. 1a and Supplementary Data 1). Cell
+lines were subjected to sequencing of the full coding exons of 64 commonly mutated cancer
+genes, genome-wide analysis of copy number gain and loss using Affymetrix SNP6.0
+microarrays, and expression profiling of 14,500 genes using Affymetrix HT-U133A
+microarrays. The presence of seven commonly rearranged cancer genes and of microsatellite
+instability (MSI) were also investigated. The 130 drugs selected for screening covered a
+wide range of targets and processes implicated in cancer biology (Fig. 1b and
+Supplementary Data 2). They encompassed both targeted agents (n =114) and cytotoxic
+chemotherapeutics (n=13), including approved drugs used in clinical practice (n=31), drugs
+in development undergoing studies in clinical trials (n=47), and experimental tool
+compounds (n=52). To gain insight into drug-to-drug variation, we included multiple drugs
+designed against well-credentialed targets (Fig. 1b). The effect of 72 hours of drug treatment
+
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 3
+
+Europe PMC Funders Author Manuscripts
+
+on cell viability was used to derive a multi-parameter description of drug sensitivity,
+including the half maximal inhibitory concentration (IC50), and the slope of the dose
+response curve (Supplementary Fig. 1). In total, we assayed 48,178 drug-cell line
+combinations with a range of 275-507 cell lines screened per drug (mean = 368 cell lines per
+drug; Supplementary Data 2). Clustering of compounds across cell lines based on IC50
+values indicated that drugs with overlapping specificity were highly correlated, supporting
+the selectivity of the biological effects observed in the dataset (Supplementary Fig. 3 and
+Supplementary Tables 1 and 2).
+Tumours from a particular tissue frequently have a shared set of somatic mutations. To gain
+insight into how this might relate to drug sensitivity, we performed an analysis to identify
+associations between cancer tissue type and drug sensitivity based on IC50 values. As
+expected, in some instances tumour-type specific sensitivity may be explained by the
+prevalence of cancer gene mutations (e.g. breast cancer sensitivity to inhibitors of the
+PI3Kinase pathway which is commonly altered in this tumour type; Supplementary Data 3
+and 4). In other cases, however, our current understanding of cancer genomes could not
+explain the observed associations. For example, renal cell carcinoma (RCC) cells were
+sensitive to five SRC inhibitors (e.g. AZD0530, P < 1 × 10−4, n = 9 RCC and 294 nonRCC)8, glioma cells to a ROCK inhibitor (GSK269962A, P < 1 × 10−6, n = 23 glioma and
+non-glioma 266)9. This analysis also identified therapeutic associations already used in the
+clinic with incompletely understood molecular basis such as sensitivity of myeloma cells to
+lenalidomide (P < 1 × 10−5, n = 3 myeloma and non-myeloma 455)10. For most drugs,
+however, sensitive cell lines were scattered across multiple cancer types.
+Cancer gene mutations are biomarkers of drug response
+
+Europe PMC Funders Author Manuscripts
+
+Single gene mutations are increasingly being adopted as clinical biomarkers for the optimal
+application of cancer therapeutics. To identify associations between individual mutated
+cancer genes and drug sensitivity across the cell line panel we used a multivariate analyses
+of variance (MANOVA) incorporating the IC50 and slope of the dose response curve. This
+analysis revealed a large number of individual gene-drug associations, a subset of which
+(448/9039, 5%) were highly significant and are discussed here (Fig. 1c and Supplementary
+Data 5). Interestingly, most of the cancer genes analyzed, including those that are not known
+direct targets of the drugs tested, were associated with either sensitivity or resistance to at
+least one drug in our panel (65/69, 94%) (Supplementary Fig. 4). Similarly, sensitivity to
+most drugs tested was associated with a mutation in at least one cancer gene (118/130,
+91%). Thus, diverse cancer gene mutations are implicated as markers of sensitivity or
+resistance to a broad range of anti-cancer drugs, indicating that genomic biomarkers could
+inform the therapeutic selectivity of many cancer drugs.
+The mutated cancer genes most clearly associated with drug sensitivity are oncogenes that
+are direct targets of the relevant drug. For example, the BCR-ABL rearrangement conferred
+sensitivity to multiple ABL inhibitors (e.g. P = 2.54 × 10−65 for nilotinib, Fig. 1c and
+Supplementary Fig. 5)1, several of which are approved for CML treatment. Similarly, BRAF
+mutation was associated with sensitivity to BRAF and MEK1/2 inhibitors (e.g. P = 1.25 ×
+10−24 for PLX4720, Fig. 1c and Fig. 2a, b and c)3, including a structural analogue of
+Vemurafenib, which in clinical trials has extended the survival of BRAF mutation-positive
+melanoma patients. Additionally, ERBB2 (HER2) amplification was associated with
+sensitivity to EGFR-family inhibitors including Lapatinib (P < 1 × 10−7, Fig. 2d)11, which is
+licensed for the treatment of HER2 positive breast cancer. We were also able to detect
+known associations between EGFR, FLT3, and PIK3CA mutations and drugs that target the
+products of these genes (Supplementary Data 5)12,13. A number of associations were driven
+by dramatic responses in small subsets of outlier cell lines. For example, two FGFR2mutated cell lines were exquisitely sensitive to the FGFR inhibitor PD-173074 (Fig. 2e; P <
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 4
+
+1 × 10−5)14,15, confirming the need for large panels of cell lines to capture low frequency
+drug sensitizing genotypes.
+
+Europe PMC Funders Author Manuscripts
+
+We also found associations between the presence of inactivating mutations in tumor
+suppressor genes and several drugs, which in some instances provide insight into the
+interplay between tumour suppressors and the cellular machinery in mediating drug
+sensitivity. For example, mutation of TP53, an important regulator of apoptosis and cell
+cycle arrest in response to cellular stress, confers resistance to Nutlin-3a (P < 1 × 10−36), an
+inhibitor of the MDM2 E3-ligase which negatively regulates p53 protein levels (Fig. 2f)16.
+Similarly, mutational inactivation of RB1, a key repressor of cell cycle progression in
+normal cells, confers resistance to PD-0332991 (P < 1 × 10−10), an inhibitor of the upstream
+cyclin-dependent kinases (CDKs) 4 and 6, which drive cell cycle progression by inhibiting
+pRb through phosphorylation (Fig. 2g)17. Conversely, mutational inactivation of CDKN2A,
+encoding the CDK inhibitory protein p16, was associated with sensitivity to PD-0332991 (P
+< 1 × 10−11; Supplementary Data 5)17, presumably because CDKN2A mutated cells have an
+enhanced requirement for signaling through the CDK4/6 - pRb signaling pathway.
+In other instances genomic associations appear related to enrichment of mutations in a
+particular tissue type. The association of BRAF and NRAS mutation with sensitivity to
+obatoclax mesylate, a pro-apoptotic drug that targets BCL2 family anti-apoptotic proteins
+(BCL2, BCL-XL and MCL1), likely results from the enrichment of these mutations in
+melanoma, since drug sensitivity among melanoma cell lines was not correlated with
+presence or absence of these mutations (Supplementary Fig. 6). The tissue-specific effect of
+obatoclax may be related to inhibition of the melanoma survival mediator MCL118, since
+sensitivity of melanoma lines to ABT-263, another BCL-2 inhibitor which does not target
+MCL1, was not correlated with BRAF or NRAS mutation. Moreover, an ABT-263
+insensitive melanoma cell line can be sensitized to this drug by siRNA-mediated depletion
+of MCL1 (Supplementary Fig. 7).
+
+Europe PMC Funders Author Manuscripts
+
+The genomic associations identified for 13 clinically approved cytotoxic chemotherapeutics
+in our panel were generally less significant than for targeted drugs, indicating that single
+gene biomarkers may be less informative for this class of drugs with broad action across
+many cancers (Supplementary Fig. 8 and 9). Intriguingly, we did not find general
+associations between targeted or cytotoxic drug sensitivity patterns and mutations in TP53.
+It may be that functional inactivation of p53, through mutations or abrogation of signaling
+pathways that regulate its activity, is an almost universal feature of cancer cell lines and thus
+differential drug sensitivity between mutant and non-mutant cell lines is not observed19.
+Several other novel gene-drug associations were identified that cannot be readily explained
+on the basis of our current knowledge of signaling pathways and may reflect unappreciated
+biological relationships. Mutation of NOTCH1 was associated with sensitivity to ABT-263
+(P <1 × 10−9; Fig. 2h, Supplementary Fig 10), perhaps due to decreased expression of BCL2
+family members in NOTCH1 mutant cell lines (Supplementary Fig. 11). Amplification of
+CCND1 (CyclinD1) or loss of SMAD4 were associated with sensitivity to multiple EGFRfamily inhibitors including lapatinib and BIBW2992; and for SMAD4 this correlated with
+elevated EGFR gene expression (Fig. 2i and Supplementary Fig. 12). Inactivation of STK11
+(LKB1; P < 0.01), thought to relieve repression of mTOR, was associated with sensitivity to
+the HSP90 inhibitor 17-AAG. Additionally, loss of FBXW7 was associated with sensitivity
+to the histone deacetylase (HDAC) inhibitor MS-275 (P < 1 × 10−5; Fig. 2j), and TET2 loss
+with sensitivity to the WEE1/CHK1 inhibitor 681640 (P < 1 × 10−4; Fig. 2k). These
+associations, and others presented here (Supplementary Data 5), represent candidate
+biomarkers of drug sensitivity and may ultimately be useful for the deployment of targeted
+therapies in cancer.
+
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 5
+
+Complex genomic correlates of drug sensitivity
+
+Europe PMC Funders Author Manuscripts
+
+In most instances sensitivity of cancer cells to drugs is likely to depend on a multiplicity of
+genomic and epigenomic variables. Indeed, single gene-drug associations were only rarely
+able to explain the range of drug sensitivities observed across cell lines for any given drug
+(Fig. 2). We thus applied elastic net (EN) regression20, a penalized linear modeling
+technique, to identify cooperative interactions among multiple genes and transcripts across
+the genome and defined response signatures for each drug. EN identified 26,938 featuredrug associations (Supplementary Data 6) from which 534 associations corresponding to 69
+different drugs were highly significant (defined as −2.95> effect(e)>2.79 and frequency (f) >
+0.76; Fig. 3a and Supplementary Fig. 13 and Supplementary Data 7).
+In many instances transcriptional features showed correlations with drug sensitivity that
+were equal to or stronger than those observed with gene mutation (Fig. 3a and
+Supplementary Table 3). For example, while sensitivity to the EGFR/ERBB2 inhibitor
+lapatinib correlated with ERBB2 expression and mutation, the strongest correlate for this
+drug was actually expression of the matrix metalloproteinase MMP28 (e = −29.28, f=1)
+(Fig. 3a). Notably, for most drugs, including those with clear linkage to cancer gene
+mutations, EN modeling identified multi-feature signatures of drug sensitivity. For example,
+together with BRAF mutation, sensitivity to RAF or MEK1/2 inhibitors was recurrently
+associated with 67 features. These features included expression of SPRY2 and DUSP4/6,
+which are known regulators of MAP-Kinase signaling (Supplementary Fig. 14)21,22.
+Interestingly, expression of 8 genes identified as markers of sensitivity to the MEK inhibitor
+AZD6244 significantly overlapped with a 18-gene signature of sensitivity to this drug
+(hypergeometric test of the overlap significance: P = 3 × 10−9)23. In some cases, EN
+modeling identified complex patterns of biomarkers corresponding to distinct subsets of
+sensitive cancer cell lines. Thus, sensitivity to Dasatinib, an inhibitor of multiple kinases
+including ABL and SRC, correlated with both BCR-ABL translocation and with multi-gene
+transcriptional signatures that were expressed in sensitive cell lines lacking that gene fusion
+(Fig. 3b).
+
+Europe PMC Funders Author Manuscripts
+
+EN modeling also identified transcriptional correlates of sensitivity for drugs without a
+known sensitizing mutational event. This included expression of LAG3, which correlated
+with sensitivity to the SGK inhibitor GSK-650394 (e= −29.9, f =1) and the correlation
+between expression of the NADPH dehydrogenase family member NQO1 with sensitivity to
+the HSP90 inhibitor 17-AAG (e = −22.21, f =1, Fig. 3c). Consistent with these findings
+NQO1 was previously shown to metabolize 17-AAG into a more potent inhibitor of
+HSP9024.
+A small number of features were recurrently associated with altered sensitivity to drugs from
+different classes indicating that they may be broadly involved in mediating drug sensitivity
+by diverse mechanisms such as drug efflux (e.g. ABCB1; Supplementary Data 6). To give
+further insight into this dataset, we have mapped the EN drug signatures onto the target of
+the drugs (Supplementary Data 7) and onto 457 known cancer genes (http://
+www.sanger.ac.uk/genetics/CGP/Census/; Supplementary Data 8). Collectively, these
+observations illustrate that in many instances multi-feature genomic signatures incorporating
+markers related to mutations, tissue lineage, cellular differentiation states and cellular
+pathways have the potential to expand and refine our current understanding of drug
+sensitivity.
+EWS-FLI1 is a biomarker of PARP inhibitor sensitivity
+We identified a highly significant association between the EWS-FLI1 rearrangement that is
+characteristic of Ewing’s sarcoma tumours and sensitivity to olaparib (AZD2281), an
+
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 6
+
+Europe PMC Funders Author Manuscripts
+
+inhibitor of the poly-ADP ribose polymerase (PARP)(P = 1.03 × 10−26, Fig. 1c and 4a).
+Screening of a structurally distinct PARP inhibitor, AG-014699, across a large panel of cell
+lines confirmed the sensitivity of Ewing’s sarcoma cell lines (geometric mean IC50 for
+EWS-FLI1 = 4.7 uM versus 64 uM for wild-type, P < 0.0001 Mann-Whitney test, n = 291
+cell lines; Fig. 4a, Supplementary Fig. 15 and Supplementary Data 9). Cells from Ewing’s
+sarcoma were more sensitive to olaparib (P = 2.84 × 10−11) than cells from other tumour
+types, including sarcomas of bone and soft tissue (Supplementary Fig. 15 and
+Supplementary Data 3). PARP inhibitors have activity in BRCA1/2 mutant cancers due to
+the defects in homologous recombination present in these tumors and their consequent
+reliance on alternative DNA damage repair pathways that are targeted by these inhibitors25.
+A comparison of olaparib and AG-014699 sensitivity in a panel of cell lines using a 6-day
+viability assay and colony formation experiments confirmed the marked sensitivity of
+Ewing’s sarcoma to PARP inhibitors, an effect that was comparable to that observed in
+BRCA-deficient cells (Fig. 4b and c, and Supplementary Fig. 16 and 17)26. Furthermore,
+treatment with olaparib selectively induced apoptosis in Ewing’s sarcoma compared to
+control cells (Fig 4d). Unlike in Ewing’s Sarcoma, we did not observe an association
+between BRCA1/2 mutations and sensitivity to PARP inhibitors in the 3-day screening
+format, which is likely due to a requirement for several rounds of division in these cells to
+accumulate toxic levels of DNA damage.
+
+Europe PMC Funders Author Manuscripts
+
+To assess whether the sensitivity to PARP inhibitors is due to the presence of the EWS-FLI1
+rearrangement or intrinsic to the mesenchymal precursor cell type from which Ewing’s
+sarcoma arise, we compared the sensitivity to olaparib in mouse mesenchymal cells
+transformed with either EWS-FLI1 or the related liposarcoma-associated translocation FUSCHOP27,28. EWS-FLI1 transformed cells showed sensitivity comparable to human Ewing’s
+sarcoma cells, while the FUS-CHOP-transformed cells were relatively resistant (Fig. 4e and
+Supplementary Fig. 18). Moreover, expression of EWS-FLI1 in NIH3T3 cells conferred
+increased sensitivity to olaparib (Supplementary Fig. 19), whereas olaparib sensitivity was
+partially reverted by transiently depleting EWS-FLI1 from Ewing’s sarcoma cells (Fig 4f
+and Supplementary Fig. 20). Higher FLI1 expression was also correlated with sensitivity to
+olaparib even when considering only non-Ewing’s sarcoma cell lines (r= −0.32 between
+IC50 and FLI1 expression, n =413, P = 1.68 × 10−11), suggesting that the sensitivity to
+olaparib of Ewing’s sarcoma lines might be related to EWS-FLI1 transcriptional activity.
+Mutations in BRCA1 or BRCA2 are not present in these Ewing’s sarcoma lines
+(Supplementary Data 1), and we have observed no evidence to indicate that the DNA
+damage response is defective in Ewing’s sarcoma cells (data not shown). However, for
+reasons that are currently unclear, the EWS-FLI1 translocation was associated with
+sensitivity to cytotoxic drugs, including DNA damaging agents such as camptothecin (P < 1
+× 10−5), cisplatin (P < 1 × 10−4) and mitomycin-C (P < 0.001)(Supplementary Fig. 21 and
+22). Together with the report of olaparib sensitivity in prostate cancer cell lines expressing
+the ETS gene fusion, TMPRSS2-ERG29, our data support the potential utility of ETS gene
+fusions as biomarkers of sensitivity to PARP inhibitors. Notably however, unlike the effect
+reported in prostate cancer, we observe potent cell death with olaparib treatment alone in
+Ewing’s sarcoma cells. These observations raise the possibility that PARP inhibitors have
+utility in the treatment of Ewing’s Sarcoma, a tumour of children and young adults with a
+15% five year survival rate in patients with metastatic disease or relapse after
+chemotherapy30.
+
+DISCUSSION
+High throughput cancer cell line screening for drug sensitivity patterns provides a strategy to
+identify appropriate cancer subtypes and biomarkers that may guide the early phase clinical
+
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 7
+
+Europe PMC Funders Author Manuscripts
+
+trials of multiple novel compounds under development. The validity of this approach is
+supported by its effective identification of drug-genotype associations that have already been
+established clinically, and it sets the stage for clinical testing of novel therapeutic
+biomarkers, such as the association between the EWS-FLI1 translocation in Ewing’s
+sarcoma cells and sensitivity to PARP inhibitors. The data release accompanying this report,
+as well as the ongoing public web resource from future screenings (Genomics of Drug
+Sensitivity in Cancer; www.cancerRxgene.org), will hopefully enhance the discovery and
+validation of additional predictive cancer biomarkers.
+While the large number of cell lines screened facilitates representation of rare cancer
+genotypes and mitigates against the effects of individual samples, the dataset presented here
+is limited both by the number of available genotypes, as well as the number of targets
+interrogated by currently available drugs. Despite the apparent utility of using tumourderived cell lines grown in two dimensional culture, it is likely that experimental models that
+better mimic the tumour environment would in some instances further improve our
+understanding of drug sensitivity and provide additional insights. Nonetheless, we can
+discern an initial landscape of drug sensitivity patterns across a broad set of different cancer
+types and genomic backgrounds.
+The identification of “outliers” which are exquisitely sensitive to a drug as a result of a
+specific genetic abnormality within a targeted pathway remains the most compelling vision
+for targeted cancer therapies. BCR-ABL positive CML, BRAF mutant melanoma and EGFR
+mutant positive lung cancer and drugs that target the protein products of these genes are now
+well-established associations. The observation of PARP inhibitor sensitivity by EWS-FLI1
+positive Ewing’s sarcoma cell lines points to the likelihood of new potent gene-drug
+associations as novel chemical and genomic space are explored. Even in the absence of
+“outlier” effects, pharmacogenomic profiling reveals a wealth of biomarkers that may prove
+useful for patient stratification. Although further work is needed to assess their potential
+clinical utility, in some instances these biomarkers may help explain heterogeneity in
+clinical responsiveness even among preselected patient populations.
+
+Europe PMC Funders Author Manuscripts
+
+This work, as well as an accompanying report31, provides a systematic and extensive view
+of the genomics underlying the sensitivity of human cancer cell lines to the diverse array of
+cancer drugs currently in use or under development. The emergent picture is of a complex
+network of biological factors that affect sensitivity to the majority of cancer drugs. This
+underscores both the challenge of identifying pre-selected patient populations for targeted
+therapies, as well as the opportunity to improve existing therapies and identify new
+therapeutic avenues by identifying more predictive biomarkers.
+
+METHODS SUMMARY
+Cells were treated with 9 concentrations (2-fold dilutions) of drug for 72 hours before
+measuring cell number relative to controls. A MANOVA was used to examine how drug
+IC50 and slope values associate with tissue type, the mutation status of 64 cancer genes
+(including gene amplifications and homozygous deletions), rearrangements and MSI. The
+elastic net utilised the same genomic datasets as the MANOVA and also incorporated
+additional copy number data from a total of 426 cancer genes, transcriptional profiles, and
+tissue type to identify feature associated with drug response as measured by cell line IC50.
+
+Supplementary Material
+Refer to Web version on PubMed Central for supplementary material.
+
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 8
+
+Acknowledgments
+We thank Philip Lo Grasso of the Scripps Research Institute for providing the inhibitor JNK9L. This work was
+supported by a grant from the Wellcome Trust (086357; M.R.S, P.A.F, J.S., D.A.H.) and by grants from the
+National Institute of Health (P41GM079575-02; N.S.G and 1U54HG006097-01; N.S.G, D.A.H). S.R. is supported
+by a Physician-Scientist Early Career Award from the Howard Hughes Medical Institute. U.M is supported by a
+Cancer Research UK Clinician Scientist Fellowship.
+
+Europe PMC Funders Author Manuscripts
+
+APPENDIX
+METHODS
+Cell lines
+All cell lines were sourced from commercial vendors. Cells were grown in RPMI or
+DMEM/F12 medium supplemented with 5% FBS and penicillin/streptavidin, and
+maintained at 37°C in a humidified atmosphere at 5% CO2. Cell lines were propagated in
+these two media in order to minimize the potential effect of varying the media on sensitivity
+to therapeutic compounds in our assay, and to facilitate high-throughput screening. To
+exclude cross-contaminated or synonymous lines, a panel of 92 SNPs was profiled for each
+cell line (Sequenom, San Diego, CA) and a pair-wise comparison score calculated. In
+addition, we performed short tandem repeat (STR) analysis (AmpFlSTR Identifiler, Applied
+Biosystems, Carlsbad, CA) and matched this to an existing STR profile generated by the
+providing repository. More information on the cell lines screened, including their SNP and
+STR profiles is available on the Genomics of Drug Sensitivity in Cancer website
+(www.cancerRxgene.org).
+Screening drugs
+
+Europe PMC Funders Author Manuscripts
+
+Compounds were from academic collaborators or commercial vendors. We have provided a
+full description for each compound including its name, source, PubChem and/or CHEMBL
+IDs, screening concentration as well as therapeutically relevant molecular target(s)
+(Supplementary Data 2). Compounds were stored as 10 mM aliquots at −80°C, and were
+subjected to a maximum of 5 freeze-thaw cycles. The range of concentrations selected for
+each compound was based on in vitro data of concentrations inhibiting relevant kinase
+activity and cell viability.
+Cell viability assays
+Cells were seeded in either 96-well or 384-well microplates in medium supplemented with
+5% FBS and penicillin/streptavidin. The optimal cell number for each cell line was
+determined to ensure that each was in growth phase at the end of the assay (~70%
+confluency). Adherent cell lines were plated one day prior to treatment with a 9-point 2-fold
+dilution series of each compound using liquid handling robotics, and assayed at a 72-h time
+point. Cells were fixed in 4% formaldehyde for 30 minutes and then stained with 1 μM of
+the fluorescent nucleic acid stain Syto60 (Invitrogen) for 1 hour. Suspension cell lines were
+treated with compound immediately following plating, incubated for 72 hours, and then
+stained with 55 μg/ml Resazurin (Sigma) prepared in Glutathione-free media for 4 hours.
+Quantitation of fluorescent signal intensity was performed using a fluorescent plate reader at
+excitation and emission wavelengths of 630/695 nM for Syto60, and 535/595 nM for
+Resazurin. All screening plates were subjected to stringent quality control measures and a Zfactor score comparing negative and positive control wells was calculated across all
+screening plates (median = 0.70, upper quartile = 0.86, lower quartile = 0.47, n = 4857
+plates). Drug screening was performed at two sites using matched cell line collections (the
+site of drug screening and plate format for each IC50 are described in Supplementary Data 2
+and 10). As a control the drug camptothecin (drugs IDs 1003 and 195) was screened at both
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 9
+
+Europe PMC Funders Author Manuscripts
+
+sites. The IC50s were highly correlated (r2 = 0.3244, slope = 1.030, n = 252 cell lines) and
+these drugs were nearest neighbours in our cluster analysis of drugs (Supplementary Table
+1). Measurements of cell viability during 6-day assays using 3-fold dilution series of
+olaparib were performed in 96-well plates using Cell Titer Blue (Promega) according to
+manufacturers instructions. A673 and NIH3T3 cells were also exposed to a 3-fold dilution
+series of olaparib and cell viability measured following 72 hours of drug exposure using Cell
+Titer 96 Aqueous One Solution Cell (Promega) according to manufacturers instructions.
+Measurements of cellular apoptosis were performed using Apo-ONE caspase assay
+(Promega) following manufacturers instructions. The A673 Ewing’s sarcoma cell line was
+transiently transfected with allstars non-targeting siRNA control (Qiagen; siCT) or an
+siRNA targeting the EWS-FLI1 fusion protein32 (siEF1, 5′-GGC AGC AGA ACC CUU
+CUU ACG) and olaparib-treated immediately following siRNA-transfection. Transient
+knockdown of MCL1 in HT-144 and A549 cells was performed using the following siRNA
+sequences: oligo 1, 5′-CTG GTT TGG CAT ATC TAA TAA; oligo 2, 5′-CCC GCC GAA
+TTC ATT AAT TTA; oligo 3, 5′-AAG GGT TAG GAC CAA CTA CAA; oligo 4, 5′-CCC
+TAG CAA CCT AGC CAG AAA) and controls were mock transfected.
+Colony formation assays
+Cells were plated at low density into 35 mm cell culture plates and the following day treated
+with the indicated drug concentration or vehicle control (DMSO). The medium was changed
+and cells re-drugged every 3-4 days. When sufficient colonies were visible, typically after
+7-21 days, cells were washed once in PBS before fixing in ice-cold methanol for 30 minutes
+while shaking. Methanol was aspirated and Giemsa stain added at a dilution of 1:20
+overnight while shaking. The following day cells were rinsed in distilled water and air-dried.
+Genomic and transcriptional characterization of cancer cell lines
+
+Europe PMC Funders Author Manuscripts
+
+A total of 64 of the most frequently mutated cancer genes were sequenced to base-pair
+resolution across all coding exons for each gene by capillary sequencing in our panel of
+human cancer cell lines, and which formed the basis for the cell lines chosen for this drug
+screen. The presence of 7 of the most commonly rearranged cancer genes (e.g. BCR-ABL,
+MLL-AFF1 and EWS-FLI1) was determined across the drug screen cell line panel by the
+design of breakpoint-specific sequence primers that enabled the detection of the
+rearrangement following capillary sequencing. Analysis of microsatellite instability (MSI)
+was carried out according to the guidelines set down by “The International Workshop on
+Microsatellite Instability and RER Phenotypes in Cancer Detection and Familial
+Predisposition”33. Samples were screened using the markers BAT25, BAT26, D5S346,
+D2S123 and D17S250 and were characterised as MSI if two or more markers showed
+instability. Total integral copy number values across the footprints of the cancer genes were
+determined from Affymetrix SNP6.0 microarray data using the ‘PICNIC’ algorithm to
+predict copy number segments in each of the cell lines34. For a gene to be classified as
+amplified, the entire coding sequence must be contained in one contiguous segment defined
+by PICNIC, and have a total copy number of eight or more. A copy number of 8 was chosen
+to ensure that the majority of segments above this threshold consisted of focal amplifications
+more likely to have been selectively amplified. Deletions must occur within a single
+contiguous segment with copy number zero. For gene expression analysis, RNA was
+extracted from each cell line using a standard Trizol protocol and hybridized to the HTHGU133A Affymetrix whole genome array. Normalised gene expression intensities were
+generated using the Robust Multi-Array Average (RMA) algorithm35. The genomic data
+used for this analysis are provided in the Supplementary Data and transcriptional data are
+available from ArrayExpress (accession number E-MTAB-783). A complete description of
+the characterization of our cancer cell line collection is also available from the Cancer
+Genome Project webpages (http://www.sanger.ac.uk/genetics/CGP/CellLines/).
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 10
+
+Curve fitting of drug sensitivity data
+
+Europe PMC Funders Author Manuscripts
+
+Dose response curves were fitted to the fluorescence signal intensities. We required a
+method that would firstly allow us to model the heteroscedasticity in the luminescence data,
+and secondly allow us to incorporate prior knowledge of response, especially at drug
+concentrations where the data are less informative. A bespoke Bayesian sigmoid model was
+thus implemented to facilitate this, yielding a full description of the uncertainties in the data,
+and allowing reasonable interpretation of predicted response at concentrations outside the
+tested range. Response curves were fitted to the fluorescence signal intensities using a
+Bayesian sigmoid model. Drug response data consisted of 16 (96-well format) or 42 (384well) drug-free positive controls, 8 (96-well) or 32 (384-well) negative (no cells) controls
+and drug response points for nine half-fold concentrations. Technical replicate intensity
+responses were averaged. Generalized sigmoidal response curves are fitted as follows.
+
+. Parameters Imax and
+Intensity xlc is assumed to have the mean value
+Imin are the mean intensities of the positive and negative controls. α and β are scale and
+gradient responses. f is a shape parameter. lc denotes the log-concentration. We assume that
+the intensity xlc has variance Var(xlc) = B.E(xlc), where B represents a noise parameter. We
+assume that xlc has a gamma distribution:
+
+Positive and negative controls xmax and xmin are also gamma distributed:
+
+Europe PMC Funders Author Manuscripts
+
+The concentration giving percentage response p is given by:
+
+We use Markov Chain Monte Carlo simulations to obtain mean posterior parameter
+estimates. Parameters were initialized from maximum likelihood estimates and 100,000
+iterations obtained. The final 10,000 values were used for subsequent inference. The IC50
+has a normal prior with 95% probability mass covering range from 1000 fold below
+minimum concentration tested to 1000 fold higher than the maximum tested concentration.
+We assume uninformative priors on the remaining parameters. Response curves are plotted
+using mean posterior values of ICp for p ranging between 0% and 100%. Confidence
+intervals for ICp are obtained from the associated posterior. Results were manually curated
+as part of quality control.
+
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 11
+
+Multivariate Analysis of Variance
+
+Europe PMC Funders Author Manuscripts
+
+A fixed effects multivariate analyses of variance (MANOVA) was used to correlate
+response with genomics. An n × 2 dose response matrix consisting of IC50 and slope
+parameter β for n cell lines was constructed for each drug. A linear (no interaction terms)
+model explained these observables with factors including tissue type, the mutation status of
+cancer genes, chromosomal re-arrangements, and MSI status. Size effects and significances
+were obtained. A gene was defined as mutated if it fulfilled any of these criteria: a coding
+sequence variant in the cancer gene, a total copy number =0 (homozygous deletion) or >=8
+(amplification). Only those genes with > 1 mutated cell lines in the panel were included for
+analysis (65 cancer genes and 3 chromosomal re-arrangements in total). The effect measures
+the relative difference in the mean IC50 from the wild type to mutant group (e.g. an effect of
+0.1 or 10 indicates a ~10-fold decrease or increase in drug concentration, respectively). A
+Benjamini-Hochberg multiple testing correction threshold with false discovery rate of 20%
+was used to identify a candidate list of significant associations for the purposes of this paper.
+Elastic Net analysis
+We take the approach of Zou and Hastie’s elastic net20, a multivariate variable selection
+technique with a penalization approach. Genomic data including mutation status of 64
+cancer genes, rearrangements, continuous copy number data from 426 genes causally
+implicated in cancer (http://www.sanger.ac.uk/genetics/CGP/Census/), and genome-wide
+transcriptional profiles as well as tissue type were used as input variables (Supplementary
+Data 1 and 11). The elastic net was used to select which of these features were associated
+with drug response as measured by IC50 across the cell line panel.
+Let X be a n × p matrix of input features (where p is the number of features and n is the
+number of cell lines) and y be a vector of drug sensitivities of length n. For any non-negative
+λ1 and λ2
+1
+
+Europe PMC Funders Author Manuscripts
+
+Let be the naïve elastic net estimator. Then
+. A scaling factor of
+(1+λ2) is added to the naïve elastic net to prevent double shrinking.
+2
+
+To determine the optimal λ1 and λ2 we let α=λ2/(λ1+λ2). Then
+is
+the elastic net penalty. 10-fold cross validation is performed to optimize λ1 and λ2 in
+equation 2, denoted as and respectively. To find the variables that are associated with
+drug response, , , X, and y are inputted into equation (2) to solve for vector β. The
+variables with nonzero βs are determined to be features associated with drug response.
+This procedure was repeated 100 times for each drug in order to assess the stability of the
+features when applying the 10-fold cross validation procedure. For each of the 100 runs, a
+feature list was built for the drug comprised of genes, transcripts, and tissues with weights
+assigned to each. The final signature of markers for a drug consisted of all features that
+appear in any of the 100 runs along with the statistics on the frequency that the feature
+appears and the average weight given to that feature over the 100 runs. The weights (β) were
+
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 12
+
+Europe PMC Funders Author Manuscripts
+
+used to assess effect sizes of features in a drug’s marker signature. The effect size of a
+feature was calculated by multiplying the feature’s weight by its standard deviation across
+the cell line panel. The effect size is therefore a normalization of the feature’s weight to
+account for the different scales used to measure the different genomic features. Features
+with higher stability of correlation in cross-validation (f) were considered of the highest
+confidence of truly being associated with drug response. The most significant features
+associated with drug response are those with both large frequency and effect size. Highly
+significant associations are defined as those with an effect size that was ±2 s.d. from the
+mean, −2.95>e>2.79 and a frequency (f) of two s.d. above the mean, f > 0.76.
+Drug clustering based on IC50 values
+The dataset was filtered to remove cell lines for which less than 50% of drugs in the panel
+were tested resulting in 400 cell lines remaining. Missing data points were inputted by using
+a nearest-neighbor approach based on Pearson-Correlation (PC) scores between IC50 values.
+We also applied a step to reduce effects inherently present in the data due to the integration
+of data that were obtained from two different screening sites and which may be amplified by
+the nearest-neighbor missing point imputation. In order to do this, we performed an
+ANOVA for each cell line to assess the difference in the average IC50 values for drugs at the
+two screening sites. Cell lines with a p-value < 0.01 according to this test where filtered out.
+Of the original dataset, 265 cell lines (41.47%) were used for cluster analysis.
+
+Europe PMC Funders Author Manuscripts
+
+As done for missing point imputation, we measured the extent of similarity among drug
+sensitivity/resistance profiles with Pearson-Correlation (PC) scores pair-wisely by
+considering for each drug its pattern of IC50 values across the cell lines (log values were
+considered). Then we used these similarity scores as input to the Affinity-Propagation
+clustering (APC) algorithm in a recursive manner36. The APC algorithm is based on a
+“passing-message-between-datapoints” strategy, it requires as input a pair-wise similarity
+matrix and gives as the output a set of disjointed clusters. It also indicates, for each of the
+computed clusters, a datapoint called the “cluster exemplar” (i.e. the “cluster centroid”): the
+datapoint that best interpolates all the other datapoints in its cluster. The APC algorithm
+requirement consists in a square matrix containing similarity scores between each pair of
+datapoints and a set of probabilities, one for each datapoint to be elected as the exemplar of
+its clusters. Implicitly, these probabilities determine the number of clusters to be computed.
+If they are uniformly distributed then the ATC algorithm from the data automatically
+determines the number of clusters. In the first step of our clustering strategy, we applied the
+APC algorithm to the whole set of drugs in the screening by assuming the probability of
+each drug to be elected as a cluster exemplar uniformly distributed (so the number of
+clusters was automatically determined by the APC algorithm). Particularly, we set the input
+parameter from which this probability is computed equal to the median value of all the pairwise similarities. The algorithm provided 22 clusters. In each of these clusters, a drug was
+indicated as the cluster exemplar. The intra-cluster similarity score (odd Ratio) of a
+community C containing n drugs is computed as the average similarity (i.e. correlation
+between IC50 patterns) between all the possible couple of drugs belonging to C (total Avg
+Corr) divided by the expected average similarity between all the possible couple of drugs in
+a randomly selected set of n drugs. We derived a network representation of the clustered
+data by considering each drug as a network node and by adding a link between couple of
+nodes corresponding to drugs in the same cluster. This generated the “network
+communities” indicated with different colors in Supplementary Figure 3. We then,
+recursively, clustered again the cluster exemplars with the APC algorithm, in order to obtain
+“communities of communities” (or “rich clubs”) and added links to the network as explained
+above. This procedure was recursively re-applied over cluster exemplars until convergence
+(no datapoints were clustered together) ending up into a hierarchical network depicted in
+
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 13
+
+Supplementary Figure 3 and as described in37. The network visualization in Supplementary
+Figure 3 has been obtained by using Cytoscape38.
+The inter-cluster similarity score for each couple of communities A and B was computed as
+follows:
+
+Europe PMC Funders Author Manuscripts
+
+Where ρX, Y is the Pearson correlation coefficient between the patterns of IC50 values of
+drug X and drug Y.
+Empirical p-values were computed for each of these scores by permutation test: for a
+number n = 10,000 of trials and each ρ(A, B), we sampled two random sets of drugs A* and
+B* (containing | A | drugs and | B | drugs, respectively) from the whole set of 131 drugs and
+we computed ρ(A*, B*). Then we computed the empirical p-value for a given ρ(A, B) ≥ 0
+(resp. ≤ 0) as the number of times that ρ(A*, B*) was greater (resp. less) than or equal to
+ρ(A, B) across the n permutation-trials, divide by n.
+
+REFERENCES
+
+Europe PMC Funders Author Manuscripts
+
+1. Druker BJ, et al. Five-year follow-up of patients receiving imatinib for chronic myeloid leukemia. N
+Engl J Med. 2006; 355:2408–2417. [PubMed: 17151364]
+2. Kwak EL, et al. Anaplastic lymphoma kinase inhibition in non-small-cell lung cancer. N Engl J
+Med. 2010; 363:1693–1703. [PubMed: 20979469]
+3. Chapman PB, et al. Improved Survival with Vemurafenib in Melanoma with BRAF V600E
+Mutation. N Engl J Med. 2011
+4. McDermott U, Settleman J. Personalized cancer therapy with selective kinase inhibitors: an
+emerging paradigm in medical oncology. J Clin Oncol. 2009; 27:5650–5659. [PubMed: 19858389]
+5. Shoemaker RH, et al. Development of human tumor cell line panels for use in disease-oriented drug
+screening. Prog Clin Biol Res. 1988; 276:265–286. [PubMed: 3051021]
+6. Weinstein JN, et al. An information-intensive approach to the molecular pharmacology of cancer.
+Science. 1997; 275:343–349. [PubMed: 8994024]
+7. McDermott U, et al. Identification of genotype-correlated sensitivity to selective kinase inhibitors by
+using high-throughput tumor cell line profiling. Proc Natl Acad Sci U S A. 2007; 104:19936–
+19941. [PubMed: 18077425]
+8. Suwaki N, et al. A HIF-regulated VHL-PTP1B-Src signaling axis identifies a therapeutic target in
+renal cell carcinoma. Sci Transl Med. 2011; 3:85ra47. doi:10.1126/scitranslmed.3002004.
+9. Deng L, et al. Rho-kinase inhibitor, fasudil, suppresses glioblastoma cell line progression in vitro
+and in vivo. Cancer Biol Ther. 2010; 9:875–884. [PubMed: 20364104]
+10. Weber DM, et al. Lenalidomide plus dexamethasone for relapsed multiple myeloma in North
+America. N Engl J Med. 2007; 357:2133–2142. doi:10.1056/NEJMoa070596. [PubMed:
+18032763]
+11. Konecny GE, et al. Activity of the dual kinase inhibitor lapatinib (GW572016) against HER-2overexpressing and trastuzumab-treated breast cancer cells. Cancer Res. 2006; 66:1630–1639.
+[PubMed: 16452222]
+12. Lynch TJ, et al. Activating mutations in the epidermal growth factor receptor underlying
+responsiveness of non-small-cell lung cancer to gefitinib. N Engl J Med. 2004; 350:2129–2139.
+[PubMed: 15118073]
+13. O’Farrell AM, et al. SU11248 is a novel FLT3 tyrosine kinase inhibitor with potent activity in vitro
+and in vivo. Blood. 2003; 101:3597–3605. [PubMed: 12531805]
+
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 14
+
+Europe PMC Funders Author Manuscripts
+Europe PMC Funders Author Manuscripts
+
+14. Kunii K, et al. FGFR2-amplified gastric cancer cell lines require FGFR2 and Erbb3 signaling for
+growth and survival. Cancer Res. 2008; 68:2340–2348. [PubMed: 18381441]
+15. Byron SA, et al. Inhibition of activated fibroblast growth factor receptor 2 in endometrial cancer
+cells induces cell death despite PTEN abrogation. Cancer Res. 2008; 68:6902–6907. doi:
+10.1158/0008-5472.CAN-08-0770. [PubMed: 18757403]
+16. Vassilev LT, et al. In vivo activation of the p53 pathway by small-molecule antagonists of MDM2.
+Science. 2004; 303:844–848. doi:10.1126/science.1092472. [PubMed: 14704432]
+17. Konecny GE, et al. Expression of p16 and retinoblastoma determines response to CDK4/6
+inhibition in ovarian cancer. Clinical cancer research: an official journal of the American
+Association for Cancer Research. 2011; 17:1591–1602. doi:10.1158/1078-0432.CCR-10-2307.
+[PubMed: 21278246]
+18. Boisvert-Adamo K, Longmate W, Abel EV, Aplin AE. Mcl-1 is required for melanoma cell
+resistance to anoikis. Mol Cancer Res. 2009; 7:549–556. [PubMed: 19372583]
+19. Brown CJ, Lain S, Verma CS, Fersht AR, Lane DP. Awakening guardian angels: drugging the p53
+pathway. Nat Rev Cancer. 2009; 9:862–873. doi:10.1038/nrc2763. [PubMed: 19935675]
+20. Zou H, Hastie T. Regularization and variable selection via the elastic net. J.R. Statist. Soc. B. 2005;
+67:301–320.
+21. Hanafusa H, Torii S, Yasunaga T, Nishida E. Sprouty1 and Sprouty2 provide a control mechanism
+for the Ras/MAPK signalling pathway. Nature cell biology. 2002; 4:850–858. doi:10.1038/
+ncb867.
+22. Patterson KI, Brummer T, O’Brien PM, Daly RJ. Dual-specificity phosphatases: critical regulators
+with diverse cellular targets. The Biochemical journal. 2009; 418:475–489. [PubMed: 19228121]
+23. Dry JR, et al. Transcriptional pathway signatures predict MEK addiction and response to
+selumetinib (AZD6244). Cancer Res. 2010; 70:2264–2273. doi:
+10.1158/0008-5472.CAN-09-1577. [PubMed: 20215513]
+24. Guo W, et al. Formation of 17-allylamino-demethoxygeldanamycin (17-AAG) hydroquinone by
+NAD(P)H:quinone oxidoreductase 1: role of 17-AAG hydroquinone in heat shock protein 90
+inhibition. Cancer Res. 2005; 65:10006–10015. doi:10.1158/0008-5472.CAN-05-2029. [PubMed:
+16267026]
+25. Fong PC, et al. Inhibition of poly(ADP-ribose) polymerase in tumors from BRCA mutation
+carriers. N Engl J Med. 2009; 361:123–134. [PubMed: 19553641]
+26. McCabe N, et al. BRCA2-deficient CAPAN-1 cells are extremely sensitive to the inhibition of
+Poly (ADP-Ribose) polymerase: an issue of potency. Cancer Biol Ther. 2005; 4:934–936.
+[PubMed: 16251802]
+27. Riggi N, et al. Development of Ewing’s sarcoma from primary bone marrow-derived mesenchymal
+progenitor cells. Cancer Res. 2005; 65:11459–11468. doi:10.1158/0008-5472.CAN-05-1696.
+[PubMed: 16357154]
+28. Riggi N, et al. Expression of the FUS-CHOP fusion protein in primary mesenchymal progenitor
+cells gives rise to a model of myxoid liposarcoma. Cancer Res. 2006; 66:7016–7023. doi:
+10.1158/0008-5472.CAN-05-3979. [PubMed: 16849546]
+29. Brenner JC, et al. Mechanistic Rationale for Inhibition of Poly(ADP-Ribose) Polymerase in ETS
+Gene Fusion-Positive Prostate Cancer. Cancer Cell. 2011; 19:664–678. [PubMed: 21575865]
+30. Balamuth NJ, Womer RB. Ewing’s sarcoma. Lancet Oncol. 2010; 11:184–192. [PubMed:
+20152770]
+31. Jordi Barretina GC, et al. The Cancer Cell Line Encyclopedia: using preclinical models to predict
+anticancer drug sensitivity. Nature. 2012
+
+METHODS REFERENCES
+32. Prieur A, Tirode F, Cohen P, Delattre O. EWS/FLI-1 silencing and gene profiling of Ewing cells
+reveal downstream oncogenic pathways and a crucial role for repression of insulin-like growth
+factor binding protein 3. Mol Cell Biol. 2004; 24:7275–7283. doi:10.1128/MCB.
+24.16.7275-7283.2004. [PubMed: 15282325]
+
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 15
+
+Europe PMC Funders Author Manuscripts
+
+33. Boland CR, et al. A National Cancer Institute Workshop on Microsatellite Instability for cancer
+detection and familial predisposition: development of international criteria for the determination of
+microsatellite instability in colorectal cancer. Cancer Res. 1998; 58:5248–5257. [PubMed:
+9823339]
+34. Greenman CD, et al. PICNIC: an algorithm to predict absolute allelic copy number variation with
+microarray cancer data. Biostatistics. 2010; 11:164–175. [PubMed: 19837654]
+35. Bolstad BM, Irizarry RA, Astrand M, Speed TP. A comparison of normalization methods for high
+density oligonucleotide array data based on variance and bias. Bioinformatics. 2003; 19:185–193.
+[PubMed: 12538238]
+36. Frey BJ, Dueck D. Clustering by passing messages between data points. Science. 2007; 315:972–
+976. doi:10.1126/science.1136800. [PubMed: 17218491]
+37. Iorio F, et al. Discovery of drug mode of action and drug repositioning from transcriptional
+responses. Proceedings of the National Academy of Sciences of the United States of America.
+2010; 107:14621–14626. doi:10.1073/pnas.1000138107. [PubMed: 20679242]
+38. Shannon P, et al. Cytoscape: a software environment for integrated models of biomolecular
+interaction networks. Genome research. 2003; 13:2498–2504. doi:10.1101/gr.1239303. [PubMed:
+14597658]
+
+Europe PMC Funders Author Manuscripts
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 16
+
+Europe PMC Funders Author Manuscripts
+Figure 1. A systematic screen in cancer cell lines identifies therapeutic biomarkers
+
+Europe PMC Funders Author Manuscripts
+
+a, The number of tumour-derived cell lines used for screening classified according to tissue
+type (n = 639 in total). b, The panel of 130 screening drugs classified according to their
+therapeutic targets, primary effector pathways, and cellular functions. A single drug may be
+included in multiple categories. The inset indicates the number of drugs screened against a
+selection of prototype cancer targets. c, A volcano plot representation of MANOVA results
+showing the magnitude (effect; x-axis) and significance (p-value; inverted y-axis) of all
+drug-gene associations. Each circle represents a single drug-gene interaction and the size is
+proportional to the number of mutant cell lines screened (range 1 – 334). The horizontal
+dashed line indicates the threshold of statistical significance (0.2 FDR, P < 0.0099). Insets I
+and II are magnified views of selected highly significant associations and the drug name,
+therapeutically relevant target(s) (in superscript), and cancer gene (in brackets) are given for
+each. The p-values for nilotinibABL(BCR-ABL), P = 2.54 × 10−65, and
+nutlin-3aMDM2(TP53), P= 2.78 × 10−37, have been capped at 1 × 10−28 in this
+representation.
+
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 17
+
+Europe PMC Funders Author Manuscripts
+Figure 2. Biomarkers of drug sensitivity and resistance
+
+Europe PMC Funders Author Manuscripts
+
+a, Gene-specific volcano plots of drug sensitivity associated with BRAF mutations in cancer
+cell lines (n = 54). b-k, Scatter plots of cell line IC50 (uM) values from selected drug-gene
+associations. IC50 values are on a log scale comparing mutated or non-mutated (WT) cell
+lines. Each circle represents the IC50 of one cell line and the red bar is the geometric mean.
+The drug name is indicated above each plot and therapeutic drug target(s) are bracketed.
+
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 18
+
+Europe PMC Funders Author Manuscripts
+Figure 3. Multi-feature genomic signatures of drug response
+
+Europe PMC Funders Author Manuscripts
+
+a, The top drug-feature associations identified by the EN are plotted for their frequency and
+effect size. Associations are colored black for expression features, red for mutations, blue
+for copy number, and green for tissue. b-c. Heatmaps of highly significant EN features
+associated with response to b, dasatinib (inhibitor of SRC,ABL) and c, 17-AAG (HSP90
+inhibitor) for the 14 most sensitive (purple) and resistant (yellow) cell lines. For each cell
+line mutation features are at the top of the heatmap shown in black (present) or gray
+(absent), followed by expression features (blue corresponds to lower expression, red to
+higher expression). To the left of each feature is a bar indicating the absolute value of the
+effect size. Bars in purple are negative effects, indicating features associated with sensitivity,
+and bars in yellow are positive effects, indicating features associated with resistance. The
+natural log IC50 values are represented at the bottom. For clarity, only the top 4 features
+associated with sensitivity and resistance to 17-AAG are shown.
+
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+Garnett et al.
+
+Page 19
+
+Europe PMC Funders Author Manuscripts
+Figure 4. Ewing’s sarcoma cell lines are sensitive to PARP inhibition
+
+Europe PMC Funders Author Manuscripts
+
+a, The IC50 values of WT and EWS-FLI1 fusion positive cell lines to olaparib and
+AG-014699. b, Dose response curves to olaparib following 6-days constant drug exposure.
+Cell lines are classified according to tissue sub-type. c, Colony formation assays were
+performed for 7-21 days over a range of olaparib concentrations (0.1, 0.32, 1, 3.2 or 10 uM)
+and the concentration at which the number of colonies is reduced >90% for each cell line is
+indicated. d, Olaparib induced apoptosis in Ewing’s sarcoma cell lines following 72 hours
+treatment. e, Sensitivity to olaparib of EWS-FLI1 and FUS-CHOP transformed mouse
+mesenchymal cells compared to the SK-N-MC cell line (which harbors the EWS-FLI1
+fusion). f, Sensitivity to olaparib of A673 cells transiently transfected with (siEF1) and
+without (siCT) EWS-FLI1 specific siRNA. All error bars are s.d from triplicate
+measurements except for b where error bars have been removed for clarity.
+
+Nature. Author manuscript; available in PMC 2012 September 29.
+
+

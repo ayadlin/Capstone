@@ -1,0 +1,1261 @@
+Published OnlineFirst June 29, 2015; DOI: 10.1158/0008-5472.CAN-14-3242
+
+Cancer
+Research
+
+Integrated Systems and Technologies
+
+Identiﬁcation of Prognostic Groups in High-Grade
+Serous Ovarian Cancer Treated with Platinum–
+Taxane Chemotherapy
+€ ki1,
+Ping Chen1, Kaisa Huhtinen2, Katja Kaipio2, Piia Mikkonen2, Viljami Aittoma
+1
+3
+3
+3
+ nman , Rainer Lehtonen1,
+Rony Lindell , Johanna Hynninen , Annika Auranen , Seija Gre
+2,4
+1
+ n , and Sampsa Hautaniemi
+Olli Carpe
+
+Abstract
+Disseminated high-grade serous ovarian cancer (HGS-OvCa)
+is an aggressive disease treated with platinum and taxane
+combination therapy. While initial response can be favorable,
+the disease typically relapses and becomes resistant to treatment. As genomic alterations in HGS-OvCa are heterogeneous,
+identiﬁcation of clinically meaningful molecular markers for
+outcome prediction is challenging. We developed a novel
+computational approach (PSFinder) that fuses transcriptomics
+and clinical data to identify HGS-OvCa prognostic subgroups
+for targeted treatment. Application of PSFinder to transcriptomics data from 180 HGS-OvCa patients treated with platinum–taxane therapy revealed 61 transcript isoforms that characterize two poor and one good survival-associated groups
+
+Introduction
+Epithelial ovarian cancer is the eighth most common cause of
+female cancer deaths worldwide. The 5-year survival rate for highgrade serous ovarian cancer (HGS-OvCa), the most common
+ovarian cancer sub-type, is only 35% to 40% (1). The standard
+treatment for HGS-OvCa is surgery and platinum–taxane combination therapy, and while most patients with HGS-OvCa at the
+advanced stage of the disease initially respond to it, and some
+patients experience extended and repetitive responses, the treatment is very seldom curative and the majority suffers relapse
+within 18 months (2). This is mostly due to the fact that despite
+being a single morphologic and clinical entity, genomic altera-
+
+1
+Research Programs Unit, Genome-Scale Biology, Faculty of Medicine,
+University of Helsinki, Helsinki, Finland. 2Department of Pathology,
+Institute of Biomedicine, Medicity, University of Turku and Turku
+University Hospital, Turku, Finland. 3Department of Obstetrics and
+Gynecology, Turku University Hospital, Turku, Finland. 4Auria Biobank,
+Turku, Finland.
+
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+P. Chen and K. Huhtinen contributed equally to this article.
+Corresponding Authors: Sampsa Hautaniemi, University of Helsinki, Helsinki, PO
+Box 63, 00014, Finland. Phone: 358-50-336-4765; Fax: 358-9-19125610; E-mail:
+sampsa.hautaniemi@helsinki.ﬁ; and Olli Carpen, Kiinamyllynkatu 10, 20520,
+University of Turku, Turku, Finland. Phone: 358-2-3337217; Fax: 358-23337459; E-mail: olli.carpen@utu.ﬁ
+doi: 10.1158/0008-5472.CAN-14-3242
+2015 American Association for Cancer Research.
+
+(P ¼ 0.007). These groups were validated in eight independent
+data sets, including a prospectively collected ovarian cancer
+cohort. Two poor prognostic groups have distinct expression
+proﬁles and are characteristic by increased hypermethylation
+and stroma-related genes. Integration of the PSFinder signature
+and BRCA1/2 mutation status allowed even better stratiﬁcation
+of HGS-OvCa patients' prognosis. The herein introduced novel
+and generally applicable computational approach can identify
+outcome-related subgroups and facilitate the development
+of precision medicine to overcome drug resistance. A limited
+set of biomarkers divides HGS-OvCa into three prognostic
+groups and predicts patients in need of targeted therapies.
+Cancer Res; 75(15); 2987–98. 2015 AACR.
+
+tions in HGS-OvCa are complex (1, 3), and there are no known
+targetable mutations that could serve as uniform therapeutic
+targets. Accordingly, HGS-OvCa cannot yet be managed optimally, often leading to adverse side effects and health costs without
+reasonable beneﬁt.
+Little is known on factors that predict outcome of HGS-OvCa
+platinum–taxane therapy at treatment-na€ve stage. Currently, the
+best biomarkers to predict chemotherapy response and improved
+5-year survival odds are germline mutations in BRCA1 or BRCA2,
+detected in 15% to 22% of patients with HGS-OvCa (4). Furthermore, several proteins, such as STAT3 (5) and MUC16 (6),
+and pathways, such as PI3K–AKT and VEGF (3), have also been
+suggested to contribute to platinum resistance in ovarian cancer.
+Still, there are very few clinically relevant treatment options for
+platinum-resistant patients with ovarian cancer available at the
+moment. Thus, biomarkers that are able to predict the response
+for platinum–taxane therapy at treatment-na€ve stage are urgently
+needed.
+Establishing reliable prognostic or predictive biomarkers
+requires identiﬁcation of a coherent subset of patients that
+share common clinical and molecular characteristics, such as
+short survival and activation of a certain pathway. A major issue
+in identifying such subsets is that molecular data from tumors
+with identical anatomical location, stage, and grade can be very
+heterogeneous. Thus, reliable biomarker identiﬁcation and
+validation require molecular data from large cohorts of treatment-na€ve tumors. A major bottleneck in translating largescale molecular data into robust biomarkers is the paucity of
+cost-efﬁcient and robust computational methods (7). Many
+existing approaches to identify biomarkers use a two-step
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+2987
+
+Published OnlineFirst June 29, 2015; DOI: 10.1158/0008-5472.CAN-14-3242
+
+Chen et al.
+
+approach where computational methods, such as unsupervised
+learning (8, 9), Bayesian methods (10), or dimension reduction
+(11, 12), are used to identify clusters of patients that share
+clinical or molecular characteristics. This is followed by assessment of biologic or medical relevance for the identiﬁed clusters
+using Gene Ontology, pathway, or clinical data. Such
+approaches often result in clusters of patients that are formed
+without association to a clinical endpoint. Furthermore, several
+studies have identiﬁed clusters of gene or protein markers
+associated with prognosis of patients with ovarian cancer
+(13–15), but these clusters may contain hundreds of loosely
+correlated genes or proteins, which makes the choice of putative biomarkers challenging.
+Here, we introduce a novel computational approach called
+Prognostic Subgroup Finder (PSFinder) to stratify patients into
+prognostic groups by coexpressed isoform- and gene-level
+markers identiﬁed from the large-scale transcriptomics and
+clinical data. The major novel aspect in the PSFinder approach
+is that the identiﬁed groups of patients stratiﬁed by coexpressed
+markers are directly associated with a clinical endpoint, which
+facilitates interpretation of the groups as well as planning
+subsequent experiments. We applied PSFinder to patients
+with HGS-OvCa treated with the standard platinum–taxane
+combination therapy from The Cancer Genome Atlas (TCGA)
+HGS-OvCa cohort and identiﬁed three prognostic groups with
+distinct expression proﬁles stratiﬁed by 61 transcript isoforms.
+Two of the groups (poor I and II) were associated with short
+overall survival and one (good) with prolonged survival. Linking the BRCA1/2 mutation status to subgroup information
+further increased the prognostic value.
+
+Materials and Methods
+PSFinder approach
+PSFinder identiﬁes patient groups that (i) consist of features
+(e.g., transcript isoforms or genes) whose expressions correlate
+strongly across the samples and that exhibit distinct expression
+patterns between patient groups and (ii) have statistically significant association with the clinical data, such as survival time. The
+overall workﬂow of PSFinder is shown in Fig. 1.
+PSFinder uses an iterative rule-based approach to search for
+coexpressed features that are able to divide the samples into
+groups that have signiﬁcant association to the clinical data. The
+iterative process starts from all the samples in the cohort
+proceeding to a subset of samples and is executed until there
+are no features fulﬁlling the requirements to further divide the
+subset of samples into groups. When given a set of samples,
+PSFinder feature selection starts with seed search (step 1),
+continues with initial clique collection (step 2), and iterative
+clique merging (step 3), as shown in Fig. 1. After iterations, the
+samples at the leaf nodes form subgroups, and all the features
+used in the sample divisions are returned as markers for
+prognostic subtype stratiﬁcation. The detailed steps of PSFinder
+are in the Supplementary Material. PSFinder is available upon
+request by ﬁlling the registration form https://elomake.
+helsinki.ﬁ/lomakkeet/59036/lomake.html.
+Transcript isoform and gene level expression for TCGA ovarian
+cancer patients
+Exon array data (level 1; Affymetrix Human Exon 1.0 ST v2) and
+associated clinical information of two separate HGS-OvCa
+
+2988 Cancer Res; 75(15) August 1, 2015
+
+cohorts were downloaded from TCGA repository (12). The discovery cohort included 180 patients (from 13 different hospitals)
+treated with platinum and taxane combination, and the validation cohort included 327 ovarian cancer samples from patients
+(from 14 different hospitals) who are reported to have been given
+various treatments in addition to platinum–taxane–based chemotherapy according to the TCGA patient treatment annotations.
+Of note, it is possible that some patients in the discovery cohort
+may have also received other treatments due to lack of treatment
+annotations.
+Exon array data were processed at transcript isoform level and
+gene level by Multiple Exon Array Preprocessing (MEAP) algorithm (16). Transcripts differentially expressed between poor I
+and good patients and between poor II and good patients were
+collected by the t test (adjusted P < 0.05) and fold change
+(absolute log2-scale FC  1).
+Global hypermethylation in PSFinder subgroups
+All probes (n ¼ 27,578) on HM27 methylation array from
+180 and 326 patients with HGS-OvCa in the discovery and
+validation sets were used in this analysis. Probes overlapping
+with SNP, repeats, mapping to multiple locations or with poor
+detection P values were masked. By using the same parameters
+as in the study of clear cell renal cell carcinoma (17), we
+investigated 16,355 CpG loci that are unmethylated in normal
+ovary tissues (average DNA methylation b < 0.2) for cancerspeciﬁc hypermethylation. The percentage of hypermethylation
+loci (b > 0.2) was calculated and visualized by boxplots for the
+trend of increasing DNA promoter methylation in poor I
+patients. A two-sided t test was used to evaluate the signiﬁcance
+of the global DNA hypermethylation changes between the
+groups.
+Genes affected by promoter hypermethylation in poor I patients
+Cancer-speciﬁc CpG hypermethylation loci (n ¼ 16,355)
+described above were used in this analysis. A gene is said to be
+affected by promoter hypermethylation based on the following
+criteria: (i) signiﬁcant negative correlation between its promoter
+CpG hypermethylation and gene expression (Spearman correlation coefﬁcient < 0.2 and adjusted P < 0.05), (ii) signiﬁcant CpG
+hypermethylation changes in poor I versus poor II and poor I
+versus good comparisons (two-sided t test P < 0.05), and (iii)
+signiﬁcant expression changes in poor I versus poor II and poor I
+versus good comparisons (two-sided t test P < 0.05).
+HGS-OvCa cell lines
+Three primary cell lines, M022i, M068i, and OC002, were
+created, characterized using RNA sequencing, and used in drug
+treatment experiments. M022i and M068i originated from ascites
+ﬂuid collected during interval surgery after primary platinum
+and taxane chemotherapy, whereas OC002 originates from samples taken during primary surgery before chemotherapy. Each
+patient had rapidly progressing HGS-OvCa (overall survival, 4.0,
+7.4, and 12.0 months for M022i, M068i, and OC002, respectively). All three primary cell lines and the established OVCAR-8 cell
+line (NCI), which is classiﬁed as "possibly high-grade serous"
+earlier (18), were grown as spheroids. OVCAR-8 was obtained
+from DCTD Tumor/Cell Line Repository (NCI) on 2011, grown
+for 2 to 4 passages before freezing, and assayed within 6 months
+after thawing.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst June 29, 2015; DOI: 10.1158/0008-5472.CAN-14-3242
+
+Prognostic Subgroup Discovery in Ovarian Cancer
+
+Figure 1.
+The overall workﬂow of PSFinder. PSFinder is an iterative rule–based approach to search for coexpressed features, which are able to divide the samples
+into subgroups that have signiﬁcant association to the clinical data. Inputs consist of feature (transcript isoforms or genes) expression data from a
+cohort of samples and survival times of the sample donors. The iterative process starts from all the samples in the cohort proceeding to a subset of samples
+and is executed until there are no features fulﬁlling the requirements to further divide the subset of samples into groups (left tree). When given a
+set of samples, PSFinder feature selection starts with seed search (step 1), continues with initial clique collection (step 2), and iterative clique merging (step 3).
+In step 1, PSFinder identiﬁes individual features whose discretized expression values (high/low) are associated with statistically signiﬁcant survival
+effect (Kaplan–Meier with log-rank test). These are used as seeds in step 2, where highly correlated transcripts (r  j 0.6 j in our case study) form initial
+cliques. In step 3, PSFinder iteratively merges initial cliques into larger cliques until either (i) the correlation between the expression proﬁles or (ii) the
+survival association in the merged clique falls under the threshold. From each iteration process, all the features from the merged clique with the
+maximum score are selected as features to stratify the subset of samples. After iterations, the samples at the leaf nodes form subgroups and all the
+features used in the sample divisions are returned as markers for prognostic type stratiﬁcation.
+
+RNA sequencing and expression analysis for HGS-OvCa cell
+lines
+RNA was extracted using RNeasy kit (Qiagen) with DNase I
+treatment. The sequencing libraries were constructed in the
+Beijing Genomics Institute using a modiﬁed protocol similar
+to the TrueSeq Stranded Total RNA with RiboZero Kit (Illumina
+Inc.) and sequenced with HiSeq2000 (Illumina Inc.) with the
+standard protocol (pair-end sequencing with 100-bp read
+length).
+The RNA-seq data were processed and analyzed using an inhouse pipeline (Icay and colleagues, manuscript submitted).
+Brieﬂy, 15 bp from the head and 20 bp from the tail of the raw
+reads were trimmed using Trimmomatic (19), followed by alignment to the human genome (hg19, Ensembl annotation version
+75) using STAR (20) 2-pass alignment. Gene expression was
+quantiﬁed by FPKM values using the Cufﬂinks–Cuffmerge–
+Cuffquant–Cuffnorm pipeline (21).
+Evaluation of DNA methylation inhibitor effect on cell viability
+To evaluate the role of methylation, the primary and established cell lines were treated with decitabine (Selleckchem), which
+is an inhibitor of DNA methyltransferase. Cells were plated on
+
+www.aacrjournals.org
+
+96-well plates with 2,500 cells per well. Decitabine was plated on
+the 2 following days in ﬁnal concentrations of 0.01, 0.1, 1.0, and
+10 mmol/L. Cell viability was measured 72 hours after the ﬁrst
+treatment using the ATP Assay (CellTiter-Glo Luminescent Cell
+Viability Assay, Promega) in at least 3 experiments with triplicate
+wells each. The compound effect was assessed by activity area
+(area above drug–response curve, AA), as suggested by Barretina
+and colleagues (22), and by the percentage of AA out of total curve
+area A(max) (AA%).
+Multivariate analysis of prognostic factors
+We used a Cox proportional hazard regression model (23)
+containing known prognostic indicators, including age (continuous variable), stage (continuous variable), grade (continuous variable), residual disease (continuous variable),
+BRCA1/2 mutation (categorical variable wild-type vs. mutype), and PSFinder prognostic classiﬁcation (categorical variable combined poor I and II vs. good prognostic groups) on
+429 patients with HGS-OvCa from the discovery and validation sets with clinical survival data available. Ovarian cancer
+BRCA1/2 mutation data were downloaded from cBioPortal for
+Cancer Genomics (24).
+
+Cancer Res; 75(15) August 1, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+2989
+
+Published OnlineFirst June 29, 2015; DOI: 10.1158/0008-5472.CAN-14-3242
+
+Chen et al.
+
+Prospective ovarian cancer patient cohort (MUPET cohort)
+As an independent validation set, we used a prospective
+ovarian cancer cohort consisting of 29 patients with HGS-OvCa
+treated at the Department of Obstetrics and Gynecology, Turku
+University Hospital (Åbo, Finland; ClinicalTrials.gov Id:
+NCT01276574). The study and the use of all clinical material
+have been approved by (i) The Ethics Committee of the
+Hospital District of Southwest Finland (ETMK): ETMK 53/
+180/2009 x 238 and (ii) National Supervisory Authority for
+Welfare and Health (Valvira): DNRO 6550/05.01.00.06/2010
+and STH507A.
+Patients were treated with either primary surgery followed by
+six cycles of platinum- and taxane-based chemotherapy or three
+cycles of neoadjuvant chemotherapy (NACT) followed by interval debulking surgery and three to six chemotherapy cycles. The
+treatment modality for each patient was determined on the
+basis of preoperative imaging studies and diagnostic laparoscopy. Treatment response was determined with clinical examination, CA125 level, and contrast-enhanced CT using
+RECIST1.1 criteria. Tumor and ascites samples were collected
+during operation. One part of each specimen was snap-frozen
+and another part was directly prepared for cell culture to
+generate primary cell lines. Detailed clinical information is
+shown in Table 1.
+Quantitative real-time RT-PCR
+RNA was extracted with RNeasy kit (Qiagen) and reversetranscribed to cDNA using Tetro cDNA synthesis kit (Bioline)
+and oligo dT primers. Expression of selected markers was determined in triplicate samples using TaqMan qRT-PCR with Applied
+Biosystems 7900HT instrument (Finnish DNA Microarray Centre,
+Turku Centre for Biotechnology, University of Turku, Turku,
+Finland).
+The primers and probes (listed in Supplementary Table S4)
+were designed using Universal ProbeLibrary Assay Design Center
+(Roche Applied Science). To select the optimal endogenous controls for the normalization of gene expression data, we studied the
+expression of ACTB, GAPDH, GUSB, HPRT1, RPL19, PPIA, and
+TBP. On the basis of SLqPCR R-package (25) and BestKeeper (26),
+PPIA and TBP were selected as the best reference genes in both
+MUPET patient samples and cell lines. Raw qRT-PCR Ct values
+were thus normalized against the geometric mean of PPIA and
+TBP.
+
+Results
+Expression signature identiﬁed by PSFinder predicts prognosis
+of platinum–taxane combination–treated HGS-OvCa patients
+We analyzed isoform expression data from 180 treatment-na€ve
+HGS-OvCa cancer samples available in the TCGA repository (12)
+using PSFinder (Fig. 1). The samples originated from patients who
+had a disseminated disease and were ﬁrst treated with surgery and
+then with ﬁrst-line platinum–taxane combination therapy (clinical data in Table 1).
+PSFinder analysis resulted in 61 coexpressed transcripts from
+51 genes that divide the discovery cohort of 180 samples into
+three groups (Fig. 2A and Supplementary Table S1). Two groups
+(poor I and poor II) are associated with relatively short overall
+survival and have markedly distinct expression proﬁles, whereas
+one group (good) is associated with longer survival (log-rank test,
+P ¼ 0.007; Fig. 2B). The median overall survival times for patients
+
+2990 Cancer Res; 75(15) August 1, 2015
+
+in poor I, poor II, and good groups were 45, 50, and >120 months,
+respectively. The 5-year survival rates for poor I, poor II, and good
+groups were 42%, 40%, and 68%, respectively. There were 3,724
+differentially expressed transcripts (DET) between samples in
+poor I versus good groups, whereas between poor II versus good,
+there were only 657 DETs.
+To further evaluate the reproducibility of the three subgroups
+identiﬁed from the isoform-level expression data, we applied
+PSFinder to gene-level expression data of the same 180 TCGA
+HGS-OvCa samples. The gene-level analysis resulted in 32
+genes that characterize three groups (Supplementary Table
+S2 and Fig. S1), which are very similar to the isoform-level
+results, although four samples identiﬁed into a poor prognosis
+group in the isoform-level analysis were characterized as good
+prognosis samples in the gene-level analysis. This small discrepancy is most likely due to the differences between isoformlevel and gene-level expression. Of the 32 genes, 18 were also
+identiﬁed from the isoform-level, including 6 poor I
+(AC083884.8, RP11-793H13.3, RP11-867G23.3, CERS6-AS1,
+MAP1S, and KLF16) and 12 poor II (ADAM12, ADAMTS12,
+AEBP1, COL3A1, COL5A1, COL5A2, COL6A1, COLEC12, FAP,
+ITGA5, MMP14, and MMP2) genes. The 32 gene-level characterization markers allow the use of several HGS-OvCa cohorts
+in the validation of poor I, poor II, and good subgroups as the
+expression data from current available cohorts are mostly
+measured by conventional microarrays.
+We then compared the PSFinder results with two recently
+published ovarian cancer prognostic signatures. First, Tothill
+and colleagues used a two-step approach where they obtained
+gene expression data to identify molecular subtypes in serous
+and endometroid ovarian cancer and identiﬁed six subtypes
+(C1–C6) that were linked to clinical outcome (8). When we
+compared the 61 transcripts identiﬁed by PSFinder to the genes
+characterizing C1–C6, we found that the poor II subtype is
+almost identical to the C1 (high stromal response) molecular
+subtype. Poor II is characterized by 25 coexpressed transcripts,
+and 88% of them belong to the genes that deﬁne the C1 group.
+As expected, the similarity is even more pronounced at the gene
+level: all except 1 of 24 genes characterizing poor II are in the
+gene list deﬁning C1. Patients in C1 have short overall survival
+(8), which is also in accordance with the expected survival in
+the poor II type. Second, we compared PSFinder results with the
+CLOVAR survival signature, which is based on univariate Cox
+regression analysis followed by correlation analysis resulting in
+100 genes, whose gene expression was correlated with survival
+(14). None of the 100 CLOVAR signature genes belonged to the
+isoform- or gene-level results emerging from PSFinder. The lack
+of overlap is not unexpected considering the different design
+principles in CLOVAR and PSFinder; CLOVAR uses univariate
+Cox regression to identify genes with lowest P values, whereas
+PSFinder ﬁnds groups of coexpressed genes with survival association. We tested univariate Cox regression on genes identiﬁed
+by the CLOVAR approach using the 180 TCGA patients with
+HGS-OvCa treated with platinum and taxane combination.
+From the 100 genes identiﬁed by CLOVAR, only 22% were
+signiﬁcantly associated (P < 0.05) with overall survival.
+Eight independent HGS-OvCa validation cohorts conﬁrm the
+robustness of the PSFinder results
+To test the universality of the PSFinder identiﬁed poor
+and good survival types, we used two independent cohorts
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+www.aacrjournals.org
+
+Tumor site in analysis
+
+Primary therapy outcome
+
+Residual
+disease
+
+Tumor stage
+
+Grade
+
+Variable
+Number of patients
+Age at
+diagnosis, y
+Neoadjuvant therapy
+
+Value
+Total
+Median
+Range
+Yes
+No
+G2
+G3
+G4
+Unknown
+I
+II
+III
+IV
+Unknown
+No
+macroscopic disease
+1–10 mm
+11–20 mm
+>20 mm
+Unknown
+Complete response
+Partial response
+Stable disease
+Progressive disease
+Unknown
+Ovary
+
+Table 1. Clinical features of the cohorts used in this study
+
+157 (48.0%)
+23 (7.0%)
+64 (19.6%)
+33 (10.1%)
+166 (50.8%)
+45 (13.8%)
+22 (6.7%)
+26 (7.9%)
+68 (20.8%)
+327 (100%)
+
+52 (28.9%)
+72 (40%)
+8 (4.4%)
+25 (13.9%)
+23 (12.8%)
+124 (68.9%)
+15 (8.3%)
+4 (2.2%)
+10 (5.6%)
+27 (15%)
+180 (100.0%)
+
+(2.8%)
+(3.9%)
+(6.1%)
+(72.2%)
+(17.8%)
+
+327 (100%)
+48 (14.7%)
+274 (83.8%)
+1 (0.3%)
+4 (1.2%)
+8 (2.4%)
+13 (4.0%)
+257 (78.6%)
+46 (14.0%)
+3 (1.0%)
+50 (15.3%)
+
+180 (100%)
+16 (8.9%)
+159 (88.3%)
+5
+7
+11
+130
+32
+
+TCGA
+(validation)
+327
+59
+30–89
+
+TCGA
+(discovery)
+180
+59
+37–81
+
+(4.1%)
+(4.1%)
+(84.3%)
+(7.5%)
+
+172 (100%)
+
+7
+7
+145
+13
+
+172 (100%)
+69 (40.1%)
+103 (59.9%)
+
+AOCS
+172
+59
+23–80
+
+84 (100%)
+
+70 (83.3%)
+14 (16.7%)
+
+41 (48.8%)
+43 (51.2%)
+
+Yoshihara
+84
+
+40 (90.9%)
+4 (9.1%)
+
+44 (100%)
+17 (38.6%)
+27 (61.4%)
+
+Ferriss
+44
+62
+38–85
+
+130 (100%)
+
+45 (34.6%)
+82 (63.1%)
+3 (2.3%)
+
+Crijns
+130
+61
+22–84
+
+53 (100%)
+
+53 (100%)
+
+53 (100%)
+
+Mok
+53
+
+8 (11%)
+6 (8%)
+48 (64%)
+13 (17%)
+
+75 (100%)
+19 (25%)
+56 (75%)
+
+Mateescu
+75
+58
+31–86
+
+1 (3.4%)
+6 (20.7%)
+
+22 (75.9%)
+
+16 (55.2%)
+4 (13.8%)
+4 (13.8%)
+
+5 (17.2%)
+
+2 (6.9%)
+1 (3.4%)
+16 (55.2%)
+10 (34.5%)
+
+MUPET
+29
+65
+50–80
+16 (55.2%)
+13 (44.8%)
+6 (20.7%)
+23 (79.3%)
+
+Published OnlineFirst June 29, 2015; DOI: 10.1158/0008-5472.CAN-14-3242
+
+Prognostic Subgroup Discovery in Ovarian Cancer
+
+Cancer Res; 75(15) August 1, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+2991
+
+Published OnlineFirst June 29, 2015; DOI: 10.1158/0008-5472.CAN-14-3242
+
+Chen et al.
+
+Figure 2.
+Prognostic subgroups identiﬁed by PSFinder using isoform-level expression data. A, prognostic subgroups identiﬁed by PSFinder using isoform-level expression
+data from 180 patients with HGS-OvCa treated with platinum and taxane combination therapy. Rows correspond to transcript isoforms and columns to
+samples. PSFinder identiﬁed two poor prognosis types (poor I and II) and one good prognosis type shown in red, blue, and green, respectively. Poor I- and
+poor II–speciﬁc isoform markers are shown in pink and light blue, respectively, in the row-side color bar. B, Kaplan–Meier survival curves on overall 5-year survival
+for poor I, poor II, and good type patients identiﬁed from the isoform-level data. Patients in poor I and poor II types are associated with poor prognosis and
+patients in good type are associated with good prognosis with log-rank test. P ¼ 0.007. C, LPS predicted prognostic subgroups by using isoform-level prognostic
+signatures for the 327 patients with HGS-OvCa from the TCGA validation set. Poor I- and poor II–speciﬁc isoform markers are shown in pink and light blue,
+respectively, in the row-side color bar. D, Kaplan–Meier survival curves on overall 5-year survival for predicted poor and good prognostic patients from the TCGA
+validation set (log-rank test, P ¼ 0.014). E, prognostic outcome prediction for 29 patients with HGS-OvCa from MUPET prospective cohort using expression
+of nine isoform-speciﬁc markers by TaqMan qRT-PCR. Poor I- and poor II–speciﬁc isoform markers are shown in pink and light blue, respectively, in the column-side
+color bar. Patients predicted to be poor I, poor II, and good types are shown as red, blue, and green at y-axis. F, Kaplan–Meier survival curves on time to
+progression in month for 29 MUPET patients with predicted poor and good prognosis. The signiﬁcance was measured with the log-rank test (P ¼ 0.030). The
+number of patients at risk is listed below each survival curve for each time point (x-axis of Kaplan–Meier survival curves).
+
+for transcript-level validation and six independent cohorts for
+gene-level validation.
+The ﬁrst transcript-level validation cohort (TCGA validation
+cohort) consists of transcript level data from 327 patients with
+ovarian cancer from the TCGA repository who have received some
+other chemotherapy in addition to platinum–taxane–based treatment. Patients from this cohort have been subjected to varying
+treatment regimens, which may introduce a bias to the survival
+times, as some drugs can prolong and other drugs can shorten the
+overall survival of the patients independent of the platinum–
+taxane treatment effect predicted by the PSFinder signature. The
+subgroup prediction using the 61-transcript predictor [linear
+predictor score (LPS) in Supplementary Material] revealed three
+subgroups sharing similar expression proﬁles as the TCGA discovery set (log-rank test, P ¼ 0.015; Fig. 2C and Supplementary
+Fig. S2). The poor I group has only 30 patients in the TCGA
+validation cohort, which may cause unstable estimates in the
+Kaplan–Meier analysis. Therefore, we combined the poor I and II
+groups, leading to 123 poor responding patients, with the available survival data and observed a clear difference between poor
+and good survival (P ¼ 0.014, Fig. 2D).
+In the second transcript-level validation, we used transcript
+isoform–speciﬁc qRT-PCR in a prospective cohort (MUPET)
+consisting of primary cancer samples from 29 patients with
+HGS-OvCa who received platinum–taxane–based chemotherapy
+(clinical data in Table 1; ref. 27). There were speciﬁc assays
+available for 24 transcripts in Universal ProbeLibrary Assay
+Design Center (lifescience.roche.com; Roche Diagnostics) and
+only nine produced robust signals in all the samples. By using
+these nine markers as a subgroup predictor, we calculated LPS for
+each sample and 14%, 38%, and 48% patients were classiﬁed into
+
+2992 Cancer Res; 75(15) August 1, 2015
+
+poor I, poor II, and good subgroups, respectively (Fig. 2E).
+Because of the small size of the cohort, we combined poor I and
+poor II into a single "Poor group," which showed signiﬁcantly
+shorter survival times than the good prognosis group (log-rank
+test, P ¼ 0.030; Fig. 2F and Supplementary Fig. S3). All markers,
+except PPP1CC, exhibit similar expression proﬁles in the MUPET
+subgroups as in the TCGA poor I, poor II, and good samples
+(Supplementary Fig. S4).
+To further evaluate the reproducibility of the PSFinder results,
+we used gene expression data from AOCS (8), Yoshihara (28),
+Ferriss (29), Crijns (30), Mok (31), and Mateescu (32) cohorts
+containing a total of 558 patients with HGS-OvCa. The expression
+data in these 6 cohorts are measured using various microarray
+designs and 38% of poor I and 100% of poor II characterization
+genes identiﬁed by PSFinder from the gene-level analysis were
+available in these validation cohorts. Despite the suboptimal
+number of poor I genes available for prognostic type prediction
+using the LPS method, the groups with similar expression proﬁles
+and survival associations as in the TCGA discovery set were still
+reproduced (Fig. 3).
+Increased promoter hypermethylation is a characteristic of
+poor I patients
+While poor II corresponds to the high stromal response molecular subtype, poor I type has not been identiﬁed earlier and
+none of the transcripts or genes that characterize poor I were
+reported by Tothill and colleagues or CLOVAR. Even though gene
+microarrays lack many of the poor I characterizing genes, the
+lack of overlap was unexpected because C1–C6 subtypes are
+deﬁned by approximately 7,700 genes (8), and many of the
+C1–C6 groups are associated with poor survival. Because TCGA
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst June 29, 2015; DOI: 10.1158/0008-5472.CAN-14-3242
+
+Prognostic Subgroup Discovery in Ovarian Cancer
+
+Figure 3.
+Prognostic subgroup validation in six independent validation sets at gene level. A, PSFinder identiﬁed prognostic signatures (gene-level) and predicted
+prognostic subgroups in six independent validation cohorts (AOCS, Yoshihara, Ferriss, Crijns, Mok, and Mateescu). Poor I- and poor II–speciﬁc gene markers are
+shown in pink and light blue, respectively, in the row-side color bar. B, Kaplan–Meier survival curves on overall 5-year survival for predicted poor I, poor II,
+and good prognosis patients (log-rank test, P ¼ 0.004). C, Kaplan–Meier survival curves on overall 5-year survival for merged poor and good prognosis patients
+(log-rank test, P ¼ 0.001). The number of patients at risk is listed below each survival curve for each time point (x-axis of Kaplan–Meier survival curves).
+
+provides also miRNA and DNA methylation data, we investigated
+whether poor I can be characterized at epigenetic or miRNA
+expression level. At the miRNA level, there were no miRNAs that
+were signiﬁcantly differentially expressed between poor I and
+poor II (nominal P < 0.05, absolute fold change > 2), which
+suggests that poor I is not different from poor II at the miRNA
+regulation level.
+A possible cause for the distinct gene expression proﬁle in
+poor I type is DNA methylation, and thus we explored DNA
+promoter hypermethylation differences between poor I and
+other types. The frequency of hypermethylated CpG loci in
+poor I samples (mean frequency 5.1% in the discovery set and
+
+www.aacrjournals.org
+
+4.7% in the validation set) is signiﬁcantly higher than that in
+poor II (mean frequency 4.1% in the discovery set and 4.0% in
+the validation set) or good (mean frequency 3.7% in the
+discovery set and 3.6% in the validation set) tumor samples
+and normal ovary tissue samples in both TCGA discovery and
+validation cohorts (Fig. 4A and B).
+Differential methylation analysis between poor I versus good
+(Fig. 4C) and poor I versus poor II (Fig. 4D) resulted in 178 and
+153 signiﬁcantly differentially methylated CpG loci (j Db j > 0.1
+and multiple-hypotheses corrected P < 0.001), respectively. The
+number of common CpG loci identiﬁed by both comparisons is
+140, of which all except one (cg11484576) exhibit higher
+
+Cancer Res; 75(15) August 1, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+2993
+
+Published OnlineFirst June 29, 2015; DOI: 10.1158/0008-5472.CAN-14-3242
+
+Chen et al.
+
+Figure 4.
+Association of DNA methylation with poor I versus poor II or good types. A, promoter hypermethylation frequency in tumor (poor I, poor II, and good
+from TCGA discovery set) and normal ovary samples. B, promoter hypermethylation frequency in tumor (poor I, poor II, and good from TCGA
+validation set) and normal ovary samples. The statistical signiﬁcance by two-sided t test between poor I, poor II, and good samples are indicated by
+asterisks (     , P < 0.00001;     , P < 0.0001;   , P < 0.001;   , P < 0.01;  , P < 0.05 or empty P  0.05) in A and B. C, volcano plot of DNA methylation changes
+between poor I and good samples. Gray dots, CpG loci with Benjamini–Hochberg FDR < 0.001 and hypermethylation changes in mean j Db j > 0.1 between
+poor I and good samples. D, volcano plot of DNA methylation changes between poor I and poor II samples. Gray dots, CpG loci with Benjamini–Hochberg FDR
+< 0.001 and hypermethylation changes in mean jDb j > 0.1 between poor I and poor II samples. (Continued on the following page.)
+
+2994 Cancer Res; 75(15) August 1, 2015
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst June 29, 2015; DOI: 10.1158/0008-5472.CAN-14-3242
+
+Prognostic Subgroup Discovery in Ovarian Cancer
+
+hypermethylation in poor I samples. There were no signiﬁcant
+differences at the DNA methylation level between poor II and
+good types (Supplementary Fig. S5). The genes whose expressions
+were affected by promoter hypermethylation on the basis of the
+criteria described in Materials and Methods include several transcription regulators, such as TOP3B and RPAP2 (Supplementary
+Fig. S6 and Table S3).
+DNA methyltransferases (DNMT) are enzymes that catalyze
+the addition of a methyl group to cytosine residues at CpG loci
+and play key roles in establishing the global or regional hypermethylation patterns in cancers (33). Thus, we studied the expressions of DNMT1, DNMT3A, and DNMT3B in poor I, poor II, and
+good patient groups and observed signiﬁcant upregulation of two
+full-length protein-coding isoforms (ENST00000328111 and
+ENST00000348286) and 1 shorter form (ENST00000537219)
+of the de novo methyltransferase DNMT3B in poor I samples
+(Supplementary Fig. S7). High expression levels of DNMT3B have
+been reported in several cancers, including breast cancer, endometrial cancers, and leukemia (34–36), and DNMT3B has been
+shown to promote tumorigenesis (37). This suggests that de novo
+methylation mediated by DNMT3B may contribute to the
+formation of aberrant hypermethylation patterns in poor I
+HGS-OvCa samples.
+Methylation inhibition exhibits strong effects on poor I
+characteristic HGS-OvCa cell lines
+As samples in the poor I group are signiﬁcantly more hypermethylated than samples in poor II or good groups, we tested
+whether DNA methylation inhibitor 5-aza-20 -deoxycytidine (decitabine) is able to decrease viability of HGS-OvCa cells in samples
+with poor I characteristics. Decitabine inhibits the function of
+DNMTs leading to reduced DNA methylation (38). We used three
+patient-derived cell lines and 1 control cell line (Fig. 4E): OC002
+and M022i (high expression levels of poor I genes) and M068i
+(low expression levels of poor I genes) and compared the cytotoxic effects to control cell line OVCAR8 (very low expression
+levels of poor I genes).
+When we tested decitabine on these four cisplatin-resistant
+HGS-OvCa cell lines, the greatest effect was seen in OC002
+followed by M022i, M068i, and OVCAR8 (Fig. 4F and Supplementary Fig. S8). The cytotoxic effects were most signiﬁcant at the
+concentrations of 0.1 to 1 mmol/L (Fig. 4G), and the effects
+correlate with the overall expression of DNMT3A and DNMT3B
+(Fig. 4H), which are targets of decitabine (39). IC50 values are
+provided in Supplementary Fig. S8. These results are in line with
+the hypothesis that cancer cells with higher expressions of poor I
+characterizing genes are more responsive to decitabine.
+Combining PSFinder expression signature and BRCA1/2
+mutation data improves stratiﬁcation of HGS-OvCa patients
+Patients with ovarian cancer with dysfunctional DNA repair
+genes BRCA1 and/or BRCA2 have increased overall survival due to
+
+better response to cytotoxic chemotherapy (40). Thus, we examined whether BRCA1/2 dysfunction could explain the three
+groups identiﬁed by PSFinder, and whether integrating PSFinder
+predictor and BRCA1/2 mutation status is able to improve the
+classiﬁcation of platinum–taxane–treated individuals into different outcome groups.
+BRCA1/2 mutation data were available for 117 samples in the
+TCGA discovery cohort and 139 samples in the TCGA validation
+cohort. BRCA1/2 mutation carriers had longer overall survival
+than BRCA1/2 wild-type patients as expected (log-rank test,
+P ¼ 0.0004; Supplementary Fig. S9). The mutation status of
+BRCA1/2 does not show enrichment in any of the PSFinder
+identiﬁed types (Fig. 5A). This suggests that there are other
+factors involved in predicting outcome of a patient with HGSOvCa to platinum and taxane therapy. Indeed, multivariate
+Cox regression analysis using age, grade, stage, residual disease,
+BRCA1/2 mutation status, and PSFinder identiﬁed types shows
+that the strongest predictors of HGS-OvCa patient outcome are
+the BRCA1/2 mutation status (P ¼ 0.0003) and the PSFinder
+identiﬁed prognostic types (P ¼ 0.02; Table 2). While the low
+predictive power of grade and stage was not unexpected
+because of the cohort selection, the importance of PSFinder
+subgroups over tumor debulking is of interest, as the extent of
+residual disease after primary cytoreductive surgery is regarded
+as a signiﬁcant prognosticator in clinical practice (41).
+We combined poor I and poor II types and BRCA1/2 mutation
+status information into the following groups: (i) good prognosis
+with BRCA1/2 mutation ("good-mu"); (ii) good prognosis
+with wild-type BRCA1/2 ("good-wt"); (iii) poor prognosis with
+BRCA1/2 mutation ("poor-mu"); and (iv) poor prognosis
+with BRCA1/2 wild-type ("poor-wt") groups. Strikingly, none of
+the BRCA1/2 mutation carriers in the good prognostic group of
+the discovery set died during the 5-year follow-up period whereas
+61% of the "poor-wt" patients died (Fig. 5B). The annotation of
+prognostic subgroups and BRCA1/2 status for patients from the
+TCGA discovery and validation sets is available in Supplementary
+Tables S5 and S6.
+The improved prognostic accuracy due to the combination of
+BRCA1/2 mutation status and PSFinder types was further validated in the TCGA validation cohort (Fig. 5C). Thus, combined
+PSFinder and BRCA1/2 dysfunction data provides better segregation of responders than either one alone in identifying patient
+who beneﬁt from platinum and taxane treatment.
+
+Discussion
+The ability to separate poor and good responders to the
+HGS-OvCa ﬁrst-line therapy, platinum and taxane combination regimen, is crucial for implementation of precision medicine to ovarian cancer. We have developed a novel computational approach PSFinder that allows identiﬁcation of patients
+with poor and good prognosis after chemotherapy using
+
+(Continued.) E, average expression fold change of poor I marker genes in primary cell lines (OC002, M022i, and M068i) to OVCAR8. Mean fold
+changes and standard errors are illustrated for all these three primary cell lines. F, percentage of AA values (mean  SEM) from decitabine treatment
+calculated from drug–response curves. G, drug–response curves for decitabine treatment in primary (OC002, M022i, M068i) and established (OVCAR-8)
+HGS-OvCa cell lines. Cell viability is presented as a percentage of untreated control (mean  SEM) in 0.01, 0.1, 1.0, and 10 mmol/L. The response
+changes between cell lines at each concentration were evaluated by one-way ANOVA test and the concentrations with signiﬁcant P values are shown
+with asterisks (     , P < 0.00001;    , P < 0.0001;    , P < 0.001;   , P < 0.01;  , P < 0.05 or empty P  0.05). H, expression of DNMT3A and DNMT3B in
+all test cell lines.
+
+www.aacrjournals.org
+
+Cancer Res; 75(15) August 1, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+2995
+
+Published OnlineFirst June 29, 2015; DOI: 10.1158/0008-5472.CAN-14-3242
+
+Chen et al.
+
+Figure 5.
+Association of BRCA1/2 mutation with PSFinder subgroups. A, BRCA1/2 mutation status and PSFinder subgroups in the TCGA discovery and validation sets.
+B, Kaplan–Meier survival curves for patients from TCGA discovery set given platinum–taxane combination therapy with (i) poor prognosis and wild-type BRCA1/2,
+(ii) poor prognosis and mutant BRCA1/2, (iii) good prognosis and wild-type BRCA1/2, and (iv) good prognosis and mutant BRCA1/2. The log-rank test P is
+0.0002. C, Kaplan–Meier survival curves for patients from TCGA validation set with (i) poor prognosis and wild-type BRCA1/2, (ii) poor prognosis and
+mutant BRCA1/2, (iii) good prognosis and wild-type BRCA1/2, and (iv) good prognosis and mutant BRCA1/2. The log-rank test P ¼ 0.017. The number of
+patients at risk is listed below each survival curve for each time point (x-axis of Kaplan–Meier survival curves).
+
+treatment-na€ve transcriptomics and clinical survival data.
+PSFinder uses an iterative rule–based approach to search for
+coexpressed features, which enables forming groups that have
+statistically signiﬁcant association to a clinical endpoint, such
+as overall survival, and the transcripts or genes characterizing a
+group are tightly coexpressed. The major ﬁndings of this study
+include: (i) identiﬁcation of a novel poor outcome group of
+patients with HGS-OvCa treated with surgery and platinum and
+taxane combination therapy; (ii) association of this group with
+increased DNA hypermethylation and demonstration of the
+effect of decitabine in cancer cells belonging to this group; (iii)
+identiﬁcation of a restricted set of transcriptomic biomarkers
+that provides a solid basis for further development of a diag-
+
+Table 2. Multivariant Cox regression analysis on PSFinder subgroups and
+clinical prognostic factors
+Prognostic factors
+Age
+PSFinder subgroups (poor vs. good)
+Residual disease
+BRCA1_2 (wt vs. mu)
+Grade
+Stage
+
+HR (95% CI)
+1.013 (0.997–1.029)
+1.542 (1.061–2.241)
+1.179 (0.986–1.411)
+2.384 (1.492–3.811)
+1.379 (0.89–2.137)
+1.351 (0.892–2.045)
+
+NOTE: Signiﬁcant P values (P < 0.05) are shown in bold.
+
+2996 Cancer Res; 75(15) August 1, 2015
+
+P
+0.103
+0.023
+0.071
+0.0003
+0.151
+0.156
+
+nostic test; and (iv) demonstration of the additive prognostic
+value of the combination of PSFinder markers and BRCA1/2
+pathogenic mutation over either test alone.
+When we applied PSFinder to clinical and expression data
+measured by exon arrays from platinum–taxane–treated
+HGS-OvCa patients, we identiﬁed two poor (poor I and poor II)
+and one signiﬁcantly better (good) outcome groups. Poor II type
+corresponds to the high stromal response molecular subtype (42).
+Poor overall survival in poor II or high stromal response type is in
+line with recent results that highlight the importance of stromal
+cell types in response to therapy (1). However, the overall survival
+of the poor I type is equally poor to the poor II type, which
+suggests that there are other factors than stromal response that
+play a key role in drug resistance. The poor I type has not been
+reported earlier and several genes that characterize poor I type
+have not been associated with poor survival in ovarian cancer.
+This is mostly due to the fact that the genes characterizing poor I
+type are not present in traditional gene microarrays, which also
+hindered our efforts to validate the poor I type in earlier cohorts. A
+few poor I characteristic genes, however, have been linked to drug
+response. For instance, PARG is a DNA repair gene that has been
+indicated in ovarian cancer tumor growth and drug response (43);
+BEST1 is a regulator of an ion channel, which is suggested as one of
+the major mechanisms conveying drug resistance in ovarian
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst June 29, 2015; DOI: 10.1158/0008-5472.CAN-14-3242
+
+Prognostic Subgroup Discovery in Ovarian Cancer
+
+cancer (44); and CXCL3, which is a proinﬂammatory chemokine,
+has been recently suggested as a therapeutic target in ovarian
+cancer (45).
+Samples belonging to the poor I type have signiﬁcantly
+higher rate of promoter hypermethylation than samples
+belonging to poor II or good types, which prompted us to
+test the effect of DNA methylation inhibitor decitabine in four
+HGS-OvCa cell lines. Earlier studies have examined the combinatorial effects of decitabine and platinum and demonstrated
+that nontoxic doses of decitabine sensitize ovarian tumor
+xenografts to platinum (46) and decitabine can be combined
+safely with platinum (47). A recent phase II trial, however, did
+not ﬁnd increased efﬁcacy when decitabine and platinum were
+combined, most likely because of nonoptimal patient selection
+strategy (48). Our results suggest that poor I type samples are
+more sensitive to decitabine than other samples. Therefore, it is
+tempting to speculate that the PSFinder signature could be
+useful to stratify patients in clinical trials that test the effect of
+decitabine alone or in combination with other agents.
+PSFinder identiﬁed a set of only 61 transcripts as putative
+prognostic biomarkers to platinum–taxane–treated HGS-OvCa
+patients, which provides a solid basis for further work to develop a
+diagnostic assay. Indeed, one of the clinically applicable major
+ﬁndings in this study is the combination of PSFinder signature
+and BRCA1/2 mutation status to predict the effect of platinum
+and taxane therapy from treatment-na€ve tumor specimens. The
+use of PSFinder predicted types and BRCA1/2 mutation status
+allowed identiﬁcation of patients with HGS-OvCa who truly
+beneﬁt from platinum and taxane combination therapy. In the
+discovery and validation sets, this group of excellent responders
+included approximately 8% of the patients in the cohort.
+In conclusion, our novel computational approach identiﬁed a
+restricted set of previously unknown isoform-level biomarkers. In
+combination with the BRCA mutation information, this panel
+may be used for stratiﬁcation of patients with HGS-OvCa on the
+basis of their response to state-of-the-art platinum–taxane combination therapy. Identiﬁcation of the extreme responders and
+primarily chemoresistant patients can help develop alternative
+treatment strategies and select patients for future therapeutic
+trials.
+
+Disclosure of Potential Conﬂicts of Interest
+P. Chen, K.Huhtinen, O. Carpen, and S. Hautaniemi are inventors in two
+patent applications "Method and system for targeted cancer therapy"
+(2140185FI/VK/LNY; patent pending) and "Ovarian cancer prognostic subgrouping" (2140082FIE; patent pending). No potential conﬂicts of interest
+were disclosed by the other authors.
+
+Authors' Contributions
+Conception and design: P. Chen, K. Huhtinen, O. Carpen, S. Hautaniemi
+Development of methodology: P. Chen, O. Carpen, S. Hautaniemi
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): K. Huhtinen, K. Kaipio, P. Mikkonen, J. Hynninen,
+A. Auranen, S. Grenman
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): P. Chen, K. Huhtinen, V. Aittom€aki, R. Lindell,
+O. Carpen, S. Hautaniemi
+Writing, review, and/or revision of the manuscript: P. Chen, K. Huhtinen,
+P. Mikkonen, V. Aittom€aki, R. Lindell, J. Hynninen, A. Auranen, S. Grenman,
+R. Lehtonen, O. Carpen, S. Hautaniemi
+Administrative, technical, or material support (i.e., reporting or organizing
+data, constructing databases): P. Chen, V. Aittom€aki, R. Lindell, J. Hynninen
+Study supervision: S. Grenman, R. Lehtonen, O. Carpen, S. Hautaniemi
+
+Acknowledgments
+The authors thank Professors David Bowtell and Jussi Taipale for critical
+review of the article, Professor Kristiina Aittom€aki and Dr. Arto Orpana for help
+in BRCA1/2 mutation analysis, Tiia Pelkonen for proofreading, and Yizhou Hu,
+Chiara Facciotto and Amjad Alkodsi for useful discussions and suggestions. The
+authors also thank CSC–IT Center for Science Ltd. for high-computing
+resources. The results published here are in part based upon data generated
+by TCGA managed by the NCI and NHGRI. Information about TCGA can be
+found at http://cancergenome.nih.gov.
+
+Grant Support
+This work was supported ﬁnancially by the Academy of Finland (Center of
+Excellence in Cancer Genetics Research), the Sigrid Juselius Foundation, Finnish
+Cancer Associations, Finnish Doctoral Programme in Computational Sciences
+(P. Chen), Ida Montini's Foundation (P. Chen), Turku University Hospital
+Research Funds, and European Regional Development Fund A31859.
+The costs of publication of this article were defrayed in part by the payment of
+page charges. This article must therefore be hereby marked advertisement in
+accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+Received November 3, 2014; revised May 15, 2015; accepted June 4, 2015;
+published OnlineFirst June 29, 2015.
+
+References
+1. Berns EM, Bowtell DD. The changing view of high-grade serous ovarian
+cancer. Cancer Res 2012;72:2701–4.
+2. Colombo N, Peiretti M, Parma G, Lapresa M, Mancari R, Carinelli S, et al.
+Newly diagnosed and relapsed epithelial ovarian carcinoma: ESMO Clinical Practice Guidelines for diagnosis, treatment and follow-up. Ann Oncol
+2010;21 Suppl 5:v23–30.
+3. Hiss D. Optimizing molecular-targeted therapies in ovarian cancer: the
+renewed surge of interest in ovarian cancer biomarkers and cell signaling
+pathways. J Oncol 2012;2012:737981.
+4. Daniels MS, Babb SA, King RH, Urbauer DL, Batte BA, Brandt AC, et al.
+Underestimation of risk of a BRCA1 or BRCA2 mutation in women with
+high-grade serous ovarian cancer by BRCAPRO: a multi-institution study.
+J Clin Oncol 2014;32:1249–55.
+5. Duan Z, Foster R, Bell DA, Mahoney J, Wolak K, Vaidya A, et al.
+Signal transducers and activators of transcription 3 pathway activation in drug-resistant ovarian cancer. Clin Cancer Res 2006;12:
+5055–63.
+6. Boivin M, Lane D, Piche A, Rancourt C. CA125 (MUC16) tumor antigen
+selectively modulates the sensitivity of ovarian cancer cells to genotoxic
+drug-induced apoptosis. Gynecol Oncol 2009;115:407–13.
+
+www.aacrjournals.org
+
+7. Gonzalez-Angulo AM, Hennessy BT, Mills GB. Future of personalized
+medicine in oncology: a systems biology approach. J Clin Oncol 2010;
+28:2777–83.
+8. Tothill RW, Tinker AV, George J, Brown R, Fox SB, Lade S, et al.
+Novel molecular subtypes of serous and endometrioid ovarian
+cancer linked to clinical outcome. Clin Cancer Res 2008;14:
+5198–208.
+9. Tan TZ, Miow QH, Huang RY-J, Wong MK, Ye J, Lau JA, et al. Functional
+genomics identiﬁes ﬁve distinct molecular subtypes with clinical relevance
+and pathways for growth control in epithelial ovarian cancer. EMBO Mol
+Med 2013;5:1051–66.
+10. Yuan Y, Savage RS, Markowetz F. Patient-speciﬁc data fusion
+deﬁnes prognostic cancer subtypes. PLoS Comput Biol 2011;7:
+e1002227.
+11. Yoshihara K, Tajima A, Komata D, Yamamoto T, Kodama S, Fujiwara H,
+et al. Gene expression proﬁling of advanced-stage serous ovarian cancers
+distinguishes novel subclasses and implicates ZEB2 in tumor progression
+and prognosis. Cancer Sci 2009;100:1421–8.
+12. Cancer Genome Atlas Research N. Integrated genomic analyses of ovarian
+carcinoma. Nature 2011;474:609–15.
+
+Cancer Res; 75(15) August 1, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+2997
+
+Published OnlineFirst June 29, 2015; DOI: 10.1158/0008-5472.CAN-14-3242
+
+Chen et al.
+
+13. Yang JY, Yoshihara K, Tanaka K, Hatae M, Masuzaki H, Itamochi H, et al.
+Predicting time to ovarian carcinoma recurrence using protein markers.
+J Clin Invest 2013;123:3740–50.
+14. Verhaak RG, Tamayo P, Yang JY, Hubbard D, Zhang H, Creighton CJ, et al.
+Prognostically relevant gene signatures of high-grade serous ovarian carcinoma. J Clin Invest 2013;123:517–25.
+15. Riester M, Wei W, Waldron L, Culhane AC, Trippa L, Oliva E, et al. Risk
+prediction for late-stage ovarian cancer by meta-analysis of 1525 patient
+samples. J Natl Cancer Inst 2014;106. pii: dju048.
+16. Chen P, Lepikhova T, Hu Y, Monni O, Hautaniemi S. Comprehensive exon
+array data processing method for quantitative analysis of alternative
+spliced variants. Nucleic Acids Res 2011;39:e123.
+17. Cancer Genome Atlas Research N. Comprehensive molecular characterization of clear cell renal cell carcinoma. Nature 2013;499:43–9.
+18. Domcke S, Sinha R, Levine DA, Sander C, Schultz N. Evaluating cell lines as
+tumour models by comparison of genomic proﬁles. Nat Commun
+2013;4:2126.
+19. Bolger AM, Lohse M, Usadel B. Trimmomatic: a ﬂexible trimmer for
+Illumina sequence data. Bioinformatics 2014;30:2114–20.
+20. Dobin A, Davis CA, Schlesinger F, Drenkow J, Zaleski C, Jha S, et al.
+STAR: ultrafast universal RNA-seq aligner. Bioinformatics 2013;29:
+15–21.
+21. Trapnell C, Roberts A, Goff L, Pertea G, Kim D, Kelley DR, et al. Differential
+gene and transcript expression analysis of RNA-seq experiments with
+TopHat and Cufﬂinks. Nat Protoc 2012;7:562–78.
+22. Barretina J, Caponigro G, Stransky N, Venkatesan K, Margolin AA, Kim S,
+et al. The Cancer Cell Line Encyclopedia enables predictive modelling of
+anticancer drug sensitivity. Nature 2012;483:603–7.
+23. Cox DR. Regression models and life-tables. J R Stat Soc B 1972;34:187–220.
+24. Cerami E, Gao J, Dogrusoz U, Gross BE, Sumer SO, Aksoy BA,
+et al. The cBio cancer genomics portal: an open platform for
+exploring multidimensional cancer genomics data. Cancer Discov
+2012;2:401–4.
+25. Vandesompele J, De Preter K, Pattyn F, Poppe B, Van Roy N, De Paepe A,
+et al. Accurate normalization of real-time quantitative RT-PCR data by
+geometric averaging of multiple internal control genes. Genome Biol
+2002;3:RESEARCH0034.
+26. Pfafﬂ MW, Tichopad A, Prgomet C, Neuvians TP. Determination of stable
+housekeeping genes, differentially regulated target genes and sample
+integrity: BestKeeper–Excel-based tool using pair-wise correlations. Biotechnol Lett 2004;26:509–15.
+27. Hynninen J, Auranen A, Carpen O, Dean K, Seppanen M, Kemppainen J, et al. FDG PET/CT in staging of advanced epithelial ovarian
+cancer: frequency of supradiaphragmatic lymph node metastasis
+challenges the traditional pattern of disease spread. Gynecol Oncol
+2012;126:64–8.
+28. Yoshihara K, Tajima A, Yahata T, Kodama S, Fujiwara H, Suzuki M, et al.
+Gene expression proﬁle for predicting survival in advanced-stage serous
+ovarian cancer across two independent datasets. PLoS One 2010;5:
+e9615.
+29. Ferriss JS, Kim Y, Duska L, Birrer M, Levine DA, Moskaluk C, et al. Multigene expression predictors of single drug responses to adjuvant chemotherapy in ovarian carcinoma: predicting platinum resistance. PLoS One
+2012;7:e30550.
+30. Crijns AP, Fehrmann RS, de Jong S, Gerbens F, Meersma GJ, Klip HG, et al.
+Survival-related proﬁle, pathways, and transcription factors in ovarian
+cancer. PLoS Med 2009;6:e24.
+31. Mok SC, Bonome T, Vathipadiekal V, Bell A, Johnson ME, Wong KK, et al. A
+gene signature predictive for outcome in advanced ovarian cancer identiﬁes
+a survival factor: microﬁbril-associated glycoprotein 2. Cancer Cell
+2009;16:521–32.
+
+2998 Cancer Res; 75(15) August 1, 2015
+
+32. Mateescu B, Batista L, Cardon M, Gruosso T, de Feraudy Y, Mariani O, et al.
+miR-141 and miR-200a act on ovarian tumorigenesis by controlling
+oxidative stress response. Nat Med 2011;17:1627–35.
+33. Robertson KD. DNA methylation, methyltransferases, and cancer. Oncogene 2001;20:3139–55.
+34. Girault I, Tozlu S, Lidereau R, Bieche I. Expression analysis of DNA
+methyltransferases 1, 3A, and 3B in sporadic breast carcinomas. Clin
+Cancer Res 2003;9:4415–22.
+35. Jin F, Dowdy SC, Xiong Y, Eberhardt NL, Podratz KC, Jiang SW. Upregulation of DNA methyltransferase 3B expression in endometrial cancers.
+Gynecol Oncol 2005;96:531–8.
+36. Mizuno S, Chijiwa T, Okamura T, Akashi K, Fukumaki Y, Niho Y, et al.
+Expression of DNA methyltransferases DNMT1, 3A, and 3B in normal
+hematopoiesis and in acute and chronic myelogenous leukemia. Blood
+2001;97:1172–9.
+37. Esteller M. Cancer epigenomics: DNA methylomes and histone-modiﬁcation maps. Nat Rev Genet 2007;8:286–98.
+38. Flotho C, Claus R, Batz C, Schneider M, Sandrock I, Ihde S, et al. The DNA
+methyltransferase inhibitors azacitidine, decitabine and zebularine exert
+differential effects on cancer gene expression in acute myeloid leukemia
+cells. Leukemia 2009;23:1019–28.
+39. Oka M, Meacham AM, Hamazaki T, Rodic N, Chang LJ, Terada N. De novo
+DNA methyltransferases Dnmt3a and Dnmt3b primarily mediate the
+cytotoxic effect of 5-aza-20 -deoxycytidine. Oncogene 2005;24:3091–9.
+40. Yang D, Khan S, Sun Y, Hess K, Shmulevich I, Sood AK, et al. Association of
+BRCA1 and BRCA2 mutations with survival, chemotherapy sensitivity, and
+gene mutator phenotype in patients with ovarian cancer. JAMA 2011;
+306:1557–65.
+41. du Bois A, Reuss A, Pujade-Lauraine E, Harter P, Ray-Coquard I, Pﬁsterer J.
+Role of surgical outcome as prognostic factor in advanced epithelial
+ovarian cancer: a combined exploratory analysis of 3 prospectively randomized phase 3 multicenter trials: by the Arbeitsgemeinschaft Gynaekologische Onkologie Studiengruppe Ovarialkarzinom (AGO-OVAR) and
+the Groupe d'Investigateurs Nationaux Pour les Etudes des Cancers de
+l'Ovaire (GINECO). Cancer 2009;115:1234–44.
+42. Cheon DJ, Tong Y, Sim MS, Dering J, Berel D, Cui X, et al. A collagenremodeling gene signature regulated by TGF-beta signaling is associated
+with metastasis and poor survival in serous ovarian cancer. Clin Cancer Res
+2014;20:711–23.
+43. Sun Y, Zhang T, Wang B, Li H, Li P. Tannic acid, an inhibitor of poly(ADPribose) glycohydrolase, sensitizes ovarian carcinoma cells to cisplatin.
+Anticancer Drugs 2012;23:979–90.
+44. Frede J, Fraser SP, Oskay-Ozcelik G, Hong Y, Ioana Braicu E, Sehouli J, et al.
+Ovarian cancer: Ion channel and aquaporin expression as novel targets of
+clinical potential. Eur J Cancer 2013;49:2331–44.
+45. Son DS, Kabir SM, Dong Y, Lee E, Adunyah SE. Characteristics of chemokine signatures elicited by EGF and TNF in ovarian cancer cells. J Inﬂamm
+2013;10:25.
+46. Plumb JA, Strathdee G, Sludden J, Kaye SB, Brown R. Reversal of drug
+resistance in human tumor xenografts by 20 -deoxy-5-azacytidineinduced demethylation of the hMLH1 gene promoter. Cancer Res
+2000;60:6039–44.
+47. Appleton K, Mackay HJ, Judson I, Plumb JA, McCormick C, Strathdee G,
+et al. Phase I and pharmacodynamic trial of the DNA methyltransferase
+inhibitor decitabine and carboplatin in solid tumors. J Clin Oncol
+2007;25:4603–9.
+48. Glasspool RM, Brown R, Gore ME, Rustin GJ, McNeish IA, Wilson RH, et al.
+A randomised, phase II trial of the DNA-hypomethylating agent 5-aza-20 deoxycytidine (decitabine) in combination with carboplatin vs carboplatin alone in patients with recurrent, partially platinum-sensitive ovarian
+cancer. Br J Cancer 2014;110:1923–9.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst June 29, 2015; DOI: 10.1158/0008-5472.CAN-14-3242
+
+Identification of Prognostic Groups in High-Grade Serous Ovarian
+Cancer Treated with Platinum−Taxane Chemotherapy
+Ping Chen, Kaisa Huhtinen, Katja Kaipio, et al.
+Cancer Res 2015;75:2987-2998. Published OnlineFirst June 29, 2015.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-14-3242
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2015/07/29/0008-5472.CAN-14-3242.DC1
+
+This article cites 48 articles, 11 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/75/15/2987.full#ref-list-1
+This article has been cited by 1 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/75/15/2987.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+

@@ -1,0 +1,2199 @@
+Published OnlineFirst December 2, 2010; DOI: 10.1158/0008-5472.CAN-10-2987
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+Dynamic Mathematical Modeling of IL13-Induced Signaling
+in Hodgkin and Primary Mediastinal B-Cell Lymphoma
+Allows Prediction of Therapeutic Targets
+€ hm2, Bettina Hahn2, Andreas Kowarsch3, Andreas Raue4,
+Valentina Raia1, Marcel Schilling1, Martin Bo
+5
+1
+€ ller6, Norbert Gretz5, Jens Timmer4,7,8,
+Carsten Sticht , Sebastian Bohl , Maria Saile5, Peter Mo
+3
+2
+9
+€ller1
+Fabian Theis , Wolf-Dieter Lehmann , Peter Lichter , and Ursula Klingmu
+
+Abstract
+Primary mediastinal B-cell lymphoma (PMBL) and classical Hodgkin lymphoma (cHL) share a frequent
+constitutive activation of JAK (Janus kinase)/STAT signaling pathway. Because of complex, nonlinear relations
+within the pathway, key dynamic properties remained to be identified to predict possible strategies for
+intervention. We report the development of dynamic pathway models based on quantitative data collected
+on signaling components of JAK/STAT pathway in two lymphoma-derived cell lines, MedB-1 and L1236,
+representative of PMBL and cHL, respectively. We show that the amounts of STAT5 and STAT6 are higher
+whereas those of SHP1 are lower in the two lymphoma cell lines than in normal B cells. Distinctively, L1236 cells
+harbor more JAK2 and less SHP1 molecules per cell than MedB-1 or control cells. In both lymphoma cell lines, we
+observe interleukin-13 (IL13)-induced activation of IL4 receptor a, JAK2, and STAT5, but not of STAT6. Genomewide, 11 early and 16 sustained genes are upregulated by IL13 in both lymphoma cell lines. Specifically, the
+known STAT-inducible negative regulators CISH and SOCS3 are upregulated within 2 hours in MedB-1 but not in
+L1236 cells. On the basis of this detailed quantitative information, we established two mathematical models,
+MedB-1 and L1236 model, able to describe the respective experimental data. Most of the model parameters are
+identifiable and therefore the models are predictive. Sensitivity analysis of the model identifies six possible
+therapeutic targets able to reduce gene expression levels in L1236 cells and three in MedB-1. We experimentally
+confirm reduction in target gene expression in response to inhibition of STAT5 phosphorylation, thereby
+validating one of the predicted targets. Cancer Res; 71(3); 693–704. 2010 AACR.
+
+Major Findings
+
+Introduction
+
+We uncover major differential aberrations in the stoichiometry of JAK/STAT pathway components in the
+lymphoma-derived cell lines MedB-1 and L1236 compared with normal B cells. Furthermore, we identify that
+the IL13 decoy receptor and the induction of negative
+feedback regulators significantly contribute to IL13 signaling in MedB-1 cells but not in L1236. Finally, we show
+that our data-based mathematical models of the JAK/
+STAT pathway in lymphoma cells facilitate the quantitative prediction of perturbations, opening the possibility
+to guide the identification of therapeutic targets.
+
+A deregulated activation of JAK (Janus kinase)/STAT pathway is frequently observed in 2 clinically different hematologic
+malignancies: primary mediastinal B-cell lymphoma (PMBL)
+and classical Hodgkin lymphoma (cHL). The STAT family
+member STAT6 is hyperphosphorylated in about 80% of PMBL
+(1) and cHL (2) patients, mutations of the negative regulator
+SOCS1 are common (3, 4) and chromosomal aberrations
+including gains of the JAK2 gene were observed in 35% of
+PMBLs and in 33% of Hodgkin lymphomas (5). STAT5, another
+STAT family member, is phosphorylated in approximately 30%
+of cHL patients (6). In normal B cells, interleukin (IL)-13 and
+IL4 are the ligands inducing the activation of the pathway
+
+Authors' Affiliations: 1Divisions of Systems Biology of Signal Transduction,
+DKFZ-ZMBH Alliance and 9Molecular Genetics, and 2Molecular Structural
+Analysis, German Cancer Research Center (DKFZ), Heidelberg; 3Computational Modeling in Biology, Institute for Bioinformatics and Systems Biology,
+€nchen; 4Physics Institute, University of Freiburg;
+Helmholtz Zentrum Mu
+5
+Medical Research Center, Medical Faculty Mannheim, University of Heidelberg, Mannheim; 6Institute of Pathology, Ulm University Clinic, Ulm;
+7
+Freiburg Institute for Advanced Studies; and 8Centre for Biological Signalling Studies (BIOSS), University of Freiburg, Freiburg, Germany
+
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+€ller, Im Neuenheimer Feld 280,
+Corresponding Author: Ursula Klingmu
+69120 Heidelberg, Germany. Phone: 49-6221-42-4481; Fax: 49-6221-424488. E-mail: u.klingmueller@dkfz-heidelberg.de
+doi: 10.1158/0008-5472.CAN-10-2987
+2010 American Association for Cancer Research.
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+693
+
+Published OnlineFirst December 2, 2010; DOI: 10.1158/0008-5472.CAN-10-2987
+Raia et al.
+
+Quick Guide to Main Model Equations
+Here we describe 2 key reactions of the MedB-1 model. A model description is in Supplementary Text S7. Details of MedB-1 and
+L1236 models are in Supplementary Text S8.
+pJAK2 : dðpJAK2Þ=dt ¼ JAK2 phosphorylation  IL13 Rec  JAK2=ð1 þ JAK2 p inhibition  SOCS3Þ
+þ JAK2 phosphorylation  p IL13 Rec  JAK2=ð1 þ JAK2 p inhibition  SOCS3Þ
+ pJAK2 dephosphorylation  pJAK2  SHP1
+The amount of pJAK2 over time is dependent on several factors because its production is triggered by either IL13_Rec or
+p_IL13_Rec and is inhibited by SOCS3 and SHP1. The equation describing pJAK2 behavior over time in our model is thus
+composed by the sum of 2 inducing reactions minus the SHP1-triggered reverse reaction pJAK2 ! JAK2. SOCS3 contribution was
+introduced as a denominator to each of the 2 inducing reactions. The difference between SOCS3 and SHP1 lies in the fact that
+SOCS3 inhibits the phosphorylation of JAK2 whereas SHP1 induces the dephosphorylation of pJAK2.
+SOCS3 : dðSOCS3Þ=dt ¼ SOCS3mRNA  SOCS3 translation=ðSOCS3 accumulation þ SOCS3mRNAÞ
+ SOCS3 degradation  SOCS3
+The equation describing SOCS3 behavior over time is composed of 3 parts: (i) SOCS3mRNA-dependent SOCS3_production
+divided by (ii) SOCS3_accumulation summed to SOCS3mRNA minus (iii) SOCS3_degradation.
+
+Major Assumptions of the Model
+1) We assume that the initial value of all phosphorylated species in the model is 0, i.e., we assume that the starvation is 100%
+efficient. This assumption is supported by immunoblotting and MS evidence.
+2) We assume that the initial value of SOCS3 and CD274 mRNA is zero.
+3) We consider the cell as one compartment and we assume free spatial availability of all molecules to others.
+4) We assume that the number of SHP1 molecules per cell is constant over time. This assumption is supported by IB evidence
+(Supplementary Fig. S9).
+5) On the basis of previous works (30, 31), and because we could coimmunoprecipitate SHP1 with STAT5 and detect it by
+immunoblotting and MS analysis (Supplementary Fig. S10), we assume that SHP1 is responsible for the dephosphorylation of
+pSTAT5.
+6) The species named "Rec" in the model is a heterodimer composed of IL4Ra and IL13Ra1. We assume that upon binding
+of IL13, the receptor complex can phosphorylate JAK2, because of its association with the kinase TYK2 (also included in
+"Rec").
+
+mediated by the IL4 receptor a (IL4Ra), IL13 receptor a 1
+(IL13Ra1), the associated kinases JAK2 and TYK2, and the
+transcription factors STAT5 and STAT6 (7, 8). In the tumor
+cells of cHL (Hodgkin and Reed-Sternberg cells), it has been
+shown that IL13 is secreted and stimulates the tumor cells in
+an autocrine manner (9).
+Despite the extensive knowledge of alterations in the JAK/
+STAT pathway, several issues concerning its aberrant activation in lymphomas remained unresolved, including the role of
+nonmutated negative regulators, such as the inducible SOCS3
+and the constitutively expressed SHP1. Furthermore, the
+differential role of STAT5 and STAT6 is still controversially
+discussed (1, 2, 4, 7, 10). Dealing with such complex, nonlinear
+systems, traditional qualitative or semiquantitative studies are
+not sufficient to understand dynamic properties and to quantitatively predict suitable targets that would alter the
+responses of the systems for therapeutic purposes. Therefore,
+dynamic pathway models are very useful. Several mathematical models of the JAK/STAT pathway are available that are
+
+694
+
+Cancer Res; 71(3) February 1, 2011
+
+mainly literature-based (11, 12) and focused on nonpathologic
+systems (13), especially healthy hepatocytes (14, 15). We
+previously described how a data-based model of JAK2/STAT5
+signaling in hematopoietic cells could predict the system's
+response to perturbations (16). Despite a few exceptions (17),
+there is a general lack of data-based JAK/STAT mathematical
+models for pathologic conditions. Moreover, with the exception of rituximab, the currently available therapies for PMBL
+(18) and cHL (19), based on chemotherapy, radiotherapy, and
+autologous stem cell transplantation, lack specific molecular
+targets, thus encouraging studies in this direction.
+We report the quantitative analysis of the JAK/STAT pathway in 2 cell lines, MedB-1 (20) and L1236, derived from PMBL
+and cHL, respectively, by generation of ordinary differentially
+equation (ODE)–based models and their calibration with
+time-resolved quantitative experimental data. These studies
+yielded evidence for major differences and similarities among
+the 2 tumor entities and facilitated the prediction of potential
+therapeutic targets.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst December 2, 2010; DOI: 10.1158/0008-5472.CAN-10-2987
+Modeling of IL13-Induced Signaling in Two Lymphoma Entities
+
+Materials and Methods
+Cell culture
+The cHL cell line L1236 was obtained from the German
+Collection of Microorganisms and Cell Cultures that characterized it by morphology, immunology, DNA fingerprint, and
+cytogenetics. The PMBL cell line MedB-1 was previously established (20) and characterized by morphology and cytogenetics.
+Both cell lines were grown in RPMI 1640 supplemented with
+10% fetal calf serum, 1% L-glutamine, and 1% penicillin-streptomycin. Before each experiment, cells were starved for 5 hours
+in RPMI 1640 with 1 mg/mL bovine serum albumin (SigmaAldrich Chemie Gmbh). Recombinant human IL13 (R&D
+Systems) was used as a stimulus in all experiments.
+Isolation of human B cells
+Primary human B cells were isolated from buffy coats of
+healthy donors purchased from IKTZ Heidelberg Blood Bank
+as described in the Supplementary Methods S1.
+Real-time PCR
+Total RNA was extracted with RNeasy Plus Kit (Qiagen) and
+2 mg were reverse transcribed with QuantiTect Rev. Transcription Kit (Qiagen). Quantitative real-time PCR (qRT-PCR) was
+conducted with the LightCycler 480 System (Roche) and by
+using probes from the Universal Probe Library (Roche)
+according to the manufacturer's instructions. The housekeeping gene hypoxanthine phosphoribosyltransferase 1 (HPRT)
+was used for normalization of all analyzed genes. Tables with
+primers, probes, and details about the qRT-PCR reaction
+conditions are supplied in the Supplementary Table S2.
+Immunoprecipitations and immunoblotting
+Immunoprecipitations (IP), quantitative immunoblotting,
+and data analysis were done as previously described (21–23),
+with minor changes (See Supplementary Methods S3).
+Flow cytometry
+At each time point, cells were centrifuged, washed, and fixed
+in 2% formaldehyde at room temperature for 30 minutes. After
+washes, cells were stained with the appropriate antibody for 20
+minutes at 4 C, washed again, and acquired at a FACSCalibur
+Flow Cytometer (BD Biosciences). Data were analyzed with
+CellQuest Pro software (BD Biosciences). Quantibrite PE (phycoerythrin) Beads (BD Biosciences) were used following manufacturer's instructions to determine the number of receptors
+on the cell surface. PE molecules per cell were calculated from a
+standard curve of PE-labeled beads and, assuming a 1:1 monoclonal antibody to receptor ratio, molecules of receptor per cell
+were then calculated according to the fluorophore to antibody
+conjugation ratio (1:1 for IL4Ra, 1.8:1 for IL13Ra2).
+Antibodies
+See Supplementary Methods S4.
+ELISA
+At the desired time points after IL13 stimulation, cells were
+centrifuged and supernatant and cell pellets were separated.
+
+www.aacrjournals.org
+
+Cells were lysed and ELISAs were carried out with Human IL13 Quantikine ELISA Kit (R&D Systems) according to the
+manufacturer's instructions to detect cell-associated (cell
+lysate) and extracellular (supernatant) IL13.
+Inhibitor
+JAK inhibitor I, a JAK2-kinase inhibitor, was purchased
+from Merck, diluted in dimethyl sulfoxide (DMSO), and
+used for model validation experiments at a concentration
+of 160 nmol/L.
+Mass spectrometric analysis
+Mass spectrometric (MS) analysis was done to measure sitespecific phosphorylation degrees of STAT5 and STAT6 in
+nonstarved cells or cells starved and stimulated with IL13.
+Following IP of endogenous STATs, proteins were separated
+on SDS-PAGE and in gel digested with trypsin (STAT5) or
+AspN/LysC (STAT6) as described (24). MS analysis was done
+using a nanoAcquity UPLC (Waters) coupled to an LTQOrbitrap XL (Thermo) as described (25) for STAT5 or to a
+QTOF-2 (Waters/Micromass) for STAT6. Site-specific phosphorylation degree was determined in a label-free manner for
+STAT6 and by isotope dilution analysis with isotopically
+labeled peptide/phosphopeptide standards for STAT5. Data
+were analyzed using MassLynx V4.1, Xcalibur 2.0.6, and MASCOT 2.2.2.
+Gene expression arrays
+After starvation, MedB-1 and L1236 cells were stimulated
+with 20 and 40 ng/mL IL13, respectively; unstimulated cells
+were used as control. Samples were collected over a period
+of 12 hours after stimulation and RNA was analyzed on
+Human Gene 1.0 ST Arrays (Affymetrix). Data were analyzed,
+first, by using a standard approach and, second, by using the
+GraDe algorithms (ref. 26; details in Supplementary Methods
+S5). Data are available from the National Center for Biotechnology Information Gene Expression Omnibus, accession ID
+GSE23591.
+Mathematical modeling
+The ODE-based models were developed and calibrated
+using the MATLAB toolbox PottersWheel 2.0.47 (ref. 27;
+Supplementary Methods S6). To find optimal parameter
+values and to study parameter variability in terms of structural
+identifiability, 1,000 parameter estimations for randomly
+selected initial points were carried out for each of the 2
+models (MedB-1 model and L1236 model).
+Identifiability analysis
+Structural identifiability analysis of each mathematical
+model was done on the best 10% of the 1,000 parameter
+estimations through analysis of the distribution of parameter
+estimates and by Mean Optimal Transformations Approach
+(MOTA; ref. 28). To visualize the variability of the estimated
+model dynamics corresponding to the distribution of parameter estimates, the 10% best trajectories were displayed for
+each of the model variables.
+
+Cancer Res; 71(3) February 1, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+695
+
+Published OnlineFirst December 2, 2010; DOI: 10.1158/0008-5472.CAN-10-2987
+Raia et al.
+
+Sensitivity analysis
+Sensitivity analysis was done as previously described (21) by
+varying each parameter of the model individually by about 1%
+of about its estimated value and calculating the relative
+changes in gene expression, represented in the model by
+relative changes in the area under the curve from time 0 to
+100 minutes of the CD274mRNA trajectory.
+Proliferation assay
+Cells in cultivation medium were treated with 80 ng/mL
+IL13 in the presence or absence of JAK inhibitor I, and
+proliferation was evaluated at 72 hours with a Multisizer
+Coulter Counter (Beckman Coulter).
+Statistical analysis
+Two-tailed t test was used to evaluate the significance of the
+differences between numbers of molecules per cell in different
+cell types and to test the efficiency of JAK inhibitor I. Bonferroni correction was applied when carrying out multiple
+tests. The values of P < 0.05 were considered statistically
+significant; c2 tests allowed evaluation of the goodness-offit of mathematical models. When P > 0.01, the models were
+not rejected and, if necessary, further selected by likelihood
+ratio tests as reviewed in ref. 29.
+
+Results
+Differences in the stoichiometry of signaling
+components in lymphoma cells
+The abundance of cell surface receptors and downstream
+pathway components has a strong impact on signal transduction (32, 33) and is frequently altered in tumor cells. IL13induced signal transduction is mediated by the heterodimeric receptor IL4Ra/IL13Ra1. IL13, however, also binds
+with high-affinity IL13Ra2 (34), a decoy receptor that does
+not directly contribute to JAK/STAT signaling. By flow
+cytometry, we showed that both lymphoma cell lines,
+MedB-1 (20) and L1236, expressed comparable numbers
+of IL4Ra molecules per cell on the cell surface whereas
+IL13Ra2 expression is 4-fold higher in L1236 than in
+MedB-1 cells (Fig. 1 and Supplementary Fig. S11). A direct
+comparison with receptor expression on CD19þ B cells from
+healthy donors (control cells) was not possible, as the signal
+was below the detection limit.
+The stoichiometry of major components of the JAK/STAT
+signaling cascade in the 2 lymphoma cell lines and in control
+cells was determined by quantitative immunoblotting (Supplementary Figs. S12–S14). As shown in Fig. 1, the levels of the
+signaling components are significantly altered in the 2 lymphoma cell lines compared with controls. Both lymphoma cell
+
+106
+***
+
+***
+
+* ***
+
+* ***
+
+**
+**
+
+**
+
+Molecules per cell
+
+105
+*
+
+*
+
+104
+
+*
+
+103
+
+102
+STAT6
+
+STAT5
+
+SHP1
+
+MedB-1
+L1236
+B cells from healthy donors
+
+696
+
+Cancer Res; 71(3) February 1, 2011
+
+JAK2
+
+IL4Ra
+
+IL13Ra2
+
+Figure 1. Altered stoichiometry in
+2 lymphoma entities compared
+with B cells from healthy donors
+(controls). Numbers of molecules
+per cell for STATs, SHP1, and
+JAK2 were determined by
+quantitative immunoblotting
+(Supplementary Figs. S11–S13),
+using dilution series of GSTtagged recombinant proteins as
+reference (Supplementary
+Methods S3), and capturing the
+chemiluminescent signal in
+nonsaturating conditions by CCD
+camera and quantifying it by
+LumiAnalyst software. Surface
+receptor levels were measured by
+flow cytometry (Supplementary
+Fig. S10) using Quantibrite PE
+Beads as references. In controls,
+the amounts of IL4Ra and IL13Ra2
+on the cell surface were below the
+detection level. Error bars
+represent SDs of 3 or more
+replicates. Bonferroni-corrected
+2-tailed t test was conducted for
+statistical significance (*, P < 0.05;
+**, P < 0.001; ***, P < 0.0001).
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst December 2, 2010; DOI: 10.1158/0008-5472.CAN-10-2987
+Modeling of IL13-Induced Signaling in Two Lymphoma Entities
+
+lines show a major increase in STAT molecules. Control cells
+contain approximately 10,000 STAT6 and 22,000 STAT5 molecules per cell. In comparison, MedB-1 cells harbor approximately 9-fold more STAT6, approximately 7-fold more STAT5
+and L1236 cells, approximately 22-fold more STAT6, and
+approximately 9-fold more STAT5. MedB-1 cells, with approximately 3-fold more JAK2 and approximately 2-fold less SHP1,
+display only minor alterations compared with the 1,000 JAK2
+molecules per cell and 173,000 SHP1 molecules per cell of
+controls. In contrast, L1236 cells show much higher divergence, harboring approximately 25-fold more JAK2 and
+approximately 18-fold less SHP1. These results indicate that
+the stoichiometry of receptors and signaling components not
+only shows quantitative aberrances in lymphoma cells compared with controls but also enables discrimination between
+different lymphoma types.
+Identification of the STAT family member induced by
+IL13
+The respective roles of STAT5 and STAT6 in the pathway
+induced by IL13 have been discussed controversially (1, 2, 4, 7,
+10). To establish which STAT molecule is primarily transducing the signal initiated by IL13 in our cell systems, the
+phosphorylation levels of STAT5 and STAT6 in response to
+IL13 stimulation were examined. Surprisingly, only STAT5
+phosphorylation showed a dose-dependent transient increase
+following IL13 treatment whereas STAT6 phosphorylation did
+not increase substantially (Fig. 2A and B). The analysis by MS
+revealed that in normal culture conditions, the levels of
+activated STAT6 (pSTAT6) are 80% to 90% in both cell types
+
+(Supplementary Fig. S15A and B), explaining the still high
+levels of STAT6 phosphorylation observed by immunoblotting
+after starvation. In contrast, the phosphorylation degree of
+STAT5 achieved by starvation is close to zero (Fig. 2C and
+Supplementary Fig. S15C). Stimulations of MedB-1 cells with
+20 ng/mL IL13 for 40 minutes triggered phosphorylation of
+STAT5 that is 63% of the total (Fig. 2C), whereas in L1236 cells
+stimulated with 40 ng/mL IL13 pSTAT5 levels after 40 minutes
+were 30% of the total STAT5 amounts (Supplementary
+Fig. S15C). Because of the absence of a major effect of IL13
+stimulation on STAT6 phosphorylation, only STAT5 was
+considered for further analysis.
+Time-resolved analyses of IL13 target genes in
+lymphoma cell lines
+To identify at a genome-wide level, the effect of IL13 on gene
+expression and on biological processes over 12 hours (longterm response) and over 2 hours (early response), we conducted time-resolved expression profiling in MedB-1 and
+L1236 cells. One hundred seventy-four long-term response
+genes were detected in MedB-1 cells and 113 in L1236 cells
+(Supplementary Fig. S16 and Table S16), of which 16 are in
+common (Supplementary Table S17). The time-courses of 2 of
+these genes are shown exemplarily (Fig. 3A). Interestingly,
+molecular functional analysis showed that the IL13-induced
+genes include many positive (JAK2, STAT3, STAT4, STAT5A,
+STAT5B) and negative (CISH, SOCS1, SOCS2, SOCS3) regulators
+of the JAK/STAT pathway in MedB-1 cells, but they include
+only 2 genes (IL6 and CISH) in L1236 cells. By using the GraDe
+approach (26), we show that in MedB-1 cells genes involved in
+
+A
+
+C
+pSTAT5
+4 ng/mL IL13
+20 ng/mL IL13
+
+2.0
+1.5
+1.0
+0.5
+
+0
+
+20
+
+40
+60
+Time (min)
+
+80
+
+STAT5
+
+100
+80
+60
+
+<2%
+
+40
+20
+
+pSTAT5
+
+0
+
+100
+
+20.5
+
+B
+
+MedB-1 + 20 ng/mL IL13
+4 ng/mL IL13
+20 ng/mL IL13
+
+2.5
+2.0
+1.5
+1.0
+0.5
+0
+
+20
+
+40
+60
+Time (min)
+
+80
+
+100
+
+Relative abundance (%)
+
+pSTAT6
+3.0
+
+21.0
+
+Retention time (min)
+
+0.0
+
+www.aacrjournals.org
+
+Relative abundance (%)
+
+MedB-1 — no stimulation
+
+0.0
+
+pSTAT6 (a. u.)
+
+Figure 2. IL13 induces activation
+of STAT5, but not of STAT6, in
+MedB-1 cells. Quantitative
+immunoblotting detection
+followed by quantification of
+chemiluminescent signal by
+LumiAnalyst software, of pSTAT5
+(A) and pSTAT6 (B) over time upon
+IL13 stimulation. Data from 3
+different experiments were
+normalized and averaged. Error
+bars are derived from linear error
+models (Supplementary Methods
+S3). C, measurement of STAT5
+phosphorylation degree before
+and after (40 minutes) IL13
+treatment (20 ng/mL) by MS
+analysis done with labeled internal
+peptide/phosphopeptide
+standards. Chromatograms of
+endogenous peptides are shown.
+The results are expressed in
+percentage of total STAT5.
+
+pSTAT5 (a. u.)
+
+2.5
+
+100
+
+pSTAT5
+
+80
+STAT5
+
+60
+
+63%
+
+40
+20
+0
+18.5
+
+19.0
+19.5
+Retention time (min)
+
+Cancer Res; 71(3) February 1, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+697
+
+Published OnlineFirst December 2, 2010; DOI: 10.1158/0008-5472.CAN-10-2987
+Raia et al.
+
+A
+
+C
+3.5
+
+3.0
+
+3.0
+
+2.5
+
+2.5
+
+2.0
+
+2.0
+
+1.5
+
+1.5
+
+1.0
+
+1.0
+6
+
+4
+
+8
+
+10
+
+12
+
+0
+
+2.5
+
+2.5
+
+2.0
+
+2.0
+
+1.5
+
+1.5
+
+1.0
+
+1.0
+0
+
+2
+
+4
+6
+8
+Time (hours)
+
+10
+
+12
+
+2
+
+4
+
+6
+
+8
+
+10
+
+0
+
+No stimulation
+20 ng/mL IL13
+
+2
+
+4
+6
+8
+Time (hours)
+
+10
+
+5
+4
+3
+2
+1
+0
+
+20
+
+40
+
+60
+
+80 100 120 140
+
+0
+
+20
+
+40
+
+60 80 100 120 140
+Time (min)
+
+800
+600
+400
+200
+0
+
+12
+
+No stimulation
+40 ng/mL IL13
+
+No stimulation
+20 ng/mL IL13
+
+B
+
+D
+MedB-1
+
+CD274 gene expression
+(fold change)
+
+6
+
+0
+
+12
+SOCS3 gene expression
+(fold change)
+
+2
+
+7
+CISH gene expression
+(fold change)
+
+3.5
+
+0
+TNFAIP1 gene expression
+(fold change)
+
+L1236
+
+L1236
+
+4
+
+4
+
+3
+
+3
+
+2
+
+2
+
+1
+
+1
+
+0
+
+0
+
+0.0
+
+0.5
+
+1.0
+1.5
+Time (hours)
+
+No stimulation
+20 ng/mL IL13
+
+2.0
+
+0.0
+
+0.5
+
+1.0
+1.5
+Time (hours)
+
+No stimulation
+40 ng/mL IL13
+
+2.0
+
+SOCS3 molecules per cell (×1,000)
+
+CD274 gene expression
+(fold change)
+
+MedB-1
+
+300
+200
+100
+0
+0
+
+20
+
+40
+
+60
+80
+Time (min)
+
+100
+
+120
+
+No stimulation
+20 ng/mL IL13
+80 ng/mL IL13
+
+Figure 3. Gene expression analysis and SOCS3 protein induction. A, gene expression array results for 2 commonly upregulated IL13-sustained genes
+(CD274 and TNFAIP1) in MedB-1 and L1236 cells. Time-courses of nonstimulated (gray) and stimulated (black) cells are represented. B, array validation
+by qRT-PCR of CD274 gene expression (2 hours). The displayed qRT-PCR data are the average of 2 technical replicates. C, time-courses of CISH and
+SOCS3 gene expression in MedB-1 cells analyzed by qRT-PCR using LightCycler 480. The displayed data are the average of 2 technical replicates.
+Experiments were repeated 3 times with comparable results. The dashed lines represent spline interpolation. D, summary of 3 time-course experiments
+in which SOCS3 protein induction in MedB-1 cells was detected by quantitative immunoblotting. Band chemiluminescent signal quantification was conducted
+with LumiAnalyst software. Error bars are derived from a liner error model (Supplementary Methods S3).
+
+metabolic and biosynthetic processes, cell communication,
+signal transduction, and cell differentiation are significantly
+upregulated whereas in L1236 cells primarily genes involved in
+positive regulation of cell death, signal transduction, and
+developmental processes are upregulated (Supplementary
+Fig. S18). The analysis of the early response revealed that
+190 genes in MedB-1 cells and 141 genes in L1236 cells are
+upregulated (Supplementary Fig. S16 and Table S16), and of
+these, 11 genes are common (Supplementary Table S17).
+Among the common genes, CD274 is of prime interest because
+of its clinical relevance (35) and was validated by qRT-PCR as
+
+698
+
+Cancer Res; 71(3) February 1, 2011
+
+shown in Fig. 3B, thus providing a readout of JAK/STAT
+pathway activation in both lymphoma cell lines.
+To confirm the results of the expression profiling for major
+negative regulators of the JAK/STAT pathways, we monitored
+by qRT-PCR the expression of CISH and SOCS3 (36, 37) over 2
+hours upon IL13 stimulation. In line with expression profiling
+results, these genes showed strong induction in MedB-1 cells
+(Fig. 3C) but not in L1236 cells. Furthermore, the induction of
+the SOCS3 protein was investigated by quantitative immunoblotting and could be detected in MedB-1 (Fig. 3D and
+Supplementary Fig. S19) but not in L1236 cells. Thus, we
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst December 2, 2010; DOI: 10.1158/0008-5472.CAN-10-2987
+Modeling of IL13-Induced Signaling in Two Lymphoma Entities
+
+IL13
+
+DecoyR
+
+Rec
+
+IL13_DecoyR
+
+IL13_Rec
+
+IL13
+
+IL13
+
+60
+40
+20
+0
+
+P
+
+P
+
+Rec
+
+0
+
+Rec
+4
+
+JAK2
+
+a. u.
+SOCS3
+
+0
+
+SOCS3mRNA
+
+χ 2 = 3.46,N =10
+
+1
+0
+0
+
+50
+TIme (min)
+
+0
+
+100
+
+100
+
+50
+
+100
+
+SOCS3mRNA obs
+
+χ 2 = 44.40, N = 38
+
+2,000 χ 2
+= 9.19, N = 18
+1,500
+1,000
+500
+0
+
+0
+
+100
+
+2
+
+-1
+CD274mRNA
+
+3
+
+0
+CD274mRNA obs
+
+P STAT5
+
+50
+
+2
+1
+
+3
+
+5
+0
+
+0
+
+1
+50
+
+χ 2 = 42.96, N = 39
+
+10
+
+pJAK2 obs
+
+2
+
+0
+
+STAT5
+
+1
+
+a. u.
+
+a. u.
+P JAK2
+
+1.5
+
+χ 2 = 52.48, N = 27
+
+3
+
+SHP1
+
+100
+
+15
+
+χ 2 = 39.96, N = 21
+
+pIL4Ra obs
+
+p_IL13_Reci
+
+p_IL13_Rec
+
+50
+
+IL13-cell obs
+
+RacSurf obs
+2
+
+a. u.
+
+IL13 stimulation
+80
+
+a. u.
+
+IL13
+
+Rec_i
+
+50
+
+SOCS3 obs
+400 χ 2
+=19.66, N = 21
+200
+0
+0
+
+0
+
+100
+
+50
+
+100
+
+TIme (min)
+
+Molecules/cell (×1,000)
+
+Rec
+
+IL13
+
+IL13 (ng/mL)
+
+DecoyR
+
+Molecules/cell (×1,000)
+
+B
+
+Molecules/cell (×1,000)
+
+A
+
+50
+
+100
+
+pSTAT5 obs
+
+200
+
+χ 2 =14.26, N = 33
+
+150
+100
+50
+0
+0
+
+50
+
+100
+
+TIme (min)
+
+Number of data points = 207; parameters=23; χ2 = 226.35; P > 0.01
+
+Figure 4. Mathematical models can represent experimental data. A, process diagram of MedB-1 dynamic signaling network model consisting of
+reactions (arrows) with enzymatic, mass action, or custom kinetics. Round-headed arrows indicate reaction catalysis, whereas bar-ended arrows reaction
+inhibition. IL13 is used as input function of the system. Reactions and species colored in gray are omitted in the L1236 model. B, data (circles) and
+trajectories of the best MedB-1 parameter estimation obtained by using the MATLAB toolbox PottersWheel. obs, observations.
+
+established that SOCS3 constitutes a negative feedback loop
+for JAK/STAT signaling in MedB-1 cells but surprisingly not in
+L1236 cells.
+Developing dynamic models of the JAK/STAT pathway
+in lymphoma cells
+On the basis of the established knowledge, we developed
+and calibrated 2 structurally similar models for the JAK/STAT
+pathway in MedB-1 and L1236 cells, the MedB-1 model and
+the L1236 model, respectively, that are represented as process
+diagrams (38) in Fig. 4A. These models are based on ODEs and
+include mass action and enzymatic and custom kinetics of the
+reactions (see Supplementary Text S7 for model description).
+To capture reactions at the receptor level, we experimentally
+determined ligand and receptor dynamics. To ensure the
+validity of setting the model input as constant, we experimentally confirmed by ELISA that the concentration of IL13 in
+the medium of treated or untreated MedB-1 and L1236 cells
+remained constant over time (Supplementary Fig. S20A and
+B). Furthermore, we measured by ELISA cell-associated IL13
+levels over time (Supplementary Fig. S20C and D). In addition, we detected by flow cytometry a dose-dependent
+reduction of receptors on the cell surface (Supplementary
+Fig. S21) in both cell lines. To select and calibrate the
+mathematical models, we analyzed by time-resolved quantitative immunoblotting IL13-induced phosphorylation of
+IL4Ra, JAK2 (Supplementary Fig. S22) and STAT5 (Fig. 2A
+and Supplementary Fig. S23). We observed that phosphorylation was rapidly induced and sustained over 2 hours in
+both cell lines, not decreasing to basal levels during the
+observation period. This effect was more pronounced in
+
+www.aacrjournals.org
+
+L1236 than in MedB-1 cells (see Supplementary File II for
+MedB-1 and III for L1236 model calibration data). To
+describe the measured dynamic behaviors, the addition of
+the IL13Ra2 receptor (DecoyR) was required for the MedB-1
+model, as shown by a likelihood ratio test (Supplementary
+Fig. S24) but not necessary for the L1236 model. Another
+difference in the 2 models resides in the already mentioned
+lack of SOCS3-mediated negative feedback in L1236 cells
+(Fig. 4A). The calibrated trajectories of the best models,
+selected according to the goodness-of-fit using c2 tests and P
+> 0.01, are shown in Fig. 4B for MedB-1 and in Supplementary Fig. S25 for L1236 cells. Besides one exception, that the
+peak of activation of STAT5 at 40 to 60 minutes cannot be
+fully represented by L1236 model, both models represent
+well the respective experimental data. We tested several
+alternative model structures. Examples of the models
+rejected on the basis of the results of the c2 tests are
+presented in the Supplementary Fig. and Text S26.
+To reliably predict the system behavior, it is important to
+have a structurally identifiable set of parameter values.
+Therefore, we investigated the distributions of the parameter estimates. The analysis in Fig. 5A revealed that the
+MedB-1 model is structurally identifiable for 18 of 23 parameters. The quantitative determination of the STAT5 phosphorylation degree by MS and the subsequent conversion of
+relative units of the STAT5 phosphorylation time-courses to
+absolute numbers of molecules per cell rendered the
+STAT5_phosphorylation parameter, previously among the
+nonidentifiable ones, structurally identifiable. The remaining nonidentifiable parameters are related to mRNA expression of SOCS3 and CD274, as the absolute amounts of mRNA
+
+Cancer Res; 71(3) February 1, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+699
+
+Published OnlineFirst December 2, 2010; DOI: 10.1158/0008-5472.CAN-10-2987
+Raia et al.
+
+C
+
+Kon_IL13Rec
+Rec_phosphorylation
+pRec_intern
+pRec_degradation
+Rec_intern
+Rec_recycle
+JAK2_phosphorylation
+pJAK2_dephosphorylation
+STAT5_phosphorylation
+pSTAT5_dephosphorylation
+SOCS3mRNA_production
+DecoyR_binding
+JAK2_p_inhibition
+SOCS3_translation
+SOCS3_accumulation
+SOCS3_degradation
+CD274mRNA_production
+Rec_i
+scale_pJAK2
+scale_pIL4Ra
+scale_IL13-cell
+scale_SOCS3mRNA
+scale_CD274mRNA
+
+scale_SOCS3mRNA
+
+Parameters
+
+A
+
+70
+60
+50
+40
+30
+20
+10
+0
+400
+
+300
+
+200
+100
+
+10-8 10-7 10-6 10-5 10-4 10-3 10-2 10-1 100 101 102 103 104
+
+0 0
+
+SOCS3_accumulation
+
+0.05
+
+0.1
+
+0.15
+
+0.2
+
+0.25
+
+SOCS3mRNA_production
+
+Estimated parameter values
+
+Rec
+1.5
+1
+0.5
+0
+
+0
+
+Molec/cell
+(×1,000)
+Molec/cell
+(×1,000)
+
+50
+
+100
+
+p IL13 Rec i
+
+1
+0.5
+
+0.5
+0
+
+0
+
+50
+
+100
+
+0
+
+50
+
+0
+
+0
+
+50
+
+1
+0
+
+100
+
+0
+
+50
+
+50
+
+100
+
+0
+
+100
+
+0
+
+0
+
+100
+
+Time (min)
+
+50
+
+100
+
+0
+
+3,000
+2,000
+1,000
+0
+
+2,000
+
+100
+
+1,000
+50
+
+104
+
+100
+
+Time (min)
+
+50
+
+103
+
+100
+
+50
+
+0
+
+102
+101
+100
+10-1
+
+100
+
+CD274mRNA
+
+200
+
+0
+
+100
+
+10-2
+0
+
+SOCS3
+
+0
+
+50
+
+SOCS3mRNA
+
+pSTAT5
+
+IL13 DecoyR
+0.2
+
+Time (min)
+
+50
+
+0
+
+pJAK2
+2
+
+50
+0
+
+0
+
+2
+
+100
+
+0.2
+
+100
+
+3
+
+100
+
+100
+
+50
+JAK2
+
+150
+
+DecoyR
+
+0
+
+0
+
+100
+
+50
+50
+
+0.01
+
+STAT5
+
+91
+0
+
+0.02
+
+1
+
+SHP1
+
+92
+
+90
+
+0
+
+IL13 Rec
+
+110
+105
+100
+
+p IL13 Rec
+
+Molec/cell
+(×1,000)
+
+Rec i
+
+scale_CD274mRNA
+
+IL13 stimulation
+80
+60
+40
+20
+0
+50 100
+0
+
+Molec/cell (×1,000)
+
+D
+IL13 (ng/mL)
+
+B
+
+0
+
+50
+
+10-3
+10-8
+
+10-7
+
+10-6
+
+10-5
+10-4
+10-3
+10-2
+CD274mRNA_production
+
+10-1
+
+100
+
+100
+
+Time (min)
+
+Figure 5. Structural identifiability analysis of the MedB-1 model. Parameter distribution, highlighting the nonidentifiable parameters (larger boxes) (A), and
+trajectories (B) of 10% best of 1,000 parameter estimations. Relation of the 3 SOCS3-associated (C) and of the 2 CD274-associated (D) parameters. The
+MATLAB toolbox PottersWheel was used for this analysis.
+
+molecules expressed were not addressable. In line with these
+parameter nonidentifiabilities, the trajectories for
+SOCS3mRNA and CD274mRNA show strong variation for
+different parameter values. For all other variables, the model
+trajectories are almost identical with each other for the 100
+best parameter estimates (Fig. 5B). Interestingly, the MOTA
+analysis (28) of the MedB-1 model revealed a nonlinear
+relationship of the 3 nonidentifiable SOCS3-related parameters (Fig. 5C) and of the 2 CD274-associated parameters
+(Fig. 5D). These analyses carried out with the L1236 model
+gave comparable results. Of 16 parameters, the 2 nonidentifiable ones, which are related to CD274, correlate with each
+other (Supplementary Fig. S27). The high number of identifiable parameters in both models, resulting from a large
+number of experimental data points compared with model
+parameters, substantiates the fact that overparameterization was not a major issue and therefore our models can be
+used to infer properties of the system and to predict the
+system behavior upon small changes in parameter values.
+
+700
+
+Cancer Res; 71(3) February 1, 2011
+
+Model prediction and experimental validation of
+targets for intervention
+To identify which components of the pathway are primarily
+responsible for changes in gene expression, we conducted
+sensitivity analyses of parameter changes on CD274mRNA
+(Fig. 6A and B). Surprisingly, DecoyR, DecoyR_binding, pRec_degradation, and Rec_phosphorylation had no effect on the
+integrated response of CD274mRNA. Of the 2 negative regulators in MedB-1 cells, the constitutively expressed SHP1, has a
+higher negative impact. As possible therapeutic targets, we
+focused on major parameters positively influencing CD274
+mRNA expression. Interestingly, we observed that in L1236
+cells several parameters (STAT5, JAK2, Rec_i, STAT5_phosphorylation, JAK2_phosphorylation, Rec_recycle) were eligible
+to be targeted to obtain a significant reduction in CD274 mRNA
+whereas in MedB-1 cells only 3 parameters (STAT5, JAK2, and
+STAT5_phosphorylation) were predicted as targets. These
+results indicate that IL13-induced gene expression in L1236
+cells is more susceptible to changes than in MedB-1 cells.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst December 2, 2010; DOI: 10.1158/0008-5472.CAN-10-2987
+Modeling of IL13-Induced Signaling in Two Lymphoma Entities
+
+B
+
+A
+
+Integrated response of CD274mRNA in L1236 cells
+
+DecoyR
+STAT5
+SHP1
+JAK2
+Rec_i
+Rec
+CD274mRNA_production
+SOCS3_deg radation
+SOCS3_accumulation
+SOCS3_t ranslation
+JAK2_p_inhibition
+DecoyR_binding
+SOCS3mRNA_production
+pSTAT5_dephosphorylation
+STAT5_phosphorylation
+pJAK2_dephosphorylation
+JAK2_phosphorylation
+Rec_recycle
+Rec_intern
+pRec_degradation
+pRec_intern
+Rec_phosphorylation
+Kon_IL13Rec
+
+STAT5
+SHP1
+JAK2
+Rec_i
+Rec
+CD274mRNA_production
+
+Parameters
+
+Parameters
+
+Integrated response of CD274mRNA in MedB-1 cells
+
+pSTAT5_dephosphorylation
+STAT5_phosphorylation
+pJAK2_dephosphorylation
+JAK2_phosphorylation
+Rec_recycle
+Rec_intern
+pRec_deg radation
+pRec_intern
+Rec_phosphorylation
+Kon_IL13Rec
+
+-0.6
+
+-0.4
+
+-0.2
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0
+
+-1.5
+
+Control coefficients
+
+-1.0
+
+-0.5
+
+0.0
+
+0.5
+
+1.0
+
+Control coefficients
+
+Possible therapeutic targets
+
+Possible therapeutic targets
+
+Figure 6. Sensitivity analysis of integrated response of CD274mRNA in MedB-1 (A) and L1236 (B) cells conducted with the MATLAB toolbox
+PottersWheel. The control coefficients indicate the relative change in CD274mRNA integrated response upon relative changes in the initial values of the other
+parameters. The analysis is done on small parameter changes (1% of their value). Possible targetable parameters are represented by black bars.
+
+Our sensitivity analysis indicated the parameter STAT5_
+phosphorylation as a possible drug target in both cell systems.
+To experimentally validate the predictions of our mathematical models, we tested the effect on pSTAT5 of the inhibition
+of this reaction, which is directly dependent on the kinase
+activity of JAK2. Among the several JAK2 kinase inhibitors
+available, we selected JAK inhibitor I because it achieves a
+reduction in STAT5 phosphorylation at relatively low doses
+(160 nmol/L vs. 200 mmol/L of other inhibitors) and without
+evident signs of cell toxicity. For optimal experimental design,
+we used the models, with fixed parameters, to quantitatively
+predict the effect of JAK inhibitor I on the kinetics of STAT5
+phosphorylation in cases of 50%, 80%, or 95% reduction in the
+STAT5_phosphorylation parameter in MedB-1 (Fig. 7A) and
+L1236 (Supplementary Fig. S28) cells. The model predicted
+that the inhibitor reduces the peak amplitude and the time to
+peak of pSTAT5.
+For experimental confirmation, MedB-1 cells were incubated for 1 hour with the JAK inhibitor I in DMSO or DMSO
+alone (control) and were subsequently stimulated with 20 ng/
+mL IL13. Samples were collected over 2 hours after stimulation and analyzed for phosphorylation of STAT5 (Fig. 7B and
+C). The obtained data mirrored the model predictions, as the
+fixed MedB-1 model could simultaneously represent the data
+sets derived from inhibitor- and control-treated cells. The
+model suggested that the inhibitor reduced the STAT5_phosphorylation reaction by 96%. In line with model predictions,
+STAT5 phosphorylation time of peak shifted from 40 to 80
+minutes and its peak amplitude was reduced by approximately 90%. In addition, the effect of JAK inhibitor I on gene
+expression was evaluated, showing that 100 minutes post–
+IL13 stimulation of MedB-1 cells the expression of SOCS3 was
+reduced by approximately 96% and CD274 by approximately
+57% (Fig. 7D). This is in agreement with the sensitivity
+analysis indicating that inhibition of STAT5_phosphoryla-
+
+www.aacrjournals.org
+
+tion causes a reduction of 50% in the integrated response of
+CD274mRNA (Fig. 6A). Moreover, we showed that JAK
+inhibitor I affects the proliferation of MedB-1 and L1236
+cells (Fig. 7E). Our results showed that, as predicted by our
+models, the inhibition of STAT5_phosphorylation reaction
+reduces STAT5 activation and CD274 expression and negatively affects cell proliferation.
+
+Discussion
+We identified through establishment of data-based mathematical models major similarities and differences in the
+dynamic behavior of the JAK/STAT pathway in 2 lymphoma
+entities.
+Previous cytogenetic based (39, 40) and semiquantitative
+approaches using immunohistochemistry, qRT-PCR, immunoblotting, and ELISA (1, 41, 42) provided evidence for
+altered STAT, JAK2, and SHP1 levels in lymphomas compared with normal cells. We extended those studies and
+showed by determining the number of molecules per cell of
+proteins involved in the JAK/STAT pathway that the stoichiometry of signaling components significantly differs not
+only between lymphomas and B cells from healthy donors
+but also between MedB-1 and L1236 cells. L1236 cells harbor
+at the same time more JAK2 and less SHP1 than MedB-1 cells
+and do not induce negative regulators such as CISH and
+SOCS3 during the early response, suggesting a more aggressive behavior of L1236 cells. On the contrary, L1236 cells
+have a longer duplication time than MedB-1 cells. By mathematical modeling, we showed that despite apparent lack
+of efficient negative regulation, the JAK/STAT pathway in
+L1236 is highly susceptible to perturbations. Therefore,
+we hypothesize that the good clinical outcome for cHL
+patients is partly due to off-target therapy effects that affect
+one of our predicted targets in the JAK/STAT pathway.
+
+Cancer Res; 71(3) February 1, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+701
+
+Published OnlineFirst December 2, 2010; DOI: 10.1158/0008-5472.CAN-10-2987
+Raia et al.
+
+A
+
+pSTAT5 - model predictions
+
+pSTAT5
+molecules per cell
+
+x103
+100
+80
+60
+40
+
+No reduction in STAT5_phosphorylation
+50% reduction in STAT5_phosphorylation
+80% reduction in STAT5_phosphorylation
+95% reduction in STAT5_phosphorylation
+
+20
+0
+0
+
+20 40 60 80 100 120
+Time (min)
+
+B
+
+120
+
+60
+
+0
+
+40
+
+100
+
+20
+
+80
+
+min
+
+JAK inhibitor I
+pSTAT5
+
+IB: pY
+IP: STAT5
+
+STAT5
+GST-ΔSTAT5 calibrator
+
+D
+
+pSTAT5 - model validation
+pSTAT5
+molecules per cell
+
+x103
+160
+120
+80
+40
+
+0
+
+20 40 60 80 100 120
+Time (min)
+Data - DMSO
+Model trajectory - DMSO
+Data - JAK inhibitor I
+Model trajectory - JAK inhibitor I
+
+E
+x105
+
+Med B-1
+
+x105
+
+L1236
+
+6
+
+Cells per mL
+
+Cells per mL
+
+4
+
+4
+2
+0
+
+3,000
+2,500
+2,000
+1,500
+1,000
+500
+0
+0
+
+0
+
+CD274 gene expression
+(fold change)
+
+C
+
+SOCS3 gene expression
+(fold change)
+
+IB: STAT5
+
+No stimulation
+
+IL13
+(80 ng/mL)
+
+100
+
+2.0
+1.5
+1.0
+0.5
+0.0
+
+0
+
+Time (min)
+
+DMSO
+JAK inhibitor I
+
+3
+
+100
+
+Figure 7. MedB-1 model
+predictions and validation. A,
+model predictions of pSTAT5
+kinetics in case of 50%, 80%, and
+95% reduction of the
+STAT5_phosphorylation
+parameter. B and C, model
+validation. B, immunoblotting
+evidence of pSTAT5 reduction
+upon 160 nmol/L JAK inhibitor I
+treatment (1 hour preincubation
+followed by 20 ng/mL IL13
+stimulation). Band
+chemiluminescent signal
+quantification was conducted with
+LumiAnalyst software. C, graphic
+representation of (B), including
+experimental data and
+simultaneous model
+representation of the 2 conditions,
+DMSO and JAK inhibitor I in
+DMSO. Error bars are derived from
+a linear error model
+(Supplementary Methods S3). The
+experiment was repeated 3 times
+with comparable results. D, effect
+of JAK inhibitor I on IL13-induced
+SOCS3 and CD274 gene
+expression, determined by qRTPCR using LightCycler 480, and
+(E) on proliferation (see Materials
+and Methods for details). The error
+bars derive from triplicates. Twotailed t test was carried out for
+statistical significance (*, P < 0.05;
+**, P< 0.005; ***, P < 0.0005).
+
+2
+1
+0
+
+No stimulation
+
+IL13
+(80 ng/mL)
+
+DMSO
+JAK inhibitor I
+Number of seeded cells per mL
+
+Furthermore, array analysis of long-term gene expression
+showed that the IL13-mediated induction of positive and
+negative regulators of the JAK/STAT pathway is abundant in
+MedB-1 cells but is limited to only 2 genes in L1236 cells.
+Moreover, analysis of biological processes induced by IL13
+showed a very strong and survival-oriented response in
+MedB-1 cells, including genes involved in cell activation,
+differentiation, and communication and signal transduction,
+but rather conflicting responses in L1236 cells, such as
+
+702
+
+Cancer Res; 71(3) February 1, 2011
+
+positive regulation of developmental processes, signal transduction, and cell death. A possible explanation is that in
+L1236 cells, IL13 alone is not sufficient to determine cell-fate
+decisions and that L1236 cells have retained a more tightly
+controlled system than MedB-1 cells.
+For the identification of reactions that have a differential
+impact in tumor cells compared with normal cells, a dynamic
+pathway model for the IL13/JAK2/STATs pathway in normal B
+cells would be required. However, because of the limited
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst December 2, 2010; DOI: 10.1158/0008-5472.CAN-10-2987
+Modeling of IL13-Induced Signaling in Two Lymphoma Entities
+
+biological material obtained when isolating B cells from
+healthy donors (as described in Materials and Methods), it
+was not possible with the available techniques to generate the
+necessary quantitative time-resolved data. Nevertheless, our
+mathematical modeling approach enabled us to identify major
+differences in reactions and system properties in the 2 lymphoma cell lines. First, although the IL13Ra2 decoy receptor is
+expressed at higher levels on the cell surface of L1236 cells,
+there the decoy function has less impact on IL13 signaling
+than on MedB1-cells. Second, the peak of STAT5 phosphorylation is not fully represented by the L1236 model and we
+speculate that factors outside the pathway, and not yet
+considered in the model, modulate these responses. In fact,
+cross-talks between STAT5 and other pathways, in particular
+NFkB signaling, have been frequently reported for human
+lymphomas (43, 44). These cross-talks were confirmed for
+both cHL- and PMBL-derived cell lines by our gene expression
+analysis showing late upregulation of genes involved in NFkB
+and MAP-kinase pathways.
+The roles of specific STATs for the JAK/STAT pathway in
+lymphomas have been controversially discussed. We identified STAT5 as the family member that is directly responsive to
+IL13 in MedB-1 and L1236 cells. In our experimental settings,
+STAT6 phosphorylation is not significantly increased in
+response to IL13 stimulation, because it is already present
+at high levels. On the other hand, JAK2 phosphorylation was
+reduced by starvation and induced by IL13 stimulation agreeing with previous reports (1), suggesting that STAT6 activation
+is only partially JAK2-dependent if not JAK2-independent.
+According to our expression profiling analysis, other STATs
+(STAT3, STAT4, STAT5A, and STAT5B) are transcriptionally
+induced upon IL13 stimulation but only in MedB-1 cells.
+Furthermore, our studies reveal that different negative regulators regulate the IL13-induced JAK/STAT pathway in the 2
+cell lines. Despite the lack of functional SOCS1, both cell lines
+
+express the phosphatase SHP1 and only MedB-1 shows induction of SOCS3.
+Our sensitivity analysis identified major reactions and
+molecules as candidate therapeutic targets for both analyzed
+lymphoma types, and we experimentally confirmed one of
+them, STAT5_phosphorylation, by targeted inhibition.
+In summary, through a systems biology approach, we provide evidence for similarities and differences between cHL and
+PMBL, concerning the IL13/JAK2/STATs pathway. The mathematical models we established represent important tools to
+quantitatively predict the behavior of pathway components
+upon alteration of one or more components and provide
+guidance for the rational design of therapeutic molecules.
+Disclosure of Potential Conflicts of Interest
+No potential conflicts of interest were disclosed.
+
+Acknowledgments
+We thank Stefan Joos for the initial project idea and the SBCancer grant
+application, Adelheid Cerwenka and Peter Angel for sharing with us some of
+their laboratory instruments, Andrea Pfeifer for the GST-DSTAT5 calibrator,
+and Stefan Jansen and Verena Becker for constructive discussion on the
+model.
+
+Grant Support
+V. Raia, M. Schilling, M. B€ohm, B. Hahn, J. Timmer, W-D. Lehmann, P. Lichter,
+and U. Klingm€
+uller: Initiative and Networking Fund of the Helmholtz Association within the Helmholtz Alliance on Systems Biology (SBCancer); S. Bohl:
+HepatoSys; A. Kowarsch, and A. Raue: LungSys; F. Theis: Control of Regulatory
+Networks (CoReNe) Project; and J. Timmer: Excellence Initiative of the German
+Federal and State Governments (EXC 294).
+The costs of publication of this article were defrayed in part by the payment
+of page charges. This article must therefore be hereby marked advertisement in
+accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+Received August 13, 2010; revised October 25, 2010; accepted November 11,
+2010; published OnlineFirst December 2, 2010.
+
+References
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+Guiter C, Dusanter-Fourt I, Copie-Bergman C, Boulland ML, Le
+Gouvello S, Gaulard P, et al. Constitutive STAT6 activation in primary
+mediastinal large B-cell lymphoma. Blood 2004;104:543–9.
+Skinnider BF, Elia AJ, Gascoyne RD, Patterson B, Trumper L, Kapp U,
+et al. Signal transducer and activator of transcription 6 is frequently
+activated in Hodgkin and Reed-Sternberg cells of Hodgkin lymphoma.
+Blood 2002;99:618–26.
+Melzner I, Bucur AJ, Bruderlein S , Dorsch K, Hasel C, Barth TF, et al.
+Biallelic mutation of SOCS-1 impairs JAK2 degradation and sustains
+phospho-JAK2 action in the MedB-1 mediastinal lymphoma line.
+Blood 2005;105:2535–42.
+Weniger MA, Melzner I, Menz CK, Wegener S, Bucur AJ, Dorsch K,
+et al. Mutations of the tumor suppressor gene SOCS-1 in classical
+Hodgkin lymphoma are frequent and associated with nuclear phospho-STAT5 accumulation. Oncogene 2006;25:2679–84.
+Meier C, Hoeller S, Bourgau C, Hirschmann P, Schwaller J, Went P,
+et al. Recurrent numerical aberrations of JAK2 and deregulation of the
+JAK2-STAT cascade in lymphomas. Mod Pathol 2009;22:476–87.
+Martini M, Hohaus S, Petrucci G, Cenci T, Pierconti F, Massini G, et al.
+Phosphorylated STAT5 represents a new possible prognostic marker
+in Hodgkin lymphoma. Am J Clin Pathol 2008;129:472–7.
+Rolling C, Treton D, Pellegrini S, Galanaud P, Richard Y. IL4 and
+IL13 receptors share the gamma c chain and activate STAT6,
+
+www.aacrjournals.org
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+STAT3 and STAT5 proteins in normal human B cells. FEBS Lett
+1996;393:53–6.
+Murata T, Puri RK. Comparison of IL-13- and IL-4-induced signaling
+in EBV-immortalized human B cells. Cell Immunol 1997;175:33–
+40.
+Kapp U, Yeh WC, Patterson B, Elia AJ, Kagi D, Ho A, et al. Interleukin
+13 is secreted by and stimulates the growth of Hodgkin and ReedSternberg cells. J Exp Med 1999;189:1939–46.
+Scheeren FA, Diehl SA, Smit LA, Beaumont T, Naspetti M, Bende
+RJ, et al. IL-21 is expressed in Hodgkin lymphoma and activates
+STAT5: evidence that activated STAT5 is required for Hodgkin
+lymphomagenesis. Blood 2008;111:4706–15.
+Zi Z, Cho KH, Sung MH, Xia X, Zheng J, Sun Z. In silico identification of
+the key components and steps in IFN-gamma induced JAK-STAT
+signaling pathway. FEBS Lett 2005;579:1101–8.
+Guerriero ML, Dudka A, Underhill-Day N, Heath JK, Priami C. Narrative-based computational modelling of the Gp130/JAK/STAT signalling pathway. BMC Syst Biol 2009;3:40.
+Papin JA, Palsson BO. The JAK-STAT signaling network in the
+human B-cell: an extreme signaling pathway analysis. Biophys J
+2004;87:37–46.
+Yamada S, Shiono S, Joo A, Yoshimura A. Control mechanism of JAK/
+STAT signal transduction pathway. FEBS Lett 2003;534:190–6.
+
+Cancer Res; 71(3) February 1, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+703
+
+Published OnlineFirst December 2, 2010; DOI: 10.1158/0008-5472.CAN-10-2987
+Raia et al.
+
+15. Singh A, Jayaraman A, Hahn J. Modeling regulatory mechanisms in IL6 signal transduction in hepatocytes. Biotechnol Bioeng 2006;95:
+850–62.
+16. Swameye I, Muller TG, Timmer J, Sandra O, Klingmuller U. Identification
+of nucleocytoplasmic cycling as a remote sensor in cellular signaling
+by databased modeling. Proc Natl Acad Sci U S A 2003;100:1028–
+33.
+17. Won HH, Park I, Lee E, Kim JW, Lee D. Comparative analysis of the
+JAK/STAT signaling through erythropoietin receptor and thrombopoietin receptor using a systems approach. BMC Bioinformatics
+2009;10Suppl 1:S53.
+18. Martelli M, Ferreri AJ, Johnson P. Primary mediastinal large B-cell
+lymphoma. Crit Rev Oncol Hematol 2008;68:256–63.
+19. Hamilton A, Gallipoli P, Nicholson E, Holyoake TL. Targeted therapy in
+haematological malignancies. J Pathol 2010;220:404–18.
+€ ller P, Bruderlein S, Strater J, Leithauser F, Hasel C, Bataille F, et al.
+20. Mo
+MedB-1, a human tumor cell line derived from a primary mediastinal
+large B-cell lymphoma. Int J Cancer 2001;92:348–53.
+21. Schilling M, Maiwald T, Hengl S, Winter D, Kreutz C, Kolch W, et al.
+Theoretical and experimental analysis links isoform-specific ERK
+signalling to cell fate decisions. Mol Syst Biol 2009;5:334.
+22. Vera J, Bachmann J, Pfeifer AC, Becker V, Hormiga JA, Darias NV,
+et al. A systems biology approach to analyse amplification in the
+JAK2-STAT5 signalling pathway. BMC Syst Biol 2008;2:38.
+23. Schilling M, Maiwald T, Bohl S, Kollmann M, Kreutz C, Timmer J, et al.
+Quantitative data generation for systems biology: the impact of
+randomisation, calibrators and normalisers. Syst Biol (Stevenage)
+2005;152:193–200.
+24. Seidler J, Adal M, Kubler D, Bossemeyer D, Lehmann WD. Analysis of
+autophosphorylation sites in the recombinant catalytic subunit alpha
+of cAMP-dependent kinase by nano-UPLC-ESI-MS/MS. Anal Bioanal
+Chem 2009;395:1713–20.
+25. Seidler J, Zinn N, Haaf E, Böhm ME, Winter D, Schlosser A, et al. Metal
+ion-mobilizing additives for comprehensive detection of femtomole
+amounts of phosphopeptides by reversed phase LC-MS. Amino Acids
+2010. Jun 16. [Epub ahead of print].
+26. Kowarsch A, Blöchl F, Bohl S, Saile M, Gretz N, Klingmüller U, et al.
+Knowledge-based matrix factorization temporally resolves the cellular
+responses to Il-6 stimulation. BMC Bioinformatics 2010;11–585.
+27. Maiwald T, Timmer J. Dynamical modeling and multi-experiment
+fitting with PottersWheel. Bioinformatics 2008;24:2037–43.
+28. Hengl S, Kreutz C, Timmer J, Maiwald T. Data-based identifiability
+analysis of non-linear dynamical models. Bioinformatics 2007;23:
+2612–8.
+29. Kreutz C, Timmer J. Systems biology: experimental design. FEBS J
+2009;276:923–42.
+30. Xiao W, Hong H, Kawakami Y, Kato Y, Wu D, Yasudo H, et al. Tumor
+suppression by phospholipase C-beta3 via SHP-1-mediated dephosphorylation of Stat5. Cancer Cell 2009;16:161–71.
+
+704
+
+Cancer Res; 71(3) February 1, 2011
+
+31. Kim YS, Seo DW, Kong SK, Lee JH, Lee ES, Stetler-Stevenson M,
+et al. TIMP1 induces CD44 expression and the activation and nuclear
+translocation of SHP1 during the late centrocyte/post-germinal center
+B cell differentiation. Cancer Lett 2008;269:37–45.
+32. Hagner PR, Schneider A, Gartenhaus RB. Targeting the translational
+machinery as a novel treatment strategy for hematologic malignancies. Blood 2010;115:2127–35.
+33. Nasim MT, Ghouri A, Patel B, James V, Rudarakanchana N, Morrell
+NW, et al. Stoichiometric imbalance in the receptor complex contributes to dysfunctional BMPR-II mediated signalling in pulmonary
+arterial hypertension. Hum Mol Genet 2008;17:1683–94.
+34. Daines MO, Tabata Y, Walker BA, Chen W, Warrier MR, Basu S, et al.
+Level of expression of IL-13R alpha 2 impacts receptor distribution
+and IL-13 signaling. J Immunol 2006;176:7495–501.
+35. Zou W. Immunosuppressive networks in the tumour environment and
+their therapeutic relevance. Nat Rev Cancer 2005;5:263–74.
+36. Matsumoto A, Masuhara M, Mitsui K, Yokouchi M, Ohtsubo M,
+Misawa H, et al. CIS, a cytokine inducible SH2 protein, is a target
+of the JAK-STAT5 pathway and modulates STAT5 activation. Blood
+1997;89:3148–54.
+37. Davey HW, McLachlan MJ, Wilkins RJ, Hilton DJ, Adams TE. STAT5b
+mediates the GH-induced expression of SOCS-2 and SOCS-3 mRNA
+in the liver. Mol Cell Endocrinol 1999;158:111–6.
+38. Kitano H, Funahashi A, Matsuoka Y, Oda K. Using process diagrams
+for the graphical representation of biological networks. Nat Biotechnol
+2005;23:961–6.
+39. Joos S, Granzow M, Holtgreve-Grez H, Siebert R, Harder L, MartinSubero JI, et al. Hodgkin's lymphoma cell lines are characterized by
+frequent aberrations on chromosomes 2p and 9p including REL and
+JAK2. Int J Cancer 2003;103:489–95.
+40. Feys T, Poppe B, De Preter K, Van Roy N, Verhasselt B, De Paepe P,
+et al. A detailed inventory of DNA copy number alterations in four
+commonly used Hodgkin's lymphoma cell lines. Haematologica
+2007;92:913–20.
+41. Delibrias CC, Floettmann JE, Rowe M, Fearon DT. Downregulated
+expression of SHP-1 in Burkitt lymphomas and germinal center B
+lymphocytes. J Exp Med 1997;186:1575–83.
+ C, Willenbrock K, Martin-Subero JI, Hinsch N, Döring C, Tiacci
+42. Renne
+E, et al. High expression of several tyrosine kinases and activation of
+the PI3K/AKT pathway in mediastinal large B cell lymphoma reveals
+further similarities to Hodgkin lymphoma. Leukemia 2007;21:780–7.
+43. Hinz M, Lemke P, Anagnostopoulos I, Hacker C, Krappmann D,
+Mathas S, et al. Nuclear factor kappaB-dependent gene expression
+profiling of Hodgkin's disease tumor cells, pathogenetic significance,
+and link to constitutive signal transducer and activator of transcription
+5a activity. J Exp Med 2002; 196:605–17.
+44. Nagy ZS, LeBaron MJ, Ross JA, Mitra A, Rui H, Kirken RA. STAT5
+regulation of BCL10 parallels constitutive NFkappaB activation in
+lymphoid tumor cells. Mol Cancer 2009;8:67.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst December 2, 2010; DOI: 10.1158/0008-5472.CAN-10-2987
+
+Dynamic Mathematical Modeling of IL13-Induced Signaling in
+Hodgkin and Primary Mediastinal B-Cell Lymphoma Allows
+Prediction of Therapeutic Targets
+Valentina Raia, Marcel Schilling, Martin Böhm, et al.
+Cancer Res 2011;71:693-704. Published OnlineFirst December 2, 2010.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-10-2987
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2010/12/02/0008-5472.CAN-10-2987.DC1
+
+This article cites 42 articles, 13 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/71/3/693.full#ref-list-1
+This article has been cited by 3 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/71/3/693.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications
+Department at pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications
+Department at permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+

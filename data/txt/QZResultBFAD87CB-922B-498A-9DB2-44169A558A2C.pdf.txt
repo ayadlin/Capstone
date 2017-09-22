@@ -1,0 +1,1182 @@
+Published OnlineFirst January 27, 2015; DOI: 10.1158/0008-5472.CAN-14-2103
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+Emergence of Drug Tolerance in Cancer Cell
+Populations: An Evolutionary Outcome of
+Selection, Nongenetic Instability, and
+Stress-Induced Adaptation
+Rebecca H. Chisholm1,2,3, Tommaso Lorenzi1,2,3,4, Alexander Lorz1,2,3, Annette K. Larsen5,6,
+Luís Neves de Almeida1,2,3, Alexandre Escargueil5,6, and Jean Clairambault1,2,3
+
+Abstract
+In recent experiments on isogenetic cancer cell lines, it was
+observed that exposure to high doses of anticancer drugs can
+induce the emergence of a subpopulation of weakly proliferative
+and drug-tolerant cells, which display markers associated with
+stem cell–like cancer cells. After a period of time, some of the
+surviving cells were observed to change their phenotype to resume
+normal proliferation and eventually repopulate the sample.
+Furthermore, the drug-tolerant cells could be drug resensitized
+following drug washout. Here, we propose a theoretical mechanism for the transient emergence of such drug tolerance. In this
+framework, we formulate an individual-based model and an
+integro-differential equation model of reversible phenotypic
+evolution in a cell population exposed to cytotoxic drugs. The
+outcomes of both models suggest that nongenetic instability,
+stress-induced adaptation, selection, and the interplay between
+
+Major Findings
+This study provides a new perspective on the inherent risks
+of interventional chemotherapy in patients with cancer by
+showing how the adaption of even nongenetically unstable
+cell populations exposed to antiproliferative drugs can be
+acted upon by selective forces, which drive the outgrowth of
+rapidly proliferative drug-resistant cell populations.
+
+1
+INRIA-Paris-Rocquencourt, MAMBA Team, Domaine de Voluceau, Le
+ s, UPMC Univ Paris 06,
+Chesnay Cedex, France. 2Sorbonne Universite
+UMR 7598, Laboratoire Jacques-Louis Lions, Paris, France. 3CNRS,
+UMR 7598, Laboratoire Jacques-Louis Lions, Paris, France. 4CMLA,
+ sident Wilson,
+ENS Cachan, CNRS, PRES UniverSud, 61, Avenue du Pre
+ s, UPMC Univ Paris 06,
+Cachan Cedex, France. 5Sorbonne Universite
+Paris, France. 6INSERM, UMR_S 938, Laboratory of Cancer Biology
+and Therapeutics, Paris, France.
+
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+R.H. Chisholm and T. Lorenzi contributed equally to this article.
+Corresponding Author: Rebecca Chisholm, INRIA Paris-Rocquencourt, MAMBA
+Team, Domaine de Voluceau, BP105, 78153 Le Chesnay Cedex, France. Phone:
+33-1-4427-8516; Fax: 33-1-4427-7200; E-mail: rebecca.chisholm@inria.fr
+doi: 10.1158/0008-5472.CAN-14-2103
+2015 American Association for Cancer Research.
+
+930
+
+these mechanisms can push an actively proliferating cell population to transition into a weakly proliferative and drug-tolerant
+state. Hence, the cell population experiences much less stress in
+the presence of the drugs and, in the long run, reacquires a
+proliferative phenotype, due to phenotypic ﬂuctuations and
+selection pressure. These mechanisms can also reverse epigenetic
+drug tolerance following drug washout. Our study highlights how
+the transient appearance of the weakly proliferative and drugtolerant cells is related to the use of high-dose therapy. Furthermore, we show how stem-like characteristics can act to stabilize
+the transient, weakly proliferative, and drug-tolerant subpopulation for a longer time window. Finally, using our models as in silico
+laboratories, we propose new testable hypotheses that could help
+uncover general principles underlying the emergence of cancer
+drug tolerance. Cancer Res; 75(6); 930–9. 2015 AACR.
+
+Introduction
+The interplay between intratumor heterogeneity (1, 2) and
+perturbations in the tumor microenvironment (3–6) plays a key
+role in the emergence of drug resistance in cancer cell populations.
+Intratumor heterogeneity results mainly from genetic modiﬁcations (e.g., mutations), leading, through a Darwinian-like process,
+to the selection of tumor cells expressing phenotypes adapted to
+the local environment (2, 7). However, intratumor heterogeneity
+can also emerge from nongenetic processes mediated by either
+stochastic events or epigenetic modiﬁcations (8–10). In fact,
+perturbations of the tumor microenvironment induced by cytotoxic agents may "instruct" cells to enter a more stress-resistant
+phenotype (11).
+In recent experiments, performed on a number of genetically
+homogeneous populations of cancer cells (including lung cancer,
+melanoma, colorectal cancer, breast cancer, and gastric cancer
+cells), Sharma and colleagues (12) showed that epigenetically
+regulated changes in phenotype can play an important role in the
+development of reversible drug tolerance. During these experiments, a small subpopulation of drug-tolerant cells was consistently detected, that could maintain viability in the presence of
+high-dose drug therapy. These drug-tolerant persisters (DTP) were
+shown to be nonproliferative and display markers speciﬁc to stem
+cell–like cancer cells. After a period of time, approximately 20% of
+DTPs changed their phenotype to resume normal proliferation
+and lost stem-like markers, still in the constant presence of the
+
+Cancer Res; 75(6) March 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst January 27, 2015; DOI: 10.1158/0008-5472.CAN-14-2103
+
+Modeling Reversible Drug Tolerance in Cancer Cell Populations
+
+Quick Guide to Equations and Assumptions
+We describe the evolution of phenotype in a well-mixed PC9 cancer cell population exposed to cytotoxic drugs [whose
+concentration at time t is c(t)] using both an I-B and an IDE formalism. In general, we consider the case of constant infusion
+of cytotoxic drugs (i.e., c() :¼c > 0) and characterize the state of each PC9 cell by its expression levels of two phenotypic traits,
+survival potential and proliferation potential. In this framework, we identify a PC9 cell as having a low value of survival potential
+and a high value of proliferation potential, a DTP cell as having a high value of survival potential and a low value of proliferation
+potential, and a DTEP cell as having a high value of survival and proliferation potential (schematized as in Fig. 1B).
+We model the key biologic mechanisms of phenotype evolution in the PC9 cancer cells, namely selection, stress-induced
+adaptation, and nongenetic phenotype instability, by using three separate mathematical strategies, which are tailored to ﬁt the
+I-B and the IDE formalisms. Selection is modeled through a proliferation probability p(,,) and a death probability d(,) (see Eqs.
+1 and 3), which depend on the levels of proliferative and survival potentials of the cells, as well as on the cell microenvironment
+at time t. Importantly, because DTPs and DTEPs exhibit vastly different proliferation rates, we assume that d(,) does not vary
+with proliferation potential. On the other hand, we assume that maintaining a high survival potential in a drug-free environment
+is costly to a cell and will act to reduce p(.,.,.) (refs. 13, 32, 33). Finally, we assume that p(,,) is dependent on the total population
+size to represent competition between cells for space and nutrients. This dependence could also be introduced in d(,) without
+altering the qualitative results of the model.
+Stress-induced adaptation of cell proliferation level is modeled by an advection term that leads to a decrease in the level of
+proliferation. The speed of adaptation v(,;) depends on the cell microenvironment at time t, the level of survival potential, and
+the average sensitivity of the cell proliferative potential to stress-inducing agents . We assume that adaptation can only occur in the
+presence of the drugs. Hence, we specify that v(,;) ¼ 0 when c ¼ 0.
+Finally, we assume that small (large) epimutations correspond to small (large) changes in cell properties and also that small
+epimutations occur at a much higher frequency than large epimutations (34). Therefore, nongenetic phenotype instability is
+modeled as Brownian motion, or diffusion, in the levels of cell proliferation and survival potentials.
+
+Individual-based model
+In the I-B formalism, we consider each cell as an individual agent and label it by an index 0  i  N(t), where N(t)  0 is the
+size of the population at time t 2 [0, T], and T is the end time of the simulation. The normalized expression levels
+of the survival-potential and proliferation-potential traits in each cell i at time t are modeled, respectively, by the random
+variables Xi(t):[0, ¥] ! [0, 1] and Yi(t):[0, ¥] ! [0, 1]. We simulate the evolution of the cell population in discrete time,
+according to the algorithm pictured in Supplementary Fig. S1A and S1B. Over the time interval between two successive time
+instants t and t þ Dt, we ﬁrst allow each cell i either to proliferate, undergo apoptosis, or remain in a quiescent state according
+to the respective probabilities
+pðXi ; Yi ; NðtÞÞDt;
+
+dðXi ; cðtÞÞDt; and
+
+1  Dt½pðXi ; Yi ; NðtÞÞ þ dðXi ; cðtÞÞ:
+
+ð1Þ
+
+If a cell proliferates, we assume both daughter cells inherit the parent's trait values. After all cells had undergone one iteration
+of the proliferation and death process and returned to the quiescent state, we then let each cell update its trait values according
+to the following system of discretized stochastic differential equations:
+pﬃﬃﬃﬃﬃ
+pﬃﬃﬃﬃﬃ
+Xi ðt þ DtÞ ¼ Xi ðtÞ þ D Dt Wi1 ðtÞ; Yi ðt þ DtÞ ¼ Yi ðtÞ þ D Dt Wi2 ðtÞ þ Dt ½Xi ðtÞ; cðtÞ; ;
+ð2Þ
+|ﬄﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄﬄ}
+|ﬄﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄﬄ} |ﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ}
+Nongenetic
+instability
+
+Nongenetic
+instability
+
+Stress-induced adaptation
+of the proliferation level
+
+where Wi1 ðtÞ and Wi2 ðtÞ are standard normal random variables for all 0  i  N(t) and t  0, and D is the average rate of
+phenotypic ﬂuctuations.
+
+Integro-differential equation model
+In the IDE formalism, we consider the cell population to be structured by two continuous, real variables x 2 [0, 1] and y 2
+[0, 1], which represent, respectively, the normalized expression levels of survival potential and proliferation potential.
+The population density of cancer cells is modeled by the function n(x, y, t)  0, where the global population density at
+R1 R1
+time t 2 [0, T] is computed as %ðtÞ ¼ 0 0 nðx; y; tÞ dxdy, and the time evolution of n is governed by the following equation:
+qn
+q
+ðx; y; tÞ þ ½ðx; cðtÞ; Þ nðx; y; tÞ ¼ ½ pðx; y; %ðtÞÞ  dðx; cðtÞÞ nðx; y; tÞ þ b Dnðx; y; tÞ :
+|ﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ} |ﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄ}
+qt
+qy
+|ﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ}
+Nongenetic
+Selection
+Stress-induced adaptation
+of the proliferation level
+
+ð3Þ
+
+instability
+
+We set b ¼ D2 =2, so that a link between the solution of the IDE model and the outcome of the I-B model can be established
+(at least formally) through the Feynman–Kac formula (35).
+
+www.aacrjournals.org
+
+Cancer Res; 75(6) March 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+931
+
+Published OnlineFirst January 27, 2015; DOI: 10.1158/0008-5472.CAN-14-2103
+
+Chisholm et al.
+
+Extended individual-based model
+In the extended I-B model, we keep the birth and death process unchanged from the original I-B model. However, instead
+of allowing the DTPs to update at each time step, we consider them to be stem-like so that they do not change their phenotype, unless they proliferate. When a DTP undergoes proliferation, we allow its offspring to update according to p1, p2, and
+p3, which represent, respectively, the probabilities for symmetric self-renewal, asymmetric self-renewal, and symmetric
+differentiation. The update mechanisms of the PC9s and DTEPs remain unchanged. This new algorithm is pictured in
+Supplementary Fig. S1C and S1D.
+The assumptions on the functions p, d, and v are summarized in Supplementary Tables S1 and S2. All deﬁnitions of the
+parameter functions are provided in the Supplementary Material.
+
+drugs. The resulting cells were labeled the drug-tolerant expanded
+persisters (DTEP; Fig. 1A). Interestingly, both DTPs and DTEPs
+could be drug resensitized by drug-free passaging.
+Therefore, the three distinct subpopulations—the parental
+cancer cells (PC9), DTPs, and DTEPs—that compose the whole
+cancer cell population at various times during drug treatment,
+although genetically identical, possess different functional phenotypes. Most notably, they can be characterized by their respective levels of survival potential (i.e., the level of robustness toward
+life-threatening events in extreme conditions, which in this case
+can be identiﬁed as the level of drug tolerance) and proliferation
+potential (i.e., the rate of cell proliferation; ref. 13). But what is
+driving the evolution of phenotypes observed in the PC9 cancer
+cells? Is it simply a case of selection, in which cells with certain
+properties survive and proliferate better in a given environment
+(14)? Are individual cells changing their properties in response to
+environmental cues (11, 15)?
+During drug therapy, the average level of survival potential in
+the PC9 cell population is nondecreasing over time. We argue that
+this can be explained by the interaction between two mechanisms.
+The ﬁrst mechanism is nongenetic instability (16), which results
+in phenotypic ﬂuctuations without alteration of the genotype due
+to processes that may be intrinsic or extrinsic to the cell (17), and
+may include noise related to gene expression (18, 19), protein
+production (20), and DNA methylation (9, 10). Importantly,
+nongenetic ﬂuctuations in phenotype can occur without a cell
+dividing (unlike changes in phenotype due to genetic mutations)
+and can be passed on to subsequent generations (20). Fluctuations in phenotype give rise to phenotype heterogeneity and can
+result in the transition of drug-sensitive cells into a robust phe-
+
+A
+
+B
+
+Time
+
+932 Cancer Res; 75(6) March 15, 2015
+
+notype (4, 10, 21). These cells are able to survive drug exposure,
+and hence the second mechanism, selection, can cause the most
+robust cells to become the majority in the population (14).
+The dynamics of the average level of proliferation potential is
+even more interesting. Initially, as the majority phenotype transitions from PC9 to DTP, the average proliferation level drops.
+However, after a period of time, as DTEPs emerge from DTPs, the
+average level of proliferation increases back to normal. The
+interplay between nongenetic instability and selection could
+explain the emergence of the DTEPs from the DTPs. Nevertheless,
+these mechanisms alone cannot account for the initial drop in the
+average level of proliferation of the surviving cell population.
+A natural explanation is that there are a small number of DTPs
+present in the initial population of PC9 cells that survive the initial
+drug therapy, and are subsequently selected for in the presence of
+the drugs (14). This is exactly the scenario suggested by the
+authors in ref. 12, despite the lack of deﬁnitive evidence that
+there are DTPs present in the initial population of PC9 cells.
+Therefore, it is possible that there are no DTPs present in the initial
+population of PC9 cells. If this is the case, then we propose that the
+DTP phenotype must be stress-induced (11, 15, 22).
+In this adaptive scenario, PC9 cells are induced to lower their
+proliferative potential in response to stress caused by exposure to
+the drugs. This idea is supported by several observations. First, in
+response to stress caused by exposure to chemotherapeutic agents,
+damage to DNA is a common event and can activate the DNA
+damage response—a process that has been associated with cellcycle arrest in lung cancer cells (22, 23)—until either the DNA can
+be repaired, or apoptosis is triggered. Second, one of the main
+chemotherapy drugs used in the experiments of ref. 12, geﬁtinib,
+
+Figure 1.
+Phenotype evolution in PC9 cells
+during cytotoxic drug therapy. A,
+schematic diagram of phenotype
+evolution in PC9 cells during highdose cytotoxic drug therapy. Note
+that, in the scenario pictured here,
+there are DTPs present in the initial
+PC9 population. However, this may
+not necessarily be the case. B,
+schematic diagram representing the
+evolution of proliferation and survival
+potential levels in PC9 cells during
+cytotoxic drug therapy. The dashed
+lines highlight the regions of the
+phenotype space corresponding to
+the PC9s, DTPs, and DTEPs.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst January 27, 2015; DOI: 10.1158/0008-5472.CAN-14-2103
+
+Modeling Reversible Drug Tolerance in Cancer Cell Populations
+
+has been shown to induce cell-cycle arrest in G1 phase in lung
+cancer cell lines, including PC9 cells (24). Therefore, we hypothesize that in the presence of the drugs, cells with a low survival
+potential will experience signiﬁcant stress, and respond by lowering their proliferation rate (23, 25). On the other hand, robust
+cells, with a high survival potential, experience much less stress in
+the presence of the drugs and will not be induced to lower their
+proliferation rate.
+Motivated by these considerations, here, we propose an individual-based (I-B) computational model (11, 26–28) and an
+integro-differential equation (IDE) model (29–31) of the phenotype evolution observed in ref. 12. Such models can be used as
+in silico laboratories to highlight stylized facts, and uncover
+mechanisms that underlie emergent features of cancer cell populations. The I-B computational model allows an intuitive and
+ﬂexible description of the system at hand, whereas the IDE model
+makes it possible to study the system in terms of qualitative and
+asymptotic analysis, and is computationally less expensive.
+Our models rely on the assumption that PC9 cells possess
+signiﬁcant phenotypic plasticity. Furthermore, we assume that,
+during drug treatment, the surviving cell population can consist of
+cells residing within a spectrum of intermediate phenotypic states,
+ranging from PC9 through to DTP, and to DTEP. We also assume
+that the PC9s can gradually acquire drug tolerance at the same
+time as they gradually change their proliferation ability.
+Unlike previous models of resistance in cancer cell populations
+that focus on the evolution of just one phenotypic trait (11, 27–
+31), here, we introduce a novel strategy to model the effects of
+stress-induced adaptation, and we focus on the evolution of two
+phenotypic traits that show substantial variability during drug
+treatment and after drug washout: a cell's survival potential and
+proliferation potential. Throughout, we consider the proliferation
+potential and survival potential of cells separately. However,
+mathematically they are not strictly independent traits, due to
+the strategy we use to model the effects of stress-induced adaption.
+In the presence of high-dose drug therapy, we illustrate the
+ability of the models to recover the evolution of the PC9 cells into
+DTPs and ﬁnally into DTEPs, and also the drug resensitization of
+DTPs and DTEPs. Showing this, we can then argue that the models
+have validity for suggesting plausible evolutionary mechanisms
+underlying drug tolerance. Therefore, we use our I-B computational and IDE models in parallel to address the following
+questions:
+Q1.
+Q2.
+
+Q3.
+
+Is nongenetic instability necessary in the development
+of drug tolerance?
+How do the evolutionary dynamics of the cell
+population compare between the regimes of low
+and high drug dose?
+Is it possible to determine whether therapy induces
+the DTP phenotype?
+
+Q4.
+
+What is the role of stem-like characteristics of the DTP
+cells in the development of drug tolerance?
+
+Our study highlights the important role of nongenetic instability in the emergence of DTEPs, and also leads us to propose
+experiments that may help to assess whether there are DTPs
+present ab initio, and whether PC9 cells are undergoing stressinduced adaptation of their phenotype. Finally, our models
+predict that the transient dominance of the DTP subpopulation
+is regulated by their stem-like characteristics and is a direct result
+of the high doses of chemotherapeutic drugs used in ref. 12.
+
+Results
+For each scenario presented below, we consider the concentration of cytotoxic drugs (i.e., the parameter c) to be high (low)
+if it is greater (less) than, or equal to, the LC90 (LC50) dose,
+which is deﬁned as the drug dose required to kill 90% (50%) of
+the total cell population in the initial stage of drug therapy,
+before the population starts to recover. A sample of parameter
+sets and their corresponding LC90 and LC50 doses is provided
+in Table 1. The end-time of the simulations is represented by the
+¥
+¥
+¼ TÞj
+¼ TÞj
+parameter T, and satisﬁes jN Nðt
+< 0:05 or j% %ðt
+< 0:05,
+N¥
+%¥
+¥
+¥
+where N and % are the respective asymptotic values of the total
+cell number and global population density, which are computed
+for a given set of parameters values.
+Mathematical models recover the population level dynamics of
+the PC9 cells
+To determine whether our models can reproduce the experimental observations of the PC9 cancer cell lines during drug
+therapy, as reported in ref. 12, we numerically solve the IDE
+model and simulate the I-B model for a high dose of the
+cytotoxic drugs. In Fig. 2, we present numerical solutions from
+the I-B and IDE models for the case when there are a few DTPs
+present in the initial population (i.e., 5% of the global population density), and when there is no stress-induced adaptation
+of the proliferation potential. Figure 2A displays the trajectories
+of the mean phenotypic expression of the population. It is clear
+that, as time progresses, the mean phenotypic expression
+changes from being PC9-like, to being DTP-like and ﬁnally to
+being DTEP-like. Such dynamics are also shown in Fig. 2C–J,
+which displays the phenotypic distribution at different times
+during drug therapy (see also Supplementary Movie S1, which
+shows the phenotypic distribution evolving in time for one
+simulation of the I-B model). In Fig. 2B, the plot of the global
+population density as a function of time reveals that, shortly
+after drug exposure, there is a large reduction in cell number,
+followed by a time of relatively constant population level,
+before the population recovers back to normal levels. Similar
+
+Table 1. Representative sets of parameter values
+(a1, a2, a3)
+(0.03, 0.25,
+(0.03, 0.25,
+(0.03, 0.25,
+(0.03, 0.25,
+(0.03, 0.25,
+(0.03, 0.25,
+(0.03, 0.25,
+
+0.05)
+0.05)
+0.05)
+0.05)
+0.05)
+0.05)
+0.05)
+
+(b1, b2, b3)
+(0.15, 1.3, 0)
+(0.15, 1.3, 0)
+(0.15, 1.3, 0)
+(0.15, 1.3, 0)
+(0.15, 1.3, 0)
+(0.15, 1.3, 0.02)
+(0.15, 1.3, 0.02)
+
+b
+0.5  105
+0.5  105
+0.5  105
+0.5  105
+2.5  105
+1.0  104
+1.0  104
+
+
+0.012
+0.005
+0
+0
+0
+0
+0.070
+
+x
+0.8
+0.8
+N/A
+N/A
+N/A
+N/A
+0.8
+
+K
+1.0  105
+1.0  105
+1.5  105
+1.0  105
+1.0  105
+0.5  105
+0.5  105
+
+l
+0
+0
+0.05
+0.02
+0.02
+0.05
+0
+
+LC90
+0.138
+0.189
+0.213
+0.212
+0.220
+0.215
+0.100
+
+LC50
+0.090
+0.114
+0.121
+0.121
+0.122
+0.115
+0.067
+
+NOTE: A sample of sets of parameter values used in the simulations, with their corresponding LC90 and LC50 doses, which were calculated numerically. x is the
+parameter that speciﬁes the value of x, above which, stress-induced adaptation is switched off (details in the Supplementary Material).
+
+www.aacrjournals.org
+
+Cancer Res; 75(6) March 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+933
+
+Published OnlineFirst January 27, 2015; DOI: 10.1158/0008-5472.CAN-14-2103
+
+Chisholm et al.
+
+A
+
+B
+
+C
+
+D
+
+E
+
+F
+
+G
+
+H
+
+I
+
+J
+
+results can be obtained when there are no DTPs present in the
+initial population, and when we include stress-induced adaptation of proliferation levels (we present numerical solutions for
+this case, from the IDE model in Fig. 3A and B and the top rows
+of Supplementary Figs. S3 and S4, whereas Supplementary
+Movie S2 shows the phenotypic distribution evolving in time
+for one simulation of the I-B model in this case).
+However, only the I-B model can shed light on the individual
+cell-level dynamics, which, at times, is quite different from the
+population-level dynamics. A comparison between the trajectories of the phenotypic expression of six individual cells and the
+population mean trajectory from the I-B model is provided in
+Supplementary Fig. S5A. In this case, there are no DTPs present in
+the initial population, and we include stress-induced adaptation
+of the proliferation potential. Supplementary Fig. S5A shows one
+cell deviating from the average population-level behavior, by
+rapidly evolving a DTEP phenotype directly from the PC9 phenotype. Therefore, although the majority of surviving cells are
+predicted to follow the phenotypic trajectory from PC9 to DTP
+
+934 Cancer Res; 75(6) March 15, 2015
+
+Figure 2.
+Mathematical models recover the
+population level dynamics of the PC9
+cells. A, trajectories of the mean
+phenotypic expression for 0  t  T. B,
+global population density as a function
+of time. C, cell distribution over the
+survival potential at three different times
+t ¼ T/50, T/10, T/2. D, cell distribution
+over the proliferation potential at three
+different times t ¼ T/50, T/10, T/2. Solid
+lines are the numerical results from the
+IDE model, whereas the broken lines
+are from the I-B model. E–J, phenotypic
+distribution of the cell population at
+three different times t ¼ 0, T/5, T for the
+I-B model (E–G), IDE model (H–J). Details
+are provided in the Supplementary
+Material.
+
+and through to DTEP (see Supplementary Movies S1–S3), due to
+stochasticity, this will not always be the case.
+We present numerical solutions from the I-B and IDE
+models when c ¼ 0, to see what happens to the PC9 cells if
+they are left to evolve in the absence of drugs in Supplementary
+Fig. S5C and S5D. It is clear that, although selection forces
+the majority of cells to remain in the PC9 phenotype, the effect
+of the diffusion term is to make the population more heterogeneous over time. Therefore, there are a small number of cells
+that are more slowly proliferating and/or with higher resistance,
+despite the fact that the fast-proliferating and less-resistant cells
+have a ﬁtness advantage in the drug-free conditions.
+Figure 2 also shows that we can obtain a good match for the
+dynamics predicted by the I-B model with that predicted by
+the IDE model. We also achieve the same qualitative match for
+the other cases considered in this section. Therefore, with the
+exception of our study on the stem cell characteristics of DTPs
+(where we use the extended I-B model), from now on we present
+numerical results obtained from the IDE model only.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst January 27, 2015; DOI: 10.1158/0008-5472.CAN-14-2103
+
+Modeling Reversible Drug Tolerance in Cancer Cell Populations
+
+A
+
+B
+
+C
+
+D
+
+Figure 3.
+Nongenetic instability is crucial for the emergence of DTEPs. We illustrate the effect of the rate of phenotypic ﬂuctuations (i.e., the parameter b) on the
+trajectory of the population mean trait levels for 0  t  T (A and C) and the corresponding global population density (B and D) as a function of
+time, in a high drug-dose regime and when there are only PC9s present in the initial population and stress-induced adaptation is present (A and B) or
+98% PC9s and 2% DTPs present in the initial population and stress-induced adaptation is absent (C and D). Note that in A and C, the trajectories
+corresponding to the case b ¼ 0 terminate (when the populations become extinct) in the regions corresponding, respectively, to the PC9 and DTP phenotype.
+Details are provided in the Supplementary Material.
+
+In the experiments reported in ref. 12, both the resistant DTPs
+and DTEPs can be drug resensitized by drug-free passaging. Therefore, we numerically solve the IDE model and simulate the I-B
+model for a period of time with high doses of cytotoxic drugs, so
+that either DTPs or DTEPs are left as the dominant subpopulation.
+We subsequently switch the drug concentration off to simulate
+drug washout, and allow the system to continue to evolve. We ﬁnd
+that the models can successfully reproduce drug resensitization of
+the DTPs and DTEPs (see Fig. 4 and Supplementary Fig. S6).
+Finally, in ref. 12, the authors suggest that reversible drug
+tolerance in the PC9 cancer cell lines is due to an epigenetic
+mechanism, rather than resistance-conferring genetic mutations.
+To determine whether a genetic mechanism could generate the
+same phenotype dynamics observed in ref. 12, we deﬁne an IDE
+model of phenotype evolution, in which only selection and genetic
+mutations are driving cell dynamics (described in the Supplementary Material). Our simulations (see Supplementary Fig. S2) show
+that a detectable subpopulation of DTPs cannot emerge during
+treatment if there are no DTPs present in the system initially. In this
+case, either the PC9 population will move toward extinction, or the
+DTEPs will evolve directly from the PC9s. Furthermore, if there are
+some DTPs present in the system initially, and selection allows
+them to transiently emerge as the dominant subpopulation during
+drug treatment, then the time it takes for the DTEPs to subsequently
+emerge from the DTPs is signiﬁcantly longer, than if phenotypic
+
+A
+
+B
+
+Time
+
+e
+
+e
+
+m
+
+Ti
+
+Tim
+Tim
+
+e
+
+Figure 4.
+Mathematical models recover the drug resensitization of DTPs (A) and DTEPs
+(B) following drug washout. Trajectories of the mean phenotypic expression.
+Here, solid lines are the numerical results from the IDE model during drug
+exposure, whereas the broken lines are from the IDE model after drug
+washout. Details are provided in the Supplementary Material.
+
+www.aacrjournals.org
+
+changes were the result of nongenetic mechanisms. These results
+support the idea that epigenetic mechanisms, rather than genetic
+mutations, are responsible for the evolution of phenotype
+observed in the cell lines studied in ref. 12.
+Nongenetic instability is crucial for the emergence of DTEPs
+To investigate the role of nongenetic instability in the evolution
+of drug tolerance in PC9 cells, we analyze the phenotype evolution in the PC9 population for different values of the average
+rate of phenotypic ﬂuctuations (i.e., the parameter b) for a high
+dose of cytotoxic drugs. We consider two hypothetical scenarios:
+Scenario 1, when the initial population consists of only PC9s
+and stress-induced adaptation of the proliferation level is
+present.
+Scenario 2, when a small number of DTPs are present initially
+and stress-induced adaptation of the proliferation level is
+absent.
+For the ﬁrst scenario, our model predicts that if the average rate
+of phenotypic ﬂuctuations is too large, then the PC9s will evolve
+directly into the DTEPs. Furthermore, if this rate is too small, then
+the PC9s will become extinct before they are able to express
+the more robust DTP phenotype. This is illustrated in Fig. 3A
+and B, in which we plot the trajectories of the mean phenotypic
+expression of the population and the corresponding total cell
+density as a function of time, for three values of b (see also
+Supplementary Fig. S3A and S3B).
+For the second scenario, the model predicts that in the absence
+of nongenetic instability, the DTEPs cannot emerge from the
+DTPs. Therefore, the DTP phenotype is stabilized inside the
+surviving population. Consequently, compared with the case
+when nongenetic instability is present, the long-term total global
+population density can be much smaller. In fact, if the concentration of the drugs is high enough, then the population can go
+extinct when nongenetic instability is absent. These predictions
+are illustrated in Fig. 3C and D (see also Supplementary Fig. S3C
+and S3D).
+A high dose of cytotoxic drugs is necessary for the transient
+dominance of DTPs
+We use our IDE model to investigate the evolutionary dynamics
+of the PC9 cells in a low drug-dose regime. For scenario 1,
+
+Cancer Res; 75(6) March 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+935
+
+Published OnlineFirst January 27, 2015; DOI: 10.1158/0008-5472.CAN-14-2103
+
+Chisholm et al.
+
+A
+
+B
+High dose
+Low dose
+
+Ti
+
+C
+
+D
+
+High dose
+Low dose
+
+m
+
+e
+
+High dose
+Low dose
+
+High dose
+Low dose
+
+Figure 5.
+A high dose of cytotoxic drugs is necessary for the transient dominance of DTPs. We illustrate the effect of the concentration of the cytotoxic drugs (i.e., the
+parameter c) on the trajectory of the population mean trait levels for 0  t  T (A and C) and the corresponding global population density (B and D) as a
+function of time when there are only PC9s present in the initial population and stress-induced adaptation is present (A and B) or 98% PC9s and 2% DTPs present
+in the initial population and stress-induced adaptation is absent (C and D). Details are provided in the Supplementary Material.
+
+described above, our model predicts that, ceteris paribus, decreasing the drug concentration can prevent the emergence of DTPs and
+speed up population recovery. These dynamics are illustrated
+in Fig. 5A and B, in which we plot the trajectories of the mean
+phenotypic expression of the population and the corresponding global population density as a function of time, for both a
+high dose and a low dose of the cytotoxic drugs. This is also true
+for scenario 2 (see Fig. 5C and D). Therefore, we can conclude
+that a higher dose of the cytotoxic drugs is a key ingredient to
+see the transient dominance of DTPs. A more complete set of
+comparisons between the high and low drug-dose regimes, for
+a range of parameter values, is provided in Supplementary Figs.
+S3 and S4.
+Low cytotoxic drug-dose experiments could establish if the DTP
+phenotype is not stress induced
+Another interesting prediction from our model in the low-dose
+regime is that, if there are a few DTPs present in the initial PC9
+population, and stress-induced adaptation is absent, then it is
+possible to see an increase in the average proliferative potential in
+the surviving population, followed by a decrease before a second
+increase (see Fig. 6). This behavior is not predicted in the highdose regime, nor is it predicted if there are no DTPs present
+initially, and is driven by the concurrent emergence of the DTEPs
+from both of the initial subpopulations (PC9s and DTPs). In the
+low drug-dose regime and without stress-induced adaptation of
+the proliferative potential, some of the initial PC9 cells and their
+progeny are able to survive the drug exposure and gradually adopt
+a phenotype with a higher survival potential. Hence, some DTEPs
+begin to emerge directly from the PC9s. At the same time, the
+small DTP initial subpopulation, which has a signiﬁcant survival
+
+A
+
+B
+Time
+
+936 Cancer Res; 75(6) March 15, 2015
+
+advantage in the presence of the drug compared with the PC9s, is
+transitioning into a more proliferative (DTEP-like) phenotype
+and, after a time-lag, begins to outcompete the PC9s. Therefore,
+the majority population switches from the PC9s (which are
+transitioning into DTEPs) to the DTPs (also transitioning into
+DTEPs), thus forcing the average proliferative potential to
+decrease for a period of time before increasing again.
+Therefore, one way to determine whether there are preexisting
+DTPs within the initial PC9 population, and if stress-induced
+adaptation is not occurring, would be to repeat the experiments of
+ref. 12 with a low dose of the cytotoxic drugs, and observe the
+average mitotic rate of the surviving population. Our models
+predict that, if there is an initial increase in the average mitotic rate,
+followed by a decrease and a further increase, then it is likely that
+DTPs are present in the initial population, and stress-induced
+adaptation is not occurring.
+Stem-like characteristics temporarily stabilize the
+subpopulation of DTPs
+Sharma and colleagues (12) showed that the DTPs display stem
+cell–like surface markers, which are absent in the DTEPs. Therefore, it is reasonable to assume that the DTPs express some stemlike characteristics. In particular, stem cells have the potential to
+generate more stem cells, as well as differentiated daughter cells
+(36)—they are capable of symmetric cell divisions, in which a
+dividing stem cell can produce either only stem cell daughters
+(self-renewal) or only differentiated daughters, or asymmetric cell
+divisions, in which a dividing stem cell produces one stem cell
+daughter and one differentiated daughter.
+Motivated by these considerations, we use the extended I-B
+model to investigate the role of self-renewal and asymmetric cell
+
+C
+Tim
+
+e
+
+Tim
+
+e
+
+Figure 6.
+Low drug-dose experiments could
+establish whether the DTP phenotype
+is not stress induced. Trajectories of
+the population mean trait levels during
+low drug-dose therapy, when there
+are 98% PC9s and 2% DTPs present in
+the initial population, and stressinduced adaptation of the proliferation
+level is absent (A) or present (B and C).
+Details are provided in the
+Supplementary Material.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst January 27, 2015; DOI: 10.1158/0008-5472.CAN-14-2103
+
+Modeling Reversible Drug Tolerance in Cancer Cell Populations
+
+A
+
+B
+e
+Tim
+
+Figure 7.
+Stem-like characteristics of DTPs stabilize the transiently dominant
+subpopulation of DTPs for longer. We illustrate the effect of the DTP selfrenewal probability on the trajectories of the mean phenotypic expression (A)
+and the corresponding number of PC9s (solid lines), DTPs (dotted lines), and
+DTEPs (dash-dot lines) as a function of time (B). Numerical results come from
+the extended I-B model. Details are provided in the Supplementary Material.
+
+divisions in the development of drug tolerance. We analyze the
+dynamics of the cells for a range of different values of the
+symmetric self-renewal probability p1, when the probability of
+asymmetric self-renewal p2 equates to 1  p1, so that the probability of symmetric differentiation p3 is zero (see Supplementary
+Fig. S1C and S1D).
+Again, we consider the two hypothetical scenarios outlined
+above. In both scenarios, if DTPs do transiently dominate the
+surviving population, then a higher probability of self-renewal
+increases the time taken for the emergence of the DTEPs from the
+DTPs. Furthermore, after the DTEPs have emerged, a higher
+probability of self-renewal corresponds to a larger and more
+stable subpopulation of DTPs in the surviving population. These
+predictions are illustrated in Fig. 7, in which, for scenario 1, we
+plot the trajectories of the mean phenotypic expression of the
+population and the corresponding numbers of PC9s, DTPs, and
+DTEPs as a function of time for three different values of p1 (see
+also Supplementary Fig. S7C and S7D for scenario 2).
+On the other hand, if the DTPs do not transiently dominate
+the surviving population, either because the population becomes
+extinct before it can become drug tolerant (see Supplementary
+Fig. S7G and S7H), or because the DTEPs emerge directly from
+the PC9s (see Supplementary Fig. S7A and S7B), then, not surprisingly, the probability of self-renewal p1 does not play any
+role in the dynamics of the population.
+
+Discussion
+The PC9 cell line experiments reported in ref. 12 are performed
+in an isolated and relatively homogeneous environment, and
+involve only a few constituents—a genetically identical cell population, culture media, and combinations of drugs. Furthermore,
+each experiment has clear observables, namely the percentage of
+surviving cells and their phenotypic distributions, which make the
+PC9 cancer cell lines an ideal system to study from a mathematical
+perspective.
+Here, we have presented an I-B computational model and an
+IDE model of the evolution of phenotype observed in ref. 12,
+which rely on the assumption that this evolutionary process is
+driven by the interplay between nongenetic phenotype instability,
+stress-induced adaptation, and selection. Distinct mathematical
+strategies were used to model each evolutionary mechanism, to
+enable us to better understand the effect of each mechanism on
+
+www.aacrjournals.org
+
+phenotypic evolution. The models reproduce the main experimental observations detailed in ref. 12, and support the idea that
+epigenetic mechanisms, rather than genetic mutations, are
+responsible for the evolution of cell phenotype. Our analysis
+highlights the important role of nongenetic ﬂuctuations in phenotype in the emergence of drug tolerance in PC9 cancer cell lines.
+In particular, we suggest that the absence of nongenetic instability
+can result in the stabilization of the DTP phenotype in the
+surviving population, so that DTEPs do not emerge, or even in
+extinction. This is a key result because it supports the idea that
+epigenetic therapy may be a promising therapeutic strategy in the
+war against cancer (37–39).
+Another important prediction of our models is that the transient dominance of DTPs is strictly related to the use of high doses
+of cytotoxic drugs. If experimentalists apply a lower dose of
+cytotoxic agents to the PC9 cell population during drug therapy,
+we propose that it would be highly unlikely to observe DTPs.
+Rather, we would expect the DTEPs to emerge directly from the
+PC9 population. Note that this is the usual way to yield stable
+drug-tolerant lineages (40).
+Our analyses also suggest that stem-like, self-renewing cell
+divisions of DTPs can act to increase the number of DTPs in the
+system, and is consistent with other mathematical models of
+stem cell dynamics (41). In particular, we expect that DTP selfrenewal can act to stabilize the DTP subpopulation for a longer
+period of time during drug therapy, compared with the case
+without self-renewal, as well as to delay the emergence of DTEPs.
+On the basis of our models, we can conclude that if there are
+no DTPs present in the initial population of PC9 cells, then it is
+likely that a proper interplay between nongenetic phenotype
+instability, stress-induced adaptation, and selection is mandatory
+for the transient appearance of the DTP phenotype during highdose drug therapy. On the other hand, if there are some DTPs
+present in the initial population, then nongenetic ﬂuctuations
+in phenotype and selection are enough to explain the experimental observations reported in ref. 12. Therefore, the next
+biologically meaningful question is: are DTPs present in the initial
+population? Our analysis enabled us to propose a low cytotoxic
+drug-dose experiment, which could answer this question. Another
+possible way to determine whether DTPs are present ab initio
+would be to use the experimental technique described in ref. 42
+to identify and isolate slow-cycling cells in the parental PC9 cell
+population, and subsequently compare the drug sensitivity of
+these cells with that of the more rapidly dividing PC9 cells.
+The low-dose experiment we proposed could also determine
+that stress does not induce the DTP phenotype. However, another
+way to assess whether PC9s are induced by stress to acquire the
+DTP phenotype would be to perform a ﬂow-cytometry analysis on
+the PC9s with respect to the cluster of differentiation 24 (CD24)
+surface marker, at a time soon after drug delivery. If the surviving
+population has an intermediate level of expression soon after drug
+exposure, relative to the expression of CD24 in PC9s and DTPs,
+then this would suggest that the DTP phenotype is a result of
+nongenetic ﬂuctuations in phenotype, selection, and stressinduced adaptation.
+To keep the models as simple as possible, we chose to include
+only mechanisms that were necessary to reproduce the experimental results observed in ref. 12. However, if appropriate
+future experimental evidence emerges for this system, such as
+time series data for proliferation rates or cell density, then this
+could be used to determine whether an additional mechanism,
+
+Cancer Res; 75(6) March 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+937
+
+Published OnlineFirst January 27, 2015; DOI: 10.1158/0008-5472.CAN-14-2103
+
+Chisholm et al.
+
+like stress-induced adaptation of the survival potential, should be
+added to the basic framework established here.
+A natural way to extend our model would be to study the
+emergence of epigenetic drug tolerance in a primary tumor. In this
+framework, we could assume cells to be organized in a nonvascularized and radially symmetric microspheroid (43), and introduce an additional structuring variable that stands for the normalized linear distance of cells from the center of the spheroid. We
+could also introduce an additional evolution equation for the
+local concentration of cytotoxic drugs. In this case, the interplay
+between diffusion and consumption of cytotoxic drugs could lead
+to the creation of distinct niches differentiated by the local
+environment, which would provide ecologic opportunities for
+diversiﬁcation.
+In our study, we have considered a two-dimensional structuring
+phenotype. It is then natural to wonder about what could be a
+biologic quantitative variable underlying such a continuous phenotype. We propose, as a reasonable candidate, the degree of
+epigenetic modiﬁcations of the DNA (methylation and histone
+acetylation) in relevant parts of the genome. Such modeling has
+been previously proposed in ref. 44, using a one-dimensional,
+phenotype-like structure variable. By using a multidimensional
+phenotype, we consider differential effects of epimutations on
+genes responsible for the classical intracellular pathways of proliferation and survival.
+
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+Authors' Contributions
+Conception and design: R.H. Chisholm, T. Lorenzi, A. Lorz, L.N. de Almeida,
+A. Escargueil, J. Clairambault
+Development of methodology: R.H. Chisholm, T. Lorenzi
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): R.H. Chisholm, T. Lorenzi
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): R.H. Chisholm, T. Lorenzi, A. Lorz, A.K. Larsen,
+L.N. de Almeida, A. Escargueil, J. Clairambault
+Writing, review, and/or revision of the manuscript: R.H. Chisholm, T. Lorenzi,
+A. Lorz, A.K. Larsen, L.N. de Almeida, A. Escargueil, J. Clairambault
+Study supervision: A. Lorz, L.N. de Almeida, A. Escargueil, J. Clairambault
+
+Acknowledgments
+The authors thank both reviewers for their most helpful and insightful
+comments on the article.
+
+Grant Support
+This research was funded in part by the French "ANR blanche" project Kibord:
+ANR-13-BS01-0004. T. Lorenzi was supported by the Fondation Sciences Mathematiques de Paris (FSMP), by a public grant overseen by the French National
+Research Agency (ANR) as part of the "Investissements d'Avenir" program
+(reference: ANR-10-LABX-0098), and by the labex LMH through the grant no.
+ANR-11-LABX-0056-LMH in the "Programme des Investissements d'Avenir".
+The costs of publication of this article were defrayed in part by the payment of
+page charges. This article must therefore be hereby marked advertisement in
+accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+
+Received July 17, 2014; revised January 7, 2015; accepted January 12, 2015;
+published OnlineFirst January 27, 2015.
+
+References
+1. Navin N, Krasnitz A, Rodgers L, Cook K, Meth J, Kendall J, et al. Inferring
+tumor progression from genomic heterogeneity. Genome Res 2010;20:
+68–80.
+2. Gerlinger M, Rowan AJ, Horswell S, Larkin J, Endesfelder D, Gronroos E,
+et al. Intratumor heterogeneity and branched evolution revealed by multiregion sequencing. N Engl J Med 2012;366:883–92.
+3. Holohan C, Van Schaeybroeck S, Longley DB, Johnston PG. Cancer drug
+resistance: an evolving paradigm. Nat Rev Cancer 2013;13:714–26.
+4. Gupta PB, Fillmore CM, Jiang G, Shapira SD, Tao K, Kuperwasser C, et al.
+Stochastic state transitions give rise to phenotypic equilibrium in populations of cancer cells. Cell 2011;146:633–44.
+5. Song CW, Lee H, Dings RP, Williams B, Powers J, Dos Santos T, et al.
+Metformin kills and radiosensitizes cancer cells and preferentially kills
+cancer stem cells. Sci Rep 2012;2:362.
+6. Yang G, Quan Y, Wang W, Fu Q, Wu J, Mei T, et al. Dynamic equilibrium
+between cancer stem cells and non-stem cancer cells in human sw620 and
+mcf-7 cancer cell populations. Br J Cancer 2012;106:1512–9.
+7. Greaves M, Maley CC. Clonal evolution in cancer. Nature 2012;481:
+306–13.
+8. Glasspool R, Teodoridis JM, Brown R. Epigenetics as a mechanism driving
+polygenic clinical drug resistance. Br J Cancer 2006;94:1087–92.
+9. Newman JR, Ghaemmaghami S, Ihmels J, Breslow DK, Noble M, DeRisi JL,
+et al. Single-cell proteomic analysis of s. cerevisiae reveals the architecture
+of biological noise. Nature 2006;441:840–6.
+10. Brock A, Chang H, Huang S. Non-genetic heterogeneity—a mutationindependent driving force for the somatic evolution of tumours. Nat Rev
+Genet 2009;10:336–42.
+11. Pisco AO, Brock A, Zhou J, Moor A, Mojtahedi M, Jackson D, et al. Nondarwinian dynamics in therapy-induced cancer drug resistance. Nat Commun 2013;4:2467.
+12. Sharma SV, Lee DY, Li B, Quinlan MP, Takahashi F, Maheswaran S, et al. A
+chromatin-mediated reversible drug-tolerant state in cancer cell subpopulations. Cell 2010;141:69–80.
+13. Aktipis CA, Boddy AM, Gatenby RA, Brown JS, Maley CC. Life history tradeoffs in cancer evolution. Nat Rev Cancer 2013;13:883–92.
+
+938 Cancer Res; 75(6) March 15, 2015
+
+14. Kreso A, O'Brien CA, van Galen P, Gan OI, Notta F, Brown AM, et al.
+Variable clonal repopulation dynamics inﬂuence chemotherapy response
+in colorectal cancer. Science 2013;339:543–8.
+15. Williams KP, Allensworth JL, Ingram SM, Smith GR, Aldrich AJ, Sexton JZ,
+et al., Quantitative high-throughput efﬁcacy proﬁling of approved oncology drugs in inﬂammatory breast cancer models of acquired drug resistance
+and re-sensitization. Cancer Lett 2013;337:77–89.
+16. Huang S. Genetic and nongenetic instability in tumor progression: link
+between the ﬁtness landscape and the epigenetic landscape of cancer cells.
+Cancer Metastasis Rev 2013;32:423–48.
+17. Swain PS, Elowitz MB, Siggia ED. Intrinsic and extrinsic contributions
+to stochasticity in gene expression. Proc Natl Acad Sci U S A 2002;99:
+12795–800.
+18. Munsky B, Neuert G, van Oudenaarden A. Using gene expression noise to
+understand gene regulation. Science 2012;336:183–7.
+19. Taniguchi Y, Choi PJ, Li GW, Chen H, Babu M, Hearn J, et al. Quantifying
+e. coli proteome and transcriptome with single-molecule sensitivity in
+single cells. Science 2010;329:533–8.
+20. Sigal A, Milo R, Cohen A, Geva-Zatorsky N, Klein Y, Liron Y, et al. Variability
+and memory of protein levels in human cells. Nature 2006;444:643–6.
+21. McCullough KD, Coleman WB, Ricketts SL, Wilson JW, Smith GJ, Grisham
+JW. Plasticity of the neoplastic phenotype in vivo is regulated by epigenetic
+factors. Proc Natl Acad Sci U S A 1998;95:15333–8.
+22. Liu YP, Yang CJ, Huang MS, Yeh CT, Wu AT, Lee YC, et al. Cisplatin selects
+for multidrug-resistant cd133þ cells in lung adenocarcinoma by activating
+notch signaling. Cancer Res 2013;73:406–16.
+23. Gautam A, Bepler G. Suppression of lung tumor formation by the regulatory subunit of ribonucleotide reductase. Cancer Res 2006;66:6497–502.
+24. Cheng H, An SJ, Zhang XC, Dong S, Zhang YF, Chen ZH, et al. In vitro
+sequence-dependent synergism between paclitaxel and geﬁtinib in human
+lung cancer cell lines. Cancer Chemother Pharmacol 2011;67:637–46.
+25. Davidson JD, Ma L, Flagella M, Geeganage S, Gelbert LM, Slapak CA. An
+increase in the expression of ribonucleotide reductase large subunit 1 is
+associated with gemcitabine resistance in non–small cell lung cancer cell
+lines. Cancer Res 2004;64:3761–6.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Published OnlineFirst January 27, 2015; DOI: 10.1158/0008-5472.CAN-14-2103
+
+Modeling Reversible Drug Tolerance in Cancer Cell Populations
+
+26. Anderson AR, Weaver AM, Cummings PT, Quaranta V. Tumor morphology
+and phenotypic evolution driven by selective pressure from the microenvironment. Cell 2006;127:905–15.
+27. Charlebois DA, Abdennur N, Kaern M. Gene expression noise facilitates
+adaptation and drug resistance independently of mutation. Phys Rev Lett
+2011;107:218101.
+28. Silva AS, Gatenby RA. Research a theoretical quantitative model for
+evolution of cancer chemotherapy resistance. Biol Direct 2010;5:25.
+29. Delitala M, Lorenzi T. A mathematical model for the dynamics of cancer
+hepatocytes under therapeutic actions. J Theor Biol 2012;297:88–102.
+30. Lavi O, Greene JM, Levy D, Gottesman MM. The role of cell density and
+intratumoral heterogeneity in multidrug resistance. Cancer Res 2013;73:
+7168–75.
+31. Lorz A, Lorenzi T, Hochberg ME, Clairambault J, Perthame B. Populational
+adaptive evolution, chemotherapeutic resistance and multiple anticancer
+therapies. ESAIM-Math Model Num 2013;47:377–99.
+32. Gillies RJ, Robey I, Gatenby RA, Causes and consequences of increased
+glucose metabolism of cancers. J Nucl Med 2008;49:24S–42S.
+33. Korolev KS, Xavier JB, Gore J. Turning ecology and evolution against cancer.
+Nat Rev Cancer 2014;14:371–80.
+34. Becker C, Hagmann J, M€
+uller J, Koenig D, Stegle O, Borgwardt K, et al.
+Spontaneous epigenetic variation in the arabidopsis thaliana methylome.
+Nature 2011;480:245–9.
+35. Knill O. Probability and stochastic processes with applications. New Delhi:
+Overseas Press; 2009. p. 1–373.
+
+www.aacrjournals.org
+
+36. Morrison SJ, Kimble J. Asymmetric and symmetric stem cell divisions in
+development and cancer. Nature 2006;441:1068–74.
+37. Clozel T, Yang S, Elstrom RL, Tam W, Martin P, Kormaksson M, et al.
+Mechanism-based epigenetic chemosensitization therapy of diffuse large
+b-cell lymphoma. Cancer Discov 2013;3:1002–19.
+38. Juergens RA, Wrangle J, Vendetti FP, Murphy SC, Zhao M, Coleman B, et al.
+Combination epigenetic therapy has efﬁcacy in patients with refractory
+advanced non–small cell lung cancer. Cancer Discov 2011;1:598–607.
+39. Timp W, Feinberg AP. Cancer as a dysregulated epigenome allowing
+cellular growth advantage at the expense of the host. Nat Rev Cancer
+2013;13:497–510.
+40. Gottesman MM. Mechanisms of cancer drug resistance. Annu Rev Med
+2002;53:615–27.
+41. Marciniak-Czochra A, Stiehl T, Ho AD, J€ager W, Wagner W. Modeling of
+asymmetric cell division in hematopoietic stem cells-regulation of selfrenewal is essential for efﬁcient repopulation. Stem Cells Dev 2009;18:
+377–86.
+42. Moore N, Houghton J, Lyle S. Slow-cycling therapy-resistant cancer cells.
+Stem Cells Dev 2011;21:1822–30.
+43. Yu P, Mustata M, Peng L, Turek JJ, Melloch MR, French PM, et al. Holographic optical coherence imaging of rat osteogenic sarcoma tumor spheroids. Appl Opt 2004;43:4862–73.
+44. Lei J, Levin SA, Nie Q. Mathematical model of adult stem cell regeneration
+with cross-talk between genetic and epigenetic regulation. Proc Natl Acad
+Sci U S A 2014;111:E880–7.
+
+Cancer Res; 75(6) March 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+939
+
+Published OnlineFirst January 27, 2015; DOI: 10.1158/0008-5472.CAN-14-2103
+
+Emergence of Drug Tolerance in Cancer Cell Populations: An
+Evolutionary Outcome of Selection, Nongenetic Instability, and
+Stress-Induced Adaptation
+Rebecca H. Chisholm, Tommaso Lorenzi, Alexander Lorz, et al.
+Cancer Res 2015;75:930-939. Published OnlineFirst January 27, 2015.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-14-2103
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2015/01/29/0008-5472.CAN-14-2103.DC1
+
+This article cites 43 articles, 13 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/75/6/930.full#ref-list-1
+This article has been cited by 1 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/75/6/930.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+

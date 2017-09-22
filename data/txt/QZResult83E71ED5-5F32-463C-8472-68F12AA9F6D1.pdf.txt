@@ -1,0 +1,1041 @@
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+An Integrated Computational Model of the Bone
+Microenvironment in Bone-Metastatic Prostate Cancer
+Arturo Araujo1, Leah M. Cook2, Conor C. Lynch2, and David Basanta1
+
+Abstract
+Bone metastasis will impact most men with advanced prostate cancer. The vicious cycle of bone degradation
+and formation driven by metastatic prostate cells in bone yields factors that drive cancer growth. Mechanistic
+insights into this vicious cycle have suggested new therapeutic opportunities, but complex temporal and cellular
+interactions in the bone microenvironment make drug development challenging. We have integrated biologic and
+computational approaches to generate a hybrid cellular automata model of normal bone matrix homeostasis and
+the prostate cancer-bone microenvironment. The model accurately reproduces the basic multicellular unit bone
+coupling process, such that introduction of a single prostate cancer cell yields a vicious cycle similar in cellular
+composition and pathophysiology to models of prostate-to-bone metastasis. Notably, the model revealed distinct
+phases of osteolytic and osteogenic activity, a critical role for mesenchymal stromal cells in osteogenesis, and
+temporal changes in cellular composition. To evaluate the robustness of the model, we assessed the effect of
+established bisphosphonate and anti-RANKL therapies on bone metastases. At approximately 100% efﬁcacy,
+bisphosphonates inhibited cancer progression while, in contrast with clinical observations in humans, antiRANKL therapy fully eradicated metastases. Reducing anti-RANKL yielded clinically similar results, suggesting
+that better targeting or dosing could improve patient survival. Our work establishes a computational model that
+can be tailored for rapid assessment of experimental therapies and delivery of precision medicine to patients with
+prostate cancer with bone metastases. Cancer Res; 74(9); 2391–401. 2014 AACR.
+
+Major Findings
+*
+
+*
+
+*
+
+*
+
+The hybrid cellular automata model recapitulates the key
+aspects of the physiology of the basic multicellular unit as
+well as the "vicious cycle" of prostate to bone metastases.
+Progression of osteogenic prostate to bone metastases is
+critical on osteoclast activity and mesenchymal stromal
+cells.
+The computational model also illustrates the temporal
+and phasic nature of the metastases.
+The application of clinically used bisphosphonates and
+anti-RANKL therapies to the computational model
+illustrates the power of the approach in predicting the
+efﬁcacy of current and putative therapies.
+
+Authors' Afﬁliations: Departments of 1Integrated Mathematical Oncology
+and 2Tumor Biology, H. Lee Mofﬁtt Cancer Center and Research Institute,
+Tampa, Florida
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+A. Araujo and L.M. Cook share ﬁrst authorship for this article.
+C.C. Lynch and D. Basanta share senior authorship for this article.
+Corresponding Authors: Arturo Araujo, H. Lee Mofﬁtt Cancer Center,
+12902 Magnolia Drive, Mofﬁtt Stabile Research Building (SRB 4), Tampa,
+FL 33612. Phone: 813-817-2575; Fax: 813-745-6497; E-mail:
+arturo@cancerevo.org; and Conor C. Lynch, E-mail:
+conor.lynch@mofﬁtt.org
+doi: 10.1158/0008-5472.CAN-13-2652
+2014 American Association for Cancer Research.
+
+Introduction
+Prostate cancer frequently metastasizes to bone with
+approximately 90% of the men displaying evidence of skeletal
+lesions upon autopsy (1). Despite medical advances, prostate
+to bone metastases remain incurable with treatments being
+mainly palliative (2). Advances in our knowledge of the molecular mechanisms underlying the disease should provide therapeutic opportunities to improve overall survival rates but on a
+more microenvironmental scale, predicting how putative therapies will impact multiple cellular responses remains a challenge. However, integrating key biologic ﬁndings with the
+power of computational modeling offers a unique opportunity
+to assess the impact of putative therapies on the progression of
+prostate cancer.
+Understanding the normal basic multicellular unit (BMU)
+bone remodeling process is critical for the generation of a
+robust computational model (3). The initiation of the BMU
+by local or systemic signals results in retraction of osteoblasts from the bone surface and the formation of a canopy.
+Local mesenchymal stromal cells (MSC) generate RANKLexpressing osteoblasts precursors that subsequently facilitate osteoclast recruitment, maturation, and bone resorption. Degradation of the bone results in the release of
+sequestered growth factors such as TGF-b that in turn serve
+to control the extent of bone degradation and osteoblast
+expansion. After osteoclast apoptosis, osteoblasts rebuild
+the bone with a portion terminally differentiating into
+osteocytes and the remainder reconstituting the bone lining,
+ready for the next remodeling cycle.
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+2391
+
+Araujo et al.
+
+Quick Guide to Assumptions and Equations
+For our hybrid cellular automata model, we consider six different cell types, including ﬁve residents of the BMU: osteoblasts,
+osteoclasts, precursor osteoblasts (pOB), precursor osteoclasts (pOC), MSCs, as well as prostate tumor cells, capable of recruiting
+MSCs and producing TGF-b (Table 1). Next, we considered the interactions between the key cell types (Fig. 1A) and the
+microenvironmental factors that control those interactions, which were deﬁned as follows.
+Bone
+Bone is one of the richest reservoirs of TGF-b in the human body (700 pg/mg of bone tissue; ref. 10). We have modeled bone
+explicitly as static cells that, when resorbed, disappear from the domain and release bone-derived factors (BDF) and TGF-b.
+MSCs, pOBs, and osteoblasts
+Bone-generating osteoblasts (pOBs) are derived from MSCs (11). MSCs undergo asymmetrical division and pOBs proliferate in
+response to TGF-b, ultimately differentiating into bone matrix-producing osteoblasts, a process mediated by factors such as BMP2 (12). In our model, pOBs express RANKL, migrate toward and expand clonally in response to TGF-b, and ﬁnally differentiate into
+osteoblasts after 14 days. As adult osteoblasts, the modeled cells seek TGF-b and bone. If in contact with bone, they lay down bone
+matrix with an active lifespan of 75 days (Fig. 1B).
+pOCs and osteoclasts
+pOCs are derived from myeloid precursors and, in response to RANKL, undergo cellular fusion to generate mature osteoclasts
+(13). Osteoclasts resorb the bone matrix, leading to the release of BDFs and TGF-b (5, 14). We have explicitly modeled these
+processes. pOCs are recruited by RANKL from the vasculature and have a lifespan of 2 days. Once on the bone surface, they will fuse
+together, provided that the local levels of RANKL are high, whereas those of TGF-b are low. A minimum of three pOCs (usually 5 or
+more) can fuse to form an osteoclast. Osteoclasts have a lifespan of 14 days, in which their singular function is to resorb bone
+thereby releasing TGF-b and BDFs (Fig. 1C). On the basis of the amount of TGF-b present in bone, we have calculated that a
+single osteoclast measuring 100 mm in diameter will resorb approximately 10 mm3 of bone per day. Given the density of
+bone as 1,500 mg/kg, we estimate that an osteoclast can resorb 1.17  103 mg/day. With the concentration of TGF-b in
+bone being 5 ng/mg, we calculated that a mature osteoclast can generate up to 0.00558 ng of TGF-b per day.
+Prostate cancer
+On the basis of our empirical as well as published data, we engineered the prostate cancer cells to express TGF-b ligands
+and receptors. Importantly, the level of prostate cancer TGF-b (5  1012 pg/day) is approximately 1,000-fold less than that
+generated by bone resorbing osteoclasts (5  109 pg/day). This ensures the reliance of the prostate metastases on TGF-b
+released from the bone. In the computational model, we have described the TGF-b–producing prostate cancer metastases as
+agents chemoattracted to the BMU, with an ability to recruit MSCs, based on our empirical studies (Fig. 2). Prostate cancer
+replication potential is proportional to the availability of BDFs and, if not bathed with these essential factors, prostate cancer
+cells will die within 14 days (Fig. 1D). The prostate cancer metastases are the only ones that can destroy the canopy of the
+BMU as they grow (Fig. 3B). We have considered that prostate cancer promotes osteoblast differentiation, a phenomenon that
+is not noted in lytic lesions (14).
+The microenvironment
+TGF-b, RANKL, and BDFs are generated by the behaviors and interactions amongst the cellular components and are
+characterized by partial differential equations that are subsequently discretized and applied to a grid. TGF-b is produced by
+bone destruction (abBi,j) and cancer cells (acCi,j) in proportion to the local TGF-b concentration, with natural decay of the ligand
+(s bTb), ensuring the density never exceeds a saturation level, m0. TGF-b has pleiotropic effects on osteoblasts, osteoclasts, and
+metastatic prostate cancer cells. Low concentrations of TGF-b stimulate osteoclastogenesis, but high concentrations inhibit the
+process, illustrating the biphasic effects of this growth factor even on the same cell type (15, 16). Our group and others have shown
+that TGF-b supports tumor survival and growth by activating TGF-b receptors (TbR) on the tumor cell surface (17–19). TGF-b is
+governed by the following differential equation:
+
+qTb ðx; y; t Þ
+¼ r Db ðm0  M ÞrTb þ ab Bi;j þ ac Ci;j  s b Tb
+qt
+RANKL RL is produced by pOCs, aLOi,j, in proportion to the local RANKL concentration, with natural decay of the ligand, s LRL,
+ensuring the density never exceeds the saturation level n0. The concentration of RANKL is determined by:
+
+2392
+
+Cancer Res; 74(9) May 1, 2014
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+A Computational Model of Bone-Metastatic Prostate Cancer
+
+qRL ðx; y; t Þ
+¼ rðDL ðn0  N ÞrRL Þ þ aL Oi;j  s L RL
+qt
+Factors FB are released by bone destruction, aBBi,j, in proportion to the local factor concentration, with natural decay of the
+factors, s BFB, ensuring the density never exceeds the saturation level p0. As such, the dynamics of the bone-related factors are
+calculated through:
+qFB ðx; y; t Þ
+¼ rðDB ðp0  P ÞrFB Þ þ aB Bi;j  s B FB
+qt
+Periodic boundary conditions were considered only for the left and right sides of the microenvironment, whereas no-ﬂux
+boundaries were imposed on the top and bottom of the two dimensional grid.
+
+In the metastatic prostate cancer-bone microenvironment,
+prostate cancer cells perturb the balance of the BMU to
+generate a "vicious cycle" via the expression of factors such
+as RANKL thereby inducing excessive bone resorption (4). The
+release of sequestered growth factors from the bone matrix
+such as TGF-b in turn stimulates the survival and growth of the
+metastatic prostate cancer cells. Of note, prostate to bone
+metastases are also characterized by areas of extensive bone
+
+formation/osteogenesis, a phenomenon that is mediated by
+factors such as, endothelins and bone morphogenetic proteins,
+BMP-2 and BMP-4 (5).
+To date, the majority of our knowledge of the mechanisms
+driving prostate cancer progression has been garnered by
+focusing on the role of individual cancer/host-derived molecules. However, this molecular reductionist approach often
+does not take into account the multiple cellular effects of
+
+Table 1. Empirical and published data used to parameterize the computational model
+Parameter
+
+Value
+
+Normalized value
+
+Reference
+
+Osteoblast diameter
+Osteoclast diameter
+Osteoclast migration speed
+
+15 mm
+50–100 mm
+100 mm/h
+5 nm/s but can vary
+between 30 and 248 mm/h.
+
+1 px
+3–5 px
+1 px/ts
+
+(34)
+(35)
+(36)
+(37)
+
+Osteoblast migration speed
+
+10 mm/h
+0.1470  0.02 mm/d
+24 h
+750 mm2/min
+2  109 cm2/s
+DPP-10 mm/2
+2 min
+2–3 min. Presence of LAP can
+extend half-life to 100 min
+in plasma.
+0.00558 ng/d
+0.005 pg/d
+10 mm/d
+43–1,225 mm3/h for 2 wk
+78,539 mm3 ¼ 7.58  1014 m3
+
+1/6 px/ts
+
+Cell-cycle time
+TGF-b diffusion rate
+
+TGFb half-life
+
+TGF-b quantity released by OCL/d
+TGF-b quantity released by tumor cell/d
+Rate of bone degradation
+Volume of a resorption pit
+
+Bone formation
+BMU size
+
+www.aacrjournals.org
+
+0.656 mm/d but up to 0.24 mm/y
+1 mm/d
+2  0.5 mm2
+
+240 ts
+0.01 px/ts
+
+0.5 ts
+
+1 MaxTGF-b/ts
+0.0001 MaxTGF-b/ts
+1/240 px/ts
+70 px
+
+1/850 px/ts
+200  50 px
+
+(38)
+(36)
+(39)
+Estimated
+(40)
+(8)
+(41)
+(42)
+(43)
+
+Estimated
+Estimated
+(44)
+(45)
+Assumed from the diameter
+of an osteoclast and the
+amount of bone resorbed
+over a 24-hour period.
+(45)
+(46)
+Estimated
+
+Cancer Res; 74(9) May 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+2393
+
+Araujo et al.
+
+Figure 1. Developing a model of the prostate tumor bone microenvironment. A, interaction diagram showing the positive (blue) and negative (red) interactions
+between cell types (boxes) and factors such as TGF-b, RANKL, and BDFs. B–D, ﬂowchart describing the sequence of steps followed by osteogenic cells (B),
+osteolytic cells (C), and prostate cancer cells (D) in the mathematical model. PCa, prostate cancer.
+
+molecular mechanisms being investigated. Mathematical
+and computational models are a powerful means with which
+to study complex in vivo interactions. Numerous advances
+using this approach have identiﬁed roles for tumor heterogeneity in cancer progression and evolution, accurately
+predicting glioma progression and response to disease and,
+describing the cellular dynamics of bone remodeling (6). To
+
+2394
+
+Cancer Res; 74(9) May 1, 2014
+
+understand the simultaneous and multiple interactions
+occurring over time in the metastatic prostate cancer bone
+microenvironment, we have generated a hybrid cellular
+automaton (HCA)-based integrated computational model.
+Using this approach, we tested the model's response to
+therapies currently used in the clinic to treat prostate to
+bone metastases (7–9). We posit that computational models
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+A Computational Model of Bone-Metastatic Prostate Cancer
+
+Figure 2. TGF-b expression in
+human prostate to bone
+metastases. A, patient samples
+(N ¼ 9) were stained for pSMAD2
+(red), pan-cytokeratin (green) with
+nuclear contrast (DAPI). Dashed
+inset is magniﬁed in panel on right.
+B, the intensity of pSMAD2 staining
+in patient samples was assessed
+using Deﬁniens Tissue Studio
+software. C and D, TGF-b
+signiﬁcantly enhances the migration
+of MSCs and MC3T3 osteoblast
+precursors. Representative low
+power objective (20) ﬁlters
+illustrating MSC (C) and MC3T3 (D)
+migration to prostate cancer
+conditioned media (PAIII CM) in the
+presence of a TGF-b blocking
+antibody (1D11) or IgG control
+(13C4). Serum-free media (SFM)
+was used as a baseline control for
+migration. Asterisks denotes
+statistical signiﬁcance (P < 0.05).
+
+will be a powerful means with which to test the efﬁcacy of
+available or putative therapies for the treatment of prostate
+to bone metastases.
+
+Materials and Methods
+Mathematical model
+Parameters for the HCA model were derived from empirical
+and published data (Table 1; ref. 9). The model is composed of a
+grid (200  50 points) representing 2  0.5 mm2 of the bone
+microenvironment. A major advantage of the HCA is in its
+intimate interconnection with experimental data, where the
+model and the experiments inform each other. This increases
+the accuracy of the model abstractions and connectivity of the
+basic elements, which yields reliable and biologically relevant
+emergent behaviors. To model the normal sequence of the BMU
+program, we have focused on understanding the role and
+behavior of the key regulators of the BMU dynamics. The
+principal cellular players, bone, MSCs, precursor osteoblasts
+(pOB), osteoblasts, precursor osteoclasts (pOC), and osteoclasts,
+have been explicitly modelled as agents in a grid following
+speciﬁc rule sets in a physical microenvironment (see Quick
+guide to assumptions and equations). Collectively, these components ﬁnd a natural homeostatic balance that recapitulate the
+dynamics of bone remodeling, a homeostasis that can be
+perturbed via the introduction of metastatic prostate cancer
+cells.
+Immunoﬂuorescence and quantitation
+Human prostate to bone metastases samples (5 mm),
+provided by Dr. Robert Vessella (University of Washington,
+Seattle, WA), were rehydrated and blocked before the
+addition of phospho-speciﬁc anti-Smad2 (1:200 dilution;
+Millipore) and pan anti-cytokeratin (1:200 dilution; Sigma)
+and appropriate immunoglobulin G (IgG) controls. Tissue
+sections were incubated overnight at 4 C. Subsequently,
+species-speciﬁc secondary AlexaFluor 568 and AlexaFluor
+
+www.aacrjournals.org
+
+488-conjugated antibodies (1: 1000 dilution for one hour at
+room temperature; Invitrogen) were added for imaging by
+microscopy. For semiquantitative analysis, regional images
+were segmented on the basis of the intensity of staining
+using Deﬁnions Tissue Studio (TS).
+Migration
+Osteoblast (MC3T3) and MSC migration was assessed
+using a modiﬁed Boyden Chamber assay. Cells (5  105)
+were seeded in the upper chamber and their migration to
+TGF-b rich PAIII conditioned media in the presence of a
+TGF-b inhibitor (1D11; Genzyme) or isotype control (13C4)
+at a concentration of 5 mg/mL was measured over a 5-hour
+period at 37 C. Migrated cells were stained with hematoxylin
+and air dried. The number of migrated cells was counted in
+three random 20 ﬁelds for each condition. All experiments
+were performed in triplicate.
+Intratibial Prostate Model of osteogenesis, histology, and
+TRAcP staining
+All animal experiments were done with University of South
+Florida (Tampa, FL) Institutional Animal Care and Use Committee approval (CCL; #R3886). PAIII luciferase expressing cells
+were injected (1  105 in 10 mL volume) into the tibia of
+anesthetized immunocompromised mice (recombinase activating gene-2 null; RAG-2/; ref. 20). Tumor growth was imaged
+using bioluminescence imaging and quantitated with IVIS
+Living Image software. After 2 weeks, tumor-bearing tibias were
+excised, soft tissue removed and processed for histology and
+histomorphometry as we have previously described (19, 21).
+For cell culture and statistical methods, please see Supplementary Materials and Methods.
+
+Results
+Key for the generation of the BMU was the incorporation of
+major cellular players namely the prostate cancer metastases,
+
+Cancer Res; 74(9) May 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+2395
+
+Araujo et al.
+
+MSCs, pOBs, osteoblasts, pOCs, and osteoclasts. Furthermore,
+based on the literature, RANKL, TGFb, and BDFs were considered main mediators driving the cellular interactions (14).
+Although RANKL has been well characterized in the context of
+prostate to bone metastases, few studies have explored the role
+of TGF-b signaling in this setting. Therefore, we initially
+examined the activity of TGF-b signaling in prostate to bone
+metastases in human specimens. Using phosphorylated
+SMAD2 (pSMAD2) as a readout for TGF-b receptor activity,
+our results indicated that TGF-b signaling is active in human
+prostate to bone metastases (Fig. 2A). Quantitative analysis
+revealed that in the human specimens, TGF-b signaling was
+highest in the prostate cancer cells but we also observed strong
+staining in stromal cells, including osteoblasts (Fig. 2B). We
+also examined the effects of TGF-b on the proliferation and
+migration of the cellular components of the vicious cycle
+including prostate cancer cells, osteoclast precursors, and
+osteoblast precursors, including MSCs. Of note, we observed
+that TGF-b signiﬁcantly impacted the migration of MSCs and
+the osteoblast precursor cell line, MC3T3-E1, suggesting a role
+of the growth factor in the recruitment of cells that could
+impact prostate cancer-induced osteogenesis (Fig. 2C and D).
+On the basis of these empirical data and the literature, we
+parameterized a HCA computational model of the homeostatic
+BMU (Fig. 3A and Supplementary Fig. S1 and Movie 1). On the
+basis of multiple simulations (N ¼ 25) of the computational
+model, we observed little variation in each population cell
+number. In some instances (N ¼ 2), the BMU failed to initiate,
+in part, due to spatial and cytokine gradient differences
+between the different simulations (data not shown) but, we
+
+expect that persistent remodeling initiation stimuli would
+eventually lead to the formation of the BMU in vivo. We also
+observed that in a subset of BMU simulations (N ¼ 2),
+simultaneous osteoclast fusion resulted in two sites of resorption. However, the generation of BDFs by the osteoclasts
+sufﬁciently increased osteoblast numbers and returned the
+BMU to baseline (data not shown). Importantly, the typical
+interactions between the different elements of the computational model result in a homeostatic BMU. It is important to
+note that each of the cells behave as autonomous agents and
+possess the inherent ability to respond to the surrounding
+environment independently.
+Next, we introduced a single metastatic prostate cancer
+cell expressing TGF-b ligand and receptors into the BMU.
+Interestingly, we observed that in many of the simulations
+(N ¼ 18 of 25), the metastases failed to generate a lesion. We
+anticipate that the introduction of prostate cancer emboli
+would signiﬁcantly enhance the "take rate." This "take rate"
+result emphasizes the stochastic nature of the model and
+reﬂects the in vivo reality where not every metastatic cancer
+cell that successfully invades a BMU would result in a viable
+lesion. In the simulations where lesions were initiated (N ¼ 7
+of 25), we observed that after 10 days, the presence of the
+prostate cancer cells resulted in the integrity of the canopy
+being compromised and a resultant increase in osteoclast
+recruitment and maturation (Fig. 3B). Over time, the prostate cancer cells expanded, resulting in MSC inﬁltration and
+osteoblast-mediated bone formation ultimately recapitulating the "vicious cycle" paradigm (Fig. 3B and Supplementary
+Fig. S2 and Movie 2).
+
+Figure 3. Simulation runs from the BMU model of the bone modeling unit (BMU) and the metastatic prostate cancer bone microenvironment (prostate cancerBME). A, canopy formation in response to local/systemic stimuli (day 0). Initial osteoid degradation by retracting osteoblasts can result in the release of
+TGF-b that stimulates pOB expansion subsequent to asymmetric division by MSCs. Scale bar, 250 mm. pOBs recruit pOCs in a RANKL-dependent manner
+(day 2). As they fuse, the pOCs become fully differentiated osteoclasts that start resorbing bone. Inset illustrates bone resorption in the BMU. Scale bar,
+100 mm. Upon osteoclast apoptosis, pOBs differentiate into adult osteoblasts and begin the apposition phase (day 40). Osteoblasts rebuild bone over
+the course of 3 months and undergo terminal differentiation into osteocytes during the process (day 100). B, the introduction of a TGF-b ligand and
+receptor expressing metastatic prostate cancer cell perturbs BMU homeostasis (day 0). Inset highlights tumor–bone interaction. Scale bars, 250 and 100 mm,
+respectively. The BMU canopy is compromised at day 40 and uncontrolled bone turnover results in the enhanced recruitment of MSCs and pOCs that
+establishes a vicious cycle (day 100–200).
+
+2396
+
+Cancer Res; 74(9) May 1, 2014
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+A Computational Model of Bone-Metastatic Prostate Cancer
+
+Analysis of the computational prostate cancer-bone microenvironment at day 240 revealed striking histologic similarities
+to an in vivo model of the osteogenic/osteolytic prostate to
+bone metastasis environment (Fig. 4A and B). We noted that
+the number of prostate cancer cells varied amongst simulations (8,625  4,580; N ¼ 5) but in general, the growth rate
+predicted by the computational model was comparable with
+the growth rate of the prostate cancer cells in vivo (Supplementary Fig. S3). We also noted similar proportions of stromal
+cell populations at the computational and biologic study
+endpoints (Fig. 4C and D). In the computational model, distinct
+phases of cell activity were observed. For example, the numbers
+of adult osteoblasts increased over time but notable plateaus
+before increases in cell number existed (Fig. 4C). These plateaus in adult osteoblasts corresponded with dips in the pOB
+and pOC precursor population. MSC numbers, however, gradually increased over time and in general, paralleled increases in
+cancer cell number. In fact, the model predicts that MSCs are
+crucial for the progression of the metastases because relaxing
+the probability of recruitment greatly impacts the growth of
+
+the metastases (Supplementary Fig. S4). Furthermore, we
+observed that osteoclasts were critical for cancer progression
+in the model with numbers changing over time from zero to 12
+(Fig. 4E). Although the in vivo model output has a similar
+number of osteoclasts per ﬁeld (Fig. 4D and F) at the study
+endpoint, the phasic nature of osteoclast involvement is not
+apparent.
+To test the applicability of the model in treating prostate to bone metastases, we applied two standard-of-care
+treatments, namely, a bisphosphonate and an anti-RANKL
+inhibitor, that induce osteoclast apoptosis during resorption
+and inhibit osteoclastogenesis, respectively. To mimic the
+clinical scenario, we applied the bisphosphonate at a time
+where metastases had established (day 80), although it
+should be noted that therapies could be applied at any
+juncture to the model (Fig. 5A and B and D; N ¼ 5 simulations per group). During bisphosphonate treatment, osteoclasts still formed but typically died within 24 hours of
+initiating bone resorption (Fig. 5B, bottom). However, residual bone resorption during bisphosphonate therapy was
+
+Figure 4. Computational and
+biologic model output
+comparisons of the prostate
+cancer-bone microenvironment.
+A and B, the computational output
+(A) of the prostate cancer-bone
+microenvironment is similar to that
+of an in vivo prostate cancer to
+bone metastasis model (B).
+Dashed line in B represents the
+tumor-pathologic bone interface.
+C, temporal changes in cell
+population in the computational
+model. D, analysis of cell
+populations (prostate cancer cells,
+bone rimming cuboidal
+osteoblasts, and TRAcP-positive
+osteoclasts) and bone volume in
+biologic model endpoint. E and F,
+computational model outputs
+reveal the ﬂuctuation of osteoclast
+numbers over time (E), numbers
+that correlate with the numbers of
+TRAcP osteoclasts (arrows) in
+similar sized ﬁelds in vivo (F).
+
+www.aacrjournals.org
+
+Cancer Res; 74(9) May 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+2397
+
+Araujo et al.
+
+Figure 5. Application of therapies
+to the computational model of the
+metastatic prostate cancer bone
+microenvironment. A–C, the
+impact of standard-of-care
+therapies on the host
+microenvironment cell numbers in
+prostate to bone metastases was
+assessed in simulations where
+no therapy was applied (control; A),
+bisphosphonates at a dosing of 4
+mg/5 mL i.v. (bisphosphonate; B)
+or RANKL targeted therapy
+(Anti-RANKL; C) at a dose of 120
+mg/1.7 mL i.v. was applied at
+approximately 80 days
+postmetastasis (Rx On). D and E,
+the impact of placebo control and
+standard-of-care therapies on
+tumor volume (D) and bone volume
+(E) over time.
+
+sufﬁcient to sustain the metastases with the number
+of cancer cells on average at the ﬁnal time point being
+7,138  2,343 (n ¼ 5) compared with nontreated control of
+8,624  4,580 (n ¼ 5; P > 0.05). Interestingly, the application of an anti-RANKL inhibitor halted cancer growth with
+no cancer cells detectable after 20 days of administration
+(Fig. 5C and D; P < 0.05). These data suggest that treatment
+with anti-RANKL inhibitors should be curative in the clinical
+setting. However, in clinical trials with anti-RANKL inhibitors such as Xgeva, there is a slight but not signiﬁcant
+increase in survival of patients on the therapy compared
+with bisphosphonates (2). In our simulations, we found that
+reducing the efﬁcacy of the anti-RANKL inhibitor from 100%
+to 40% resulted in an output of cancer cells (3,157  3,037;
+N ¼ 5) that was comparable with that of the bisphosphonate-treated group (7,138  2,343 cancer cells; N ¼ 5; Fig. 5B
+and Supplementary Fig. S5). These data suggest that improved efﬁcacy of anti-RANKL delivery into the prostate
+cancer bone microenvironment could be curative.
+
+Discussion
+In the current study, we have generated a faithful computational model of the BMU. It is important to note that the
+homeostatic behavior is not hardcoded but emerges from the
+interactions between the different primary cell types of the
+bone in response to TGF-b, RANKL, and BDFs. Furthermore,
+informed by experimental evidence, the introduction of a
+
+2398
+
+Cancer Res; 74(9) May 1, 2014
+
+simulated TGF-b ligand and receptor expressing prostate
+cancer cell into the BMU resulted in a vicious cycle that yielded
+mixed osteogenic/osteolytic lesions over clinically relevant
+periods of time. Key ﬁndings arising from the computational
+model include: (i) the ability to assess temporal changes in
+cellular populations and dissect complex dynamics that are
+difﬁcult to determine in vivo, (ii) the phasic osteolytic/osteogenic nature of the metastases, (iii) the application of clinically
+used therapies such as bisphosphonates and anti-RANKL therapies illustrate the usefulness of the model in predicting the
+efﬁcacy of targeted inhibitors, and (iv) the impact of inhibitors
+at varying doses on the progression of prostate to bone
+metastases.
+In our study, we selected the BMU as the primary target for
+metastatic prostate cancer cells in which to establish and grow.
+This is logical because reports have shown that high rates of
+bone turnover correlate with poorer prognoses for patients
+with prostate cancer and that the metastases can utilize many
+of the bioavailable factors present in the remodeling environment (22–24). On the basis of this rationale, we introduced a
+single metastatic prostate cancer cell into the BMU that over
+time recapitulated the vicious cycle paradigm. The "histologic"
+output of the computational model at the endpoint was
+remarkably similar both in morphology and in cellular population proportion to an in vivo model used by our group to
+study mixed prostate to bone metastases. In contrast, however,
+the computational model illustrates that the cellular
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+A Computational Model of Bone-Metastatic Prostate Cancer
+
+population in the prostate cancer-bone microenvironment is
+dynamic and changes occur both exponentially (tumor
+growth) and in phases (osteoclast, osteoblasts). For example,
+our model illustrates that osteoclast numbers rarely exceed a
+total of 20 out of approximately 2  104 cells per computational
+ﬁeld of view (Fig. 4C and E). Reports have shown that high
+levels of TGF-b can hinder osteoclastogenesis therefore, limiting the number of osteoclasts that can form in the tumorbone microenvironment even in the presence of RANKL-producing osteoblast precursors (25). In fact, our results show that
+osteoclast-mediated bone resorption is critical for the induction of the osteogenic metastases, an observation that supports
+the use of anti-RANKL therapies in men with osteogenic
+prostate to bone metastases.
+In a number of model iterations, we observed that the
+recruitment of MSCs to the prostate cancer-bone microenvironment was essential for the generation of osteoblast precursors and the development of osteogenic lesions. Our in vitro
+data also show that TGF-b contributes to MSCs and osteoblast
+precursor migration therefore, providing a means through
+which these cell types can be recruited to areas of prostate
+to bone metastases and contribute to their progression (Fig. 2).
+Although the role of MSCs in the prostate cancer-bone microenvironment has not been explicitly explored thus far, our
+model predicts an important role for this cell type in tumor
+growth. It is important to note that we did not consider the
+trans-differentiation of prostate cancer cells into osteoblasts,
+but "osteomimicry" is a distinct possibility that could also be
+integrated into future iterations of the model (26).
+The ability to dissect changes in cellular composition in the
+computational model provides key insights into how the
+cancer cells, MSCs, osteoblast precursors, osteoblasts, osteoclast precursors, and osteoclasts are interacting with each
+other over a clinically relevant period of more than 200 days.
+In vivo models are typically analyzed at endpoint or at predetermined time steps to assess cancer growth and changes in
+the microenvironment in control and test groups. For example,
+the MDA-MB-231 progression in bone is often measured at
+weekly time points (27). The computational model generated
+in this study clearly illustrates that a number of the host
+microenvironment components, notably the mature osteoclasts and osteoblasts, undergo phases of activity and rest
+(Figs. 3 and 4). This level of resolution is not available in
+biologic models but demonstrates that the time points or
+endpoints chosen for in vivo models are a "snapshot" that may
+not be truly reﬂective of what has, or is about to happen in the
+tumor-bone microenvironment. Knowledge of the dynamic
+changes occurring over time in the computational cancer
+bone-microenvironment could lead to a better understanding
+of when to apply inhibitors or what happens to the cell
+populations over time once inhibitors have been applied.
+Bisphosphonates and more recently anti-RANKL therapies
+are used as treatment strategies to protect patients with
+prostate to bone metastases from skeletal-related events (SRE).
+Studies have shown that bisphosphonates can extend the
+average time to SRE for patients, and anti-RANKL–based
+therapies are signiﬁcantly better than bisphosphonates in
+extending that time to ﬁrst SRE (2, 28). However, neither
+
+www.aacrjournals.org
+
+treatment increases overall survival. We applied these inhibitors to our computational model. Assuming an efﬁcacy of
+100%, application of a bisphosphonate after a period in which
+the metastasis is actively growing (day 80) demonstrated an
+impact on osteoclast activity and on tumor growth. This time
+point was chosen based on the prostate metastases being
+established and actively growing but therapeutics could be
+applied at any juncture, a useful feature to study the response
+of multiple bone metastases at various stages of progression.
+Subsequent to the application of bisphosphonates to the model
+at day 80, we observed that osteoclasts still formed and that the
+residual production of TGF-b and BDFs was sufﬁcient to
+sustain tumor growth, albeit to a lesser extent compared with
+the nontreatment control arm (Fig. 5). Signiﬁcantly, we also
+assumed that the dosing of bisphosphonates was at 100%
+efﬁcacy over the course of the therapy, but, in reality, there
+are most likely changes in concentrations. Gradients in therapy
+concentration can be accounted for and pharmacokinetics can
+be explicitly simulated in the computational model and it will
+be interesting to determine the impact of dosing gradients on
+the behavior of the cell populations over time in the computational microenvironment.
+Application of an anti-RANKL inhibitor, again at a presumed
+efﬁcacy of 100%, signiﬁcantly impacted the prostate tumorbone microenvironment by preventing osteoclast formation,
+and subsequently, tumor growth. The model therefore, predicts that anti-RANKL inhibitors should be curative in the
+clinical setting. However, the clinical reality is that anti-RANKL
+inhibitors do not signiﬁcantly extend overall survival in men
+with metastatic prostate cancer (2). Interestingly, reducing the
+efﬁciency of the anti-RANKL therapy to 40% closely mimics
+that of the bisphosphonate treatment and suggests that
+increasing doses or better targeting of the anti-RANKL inhibitors to the bone could enhance the efﬁcacy of the drug
+provided that there are no or minimal increases in noted side
+effects such as osteonecrosis of the jaw or cataract formation
+(Supplementary Fig. S3). Clinically, the dosage and frequency of
+administration of anti-RANKL therapy such as Xgeva are based
+on trials that demonstrated the optimal balance of efﬁcacy, as
+determined by a more than 70% decrease in urine N-terminal
+collagen fragments (NTX), and tolerability was 120 mg subcutaneously delivered every 4 weeks (29). It is possible that higher
+doses may prove more efﬁcient in signiﬁcantly enhancing
+overall survival in patients with prostate to bone metastases
+as suggested by the computational model but this increase
+in dose may be outweighed by increased risks of side effects.
+A major advantage of the computational model is the
+application of combination or putative therapies to study
+cellular behavior in the prostate bone-microenvironment
+over time. For example, our results highlight the role of
+active TGF-b signaling in the cancer and host cells of human
+prostate to bone metastases and in the migration of MSCs
+and osteoblasts (Fig. 2). This observation is in keeping with
+other studies and underscores the key role TGF-b signaling
+plays in the bone microenvironment in regards to promoting
+the progression of prostate to bone metastases. The computational model could therefore easily test the efﬁcacy of
+TGF-b inhibitors applied to the prostate cancer-bone
+
+Cancer Res; 74(9) May 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+2399
+
+Araujo et al.
+
+microenvironment and predictions used to inform preclinical and ultimately clinical trials.
+There are a number of caveats to the computational model
+described herein. Quantitative predictions from computational models are typically dependent on the information used to
+parameterize it. The key values used to parameterize the
+computational model presented in this paper are based on
+TGF-b and RANKL. The ﬂexibility of the model ensures that
+ranges in the concentration and balance of other factors and
+cells that can impact the BMU in the normal and disease
+setting can be easily integrated. Enhancing these qualities will
+improve the accuracy of the generated predictions, but our
+existing model is already quite robust to changes in the
+parameterization (Supplementary Fig. S4). Although our model is relatively sophisticated, simpler less computationally
+intensive mathematical models have a number of advantages
+in that they are easier to understand and analyze. Furthermore,
+having fewer parameters, they are amenable to the ﬁtting of
+existing experimental data using techniques such as approximate Bayesian computation (ABC). Fitting extant experimental data to mathematical models has been used successfully to
+drive a model to closely represent a set of observations in cases
+such as imatinib response in patients with leukemia (30). These
+approaches can also provide exact results when sufﬁcient
+summaries are used (31). Simpler mathematical models are
+usually preferable, especially when values for biologic parameters are largely unknown (32, 33). In this case, a more
+complex model was necessary to capture the bone homeostasis
+emerging from the interactions between MSCs, osteoclasts,
+osteoblasts, pOCs, and pOBs. The existence of reliable empirical data made it possible to properly parameterize such model.
+This has allowed us to elucidate the mechanisms involved in
+the vicious cycle of prostate to bone metastases. One drawback
+of more complex computational models is that they are
+computationally intensive and therefore, limiting the ability
+to perform large numbers of simulations that statistically can
+explore the robustness of each of the chosen parameters.
+However, in multiple simulations (N ¼ 25), we have ensured
+that the plausible plasticity of these parameters fall within the
+currently accepted biologic empirical values. As such, we have
+focused on investigating changes on the parameters that may
+vary experimentally; especially molecules such as RANKL and
+TGF-b that are difﬁcult to measure in vivo that have yielded
+interesting insights (Fig. 5 and Supplementary Materials and
+Methods). Follow-up experiments will use increased numbers
+
+of simulations to enhance statistical analysis and use new
+biologic parameters being empirically determined to improve
+the accuracy of the model predictions.
+In conclusion, using empirical and published data, we have
+generated a hybrid discreet model of the BMU and shown that
+the introduction of single active metastatic prostate cancer cell
+into the BMU is sufﬁcient to generate osteogenic lesions that
+are similar in pathophysiology to those in an animal model of
+the disease. Furthermore, the application of existing clinical
+therapies to the computational model underscores the value of
+this new approach for testing the impact of combining available therapies or putative targeted therapies for the treatment
+of prostate to bone metastases. Clinically, the versatility of the
+equations used to build the computational model ensures that
+it can be quickly individualized and be a powerful tool for the
+delivery of precision medicine to better treat and cure men
+with prostate to bone metastases.
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+Authors' Contributions
+Conception and design: A. Araujo, L. Cook, C.C. Lynch, D. Basanta
+Development of methodology: A. Araujo, L. Cook, C.C. Lynch, D. Basanta
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): L. Cook
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): A. Araujo, L. Cook, C.C. Lynch, D. Basanta
+Writing, review, and/or revision of the manuscript: A. Araujo, L. Cook, C.C.
+Lynch, D. Basanta
+Administrative, technical, or material support (i.e., reporting or organizing data, constructing databases): A. Araujo, D. Basanta
+Study supervision: A. Araujo, L. Cook, C.C. Lynch, D. Basanta
+
+Acknowledgments
+The authors thank Scott Lonning at Genzyme for the 1D11 inhibitor and
+Lizzie Atomi Pamen for her technical support.
+
+Grant Support
+This work was supported by an NCI U01 (U01CA151924-01A1; D. Basanta), the
+Department of Defense Hypothesis Development Award (W81XWH-12-1-0016;
+C.C. Lynch and D. Basanta), the National Cancer Institute (RO1CA143094; C.C.
+Lynch), and the American Cancer Society Post-Doctoral Fellowship (PF-13-17501-CSM; L.M. Cook). This work was also supported, in part, by the Mofﬁtt
+Analytical Microscopy Core facility at the Mofﬁtt Cancer Center.
+The costs of publication of this article were defrayed in part by the payment of
+page charges. This article must therefore be hereby marked advertisement in
+accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+Received September 18, 2013; revised March 4, 2014; accepted March 4, 2014;
+published online May 1, 2014.
+
+References
+1.
+2.
+3.
+4.
+
+5.
+
+2400
+
+Keller ET, Brown J. Prostate cancer bone metastases promote both
+osteolytic and osteoblastic activity. J Cell Biochem 2004;91:718–29.
+Brown JE, Coleman RE. Denosumab in patients with cancer-a surgical
+strike against the osteoclast. Nat Rev Clin Oncol 2012;9:110–8.
+Bilezikian J, Raisz L, Martin T. Principles of Bone Biology: Academic
+Press; 2008.
+Bussard KM, Gay CV, Mastro AM. The bone microenvironment in
+metastasis; what is special about bone? Cancer Metastasis Rev
+2008;27:41–55.
+Lynch CC. Matrix metalloproteinases as master regulators of the
+vicious cycle of bone metastasis. Bone 2010;48:44–53.
+
+Cancer Res; 74(9) May 1, 2014
+
+6.
+
+7.
+8.
+
+9.
+
+Swanson KR, Rostomily RC, Alvord EC Jr. A mathematical modelling
+tool for predicting survival of individual patients following resection of
+glioblastoma: a proof of principle. Br J Cancer 2008;98:113–9.
+Anderson AR, Quaranta V. Integrative mathematical oncology. Nat Rev
+Cancer 2008;8:227–34.
+Basanta D, Strand DW, Lukner RB, Franco OE, Cliffel DE, Ayala GE,
+et al. The role of transforming growth factor-beta-mediated tumorstroma interactions in prostate cancer progression: an integrative
+approach. Cancer Res 2009;69:7111–20.
+Anderson ARA. A hybrid mathematical model of solid tumour invasion:
+the importance of cell adhesion. Math Med Biol 2005;22:163–86.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+A Computational Model of Bone-Metastatic Prostate Cancer
+
+10. Pfeilschifter J, Diel I, Scheppach B, Bretz A, Krempien R, Erdmann J,
+et al. Concentration of transforming growth factor beta in human bone
+tissue: relationship to age, menopause, bone turnover, and bone
+volume. J Bone Miner Res 1998;13:716–30.
+11. Martin T, Gooi JH, Sims NA. Molecular mechanisms in coupling of bone
+formation to resorption. Crit Rev Eukaryot Gene Expr 2009;19:73–88.
+12. Chen D, Zhao M, Mundy GR. Bone morphogenetic proteins 1. Growth
+Factors 2004;22:233–41.
+13. Kong YY, Yoshida H, Sarosi I, Tan HL, Timms E, Capparelli C, et al.
+OPGL is a key regulator of osteoclastogenesis, lymphocyte development and lymph-node organogenesis. Nature 1999;397:315–23.
+14. Mundy GR. Metastasis to bone: causes, consequences and therapeutic opportunities. Nat Rev Cancer 2002;2:584–93.
+15. Quinn JM, Itoh K, Udagawa N, Hausler K, Yasuda H, Shima N, et al.
+Transforming growth factor beta affects osteoclast differentiation via
+direct and indirect actions. J Bone Miner Res 2001;16:1787–94.
+16. Yasui T, Kadono Y, Nakamura M, Oshima Y, Matsumoto T, Masuda H,
+et al. Regulation of RANKL-induced osteoclastogenesis by TGF-beta
+through molecular interaction between Smad3 and Traf6. J Bone Miner
+Res 2011;26:1447–56.
+17. Yoneda T, Sasaki A, Mundy GR. Osteolytic bone metastasis in breast
+cancer. Breast Cancer Res Treat 1994;32:73–84.
+18. Futakuchi M, Nannuru KC, Varney ML, Sadanandam A, Nakao K, Asai
+K, et al. Transforming growth factor-beta signaling at the tumor-bone
+interface promotes mammary tumor growth and osteoclast activation.
+Cancer Sci 2009;100:71–81.
+19. Thiolloy S, Edwards JR, Fingleton B, Rifkin DB, Matrisian LM, Lynch
+CC. An osteoblast-derived proteinase controls tumor cell survival via
+TGF-beta activation in the bone microenvironment. PLoS ONE 2012;7:
+e29862.
+20. Shinkai Y, Rathbun G, Lam KP, Oltz EM, Stewart V, Mendelsohn M,
+et al. RAG-2-deﬁcient mice lack mature lymphocytes owing to inability
+to initiate V(D)J rearrangement. Cell 1992;68:855.
+21. Thiolloy S, Halpern J, Holt GE, Schwartz HS, Mundy GR, Matrisian LM,
+et al. Osteoclast-derived matrix metalloproteinase-7, but not matrix
+metalloproteinase-9, contributes to tumor-induced osteolysis. Cancer
+Res 2009;69:6747–55.
+22. Schneider A, Kalikin LM, Mattos AC, Keller ET, Allen MJ, Pienta KJ,
+et al. Bone turnover mediates preferential localization of prostate
+cancer in the skeleton. Endocrinology 2005;146:1727–36.
+23. Coleman RE. Clinical features of metastatic bone disease and risk of
+skeletal morbidity. Clin Cancer Res 2006;12:6243s–9s.
+24. Brown JE, Cook RJ, Major P, Lipton A, Saad F, Smith M, et al. Bone
+turnover markers as predictors of skeletal complications in prostate
+cancer, lung cancer, and other solid tumors. J Natl Cancer Inst
+2005;97:59–69.
+25. Bonewald LF, Mundy GR. Role of transforming growth factor-beta in
+bone remodeling. Clin Orthop Relat Res 1990:261–76.
+26. Rucci N, Teti A. Osteomimicry: how tumor cells try to deceive the bone.
+Front Biosci 2010;2:907–15.
+27. Johnson LC, Johnson RW, Munoz SA, Mundy GR, Peterson TE,
+Sterling JA. Longitudinal live animal micro-CT allows for quantitative
+analysis of tumor-induced bone destruction. Bone 2011;48:141–51.
+28. Lipton A, Fizazi K, Stopeck AT, Henry DH, Brown JE, Yardley DA, et al.
+Superiority of denosumab to zoledronic acid for prevention of skeletalrelated events: a combined analysis of 3 pivotal, randomised, phase 3
+trials. Eur J Cancer 2012;48:3082–92.
+
+www.aacrjournals.org
+
+29. Lipton A, Steger GG, Figueroa J, Alvarado C, Solal-Celigny P, Body JJ,
+et al. Randomized active-controlled phase II study of denosumab
+efﬁcacy and safety in patients with breast cancer-related bone metastases. J Clin Oncol 2007;25:4431–7.
+30. Horn M, Glauche I, Muller MC, Hehlmann R, Hochhaus A, Loefﬂer M,
+et al. Model-based decision rules reduce the risk of molecular relapse
+after cessation of tyrosine kinase inhibitor therapy in chronic myeloid
+leukemia. Blood 2013;121:378–84.
+31. Wilkinson RD. Approximate Bayesian computation (ABC) gives exact
+results under the assumption of model error. Stat Appl Genet Mol Biol
+2013;12:129–41.
+32. Michor F, Hughes TP, Iwasa Y, Branford S, Shah NP, Sawyers CL,
+et al. Dynamics of chronic myeloid leukaemia. Nature 2005;435:
+1267–70.
+33. Murakami Y, Takada S. Bayesian parameter inference by Markov chain
+Monte Carlo with hybrid ﬁtness measures: theory and test in apoptosis
+signal transduction network. PLoS ONE 2013;8:e74178.
+34. Jayakumar P, Di Silvio L. Osteoblasts in bone tissue engineering. Proc
+Inst Mech Eng H 2010;224:1415–40.
+35. Roodman GD. Osteoclast differentiation. Crit Rev Oral Biol Med
+1991;2:389–409.
+36. Ferrier J, Xia SL, Lagan E, Aubin JE, Heersche JN. Displacement and
+translocation of osteoblast-like cells by osteoclasts. J Bone Miner Res
+1994;9:1397–405.
+37. Dacquin R, Domenget C, Kumanogoh A, Kikutani H, Jurdic P,
+Machuca-Gayet I. Control of bone resorption by semaphorin 4D is
+dependent on ovarian function. PLoS ONE 2011;6:e26627.
+38. Monchau F, Lefevre A, Descamps M, Belquin-myrdycz A, Laffargue P,
+Hildebrand HF. In vitro studies of human and rat osteoclast activity on
+hydroxyapatite, beta-tricalcium phosphate, calcium carbonate. Biomol Eng 2002;19:143–52.
+39. Shin H, Zygourakis K, Farach-Carson MC, Yaszemski MJ, Mikos AG.
+Attachment, proliferation, and migration of marrow stromal osteoblasts cultured on biomimetic hydrogels modiﬁed with an osteopontin-derived peptide. Biomaterials 2004;25:895–906.
+40. UBC. Diffusion rates for molecules Available from: http://www.math.
+ubc.ca/~ais/website/status/diffuse.html
+41. Christley S, Alber MS, Newman SA. Patterns of mesenchymal condensation in a multiscale, discrete stochastic model. PLoS Comput
+Biol 2007;3:e76.
+42. Kaminska B, Wesolowska A, Danilkiewicz M. TGF beta signalling
+and its role in tumour pathogenesis. Acta Biochim Pol 2005;52:
+329–37.
+43. Wakeﬁeld LM, Winokur TS, Hollands RS, Christopherson K, Levinson
+AD, Sporn MB. Recombinant latent transforming growth factor beta 1
+has a longer plasma half-life in rats than active transforming growth
+factor beta 1, and a different tissue distribution. J Clin Invest 1990;86:
+1976–84.
+44. Wergedal J, Stauffer M, Baylink D, Rich C. Inhibition of bone matrix
+formation, mineralization, and resorption in thyroparathyroidectomized rats. J Clin Invest 1973;52:1052–8.
+45. Kanehisa J, Heersche JN. Osteoclastic bone resorption: in vitro analysis of the rate of resorption and migration of individual osteoclasts.
+Bone 1988;9:73–9.
+46. Bloebaum RD, Bachus KN, Momberger NG, Hofmann AA. Mineral
+apposition rates of human cancellous bone at the interface of porous
+coated implants. J Biomed Mater Res 1994;28:537–44.
+
+Cancer Res; 74(9) May 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+2401
+
+An Integrated Computational Model of the Bone Microenvironment
+in Bone-Metastatic Prostate Cancer
+Arturo Araujo, Leah M. Cook, Conor C. Lynch, et al.
+Cancer Res 2014;74:2391-2401.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+http://cancerres.aacrjournals.org/content/74/9/2391
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2015/03/13/74.9.2391.DC1
+
+This article cites 43 articles, 5 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/74/9/2391.full#ref-list-1
+This article has been cited by 1 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/74/9/2391.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+

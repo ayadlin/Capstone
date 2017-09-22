@@ -1,0 +1,2033 @@
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+Kinetic Modeling–Based Detection of Genetic Signatures
+That Provide Chemoresistance via the E2F1-p73/DNp73miR-205 Network
+Julio Vera1,3, Ulf Schmitz1, Xin Lai1,4, David Engelmann2, Faiz M. Khan1, Olaf Wolkenhauer1,5, and
+€tzer2
+Brigitte M. Pu
+
+Abstract
+Drug resistance is a major cause of deaths from cancer. E2F1 is a transcription factor involved in cell
+proliferation, apoptosis. and metastasis through an intricate regulatory network, which includes other transcription factors like p73 and cancer-related microRNAs like miR-205. To investigate the emergence of drug
+resistance, we developed a methodology that integrates experimental data with a network biology and kinetic
+modeling. Using a regulatory map developed to summarize knowledge on E2F1 and its interplay with p73/
+DNp73 and miR-205 in cancer drug responses, we derived a kinetic model that represents the network response to
+certain genotoxic and cytostatic anticancer drugs. By perturbing the model parameters, we simulated heterogeneous cell conﬁgurations referred to as in silico cell lines. These were used to detect genetic signatures
+characteristic for single or double drug resistance. We identiﬁed a signature composed of high E2F1 and low
+miR-205 expression that promotes resistance to genotoxic drugs. In this signature, downregulation of miR-205,
+can be mediated by an imbalance in the p73/DNp73 ratio or by dysregulation of other cancer-related regulators of
+miR-205 expression such as TGFb-1 or TWIST1. In addition, we found that a genetic signature composed of high
+E2F1, low miR-205, and high ERBB3 can render tumor cells insensitive to both cytostatic and genotoxic drugs. Our
+model simulations also suggested that conventional genotoxic drug treatment favors selection of chemoresistant
+cells in genetically heterogeneous tumors, in a manner requiring dysregulation of incoherent feedforward loops
+that involve E2F1, p73/DNp73, and miR-205. Cancer Res; 73(12); 3511–24. 2013 AACR.
+
+Major Findings
+Our model analysis indicates that tumor cells showing a
+genetic signature composed of high E2F1, low miR-205, and
+high ERBB3 expression can be resistant to multiple types of
+anticancer drugs. Furthermore, we found that the deregulation
+of E2F1 signaling can promote chemoresistance in concert
+with some epithelial–mesenchymal transition signals via common miRNA targets. Our analysis shows that the E2F1 signaling network is enriched in feedforward loops, the deregulation
+of which can play a decisive role in the emergence of chemoresistance. Finally, we found that in in silico heterogeneous
+tumors with cells displaying different signatures for the E2F1
+signaling network, genotoxic drugs can favor the selection of
+subpopulations of chemoresistant tumor cells.
+
+Authors' Afﬁliations: 1Department of Systems Biology and Bioinformatics, Institute of Computer Science, University of Rostock; 2Institute of
+Experimental Gene Therapy and Cancer Research, Rostock University
+Medical Center, Rostock; 3Laboratory of Systems Tumor Immunology,
+Department of Dermatology, Faculty of Medicine, Friedrich Alexander
+€t, Erlangen-Nu
+€rnberg; 4Department of Inﬂammation of the Lung /
+Universita
+€t, Marburg, Germany; and 5Stellenbosch Institute
+iLung, Philipps Universita
+for Advanced Study (STIAS), Wallenberg Research Centre at Stellenbosch
+University, Stellenbosch, South Africa
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+
+Introduction
+Resistance to genotoxic drugs as the major cause of cancer
+therapy failure is a serious problem for oncologists and their
+patients that requires the understanding of the pivotal triggering events and its evolution when cancer progresses. Chemoresistance can be innate or acquired and may attributable
+to a single agent or a class of drugs. Potential mechanisms to
+counteract the therapeutic effects of DNA-damaging agents
+include the reduction of effective drug concentrations via
+enhanced efﬂux, detoxiﬁcation enzymes or drug sequestration,
+modiﬁcation of drug targets, changes or mutation in mitotic
+checkpoint signals, and hyperactivation of DNA repair
+mechanisms (1).
+The cellular transcription factor E2F1 is a unique member of
+the E2F family of proteins as it regulates the tumor suppressor
+
+€tzer contributed equally to this work.
+O. Wolkenhauer and B.M. Pu
+Corresponding Author: Julio Vera, Laboratory of Systems Tumor Immunology, Department of Dermatology, Faculty of Medicine, University of
+€rnberg, Ulmenweg 18, 91054 Erlangen, Germany. E-mail:
+Erlangen-Nu
+julio.vera.g@gmail.com
+doi: 10.1158/0008-5472.CAN-12-4095
+2013 American Association for Cancer Research.
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+3511
+
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Vera et al.
+
+Quick Guide to Main Model Equations and Assumptions
+The kinetic model is organized in four interconnected modules: a core regulatory module, transcriptional modules related
+to apoptosis and proliferation, and an additional module for the tumor cell population.
+The core regulatory module contains ﬁve differential equations, accounting for E2F1 mRNA and protein (mE2F1 and E2F1),
+both isoforms of p73 (respectively, p73 and DNp73), and miR-205 (miR205). The most relevant equation describes the dynamics of
+miR-205:
+
+
+dmiR205
+DNp73 2
+1
+ k12  miR205
+¼ k11  TGFB1  p73  1 þ
+dt
+k13
+This equation describes the regulation of miR-205 synthesis and degradation (k11, k12). Here, we assume that p73 acts as an
+activator of miR-205 synthesis, whereas DNp73 plays an inhibitory role. According to the observations reported in several tumor
+types, we assume that when both isoforms of p73 are overexpressed, the inhibitory effect of DNp73 dominates and cancels out p73
+activation of miR-205. To exemplify the set of regulators of miR-205 that are external to the E2F1/p73/miR-205 network, we include
+a term that describes the repression of miR-205 by the oncogenic signal coming from the TGFb-1 pathway (TGFB1).
+The module for apoptosis-related targets includes three differential equations, accounting for the dynamics of E2F1-regulated
+proapoptotic genes (represented by Hrk), p73-regulated proapoptotic genes (represented by Bax), and miR-205–repressed
+antiapoptotic genes (represented by BCL2). The most representative equation for this module accounts for Hrk dynamics:
+dHrk
+E2F 1g
+ k18  Hrk
+¼ k17  DS 
+k16 g þ E2F 1g
+dt
+This equation describes the regulation of Hrk synthesis and degradation (k17, k18). In this equation, we include the E2F1mediated expression of Hrk using a Hill function. In addition, we assume that DNA damage signals trigger acetylation and
+activation of E2F1, which is required to promote Hrk expression. Drug-induced DNA damage signals are here encoded as a binary
+variable (DS).
+The module for targets associated with proliferation includes ordinary differential equations for the de novo inactive EGFR
+(EGFR), growth factor-activated EGFR (EGFR ), cytostatic drug–inhibited EGFR (EGFRI), and active ERBB3 (ERBB3). In this
+module, the most important equation describes the dynamics of EGFRI:
+! 
+
+dEGFRI
+E2F1g2
+ERBB3 1
+
+I
+
+EGFR
+
+EGFR
+ k31  EGFRI
+¼ k30  CyD  k36 
+
+1
+þ
+ERTH
+dt
+k35g2 þ E2F1g2
+The ﬁrst term accounts for the inhibition of EGFR by cytostatic drugs (CyD), which converts EGFR into inactive form (EGFRI).
+Here, we assume that the expression of EGFR is regulated by E2F1, which is modeled with a Hill equation (k36, g2). We include a
+power-law term accounting for the effect of ERBB3 as an inhibitor of the cytostatic drugs regulating EGFR activity (ER).
+The tumor cell population module is composed of an ordinary differential equation accounting for the size of a population of
+tumor cells with the considered genetic signature (TC). This equation is a phenomenological kinetic equation that connects the
+components of the regulatory network to the dynamics of the tumor cell population:
+
+
+dTC
+BCL2 1
+¼ k24  EGFR  TC  k22  Hrk  Bax  1 þ
+ TC
+dt
+k23
+In this equation, active EGFR (EGFR ) connects the proliferation of the tumor cell population to proliferative signals (k24),
+whereas the representatives for pro- and antiapoptotic proteins (Hrk, Bax, and BCL2) regulate the cell death rate after genotoxic
+stress (k22, k23).
+In some simulations, we consider tumors composed of three subpopulations of tumor cells with different genetic signatures.
+Accordingly, we construct three instances of the model, which differ in model parameter values describing the different genetic
+signatures. Further details are available in the main text and Supplementary Material.
+
+p53 and its homologue p73 thereby promoting apoptosis by the
+activation of a plethora of death pathways (2). One of the ﬁrst
+signals recognized to induce E2F10 s apoptotic activity was
+
+3512
+
+Cancer Res; 73(12) June 15, 2013
+
+DNA damage (3). Overexpression of E2F1 was shown to
+increase the sensitivity of malignant cells to apoptosis upon
+genotoxic treatment (4), which is critical for tumor growth
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Chemoresistance in the E2F1-p73/DNp73-miR-205 Network
+
+reduction (5). In this regard, activation of p73 by E2F1 functions as backup once p53 is defective to ensure that damaged
+cells can undergo apoptosis (6,7). In such a scenario, high levels
+of endogenous E2F1 should increase the effectiveness of DNAdamaging agents and discriminate between tumors clinically
+responsive or resistant to anticancer therapy. This is in line
+with clinical surveys that associated E2F1 expression with
+improved survival in patients treated with adjuvant chemotherapy and underscores E2F10 s role as an endogenous chemosensitizer in patients with cancer and beyond, as a predictive factor for therapeutic success and clinical outcome (8).
+This beneﬁcial view on E2F1 was thwarted as other studies
+showed that overexpression or ampliﬁcation of the E2F1
+genomic locus in conjunction with RB1 loss frequently
+observed during cancer progression is associated with metastatic disease and chemoresistance (9). From this perspective,
+aberrantly elevated E2F1 levels in high-grade tumors can be
+considered as a marker for unfavorable patient survival prognosis. In support of these ﬁndings, we have recently shown
+that dysregulated E2F1 causes malignant progression in therapy-resistant metastatic melanoma xenografts in which depletion of endogenously high E2F1 levels abrogates tumor invasion and pulmonary metastasis (10). According to our results,
+the aggressive behavior of E2F1 in melanoma cells is partially
+mediated through the induction of the EGF receptor (EGFR)
+pathway.
+It is well established that E2F1 stimulates the expression
+of the tumor suppressor p73 and its N-terminally truncated
+isoform (named DNp73) via direct transactivation of the TP73
+gene (11). While full-length p73 inhibits cancer development by
+inducing cell-cycle arrest and apoptosis through its ability to
+bind p53 DNA target sites, DNp73 acts as antagonist of wildtype p53 family members by either directly interfering with
+DNA binding or forming inactive heteromeric complexes with
+transcriptionally active p73 (12). Strikingly, in melanoma
+metastases DNp73 isoforms are strongly upregulated in conjunction with full-length p73 compared with primary tumors
+(13). Because of the previous results, DNp73 exhibits antiapoptotic activity in human melanoma cells and speciﬁc suppression of individual isoforms enhances the sensitivity towards
+cytotoxic drugs (14). Investigating mechanisms responsible for
+dysregulated E2F1 losing its apoptotic function in human skin
+cancer, we identiﬁed miR-205 as a speciﬁc target of p73 and
+found that upon genotoxic stress its expression is sufﬁciently
+abrogated by endogenous DNp73 (15). Signiﬁcantly, we showed
+that metastatic cells can be rescued from drug resistance by
+selective knockdown of DNp73 or overexpression of miR-205
+in p73 depleted cells, leading to increased apoptosis and the reduction of tumor growth in vivo. These results suggest the E2F1p73/DNp73-miR-205 network as a crucial mechanism for chemoresistance and thus as a target for prevention of metastasis.
+The structure of the E2F1-centered biochemical network
+that mediates the potential resistance against anticancer
+therapies is a complex system involving signaling and transcriptional regulation. This network is enriched with network
+motifs, including feedback and feedforward loops. Furthermore, these network motifs are well interconnected, overlap,
+and cross-talk with other cancer-related signaling pathways
+
+www.aacrjournals.org
+
+(4, 16). Networks containing several of these motifs often
+show nonintuitive regulatory patterns, which require the use
+of mathematical modeling to understand their function and
+regulation (17,18).
+In this work, we constructed a regulatory map that summarizes the current literature on E2F1 signaling dysregulation
+in cancer and complemented it with information about E2F1
+and miR-205 targets, which have known or putative roles in
+drug response. On the basis of this map, we derived a mathematical model and used it to investigate under which conditions dysregulation of this network provides tumor cells with
+resistance mechanisms against several families of anticancer
+drugs. In connection to this, we further explored the consequences of tumor heterogeneity in the effectiveness of these
+therapies. Our results indicate that kinetic modeling under the
+systems biology paradigm can be an effective method to detect
+genetic signatures providing tumor cells with chemoresistance
+mechanisms and thereby to design therapeutic strategies to
+counteract them.
+
+Materials and Methods
+Cell culture, PCR, Western blot, and apoptosis assays
+The human melanoma cell line SK-Mel-147 characterized by
+morphology and cytogenetics was obtained from M. Soengas
+(Department of Dermatology, University of Michigan, Comprehensive Cancer Center, Ann Arbor, MI). Tested and authenticated cells were cultured as described (15). Plasmid miRZIP205 encoding antagomir-205 was purchased from BioCat.
+Transfections were conducted with Lipofectamine 2000 (Invitrogen). Adenoviral vector with shE2F1 was described previously (10). Expression of hsa-miR-205 and hsa-RNU6B (for
+normalization) was detected using speciﬁc TaqMan assays
+(Applied Biosystems). PCR, Western blot, and apoptosis assays
+were conducted as described. The wet lab data were obtained
+previously and are published in (15).
+Regulatory map construction
+Information about the network components and their interactions was extracted from relevant published reports and
+databases (HPRD and STRING for protein–protein interactions; TRED for E2F1 transcriptional targets; TarBase 6.0,
+miRTarBase, miRecords and miR2Disease for validated targets
+of miR-205; and TransmiR for transcription factors regulating
+the expression of miR-205). Putative miR-205 targets and miR205 transcription regulators were extracted from additional
+databases (see Supplementary Materials and Methods for a
+detailed description of the data retrieval process). As we were
+interested in the role of E2F1 and miR-205 in pro- and antiapoptotic processes as well as in drug responses, we ﬁltered the
+obtained set of molecular interactions based on the corresponding Gene Ontology (GO) terms (GO:0043065, GO:0043066
+and GO:0042493). Finally, all the information collected was
+integrated into a regulatory map in Cytoscape (available in
+Supplementary Materials and Methods).
+Kinetic modeling
+Representative interactions in the constructed regulatory
+map were translated into a kinetic model based on ordinary
+
+Cancer Res; 73(12) June 15, 2013
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+3513
+
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Vera et al.
+
+differential equations. The model constructed accounts for the
+dynamics of miRNA, mRNA and protein expression levels, as
+well as cell populations in different cancer-relevant scenarios,
+including tumor proliferation and genotoxic or cytostatic drug
+administration. The model has the following general structure:
+
+
+dmiRNAi X
+¼
+Dk1 GS; Protj ; mRNAi ; miRNAi ;
+dt
+k1
+
+dmRNAi X 
+¼
+Fk1 GS; Protj ; mRNAi ; miRNAi ;
+dt
+k1
+
+
+dProti X
+Gk2 GS; Proti ; Protj ; mRNAi ;
+¼
+dt
+k2
+
+
+dCi X
+¼
+Hk3 Ci ; Protj ;
+dt
+k3
+where Proti accounts for the expression level of the proteins
+involved in the network, mRNAi for the messenger RNAs
+mediating their synthesis, miRNAi for miRNAs repressing
+expression of given proteins, and Ci for the size of proliferative,
+arrested, or apoptotic cell populations. GS is an input signal
+that accounts for the effect of genotoxic or cytostatic drugs in
+the synthesis and regulation of proteins and mRNAs. Dk1, Fk1
+and Gk2 account for the description of biochemical processes
+as rate equations that depend on the expression levels of
+proteins and mRNAs, or the time-dependent genotoxic stress
+signal GS. Hk3 are rate equations describing the dependence of
+cell population dynamics on the expression level of critical
+proteins in the network. Values of the model parameters
+characterizing the reaction rates were assigned following a
+hybrid strategy, composed of: (i) extracting parameter values
+from published information (e.g., protein, mRNA, and miRNA
+half-lives); (ii) estimating a subset of parameter values by
+tuning them to ﬁt published quantitative and qualitative data;
+(iii) reducing some parameters by normalizing variables
+around the basal, nonstressed levels of mRNA and protein.
+Model equations and chosen parameter values are provided in
+Supplementary Materials and Methods.
+In silico cell lines. To search for genetic signatures providing tumor cells with a chemoresistant phenotype, we produced in silico (kinetic model-based) cell lines by randomly
+perturbing values of selected model parameters using Latin
+hypercube sampling. Thereby, we generated 105 in silico cell
+lines, each one with a distinctive set of parameter values
+accounting for an individual genetic background.
+Model simulations
+For each in silico cell line, we conducted simulations in 3
+cancer relevant scenarios: (i) nonstressed growth conditions;
+(ii) apoptosis under; and (iii) proliferation under cytostatic
+drug administration. We investigated genetic signatures providing the tumor cells with a chemoresistant phenotype, by
+randomly perturbing parameter values and simulating the
+response of the model to different cancer-relevant scenarios.
+We analyzed the effects of perturbations in the expression
+
+3514
+
+Cancer Res; 73(12) June 15, 2013
+
+levels of critical network components by iteratively modifying
+their synthesis rate constants accounting for their induction
+and simulating the behavior of the network. We assessed
+the efﬁcacy of conventional anticancer treatment in in silico
+cells with different E2F1-related genetic signatures by simulating periodic cycles of genotoxic or cytostatic drug injection.
+Model calibration, computational simulations, and data analysis were conducted using MATLAB running on a high-end
+workstation Fujitsu Celsius V840, 2x CPU AMD Opteron 2214,
+2.2 GHz. ECC. Complete information about the construction of
+the regulatory map, as well as about the model structure,
+calibration, and analysis is included in Supplementary Materials and Methods.
+
+Results
+A network with multiple feedforward loops determines
+the E2F1 drug response
+Our recent results suggest that the E2F1-p73/DNp73-miR205 pathway is involved in the regulation of pro- and antiapoptotic genes, which confers chemoresistance (15). We
+investigated whether this system is part of a wider and more
+complex network regulating the response of tumor cells to
+anticancer drugs. Towards this end, we constructed a regulatory map that contains the E2F1-p73/DNp73-miR-205 pathway
+as core module and includes genes targeted by E2F1 or miR205, with known or putative relation to the drug response and
+drug-induced apoptosis (Fig. 1A). Overall, the map unravels a
+tightly interlocked regulatory system. Computational analysis
+of the network (81 nodes, 194 edges) shows a robust structure
+and a topology that is composed of many regulatory motifs,
+especially enriched in feedforward loops (for details, see Supplementary Materials and Methods). Interestingly, we detected
+several instances of network motifs in which a direct E2F1
+target gene interacts with a miR-205–repressed target. Because
+E2F1 regulates miR-205 via p73, processes downstream of the
+interaction between both targets are regulated by E2F1 following 2 independent routes and can be considered as feedforward loop (Fig 1A). Several of those loops are associated with
+the efﬁcient apoptosis initiation and involve the positive
+regulation of proapoptotic genes by E2F1 and the repression
+of antiapoptotic genes by miR-205. For example, the E2F1
+target Hrk regulates apoptosis through interaction with the
+miR-205 targets BCL-2 and BCL-XL (Fig 1A; ref. 19). In addition,
+we detected at least one additional instance of this motif, in
+which E2F1 promotes EGFR expression and miR-205 represses
+ERBB3 (both belonging to the HER receptor family). In several
+tumors, both receptors are associated with abnormal proliferation and upon heterodimerization they inﬂuence sensitivity
+to cytostatic drugs like erlotinib (20). Furthermore, DNp73 can
+inhibit the expression of p73 transcriptional targets, including
+miR-205. The expression of these targets may depend on a tight
+trade-off between p73 and DNp73 expression and activity,
+which are both transcriptionally regulated by E2F1. These
+E2F1-p73/DNp73-target motifs can be considered as incoherent feedforward loops. Overall, the activation of miR-205 and
+therefore of its targets may depend on the interplay among
+E2F1, p73, DNp73, and other regulators of miR-205 like TWIST1
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Chemoresistance in the E2F1-p73/DNp73-miR-205 Network
+
+A
+
+B
+
+C
+GxD (a.u.)
+
+Genotoxic stress
+2
+
+1
+
+0
+-50
+
+0
+
+50
+
+E2F1/p73/Dnp73/miR-205 axis
+
+Protein (a.u.)
+
+25
+
+E2F1
+p73
+
+20
+
+DNp73
+miR-205
+
+15
+10
+5
+0
+-50
+
+0
+
+50
+
+Time (h)
+
+Pro- and antiapoptotic genes
+
+Protein (a.u.)
+
+1
+
+Bax
+Hrk
+BCL2
+
+0.5
+
+0
+-50
+
+0
+
+50
+
+Tumor cells (% initial)
+
+Time (h)
+
+Tumor cell population
+1
+0.8
+0.6
+-50
+
+0
+
+50
+
+Time (h)
+
+Figure 1. A, E2F1-p73/DNp73-miR-205 regulatory map. This Cytoscape ﬁgure shows the targets of E2F1, p73, and miR-205 as well as transcription factors of
+miR-205 that are involved in apoptosis (gray nodes), drug response (pink nodes), or both (purple nodes) according to GO. Edges are color coded with respect
+to the following processes: transcriptional regulation (dark and light blue), posttranscriptional regulation (orange), and protein–protein interaction (gray),
+whereas solid lines represent validated interactions and dashed lines denote predicted interactions. B, kinetic model for the E2F1-p73/DNp73-miR-205
+network. The model is composed of four modules: The core regulatory module (blue) describes the dynamics of E2F1, p73, DNp73, and miR-205. The
+transcriptional targets module accounts for representative apoptosis and proliferation-associated targets of E2F1, p73, and miR-205, which may play a role in
+drug response. The tumor cell population module connects the biochemical network to the fate of a population of tumor cells. GxD accounts for genotoxic and
+CyD for cytostatic drug; red-colored symbols for oncogenes and green for tumor suppressors. Twelve ordinary differential equations accounting for the
+evolution in time of: E2F1 mRNA (in the model represented with the variable mE2F1) and protein (E2F1), both isoforms of p73 (respectively, p73 and DNp73),
+miR-205 (miR205), E2F1-regulated proapoptotic genes (Hrk), p73-regulated proapoptotic genes (Bax), miR-205–repressed antiapoptotic genes (BCL2),
+E2F1-regulated and active EGFR (EGFR ), cytostatic drug–inhibited EGFR (EGFRI), and miR-205–repressed ERBB3 (ERBB3). In addition, we consider
+another differential equation accounting for the population size of tumor cells with the genetic background deﬁned by our model (TC). The node size is in
+accordance to its degree (i.e., number of edges connected). C, prototypical simulation made with the model. Upon administration of a drug at t ¼ 0, genotoxic
+stress is triggered (top). This activates the E2F1-p73/DNp73-miR-205 network (middle), which in turn promotes the transcription of apoptosis-related genes
+(middle). When proapoptotic genes are sufﬁciently expressed, they trigger apoptosis and the population of tumor cell decreases (bottom).
+
+www.aacrjournals.org
+
+Cancer Res; 73(12) June 15, 2013
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+3515
+
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Vera et al.
+
+A
+
+Tumour cells (% of initial)
+
+B
+
+102
+
+101
+
+100
+
+C
+10–1
+
+In silico chemosensitive tumor cells
+200
+
+150
+
+100
+
+50
+
+0
+Control (0) Control (120) CyD (120)
+
+Random
+100%
+
+Tumor
+cells
+50%
+
+10–2
+
+GxD (48)
+
+Genotoxic
+drug–resistant
+30%
+
+10–3
+E2F1
+
+miR205
+
+p73
+
+DNp73 BCL2
+
+TGFB1 ERBB3 EGFR*
+Double resistant
+Cytostatic drug–resistant
+Genotoxic drug–resistant
+Tumor
+Random
+
+Cytostatic
+drug–resistant
+1%
+
+Double
+resistant
+<1%
+
+Figure 2. A, genetic signatures of the E2F1-p73/DNp73-miR-205 network that confer chemoresistance. Box-and-whisker plots of simulated nonstress levels
+for E2F1, p73, DNp73, miR-205, BCL2, TGFb-1, ERBB3, and EGFR for the different subsets of in silico cells generated: gray, entire set of randomly
+generated solutions; orange, tumor cells; blue, genotoxic drug–resistant; green, cytostatic drug–resistant; red, double drug–resistant. In each bar, the central
+mark is the median, the edges of the box are the 25th and 75th percentiles, the whiskers extend to the most extreme data points. The dashed
+horizontal line in the plot accounts for the values in the nominal chemosensitive genetic signature. B, phenotype of the in silico chemosensitive tumor
+cell line. Percentage of cells with respect to initial population. Control(0): population size at 0 hours, no drug injection; control(120): population at 120 hours,
+no drug injection; CyD(120): 120 hours after cytostatic drug; GxD (48): 48 hours after genotoxic drug. C, distribution of the initial set of randomly generated
+4
+10 in silico cell lines in the different subpopulations. Percentage over the total is indicated.
+
+and TGFb-1 signaling, as suggested by our regulatory map.
+Because of the network complexity, mathematical modeling is
+necessary to investigate nonintuitive regulation of this system
+in cancer-relevant scenarios.
+A modularized kinetic model to investigate E2F1-p73/
+DNp73-miR-205 network chemosensivity
+We set up and analyzed a kinetic model using ordinary
+differential equations. To construct the model, we selected
+parts of the regulatory map that are representative for the
+network response to different anticancer drugs (Fig. 1B). The
+model is organized into four interconnected modules: the core
+regulatory module, two modules of transcriptional targets, and
+one for tumor cell population. The core regulatory module of
+the kinetic model is composed of E2F1, both isoforms of p73
+(respectively, p73 and DNp73) and miR-205 (miR-205) and
+accounts for their temporal evolution under drug administration (15). We include here the transcriptional regulation of
+miR-205 expression by the known oncogene TGFb-1 (TGFB1),
+which exempliﬁes the set of regulators of miR-205 expression
+external to the core module. The inclusion of this variable
+allows for the investigation of cross-talk, via miR-205, between
+E2F1 signaling and other oncogenic signals involved in the
+
+3516
+
+Cancer Res; 73(12) June 15, 2013
+
+epithelial–mesenchymal transition (EMT). EMT has been associated with the emergence of chemoresistance (21).
+In addition, the model includes a module for pro- and
+antiapoptotic transcriptional targets, which are regulated by
+the network components in response to genotoxic stress.
+Precisely: (i) for representing the dynamics of proapoptotic
+proteins whose expression is promoted by E2F1, we included a
+variable accounting for Harakiri expression (22); (ii) similarly,
+for proapoptotic proteins whose expression is positively regulated by p73 and negatively regulated by DNp73, a variable
+accounting for Bax expression is deﬁned (23); and ﬁnally (iii)
+for antiapoptotic proteins whose expression is repressed by
+miR-205, we chose BCL2 as a representative and deﬁned a
+corresponding variable (15). These pro- and antiapoptotic
+proteins are used here as an example and represent a wider
+set of proteins which undergo similar regulation. This kind of
+simpliﬁcation has been successfully applied to reduce the
+complexity of models of biochemical networks, for example,
+in the study conducted by Aguda and colleagues (24). Furthermore, the model includes a module for receptors whose activity
+is regulated in response to cytostatic drugs. This module
+includes variables accounting for the dynamics of EGFR, whose
+expression is promoted by E2F1 (10), and ERBB3, which is
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Chemoresistance in the E2F1-p73/DNp73-miR-205 Network
+
+Genetic signatures for the E2F1-p73/DNp73-miR-205
+network that confer chemoresistance to anticancer
+drugs
+In our analysis, we considered two families of drugs: genotoxic drugs, like doxorubicin and cisplatin, inducing apoptosis;
+and cytostatic drugs, like erlotinib and lapatinib, repressing
+tumor cell proliferation. In some scenarios, it has been
+observed that these drugs lose efﬁcacy when some of the
+network components are dysregulated (15,27). With the help
+of the kinetic model, we analyzed whether speciﬁc genetic
+signatures of the core module can be linked to a phenotype
+response of resistance to these anticancer drugs. We deﬁne a
+genetic signature as a group of genes in a tumor cell whose
+combined expression pattern is linked to a speciﬁc phenotype
+(i.e., chemoresistant or chemosensitive). In line with this, we
+designed a nominal in silico chemosensitive genetic signature,
+inspired by that of SK-Mel-147 (15). This signature accounts for
+the expression of the network components for which an in
+silico cell line holds the phenotype of a chemosensitive tumor
+cell; that is, abnormal proliferation but responsiveness to
+genotoxic drugs (via triggering of apoptosis) and cytostatic
+drugs (via inhibition of proliferation, see Fig. 2B).
+To detect genetic signatures providing chemoresistance, we
+generated a population of 104 model conﬁgurations obtained
+by random perturbation of the model parameter values of the
+nominal chemosensitive genetic signature. In the following, we
+deﬁne these distinct conﬁgurations as in silico cell lines. For
+each one of them, we simulate the model and obtained the
+expression levels of the network components and the tumor
+cell population in three cancer-relevant scenarios: (i) under
+nonstress conditions, at time zero, and after 120 hours; (ii) after
+genotoxic drug administration, at 48 hours; and (iii) after
+cytostatic drug administration, at 120 hours. The in silico cell
+lines were classiﬁed into the following groups: (i) cell lines that
+show abnormal proliferation in nonstress conditions, named
+as tumor cells; (ii) those resistant to genotoxic drugs; (iii) those
+resistant to cytostatic drugs; and (iv) those resistant to both
+
+www.aacrjournals.org
+
+A
+
+% surviving cells (48 h after genotoxic drug)
+
+miR-205
+
+101
+
+100
+
+3
+
+1
+
+10–1
+
+4
+
+2
+
+100
+
+101
+
+102
+
+E2F1
+
+0
+
+B
+
+20
+
+40
+
+60
+
+80
+
+90
+2
+
+80
+Surviving cells (%)
+
+repressed by miR-205 (25,26). In several tumors the heterodimerization of these receptors has been linked to abnormal
+cell proliferation and changes in the sensitivity of tumor cells to
+cytostatic drugs (20). Additional input variables account for the
+effect of genotoxic (GxD) and cytostatic (CyD) drugs triggering
+DNA damage-E2F1–mediated apoptosis and abolishment of
+tumor cell proliferation, respectively (4).
+Finally, the last module includes a phenomenological kinetic
+equation, which connects the components of the network to
+the dynamics of the tumor cell population. In this equation, the
+representatives for pro- and antiapoptotic proteins regulate
+the cell death rate after genotoxic stress, whereas EGFR and
+ERBB3 control the tumor cell proliferation rate. Taken together, our model is able to describe the cascade of regulatory
+events after drug administration including stress signals,
+downstream intracellular responses, the regulation of proand antiapoptotic signals (for genotoxic drugs) or proliferative
+signals (for cytostatic drugs), and ﬁnally the global effect on
+tumor cell population (Fig. 1C; see Supplementary Materials
+and Methods for a complete description of the model).
+
+70
+
+4
+
+1
+3
+
+60
+50
+0
+–
+–
+
+–
++
+
++
+–
+
++
++
+
+shE2F1
+antagomiR-205
+
+Figure 3. The interplay between E2F1 and miR-205 promotes resistance
+to genotoxic drugs. A, model simulations. For different values of the
+synthesis rates for E2F1 and miR-205 (kE2F1 ; kmir205 2 ½101 ; 101 ), we
+determined the percentage of apoptotic cells 48 hours after genotoxic
+stress: Apoptotic cells ¼ 100  [1- TC(t ¼ 48)], where TC is the number of
+surviving tumor cells at 48 hours. B, validation experiments with SK-Mel147 cells. The percentage of apoptotic cells was measured 48 hours after
+cisplatin treatment. 1, control; 2, after miR-205 knockdown; 3, after E2F1
+knockdown; and 4, after miR-205 and E2F1 knockdown. Data were
+extracted and processed from Alla and colleagues (15).
+
+genotoxic and cytostatic drugs. For each group, the data
+describing the expression levels of the network components
+at time zero were normalized with respect to the nominal
+chemosensitive values (Fig. 2C). For the computational deﬁnition of the simulation scenarios and classiﬁcation of the
+resulting cell phenotypes, see Supplementary Materials and
+Methods.
+Our results indicate that 30% of the in silico cell lines are
+resistant to genotoxic drugs (Fig. 2C). These cells display high
+basal levels (at time zero, nonstress conditions) of E2F1 and
+
+Cancer Res; 73(12) June 15, 2013
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+3517
+
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Vera et al.
+
+percentage of apoptotic cells 48 hours after genotoxic drug
+administration. As shown in Fig. 3A, in silico cell lines with high
+levels of E2F1 display lower percentage of apoptotic cells in
+response to chemotherapy. Our previous experiments with
+melanoma SK-Mel-147 cells conﬁrm the simulation results
+(Fig. 3B). SK-Mel-147 cells were treated with cisplatin and high
+percentage of cells became apoptotic (Scenario 1 in Fig. 3B).
+Inhibition of miR-205 with antagomir-205 reduces the percentage of apoptotic cells after treatment (Scenario 2), whereas
+selective knockdown of endogenously high E2F1 leads to a
+pronounced increase in apoptosis (Scenario 3). Finally, repression of both E2F1 and miR-205 reduces the apoptotic effect of
+cisplatin (Scenario 4). These experimental results conﬁrm the
+model predictions displayed in Fig. 3A for the scenarios named
+with the same numbers.
+To verify whether dysregulation of couples of network
+components affects chemosensitivity to genotoxic and cytostatic drugs, we conducted additional simulations in which we
+iteratively modiﬁed the values of the protein synthesis rates
+(Fig 4). Precisely: (i) because the p73/DNp73 ratio is known to
+play a major role in the aggressiveness of cancer cells
+(11, 28, 29), we iteratively modiﬁed the parameters accounting
+
+DNp73, whereas miR-205 is downregulated compared with the
+nominal chemosensitive tumor cell and the group of in silico
+tumor cells (Fig. 2A). In addition, approximately 1% of the cell
+lines display resistance to cytostatic drugs. These cells have a
+genetic signature composed of much higher basal E2F1,
+DNp73, and ERBB3 levels, whereas miR-205 appears strongly
+downregulated and TGFb-1 is moderately upregulated. In both
+cases, EGFR is expressed at its maximum level, but our analysis
+indicates that this is a property already acquired by the group
+of tumor cells as a consequence of high levels of E2F1 (see
+Supplementary Materials and Methods). Finally, a small fraction of the cell lines display a phenotype of double resistance
+and their genetic signature is very similar to that of cytostatic
+drug–resistant cells.
+Taken together, our results suggest a relevant role for E2F1,
+DNp73, and miR-205 in the regulation of resistance to several
+anticancer drugs. To validate this model-based prediction, we
+compared them with our recently published data on the
+interplay of E2F1 and miR-205 under genotoxic stress administration (15). To this end, we conducted simulations in which
+we iteratively perturbed the values of the parameter accounting for E2F1 and miR-205 induction and computed the
+
+A
+
+(%)
+
+10
+
+10
+10
+
+-1
+
+10
+
+-1
+
+0
+
+10
+10
+DNp73
+
+10
+
+1
+
+1
+
+0
+
+-1
+
+10
+
+0
+
+1
+
+10
+E2F1
+
+10
+
+10
+10
+10
+
+2
+
+1
+
+ERBB3
+
+0
+
+TGFB1
+
+10
+
+1
+
+DNp73
+
+p73
+
+10
+
+0
+
+-1
+
+10
+
+0
+
+1
+
+10
+E2F1
+
+10
+10
+
+2
+
+10
+
+10
+
+80
+
+1
+
+60
+
+0
+
+40
+-1
+
+20
+
+10
+
+0
+
+1
+
+10
+E2F1
+
+10
+
+2
+
+0
+(%)
+
+B
+
+10
+
+-1
+
+10
+
+-1
+
+0
+
+10
+10
+DNp73
+
+1
+
+10
+10
+
+1
+
+0
+
+-1
+
+10
+
+0
+
+1
+
+10
+E2F1
+
+10
+
+2
+
+10
+10
+10
+
+1
+
+ERBB3
+
+0
+
+10
+
+TGFB1
+
+10
+
+160
+
+1
+
+DNp73
+
+0
+
+-1
+
+10
+
+0
+
+1
+
+10
+E2F1
+
+10
+10
+10
+
+2
+
+10
+
+1
+
+140
+0
+
+120
+-1
+
+10
+
+0
+
+1
+
+10
+E2F1
+
+10
+
+2
+
+D
+
+C
+Scenario
+S1.E2F1
+
+Genotoxic
+
+Cytostatic
+
+drug
+
+drug
+
+miR-205 (a.u.)
+
+1
+
+10
+
+DNp73
+
+S2.DNp73
+
+p73
+
+S3.TGF Β-1
+
+E2F1
+
+TGFB1
+
+p73
+
+10
+
+500
+0
+
+10
+
+250
+
+S4.E2F1
+S5.E2F1
+
+ERBB3
+
+S1-S4 + ERBB3
+
+-1
+
+10
+
+-1
+
+10
+
+0
+
+1
+
+0
+
+10
+10
+E2F1
+
+Figure 4. A, genotoxic drug resistance for different protein synthesis rates. In all cases, we iteratively modiﬁed the synthesis rates for pairs of network
+components and computed the percentage of tumor cells surviving 48 hours after genotoxic drug administration. B, cytostatic drug resistance for different
+protein synthesis rates. The percentage of tumor cells surviving 120 hours after cytostatic drug administration was computed. x- and y-axes
+0
+account for normalized changes in the indicated protein synthesis rates (10 represents the protein levels in an in silico cell line that has the nominal
+chemosensitive genetic signature). We note that E2F1 is often upregulated in tumors to achieve enhanced proliferation [Alla and colleagues, (10)]. Thus, in our
+simulations, E2F1 synthesis rate must be equal or greater than 100. C, protein expression signatures providing chemoresistance. Compared with the
+values in the nominal chemosensitive genetic signature: ~ accounts for overexpression (101); ~~ for extreme overexpression (102); and ! for repression
+(101). D, multiple transcriptional signals regulate miR-205.
+
+3518
+
+Cancer Res; 73(12) June 15, 2013
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Chemoresistance in the E2F1-p73/DNp73-miR-205 Network
+
+signatures conferring chemoresistance. We note that in our
+model, the regulation of antiapoptotic genes like BCL-2 and
+ERBB3 by E2F1, p73/DNp73, and TGFb-1 is mediated via miR205. Therefore, we hypothesize that the coregulation of miR205 by its transcriptional regulation can foster chemoresistance (Fig. 4D).
+
+for p73 and DNp73 synthesis; ii) given that overexpression of
+E2F1 is associated with aggressiveness and chemoresistance
+(4,15), we also considered iterative modulation of E2F1 and
+DNp73 synthesis parameters to test whether their dysregulation sufﬁces to induce resistance; (iii) considering that
+dysregulation of TGFb-1 signaling promotes invasion and
+metastasis (30), we modiﬁed the E2F1 synthesis parameter
+and TGFb-1 expression level to investigate whether they can
+synergize in the emergence of a resistance phenotype; and (iv)
+given that the expression of ERBB3 associates to the resistance
+to certain cytostatic drugs (20,31,32), we modiﬁed E2F1 and
+ERBB3 synthesis parameters to test whether their combined
+dysregulation can cause enhanced chemoresistance.
+As shown in Fig. 4A, in silico cell lines with strong DNp73
+and/or weak p73 synthesis display a very high percentage of
+cells resisting apoptosis after genotoxic drug administration,
+whereas strong p73 synthesis and reduced DNp73 induction
+provide efﬁcient cell death. Furthermore, our kinetic simulations suggest that very strong E2F1 induction alone is sufﬁcient
+to provoke chemoresistance to genotoxic drugs and can therefore compensate low DNp73 levels (Fig. 4B). In addition, high
+induction of TGFb-1 reduces the level of E2F1 required to
+induce resistance. Taken together, strong E2F1 synthesis can
+synergize with strong induction of DNp73 and TGFb-1 to
+provide genotoxic drug resistance (Fig. 4A). When analyzing
+the emergence of resistance to cytostatic drugs through the
+considered network, our analysis indicates that strong ERBB3
+and E2F1 induction can synergize to achieve chemoresistance
+(Fig. 4B). Taken together, the results suggest that resistance to
+both genotoxic and cytostatic drugs can emerge with strong
+ERBB3 and E2F1 induction. We summarized our results in a
+qualitative manner in Fig. 4C, which lists possible genetic
+
+www.aacrjournals.org
+
+E2F1
+
+E2F1
+1.5
+Size (a.u.)
+
+Homogeneity
+
+Size (a.u.)
+
+1.5
+1
+0.5
+
+1
+0.5
+
+E2F1
+0
+
+0
+0
+
+10
+20
+Time (wks)
+
+30
+
+0
+
+10
+20
+Time (wks)
+
+30
+
+0
+
+10
+20
+Time (wks)
+
+30
+
+1.5
+
+2
+Size (a.u.)
+
+Heterogeneity
+
+Size (a.u.)
+
+Figure 5. Effectiveness of genotoxic
+drug treatment in tumors
+with homo- and heterogeneous
+genetic signatures for E2F1. We
+simulated the effect of an anticancer
+treatment composed of periodic
+injections of a conventional
+genotoxic agent, twice a week during
+20 weeks (see Supplementary
+Materials and Methods for details).
+The size of the tumor was assumed 1
+(n.u.) at time zero. Plots in the ﬁrst row
+illustrate the treatment-dependent
+tumor growth for tumors with
+homogeneous E2F1 levels, whereas
+the second row accounts for tumors
+with heterogeneous E2F1 levels.
+First column accounts for scenarios
+1
+with E2F1 overexpression (10 ,
+represented by E2F1~) and the
+second column shows extreme
+overexpression (102, represented by
+E2F1!!).
+
+Conventional genotoxic drug treatment favors selection
+of chemoresistant cells in genetically heterogeneous
+tumors
+It is a well-established fact that cell populations with different genetic signatures inﬂuencing cancer hallmarks coexist
+in malignant tumors (33). In line with this, we used our kinetic
+model to investigate how tumor heterogeneity (i.e., coexistence
+of several populations with different genetic signatures) affects
+the efﬁcacy of conventional anticancer therapy (Fig 5). In our
+analysis, we focused on genotoxic drugs. Towards this end, we
+reformulated our model to consider two kinds of tumors: (i)
+tumors with homogeneous expression of E2F1 and (ii) tumors
+with heterogeneous expression of E2F1. In our simulations,
+heterogeneity in E2F1 expression is modeled by making 90% of
+cells with a deﬁned E2F1 level, 5% cells with 0.5-fold downregulation, and 5% cells with 2.5-fold upregulation of E2F1. In
+accordance with our previous simulations, we considered two
+biologic scenarios: E2F1 overexpression (101, represented by
+E2F1~) and extreme overexpression (102, represented by
+E2F1~~).
+We used the model to simulate the effect of an anticancer
+treatment composed of periodic injections of a conventional
+genotoxic agent. In a tumor with homogenous E2F1 overexpression, our results indicate that the tumor is abolished
+after several injection cycles (Fig. 5 top left). However, in a
+
+1
+0.5
+
+1.5
+1
+
+E2F1
+
+0
+0
+
+10
+20
+Time (wks)
+
+30
+
+Cancer Res; 73(12) June 15, 2013
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+3519
+
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Vera et al.
+
+205 in the tumor shift from that of chemosensitive cells to the
+one in chemoresistant cells (upregulation of E2F1 and downregulation of miR-205, Fig. 6C). Strikingly, we were able to
+conﬁrm our prediction with experiments, in which we stimulated SK-Mel-147 cells with iteratively increasing levels of
+cisplatin (1–50 mmol/L) and measured E2F1 and miR-205
+expression before and after the treatment with this genotoxic
+drug (respectively
+and
+in Fig. 6C; ref. 15).
+
+tumor with homogenous E2F1 extreme overexpression, our
+simulation suggests that the tumor is resistant to the therapy
+and recovers fast growth afterwards (Fig. 5 top right). Interestingly, in a tumor with heterogeneous E2F1 overexpression,
+the tumor becomes virtually abolished after several cycles of
+drug injection, but the tumor reemerges after the drug injections are discontinued (Fig. 5 bottom left). Finally, for a tumor
+with heterogeneous E2F1 extreme overexpression, model
+simulations indicate that the tumor is fully drug resistant with
+continuous proliferation (Fig. 5 bottom right).
+We further analyzed the scenario of heterogeneous E2F1
+overexpression and found that in our simulations during the
+treatment, the composition of the tumor shifts from one of
+predominantly chemosensitive cells at time point zero (Fig. 6A,
+dark blue curve) towards a composition of entirely genotoxicdrug resistant cells at twenty weeks (Fig. 6A, red curve). This
+suggests that the genotoxic drug treatment can induce selective pressure on tumor cells. This is because chemosensitive
+cells undergo apoptosis during treatment, whereas cells with
+the resistant genotype withstand and continue proliferating.
+Therefore, the tumor reemerges after discontinuation of the
+treatment after 20 weeks (Fig. 6B). Our simulations indicate
+that during treatment the genetic signature of E2F1 and miR-
+
+Discussion
+E2F1-p73/DNp73-miR-205 network mediates
+chemoresistance
+We developed a kinetic model to investigate the emergence
+of chemoresistance in tumor cells, mediated by a network with
+a core module composed of E2F1, p73, DNp73, and miR-205. In
+previous efforts, mathematical modeling was applied to
+address the role of E2F1 and other network components in
+cancer and cell proliferation (24, 34–36). However, to our
+knowledge, this work is the ﬁrst modeling-based analysis of
+E2F1-mediated chemoresistance.
+Our results suggest that dysregulation of this network can
+provoke chemoresistance to multiple anticancer drugs. In line
+
+B 1.5
+
+100
+80
+
+E(–)
+E(tc)
+E(+)
+
+60
+40
+
+Size (a.u.)
+
+20
+
+1
+
+0.5
+
+0
+0
+
+10
+20
+Time (wks)
+
+30
+
+0
+
+Expression (n.u.)
+
+C
+
+0
+
+10
+20
+Time (wks)
+
+Model prediction
+2
+
+Expression (n.u.)
+
+Tumor composition (%)
+
+A
+
+1.5
+1
+0.5
+0
+E2F1 miR-205
+
+30
+
+Experimental data
+2
+1.5
+1
+0.5
+0
+E2F1 miR-205
+
+Figure 6. Selection of chemoresistant clones after conventional genotoxic drug treatment in tumors with heterogeneous genetic signature for E2F1. We
+simulated the effect of periodic injections of a conventional genotoxic agent over an in silico tumor, with a heterogeneous genetic signature for
+av
+av
+E2F1. The average E2F1 expression level, E2F1 , is similar to that in the in silico chemosensitive tumor cell line; 90% cells display E2F1 E2F1 ; 5% cells with
+E2F1 0.5E2F1av; 5% cells with E2F12.5E2F1av. A, time evolution of tumor cell composition during drug treatment. Dark blue curve: percentage of
+cells with E2F1 ¼ E2F1av (E(tc)). Light blue curve: percentage of cells with E2F1 0.5E2F1av (E(-)). Red curve: percentage of cells with E2F1 2.5E2F1av (E(þ)).
+B, time evolution of the tumor size during drug treatment; the numbered circles indicate the time, when E2F1 expression was measured (1 ¼ before; 2 ¼ after
+and after
+injection of repeated cycles of genotoxic drug as predicted by our model. Bottom
+treatment). C, normalized E2F1 and miR-205 levels before
+and after
+treatment.
+right, SK-Mel-147 cells stimulated with increasing levels of cisplatin (1–50 mmol/L). E2F1 and miR-205 levels were measured before
+Relative miR-205 expression was measured with TaqMan PCR, whereas E2F1 levels were analyzed by Western blot analysis, both data sets were normalized
+with respect to initial prestress values (more details in ref. 15).
+
+3520
+
+Cancer Res; 73(12) June 15, 2013
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Chemoresistance in the E2F1-p73/DNp73-miR-205 Network
+
+expression in some tumors (38,40). Furthermore, our simulations indicate that when E2F1 is upregulated, high levels of
+TGFb-1 or other EMT-related signals regulating miR-205,
+external to the E2F1 network, can provoke genotoxic drug
+resistance in cancer cells. This suggests an intriguing hypothesis, in which E2F1 signaling cross talks and synergizes with
+some EMT-related signals, and their regulation of common
+miRNAs can mediate this synergy in the context of chemoresistance (Fig. 7B).
+Moreover, our analysis gives additional insights into the
+resistance to cytostatic drugs that inhibit the activation of
+HER receptor family members. We found a genetic signature
+composed of high E2F1, low miR-205, and high ERBB3 that
+can render tumor cells insensitive to cytostatic drugs. As
+cited before, miR-205 posttranscriptionally represses ERBB3.
+Interestingly, recent results suggest that tumor cell lines
+sensitive to erlotinib show high levels of miR-205 and other
+miRNAs (41), which supports our predictions. According to
+our model analysis, tumor cells with E2F1 overexpression
+and miR-205 downregulation do not show cytostatic drug
+resistance, but synergy with high ERBB3 gene activation is
+required to acquire this feature. In addition, the simulations
+suggest that in most of the cases, this genetic signature can
+lead to double resistance, this means the tumor cells become
+insensitive to some genotoxic and cytostatic drugs at the
+same time, a feature that may have important consequences
+in the design of personalized cancer treatments. The underlying molecular mechanism providing this double resistance
+is to be further elucidated.
+Taken together, our results indicate that differences in the
+expression of some of the proteins in this network are critical
+for tumor cells to become chemoresistant, and that this
+resistance is substantiated through regulatory loops including
+
+with this, our model unraveled several genetic signatures of
+tumor cells that can promote chemoresistance. Regarding
+genotoxic drugs, we found a signature of high E2F1 and low
+miR-205 expression that promotes resistance. Downregulation
+of miR-205 in this signature can be mediated by an imbalance
+in the p73/DNp73 ratio or by the dysregulation of other cancerrelated pathways like TGFb-1 signaling, whose components
+positively or negatively regulate miR-205 expression (37,38).
+With respect to the imbalance in the p73/DNp73 ratio, our
+simulations predict that tumors with high E2F1 and normal/
+high DNp73 expression show a higher percentage of surviving
+cells after genotoxic stress than tumors expressing high E2F1
+and low DNp73. This supports the idea that DNp73-mediated
+repression of miR-205 is a mechanism by which drug resistance
+is achieved. Because DNp73 is promoted by E2F1, high levels of
+E2F1 can induce chemoresistance via the E2F1-DNp73-miR205 axis due to the negative regulation of miR-205 by DNp73
+(Fig. 7A). However, DNp73 is upregulated in melanoma metastases with a concomitant rise of the full-length p73, a positive
+regulator of miR-205 (13). Taken together, this module has the
+structure of an incoherent feedforward loop. This suggests that
+the speciﬁc ratio between both p73 isoforms expression and
+activity determines the functional outcome of E2F1 and cell
+fate upon genotoxic treatment. This ratio is regulated in
+malignant melanoma by as yet unknown factors involved in
+alternative splicing of p73 pre-mRNA, possibly independent of
+E2F1 (39). In tumor cells with high E2F1 induction, our analysis
+indicates that downregulation of DNp73 and/or upregulation
+of p73 can restore chemosensitivity, which emphasizes the
+importance of the p73/DNp73 ratio.
+When constructing the network, we found that some proteins involved in the epithelial-to-mesenchymal transition
+(EMT), like TGFb-1, BMP, or TWIST1 can regulate miR-205
+
+A
+
+B
+Ratio p73/DNp73
+
+Cross-talk OFF
+
+Cross-talk ON
+
+E2F1
+
+p73
+
+DNp73
+
+p73
+
+p73
+
+miR-205 (a.u.)
+
+101
+
+GxD ON
+
+100
+
+Hrk
+
+10–1
+10–2
+
+E2F1
+
+E2F1
+
+DNp73
+
+miR-205
+
+10–1
+
+100
+
+101
+
+102
+
+miR-205
+
+BCL2
+
+Apoptosis ON
+
+p73
+
+EMT
+
+GxD ON
+Hrk
+
+EMT
+
+miR-205
+
+BCL2
+
+Apoptosis OFF
+
+E2F1 induction (a.u.)
+
+Figure 7. A, E2F1-regulated shift of the p73/DNp73 ratio can induce nonmonotonic, nonlinear regulation of miR-205 expression. The peak of miR-205
+expression is reached for intermediate E2F1 levels and downregulation for very high E2F1 expression. This system is an incoherent feedforward
+loop and, according to our hypothesis, nonlinear regulation of the branches in the feedforward loop switches the status of the feedforward loop from one in
+which the positive branch predominates (e.g., p73 ~) and promotes target expression to another in which the negative branch predominates (e.g.,
+DNp73~) and the target expression is repressed. B, feedforward loops involved in the E2F1-mediated chemosensitivity may be active regulatory structures,
+whose activation may depend on the cross-talk between E2F1 and other cancer-related signals.
+
+www.aacrjournals.org
+
+Cancer Res; 73(12) June 15, 2013
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+3521
+
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Vera et al.
+
+miR-205. We note that the predictions we made are based on
+qualitative modeling, similar to those made in the studies
+conducted by Aguda and colleagues and Yao and colleagues
+(28,39). To make the predictions of our model quantitative, the
+model should be further reﬁned in iterative cycles of experimentation and model calibration (17,18).
+In the model parameterization analyzed, the feedback loop
+between E2F1 and miR-205 has minor effects in the dynamics
+of the network. Our previous results of modeling miRNA
+regulation of cancer-related genes suggest that the strength
+of miRNA regulation is context-dependent and may be affected
+by the coregulation of other miRNAs or proteins (42). Thus, we
+hypothesize that this feedback loop could be negligible in the
+scenarios investigated in this article, but still crucial in other
+biologic contexts which have not been investigated in this
+paper. In this way, miR-205–mediated repression of some
+antiapoptotic targets in our network may be affected by similar
+coregulation. Our modeling results complement those of
+Aguda and colleagues (24) and others (43) who also used
+kinetic modeling to investigate the role of miRNA regulation
+on E2F1 in cancer. Aguda and colleagues (24) found that the
+coupling between the E2F/Myc positive feedback loop and the
+E2F/Myc/miR-17-92 negative feedback loop is crucial to regulate a bistable on–off switch in E2F/Myc protein levels, a
+feature that is critical in the dysregulation of E2F1 activity
+during cancer progression. We here claim that E2F1-mediated
+regulation of miRNAs may as well be critical to explain the
+emergence of chemoresistance.
+Finally, our simulations indicate that tumor heterogeneity
+in terms of the genetic signature of the E2F1-p73/DNp73miR-205 network can affect the efﬁcacy of anticancer therapy. In addition, our simulations suggest that the therapy
+can induce selective pressure on tumor cells favoring those
+showing chemoresistance. Other authors have suggested
+that under conditions of tumor genetic instability, heterogeneous tumors contain populations of one or more resistant clones (44, 45). These resistant subpopulations can be
+residual compared with other clones in a pretreated tumor
+due to the phenotypic cost associated with chemoresistance,
+but could get favored when the anticancer therapy is
+applied (46). This hypothesis is supported by our results.
+In our analysis, we only considered the role of the E2F1-p73/
+DNp73-miR205 network in developing chemoresistance.
+However, these molecules interact with additional genes
+involved in the regulation of other phenotypic responses
+and therefore display pleiotropy (4,16). Thus, it is possible
+that some features of the resistant phenotype here described
+may have negative effect on other cancer-associated traits,
+which are out of the scope of this article. In a more realistic
+case, one could enrich the analysis by expanding the network
+with interaction partners representative of these other phenotypes and conducting a more extensive analysis.
+Design principles underlying chemoresistance
+Our analysis indicates that the network under investigation
+is enriched in feedforward loops. Most of these motifs are
+central to the efﬁcient apoptosis initiation after genotoxic
+stress and therefore their dysregulation can cause chemore-
+
+3522
+
+Cancer Res; 73(12) June 15, 2013
+
+sistance (47,48). Previous publications have emphasized the
+important role of feedforward loops regulating the transient
+dynamics of biochemical pathways (49). We here support the
+hypothesis that these loops may further control important
+features of the long-term response in signaling and transcriptional systems. The paradigmatic case is the regulation of miR205 by p73 (positive) and DNp73 (negative), two transcriptional
+targets of E2F1. This system is a canonical case of an incoherent feedforward loop. Several publications suggest that the
+regulation and activity of p73 and DNp73 is nonlinear and
+varies for different levels of E2F1 expression (28,50). Under
+these conditions, our simulations indicate that the incoherent
+feedforward loop allows a single protein (e.g., E2F1) to nonmonotonically regulate components downstream of the loop
+(e.g., miR-205; see Fig. 7A). Thus, for an interval of E2F1
+expression levels the incoherent feedforward loop is dominated by the p73-mediated positive branch and promotes expression of miR-205. However, for higher expression of E2F1, the
+negative, DNp73-mediated branch predominates and the
+downstream target is repressed (Fig. 7A). This suggests that
+incoherent feedforward loops can be active structures of
+regulation when the different branches of the loops get distinctively regulated.
+Furthermore, we identiﬁed several network motifs with the
+structure of incoherent feedforward loops, in which a component downstream the network is regulated by a direct E2F1
+target gene and a miR-205–regulated target. In our study, we
+focus on apoptosis-related targets (e.g., BCL-2 and HRK,
+see Fig. 7B). As we mentioned before, miR-205 expression is
+regulated by other cancer-related signals, external to the E2F1
+network (e.g., EMT-related signals). Therefore, changes in the
+activity of those external signals may alter the activation status
+of the antiapoptotic branch and as a consequence the balance
+between pro- and antiapoptotic signals is also altered (Fig. 7B).
+In addition, miR-205 regulates proteins downstream the EMT
+signaling, like E-cadherin, and some members of the BCL2
+family are regulated by E2F1. This suggests the existence of
+additional feedforward loops which were not investigated in
+this work (25). Taken together, feedforward loops involved in
+chemosensitivity can be considered active regulatory structures, whose activation status may depend on the cross-talk
+with other cancer-related signals.
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+Authors' Contributions
+Conception and design: J. Vera, D. Engelmann, B.M. P€
+utzer
+Development of methodology: J. Vera, X. Lai, F.M. Khan
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): U. Schmitz
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): J. Vera, U. Schmitz, X. Lai, D. Engelmann
+Writing, review, and/or revision of the manuscript: J. Vera, U. Schmitz, X.
+Lai, D. Engelmann, F.M. Khan, O. Wolkenhauer, B.M. P€
+utzer
+Administrative, technical, or material support (i.e., reporting or organizing data, constructing databases): U. Schmitz
+Study supervision: B.M. P€
+utzer
+
+Grant Support
+This work was supported by the German Federal Ministry of Education
+and Research (BMBF) as part of the projects eBio:miRSys (0316175A to J. Vera
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Chemoresistance in the E2F1-p73/DNp73-miR-205 Network
+
+and O. Wolkenhauer), eBio:SysMet (0316171 to J. Vera, O. Wolkenhauer, and B.M.
+P€
+utzer), GERONTOSYS-ROSAge (0315892A to J. Vera, O. Wolkenhauer), and
+Rostock University Medical Center for the project Systems Medicine of Cancer
+Invasion and Metastasis.
+The costs of publication of this article were defrayed in part by the
+payment of page charges. This article must therefore be hereby marked
+
+advertisement in accordance with 18 U.S.C. Section 1734 solely to indicate this
+fact.
+
+Received November 6, 2012; revised January 17, 2013; accepted February 7,
+2013; published OnlineFirst February 27, 2013.
+
+References
+1.
+2.
+3.
+
+4.
+
+5.
+
+6.
+7.
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+17.
+
+18.
+
+19.
+
+20.
+
+Chang A. Chemotherapy, chemoresistance and the changing treatment landscape for NSCLC. Lung Cancer 2011;71:3–10.
+€tzer BM. E2F1-induced apoptosis: turning killers into
+Stanelle J, Pu
+therapeutics. Trends Mol Med 2006;12:177–85.
+Blattner C, Sparks A, Lane D. Transcription factor E2F-1 is upregulated
+in response to DNA damage in a manner analogous to that of p53. Mol
+Cell Biol 1999;19:3704–13.
+€tzer BM. Translating DNA damage into cancer cell
+Engelmann D, Pu
+death-A roadmap for E2F1 apoptotic signalling and opportunities for
+new drug combinations to overcome chemoresistance. Drug Resist
+Updat 2010;13:119–31.
+€ dicker F, Stiewe T, Zimmermann S, Pu
+€tzer BM. Therapeutic efﬁcacy
+Ro
+of E2F1 in pancreatic cancer correlates with TP73 induction. Cancer
+Res 2001;61:7052–5.
+€tzer BM. Role of the p53-homologue p73 in E2F1-induced
+Stiewe T, Pu
+apoptosis. Nat Genet 2000;26:464–9.
+Chung J, Irwin MS. Targeting the p53-family in cancer and chemosensitivity: triple threat. Curr Drug Targets 2010;11:667–81.
+Lee J, Park CK, Park JO, Lim T, Park YS, Lim HY, et al. Impact of E2F-1
+expression on clinical outcome of gastric adenocarcinoma patients
+with adjuvant chemoradiation therapy. Clin. Cancer Res 2008;14:
+82–8.
+Han S, Park K, Bae B-N, Kim KH, Kim H-J, Kim Y-D, et al. E2F1
+expression is related with the poor survival of lymph node-positive
+breast cancer patients treated with ﬂuorouracil, doxorubicin and
+cyclophosphamide. Breast Cancer Res Treat 2003;82:11–6.
+Alla V, Engelmann D, Niemetz A, Pahnke J, Schmidt A, Kunz M, et al.
+E2F1 in melanoma progression and metastasis. J Natl Cancer Inst
+2010;102:127–33.
+€tzer BM, Tuve S, Tannapfel A, Stiewe T. Increased DeltaN-p73
+Pu
+expression in tumors by upregulation of the E2F1-regulated, TApromoter-derived DeltaN'-p73 transcript. Cell Death Differ 2003;10:
+612–4.
+€tzer BM. TransactivaStiewe T, Zimmermann S, Frilling A, Esche H, Pu
+tion-deﬁcient DeltaTA-p73 acts as an oncogene. Cancer Res
+2002;62:3598–602.
+€tzer BM. Alterations of DeltaTA-p 73
+Tuve S, Wagner SN, Schittek B, Pu
+splice transcripts during melanoma development and progression. Int
+J Cancer 2004;108:162–6.
+€tzer BM. Antisense gapmers
+Emmrich S, Wang W, John K, Li W, Pu
+selectively suppress individual oncogenic p73 splice isoforms and
+inhibit tumor growth in vivo. Mol Cancer 2009;8:61.
+Alla V, Kowtharapu BS, Engelmann D, Emmrich S, Schmitz U, Steder
+M, et al. E2F1 confers anticancer drug resistance by targeting ABC
+transporter family members and Bcl-2 via the p73/DNp73-miR-205
+circuitry. Cell Cycle 2012;11:3067–78.
+€tzer BM. The dark side of E2F1: in transit beyond
+Engelmann D, Pu
+apoptosis. Cancer Res 2012;72:571–5.
+Vera J, Wolkenhauer O. A system biology approach to understand
+functional activity of cell communication systems. Methods Cell Biol
+2008;90:399–415.
+Vera J, Rath O, Balsa-Canto E, Banga JR, Kolch W, Wolkenhauer
+O. Investigating dynamics of inhibitory and feedback loops in
+ERK signalling using power-law models. Mol Biosyst 2010;6:
+2174–91.
+~ez G. harakiri, a novel regulator of cell
+n
+Inohara N, Ding L, Chen S, Nu
+death, encodes a protein that activates apoptosis and interacts selectively with survival-promoting proteins Bcl-2 and Bcl-X(L). EMBO
+J 1997;16:1686–94.
+Zhu S, Belkhiri A, El-Rifai W. DARPP-32 increases interactions
+between epidermal growth factor receptor and ERBB3 to promote
+
+www.aacrjournals.org
+
+21.
+
+22.
+
+23.
+
+24.
+
+25.
+
+26.
+27.
+
+28.
+29.
+
+30.
+31.
+
+32.
+
+33.
+
+34.
+35.
+
+36.
+
+37.
+38.
+
+39.
+
+tumor resistance to geﬁtinib. Gastroenterology 2011;141:1738–48.
+e1–2.
+ L, Cianfrocca R, Spinella F, Di Castro V, Nicotra MR, Lucidi A,
+Rosano
+et al. Acquisition of chemoresistance and EMT phenotype is linked with
+activation of the endothelin A receptor pathway in ovarian carcinoma
+cells. Clin Cancer Res 2011;17:2350–60.
+€tzer BM.
+Engelmann D, Knoll S, Ewerth D, Steder M, Stoll A, Pu
+Functional interplay between E2F1 and chemotherapeutic drugs
+deﬁnes immediate E2F1 target genes crucial for cancer cell death.
+Cell Mol Life Sci 2010;67:931–48.
+Melino G, Bernassola F, Ranalli M, Yee K, Zong WX, Corazzari M, et al.
+p73 Induces apoptosis via PUMA transactivation and Bax mitochondrial translocation. J Biol Chem 2004;279:8076–83.
+Aguda BD, Kim Y, Piper-Hunter MG, Friedman A, Marsh CB. MicroRNA
+regulation of a cancer network: consequences of the feedback loops
+involving miR-17-92, E2F, and Myc. Proc Natl Acad Sci USA
+2008;105:19678–83.
+Gandellini P, Folini M, Longoni N, Pennati M, Binda M, Colecchia M,
+et al. miR-205 Exerts tumor-suppressive functions in human prostate
+through down-regulation of protein kinase Cepsilon. Cancer Res
+2009;69:2287–95.
+Wu H, Zhu S, Mo Y-Y. Suppression of cell growth and invasion by miR205 in breast cancer. Cell Res 2009;19:439–48.
+Frolov A, Schuller K, Tzeng C-WD, Cannon EE, Ku BC, Howard JH,
+et al. ErbB3 expression and dimerization with EGFR inﬂuence pancreatic cancer cell sensitivity to erlotinib. Cancer Biol Ther 2007;6:
+548–54.
+€tzer BM. DNp73 a matter of cancer: mechanisms and
+Buhlmann S, Pu
+clinical implications. Biochim Biophys Acta 2008;1785:207–16.
+Guan M, Chen Y. Aberrant expression of DeltaNp73 in benign and
+malignant tumours of the prostate: correlation with Gleason score.
+J Clin Pathol 2005;58:1175–9.
+ J. TGFbeta in Cancer. Cell 2008;134:215–30.
+Massague
+Frogne T, Benjaminsen RV, Sonne-Hansen K, Sorensen BS, Nexo E,
+Laenkholm A-V, et al. Activation of ErbB3, EGFR and Erk is essential for
+growth of human breast cancer cell lines with acquired resistance to
+fulvestrant. Breast Cancer Res Treat 2009;114:263–75.
+nchez V,
+Garrett JT, Olivares MG, Rinehart C, Granja-Ingram ND, Sa
+Chakrabarty A, et al. Transcriptional and posttranslational up-regulation of HER3 (ErbB3) compensates for inhibition of the HER2 tyrosine
+kinase. Proc Natl Acad Sci USA 2011;108:5021–6.
+lez-García I, Sole
+ RV, Costa J. Metapopulation dynamics and
+Gonza
+spatial heterogeneity in cancer. Proc Natl Acad Sci USA 2002;99:
+13085–9.
+Yao G, Lee TJ, Mori S, Nevins JR, You L. A bistable Rb-E2F switch
+underlies the restriction point. Nat. Cell Biol 2008;10:476–82.
+Zhang X-P, Liu F, Wang W. Coordination between cell cycle progression and cell fate decision by the p53 and E2F1 pathways in response
+to DNA damage. J Biol Chem 2010;285:31571–80.
+Wong JV, Yao G, Nevins JR, You L. Viral-mediated noisy gene
+expression reveals biphasic E2f1 response to MYC. Mol Cell 2011;41:
+275–85.
+Katoh Y, Katoh M. Hedgehog signaling, epithelial-to-mesenchymal
+transition and miRNA (review). Int J Mol Med 2008;22:271–5.
+Wiklund ED, Bramsen JB, Hulf T, Dyrskjøt L, Ramanathan R, Hansen
+TB, et al. Coordinated epigenetic repression of the miR-200 family and
+miR-205 in invasive bladder cancer. Int J Cancer 2011;128:1327–34.
+~i S, Latasa MU, Perugorría MJ, Calvo A, Muntane
+ J, et al.
+Castillo J, Gon
+Amphiregulin induces the alternative splicing of p73 into its oncogenic
+isoform DeltaEx2p73 in human hepatocellular tumors. Gastroenterology 2009;137:1805–15.e1–4.
+
+Cancer Res; 73(12) June 15, 2013
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+3523
+
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Vera et al.
+
+40. Samavarchi-Tehrani P, Golipour A, David L, Sung H-K, Beyer TA, Datti
+A, et al. Functional genomics reveals a BMP-driven mesenchymal-toepithelial transition in the initiation of somatic cell reprogramming. Cell
+Stem Cell 2010;7:64–77.
+41. Bryant JL, Britson J, Balko JM, Willian M, Timmons R, Frolov A, et al. A
+microRNA gene expression signature predicts response to erlotinib in
+epithelial cancer cell lines and targets EMT. Br J Cancer 2012;106:
+148–56.
+42. Lai X, Schmitz U, Gupta SK, Bhattacharya A, Kunz M, Wolkenhauer O,
+et al. Computational analysis of target hub gene repression regulated
+by multiple and cooperative miRNAs. Nucleic Acids Res 2012;40:
+8818–34.
+43. Li Y, Li Y, Zhang H, Chen Y. MicroRNA-mediated positive feedback
+loop and optimized bistable switch in a cancer network Involving miR17-92. PLoS ONE 2011;6:e26302.
+44. Merlo LMF, Pepper JW, Reid BJ, Maley CC. Cancer as an evolutionary
+and ecological process. Nat Rev Cancer 2006;6:924–35.
+
+3524
+
+Cancer Res; 73(12) June 15, 2013
+
+45. Iwasa Y, Nowak MA, Michor F. Evolution of resistance during clonal
+expansion. Genetics 2006;172:2557–66.
+46. Gatenby RA, Brown J, Vincent T. Lessons from applied ecology:
+cancer control using an evolutionary double bind. Cancer Res 2009;
+69:7499–502.
+47. Polager S, Ginsberg D. p53 and E2f: partners in life and death. Nat Rev
+Cancer 2009;9:738–48.
+48. Marin JJG, Briz O, Monte MJ, Blazquez AG, Macias RIR. Genetic
+variants in genes involved in mechanisms of chemoresistance to
+anticancer drugs. Curr. Cancer Drug Targets 2012;12:402–38.
+49. Mangan S, Alon U. Structure and function of the feed-forward loop
+network motif. Proc Natl Acad Sci U S A 2003;100:11980–5.
+50. Nakagawa T, Takahashi M, Ozaki T, Watanabe K-I, Todo S,
+Mizuguchi H, et al. Autoinhibitory regulation of P73 by DNp73
+to modulate cell survival and death through a P73-speciﬁc
+target element within the DNp73 promoter. Mol Cell Biol 2002;22:
+2575–85.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+Published OnlineFirst February 27, 2013; DOI: 10.1158/0008-5472.CAN-12-4095
+
+Kinetic Modeling−Based Detection of Genetic Signatures That
+Provide Chemoresistance via the E2F1-p73/DNp73-miR-205
+Network
+Julio Vera, Ulf Schmitz, Xin Lai, et al.
+Cancer Res 2013;73:3511-3524. Published OnlineFirst February 27, 2013.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-12-4095
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2013/02/27/0008-5472.CAN-12-4095.DC1
+
+This article cites 50 articles, 18 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/73/12/3511.full#ref-list-1
+This article has been cited by 1 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/73/12/3511.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+

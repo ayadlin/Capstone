@@ -1,0 +1,1135 @@
+Published OnlineFirst December 5, 2013; DOI: 10.1158/0008-5472.CAN-13-2397
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+A Preclinical Assay for Chemosensitivity in Multiple Myeloma
+Zayar P. Khin1, Maria L.C. Ribeiro1, Timothy Jacobson1, Lori Hazlehurst2, Lia Perez3, Rachid Baz4,
+Kenneth Shain4, and Ariosto S. Silva1
+
+Abstract
+Accurate preclinical predictions of the clinical efﬁcacy of experimental cancer drugs are highly desired but
+often haphazard. Such predictions might be improved by incorporating elements of the tumor microenvironment
+in preclinical models by providing a more physiological setting. In generating improved xenograft models, it is
+generally accepted that the use of primary tumors from patients are preferable to clonal tumor cell lines. Here we
+describe an interdisciplinary platform to study drug response in multiple myeloma, an incurable cancer of the
+bone marrow. This platform uses microﬂuidic technology to minimize the number of cells per experiment, while
+incorporating three-dimensional extracellular matrix and mesenchymal cells derived from the tumor microenvironment. We used sequential imaging and a novel digital imaging analysis algorithm to quantify changes in cell
+viability. Computational models were used to convert experimental data into dose-exposure–response "surfaces,"
+which offered predictive utility. Using this platform, we predicted chemosensitivity to bortezomib and melphalan,
+two clinical multiple myeloma treatments, in three multiple myeloma cell lines and seven patient-derived
+primary multiple myeloma cell populations. We also demonstrated how this system could be used to investigate
+environment-mediated drug resistance and drug combinations that target it. This interdisciplinary preclinical
+assay is capable of generating quantitative data that can be used in computational models of clinical response,
+demonstrating its utility as a tool to contribute to personalized oncology. Cancer Res; 74(1); 56–67. 2013 AACR.
+
+Major Findings
+By designing an experimental platform with the speciﬁc
+intent of generating experimental parameters for a computational clinical model of personalized therapy in multiple
+myeloma, while taking in consideration the limitations of
+working with patient primary cells, and the need to incorporate elements of the tumor microenvironment, we have
+generated patient-individualized estimations of initial
+response and time to relapse to chemotherapeutic agents.
+
+Introduction
+The purposes of preclinical systems range from early identiﬁcation of compounds with anticancer activity, estimation of
+patient-speciﬁc clinical response, or the discovery of novel
+targetable cellular mechanisms (6, 7). All available systems
+Authors' Afﬁliations: Departments of 1Cancer Imaging and Metabolism,
+2
+Molecular Oncology, 3Bone Marrow Transplantation, and 4Department of
+Hematologic Malignancies, H. Lee Mofﬁtt Cancer Center and Research
+Institute, Tampa, Florida
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+Corresponding Author: Ariosto Silva, H. Lee Mofﬁtt Cancer Center, 12902
+Magnolia Dr, SRB4, Tampa, FL 33612. Phone: 813-745-8205; Fax: 813745-8375; E-mail: ariosto.silva@mofﬁtt.org
+doi: 10.1158/0008-5472.CAN-13-2397
+2013 American Association for Cancer Research.
+
+56
+
+have strengths and limitations: in vitro assays using cell lines
+are scalable, reproducible, and inexpensive, but cell lines are
+signiﬁcantly different from their originating tumors (8), and
+the tumor microenvironment's effects are often absent in these
+assays. Animal models include more realistic elements such as
+drug pharmacokinetics and inﬂuence of the tumor microenvironment, but they often rely on cell lines, require long-term
+experiments, and carry signiﬁcant ﬁnancial cost. Irrespective
+of the preclinical model used, the data generated cannot be
+directly ported into clinical estimations without the help of an
+adequate computational framework.
+Computational modeling has long been used to study the
+dynamics of tumor response to therapy, as well as emergence
+of drug resistance (9–11). These theoretical models are powerful tools for analyzing complex interactions like the tumorhost-therapy system, and could, in a near future, become
+decision-support systems for oncologists, making personalized
+oncology a possibility (12). The Achilles' heel of such models,
+however, is the reliability of the experimental data used to
+parameterize them. More often than not, these computational
+models are parameterized by data from literature, in many
+cases from experiments that have been performed at incompatible conditions.
+We propose that preclinical assays, speciﬁcally designed to
+generate data to parameterize such computational models,
+would signiﬁcantly advance the ﬁeld. Such assays, however,
+should comply with minimum requirements: (i) compatibility
+with patient primary cancer cells; (ii) recapitulate the tumor
+microenvironment, namely extra-cellular matrix and stroma;
+(iii) be nondestructive, so longitudinal studies can be performed, incorporating the temporal dimension; (iv) require as
+
+Cancer Res; 74(1) January 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst December 5, 2013; DOI: 10.1158/0008-5472.CAN-13-2397
+
+Assay for Chemosensitivity in Multiple Myeloma
+
+Quick Guide to Equations and Assumptions
+Analysis of experimental data
+The default function of dose–response was written as equation A, and the data points were the normalized viability in each
+region of interest (ROI) at a given time point and drug concentration:
+2DT=T
+Viabilityð%Þ ¼ 100  
+
+exp Rx 
+exp T  :
+DT
+1 þ ICRx
+
+IC50 DT
+50 Rx
+
+ðAÞ
+
+The goodness-of-ﬁt was calculated from a linear regression of the points of the ﬁt equation with the actual observed
+experimental points using Prism 5 (GraphPad) and quantifying the slope and R2 of the regression. The complete Matlab code is
+available in the Supplementary Material. For each example, two hypotheses were tested: either the sample was composed of 1 or 2
+subpopulations. When no signiﬁcant differences were observed in R2, the simplest model was used (1 population).
+Equation A is the simplest expression that describes how a homogenous population of multiple myeloma cells responds to
+chemotherapy as a function of concentration and exposure time. A growth term was included in the numerator of equation A,
+where T is the doubling time and DT is the variable representing drug exposure time. Rx represents the drug concentration to which
+cells are exposed, whereas IC50Rx, IC50DT, exp Rx, and exp T are constants that determine the drug concentration and exposure
+time that causes death of 50% of the multiple myeloma cells and the steepness of the slope of the viability curve, respectively.
+The alkylating agent melphalan has a short half-life in media and in vivo of approximately 2 hours, mainly because of hydrolysis
+(1). We have observed, however, that in long-term experiments, cells continue to die a week after melphalan exposure (see Results).
+For this class of drugs, we have created a mathematical expression that encompasses drug half-life, DNA damage, and DNA
+damage–induced cell death (equation B).
+Viab ð%Þ ¼ 100  Death  Growth
+1
+Death ¼
+CumulDamageexp IC50
+1þ
+IC50
+R
+:
+CumulDamageðt þ dtÞ ¼ CumulDamageðtÞ þ ð Rx dtÞexp DMG
+
+ðBÞ
+
+t
+
+GrowthðtÞ ¼ 2T½1þCumulDamageðtÞKT 
+RxðtÞ ¼ Rx0  2
+
+T
+
+t
+Mel
+
+"Death" and "Growth" are the two functions that determine the changes in number of viable cells in a given drug concentration, at a
+certain time point. "Death" represents the probability that any given cell from a population will die as a function of accumulated DNA
+damage ("CumulDamage"), which in turn is proportional to the area under the curve (AUC) of drug concentration Rx and exposure
+time dt. "exp DMG" is an empirical exponent. "Growth" quantiﬁes cell replication, which depends on the drug-free doubling time T, the
+amount of DNA damage "CumulDamage," and an empirical proportional constant KT. In other words, DNA damage slows replication
+(2). The last expression means that the concentration of active melphalan in media, Rx, decays with a half-life TMel of 2 hours.
+Equation B is an empirical expression, with the goal of interpolating the data points across time and concentration dimensions,
+while recapitulating known mechanisms of melphalan toxicity and degradation. It is not, however, the only possible expression
+possible, and it may not properly compute the viability in concentrations or exposure times signiﬁcantly higher than the experimental
+conditions.
+Computational modeling of therapy
+In this computational model, one or more subpopulations are represented, each with a size, a doubling time, and a level of
+sensitivity to the chemotherapeutic agent tested. Carrying capacity, which is the maximum theoretical growth rate of the entire
+tumor burden, was estimated from the labeling index commonly observed in multiple myeloma patients (1–3%). Intratumoral
+competition was modeled by an equation that determines that bigger populations have higher chance of replicating than smaller
+ones (equation C), a dynamic similar to genetic drift.
+
+
+exp Rxi 
+exp Ti !1 h
+i N ðtÞ
+dt
+Rx
+dt
+i
+Ni ðt þ dtÞ ¼ Ni ðtÞ  1 þ
+ðCÞ
+þ1 :
+
+ ð1 þ LIÞTi  1 P
+IC50Rxi
+IC50DTi
+Nj ðtÞ
+
+www.aacrjournals.org
+
+Cancer Res; 74(1) January 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+57
+
+Published OnlineFirst December 5, 2013; DOI: 10.1158/0008-5472.CAN-13-2397
+
+Khin et al.
+
+Equation C describes how the size of a subpopulation within the tumor burden (Ni) changes within an interval of time (dt) in
+response of drug-induced cell death induced by exposure to a drug at the concentration Rx for the interval of time dt. The surviving
+cells may replicate at a rate determined by their labeling index (LI), the duration of their cell cycle (T), and the percentage that the
+subpopulation represents in the total tumor burden.
+Bortezomib concentration in blood is characterized by a peak of 100 nmol/L, followed by a sharp decrease, and a stable
+concentration of 1 to 3 nmol/L between 2 and 192 hours after intravenous administration (1.3 mg/m2; refs. 3, 4). The in vitro
+chemosensitivity data from patients 8, 11, 12, and 13 parameterized the computational models of clinical response for each of these
+patients in a hypothetical single-agent bortezomib regimen, in which the bone marrow concentration would remain constant at
+3 nmol/L.
+As a preliminary validation of the correlation between in vitro and in vivo chemosensitivity, we have used computational models
+parameterized by assays with the human multiple myeloma cell line NCI-H929 to estimate the response to bortezomib treatment
+of a subcutaneous mouse model treated with 1 mg/kg bortezomib bi-weekly (5). Pharmacokinetic studies have shown that such
+intravenous injections in mice cause a peak blood concentration of 0.5 nmol/L and 0.4 nmol/L at 48 hours. For these
+simulations, we consider a stable 0.4 nmol/L concentration of bortezomib in the bone marrow of these mice along the treatment.
+NCI-H929 cells have a cell cycle of approximately 24 hours, and in the subcutaneous model, the tumors have a doubling time of
+approximately 3.5 days, indicating that in this animal model, approximately 20% of H929 cells are actively replicating at a given
+time, which was used as labeling index in the simulations.
+
+few cells per experimental condition as possible, so each
+patient sample could be tested against a panel of chemotherapeutic agents, in different environmental conditions; and (v)
+the data generated should result in testable clinical predictions, such as the depth of response and/or progression-free
+survival (PFS).
+Four decades ago, Salmon and colleagues (13) proposed an
+in vitro method for estimation of clinical response of patients
+with cancer based on the capacity of primary cancer cells to
+form colonies at physiologically reachable chemotherapy concentrations. The main limitation of these early assays, however,
+was the small number of patient samples that were capable of
+forming colonies under control conditions. With a cloning
+efﬁciency between 0.001% and 0.1%, the growth of colonies in
+vitro was a challenge comparable to surviving the chemotherapeutic insult itself. Consequently, these restrictions limited
+the number of drugs, concentrations, and time points that
+could be studied for a single patient (14), even in more recent
+models (15). Finally, the outcome of these assays were often
+dichotomized, in other words, either a patient was "sensitive"
+or "resistant" to the drug, but no information was provided
+regarding duration of response and time to relapse. Given that
+in many cancers the overall survival is more dependent on the
+duration of the response than on its depth (16, 17), the
+application of these early assays as predictive biomarkers was
+somewhat limited.
+Similar to Leonardo Da Vinci's "aerial screw," designed in
+the 15th century, which only came to fruition as the helicopter 5 centuries later, we propose that Salmon's drug
+sensitivity assay was hindered by technological limitations
+of its time, not by an inherent design fault. Building on this
+pioneering work, we here describe a novel approach for
+preclinical assessment of drug efﬁcacy. We apply this method to multiple myeloma, an incurable plasma cell malignancy in which cancer cells uncontrollably proliferate in the
+bone marrow. Adhesion to bone marrow's extracellular
+matrix or stroma has been shown to confer de novo multi-
+
+58
+
+Cancer Res; 74(1) January 1, 2014
+
+drug resistance [environment-mediated drug resistance
+(EMDR); refs. 18, 19].
+The here described system combines a microﬂuidic dose–
+response platform, for in vitro screening of drugs, and a
+computational model of clinical response. The in vitro component consists of a 3-dimensional (3D) reconstruction of the
+bone marrow microenvironment, including primary multiple
+myeloma cells, extracellular matrix, and patient-derived stroma and growth factors. Live microscopy and digital image
+analysis are used to detect cell death events in different drug
+concentrations, which are used to generate dose–response
+surfaces. The in silico component is an evolutionary computational model designed to simulate how a heterogeneous
+population of cancer cells responds to therapy. From the in
+vitro data, the model identiﬁes the size and chemosensitivity of
+subpopulations within the patient's tumor burden, and simulates how the tumor would respond to the drug(s) in physiological conditions in a clinical regimen.
+The main innovations of this platform are: (i) small number
+of cancer cells required (1,000–10,000 per experiment); (ii)
+assessment of drug efﬁcacy in different environmental conditions (collagen  patient stroma  patient-derived growth
+factors/cytokines), allowing quantiﬁcation of innate and environmental drug resistance; (iii) only bright ﬁeld imaging is
+used, thus no toxicity from viability markers; (iv) continuous
+imaging provides drug effect as a function of concentration and
+exposure time; and (v) the integration between in vitro and
+computational evolutionary models, to estimate clinical outcome: not only the initial response, but also PFS, a more
+relevant clinical endpoint for assessment of drug efﬁcacy (16).
+In this article, we describe the experimental and computational platforms, the results with human myeloma cells lines,
+and how they compare with literature data. We also describe
+preliminary experiments with patient primary cells, and how
+these results could be used in the estimation of clinical efﬁcacy
+of experimental drugs, or personalized medicine (the right
+drugs and the right regimen for each patient).
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst December 5, 2013; DOI: 10.1158/0008-5472.CAN-13-2397
+
+Assay for Chemosensitivity in Multiple Myeloma
+
+Materials and Methods
+Cell lines
+The human myeloma cell lines RPMI-8226, HS-5/GFPlabeled, NCI-H929, and 8226/LR-5 were kindly provided by Dr.
+William Dalton's laboratory. The 8226/dsRed2 cell line was
+stably transfected with the ﬂuorescent protein dsRed2. All cells
+were maintained in culture with RPMI 1640 (Gibco) media
+supplemented with 10% heat inactivated FBS (Life Technologies) and 1% penicillin–streptomycin solution (Invitrogen), in
+incubators at 5% CO2, 37 C. Melphalan-resistant 8226/LR-5
+cells were maintained in 5 mmol/L melphalan in medium,
+and cultured in drug-free medium for 2 weeks before the
+experiments.
+Primary cancer cells
+We investigated the in vitro response of cancer cells from 7
+patients with multiple myeloma in the clinical trial MCC#
+14745 conducted at the H. Lee Mofﬁtt Cancer Center and
+Research Institute, as approved by the Institutional Review
+Board. The medical records were deidentiﬁed and only the
+following clinical-relevant information was reviewed: (i) treatment administered (chemotherapeutic agents, doses, and
+schedule) before biopsy; (ii) cytogenetics; and (iii) blood and
+urine electrophoresis results. Patients in trial MCC# 14745
+received standard-of-care treatment, and consented to provide
+an extra sample of bone marrow aspirate during a routine
+biopsy. These aspirates were used in the in vitro assays further
+described. After informed written consent, bone marrow aspirates were obtained from patients with multiple myeloma
+either newly diagnosed or with refractory disease. Processing
+of bone marrow aspirate and selection of multiple myeloma
+cells is described in Supplementary Material. Multiple myeloma cells were seeded into the Ibidi m-slide Chemotaxis 3D
+device under experimental culture conditions (described
+below) within 4 hours of each patient biopsy.
+In vitro procedures
+Drugs. In this work, the following chemotherapeutic
+agents were tested: bortezomib (acquired from Selleckchem),
+melphalan (from Sigma), and ﬂuorescent molecule ﬂuorescein
+(FAM)-HYD-1 (kindly provided by Dr. Hazlehurst).
+In vitro dose–response assays in 3D microﬂuidic chambers. Commercially available 3D cell-culture slides (m-slide
+Chemotaxis 3D Ibitreat from Ibidi, LLC) were gas and temperature equilibrated at 37 C, 5% CO2 overnight before cell seeding. Each slide is composed of 3 separate chambers each with a
+1-mm wide, 50-mm high cell-viewing chamber that holds a
+volume of 6 mL. It is connected to two 65 mL reservoirs along
+both sides. Linear chemical gradients form across the cell
+chamber via passive diffusion. Aliquots consisting of 6.67 mL
+10 MEM (Life Technologies), 6.67 mL deionized H2O, 3.33 mL
+7.5% sodium bicarbonate solution (Life Technologies), and
+16.67 mL 1 RPMI 1640 (Life Technologies) were premixed and
+stored at 4 C before experiments, as per manufacturer (Ibidi)
+instructions. Fifty microliters of 3.1 mg/mL Bovine collagen
+type I (Advanced BioMatrix) was added at time of seeding. A
+total of 16.67 mL of cells suspended in RPMI 1640 were mixed
+into the collagen/media mix to a ﬁnal volume of 100 mL in
+
+www.aacrjournals.org
+
+1.5 mg/mL bovine collagen I (6-fold dilution of RPMI 1640 cell
+suspension). Six microliters of this cell/matrix mix were used
+to load each viewing chamber. For cell lines in single culture or
+mixed culture, the ﬁnal concentration of cells was 3  106
+myeloma cells/mL. For patient primary cells, the densities
+were 7  106 cells/mL for multiple myeloma (CD138þ) and
+1  106 cells/mL for mesenchymal cells. These cell densities
+were optimized to better reﬂect physiological cell density and
+maximize the number of cells in the observation chamber,
+while still maintaining enough separation to allow the individual identiﬁcation of cells. Cell lines were seeded at lower
+density to account for their larger size and faster replication.
+The interval between mixing collagen with cells and media and
+seeding the chambers was kept below 5 minutes at ambient
+temperature to minimize collagen polymerization. After seeding, an additional 15 minutes at room temperature allowed
+adherent cells (HS-5 or patient stroma) to sink to the bottom
+of the 3D chamber and keep the same focal plane for subsequent live imaging. Slides were then incubated at 37 C, 5% CO2
+for 1 hour. Collagen polymerization was checked by visual
+inspection of ﬁber formation on an inverted phase contrast
+microscope with a 20 objective lens. After gelation, reservoirs
+on each side of the slide were ﬁlled with 65 mL culture media. A
+total of 16.25 mL of 4 drug in culture media was dropped onto
+a ﬁlling port on the left reservoir and then an equal volume was
+immediately drawn out of the other ﬁlling port. Slides were
+then placed into incubator for live imaging. For each experiment, there was a control with no drug added, which was used
+to detect spontaneous cell death. For single culture experiments, chemotherapy was added 2 to 4 hours after cell seeding.
+For coculture experiments with adherent stroma (HS-5 or
+patient stroma), drugs were added 24 hours later to ensure
+stroma adhesion.
+Continuous versus pulsed exposure. In experiments with
+continuous exposure, the drug was maintained in media for the
+duration of the experiment. If this duration exceeded 48 hours,
+the media on both reservoirs was completely removed, and
+replaced by fresh media, to which drug was added as previously
+described (16.25 mL at 4 concentration). In pulsed exposure
+experiments, the media on both reservoirs was completely
+removed and replaced by fresh media at the end of the pulsed
+exposure.
+Imaging
+Image acquisition. Two different models of ﬂuorescence
+microscopes were used for the experiments here described: the
+ﬁrst, JULI (Digital Bio), is a portable ﬂuorescence microscope
+with bright ﬁeld and red ﬂuorescence capacities (ex/em 630
+nm/660 nm), which was maintained inside a standard incubator for the duration of the experiments. The second platform
+was the EVOS FL (AMG), a bench top ﬂuorescence microscope
+(red channel ex/em 531 nm/593 nm), which required the use of
+a stage-top heating stage/incubator (Ibidi), which maintained
+the cells at 37 C, 5% CO2, and 80% humidity. For the experiments here described, images were acquired every 5-minute
+intervals. In experiments where the red ﬂuorescent 8226/
+dsRed2 cell line was tested, or the cell-death molecular probe
+ethidium homodimer-1 (EthD-1) was used, both bright ﬁeld
+
+Cancer Res; 74(1) January 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+59
+
+Published OnlineFirst December 5, 2013; DOI: 10.1158/0008-5472.CAN-13-2397
+
+Khin et al.
+
+and red ﬂuorescent channels were imaged, the ﬁrst for changes
+in cell morphology and membrane motion, and the second for
+loss of innate ﬂuorescence or activity of EthD-1, respectively.
+Quantiﬁcation of drug concentration over time within
+microﬂuidic device. To quantify the shape and stability of
+the drug gradient in the microﬂuidic device, we used a ﬂuorophore-conjugated of the peptide HYD-1 (1.5 kDa) within the
+dose–response assay, a 3D gel matrix consisting of 1.5 mg/mL
+bovine collagen I with RPMI1640/MEM media was placed into
+the culture chamber of the Ibidi microﬂuidics device. After 45
+minutes incubation at 37 C, reservoirs were ﬁlled with
+RPMI1640 media 10% heat inactivated FBS, 1% penicillin–
+streptomycin. FAM-HYD1 was diluted into media before replacing one fourth of the volume in the left reservoir with
+ﬂuorescent drug solution (1/10 of stock). Fluorescence within
+the culture chamber was imaged in an EVOS FL microscope
+using the GFP ﬁlter (ex/em 470 nm/525 nm, 5 objective) with
+heated stage and gas incubation (37 C, 5% CO2). Images were
+acquired at 1-minute intervals for 24 hours.
+Digital image analysis. With a stable drug gradient established across the main channel of the microﬂuidic slide, we
+arbitrarily divided the observation channel into 5 sections, or
+ROIs, each with an average drug concentration of 100%, 80%,
+60%, 40%, and 20% of the concentration in the drug reservoir,
+respectively. Sectioning the channel into 5 areas was a compromise between a minimum number of cells in each area, and
+the rounding because of the averaging of the drug concentrations across each section. Dose–response was quantiﬁed with a
+macro developed for the software ImageJ (http://rsbweb.nih.
+gov/ij), further described. As discussed in the Results section,
+membrane-impermeable probes for detection of cell death,
+such as EthD-1, present a signiﬁcant variation in the time for
+ﬂuorescence acquisition after death in cell lines or patient
+samples. To avoid this confounding effect, we have developed a
+novel approach that identiﬁes cell death based of motion of the
+membrane, described later.
+Assessment of cell viability through membrane motion
+detection. We have observed that, although it was not possible to clearly discern a dead from a live cell based on the
+morphology in the bright ﬁeld of a single image, all live cells
+suspended within the collagen matrix had observable membrane motion or shape changes, between 2 images taken in a 5min interval. These morphological changes abruptly stopped
+before cell death, indicating that this feature could be exploited
+as a marker for cell death. We created a macro for the open
+source software ImageJ using the plugins TurboReg (20) and
+RunningZProjector (http://valelab.ucsf.edu/index.html). The
+macro quantiﬁes the amount of cell membrane motion in the
+different regions of interest, and writes a ﬁle with this information for each frame, or time point. The source code of the macro
+is provided in the Supplementary Material. Brieﬂy, the macro
+loads the stack of bright ﬁeld images taken at 5-minute intervals,
+and aligns them using the plugin TurboReg. This action removes
+translational motion, such as sliding of the microﬂuidic chamber, as well as vibration. Next, the native ImageJ "background
+subtraction" function was used with parameters "rolling ball
+radius ¼ 1 pixel" and "sliding parabolic" (21). Background
+subtraction served to normalize image sequences across differ-
+
+60
+
+Cancer Res; 74(1) January 1, 2014
+
+ent experiments and/or microscopes used to image the chambers, making cells appear as bright spots against a uniform dark
+background. Motion and small variations in cell membranes
+were detected using the plugin RunningZProjector. It detects
+the maximum pixel intensity across a 6-frame/slice interval,
+corresponding to 30 minutes. The original image was then
+subtracted from the maximum pixel intensity projection, resulting in an image where actively moving membranes appear as
+bright rings. ImageJ's Gaussian blur ﬁlter was used to convert
+these bright rings into spots that cover the entire cell, and
+produce the overlaid images shown in this article.
+Validation of motion detection algorithm through ﬂuorescence. Different ﬂuorescent-labeling agents for cell viability were tested as live-imaging approaches for response to
+chemotherapy. However, cytotoxicity, photo bleaching, intercellular variability of delay between cell death and signal
+detection, and incomplete representation of viable/apoptotic/necrotic cell states added noise to the assay. A multiple
+myeloma cell line was stably transfected with dsRed2 (8226/
+dsRed2), and used as a reference to visually detect the cytotoxic
+effect of drugs through loss of red ﬂuorescence. dsRed2
+expression is an intrinsic marker for these cells: live cells will
+quickly loose ﬂuorescence upon cell death because of membrane burst accompanied by release of cytoplasmic components, including the ﬂuorescent protein.
+Validation of motion detection algorithm through bioluminescence. NCI-H929 cells were seeded in 96-well plates in
+culture media or in a 3D collagen matrix with culture media
+added on top of the cell/collagen layer. In wells without
+collagen, 1.5  105 cells were resuspended in 50 mL of media
+for a ﬁnal density of 3  106 cells/mL. To more closely resemble
+microﬂuidic assay conditions, 1.5  105 cells were suspended
+in 30 mL of 1.5 mg/mL collagen matrix and were left to
+polymerize at 37 C for 1 hour. Twenty microliters of media
+was then added as a separate phase on top of the cell/collagen
+layer. Melphalan was serially diluted in 2-fold steps to a ﬁnal
+concentration range of 100 to 1.56 mmol/L in 7 rows. The same
+procedure was performed for bortezomib to ﬁnal concentrations of 20 to 0.31 nmol/L. All conditions and controls were
+performed in triplicate. After 24 hours of continuous drug
+exposure at 37 C and 5% CO2, 50 mL CellTiterGlo was added to
+each well and the plates were placed on an orbital shaker at
+room temperature for 10 minutes. Twenty minutes later,
+bioluminescence was measured at ambient temperature on
+a microplate reader. Percent cell viability was deﬁned as
+luminescence normalized to controls at 24 hours.
+Analysis of experimental data
+The quantiﬁcation of the dose–response of the cells in the
+experiment used Matlab's (MathWorks) function lsqcurveﬁt,
+which ﬁnds the coefﬁcients that minimize the distance
+between a function and a set of data points. Details on the
+ﬁtting procedure and equations used are presented in the
+Quick Guide to Equations and Assumptions.
+Computational modeling of therapy
+As a proof of principle, to exemplify the application of these
+in vitro chemosensitivity assays in estimating patient response
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst December 5, 2013; DOI: 10.1158/0008-5472.CAN-13-2397
+
+Assay for Chemosensitivity in Multiple Myeloma
+
+to therapy, we have used a computational model, previously
+described (22), to simulate a hypothetical single-agent bortezomib regimen in an animal model (s.c. NCI-H929 in SCID
+mouse), and for 4 patients whose multiple myeloma cells'
+sensitivity to bortezomib were tested in vitro. Implementation
+of the computational model of therapy is presented in the
+Quick Guide to Equations and Assumptions.
+
+Results
+Characterization of shape and duration of drug gradient
+The ﬁrst step of validating the in vitro platform was to
+determine the stability, and also the duration of any transients
+during the formation of the drug gradient across the observation
+chamber. For this purpose, we used a conjugate of the FAM and
+the 1.5 kDa peptide HYD-1, an experimental drug with direct
+toxicity to multiple myeloma cells (23). We used live imaging to
+quantify the ﬂuorescence in images taken at 1-minute intervals
+
+during 18 hours (Fig. 1). The ﬂuorescent signal gradient was
+stable for the interval of the experiment, and the transient time
+for its formation was shorter than the period between drug
+injection in the slide and start of imaging (5–100 ).
+Loss of membrane motion is a reliable maker of cell
+death
+A novel algorithm for detection of cell membrane motion
+was necessary to detect cell death in patient primary cells,
+because of the signiﬁcant variation of the delay between cell
+death and membrane permeabilization, and acquisition of
+ﬂuorescence from molecular probes. Supplementary Fig. S1
+depicts the delay between the detection of cell death using the
+motion-detection algorithm, and loss of ﬂuorescence in the
+stably transfected cell line 8226/dsRed2. Supplementary Fig. S2
+exempliﬁes the delay of acquisition of the molecular probe
+EthD-1 red ﬂuorescence in NCI-H929 cells.
+
+Figure 1. Schematic view of microﬂuidic assay used for in vitro reconstruction of bone marrow. A, each microﬂuidic chip contains 3 chambers, each of them
+composed of 2 side reservoirs, and one center observation chamber. Myeloma and stromal cells are loaded in the observation chamber simultaneously,
+resuspended in collagen. Overnight, the matrix gelliﬁes and stromal cells adhere to the bottom of the chamber and stretch. B, one of the side reservoirs
+is ﬁlled with medium with a chemotherapeutic agent (left), whreas the other is ﬁlled with standard growth medium (right). The diffusion of the chemotherapeutic
+agent from one reservoir to the other creates a stable gradient across the observation chamber. C, the observation channel with the human multiple
+myeloma cell line NCI-H929 and adherent bone marrow–derived stromal cell line HS-5 is shown in bright ﬁeld under a gradient of the necrosis-inducing
+peptide HYD-1. Note that multiple myeloma cells on the left (higher drug concentration) have died and became dark spots, whereas cells on the right
+(lower drug concentration) are still alive. D, a gradient of the ﬂuorescent-conjugated peptide FAM-HYD1 was established and ﬂuorescence quantiﬁed
+across the channel during 18 hours. Normalization and rescaling to the minimum and maximum concentration within the observation channel conﬁrm the
+linear stable gradient during the 18-hour window of experiment.
+
+www.aacrjournals.org
+
+Cancer Res; 74(1) January 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+61
+
+Published OnlineFirst December 5, 2013; DOI: 10.1158/0008-5472.CAN-13-2397
+
+Khin et al.
+
+Effect of the proteasome inhibitor bortezomib
+The cell line NCI-H929 was exposed to a stable gradient of
+bortezomib (maximum concentration 10 nmol/L) for 24 hours,
+and a dose–response surface was created (Fig. 2A). According
+to these results, the bortezomib concentration that would lead
+to a 50% reduction in the number of live cells after 24 hours,
+compared with the initial time point, was 2.5 nmol/L. The
+concentration that would lead to a 50% reduction in the
+number of live cells, compared with the control at 24 hours
+was 1.9 nmol/L. The same cell line was seeded in a 96-well
+plate, in suspension or in collagen, and cell viability was
+measured using the ATP-based assay CellTiter-Glo (Fig. 2C).
+The Pearson test produced r values of 0.8905 and 0.8704
+(P values 0.003 and 0.0049) for the correlation between the
+model and suspension, and collagen results, respectively.
+Quantiﬁcation of melphalan innate resistance in cell
+lines in single culture
+The melphalan sensitive and resistant cell lines NCI-H929
+and 8226/LR5 were exposed to stable gradients of melphalan
+for 24 hours (highest concentrations of 50 and 100 mmol/L,
+respectively) and chemosensitivity was quantiﬁed. The analysis of 8226/LR5 detected a subpopulation of sensitive cells
+
+(30%; Fig 3A), indicating that this cell line is actually heterogeneous, a possible explanation for the loss of resistance
+commonly observed when these cells are maintained in melphalan-free medium for many weeks (24). Melphalan concentration that induced 50% of death in cells (EC50) for 24 hours
+continuous exposure was 50 mmol/L for 8226/LR5 and 12
+mmol/L for H929. Long-term exposure to lower, more physiological doses (10–20 mmol/L) of melphalan, however, indicated that, although all melphalan had been hydrolyzed in the
+ﬁrst 24 hours in media, cell death continued to occur after 6
+days of drug exposure (Supplementary Fig. S3).
+Quantiﬁcation environment-mediated melphalan
+resistance
+Cell adhesion–mediated drug resistance is believed to be a
+major cause of minimal residual disease in multiple myeloma
+(18). This mechanism is caused by direct multiple myeloma–
+stroma cell adhesion, by paracrine loops of soluble factor
+secretion, or by multiple myeloma–extracellular matrix adhesion. To quantify the importance of multiple myeloma–stroma
+adhesion under physiological conditions (high density, in
+presence of ECM), the multiple myeloma cell line NCI-H929
+was cocultured with the bone marrow–derived stromal cell
+
+Figure 2. Quantiﬁcation of
+sensitivity of the human myeloma
+cell line NCI-H929 to the
+proteasome inhibitor bortezomib.
+The microﬂuidic assay described in
+this project generates a series of
+measurements corresponding to
+cell viability at combination of
+exposure time and drug
+concentration. These data points in
+turn are ﬁt to the mathematical
+expression of dose–response,
+equation A. A, sensitivity of the
+human myeloma cell line to the
+proteasome inhibitor bortezomib.
+B, goodness-of-ﬁt of the
+mathematical model to the 1,670
+data points. C, comparison of
+viability measurements at 24 hours
+between the mathematical model
+and a standard ATP-based
+bioluminescent assay, with NCIH929 cells in suspension in media
+or in collagen, using a standard 96well plate.
+
+62
+
+Cancer Res; 74(1) January 1, 2014
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst December 5, 2013; DOI: 10.1158/0008-5472.CAN-13-2397
+
+Assay for Chemosensitivity in Multiple Myeloma
+
+Figure 3. Intrinsic chemoresistance
+to melphalan. The human multiple
+myeloma cell lines 8226/LR5,
+selected by continuous exposure
+to melphalan, and NCI-H929 were
+exposed for a 24 hours continuous
+stable of gradient of melphalan in
+the microﬂuidic chamber. Although
+the cell line NCI-H929 was ﬁt to a
+single population, the 8226/LR5
+cell line was better ﬁt by a 2population curve, with
+approximately 70% of resistant
+cells and 30% of sensitive. This
+result indicates that the loss of
+chemoresistance of 8226/LR5 cells
+in absence of melphalan might be
+because of heterogeneity in this
+population.
+
+line HS-5/GFP. A signiﬁcant shift toward resistance was
+observed at later time points (24 hours) and was most
+expressive around the concentration of 20 to 30 mmol/L (Fig. 4).
+Continuous versus pulsed exposure to drugs
+To exemplify the study of continuous versus pulsed exposure to drugs, 2 chambers with NCI-H929 cells were exposed to
+bortezomib for 24 hours. In one, the medium was replaced by
+drug-free medium, whereas in the other fresh medium with
+bortezomib was added. Being a reversible proteasome inhibitor, the results suggest that bortezomib-induced death stops
+upon drug withdrawal (Supplementary Fig. S4), unlike melphalan (Supplementary Fig. S3).
+Melphalan chemosensitivity of primary multiple
+myeloma cells in single and coculture
+From the 17 patient samples obtained so far in this protocol,
+the ﬁrst 10 were used for development and optimization of the
+platform. The results of the 7 others are described here. We
+have exposed CD138þ-sorted primary multiple myeloma cells
+from patient 14, a newly diagnosed patient, for 48 hours to a
+stable gradient of 25 mmol/L melphalan in single and coculture,
+with patient-derived stroma. As shown in Fig. 5, adhesion to
+
+www.aacrjournals.org
+
+stroma signiﬁcantly increased the survival of multiple myeloma cells, shifting the 48 hours EC50 from 2 mmol/L in single
+culture to 12 mmol/L in coculture. This effect could be circumvented by combination of a proteasome inhibitor at
+sublethal levels (Fig. 6 and Supplementary Video S1; ref. 25).
+Melphalan and bortezomib chemosensitivity among
+patients with multiple myeloma
+Supplementary Fig. S5 depicts the in vitro chemosensitivity
+of 3 patients with multiple myeloma to melphalan in single
+culture: patient 14, patient 11 (smoldering myeloma), and
+patient 12 (relapsed after bone marrow transplantation). The
+EC50s at 24-hour exposure were 4 mmol/L for patients 14 and 12
+and 1 mmol/L for patient 11. However, the percentage surviving
+cells at 20 mmol/L, a more physiological concentration of highdose melphalan treatment, was 30% for patient 12, 11% for
+patient 14, and 4% for patient 11. Fig. 7 represents bortezomib
+chemosensitivity of patients 11, 12, 13 (newly diagnosed), and
+17 (smoldering myeloma). For patients 11 and 12, EC50 after 24
+hours continuous exposure was below 2 nmol/L; however, at
+higher concentrations, multiple myeloma cells from patient 11
+were signiﬁcantly more resistant: 30% live cells at 50 nmol/L
+bortezomib for patient 11 and 8% for patient 12. Twenty-
+
+Cancer Res; 74(1) January 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+63
+
+Published OnlineFirst December 5, 2013; DOI: 10.1158/0008-5472.CAN-13-2397
+
+Khin et al.
+
+Figure 4. Effect of cell adhesion
+mediated drug resistance in the
+multiple myeloma cell line NCIH929 treated with melphalan. A,
+the coculture of the NCI-H929
+human multiple myeloma cell line
+with the human bone marrow–
+derived stromal cell line HS-5
+confers increased resistance
+to melphalan. Melphalan
+concentration and exposure
+required to reduce viability in 50%
+(kR and kT, respectively) increase
+from 28 to 40 mmol/L and 12 to 15
+hours, respectively. B and C, linear
+regression of ﬁt and actual
+experimental points for both
+experiments.
+
+four-hour EC50 for patient 13 was 10 nmol/L, whereas EC50
+was not reached with the sample from patient 17.
+Extrapolation of in vitro data into in vivo and clinical
+response
+By parameterizing equation C with values obtained from
+ﬁtting equation A to the in vitro dose–response data, it is
+possible to simulate how a tumor mass would respond to a
+therapeutic regimen. As an example, the subcutaneous mouse
+model severe combined immunodeﬁcient (SCID), when
+implanted with the cell line NCI-H929, develops a tumor that
+grows 45-fold in 20 days (26). When treated with 1 mg/kg
+bortezomib twice a week, the tumor growth is reduced, and
+tumors are 20-fold bigger at day 20 than at implantation (27).
+From the bortezomib in vitro chemosensitivity assay with the
+cell line NCI-H929 (Fig. 2), the parameters from equation C
+were: IC50Rx ¼ 10.35 nmol/L, IC50DT ¼ 10.38 hours, exp Rx ¼ 2.7,
+and exp T ¼ 7.1. Supplementary Fig. 6 depicts the computational simulation of the tumor growth under control conditions, under a bi-weekly treatment with 1 mg/kg of bortezomib
+(which leads to a stable blood concentration of 0.4 nmol/L;
+ref. 28), and a hypothetical regimen where mice received a
+pulsed therapy with the same AUC, with bi-weekly injections
+
+64
+
+Cancer Res; 74(1) January 1, 2014
+
+of bortezomib every other week (therapy holidays). The
+simulated tumor would have increased 53.4-fold in control
+conditions (Pearson r ¼ 0.9762), 18-fold in standard bortezomib treatment (Pearson r ¼ 0.9869), and 5-fold in the
+hypothetical pulsed regimen. The same approach was used
+to simulate the response of patients 11, 12, 13, and 17 to a
+single-agent regimen of bortezomib (1.3 mg/m2; Supplementary Fig. 7). In this regimen, plasma concentration stabilizes
+at 1 nmol/L (4), and according to simulations, would
+achieve complete response in patients 11 an 12, relapse in
+patient 17, and no response in patient 13.
+
+Discussion
+In this work, we have described an interdisciplinary platform
+to study preclinical drug activity in primary multiple myeloma
+cells. First, multiple myeloma cells are embedded in a microﬂuidic chamber that recapitulates the bone marrow microenvironment, including high-cell density, extracellular matrix,
+and patient-derived stromal cells. A linear and stable drug
+gradient is established across the chamber, which is then
+imaged sequentially in bright ﬁeld. A digital image analysis
+algorithm detects live multiple myeloma cells by the motion
+of cell membrane: upon death this activity ceases. The
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst December 5, 2013; DOI: 10.1158/0008-5472.CAN-13-2397
+
+Assay for Chemosensitivity in Multiple Myeloma
+
+Figure 5. Primary multiple myeloma cells in coculture with patient stroma are signiﬁcantly more resistant to melphalan. Patient 14 is a newly diagnosed patient.
+þ
+Multiple myeloma cells were sorted (CD138 ) from bone marrow aspirate and seeded into microﬂuidic chamber in single (SCX, 0 hour) or coculture
+with patient stromal cells (CoCx, 0 hour). Digital image analysis identiﬁes live cells and pseudo-colors as green. A stable linear gradient of melphalan
+was established across observation channel: 25 mmol/L on the left, 0 mmol/L on the right, and cells were imaged every 5 minutes for 48 hours. After
+48 hours, almost all multiple myeloma cells are dead in single culture (SCX, 48 hours), whereas a signiﬁcant number of multiple myeloma cells are still alive in
+coculture with stroma (CoCx, 48 hours). A, dose–response surfaces built using measurements of viability in single (SCX) and coculture (CoCx). B and C,
+goodness-of-ﬁt of dose–response surfaces (model) and actual data points for single culture (B) and coculture (C).
+
+measurements of viability, at different concentrations and
+time points, are ﬁt to mathematical models of chemosensitivity. These models can represent one or multiple subpopulations, and can be empirical or mechanistic. The data from these
+
+experiments can thus be used to parameterize mathematical
+models to simulate clinical outcome.
+This platform overcomes some major limitations of preclinical assays using primary cancer cells. It has long been known
+
+Figure 6. Quantiﬁcation of
+bortezomib-induced EMDR
+circumvention in primary multiple
+myeloma cells. Patient 14 is a
+newly diagnosed patient. Multiple
+myeloma cells were sorted
+þ
+(CD138 ) from bone marrow
+aspirate and seeded into
+microﬂuidic chamber in single and
+coculture with adherent stromal
+
+cells (CD138 ). A and B, in single
+culture (A), multiple myeloma cells
+are signiﬁcantly more sensitive
+than in coculture (B). A dose–
+response assay with bortezomib
+indicated that 1 nmol/L was the
+highest concentration that did not
+cause multiple myeloma cell death
+(C) during the 24-hour period. By
+combining a stable gradient of
+melphalan with a uniform
+concentration of bortezomib, the
+chemosensitive phenotype is
+restored in coculture (D).
+
+www.aacrjournals.org
+
+Cancer Res; 74(1) January 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+65
+
+Published OnlineFirst December 5, 2013; DOI: 10.1158/0008-5472.CAN-13-2397
+
+Khin et al.
+
+Figure 7. In vitro response of
+primary multiple myeloma cells to
+bortezomib in single culture 3D
+collagen matrix. Patient 11 was a
+smoldering/standard-risk patient,
+and thus never previously treated
+with bortezomib. Patient 12 was a
+relapsed/standard-risk patient
+previously treated with
+bortezomib-based regimens and
+high-dose melphalan followed by
+bone marrow transplantation.
+Patient 120 s bortezomib-based
+induction regimen (bortezomib/
+lenalidomide/dexamethasone)
+occurred 3 years before the biopsy
+used for this in vitro assay. Patient
+13 was a newly diagnosed/highrisk patient, whereas patient 17
+was a smoldering myeloma
+patient.
+
+that extracellular matrix and stroma are major components of
+chemoresistance in many tumors. However, the inclusion of
+these elements signiﬁcantly increases the complexity of dose–
+response assays, often requiring the separation between cancer
+and stromal cells, by matrix digestion and/or ﬂow sorting (29).
+Also, viability assays are often destructive or cytotoxic, if
+carried for long periods of time, limiting the information
+acquired in the temporal dimension. In the here described
+assay, multiple myeloma cells, stroma, and matrix are never
+separated, and no cytotoxic agents are used to determine cell
+viability, thus allowing longitudinal studies of drug activity
+without interfering with the microenvironment.
+In cancers such as multiple myeloma, where a few million
+cells are obtainable per patient biopsy, it is important to
+minimize the number of cells per experimental condition,
+which is in the order of 1,000 to 10,000 cells in this assay. The
+poor clonal efﬁciency of multiple myeloma cells, as well as their
+spontaneous death in vitro (6), suggest that experiments with
+these samples be performed in the ﬁrst few days after the
+biopsy. By studying the effect of long-term exposure and drug
+withdrawal in human multiple myeloma cell lines, we have
+created mechanistic theoretical models of the drug activity (2).
+Once a model is generated for a particular drug, the data from
+patient samples are used to parameterize and extrapolate the
+response for longer periods of time.
+As shown for bortezomib-induced melphalan sensitization
+in coculture (Fig. 6), this system can be used to study drug
+interactions (30). The addition of the time dimension, instead
+of ﬁxed time points, would allow the study of time-shifted drug
+combinations, such as, for instance, nuclear export agents and
+doxorubicin (31). Combination indices (30) may be obtained by
+adding the 2 drugs being studied on the same reservoir, which
+will induce 2 superimposed drug gradients.
+This assay allows the observation of individual cells. Thus, it
+is possible to assess the heterogeneity of drug–response by
+plotting in a histogram the AUC at the moment of death of each
+
+66
+
+Cancer Res; 74(1) January 1, 2014
+
+individual cell. Further improvements in the digital image
+analysis algorithm could identify and track individual cells
+from their original replication until their death. By combining
+this information with the dose–response surfaces, it would be
+possible to determine if particular drugs and concentrations
+are capable of maintaining a tumor burden quiescent, or in a
+balance between proliferation and death (32, 33).
+These preliminary results describe a framework to better
+understand the dynamics of interactions between tumor and
+stroma in response to therapeutic agents in vitro. These assays
+can be performed in a middle- to high-throughput manner, and
+signiﬁcantly reduce the complexity of working with patient
+primary cells in reconstructions of the tumor microenvironment. Ultimately, this may become a platform for personalized
+preclinical estimation of drug efﬁcacy in cancer.
+Future directions are to standardize methods to extrapolate
+in vitro predictions into clinical outcome. We will also explore
+the application of alternative therapeutic regimens of drug
+combinations, proposed by data extrapolated from this in vitro
+system, and simulated using evolutionary computational models (34, 35). We hypothesize that, patient-speciﬁc computational
+models, parameterized by in vitro platforms as the here
+described, could be combined with genomic (36) datasets to
+better understand the dynamics that underlie evolution of drug
+resistance in patients with multiple myeloma. Understanding
+these dynamics would not only allow accurate predictions of
+response, but also suggest the best therapeutic strategies for
+each patient, and continue adjusting these strategies as needed.
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+Authors' Contributions
+Conception and design: Z.P. Khin, M.L.C. Ribeiro, K. Shain, A.S. Silva
+Development of methodology: Z.P. Khin, M.L.C. Ribeiro, T. Jacobson, K. Shain,
+A.S. Silva
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): Z.P. Khin, M.L.C. Ribeiro, T. Jacobson, A.S. Silva
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst December 5, 2013; DOI: 10.1158/0008-5472.CAN-13-2397
+
+Assay for Chemosensitivity in Multiple Myeloma
+
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): Z.P. Khin, T. Jacobson, K. Shain, A.S. Silva
+Writing, review, and/or revision of the manuscript: Z.P. Khin, T. Jacobson,
+L. Hazlehurst, L. Perez, R. Baz, K. Shain, A.S. Silva
+Administrative, technical, or material support (i.e., reporting or organizing data, constructing databases): K. Shain
+Study supervision: A.S. Silva
+
+Grant Support
+This research was funded by the State of Florida's Bankhead-Coley Team
+Science Grant (2BT03), the National Institutes of Health/National Cancer
+Institute (1R21CA164322-01), and the H. Lee Mofﬁtt Cancer Center Physical
+Sciences in Oncology (PSOC) Transnetwork Grant (U54CA143803).
+The costs of publication of this article were defrayed in part by the payment of
+page charges. This article must therefore be hereby marked advertisement in
+accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+
+Acknowledgments
+The authors thank the patients at H. Lee Mofﬁtt Cancer Center who provided
+clinical samples for our in vitro assays as well as consented access to the their
+clinical data through the Total Cancer Care database.
+
+Received August 21, 2013; accepted October 20, 2013; published OnlineFirst
+December 5, 2013.
+
+References
+1.
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+15.
+
+16.
+
+17.
+18.
+
+Samuels BL, Bitran JD. High-dose intravenous melphalan: a review.
+J Clin Oncol 1995;13:1786–99.
+Gardner SN. A mechanistic, predictive model of dose-response curves
+for cell cycle phase-speciﬁc and -nonspeciﬁc drugs. Cancer Res
+2000;60:1417–25.
+Ogawa Y, Tobinai K, Ogura M, Ando K, Tsuchiya T, Kobayashi Y, et al.
+Phase I and II pharmacokinetic and pharmacodynamic study of the
+proteasome inhibitor bortezomib in Japanese patients with relapsed or
+refractory multiple myeloma. Cancer Sci 2008;99:140–4.
+Reece DE, Sullivan D, Lonial S, Mohrbacher AF, Chatta G, Shustik C,
+et al. Pharmacokinetic and pharmacodynamic study of two doses of
+bortezomib in patients with relapsed multiple myeloma. Cancer Chemother Pharmacol 2011;67:57–67.
+Ishii T, Seike T, Nakashima T, Juliger S, Maharaj L, Soga S, et al. Antitumor activity against multiple myeloma by combination of KW-2478,
+an Hsp90 inhibitor, with bortezomib. Blood Cancer J 2012;2:e68.
+Suggitt M, Bibby MC. 50 years of preclinical anticancer drug screening:
+empirical to target-driven approaches. Clinical Cancer Research
+2005;11:971–81.
+Von Hoff DD, Clark GM, Stogdill BJ, Sarosdy MF, O'Brien MT, Casper
+JT, et al. Prospective clinical trial of a human tumor cloning system.
+Cancer Res 1983;43:1926–31.
+Pellat-Deceunynk C, Amiot M, Bataille R, Van Riet I, Van Camp B,
+Omede P, et al. Human myeloma cell lines as a tool for studying the
+biology of multiple myeloma: a reappraisal 18 years after. Blood
+1995;86:4001–2.
+Hokanson JA, Brown BW, Thompson JR, Drewinko B, Alexanian R.
+Tumor growth patterns in multiple myeloma. Cancer 1977;39:1077–84.
+Chmielecki J, Foo J, Oxnard GR, Hutchinson K, Ohashi K, Somwar R,
+et al. Optimization of dosing for EGFR-mutant non-small cell lung
+cancer with evolutionary cancer modeling. Sci Transl Med 2011;3:
+90ra59.
+Tang M, Gonen M, Quintas-Cardama A, Cortes J, Kantarjian H, Field C,
+et al. Dynamics of chronic myeloid leukemia response to long-term
+targeted therapy reveal treatment effects on leukemic stem cells.
+Blood 2011;118:1622–31.
+Gardner SN, Fernandes M. New tools for cancer chemotherapy:
+computational assistance for tailoring treatments. Mol Cancer Ther
+2003;2:1079–84.
+Salmon SE, Hamburger AW, Soehnlen B, Durie BG, Alberts DS, Moon
+TE. Quantitation of differential sensitivity of human-tumor stem cells to
+anticancer drugs. N Engl J Med 1978;298:1321–7.
+Suggitt M, Bibby MC. 50 years of preclinical anticancer drug screening:
+empirical to target-driven approaches. Clin Cancer Res 2005;11:971–81.
+Kirshner J, Thulien KJ, Martin LD, Debes Marun C, Reiman T, Belch AR,
+et al. A unique three-dimensional model for evaluating the impact of
+therapy on multiple myeloma. Blood 2008;112:2935–45.
+Durie BG, Jacobson J, Barlogie B, Crowley J. Magnitude of response
+with myeloma frontline therapy does not predict outcome: importance
+of time to progression in southwest oncology group chemotherapy
+trials. J Clin Oncol 2004;22:1857–63.
+Harousseau JL, Attal M, Avet-Loiseau H. The role of complete
+response in multiple myeloma. Blood 2009;114:3139–46.
+Meads MB, Gatenby RA, Dalton WS. Environment-mediated drug
+resistance: a major contributor to minimal residual disease. Nat Rev
+Cancer 2009;9:665–74.
+
+www.aacrjournals.org
+
+19. Meads MB, Hazlehurst LA, Dalton WS. The bone marrow microenvironment as a tumor sanctuary and contributor to drug resistance. Clin
+Cancer Res 2008;14:2519–26.
+20. Thevenaz P, Ruttimann UE, Unser M. A pyramid approach to subpixel
+registration based on intensity. IEEE Trans Image Process 1998;7:
+27–41.
+21. Sternberg SR. Biomedical image processing. Computer 1983;16:
+22–34.
+22. Silva AS, Kam Y, Khin ZP, Minton SE, Gillies RJ, Gatenby RA. Evolutionary approaches to prolong progression-free survival in breast
+cancer. Cancer Res 2012;72:6362–70.
+23. Nair RR, Emmons MF, Cress AE, Argilagos RF, Lam K, Kerr WT, et al.
+HYD1-induced increase in reactive oxygen species leads to autophagy
+and necrotic cell death in multiple myeloma cells. Mol Cancer Ther
+2009;8:2441–51.
+24. Bellamy WT, Dalton WS, Gleason MC, Grogan TM, Trent JM. Development and characterization of a melphalan-resistant human multiple
+myeloma cell line. Cancer Res 1991;51:995–1002.
+25. Yanamandra N, Colaco NM, Parquet NA, Buzzeo RW, Boulware D,
+Wright G, et al. Tipifarnib and bortezomib are synergistic and overcome
+cell adhesion-mediated drug resistance in multiple myeloma and acute
+myeloid leukemia. Clin Cancer Res 2006;12:591–9.
+26. Nakashima T, Ishii T, Tagaya H, Seike T, Nakagawa H, Kanda Y, et al.
+New molecular and biological mechanism of antitumor activities of
+KW-2478, a novel nonansamycin heat shock protein 90 inhibitor, in
+multiple myeloma cells. Clin Cancer Res 2010;16:2792–802.
+27. Ishii T, Seike T, Nakashima T, Juliger S, Maharaj L, Soga S, et al. Antitumor activity against multiple myeloma by combination of KW-2478,
+an Hsp90 inhibitor, with bortezomib. Blood Cancer J 2012;2:e68.
+28. Williamson MJ, Silva MD, Terkelsen J, Robertson R, Yu L, Xia C, et al.
+The relationship among tumor architecture, pharmacokinetics, pharmacodynamics, and efﬁcacy of bortezomib in mouse xenograft models. Mol Cancer Ther 2009;8:3234–43.
+29. Misund K, Baranowska KA, Holien T, Rampa C, Klein DC, Borset M,
+et al. A method for measurement of drug sensitivity of myeloma cells
+co-cultured with bone marrow stromal cells. J Biomol Screen
+2013;18:637–46.
+30. Chou TC. Theoretical basis, experimental design, and computerized
+simulation of synergism and antagonism in drug combination studies.
+Pharmacol Rev 2006;58:621–81.
+31. Turner JG, Marchion DC, Dawson JL, Emmons MF, Hazlehurst LA,
+Washausen P, et al. Human multiple myeloma cells are sensitized to
+topoisomerase II inhibitors by CRM1 inhibition. Cancer Res 2009;69:
+6899–905.
+32. Wells A, Grifﬁth L, Wells JZ, Taylor DP. The dormancy dilemma: quiescence versus balanced proliferation. Cancer Res 2013;73:3811–6.
+33. San-Miguel JF, Mateos MV. Can multiple myeloma become a curable
+disease? Haematol-Hematol J 2011;96:1246–8.
+34. Silva AS, Gatenby RA. A theoretical quantitative model for evolution of
+cancer chemotherapy resistance. Biol Direct 2010;5:25.
+35. Silva AS, Kam Y, Khin ZP, Minton SE, Gillies RJ, Gatenby RA. Evolutionary approaches to prolong progression-free survival in breast
+cancer. Cancer Res 2012;72:6362–70.
+36. Landau DA, Carter SL, Stojanov P, McKenna A, Stevenson K, Lawrence MS, et al. Evolution and impact of subclonal mutations in chronic
+lymphocytic leukemia. Cell 2013;152:714–26.
+
+Cancer Res; 74(1) January 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+67
+
+Published OnlineFirst December 5, 2013; DOI: 10.1158/0008-5472.CAN-13-2397
+
+A Preclinical Assay for Chemosensitivity in Multiple Myeloma
+Zayar P. Khin, Maria L.C. Ribeiro, Timothy Jacobson, et al.
+Cancer Res 2014;74:56-67. Published OnlineFirst December 5, 2013.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-13-2397
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2013/12/05/0008-5472.CAN-13-2397.DC1
+
+This article cites 36 articles, 23 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/74/1/56.full#ref-list-1
+This article has been cited by 2 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/74/1/56.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+

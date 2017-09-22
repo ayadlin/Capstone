@@ -1,0 +1,637 @@
+Published OnlineFirst February 16, 2010; DOI: 10.1158/0008-5472.CAN-09-3562
+
+Review
+
+Cancer
+Research
+
+The COXEN Principle: Translating Signatures of In vitro
+Chemosensitivity into Tools for Clinical Outcome
+Prediction and Drug Discovery in Cancer
+Steven C. Smith1,2, Alexander S. Baras3, Jae K. Lee4, and Dan Theodorescu1,2
+
+Abstract
+Substantial effort has been devoted to in vitro testing of candidate chemotherapeutic agents. In particular,
+the United States National Cancer Institute Developmental Therapeutics Program (NCI-DTP) Human Tumor
+Cell Line Screen has screened hundreds of thousands of compounds and extracts, for which data on more than
+40,000 compounds tested on a panel of 60 cancer cell lines (NCI-60) are publically available. In tandem, gene
+expression profiling has brought about a sea change in our understanding of cancer biology, allowing discovery of biomarkers or signatures able to characterize, classify, and prognosticate clinical behavior of human
+tumors. Recent studies have used tumor profiling matched to clinical trial outcome data to derive gene
+expression models predicting therapeutic outcomes, though such efforts are costly, time-consuming, tumor
+type-specific, and not amenable to rare diseases. Furthermore, addition of new or established drugs to multidrug combinations in which such models are already available requires the entire model to be re-derived.
+Can the aforementioned in vitro testing platform, coupled to the universal language of genomics, be used
+to develop, a priori, gene expression models predictive of clinical outcomes? Recent advances, including the
+CO-eXpression ExtrapolatioN (COXEN) algorithm, suggest that development of these models may be possible
+and raise important implications for future trial design and drug discovery. Cancer Res; 70(5); 1753–8. ©2010 AACR.
+
+Introduction
+Few technological innovations have transformed biology
+to the extent high throughput molecular profiling has done.
+Such efforts, coupled with a wide variety of platforms for statistical and biological interpretation as well as interinstitutional sharing of the data produced by these assays, have
+changed how we study neoplasia. Recent advances suggest
+that these technologies may change the way pathologists
+and oncologists approach the diagnosis and nosology of tumors, and key recent reports suggest that the use of prediction frameworks developed from gene expression profiling
+data, roughly, gene expression models (GEM), can be developed and clinically implemented to provide accurate prognostication of disease course (1) and even therapeutic
+benefit (2). For example, in bladder cancer, studies have developed GEMs predicting chemotherapeutic response of
+muscle invasive tumors (3, 4).
+Although these efforts lay the foundation for implementation of molecular tools to predict patient benefit from stanAuthors' Affiliations: 1Department of Molecular Physiology, University of
+Virginia, 2Paul Mellon Urologic Cancer Institute, University of Virginia,
+3Department of Pathology, University of Virginia, and 4Department of
+Public Health Sciences, University of Virginia, Charlottesville, Virginia
+Corresponding Author: Dan Theodorescu, Department of Molecular
+Physiology, P.O. Box 800422, University of Virginia, Charlottesville, VA,
+22908. Phone: 434-924-0042; Fax: 434-982-3652; E-mail: dt9d@virginia.edu.
+doi: 10.1158/0008-5472.CAN-09-3562
+©2010 American Association for Cancer Research.
+
+dard cancer chemotherapeutic regimens, they come with
+important limitations. Such GEMs must be developed a
+posteriori, on the basis of profiling patient tumors at baseline
+followed by supervised biomarker discovery comparing clinical
+responders and nonresponders, with subsequent validation in
+independent trials. Thus, such strategies are not adaptable to
+rare orphan tumors (insufficient numbers for trials) or cancers
+of unknown primary (among the 10 most common cancer diagnoses; ref. 5). Such strategies also do not suggest a “salvage”
+therapeutic option for predicted nonresponders, and such
+approaches are not adaptable for a priori stratification of patients for novel agents in which clinical trial outcome is not
+known. Finally, upon addition of approved or investigational
+agents to standard combination regimens, existing GEMs
+must perforce be rebuilt and prospectively revalidated.
+The United States National Cancer Institute's Developmental Therapeutics Program's (NCI-DTP) NCI-60 Human
+Tumor Cell Line Screen, which has tested 60 cancer cell lines
+derived from 9 common histologies tested with more than
+110,000 compounds of which more than 45,000 are publicly
+available, provides a rich database of in vitro drug response
+data (6). Initially intended as a government-sponsored drug
+discovery pipeline, this initiative has already made significant
+contributions directly to this objective. In addition, these data
+are a rich source of information that could be mined for additional biological insights. For example, reports as early as 2001
+showed that using gene expression profiling of these 60 cell
+lines, coupled to the vast in vitro response data in the NCI60 screen, investigators could develop signatures predictive
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+1753
+
+Published OnlineFirst February 16, 2010; DOI: 10.1158/0008-5472.CAN-09-3562
+Smith et al.
+
+of sensitivity within the same cell line panel (7). Taken a step
+further, what if the language of gene expression could be used
+to systematically extrapolate drug sensitivity results observed
+in cell culture screening to predict tumor behavior in patients? Surprisingly, only lately has this been shown by us
+(8, 9) and by others (10).
+
+Motivation for the Development of the COXEN
+Algorithm
+Bladder cancer–derived cell lines were not included in
+the NCI-60 cell line panel. Our desire to develop chemotherapeutic response prediction models for this tumor type
+prompted us to develop a collection of nearly 40 commonly
+used bladder cancer cell lines, which we called BLA-40.
+These were profiled for their baseline gene expression using
+oligonucleotide microarrays, and tested in vitro for sensitivity to several chemotherapeutic drugs relevant in the treatment of urothelial cancer, including gemcitabine, cisplatin,
+and paclitaxel. Using a classification algorithm that favors
+discovery of robust, parsimonious gene expression models
+and is relatively resistant to “overfitting” (11), we were able
+to show in cross-validation studies correct prediction of
+drug sensitivity across the three drugs. Most compellingly,
+given the frequent use of doublet (gemcitabine-cisplatin)
+therapy for muscle invasive bladder cancer (12), we were
+able to predict response to doublet combination chemotherapy within the cell lines with 80% accuracy (P =
+0.0002; ref. 13). We recently reported a similar effort for
+the dual EGFR-HER2 inhibitor, lapatinib (14).
+With this expression-profiled bladder cancer cell panel in
+hand but lacking the resources to carry out large-scale drug
+screening, we formulated the hypothesis that perhaps clustering of the NCI-60 gene expression data with that of
+BLA-40 would allow us to project the in vitro drug sensitivity
+data available on the NCI-60 to the bladder cancer cells lines.
+Unfortunately, this simplistic approach was not successful as
+the cell lines clustered primarily by histological subtype. To
+correct for this, we first identified the genes whose expression in the NCI-60 was related to drug sensitivity and then
+determined which of these genes maintained concordant expression in the BLA-40 panel. This is done through comparisons of correlation matrices. For example, for a list of 50
+candidate sensitivity genes, a 50 × 50 matrix of the correlation of expression of the 50 genes, across the first cell line
+data set, to each of the other 50 genes is generated. The same
+matrix is then prepared from the second cell line data set
+gene expression data. Finally, each row (i.e., each genecandidate biomarker) of these two correlation matrices is
+then correlated between the two matrices to generate a second correlation coefficient (the COXEN coefficient), reflective
+of whether that particular candidate biomarker maintains
+concordant relationships to the other candidate genes. A
+correlation coefficient cutoff may thus be used to select the
+concordant subset, which are then used for GEM development. Thus, this “correlation of correlations” step allows
+selection, through requiring intercohort concordant expres-
+
+1754
+
+Cancer Res; 70(5) March 1, 2010
+
+sion, of genes relevant to both cell line panels while maintaining strict independence of the data sets with respects
+to the drug sensitivity outcomes in the second cohort. We
+call this process COeXpression ExtrapolatioN, or COXEN,
+and have employed it for several combinations of cell line
+panel to cell line panel and cell line panel to human tumor
+projections as described below. COXEN was also used for
+computational drug discovery in bladder cancer using in vitro
+sensitivity data obtained from the NCI-60 panel. These applications are summarized in Fig. 1.
+
+Applications of COXEN in Therapeutic
+Response Prediction
+Our first report of the development and use of this methodology described several applications of COXEN (8). The
+first was to use gene expression data for the NCI-60 cell lines,
+coupled with their published in vitro sensitivity data to the
+drugs cisplatin and paclitaxel, to predict sensitivity of our
+BLA-40 cell lines. By using a COXEN step to select concordant genes from NCI-60 data-derived candidate sensitivity
+biomarkers and implement them into GEMs, we were able
+to predict sensitive and resistant bladder cancer cell lines
+with accuracies of 85% for cisplatin and 78% for paclitaxel
+on the basis of the NCI-60 cell line data alone.
+The next application used gene expression and in vitro
+sensitivity data for paclitaxel and tamoxifen to predict actual
+therapeutic outcomes in two clinical studies in which breast
+cancer patients had their tumors expression profiled. In the
+first case COXEN used paclitaxel in vitro cell line data to generate GEMs, which were applied to the clinical trial response
+data for the related taxane, docetaxel. Three such models exhibited a classification accuracy of 75% for the 11 responders
+and 13 nonresponders in this trial. A second clinical study–
+based implementation used a similar approach to predict
+metastatic recurrence of 60 estrogen receptor positive breast
+cancer patients treated with tamoxifen whose tumor tissues
+were gene expression profiled before therapy. Based on
+GEMs derived from concordant subsets of NCI-60 sensitivity
+data and untreated human breast tumors derived biomarkers, we were able to predict with 71% accuracy recurrence
+in this patient cohort (8).
+Recently, we have undertaken an extensive validation of
+the COXEN methodology using data from an additional seven independent clinical trials of nearly 500 patients of diverse
+geographic and ethnic backgrounds (9). Importantly, 233 of
+these patients were from trials with prospective enrollment.
+We developed drug-specific GEMs, again, by comparing gene
+expression in cell lines from the NCI-60 screen on the basis of
+in vitro sensitivity and used separate breast, bladder, and ovarian cancer gene expression data sets (without response data
+and unrelated to those trials examined in the study) for the
+COXEN step. Then, concordant sensitivity biomarkers were
+used to develop COXEN GEMs, which were evaluated singly
+and in combination for ability to predict response and survival outcomes for several published studies including bladder cancer patients (N = 59) treated with methotrexate,
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+Published OnlineFirst February 16, 2010; DOI: 10.1158/0008-5472.CAN-09-3562
+The COXEN Principle
+
+Figure 1. The COXEN algorithm and its implementations. Reported uses of the COXEN algorithm have included both intercohort prediction of sensitivity
+between different cell line panels for drug discovery and cell line to tumor prediction for response stratification in clinical trials. Either way, the workflow
+proceeds per the sequence illustrated at left. The algorithm starts by deriving candidate biomarkers by comparing gene expression data between
+sensitive and resistant cell lines from the NCI-60, a step which can be regarded as biomarker discovery. Next candidate biomarkers are triaged by COXEN
+to ensure concordant expression between data sets. Then concordant biomarkers are used to derive GEMs, predictive of sensitivity to individual drugs or
+combinations. Finally, such models are used to classify cell lines or tumors on the basis of their own gene expression data, and prediction scores are
+examined with respects to empirical (in vitro) or observed (clinical trial) response outcomes. In the case of drug discovery, GEMs can be derived for each of
+thousands of drugs tested against the NCI-60 panel, then drugs ranked by percentage predicted responders to prioritize them for preclinical evaluation.
+
+vinblastine, doxorubicin, and cisplatin (MVAC), breast cancer patients (N = 275) treated with 5-fluorouracil, doxorubicin,
+and cyclophosphamide, and ovarian cancer patients (N = 143)
+treated with combination platinum-based therapies.
+Importantly, for two studies of bladder cancer tested, these
+COXEN GEMs did well for patients in both the neoadjuvant
+(N = 45; refs. 3, 15) and advanced tumor (N = 14; ref. 4) settings. When single drug GEMs for each of MVAC were combined, prediction scores found to be significantly different
+between responders and nonresponders (P = 0.002 and
+0.03, respectively), resulting in a sensitivity of 83%, specificity
+64%, positive predictive value of 71%, and negative predictive
+value of 78%. Compellingly, in the neoadjuvant data set (3, 15),
+which was large enough for multivariate analysis, the COXEN
+GEM scores were found to be independent of a variety of
+traditional clinicopathologic parameters and the only parameter independently associated with response.
+For breast and ovarian cancer, the COXEN GEMs developed from NCI-60 cell line testing was done similarly. Whereas single drug GEMs for doxorubicin, cyclophosphamide, and
+
+www.aacrjournals.org
+
+5-fluorouracil did well in two separate gene expression–
+profiled breast cancer drug outcome studies (N = 133 and
+N = 45, respectively), combination GEMs for these three
+drugs—used in both studies—were significantly associated
+with patient responses and survival status (as were the outcomes studied, respectively). This finding was associated
+with a sensitivity of 71% and specificity of 53%. In a third
+gene expression–matched neoadjuvant study of gemcitabine,
+epirubicin, and docetaxel for breast cancer patients (N = 100),
+each single-drug COXEN GEM, as well as a three-drug combination GEM, provided prediction scores significantly different between responders and nonresponders. In the first trial,
+the only case in which complete clinical data were available
+for multivariate analyses, both estrogen receptor status and
+the combination GEM were found to be significantly independently prognostic for response. Similarly, in two studies
+of ovarian cancer (adjuvant N = 119, neoadjuvant N = 24),
+COXEN GEMs for carboplatin and paclitaxel were both
+significantly predictive of response and survival, as well
+as independently predictive of response to therapy in the
+
+Cancer Res; 70(5) March 1, 2010
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+1755
+
+Published OnlineFirst February 16, 2010; DOI: 10.1158/0008-5472.CAN-09-3562
+Smith et al.
+
+larger adjuvant trial in which complete clinicopathologic data
+were available for multivariate analysis.
+One interesting aspect of these findings that pertains to the
+interplatform and interhistology ability of COXEN was illustrated by a recent analysis we subsequently did on the breast
+and ovarian cancer studies from the above report. Wishing to
+determine whether cell line training set composition (as regards cell line tissue of origin) impacted the accuracy of prediction, we excluded breast cancer (N = 5) and ovarian cancer
+(N = 7) cell lines from the NCI-60 panel and re-derived GEMs.
+We found that the GEM predictions derived without breast or
+ovarian cancer cell lines included in training were essentially
+unchanged.5 In the same vein, in the Williams and colleagues
+report, we specifically examined whether the stage composition of the data set used for the COXEN step (specifically,
+whether the tumors did or did not exhibit muscle invasion)
+changed the results. We found that either way it resulted in
+essentially identical outcome predictions (9).
+
+Applications of COXEN in Computational Drug
+Screening
+We also reported an application of COXEN for in silico
+drug discovery. The publically available NCI-60 screening data for >43,000 candidate compounds, together with NCI-60
+gene expression profiling, was used to develop drugspecific candidate biomarkers, concordant between the
+NCI-60 and BLA-40, which were implemented as GEMs predictive of sensitivity in the bladder cell lines in vitro. In fact,
+139 compounds were identified for which >35% of the BLA-40
+were predicted to be sensitive, of which 8 had >50% predicted
+sensitive. The top hit for this screen was the cytotoxic imidazoacridinone, NSC-637993, which we showed empirically to
+exhibit submicromolar GI50s in >60% of the BLA-40 cells. In
+comparison, the anchor drug of bladder cancer combination
+chemotherapy, cisplatin, exhibits submicromolar GI50s in only 22% of cells (8). Perhaps more importantly, we also found
+that a structurally similar compound, C1311, was also a top
+COXEN hit. This finding is relevant because: (1) COXEN computational screening was able to find closely related analogs;
+(2) C1311 has significant cytotoxic activity in vitro and in vivo
+for a range of cancer cell lines (16); (3) C1311 has been tested
+in phase 1 (17 18 19) and phase 2 (20) trials for breast and
+other advanced solid tumors, potentially facilitating rapid
+translation of C1311 to bladder cancer patients.
+In prior studies the cytotoxic activity of C1311 has been
+evaluated in 16 human cell lines from solid tumor types and
+leukemias producing a median IC50 of 0.3 μM (16). In vivo,
+C1311 caused 77% growth inhibition of HT29 colon cancer
+xenografts compared with 17% for paclitaxel (21). Importantly, no cross-resistance was seen between in vitro sensitivity to C1311 and doxorubicin or paclitaxel, two agents used in
+human bladder cancer, opening the possibility of effective
+combinations of C1311 with these agents. Consistent with
+
+these findings, we recently completed testing of C1311 in vitro
+in our BLA-40 panel and observed a median GI50 of 0.5 μM.6
+
+Questions and Future Directions
+The ability of the COXEN methodology to produce, solely on
+the basis of gene expression profiling coupled to in vitro NCI-60
+testing, predictive models capable of stratifying patients is suggestive of several important applications that address limitations of gene expression models derived from a posteriori
+analysis of gene expression against patient treatment outcomes.
+Principally, these studies show that a priori stratification of patients is possible, offering the opportunity to substantially reduce the size of clinical trials for novel agents (22), while
+potentially avoiding treating patients who are unlikely to receive any clinical benefit from investigational or even standard
+of care regimens. For example, in the case of bladder cancer,
+cisplatin-based combination chemotherapy is associated with
+substantial morbidity and up to 3% mortality (12). The ability
+to stratify patients on the basis of probability of response to
+standard therapies could spare the substantial proportion of
+therapeutic nonresponders (∼50% in larger studies; ref. 12)
+the toxicity associated with therapy while preventing delay
+of surgery in the neoadjuvant setting (23). As authors have observed before, for advanced and inoperable patients, earlier triage of predicted nonresponders to investigational agents
+could take place before further deterioration of performance
+status, a key factor for survival time in advanced disease (4).
+In the case of investigational agents, particularly targeted
+agents, increasing experience in this area has suggested that
+a priori stratification of patients is essential to design trials
+enriched with responders and to exclude participants unlikely
+to enjoy any clinical benefit (22). Recent a posteriori studies
+have found that in some cases, particular genetic lesions confer exquisite sensitivity or resistance to targeted agents (24,
+25), whereas we note that, in the case of EGFR mutations
+and drug response in non–small cell lung cancer (NSCLC), between ∼5 to 15% of mutation-negative patients still enjoy a
+therapeutic response (24). We suggest that constructing GEMs
+a priori on the basis of in vitro response by using COXEN might
+offer the opportunity to represent a core responder phenotype
+with gene expression that can be further refined when combined with targeted evaluations such as mutations or activity
+of signaling intermediates. Supporting this idea is a recent report by Balko and colleagues, who reported signatures of gefitinib sensitivity from in vitro studies that were predictive of
+EGFR mutation and activation status in NSCLC tissues (26).
+In addition, there is no reason that predictive nomograms
+could not be built on the basis of traditional clinicopathologic
+characteristics, mutation or activation markers, and yet
+include a GEM; indeed, we have incorporated phosphoprotein
+biomarkers into the development of combination GEMs for
+prediction of BLA-40 sensitivity to lapatinib (27).
+
+6
+
+5
+
+1756
+
+D. Theodorescu and J.K. Lee, unpublished observations.
+
+Cancer Res; 70(5) March 1, 2010
+
+S.C. Smith and D. Theodorescu. Development and preclinical evaluation of
+rational combination therapy with imidazoacridinones in human bladder
+cancer, manuscript in preparation.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+Published OnlineFirst February 16, 2010; DOI: 10.1158/0008-5472.CAN-09-3562
+The COXEN Principle
+
+This technology raises the specter of other possible implementations. For example, future studies in vitro and in animal models might show that COXEN GEMs can predict
+efficacious agents for nonresponders to standard of care
+agents. Could such a strategy be implemented to suggest
+an approved agent or combination for rare orphan tumor
+histologies, in which standard of care consists of only empiric
+multi-agent therapies because large randomized trials are
+not feasible? Most provocatively, could this type of technology be employed to offer other approved anticancer agents to
+predicted standard of care nonresponders? Similar issues
+have been raised by other investigators in the field, who have
+questioned whether prospective validation might always be
+necessary, particularly in critical cases such as second or
+third line therapy for treatment failures in which no standard
+of care exists (28). Although the practical and ethical concerns of these kinds of implementations are manifest and deserve serious consideration and debate, it is clear that novel
+trial formats will be necessary to evaluate such interventions
+that are eo ipso outside of current designs. One potential way
+to address these concerns may be to use methodologies like
+COXEN GEMs to select therapies to add to standard of care
+regimens, as is often the trial design used to show efficacy for
+promising agents. Clearly, though, complex pharmacologic
+interactions will need to be considered in any combination
+that is computationally recommended.
+From the standpoint of development, two significant
+opportunities are offered by COXEN. This technology can
+be used early on to evaluate which tumor histologies are
+most likely to respond to newly developed agents, suggesting ways to enrich early clinical trials with such patients
+increasing the chances for success. This approach could
+also be used in the unfortunate case of failed clinical trials
+for a drug salvage and/or repositioning strategy in another
+tumor system, with the theoretical ability to find success
+in a different tumor histology after trial failures in its primary target. Such trials would be especially efficient and
+more rapid because the pharmacology and toxicity of the
+drug would have been already well documented in prior
+studies.
+Finally, whereas we have used COXEN to link cell line panels to other panels or to human tumors by virtue of the
+common language of gene expression, the principle is not
+limited by the platform. As such, we are in the process of
+evaluating the ability of COXEN to generate predictive biomarkers using DNA, microRNA, as well as proteomic data
+sets from tumors and body fluids.
+
+Caveats and Limitations
+Several limitations must be taken into consideration and
+interpretation of the COXEN findings. First, except for 233
+of the breast cancer patients in the most recent report, the
+patient cohorts in which we have studied the predictive ability of the COXEN GEMs were not prospectively enrolled,
+which can introduce selection biases. Though this limits
+the generality of interpretation of the potential role of GEMs
+in such a setting, it is reassuring to have observed significant
+
+www.aacrjournals.org
+
+prediction, retrospectively, in smaller patient subsets across
+multiple tumor types reported from geographically different
+areas. It is revealing, however, that recently this issue has
+come to the attention of the U.S. Food and Drug Administration, who have suggested in their nonbinding recommendations, Draft Guidance: In vitro Diagnostic Multivariate Index
+Assays (29), that “use of archived samples and/or retrospective
+data may sometimes be used to support clearance or approval, provided the study design and sample composition reflect
+the intended use of the device in the intended population.”
+Beyond the larger concerns of how and under what
+circumstances COXEN or other powerful predictive technologies may be used or approved for use in patients
+(28), COXEN raises important technical implementation
+questions. For example, it certainly is not customary in
+the general practice of oncology for most cancer types to
+subject patients to the additional morbidity of biopsy of, let
+alone metastectomy, for presumed metastatic disease. If
+COXEN GEMs are capable of predicting sensitivity in such
+a setting, is the original, primary tumor from the definitive
+resection even the correct lesion to profile for prediction?
+If not, what degree of efficacy, however defined, of predictive GEMs must be shown to outweigh the risk of invasive
+surgical or imaging-guided sampling procedures (as has
+been reported recently; ref. 30) to secure tissues of the metastasis itself to use for prediction. This kind of question becomes all the more important in the setting of metastatic
+recurrence postadjuvant chemotherapy, as occurs with some
+frequency in bladder cancer, as such lesions are often chemoresistant and trials of second-line agents generally observe low response rates. Perhaps circulating tumor cells
+could be evaluated for the COXEN-derived GEMs (31), and
+this may be a solution that obviates the need for biopsy in
+patients in which such tumors can be captured and analyzed.
+
+Conclusion
+In summary, the COXEN algorithm shows promise as a
+means to use genomic information as a universal language
+to translate drug sensitivity biomarkers between cell line and
+tumor platforms. The findings reviewed herein constitute the
+first attempt at laying a foundation for future implementations
+that seem compelling and suggestive. Future studies ranging
+from model systems and preclinical studies to prospective
+clinical trials will determine if this concept, now in its infancy,
+will grow up into a strong adult in the fight against cancer.
+Disclosure of Potential Conflicts of Interest
+J.K. Lee and D. Theodorescu: intellectual property rights in the COXEN
+principle.
+
+Grant Support
+National Institutes of Health (NIH) CA075115.
+Received 09/24/2009; revised 11/16/2009; accepted 11/23/2009; published
+OnlineFirst 02/16/2010.
+
+Cancer Res; 70(5) March 1, 2010
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+1757
+
+Published OnlineFirst February 16, 2010; DOI: 10.1158/0008-5472.CAN-09-3562
+Smith et al.
+
+References
+1.
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+7.
+
+8.
+
+9.
+
+10.
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
+17.
+
+1758
+
+van't Veer LJ, Dai H, van de Vijver MJ, et al. Gene expression profiling
+predicts clinical outcome of breast cancer. Nature 2002;415:530–6.
+Paik S, Tang G, Shak S, et al. Gene expression and benefit of chemotherapy in women with node-negative, estrogen receptor-positive
+breast cancer. J Clin Oncol 2006;24:3726–34.
+Takata R, Katagiri T, Kanehira M, et al. Predicting response to methotrexate, vinblastine, doxorubicin, and cisplatin neoadjuvant chemotherapy for bladder cancers through genome-wide gene expression
+profiling. Clin Cancer Res 2005;11:2625–36.
+Als AB, Dyrskjot L, von der Maase H, et al. Emmprin and survivin
+predict response and survival following cisplatin-containing chemotherapy in patients with advanced bladder cancer. Clin Cancer Res
+2007;13:4407–14.
+Pavlidis N, Briasoulis E, Hainsworth J, Greco FA. Diagnostic and
+therapeutic management of cancer of an unknown primary. Eur J
+Cancer 2003;39:1990–2005.
+Shoemaker RH. The NCI60 human tumour cell line anticancer drug
+screen. Nat Rev Cancer 2006;6:813–23.
+Staunton JE, Slonim DK, Coller HA, et al. Chemosensitivity prediction by transcriptional profiling. Proc Natl Acad Sci U S A 2001;98:
+10787–92.
+Lee JK, Havaleshko DM, Cho H, et al. A strategy for predicting the
+chemosensitivity of human cancers and its application to drug discovery. Proc Natl Acad Sci U S A 2007;104:13086–91.
+Williams PD, Cheon S, Havaleshko DM, et al. Concordant gene
+expression signatures predict clinical outcomes of cancer patients
+undergoing systemic therapy. Cancer Res 2009;69:8302–9.
+Potti A, Dressman HK, Bild A, et al. Genomic signatures to guide the
+use of chemotherapeutics. Nat Med 2006;12:1294–300.
+Soukup M, Cho H, Lee JK. Robust classification modeling on microarray data using misclassification penalized posterior. Bioinformatics
+2005;21[Suppl 1]:i423–30.
+von der Maase H, Hansen SW, Roberts JT, et al. Gemcitabine and
+cisplatin versus methotrexate, vinblastine, doxorubicin, and cisplatin
+in advanced or metastatic bladder cancer: results of a large, randomized, multinational, multicenter, phase iii study. J Clin Oncol 2000;18:
+3068–77.
+Havaleshko DM, Cho H, Conaway M, et al. Prediction of drug
+combination chemosensitivity in human bladder cancer. Mol Cancer
+Ther 2007;6:578–86.
+Havaleshko DM, Smith SC, Cho H, et al. Comparison of global versus
+epidermal growth factor receptor pathway profiling for prediction of
+lapatinib sensitivity in bladder cancer. Neoplasia 2009;11:1185–93.
+Takata R, Katagiri T, Kanehira M, et al. Validation study of the prediction system for clinical response of M-VAC neoadjuvant chemotherapy. Cancer Sci 2007;98:113–7.
+De Marco C, Zaffaroni N, Comijn E, Tesei A, Zoli W, Peters GJ.
+Comparative evaluation of C1311 cytotoxic activity and interference
+with cell cycle progression in a panel of human solid tumour and
+leukaemia cell lines. Int J Oncol 2007;31:907–13.
+Isambert N, Campone M, Bourbouloux E, et al. Evaluation of the
+
+Cancer Res; 70(5) March 1, 2010
+
+18.
+
+19.
+
+20.
+
+21.
+
+22.
+23.
+
+24.
+
+25.
+26.
+
+27.
+
+28.
+
+29.
+
+30.
+
+31.
+
+safety of C-1311 administered in a phase I dose-escalation trial as
+a weekly infusion for 3 consecutive weeks in patients with advanced
+solid tumors. ASCO Meeting Abstracts 2006;24:2069.
+Thomas A, Anthoney A, Ahmed S, et al. Evaluation of the safety of
+C-1311 administered in a phase 1 dose-escalation trial as a 1-hour
+infusion once every 3 weeks in patients with advanced solid tumors.
+ASCO Meeting Abstracts 2006;24:12005.
+Thomas AL, Anthoney A, Scott E, et al. C-1311, a novel inhibitor of
+FLT3 and topoisomerase II: A phase 1 trial of a once every three
+week schedule in patients with advanced solid tumors [abstract].
+J Clin Oncol 2008;26:2576.
+Capizzi RL, Roman LA, Tjulandin S, et al. Phase II trial of C1311,
+a novel inhibitor of topoisomerase II in advanced breast cancer
+[abstract]. J Clin Oncol 2008;26:1055.
+Alami N, Paterson J, Belanger S, Juste S, Grieshaber CK, LeylandJones B. Comparative cytotoxicity of C-1311 in colon cancer in vitro and in vivo using the hollow fiber assay. J Chemother 2007;19:
+546–53.
+Simon R. The use of genomics in clinical trial design. Clin Cancer Res
+2008;14:5984–93.
+Weight CJ, Garcia JA, Hansel DE, et al. Lack of pathologic downstaging with neoadjuvant chemotherapy for muscle-invasive urothelial carcinoma of the bladder: a contemporary series. Cancer 2009;
+115:792–9.
+Gazdar AF. Activating and resistance mutations of EGFR in nonsmall-cell lung cancer: role in clinical response to EGFR tyrosine
+kinase inhibitors. Oncogene 2009;28[Suppl 1]:S24–31.
+Gill S, Goldberg RM. Cetuximab, chemotherapy and KRAS status in
+mCRC. Nat Rev Clin Oncol 2009;6:379–80.
+Balko JM, Potti A, Saunders C, Stromberg A, Haura EB, Black EP.
+Gene expression patterns that predict sensitivity to epidermal growth
+factor receptor tyrosine kinase inhibitors in lung cancer cell lines and
+human lung tumors. BMC Genomics 2006;7:289.
+Havaleshko DM, Smith SC, Cho H, et al. Comparison of global versus EGFR pathway profiling for prediction of Lapatinib sensitivity in
+bladder cancer. Neoplasia, In press 2010.
+Golub TR. Genomic Information in Cancer. Proceedings of the
+33rd Annual AACR-Richard and Hinda Rosenthal Memorial Award
+Lecture. 100th Annual Meeting of the American Association for
+Cancer Research; 2009 Apr 21. Denver, CO: AACR; 2009.
+Office of In Vitro Diagnostic Device Evaluation and Safety USFaDA.
+Draft guidance for industry, clinical laboratories, and fda staff: in vitro
+diagnostic multivariate index assays. In: Services USDoHaH, editor.
+Rockville, MD: Office of Communication, Training and Manufacturers
+Assistance, HFM-40; 2007. p. 1–15.
+Khambata-Ford S, Garrett CR, Meropol NJ, et al. Expression of
+epiregulin and amphiregulin and K-ras mutation status predict
+disease control in metastatic colorectal cancer patients treated with
+cetuximab. J Clin Oncol 2007;25:3230–7.
+Klein CA. Parallel progression of primary tumours and metastases.
+Nat Rev Cancer 2009;9:302–12.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+Published OnlineFirst February 16, 2010; DOI: 10.1158/0008-5472.CAN-09-3562
+
+The COXEN Principle: Translating Signatures of In vitro
+Chemosensitivity into Tools for Clinical Outcome Prediction
+and Drug Discovery in Cancer
+Steven C. Smith, Alexander S. Baras, Jae K. Lee, et al.
+Cancer Res 2010;70:1753-1758. Published OnlineFirst February 16, 2010.
+
+Updated version
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-09-3562
+
+This article cites 28 articles, 12 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/70/5/1753.full#ref-list-1
+This article has been cited by 7 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/70/5/1753.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications
+Department at pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications
+Department at permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+

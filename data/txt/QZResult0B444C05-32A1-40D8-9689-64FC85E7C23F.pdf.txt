@@ -1,0 +1,1533 @@
+Oncotarget, Vol. 7, No. 38
+
+www.impactjournals.com/oncotarget/
+
+Research Paper
+
+Predicting the cell death responsiveness and sensitization of
+glioma cells to TRAIL and temozolomide
+Birgit C. Weyhenmeyer1,2,*, Janis Noonan1,2,*, Maximilian L. Würstle1,2, Frank A.
+Lincoln1,2, Grainne Johnston1,2, Markus Rehm1,2,3,4,**, Brona M. Murphy1,2,**
+1
+
+Department of Physiology & Medical Physics, Royal College of Surgeons in Ireland, Dublin, Ireland
+
+2
+
+Centre for Systems Medicine, Royal College of Surgeons in Ireland, Dublin, Ireland
+
+3
+
+Institute of Cell Biology and Immunology, Faculty of Energy-, Process- and Biotechnology, University of Stuttgart, Stuttgart,
+Germany
+
+4
+
+Stuttgart Research Center Systems Biology, University of Stuttgart, Stuttgart, Germany
+
+*
+
+These authors have contributed equally to this work
+
+**
+
+These authors share senior authorship
+
+Correspondence to: Markus Rehm, email: mrehm@rcsi.ie
+Brona M. Murphy, email: bronamurphy@rcsi.ie
+Keywords: glioblastoma, TRAIL, temozolomide, apoptosis, systems biology
+Received: December 08, 2015     Accepted: July 18, 2016     Published: August 01, 2016
+
+ABSTRACT
+Genotoxic chemotherapy with temozolomide (TMZ) is a mainstay of treatment for
+glioblastoma (GBM); however, at best, TMZ provides only modest survival benefit to
+a subset of patients. Recent insight into the heterogeneous nature of GBM suggests
+a more personalized approach to treatment may be necessary to overcome cancer
+drug resistance and improve patient care. These include novel therapies that can be
+used both alone and with TMZ to selectively reactivate apoptosis within malignant
+cells. For this approach to work, reliable molecular signatures that can accurately
+predict treatment responsiveness need to be identified first. Here, we describe the
+first proof-of-principle study that merges quantitative protein-based analysis of
+apoptosis signaling networks with data- and knowledge-driven mathematical systems
+modeling to predict treatment responsiveness of GBM cell lines to various apoptosisinducing stimuli. These include monotherapies with TMZ and TRAIL, which activate
+the intrinsic and extrinsic apoptosis pathways, respectively, as well as combination
+therapies of TMZ+TRAIL. We also successfully employed this approach to predict
+whether individual GBM cell lines could be sensitized to TMZ or TRAIL via the selective
+targeting of Bcl-2/Bcl-xL proteins with ABT-737. Our findings suggest that systems
+biology-based approaches could assist in personalizing treatment decisions in GBM
+to optimize cell death induction.
+
+cell death by causing DNA double strand breaks that
+eventually lead to growth arrest and activation of cellular
+apoptosis [4].
+To date, the only significant prognostic marker of
+GBM patient response to TMZ is promoter methylation of
+the gene encoding for MGMT [5, 6]; specifically, promoter
+methylation has been identified as a feature of favorable
+outcome in patients undergoing TMZ therapy for both
+newly diagnosed GBM and recurrent disease [7]. In the
+elderly sub-population of patients, MGMT testing is now
+recommended for routine clinical decision making with
+regards to stratification of therapy; this follows the results
+
+INTRODUCTION
+Glioblastoma (GBM), the most common form of
+primary brain tumor in humans, is typically aggressive,
+highly infiltrative, and resistant to conventional therapy.
+Despite improvements in surgical technique and the
+addition of temozolomide (TMZ) to the armamentarium,
+patient median survival remains dismal at 14.6 months,
+with most experiencing tumor relapse within 7 months
+of treatment onset [1] and a large proportion gaining no
+survival advantage to TMZ therapy at all [2, 3]. When
+successful, this oral alkylating drug induces glioma
+www.impactjournals.com/oncotarget
+
+61295
+
+Oncotarget
+
+of two phase 3 clinical trials that clearly demonstrate
+‘unmethylated’ patients benefit more from radiotherapy
+alone while ‘methylated’ patients benefit more from
+TMZ chemotherapy alone [8, 9]. In the non-elderly
+sub-population of GBM patients, however, discordant
+responses between ‘methylated’ and ‘unmethylated’ subgroups of patients exist, indicating that the treatment
+decision to use TMZ in these patients should not be based
+on this biomarker alone. Nevertheless, MGMT testing
+has become commonplace for patient selection within
+clinical trials [6] [10–13] and is frequently requested as a
+prognostic biomarker during patient clinical workup [14].
+Irrespective of patient responsiveness to TMZ,
+the dismal prognosis associated with GBM makes it
+clear that other therapeutic strategies are required, both
+as stand-alone treatment options and as sensitizing
+therapies that can be combined with TMZ to overcome
+current treatment resistance. In line with this, due to the
+extremely heterogeneous nature of these tumors [15, 16],
+it is becoming increasingly evident that such treatment
+strategies ought to be individualized and tailored to the
+needs of each GBM patient. Recent efforts in personalizing
+anti-cancer treatments have focused on therapies that
+selectively reactivate apoptosis within malignant cells,
+such as those that promote apoptosis via the Bcl-2 family
+of regulatory proteins and those that act by binding to
+death receptors expressed on the surface of the cell.
+Tumor necrosis factor-related apoptosis-inducing
+ligand (TRAIL), the natural ligand for the apoptotic
+receptors, DR4 and DR5, is one anti-cancer therapy
+that has been gaining momentum in recent years [17,
+18]. Using extrinsic agents like TRAIL has two putative
+advantages over intrinsic agents: firstly, TRAIL can trigger
+apoptosis independently of p53, which is commonly
+mutated in primary (28%) and secondary (65%) GBM
+patients [19], contributing, in part, to TMZ resistance
+[20]; and secondly, TRAIL can kill cancer cells without
+conferring significant toxicity to normal cells [21, 22].
+Several TRAIL-based therapies, including the human
+recombinant TRAIL ligand (dulanermin), which targets
+both DR4 and DR5, and agonistic antibodies against DR4
+(mapatumumab) and DR5 (drozitumab, lexatumumab,
+tigatuzumab, LBY-135, and conatumumab) have been
+assessed within clinical trials [17, 23]. Unfortunately,
+while these agents are reportedly well tolerated in patients,
+both alone and in combination with standard therapies,
+only isolated responses have been observed. It should
+be noted, however, that these trials involved no degree
+of patient pre-selection and thus may not reflect a true
+clinical evaluation of TRAIL-based therapies, which
+might be efficacious but only for a subset of patients.
+With regards to GBM, most glioma cells are resistant
+to TRAIL monotherapy, although several promising
+combination treatments to overcome this resistance have
+been described [24–28]. Particularly encouraging in vitro
+and in vivo findings come from the combination of TRAIL
+www.impactjournals.com/oncotarget
+
+and TMZ, which evoke concomitant stimulation of the
+intrinsic and extrinsic apoptotic pathways [29–31]. Used
+together, these agents should, in theory, enhance both the
+likelihood of apoptosis induction as well as the strength of
+the apoptotic signal. TMZ might also play the role of TRAIL
+‘sensitizer’, overcoming resistance by up-regulating the
+expression of death receptors, leading in turn to substantial
+caspase activation [29, 30]. Other mechanisms of TRAIL
+and TMZ resistance are shared, such as an up-regulation of
+anti-apoptotic and down-regulation of pro-apoptotic Bcl-2
+proteins and an over-expression of inhibitor of apoptosis
+(IAP) proteins [23, 32].
+Small molecules that antagonize pro-survival Bcl-2
+proteins, namely BH3 mimetics, are currently under preclinical and clinical evaluation as single agent anti-cancer
+therapies and as sensitizers to apoptosis-inducing drugs
+[33, 34]. One of the most advanced and well characterized
+small molecule inhibitors is the BH3 mimetic, ABT-737,
+which predominantly binds to Bcl-2 and Bcl-xL to induce
+or sensitize cells to apoptosis through the intrinsic pathway.
+As a single agent, ABT-737 has shown anti-tumor activity
+in GBM cells in vitro [35], while in concert with TRAIL,
+it has demonstrated efficacious results in an in vivo model
+of GBM [27]. Recently, ABT-737 has also been shown to
+sensitize gliomas cells to TMZ-induced apoptosis [36].
+Despite these promising studies, molecular marker
+signatures that could facilitate reliable predictions on
+the responsiveness of individual GBM cases to TMZ
+and TRAIL alone or in combination currently do
+not exist. Likewise, tools to predict ABT-737-based
+sensitization of GBM cells to TMZ or TRAIL have not
+yet been developed. Here, we addressed these problems
+in a first pre-clinical proof-of-principle study in which
+we merged quantitative experimental studies with dataand knowledge-driven mathematical system modeling to
+predict treatment responsiveness of GBM cell lines.
+
+RESULTS
+Defining and parameterizing functional groups
+of cell death regulators for knowledge- and
+data-driven systems modeling
+We previously demonstrated that a knowledge- and
+data-driven mathematical modeling approach is capable
+of generating reliable predictions of melanoma cell line
+responsiveness to both TRAIL- and genotoxic druginduced cell death, outperforming classical statistical
+procedures [37]. As part of this approach, biological
+pathway information on linear and non-linear interplay
+between cell death regulatory proteins is integrated into
+data obtained from quantitative measurements of these
+proteins. This is achieved by defining “functional groups
+(FGs)” in which multiple proteins are related to each other
+by simple arithmetic rules (sums, products, or ratios of a
+small number of proteins), multivariate statistical analysis,
+61296
+
+Oncotarget
+
+proteins may need to be transcriptionally induced or posttranslationally modified in response to TMZ, either alone or
+in combinations, the relevance of their baseline expression
+levels with regards to determining cell death responsiveness
+is not yet clear [51–53]. It is also possible that these proteins
+functionally differ in their capacity to activate/antagonize
+pro- and anti-apoptotic Bcl-2 family proteins [54, 55]. Thus,
+keeping these proteins as separate variables allowed us to
+better understand their respective impact on the model’s
+performance. Of note, in the subsequent results we did not
+observe a notable improvement in model performance when
+merging these proteins into one FG (not shown). To define
+the caspase-9-activating apoptosome complex, we multiplied
+the protein concentrations of Apaf-1 and caspase-9;
+this multiplication ensured that the value for this group
+approached zero when either Apaf-1 or caspase-9 expression
+was low or absent. We applied the same reasoning to the
+grouping of DR4, DR5 and FADD; this group represented
+the DISC. FGs of apoptotic caspases and their antagonists
+(cFLIP and caspase-8; XIAP and caspase-3) were defined as
+ratios. SMAC remained as a single protein and accordingly
+was kept as an individual variable.
+To parameterize these 11 FGs with protein data,
+we carried out quantitative flow cytometry to determine
+the cell surface expression of death receptors 4 and 5 as
+well as quantitative immunoblotting to determine the
+relative protein expression of the other 17 key players of
+the apoptotic pathways activated by TRAIL and TMZ
+(Supplementary Table S1). An overview, based on a total
+of 627 quantifications in 11 cell lines, is provided in Figure
+1C. The resulting quantities for the FGs are provided in
+Supplementary Table S2. The cell lines chosen for this
+study included both commercially available cell lines, A172,
+U87, U251, U343, and U373 and a cohort of lines derived
+from patient GBMs, including both primary (MZ18, MZ51,
+MZ294, MZ327) and recurrent (MZ256, MZ304) tumors. All
+of the commercially available lines expressed a methylated
+MGMT promoter whilst among the patient derived cell lines,
+MZ18, MZ51 and MZ294 expressed a methylated promoter
+and MZ304, MZ256 and MZ327 expressed an unmethylated
+promoter. Of note, statistical analysis comparing the relative
+expression of apoptotic proteins, as listed in Supplementary
+Table S1, in “methylated” versus “unmethylated” cell lines
+revealed no relationship between protein expression profiles,
+methylation status and response to treatment (not shown).
+
+and the application of pattern recognition algorithms [37–
+39]. To apply this approach to the TRAIL- and TMZ-based
+treatments in GBM, the relevant signaling pathways and
+the respective FGs first needed to be defined.
+The apoptosis pathway activated by TRAIL is well
+characterized and depicted in Figure 1A. Briefly, TRAIL
+binds to death receptors, DR4 and DR5, on the surface
+of the cell, resulting in the recruitment of the adaptor
+protein, Fas-associated death domain (FADD), through
+death effector domain (DED) interactions. FADD, in turn,
+recruits pro-caspase-8, pro-caspase-10 and/or cellularFLIP (cFLIP), thereby forming the multi-protein deathinducing signaling complex (DISC) [40]. Pro-caspase-8
+recruitment to the DISC results in its autocatalytic
+processing to the active caspase-8 enzyme; however,
+c-FLIP proteins can inhibit this process. If activated,
+caspase-8 can subsequently go on to activate effector
+caspases such as caspase-3 to execute the extrinsic
+apoptotic pathway [41]. Alternatively, caspase-8 can
+activate the intrinsic pathway via cleavage of the BH3only protein, Bid. The truncated active form of Bid,
+tBid, engages with Bax or Bak to induce mitochondrial
+outer membrane permeabilisation (MOMP) and release
+of cytochrome c and second mitochondria-derived
+activator of caspases (SMAC) into the cytosol [42]. This
+mitochondrial pathway of apoptosis, which involves
+additional BH3-only proteins, such as Bim, Puma and
+Noxa [43, 44], is also the entry point for cell death signals
+triggered by chemotherapeutics like TMZ [4, 45–48].
+The function of BH3-only proteins and activated Bax or
+Bak is antagonized by the anti-apoptotic Bcl-2 family
+proteins, Bcl-2, Bcl-xL and Mcl-1. Once in the cytosol,
+cytochrome c interacts with apoptotic protease activating
+factor 1 (Apaf-1) to form the heptameric backbone of the
+apoptosome complex, which in turn recruits and activates
+caspase-9 [49]. At the same time, SMAC neutralizes
+the caspase-inhibitory function of X-linked inhibitor
+of apoptosis protein (XIAP) to assist in the ultimate
+activation of effector caspases like caspase-3 [50].
+We used this knowledge of pathway topology to
+group the above-mentioned proteins into FGs based on their
+relationships within the signaling network (Figure 1B). For
+example, we grouped together Bcl-2, Bcl-xL and Mcl-1 by
+adding their nM amounts since these represent functionally
+redundant antagonists of Bax and Bak. Similarly, we grouped
+together Bax and Bak since they form the mitochondrial pores
+leading to MOMP. The BH3-only proteins, Bid, Bim, Puma,
+and Noxa, were kept as separate variables for a number
+of reasons. Firstly, Bid plays an essential role in driving
+the activation of the mitochondrial pathway of apoptosis,
+specifically in response to extrinsic pathway stimulation;
+therefore, functionally, Bid is largely separate from the other
+BH3-only proteins. Secondly, the respective relevance and
+individual importance of Bim, Puma and Noxa in regulating
+the TMZ-induced intrinsic pathway of apoptosis is still a
+matter of debate [51]. Furthermore, since these BH3-only
+www.impactjournals.com/oncotarget
+
+Functional groups of apoptosis regulators
+in GBM cell lines can be associated with cell
+death responsiveness to TMZ and TRAIL
+monotherapy
+Following the parameterization of the FGs, these
+data were analyzed to determine if any relationship existed
+between FG values and the responsiveness of each cell line
+to TMZ or TRAIL. First, we applied a principal component
+analysis (PCA) to the FG data. This statistical procedure
+61297
+
+Oncotarget
+
+allowed us to accumulate the variance observed in the 11
+FGs in the 11 cell lines in a lower number of independent
+dimensions, referred to as principal components (PCs)
+(Figure 2A). The variance explained by the respective PCs
+indicates that the first 4 PCs needed to be retained for the
+subsequent analyses to capture approximately 70% of the
+data variance of the original data set, and all subsequent
+analyses were therefore conducted in this 4D PC space.
+Each PC is defined by distinct contributions of the
+different FGs, according to specific weighting coefficients
+for the FGs (Figure 2B, Supplementary Table S3).
+For visualization purposes, the cell-line specific
+values of the FGs, multiplied with the FG-specific
+coefficients in the first three 3 PCs, allowed us to position
+the 11 GBM cell lines within a three dimensional PC space
+(Figure 2C). The position of the individual cell lines in
+the PC space is therefore associated with their respective
+individual protein expression profiles. The distribution
+of the cell lines within the PC space demonstrated that
+the cell lines did not form spatially separated clusters,
+indicating a high degree of heterogeneity between the
+GBM cell lines (Figure 2C). Additional information on
+this procedure is provided in the methods section and the
+published literature [37].
+Next, we asked whether the PC space, and
+therefore the protein composition of the apoptosis
+signaling network, contains information on whether the
+cell lines are responsive to TMZ or TRAIL. To this end,
+we first experimentally measured cell viability following
+TMZ or TRAIL treatment in all cell lines (Figure 2D).
+Our data showed that the responsiveness of the cell lines
+
+to TMZ or TRAIL varied substantially across the panel
+and also that individual cell lines frequently responded
+differently to TMZ or TRAIL. Furthermore, we also
+noted that very few cell lines responded well to these
+treatments (Figure 2D). Previous work from our group
+has highlighted that a reduction in cell survival in TMZ
+responsive cell lines, U251 and U343, correlates with
+activation of the intrinsic apoptotic cell death pathway,
+as demonstrated by a significant increase in the number
+of condensed nuclei and AnnexinV staining, as well as
+procaspase-3 activation and PARP cleavage; we also
+showed that such cell death could be suppressed by
+caspase inhibition with zVAD-fmk and that no such
+responses were evident in TMZ-resistant cell lines
+[56]. To confirm that the TRAIL-sensitive cell lines
+were undergoing apoptosis via the extrinsic pathway,
+we examined the processing of procaspase-8 in the
+TRAIL-sensitive cell line, A172; cleavage of caspase-8
+was clearly detected 24 h post TRAIL treatment
+(Supplementary Figure S1A). We also examined the
+effect of TRAIL treatment on the executioner caspase,
+caspase-3, and found that TRAIL treatment also led to
+the cleavage of pro-caspase-3 after 24 h (Supplementary
+Figure S1A). Activation of both caspase-8 and caspase-3
+was prevented by the combined presence of zVAD-fmk
+and TRAIL (Supplementary Figure S1A). Furthermore,
+we detected a significant increase in AnnexinV positive
+cells following TRAIL treatment (Supplementary Figure
+S1B), which was also prevented by zVAD-fmk. None
+of these events were evident in the TRAIL-resistant cell
+line, MZ304 (Supplementary Figures S1A, S1B).
+
+Figure 1: Coding and parameterizing functional groups of apoptosis signaling proteins for knowledge- and datadriven systems modeling. A. Pathway diagram for intrinsic and extrinsic apoptosis pathways elicited by TMZ and TRAIL, respectively.
+
+B. Grouping of apoptosis signaling proteins into functional groups by simple arithmetic operations. C. Relative levels of protein expression
+within the GBM cell line panel. Circles summarize 627 quantifications, while circle sizes are proportional to the protein quantities
+determined from n = 3 independent experiments. Green and red indicate anti- and pro-apoptotic proteins, respectively. Protein expression
+amounts are provided in Supplementary Table S1. The resulting FG values are provided in Supplementary Table S2.
+www.impactjournals.com/oncotarget
+
+61298
+
+Oncotarget
+
+Figure 2: Functional groups of cell death regulators highlight an association between protein expression profiles and
+cell survival following TMZ and TRAIL treatment. A. A principal component analysis (PCA) was applied to the functional
+
+groups of the GBM cell line panel. Results are shown as a scree plot. Bar graphs show the contribution of each principal component (PC)
+toward explaining the data variance. B. Bar graphs show the coefficients for all functional groups in the first four PCs. Coefficient values
+are provided in Supplementary Table S3. C. Graphical illustration of the distribution of GBM cell lines along the first three PCs. Circle
+sizes decrease with distance from the observer to aid 3D visualization. D. Cell survival following TMZ and TRAIL monotherapy. Cells
+were treated with TMZ (150 µM) or TRAIL (100 ng/ml) for 96 h followed by cell viability measurement. Data show cell survival relative
+to control values of 100% (mean ± SEM from n = 3 independent experiments). E and F. Cell lines in the 3D PC space were color coded
+according to their responsiveness to TMZ and TRAIL, respectively. G. Performance of the response group separation in the 4D PC space
+by linear discriminant analysis (LDA) is shown by listing the amount of correctly classified cell lines.
+
+www.impactjournals.com/oncotarget
+
+61299
+
+Oncotarget
+
+Subsequently, cell lines were defined treatmentspecifically as highly responsive (up to 30% survival), low
+responsive (30-80% survival) or resistant (>80% survival).
+According to the definition of response classes, the cell lines
+positioned in the PC space were color coded (Figure 2E, 2F).
+Interestingly, it appeared that within the 3D space, resistant
+cell lines seemed to be spatially separated from cell lines with
+
+higher responsiveness (Figure 2E, 2F). While visually this
+pattern was obvious, we tested whether this separation could
+likewise be achieved objectively by using linear discriminant
+analysis (LDA), an algorithm that aims to separate the
+responsiveness groups by hyperplanes in the 4D PC space.
+The separation of the response groups by this approach
+was highly accurate, with all cell lines correctly classified
+
+Figure 3: Case-specific predictions of TMZ and TRAIL monotherapy responsiveness in GBM cell lines. A. Workflow for
+determining the predictive power of the model using leave-one-out cross-validation (LOOCV). All predictions were performed in 4D PC
+space. B,C. 2D projections of the PC spaces calculated from combinations of 10 cell lines are shown for TMZ and TRAIL treatments. Circle
+sizes decrease with distance from the viewer, thereby providing information on the third PC dimension. Open circles represent the test
+cell lines, which were placed into the PC spaces according to their functional group values. D. Performance scores for correctly predicting
+cell line responses to TMZ and TRAIL monotherapy. E. Case-specific predictions on TMZ and TRAIL responsiveness allow the in silico
+identification of optimal treatment options. Treatment recommendations were made according to the highest predicted responsiveness to
+TMZ or TRAIL and validated against experimental data. Green background indicates cases where optimal treatment options could be
+identified. Red background indicates cases where the better treatment option could be missed.
+www.impactjournals.com/oncotarget
+
+61300
+
+Oncotarget
+
+into their respective response groups for TMZ treatment
+responsiveness (Figure 2G). For TRAIL responsiveness,
+only one highly responsive cell line was identified, which
+was pooled with the next highest responsiveness group for
+all subsequent analyses. LDA correctly classified 10/11 cell
+lines (91%) for TRAIL responsiveness (Figure 2G). Taken
+together, these findings indicate that protein data of key cell
+death regulators together with information on their interplay
+can be employed to separate GBM cell lines according to
+their TMZ and TRAIL responsiveness.
+
+treatment resistant cancer models, such as GBM cell lines
+[29–31]. We therefore next studied the responsiveness of
+the cell line panel to TMZ/TRAIL combination treatment.
+First, we investigated whether the response groups could
+be separated in the PC space and then we determined
+whether overall responsiveness as well as response
+synergies in these cell lines could be reliably predicted.
+Overall, the responsiveness of the GBM cell line
+panel to TMZ/TRAIL treatment was improved when
+compared to the single agent treatments (Figure 4A,
+Figure 2D); this reduction in cell viability (Figure 4A)
+correlated with an increase in apoptotic cell death in
+TMZ and TRAIL-treated U251 cells, as evidenced by
+PARP cleavage and the prevention of such cleavage
+upon caspase inhibition (Supplementary Figure S1C),
+a significant increase in the number of Hoechst-labelled
+condensed nuclei (Supplementary Figure S1D), and
+caspase-3 substrate cleavage (Supplementary Figure
+S1E). No such cell death-related changes were evident in
+the treatment-resistant cell line, MZ294 (Supplementary
+Figure S1C, S1D, S1E). As with the single agent
+treatments, the response pattern to TMZ/TRAIL
+treatment was heterogeneous across the cell line panel,
+with both resistant and responsive cell lines identified
+(Figure 4A). Color coding the cell lines according to
+TMZ+TRAIL responsiveness again indicated that
+regions in the PC space appear to be associated with
+different levels of treatment responsiveness, and
+that these spatial regions can be separated by LDA
+(Supplementary Figure S2A, S1B). To test the predictive
+capacity of the model for TMZ+TRAIL combination
+treatment, we again conducted LOOCV (Supplementary
+Figure S2C). However, the responsiveness of only 6
+out of the 11 cell lines was predicted correctly (55%)
+(Supplementary Figure S2D).
+Since the capacity of the model to predict cell line
+responsiveness to the dual treatment strategy of TMZ
+and TRAIL was limited, we next considered whether
+our modeling approach was better suited to study and
+predict response synergies. To this end, we first calculated
+the (CI) Value of each cell line using Webb’s fractional
+product method [56], which provided us with a ‘synergy
+score’ for the combination treatment for each cell line
+(Supplementary Table S4); this was then used to place
+the cell lines in the PC space. Using this approach, we
+obtained regions in the PC space that allowed us to
+separate the cell lines by response synergies (Figure
+4B). Furthermore, once we performed LOOCV using the
+CI Values, we found that we could successfully predict
+response synergies to TMZ and TRAIL combination
+therapy with 100% accuracy (Figure 4C, 4D). Taken
+together, these results indicate that while prediction
+accuracies for the overall responsiveness to TMZ and
+TRAIL were limited, apoptosis protein expression patterns
+together with our modeling approach, were particularly
+powerful in predicting response synergies.
+
+Case specific predictions of TMZ and TRAIL
+monotherapy responsiveness allow the in silico
+identification of optimal treatments
+We next investigated whether the above findings can
+assist in predicting the responsiveness of individual cell
+lines to TMZ or TRAIL. We hypothesized that conducting
+the above analyses with a reduced number of cell lines
+may be sufficient to generate a PC space that can be
+segmented into spatial regions that reflect different levels
+of treatment responsiveness. We conducted a leave-one-out
+cross validation (LOOCV) in which we used the data from
+10 cell lines and subsequently positioned the 11th cell line
+into the LDA segmented PC space. If the placed cell line
+(test cell line) was positioned within the correct response
+region, the prediction was considered to be correct
+(Figure 3A). A visualization of the results limited to the
+first two PCs for TMZ and TRAIL response predictions
+is shown in Figure 3B, 3C. The prediction accuracies are
+summarized in Figure 3D; this demonstrates that TMZ
+and TRAIL responsiveness can be predicted with high
+accuracy (73% and 82% correct predictions, respectively).
+In situations where multiple treatment options are
+available, treatment decision tools are required to assist
+in pre-selecting the optimal treatment option. An optimal
+treatment in our case (TMZ vs. TRAIL) was defined as
+the treatment that induces higher amounts of cell death
+for a given cell line. If both drugs cause similar amounts
+of cell death, either treatment suggestion was considered
+acceptable. Predictions were considered to have failed when
+the model recommended the treatment option with a lower
+effect on cell viability than the alternative treatment option.
+The performance of the model as a treatment decision tool
+is shown in Figure 3E. Treatment recommendations for the
+11 cell lines were correct in 82% (9/11) of cases. These
+proof-of-concept results demonstrate that our modeling
+approach has the potential to identify best treatment options
+for individual cell lines with high accuracy.
+
+Capability to predict synergistic responses to
+TMZ and TRAIL
+It has previously been reported that combination
+therapy with TMZ/genotoxic agents and TRAIL may
+significantly enhance the responsiveness of highly
+www.impactjournals.com/oncotarget
+
+61301
+
+Oncotarget
+
+Accurate prediction of TRAIL sensitization by
+Bcl-2/Bcl-xL antagonist ABT-737
+
+anti-apoptotic members of the Bcl-2 protein family,
+by binding to a hydrophobic groove of these proteins,
+thereby displacing bound activator BH3-only proteins and
+enabling the activation of pro-apoptotic Bax and Bak [57].
+To generate predictions on which cell lines could
+be sensitized to TMZ or TRAIL by ABT-737, we first
+determined how the position of such cell lines in the PC
+space would change upon elimination of Bcl-2 and BclxL. This repositioning was determined from the PCA
+results and the cell lines’ protein profiles. The vector for
+the movement direction (Figure 5A) was determined by
+inverting and combining the coefficients of the FG for the
+
+The above analyses demonstrated that it is possible
+to predict from baseline protein expression profiles
+whether individual cell lines will respond to TMZ or
+TRAIL monotherapy. Since many of the GBM cell lines
+were resistant to TMZ or TRAIL or only responded poorly,
+we next investigated if our systems modeling approach
+could be used to predict whether poorly responsive cell
+lines could be sensitized to treatment by ABT-737. ABT737 specifically antagonizes Bcl-2 and Bcl-xL, the major
+
+Figure 4: Predicting the synergy of TRAIL and TMZ combined therapy. A. Cell survival following TMZ and TRAIL combined
+therapy. Cells were treated with TMZ (150 µM) and TRAIL (100 ng/ml) for 96 h and MTT assays were performed to assess cell viability.
+Data show cell survival relative to control values of 100% (mean ± SEM from n = 3 independent experiments). B. Cell lines in the 3D space
+were separated according to their Combination Index (CI) Value and color coded according to their response synergies to TMZ and TRAIL
+combined treatment. Visual inspection indicates the response regions are spatially separated. C. 2D projections of the PC spaces calculated
+from combinations of 10 cell lines are shown for TMZ/TRAIL combined treatments. Circle sizes decrease with distance from the viewer,
+thereby providing information on the third PC dimension. Open circles represent the test cell lines, which were placed into the PC spaces
+according to their CI Value. Note that the U251 cell line had to be grouped with the low responding cell lines in this analysis since it was
+alone in its response group. D. Performance scores for correctly predicting synergistic responses to TMZ/TRAIL combination therapy.
+www.impactjournals.com/oncotarget
+
+61302
+
+Oncotarget
+
+Figure 5: Prediction and experimental validation of GBM cell line sensitization to TRAIL or TMZ treatment by ABT-737.
+
+A. A movement vector (red) was calculated by combining the weightings for the (Bcl-2+Bcl-xL+Mcl-1) functional group in the first 3 PCs. (i) and
+(ii) provide different perspectives on the vectors, compatible with 3D PC spaces for TMZ or TRAIL responsiveness. B. 3D PC spaces for TMZ and
+TRAIL responsiveness with movement vectors applied to test cell lines. The length of the movement vectors was calculated from the respective
+Bcl-2 and Bcl-xL content of the cell lines. Movement of treatment resistant cell lines towards regions populated by cell lines with higher treatment
+responsiveness predicts sensitization by the Bcl-2/Bcl-xL antagonist ABT-737. C, D, E. Experimental validation of predictions. Cell viability was
+measured for single and combination treatments. (C) Cells were treated with TMZ (150 µM) ± ABT-737 (1 µM) for 48 h. (D) Cells were treated
+with TRAIL (100 ng/ml) ± ABT-737 (1 µM) for 48 h. Data show cell viability (mean ± SEM from n = 3 independent experiments) in relation to
+untreated controls (100%). One-way ANOVA with Bonferroni comparisons was performed for statistical analysis. **p<0.01, ***p<0.001. ns = not
+significant. (E) Western blot analysis to confirm the successful knockdown of Bcl-2 and Bcl-xL. MZ18 and MZ304 cells were transfected with
+Bcl-2 and Bcl-xL esiRNA. F. siRNA depletion of Bcl-2 and Bcl-xL strongly sensitizes MZ18 but not MZ304 cells to TRAIL. Data show the number
+of PI+ cells (mean ± S.D. from triplicate samples) following treatment with TRAIL (100 ng/ml). Experiments were repeated with similar results.
+
+www.impactjournals.com/oncotarget
+
+61303
+
+Oncotarget
+
+a predictive or prognostic biomarker for GBM [59].
+Instead, due to the complexity of apoptosis signaling,
+it seems rational that any potential insight gained from
+this cell death pathway should require analysis of all the
+key players involved. This, coupled with knowledge of
+how these players interact, has the potential to provide
+us with a much greater overview of a cell’s capability
+to undergo apoptosis when confronted with a therapy
+that ultimately aims to achieve this mode of cell death.
+In this study, we applied this theory to both intrinsic
+(TMZ) and extrinsic (TRAIL) apoptosis-inducing
+therapies and successfully separated our panel of GBM
+cell lines according to their treatment response with
+100% and 91% accuracy, respectively (Figure 2G). This
+indicates that the complexity of the apoptosis signaling
+network as a whole needs to be taken into account for the
+implementation of successful predictive and prognostic
+strategies in GBM.
+The functional groups defined in our study represent
+low numbers of proteins logically inter-related according
+to their biological interplay. This approach towards
+systems modeling is notably simplistic when compared
+to alternative modeling strategies, such as deterministic
+mathematical models that build on the use of differential
+equations [60]. The modeling strategy chosen here
+has the distinct advantage of being more versatile and
+easy to implement, amend and extend going forward.
+For example, to build on our proof-of-concept study
+with subsequent translational studies, we could include
+additional independent variables that pertain, for example,
+to the sub-type of GBM, thereby gaining knowledge of
+the driver mutations and their effect on cell death/survival
+signals. Age, Karnofsky performance score, extent of
+surgical resection and other clinicopathological factors
+influencing prognosis could also be included [61].
+Importantly, once our cell lines were distributed
+in the PC space according to their protein expression
+profiles, we found little evidence of cell line overlap or
+clustering, indicative of the widespread heterogeneity
+found between the FGs of each cell line. This mirrors the
+extensive molecular heterogeneity found between GBM
+patients [15, 16] and backs the theory that a ‘one-sizefits-all’ approach to treating this disease, particularly with
+an apoptosis-targeted therapy, may not be valid [62].
+Instead, in line with advocates of personalized medicine,
+it is conceivable that patients could be treated based on
+their unique set of molecular alterations in, or expression
+of, apoptosis regulators. For this, treatment decision tools
+such as ours will need to be developed and clinically
+validated in the future to assist in the pre-selection and
+stratification of patients for optimal therapies.
+The prediction accuracy of our model was 73%
+and 82% for TMZ and TRAIL treatments, respectively.
+The higher performance score for TRAIL was likely
+attributable to the fact that we included all critical
+TRAIL signaling components in our model. Furthermore,
+
+anti-apoptotic Bcl-2 proteins (Figure 2B); the distance
+moved depended on the amount of Bcl-2 and Bcl-xL
+that contributed to the (Bcl-2+Bcl-xL+Mcl-1) FG value
+in the respective cell lines (high amounts of Bcl-2 and
+Bcl-xL caused a more pronounced displacement). The
+resulting repositioning vectors were then applied to four
+representative cell lines that poorly responded to TMZ or
+TRAIL (MZ18, MZ294, MZ304, MZ327 cell lines and
+MZ18, U87, MZ304, MZ294 cell lines, respectively).
+For TMZ + ABT737 treatments, the movement vectors
+indicated that none of the cell lines would reposition closer
+to responding cell lines (Figure 5B), suggesting that ABT737 co-treatment would not sensitize these glioma cells to
+TMZ. For TRAIL + ABT737 treatments, the movement
+vectors indicated that MZ18 and U87, but not MZ294 and
+MZ304, cell lines would reposition closer to responding
+cell lines and thus be sensitized to TRAIL (Figure 5B).
+These predictions were then validated experimentally.
+The selected cell lines were treated with either TMZ or
+TRAIL in the presence and absence of ABT-737 (1 µM)
+for 48 h. Cell viability measurements demonstrated that
+ABT-737 selectively sensitized MZ18 and U87 cells to
+TRAIL treatment, whereas ABT-737 did not sensitize any
+of the other cell lines to TMZ or TRAIL (Figure 5C, 5D).
+ABT-737 did not reduce cell viability on its own. These
+findings demonstrate that all predictions regarding ABT737-based sensitization could be validated (8/8), with our
+approach able to identify the subset of GBM cell lines
+that could be successfully sensitized to TRAIL by ABT737 co-treatment. To further validate these predictions, we
+used siRNA to knockdown Bcl-2 and Bcl-xL in MZ18 and
+MZ304 cells. As expected, our findings demonstrate that
+successful knockdown of Bcl-2 and Bcl-xL is sufficient
+to strongly sensitize MZ18 cells to TRAIL monotherapy.
+Our findings also demonstrate that, as predicted, Bcl-2 and
+Bcl-xL knockdown failed to notably raise the sensitivity of
+MZ304 cells to TRAIL monotherapy (<20% cell death).
+(Figure 5E, 5F). Overall, these findings demonstrate that
+the sensitizing effect of pharmacologically neutralizing
+anti-apoptotic Bcl-2 family members or by siRNA-based
+depletion can be accurately predicted by our approach.
+
+DISCUSSION
+Efficient induction of cell death is the aim of many
+anti-cancer therapies; thus, it follows that a cellular
+defect in cell death signaling pathways like apoptosis
+underlies one way in which these therapies can fail
+[32]. In apoptosis, death decisions are tightly controlled
+through multi-factorial and non-linear interplay of
+numerous regulatory proteins [58]; for this reason, indepth molecular analysis of any single protein, whether
+it be death-inducing or survival-promoting, is unlikely
+to yield an accurate prediction of drug responsiveness.
+Indeed, it is worth noting that no individual cell
+death regulating protein has so far been identified as
+www.impactjournals.com/oncotarget
+
+61304
+
+Oncotarget
+
+TRAIL-induced apoptosis is capable of proceeding
+independently of protein neo-synthesis, which suggests
+that baseline expression values for TRAIL signaling
+proteins is sufficient to predict the capacity of a cell to
+undergo TRAIL-induced apoptosis. The one obvious
+omission to the model, which may resolve any prediction
+error, is quantitative input for the TRAIL decoy receptors
+(DcR1 and DcR2). However, the level of decoy receptor
+expression in glioma cells is reportedly very low and
+therefore unlikely to account for TRAIL resistance [63]. Of
+course, we can’t exclude the possibility that other cellular
+events could be influencing TRAIL susceptibility, such
+as survival signaling [64] and induction of cytoprotective
+autophagy [65, 66]. For example, it is now known that
+in some cellular contexts TRAIL can engage NFkB, PKB/
+Akt and MAPKs signaling pathways, thereby contributing
+to cancer cell proliferation and migration as well as
+resistance to TRAIL-induced apoptosis [67]. Improving
+the predictive capacity for TMZ from baseline protein
+expression profiles may prove to be more difficult given
+that apoptosis occurs as a consequence of DNA damage
+and requires transcriptional and translational responses
+[4]. However, in this regard, future model extensions
+could take into account additional upstream events, such
+as DNA repair activity and p53 status as a main driver of
+transcriptional BH3-only protein induction [68, 69].
+Cell line responsiveness to TMZ and TRAIL
+varied substantially, with individual cell lines frequently
+responding differently to TMZ and TRAIL monotherapy.
+This gave us the opportunity to assess whether our model
+could be exploited as a treatment decision tool. The
+prediction accuracy of our model was 82%, with treatment
+recommendations correct 9 times out of 11. However, it
+should be noted that few cell lines responded well to either
+treatment, highlighting once again the profound resistance
+of glioma cells to apoptotic stimuli and the need for more
+effective and rational combination therapies. In recent
+years, there has been an abundance of studies reporting
+on mechanisms to overcome apoptosis resistance in
+GBM for both established and novel therapies [24–32].
+For the purpose of this study, we first focused on TMZ
+and TRAIL combination therapy, which in theory has
+the propensity to activate both the intrinsic and extrinsic
+apoptotic pathways, thereby enhancing both the likelihood
+of apoptosis induction as well as the strength of the
+apoptotic signal. In this case, our model only predicted
+the responsiveness of cell lines to TMZ+TRAIL with 55%
+accuracy (Supplementary Figure S2D). This indicates
+that other factors need to be taken into account to more
+accurately predict TMZ+TRAIL responsiveness. Such
+factors may include additional molecular information,
+such as genetic alterations, resulting in the inactivation
+of apoptosis proteins or that may affect death/survival
+signals. Similarly, additional pathway cross-talk and/or
+the potentiation of signaling processes may need to be
+taken into account. For example, to address the synergistic
+www.impactjournals.com/oncotarget
+
+manner in which TMZ and TRAIL come together to
+enhance apoptosis and in an attempt to determine whether
+knowledge of this synergy improves the predictive power
+of the model in co-treatment scenarios, we calculated the
+CI Value of each cell line [57]; this in turn allowed us
+to predict with 100% accuracy the response synergies of
+individual cells lines to TMZ+TRAIL (Figure 4C, 4D).
+Strikingly, we were also able to predict cell line
+sensitivity to TMZ and TRAIL upon their co-treatment
+with ABT-737 with 100% accuracy, highlighting that the
+consequences of a targeted intervention are captured by
+our approach; this finding was further validated by siRNA
+depletion of Bcl-2 and Bcl-xL. In light of the recent FDA
+approval of the first Bcl-2 inhibitor, Venetoclax (ABT199), for patients with chronic lymphocytic leukemia
+with the 17p deletion, as well as the encouraging phase
+I-III clinical trials in development for Venetoclax as a
+monotherapy and/or combination therapy for various
+types of cancer [70], our capability to accurately predict
+the treatment outcome of a targeted intervention within
+the apoptosis signaling cascade is a particularly pertinent
+finding. Interestingly, ABT-737 failed to sensitize any
+GBM cell line to TMZ therapy, whilst in contrast MZ18
+and U87 cells were sensitized to TRAIL. On the one hand,
+this may suggest that the expression levels of Bcl-2 and
+Bcl-xL are irrelevant to TMZ resistance, at least within the
+expression ranges observed in our cell line panel, but on
+the other hand it also highlights the potential superiority of
+TRAIL-based therapies. TRAIL has long been perceived
+as a potential attractive chemotherapeutic agent, since
+it can kill cancer cells without conferring significant
+toxicity to normal cells [21], however, to date, no TRAILbased therapy has demonstrated both potency and lack of
+systemic toxicity in any clinical trial [17, 22, 23]. Besides
+the limitations of previous TRAIL-based therapeutics,
+that are now being addressed in the design of superior 2nd
+generation receptor ligands [71, 72], it is our conjecture
+that the lack of patient pre-selection in these trials may
+have contributed to their disappointing outcomes.
+With the era of personalized medicine looming,
+our approach, if validated translationally in subsequent
+studies, could help to stratify patients for TRAIL monoor combination therapies. Such translational studies would
+initially require use of large-scale quantitative protein
+data from fresh or archived GBM tissue as well as the
+identification of high quality antibodies for the use of high
+through-put screening methods, like reverse phase protein
+or tissue micro arrays. For a clinical setting, our model
+could be refined to focus on cancer stem cell populations,
+believed to be the tumor initiating cells that drive the
+growth, progression and invasion of GBMs as well as
+their post-treatment recurrence [73–75]. In this regard,
+quantitative protein analysis of this highly tumorigenic
+sub-population of cells could provide us with crucial
+insight into whether tumor cells not surgically removed
+will respond to treatment.
+61305
+
+Oncotarget
+
+(Cat# sc-509, Santa Cruz); mouse monoclonal Bcl-xL
+(Cat# sc-8392); rabbit polyclonal Bid (Cat# 2002, Cell
+Signaling); rabbit monoclonal Bim (Cat# 2933, Cell
+Signaling); rabbit polyclonal caspase-3 (Cat# 9662,
+Cell Signaling); mouse monoclonal caspase-8 (Cat#
+ALX-804-242, Enzo Life Sciences); rabbit polyclonal
+caspase-9 (Cat# 9502, Cell Signaling); mouse monoclonal
+cFLIP (Cat# ALX-804-428, Enzo Life Sciences); mouse
+monoclonal FADD (Cat# 610399, BD Biosciences); mouse
+monoclonal Mcl-1 (Cat# 559027, BD Biosciences); mouse
+monoclonal Noxa (Cat# 13654, Abcam); rabbit polyclonal
+PUMA (Cat# 3041, ProSci Incorporated); mouse
+monoclonal SMAC/DIABLO (Cat# 2954, Cell Signaling);
+and mouse monoclonal XIAP (Cat# 610763, BD
+Biosciences); and mouse monoclonal β-actin (Cat# A5441,
+Sigma-Aldrich). Membranes were then washed three
+times with TBST for 5 min prior to being incubated with
+peroxidase-conjugated secondary antibodies (anti-mouse
+or anti-rabbit; Millipore) for 1 h at room temperature.
+Protein bands were visualized using the Immobilin western
+chemiluminescence HRP substrate (Millipore) and images
+were captured using a LAS-4000 imager equipped with
+a cooled 12 bit digital CCD camera (Fujifilm UK Ltd,
+Bedfordshire, UK). To guarantee accurate quantifications,
+special care was taken not to over-expose the protein
+bands. Densitometry was carried out on 12-bit raw images
+using ImageJ 1.4.10 software (National Institute of Heath,
+Bethesda, MD, USA; http://rsb.info.nih.gov/ij). For each
+protein, the integrated density of the signal was measured,
+corrected for background signals and normalized to a
+β-actin loading control. Standard curves from HeLa cell
+extracts (5-20 mg) were run concurrently with the GBM
+cell line extracts to ensure linearity of the signal detection
+range. The absolute concentration of most proteins of
+interest was previously determined in HeLa cells [77–79],
+so that HeLa cell signals could be used to calculate protein
+concentrations in GBM cell lines. Quantifications were
+carried out on at least 3 independent membranes. Cleavage
+of caspase-8 and caspase-3 was also assessed in A172 and
+MZ304 cells following TRAIL treatment (100 ng/ml) in
+the presence of the caspase inhibitor, zVAD-fmk (150
+μM; 30 min pre-treatment) for 24 and 96 h, respectively.
+Cleavage of PARP was assessed in MZ294 and U251 cells
+following the combined treatment of TRAIL (100 ng/ml)
++ TMZ (150 μM) in the presence or absence of zVAD-fmk
+(150 μM; 30 min pre-treatment) for 96 h.
+
+In conclusion, we have described the first preclinical proof-of-principle study that merges quantitative
+protein-based analysis of apoptosis signaling networks
+with data- and knowledge-driven mathematical systems
+modeling to predict treatment responsiveness of GBM cell
+lines to various apoptosis-inducing stimuli. Furthermore,
+we have shown that a systems biology-based approach
+could assist in personalizing treatment decisions in GBM
+to optimize cell death induction.
+
+MATERIALS AND METHODS
+Materials
+TMZ was purchased from Sigma-Aldrich Ireland
+Ltd (Dublin, Ireland). Human recombinant TRAIL was
+purchased from Enzo Life Science (UK) Ltd (Exeter,
+United Kingdom). ABT-737 was purchased from Biorbyt
+(Riverside, United Kingdom), and Bcl-2 and Bcl-xL
+esiRNAs were purchased from Sigma-Aldrich Ireland Ltd
+(Dublin, Ireland).
+
+GBM cell lines
+GBM cell lines A172, U87, U251, U343 and
+U373 are commercially available from the ATCC. GBM
+cell lines MZ18, MZ51, MZ294, MZ304, MZ327, and
+MZ256 were kindly donated by Professor Donat Kögel of
+Johann Wolfgang Goethe University Hospital, Frankfurt,
+Germany and have previously been characterized [76].
+The cells were grown in Dulbecco’s modified Eagle’s
+medium (DMEM) with 10% heat-inactivated fetal calf
+serum, 100 U/ml penicillin and 100 mg/ml streptomycin
+and were maintained in a humidified incubator at 37°C
+and 5% CO2.
+
+Western blot analysis
+In order to determine the basal expression level of
+apoptotic proteins, GBM cell lines were homogenized
+in lysis buffer containing 0.5 mmol/l Tris-HCl (pH6.8),
+2% SDS (w/v), 10% glycerine (w/v), and protease and
+phosphatase inhibitor cocktails (Sigma-Aldrich). After
+determining the protein concentration of samples using
+a BCA protein assay (Pierce, Rockford, IL, USA), 20 μg
+samples were boiled in gel-loading buffer and separated
+on 10-15% SDS-PAGE gels. Proteins were transferred
+to nitrocellulose membranes using the iBlot gel transfer
+device (Life Technologies, Invitrogen, Paisley, Scotland).
+The membranes were blocked in 5% non-fat milk in
+TBST for 1 h at room temperature prior to being incubated
+with primary antibodies overnight at 4°C. The following
+primary antibodies were used: rabbit polyclonal Apaf-1
+(Cat# 16941, Millipore); rabbit polyclonal Bak (Cat# sc832, Santa Cruz); rabbit polyclonal Bax (Cat# 06-499,
+Upstate Biotechnology); mouse monoclonal Bcl-2
+www.impactjournals.com/oncotarget
+
+Flow cytometry
+The basal surface expression of DR4 and DR5
+were assessed using a BD LSR II flow cytometer (BD
+Biosciences). Briefly, 1 x 105 cells were seeded into
+6 well plates and allowed to adhere overnight. Cells
+were then harvested with trypsin-EDTA and pelleted by
+centrifugation at 1200 rpm for 5 min at 4°C. Following
+incubation with a blocking buffer (0.5% BSA) on ice for
+61306
+
+Oncotarget
+
+20 min, cells were incubated with a mouse monoclonal
+antibody for DR4 (Cat# ab13890, Abcam; 1:100 dilution)
+or DR5 (Cat# ALX-804-914-0100, Enzo life sciences;
+1:100 dilution) for 30 min, pelleted and washed x 3 with
+PBS, and then incubated with a secondary anti-mouse
+FITC-conjugated antibody (Life Technologies, Invitrogen,
+Paisley, Scotland; 1:200 dilution) for 30 min in the dark.
+Controls were stained with secondary antibody only.
+FITC was excited at 488 nm and fluorescence emission
+was collected in the FL1 channel through a 520 nm bandpass filter. A total of 1 x 104 gated cells were acquired
+for each cell line. The relative expression of DR4 and
+DR5 was determined by comparison of specific staining
+intensities compared to individual cell line negative
+controls. For cell death measurements, flow cytometry was
+used to assess the number of AnnexinV+ cells following
+treatment with TRAIL (100 ng/ml) or TRAIL+TMZ (150
+μM) in the presence or absence of zVAD-fmk (150 μM;
+30 min pre-treatment) for 96 h as well as the number
+of PI+ cells following transfection with Bcl-2/Bcl-xL
+siRNA and treatment with TRAIL (100 ng/ml) for 48 h.
+Briefly, cells were seeded into 6-well plates and allowed
+to adhere overnight. Following appropriate treatment
+conditions, cells were pelleted and incubated in 100μl
+of binding buffer (10 nM HEPES, 135 nM NaCl, 5 mM
+CaCl2) containing AnnexinV- FITC conjugate (5 μl/ml)
+(BioVision, Moutain View, CA, USA) for 10 min on ice
+in the dark or in DMEM containing PI (1.33 μg/ml) for 15
+min at 37°C. FITC was excited at 488 nm and fluorescence
+emission was collected in the FL1 channel through a
+520 nm band-pass filter. PI was excited at 561 nm and
+fluorescence emission was collected through a 605/40 nm
+band-pass filter and a 570 nm long pass filter. A total of
+1 x 104 gated cells were acquired for each cell line.
+
+“maximum effect” (Emax) conditions and accordingly
+were treated with TMZ (150 µM) or TRAIL (100 ng/
+ml) for 96 h. To confirm cell lines responsiveness to
+TRAIL and TMZ combined therapy, cells were treated
+with TRAIL (100 ng/ml) and TMZ (150 µM) for 96 h.
+To substantiate the sensitization of cell lines to TRAIL or
+TMZ with ABT-737, cells were either treated with TRAIL
+(100 ng/ml) in the presence or absence of ABT-737 (1 µM)
+for 48 h or with TMZ (150 µM) in the presence or absence
+of ABT-737 (1 µM) for 48 h. Following treatment, cells
+were incubated with thiazolyl blue tetrazolium bromide
+(MTT; 5mg/ml; Sigma-Aldrich Ireland Ltd) for 4 h at
+37°C, after which the medium was aspirated and replaced
+with DMSO (200 µl). The absorbance of each sample was
+measured at 560 nm using a microplate reader (GENios,
+Tecan, Mannedorf, Switzerland). MTT is a yellow
+tetrazole that is converted to dark blue/purple formazan
+by mitochondrial dehydrogenase of living cells. Thus,
+the absorbance value for each sample was considered
+proportional to the number of viable cells.
+
+Hoechst staining
+MZ294 and U251 cells were stained with Hoechst
+33258 (1 μg/ml) for 20 min. Changes in nuclear
+morphology were detected by epifluorescence microscopy
+(Nikon Eclipse TE300). Normal bright field images were
+taken to examine morphological changes, such as cell
+shrinkage and membrane blebbing.
+
+Caspase-3 substrate cleavage
+DEVDase (Caspase-3-like) activity was determined
+fluorometrically using carbobenzoxy-Asp-Glu-ValAsp-7-amino-4-methyl-coumarin (DEVD-AMC) as
+substrate. Cleavage of DEVD-AMC to liberate free
+AMC was monitored by measuring fluorescence after 1
+and 2 h intervals. Protein content was determined using
+Pierce Coomassie Plus Protein assay reagent (Perbio,
+Northumberland, UK). Caspase activity is expressed as a
+change in fluorescent units per hour and per microgram
+protein.
+
+Cell transfection
+To downregulate Bcl-2 and Bcl-xL protein
+expression, we used endoribonuclease-prepared small
+interfering RNAs (esiRNAs), which are comprised of a
+heterogeneous mixture of siRNAs that all target the same
+mRNA sequence (Cat# EHU135281 and EHU087041,
+Sigma-Aldrich). Briefly, MZ18 and MZ304 cells were
+transfected with 1 μg of Bcl-2 esiRNA and 1 μg of BclxL esiRNA for 4 h using LipofectamineTM 2000 in
+antibiotic-free Opti-MEM medium (Life Technologies,
+Invitrogen, Paisley, Scotland). Following this incubation
+period, the transfection mixture was replaced with fresh
+DMEM and the cells were allowed to recover for 48 h,
+after which they were used for experiments.
+
+Statistical analysis
+Student’s t-test or one-way ANOVA with post hoc
+Bonferroni test were performed to identify statistically
+significant differences between treatment groups. P-values
+are indicated in the figure panels and legends.
+
+Cell viability measurements
+
+Data processing and analysis for knowledge- and
+data-driven systems modeling
+
+GBM cell lines were seeded into 96-well plates
+(2000 cells/well) and allowed to adhere overnight. To
+validate cell line responsiveness to TMZ and TRAIL
+monotherapy, cells were treated at clinically-informed
+
+All data processing and analysis was performed
+using a programming code developed for MATLAB
+2007b (The Mathworks, UK), equipped with the statistics
+toolbox; a detailed description of the procedures has
+
+www.impactjournals.com/oncotarget
+
+61307
+
+Oncotarget
+
+previously been published [37]. In brief, following the
+integration of protein expression data into functional
+groups, a PCA was performed [38, 39]. PCs with
+eigenvalues above 1 were retained, according to the
+Kaiser criterion [80, 81]. Scatter plots were generated
+from the first three PCs to visualize the data. LDA [82]
+was employed to determine the accuracy of response
+class separations in the PC space. LOOCV was applied
+to iteratively test the prediction capacity of the model
+for the entire cell line ensemble. LDA was applied after
+each iteration to determine if the test cell lines positioned
+in the PC space region that corresponded to its drug
+responsiveness. To predict sensitization effects of ABT737 in co-treatment scenarios, the protein values for the
+target proteins, Bcl-2 and Bcl-xL, were set to zero and the
+re-positioning of cell lines of choice in the PC space was
+investigated. Re-positioning towards PC space regions
+of higher responsiveness were interpreted as a prediction
+for successful sensitization. A detailed description for this
+procedure is available in [37].
+
+Radiotherapy plus concomitant and adjuvant temozolomide
+for glioblastoma. The New England journal of medicine.
+2005; 352:987-996.
+2.	 Mrugala MM and Chamberlain MC. Mechanisms of
+disease: temozolomide and glioblastoma–look to the future.
+Nature clinical practice Oncology. 2008; 5:476-486.
+3.	 Mirimanoff RO, Gorlia T, Mason W, Van den Bent MJ,
+Kortmann RD, Fisher B, Reni M, Brandes AA, Curschmann
+J, Villa S, Cairncross G, Allgeier A, Lacombe D, et al.
+Radiotherapy and temozolomide for newly diagnosed
+glioblastoma: recursive partitioning analysis of the EORTC
+26981/22981-NCIC CE3 phase III randomized trial. Journal
+of clinical oncology. 2006; 24:2563-2569.
+4.	 Quiros S, Roos WP and Kaina B. Processing of
+O6-methylguanine into DNA double-strand breaks requires
+two rounds of replication whereas apoptosis is also induced
+in subsequent cell cycles. Cell Cycle. 2010; 9:168-178.
+5.	 Hegi ME, Diserens AC, Gorlia T, Hamou MF, de Tribolet
+N, Weller M, Kros JM, Hainfellner JA, Mason W, Mariani
+L, Bromberg JE, Hau P, Mirimanoff RO, et al. MGMT gene
+silencing and benefit from temozolomide in glioblastoma.
+The New England journal of medicine. 2005; 352:997-1003.
+
+Abbreviations
+temozolomide, TMZ; glioblastoma, GBM; tumor
+necrosis factor-related apoptosis-inducing ligand, TRAIL;
+death receptor 4/5, DR4/5; inhibitor of apoptosis protein,
+IAP; functional groups, FG; fas-associated death domain,
+FADD; death-inducing signaling complex, DISC; death
+effector domain, DED; mitochondrial outer membrane
+permeabilisation, MOMP; second mitochondria-derived
+activator of caspases, SMAC; apoptotic protease activating
+factor 1, Apaf-1; principle component analysis, PCA;
+linear discriminant analysis, LDA; leave-one-out cross
+validation, LOOCV; epidermal growth factor receptor,
+EGFR; platelet-derived growth factor receptor, PDGFR;
+small interfering RNA, siRNA.
+
+6.	 Gilbert MR, Wang M, Aldape KD, Stupp R, Hegi ME,
+Jaeckle KA, Armstrong TS, Wefel JS, Won M, Blumenthal
+DT, Mahajan A, Schultz CJ, Erridge S, et al. Dose-dense
+temozolomide for newly diagnosed glioblastoma: a
+randomized phase III clinical trial. Journal of clinical
+oncology. 2013; 31:4085-4091.
+7.	 Felsberg J, Thon N, Eigenbrod S, Hentschel B, Sabel MC,
+Westphal M, Schackert G, Kreth FW, Pietsch T, Loffler
+M, Weller M, Reifenberger G, Tonn JC, et al. Promoter
+methylation and expression of MGMT and the DNA
+mismatch repair genes MLH1, MSH2, MSH6 and PMS2 in
+paired primary and recurrent glioblastomas. International
+journal of cancer. 2011; 129:659-670.
+8.	 Malmstrom A, Gronberg BH, Marosi C, Stupp R, Frappaz
+D, Schultz H, Abacioglu U, Tavelin B, Lhermitte B, Hegi
+ME, Rosell J, Henriksson R and Nordic Clinical Brain
+Tumour Study G. Temozolomide versus standard 6-week
+radiotherapy versus hypofractionated radiotherapy in
+patients older than 60 years with glioblastoma: the Nordic
+randomised, phase 3 trial. The Lancet Oncology. 2012;
+13:916-926.
+
+ACKNOWLEDGMENTS AND Funding
+The authors kindly acknowledge support for their
+work by grants from the Irish Health Research Board
+(HRA_POR/2012/88 and HRA_POR/2013/245), the RCSI
+Research Committee (GR 08-0155) and the European
+Union (FP7 IAPP SYS-MEL; FP7 APO-DECIDE;
+Horizon 2020 MSC ETN MEL-PLEX, Horizon 2020
+MSC ETN TRAIN-ERS).
+
+9.	 Wick W, Platten M, Meisner C, Felsberg J, Tabatabai G,
+Simon M, Nikkhah G, Papsdorf K, Steinbach JP, Sabel
+M, Combs SE, Vesper J, Braun C, et al. Temozolomide
+chemotherapy alone versus radiotherapy alone for malignant
+astrocytoma in the elderly: the NOA-08 randomised, phase
+3 trial. The Lancet Oncology. 2012; 13:707-715.
+
+CONFLICTS OF INTEREST
+The authors declare no conflicts of interest.
+
+10.	 Grossman SA, Ye X, Chamberlain M, Mikkelsen T,
+Batchelor T, Desideri S, Piantadosi S, Fisher J and Fine HA.
+Talampanel with standard radiation and temozolomide in
+patients with newly diagnosed glioblastoma: a multicenter
+phase II trial. Journal of clinical oncology. 2009;
+27:4155-4161.
+
+REFERENCES
+1.	 Stupp R, Mason WP, van den Bent MJ, Weller M, Fisher
+B, Taphoorn MJ, Belanger K, Brandes AA, Marosi C,
+Bogdahn U, Curschmann J, Janzer RC, Ludwin SK, et al.
+www.impactjournals.com/oncotarget
+
+61308
+
+Oncotarget
+
+11.	 Peereboom DM, Shepard DR, Ahluwalia MS, Brewer CJ,
+Agarwal N, Stevens GH, Suh JH, Toms SA, Vogelbaum
+MA, Weil RJ, Elson P and Barnett GH. Phase II trial of
+erlotinib with temozolomide and radiation in patients with
+newly diagnosed glioblastoma multiforme. Journal of
+neuro-oncology. 2010; 98:93-99.
+
+24.	 Murphy AC, Weyhenmeyer B, Noonan J, Kilbride SM,
+Schimansky S, Loh KP, Kogel D, Letai AG, Prehn JH and
+Murphy BM. Modulation of Mcl-1 sensitizes glioblastoma
+to TRAIL-induced apoptosis. Apoptosis. 2014; 19:629-642.
+25.	 van Roosmalen IA, Reis CR, Setroikromo R, Yuvaraj S,
+Joseph JV, Tepper PG, Kruyt FA and Quax WJ. The ER
+stress inducer DMC enhances TRAIL-induced apoptosis in
+glioblastoma. SpringerPlus. 2014; 3:495.
+
+12.	 Weiler M, Hartmann C, Wiewrodt D, Herrlinger U, Gorlia
+T, Bahr O, Meyermann R, Bamberg M, Tatagiba M, von
+Deimling A, Weller M and Wick W. Chemoradiotherapy
+of newly diagnosed glioblastoma with intensified
+temozolomide. International journal of radiation oncology,
+biology, physics. 2010; 77:670-676.
+
+26.	 Bangert A, Cristofanon S, Eckhardt I, Abhari BA, Kolodziej
+S, Hacker S, Vellanki SH, Lausen J, Debatin KM and Fulda
+S. Histone deacetylase inhibitors sensitize glioblastoma
+cells to TRAIL-induced apoptosis by c-myc-mediated
+downregulation of cFLIP. Oncogene. 2012; 31:4677-4688.
+
+13.	 Lai A, Tran A, Nghiemphu PL, Pope WB, Solis OE, Selch
+M, Filka E, Yong WH, Mischel PS, Liau LM, Phuphanich
+S, Black K, Peak S, et al. Phase II study of bevacizumab
+plus temozolomide during and after radiation therapy for
+patients with newly diagnosed glioblastoma multiforme.
+Journal of clinical oncology. 2011; 29:142-148.
+
+27.	 Cristofanon S and Fulda S. ABT-737 promotes tBid
+mitochondrial accumulation to enhance TRAIL-induced
+apoptosis in glioblastoma cells. Cell death & disease. 2012;
+3:e432.
+28.	 Fulda S, Wick W, Weller M and Debatin KM. Smac agonists
+sensitize for Apo2L/TRAIL- or anticancer drug-induced
+apoptosis and induce regression of malignant glioma in
+vivo. Nature medicine. 2002; 8:808-815.
+
+14.	 Wick W, Weller M, van den Bent M, Sanson M, Weiler M,
+von Deimling A, Plass C, Hegi M, Platten M and Reifenberger
+G. MGMT testing--the challenges for biomarker-based glioma
+treatment. Nature reviews Neurology. 2014; 10:372-385.
+
+29.	 Kim SM, Woo JS, Jeong CH, Ryu CH, Jang JD and Jeun
+SS. Potential application of temozolomide in mesenchymal
+stem cell-based TRAIL gene therapy against malignant
+glioma. Stem cells translational medicine. 2014; 3:172-182.
+
+15.	 Inda MM, Bonavia R and Seoane J. Glioblastoma
+multiforme: a look inside its heterogeneous nature. Cancers.
+2014; 6:226-239.
+16.	 Eder K and Kalman B. Molecular heterogeneity of
+glioblastoma and its clinical relevance. POR. 2014;
+20:777-787.
+
+30.	 Hingtgen S, Ren X, Terwilliger E, Classon M, Weissleder
+R and Shah K. Targeting multiple pathways in gliomas with
+stem cell and viral delivered S-TRAIL and Temozolomide.
+Molecular cancer therapeutics. 2008; 7:3575-3585.
+
+17.	 Lemke J, von Karstedt S, Zinngrebe J and Walczak H.
+Getting TRAIL back on track for cancer therapy. Cell death
+and differentiation. 2014; 21:1350-1364.
+
+31.	 Saito R, Bringas JR, Panner A, Tamas M, Pieper RO, Berger
+MS and Bankiewicz KS. Convection-enhanced delivery of
+tumor necrosis factor-related apoptosis-inducing ligand
+with systemic administration of temozolomide prolongs
+survival in an intracranial glioblastoma xenograft model.
+Cancer research. 2004; 64:6858-6862.
+
+18.	 Stuckey DW and Shah K. TRAIL on trial: preclinical
+advances in cancer therapy. Trends in molecular medicine.
+2013; 19:685-694.
+19.	 Nagpal J, Jamoona A, Gulati ND, Mohan A, Braun A,
+Murali R and Jhanwar-Uniyal M. Revisiting the role of
+p53 in primary and secondary glioblastomas. Anticancer
+research. 2006; 26:4633-4639.
+
+32.	 Krakstad C and Chekenya M. Survival signalling and
+apoptosis resistance in glioblastomas: opportunities for
+targeted therapeutics. Molecular cancer. 2010; 9:135.
+
+20.	 Chiang MF, Chou PY, Wang WJ, Sze CI and Chang NS. Tumor
+Suppressor WWOX and p53 Alterations and Drug Resistance
+in Glioblastomas. Frontiers in oncology. 2013; 3:43.
+
+33.	 Billard C. BH3 mimetics: status of the field and new
+developments. Molecular cancer therapeutics. 2013;
+12:1691-1700.
+
+21.	 Walczak H, Miller RE, Ariail K, Gliniak B, Griffith TS,
+Kubin M, Chin W, Jones J, Woodward A, Le T, Smith C,
+Smolak P, Goodwin RG, et al. Tumoricidal activity of tumor
+necrosis factor-related apoptosis-inducing ligand in vivo.
+Nature medicine. 1999; 5:157-163.
+
+34.	 Bai L, Smith DC and Wang S. Small-molecule SMAC
+mimetics as new cancer therapeutics. Pharmacology &
+therapeutics. 2014; 144:82-95.
+35.	 Tagscherer KE, Fassl A, Campos B, Farhadi M, Kraemer A,
+Bock BC, Macher-Goeppinger S, Radlwimmer B, Wiestler
+OD, Herold-Mende C and Roth W. Apoptosis-based
+treatment of glioblastomas with ABT-737, a novel small
+molecule inhibitor of Bcl-2 family proteins. Oncogene.
+2008; 27:6646-6656.
+
+22.	 de Miguel D, Lemke J, Anel A, Walczak H and MartinezLostao L. Onto better TRAILs for cancer treatment. Cell
+death and differentiation. 2016; 23:733-747.
+23.	 Dimberg LY, Anderson CK, Camidge R, Behbakht K,
+Thorburn A and Ford HL. On the TRAIL to successful
+cancer therapy? Predicting and counteracting resistance
+against TRAIL-based therapeutics. Oncogene. 2013;
+32:1341-1350.
+www.impactjournals.com/oncotarget
+
+36.	 Yang MC, Loh JK, Li YY, Huang WS, Chou CH, Cheng JT,
+Wang YT, Lieu AS, Howng SL, Hong YR and Chou AK.
+Bcl2L12 with a BH3-like domain in regulating apoptosis
+and TMZ-induced autophagy: a prospective combination
+61309
+
+Oncotarget
+
+phosphorylation of the BH3-only proteins of the BCL-2
+family in glioblastoma multiforme. Cell death & disease.
+2012; 3:e421.
+
+of ABT-737 and TMZ for treating glioma. International
+journal of oncology. 2015; 46:1304-1316.
+37.	 Passante E, Wurstle ML, Hellwig CT, Leverkus M
+and Rehm M. Systems analysis of apoptosis protein
+expression allows the case-specific prediction of cell
+death responsiveness of melanoma cells. Cell death and
+differentiation. 2013; 20:1521-1531.
+
+52.	 Kouri FM, Jensen SA and Stegh AH. The role of Bcl-2
+family proteins in therapy responses of malignant astrocytic
+gliomas: Bcl2L12 and beyond. TheScientificWorldJournal.
+2012; 2012:838916.
+
+38.	 H H. Analysis of a complex of statistical variables into
+principal components. J Educ Psych. 1933; 24:417.
+
+53.	 Taylor RC, Cullen SP and Martin SJ. Apoptosis: controlled
+demolition at the cellular level. Nature reviews Molecular
+cell biology. 2008; 9:231-241.
+
+39.	 Pearson K. On lines and planes of closest fit to systems of
+points in space. Philosophical Magazine. 1901; 2:599-572.
+
+54.	 Chen L, Willis SN, Wei A, Smith BJ, Fletcher JI, Hinds
+MG, Colman PM, Day CL, Adams JM and Huang DC.
+Differential targeting of prosurvival Bcl-2 proteins by
+their BH3-only ligands allows complementary apoptotic
+function. Molecular cell. 2005; 17:393-403.
+
+40.	 Kischkel FC, Hellbardt S, Behrmann I, Germer M, Pawlita
+M, Krammer PH and Peter ME. Cytotoxicity-dependent
+APO-1 (Fas/CD95)-associated proteins form a deathinducing signaling complex (DISC) with the receptor. The
+EMBO journal. 1995; 14:5579-5588.
+
+55.	 Gelinas C and White E. BH3-only proteins in control:
+specificity regulates MCL-1 and BAK-mediated apoptosis.
+Genes & development. 2005; 19:1263-1268.
+
+41.	 Parrish AB, Freel CD and Kornbluth S. Cellular
+mechanisms controlling caspase activation and function.
+Cold Spring Harbor perspectives in biology. 2013; 5.
+
+56.	 Webb J. (1963). Effect of more than one inhibitor, in
+Enzyme and Metabolic inhibitor. Academic Press. (New
+York, pp. 66-77, 487-512.
+
+42.	 Luo X, Budihardjo I, Zou H, Slaughter C and Wang X. Bid,
+a Bcl2 interacting protein, mediates cytochrome c release
+from mitochondria in response to activation of cell surface
+death receptors. Cell. 1998; 94:481-490.
+
+57.	 van Delft MF, Wei AH, Mason KD, Vandenberg CJ, Chen L,
+Czabotar PE, Willis SN, Scott CL, Day CL, Cory S, Adams
+JM, Roberts AW and Huang DC. The BH3 mimetic ABT737 targets selective Bcl-2 proteins and efficiently induces
+apoptosis via Bak/Bax if Mcl-1 is neutralized. Cancer cell.
+2006; 10:389-399.
+
+43.	 Shamas-Din A, Brahmbhatt H, Leber B and Andrews DW.
+BH3-only proteins: Orchestrators of apoptosis. Biochimica
+et biophysica acta. 2011; 1813:508-520.
+44.	 Lomonosova E and Chinnadurai G. BH3-only proteins in
+apoptosis and beyond: an overview. Oncogene. 2008; 27
+Suppl 1:S2-19.
+
+58.	 Zamaraev AV, Kopeina GS, Zhivotovsky B and Lavrik
+IN. Cell death controlling complexes and their potential
+therapeutic role. CMLS. 2015; 72:505-517.
+
+45.	 Strasser A, Cory S and Adams JM. Deciphering the rules
+of programmed cell death to improve therapy of cancer and
+other diseases. The EMBO journal. 2011; 30:3667-3683.
+
+59.	 Nicolaidis S. Biomarkers of glioblastoma multiforme.
+Metabolism: clinical and experimental. 2015; 64:S22-27.
+60.	 Le Novere N. Quantitative and logic modelling of
+molecular and gene networks. Nature reviews Genetics.
+2015; 16:146-158.
+
+46.	 Rodriguez-Nieto S and Zhivotovsky B. Role of alterations
+in the apoptotic machinery in sensitivity of cancer cells
+to treatment. Current pharmaceutical design. 2006;
+12:4411-4425.
+
+61.	 Fekete B, Werlenius K, Orndal C and Rydenhag B.
+Prognostic factors for glioblastoma patients - a clinical
+population-based study. Acta neurologica Scandinavica.
+2015.
+
+47.	 Lin CJ, Lee CC, Shih YL, Lin CH, Wang SH, Chen
+TH and Shih CM. Inhibition of mitochondria- and
+endoplasmic reticulum stress-mediated autophagy augments
+temozolomide-induced apoptosis in glioma cells. PloS one.
+2012; 7:e38706.
+
+62.	 ElBanan MG, Amer AM, Zinn PO and Colen RR. Imaging
+genomics of Glioblastoma: state of the art bridge between
+genomics and neuroradiology. Neuroimaging clinics of
+North America. 2015; 25:141-153.
+
+48.	 Jakubowicz-Gil J, Langner E, Badziul D, Wertel I and
+Rzeski W. Apoptosis induction in human glioblastoma
+multiforme T98G cells upon temozolomide and quercetin
+treatment. Tumour biology. 2013; 34:2367-2378.
+
+63.	 Knight MJ, Riffkin CD, Muscat AM, Ashley DM and
+Hawkins CJ. Analysis of FasL and TRAIL induced
+apoptosis pathways in glioma cells. Oncogene. 2001;
+20:5789-5798.
+
+49.	 Acehan D, Jiang X, Morgan DG, Heuser JE, Wang X and
+Akey CW. Three-dimensional structure of the apoptosome:
+implications for assembly, procaspase-9 binding, and
+activation. Molecular cell. 2002; 9:423-432.
+
+64.	 Opel D, Westhoff MA, Bender A, Braun V, Debatin KM and
+Fulda S. Phosphatidylinositol 3-kinase inhibition broadly
+sensitizes glioblastoma cells to death receptor- and druginduced apoptosis. Cancer research. 2008; 68:6271-6280.
+
+50.	 Deng Y, Lin Y and Wu X. TRAIL-induced apoptosis
+requires Bax-dependent mitochondrial release of Smac/
+DIABLO. Genes & development. 2002; 16:33-45.
+
+65.	 Hou W, Han J, Lu C, Goldstein LA and Rabinowich H.
+Enhancement of tumor-TRAIL susceptibility by modulation
+of autophagy. Autophagy. 2008; 4:940-943.
+
+51.	 Cartron PF, Loussouarn D, Campone M, Martin SA
+and Vallette FM. Prognostic impact of the expression/
+www.impactjournals.com/oncotarget
+
+61310
+
+Oncotarget
+
+66.	 Han J, Hou W, Goldstein LA, Lu C, Stolz DB, Yin XM
+and Rabinowich H. Involvement of protective autophagy in
+TRAIL resistance of apoptosis-defective tumor cells. The
+Journal of biological chemistry. 2008; 283:19665-19677.
+
+75.	 Ortensi B, Setti M, Osti D and Pelicci G. Cancer stem
+cell contribution to glioblastoma invasiveness. Stem cell
+research & therapy. 2013; 4:18.
+76.	 Hetschko H, Voss V, Horn S, Seifert V, Prehn JH and Kogel
+D. Pharmacological inhibition of Bcl-2 family members
+reactivates TRAIL-induced apoptosis in malignant glioma.
+Journal of neuro-oncology. 2008; 86:265-272.
+
+67.	 Fulda S. The dark side of TRAIL signaling. Cell death and
+differentiation. 2013; 20:845-846.
+68.	 Zhang J, Stevens MF and Bradshaw TD. Temozolomide:
+mechanisms of action, repair and resistance. Current
+molecular pharmacology. 2012; 5:102-114.
+
+77.	 Rehm M, Huber HJ, Dussmann H and Prehn JH. Systems
+analysis of effector caspase activation and its control by
+X-linked inhibitor of apoptosis protein. The EMBO journal.
+2006; 25:4338-4349.
+
+69.	 Happo L, Strasser A and Cory S. BH3-only proteins
+in apoptosis at a glance. Journal of cell science. 2012;
+125:1081-1087.
+
+78.	 Laussmann MA, Passante E, Hellwig CT, Tomiczek B,
+Flanagan L, Prehn JH, Huber HJ and Rehm M. Proteasome
+inhibition can impair caspase-8 activation upon submaximal
+stimulation of apoptotic tumor necrosis factor-related
+apoptosis inducing ligand (TRAIL) signaling. The Journal
+of biological chemistry. 2012; 287:14402-14411.
+
+70.	 Deeks ED. Venetoclax: First Global Approval. Drugs. 2016;
+76:979-987.
+71.	 Gieffers C, Kluge M, Merz C, Sykora J, Thiemann M, Schaal
+R, Fischer C, Branschadel M, Abhari BA, Hohenberger P,
+Fulda S, Fricke H and Hill O. APG350 induces superior
+clustering of TRAIL receptors and shows therapeutic antitumor
+efficacy independent of cross-linking via Fcgamma receptors.
+Molecular cancer therapeutics. 2013; 12:2735-2747.
+
+79.	 Lindner AU, Concannon CG, Boukes GJ, Cannon MD,
+Llambi F, Ryan D, Boland K, Kehoe J, McNamara DA,
+Murray F, Kay EW, Hector S, Green DR, et al. Systems
+analysis of BCL2 protein family interactions establishes
+a model to predict responses to chemotherapy. Cancer
+research. 2013; 73:519-528.
+
+72.	 Seifert O, Plappert A, Fellermeier S, Siegemund M,
+Pfizenmaier K and Kontermann RE. Tetravalent antibodyscTRAIL fusion proteins with improved properties.
+Molecular cancer therapeutics. 2014; 13:101-111.
+
+80.	 HF K. The Application of Electronic Computers to Factor
+Analysis. Educational and Psychological Measurement.
+1960; 20:141-151.
+
+73.	 Wang J, Ma Y and Cooper MK. Cancer stem cells in
+glioma: challenges and opportunities. Translational cancer
+research. 2013; 2:429-441.
+
+81.	 RB C. The Scree Test For The Number Of Factors.
+Multivariate Behavioral Research. 1966; 1:245-276.
+
+74.	 Lathia JD, Mack SC, Mulkearns-Hubert EE, Valentim CL
+and Rich JN. Cancer stem cells in glioblastoma. Genes &
+development. 2015; 29:1203-1217.
+
+www.impactjournals.com/oncotarget
+
+82.	 RA F. The use of multiple measurements in taxonomic
+problems. Annals of human genetics 1936; 7:179-188.
+
+61311
+
+Oncotarget
+
+

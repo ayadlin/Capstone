@@ -1,0 +1,1392 @@
+HHS Public Access
+Author manuscript
+Author Manuscript
+
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+Published in final edited form as:
+Cancer Cell. 2015 October 12; 28(4): 515–528. doi:10.1016/j.ccell.2015.08.013.
+
+The Genomic Landscape and Clinical Relevance of A-to-I RNA
+Editing in Human Cancers
+
+Author Manuscript
+
+Leng Han1,9, Lixia Diao1,9, Shuangxing Yu2,9, Xiaoyan Xu3,1,9, Jie Li2, Rui Zhang4,10, Yang
+Yang1,5, Henrica M.J. Werner6,2, A. Karina Eterovic2, Yuan Yuan1, Jun Li1, Nikitha Nair7,
+Rosalba Minelli7, Yiu Huen Tsang7, Lydia W.T. Cheung2, Kang Jin Jeong2, Jason Roszik8,
+Zhenlin Ju1, Scott E. Woodman8, Yiling Lu2, Kenneth L. Scott7, Jin Billy Li4, Gordon B.
+Mills2,*, and Han Liang1,2,*
+1Department
+
+of Bioinformatics and Computational Biology, The University of Texas MD Anderson
+Cancer Center, Houston, TX 77030, USA
+
+2Department
+
+of Systems Biology, The University of Texas MD Anderson Cancer Center, Houston,
+TX 77030, USA
+
+3Department
+
+of Pathophysiology, College of Basic Medicine, China Medical University, Shenyang
+City, Liaoning Province 110001, China
+
+4Department
+
+of Genetics, Stanford University, Stanford, CA 94305, USA
+
+5Division
+
+of Biostatistics, The University of Texas Health Science Center at Houston, School of
+Public Health, Houston TX 77030, USA
+
+Author Manuscript
+
+6Women's
+
+department, Haukeland university hospital, Jonas Liesvei 72, 5053, Bergen, Norway
+
+7Department
+
+of Molecular and Human Genetics, Baylor College of Medicine, Houston, TX 77030,
+
+USA
+8Department
+
+of Melanoma Medical Oncology, The University of Texas MD Anderson Cancer
+Center, Houston, TX 77030, USA
+
+Summary
+
+Author Manuscript
+
+Adenosine-to-inosine (A-to-I) RNA editing is a widespread post-transcriptional mechanism, but
+its genomic landscape and clinical relevance in cancer have not been investigated systematically.
+We characterized the global A-to-I RNA editing profiles of 6236 patient samples of 17 cancer
+types from The Cancer Genome Atlas and revealed a striking diversity of altered RNA-editing
+
+*
+
+Correspondence: gmills@mdanderson.org (G.B.M.) or hliang1@mdanderson.org (H.L.).
+9Co-first author
+10Present address: School of Life Sciences, Sun Yat-Sen University, Guangzhou, Guangdong 510275, China
+
+Publisher's Disclaimer: This is a PDF file of an unedited manuscript that has been accepted for publication. As a service to our
+customers we are providing this early version of the manuscript. The manuscript will undergo copyediting, typesetting, and review of
+the resulting proof before it is published in its final citable form. Please note that during the production process errors may be
+discovered which could affect the content, and all legal disclaimers that apply to the journal pertain.
+Author Contributions
+H.L. conceived of and supervised the project. L.H., G.B.M. and H.L. designed and performed the research. L.D., R.Z., Y. Yang, Y.
+Yuan, Jun L., J.R., Z.J., S.W. and J.B.L. contributed to the data analysis. S.Y., X.X., Jie L., H.M.W., A.K.E., N.N., R.M., Y.H. L.,
+L.W.C, K.J.J., Y.L., and S.L.K. performed the experiments. L.H., X.X., G.B.M., and H.L. wrote the manuscript, with input from all
+other authors.
+
+Han et al.
+
+Page 2
+
+Author Manuscript
+
+patterns in tumors relative to normal tissues. We identified an appreciable number of clinically
+relevant editing events, many of which are in noncoding regions. We experimentally demonstrated
+the effects of several cross-tumor nonsynonymous RNA editing events on cell viability and
+provide the evidence that RNA editing could selectively affect drug sensitivity. These results
+highlight RNA editing as an exciting theme for investigating cancer mechanisms, biomarkers and
+treatments.
+
+Graphical Abstract
+
+Author Manuscript
+Introduction
+Author Manuscript
+Author Manuscript
+
+RNA editing is a widespread post-transcriptional mechanism that confers specific and
+reproducible nucleotide changes in selected RNA transcripts (Bass, 2002; Keegan et al.,
+2001). As for functional consequences, RNA editing events can result in missense codon
+changes (Maas and Rich, 2000), modulation of alternative splicing (Rueter et al., 1999), or
+modification of regulatory RNAs (Kawahara et al., 2007; Tomaselli et al., 2015) and their
+binding sites (Liang and Landweber, 2007). In humans, the most common type of RNA
+editing is adenosine to inosine (A to I)(Piskol et al., 2013), which is catalyzed by ADAR
+enzymes (Bass et al., 1997). Despite some issues in earlier attempts, recently several groups
+have developed computational methods for accurately detecting A-to-I RNA editing from
+next-generation sequencing data on a large scale (Bahn et al., 2012; Peng et al., 2012;
+Ramaswami et al., 2012; Ramaswami et al., 2013). As a result, more than a million A-to-I
+RNA editing sites have been confidently detected in the human genome (Bazak et al., 2014;
+Ramaswami et al., 2013). However, the vast majority of these sites are in noncoding and
+repetitive element regions of the genome and have unknown functional relevance.
+Therefore, the research focus on RNA editing has moved from identification of novel sites
+to characterization of the mechanisms by which they mediate their functions and their
+consequences on cellular function.
+To date, a critical role of A-to-I RNA editing in human cancer has been reported for only
+individual examples. In prostate cancer, A-to-I RNA editing in the androgen receptor
+
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 3
+
+Author Manuscript
+
+impairs the protein's ability to interact with androgenic or anti-androgenic ligands (Martinez
+et al., 2008); in liver cancer, the edited form of AZIN1 has a stronger affinity for antizyme
+and induces cytoplasmic-to-nuclear translocation of AZIN1, and a low editing level is
+sufficient to confer more aggressive tumor behavior (Chen et al., 2013); in colorectal cancer,
+A-to-I RNA editing in RHOQ promotes the invasion potential (Han et al., 2014); and in
+gliboblastoma, ADAR2-mediated RNA editing in CDC14B modulates the Skp2/p21/p27
+pathway and plays a critical role in the pathogenesis of this disease (Galeano et al., 2013).
+Despite these intriguing findings, the global pattern of A-to-I RNA editing in human cancer
+genomes have not been systematically characterized, and the functional importance and
+clinical relevance of RNA editing in cancer remain largely unknown. Here, we aimed to
+address these questions through a systematic analysis of A-to-I RNA editing events using
+RNA-sequencing data from The Cancer Genome Atlas (TCGA) project (The Cancer
+Genome Atlas Research Network et al., 2013).
+
+Author Manuscript
+
+Results
+Overview of A-to-I RNA editing patterns across major cancer types
+
+Author Manuscript
+Author Manuscript
+
+To perform a comprehensive, high-quality analysis of A-to-I RNA editing in cancer
+genomes, we developed a computational pipeline based on ~1.4 million high-confidence
+RNA editing sites annotated in the Rigorously Annotated Database of A-to-I RNA Editing
+(RADAR) (Ramaswami and Li, 2014) (Figure S1A). The RNA editing sites in RADAR
+were collected from recent transcriptome-wide RNA-editing identification studies and
+underwent extensive manual curation. We further applied a series of filters to remove the
+potential contamination of SNPs or somatic mutations (Experimental Procedures). Thus, this
+RNA editing dataset represent a reliable and global candidate set to start with. From TCGA
+RNA-seq data, we assessed the RNA-editing signals at these candidate sites in 6236 samples
+of 17 cancer types or related normal tissues (Table 1 and Figure 1A). For each cancer type,
+we detected a large number of RNA editing candidate sites with editing signals but many of
+them were only sufficiently covered in a limited sample set. Therefore, we defined
+“informative” RNA editing sites as those sites with detected signals and coverage ≥10× in
+≥30 tumor samples (and related normal samples) for a cancer type (Experimental
+Procedures) and focused on these sites in subsequent analyses to ensure adequate statistical
+power. The number of informative RNA editing sites per cancer type ranged from 8493 in
+CRC to 76555 in BRCA (Figure 1B). This large variation among cancer types is mainly
+because (i) the number of tumor samples per cancer type varied markedly (from 66 in KICH
+to 837 in BRCA, Table 1) and (ii) the number of mappable reads per sample varied greatly
+among cancer types due to different sequencing strategies (from 22 million in CRC to 174
+million in KICH, Table 1). Indeed, across the 17 cancer types, the number of informative
+editing sites showed a strong linear correlation with the total number of mappable bases or
+the total number of mappable reads (Figure 1B, Pearson Correlation R = 0.84, p = 2.0×10−5,
+Spearman Correlation Rs = 0.75, p = 7.4×10−4; Figure S1B, R = 0.89, p = 2.0×10−6, Rs =
+0.82, p = 7.0×10−5). These results also indicate that the informative editing sites we
+identified show no significant bias towards one or a few well-studied cancer types.
+
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 4
+
+Author Manuscript
+Author Manuscript
+
+We first quantified the editing levels at the informative RNA editing sites (defined as the
+proportion of edited reads among the total mapped reads at a given site in a TCGA BAM
+file). As a quality control, we randomly selected a few samples, remapped the raw RNA-seq
+reads using the previously established mapping pipeline that can accurately detect both Alu
+and non-Alu RNA editing events (Ramaswami et al., 2012; Ramaswami et al., 2013), and
+obtained very consistent RNA-editing levels (Spearman correlation Rs > 0.93). Thus, for the
+informative edited sites surveyed, the employed RNA-seq mapping procedures had little
+effect on the quantification of RNA-editing levels. Figure 1C shows the overall editing-level
+distributions at informative RNA editing sites in different cancer types (Figure S1C shows
+the distributions in normal tissues). We next examined the distribution of these editing sites
+in different types of transcribed regions (Figure 1D). Across different cancer types, most of
+the informative RNA editing sites were in 3′ UTRs and intronic regions, as observed
+previously in mouse tissues (Gu et al., 2012), but the editing sites in coding regions were
+relatively limited (Figure S1D shows the numbers of nonsynonymous and synonymous
+RNA editing sites in different cancer types). Furthermore, we did not detect any correlation
+between RNA-editing level and the local GC content (Figure S1E). Since our analysis was
+based on RNA-seq data, the observed genomic distribution of informative RNA editing sites
+could be affected by the coverage bias of the mRNA-seq platform. However, due to the
+large number of candidate editing sites examined, we still obtained sufficient sampling
+power to survey RNA editing activities in different transcribed regions.
+Diversity of RNA editing patterns in tumors relative to normal samples
+
+Author Manuscript
+Author Manuscript
+
+The global RNA-editing differences between cancer samples and related normal tissues
+remain largely uncharacterized, and previous studies have suggested this is a complex topic
+(Jiang et al., 2013; Maas et al., 2001; Nemlich et al., 2013; Qin et al., 2014; Tomaselli et al.,
+2015). For example, an earlier study found reduced editing in brain tumors (Paz et al.,
+2007); while a recent study suggests a mixture of gene-specific hyper- and hypo-editing
+activities in liver cancer (Chan et al., 2014). However, these studies are either based on a
+small set of RNA editing sites or limited to a single cancer type. To obtain a comprehensive
+view of RNA editing patterns in tumor samples, we focused on 12 tumor types with
+available RNA-seq data for matched normal tissues from the same patients (Figure 2A). For
+each cancer type, we identified RNA editing sites with significantly differential editing
+activity between matched tumor and normal samples (paired Wilcoxon test, false discovery
+rate [FDR] < 0.05 and the mean editing-level difference among comparison groups, Diff ≥
+5%). Although with this criterion the editing levels at the most sites remain similar, we
+observed a great diversity of “altered” RNA editing patterns across these cancer types:
+significant numbers of RNA editing sites showed over-editing patterns in HNSC, BRCA,
+THCA and LUAD tumors, while significant numbers of editing sites showed under-editing
+patterns in KICH and KIRP tumors.
+To identify the molecular determinants underlying these patterns, we performed two
+complementary analyses: one focusing on the general pattern across cancer types and the
+other focusing the editing abundance within each cancer type. We first analyzed the
+correlations of ADAR expression with the “net” proportion of over-editing RNA sites
+(defined as the percentage of over-editing sites minus the percentage of under-editing sites)
+
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 5
+
+Author Manuscript
+Author Manuscript
+
+and found that the proportion was highly correlated with the relative ADAR1 mRNA
+expression level (defined as the fold change relative to normal samples) (Spearman
+correlation Rs = 0.70, p = 0.014, Figure 2B), but not with that of ADAR2 (Rs = 0.38, p =
+0.22, Figure 2B) nor ADAR3 (Rs = −0.007, p = 0.99, Figure 2B). Figure 2C and 2D show the
+detailed RNA-editing change patterns in two representative cancer types. In BRCA, 12770
+(16.7%) informative RNA editing sites showed significant over-editing in the tumor samples
+than matched normal samples; whereas only 553 (1.2%) showed significant under-editing in
+tumor samples (paired Wilcoxon test, FDR < 0.05, Figure 2C, left panel). In contrast, in
+KICH, only 110 (0.5%) informative RNA editing sites showed over-editing in the tumor
+samples; whereas 4318 (19.3%) showed under-editing in tumor samples (paired Wilcoxon
+test, FDR < 0.05, Figure 2D, left panel). Indeed, ADAR1 mRNA expression was much
+higher in BRCA than in matched normal samples (fold change = 1.81, paired Wilcoxon test,
+p < 2.2×10−16, Figure 2C, right panel); while ADAR1 was significantly under-expressed in
+KICH (fold change = 0.76, paired Wilcoxon test, p = 1.6×10−4, Figure 2D, right panel). We
+further performed sample-based analysis within each cancer type and found that the number
+of informative sites with editing signals shows the strongest correlation with the ADAR1
+mRNA expression among the three ADAR enzymes (Table S1). These results suggest that
+the global altered RNA-editing patterns in tumors are more likely to be affected by ADAR1
+than the other two editing enzymes. However, since the mRNA expression of ADAR may
+not directly reflect enzyme editing activity (Wahlstedt et al., 2009) and the dimer formation
+and the interactions among the ADAR enzymes could be important for editing activity
+(Chen et al., 2000; Chilibeck et al., 2006; Cho et al., 2003), further efforts are required to
+elucidate the relative contributions of the three ADAR enzymes to the observed RNA
+editing patterns.
+
+Author Manuscript
+
+An appreciable level of clinically relevant RNA editing sites in various cancer types
+
+Author Manuscript
+
+Given the large number of A-to-I RNA editing events observed across tumor types and
+distinct editing patterns at some sites between tumor and normal tissues, a fundamental
+question is what fraction of RNA editing events in tumors are functionally tumorigenic or
+clinically valuable. To address this question, we focused on the RNA editing sites showing
+correlations with tumor subtype, clinical stage and patient survival. Clinical stage and
+patient survival are well-established clinical variables, while tumor subtype often facilitates
+clinical decisions. In a sense, they all characterize intertumoral heterogeneity among the
+same disease. Thus, we referred to RNA editing sites showing non-random editing patterns
+in regard to these biologically and clinically meaningful parameters as “clinically relevant
+editing sites”. Specifically, we identified such sites within each cancer type using three
+complementary computational analyses (Figure 3A): (i) differential analysis of RNA editing
+level among established tumor subtypes (FDR < 0.01, Diff ≥ 5%), which identified 2660
+RNA editing sites in total; (ii) differential analysis of RNA editing level among tumor stages
+(FDR < 0.05, Diff ≥ 5%), which identified 684 RNA editing sites in total; and (iii)
+correlation analysis of RNA editing level with patient overall survival (FDR < 0.05, Diff ≥
+5%), which identified 1,130 RNA editing sites in total. Among the 17 cancer types, 12
+cancers contained such clinically relevant sites, ranging from 4 in PRAD to 2059 in BRCA
+(Table S2). To rule out the potential confounding effect of tumor purity, we repeated the
+analysis using ABSOLUTE-based (Carter et al., 2012) tumor purity as a covariate. For the
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 6
+
+Author Manuscript
+
+nine cancer types with available tumor purity data, we found that 97.9% of the clinically
+relevant sites originally identified still remain significant (Table S2). We also calculated the
+correlation of ADAR expression levels with tumor purity and found no strong correlation
+(Table S2). Therefore, tumor purity appeared to have little effect on our results.
+
+Author Manuscript
+
+In order to investigate the distributions of clinically relevant editing sites in different types
+of RNA regions, we classified the RNA editing sites from three parallel perspectives: gene
+annotation, sequence repetitive elements and evolutionary conservation. Since the power to
+detect clinically relevant editing sites in our analysis was affected by sample size and quality
+of clinical data (e.g., the follow-up time) in a given cancer type, we examined the
+distribution patterns for each cancer type separately. Further, given the potential effects of
+coverage bias in different RNA regions due to gene expression or the mRNA-seq platform,
+instead of directly comparing the proportions of clinically relevant RNA editing sites among
+different RNA regions, we performed a coverage-dependent permutation test to assess the
+enrichment/depletion patterns (Experimental Procedures). In terms of gene annotation, we
+found that clinically relevant RNA editing sites tend to be in noncoding RNAs as well as in
+nonsynomous and intronic regions in some cancer types (Figure 3B). In terms of sequence
+repetitive elements, clinically relevant sites show consistent depletion patterns in Alu
+elements (Figure 3C). In terms of evolutionary conservation, clinically relevant sites tend to
+be conserved among humans, chimpanzees and macaques (Figure 3D). Together, these
+analyses based on different types of RNA-region classification help to understand which
+factors affect the overall distributions of clinically relevant RNA editing sites.
+“Driver” functional effects of clinically relevant nonsynonymous RNA editing events
+
+Author Manuscript
+Author Manuscript
+
+Since clinically relevant RNA editing events at nonsynonymous sites could directly result in
+amino acid changes, we focused on these RNA editing sites and assessed their functional
+effects experimentally. To boost the discovery power, we performed the above analyses for
+nonsynonymous RNA editing sites with a relaxed FDR cutoff and identified 35 RNA editing
+sites with potential clinical relevance (FDR < 0.2, Diff > 5%, Table S3). Interestingly, 8 out
+of these RNA editing events (22.9%) showed clinically relevant patterns in more than one
+cancer type (Figure 4A, Figure S2). This pan-cancer analysis suggests that some A-to-I
+nonsynonymous RNA editing may be a “master” driver event and play a critical functional
+role in different tumor contexts. We focused on four top editing candidate sites (S367G in
+AZIN1, I164V in COPA, I635V in COG3 and R764G in GRIA2) for further investigation
+(Figure 4A and Figure S2B). The functional effects of RNA editing at the residue S367G in
+AZIN1 (identified in eight cancer types by our analysis, Figure 4B and Figure S2C) have
+been characterized in liver cancer (Chen et al., 2013). Differential editing activity at I164V
+in COPA (identified in seven cancer types, Figure 4C and Figure S2D) between tumor and
+normal samples has been reported in liver cancer (Chan et al., 2014) but has not been
+functionally characterized. I635V at COG3 (identified in six cancer types, Figure 4D and
+Figure S2E) was only reported in a recent RNA-editing methodology study (Ramaswami et
+al., 2012). GRIA2 (also known as GluR-B) contains two known RNA editing sites: the
+Q607R editing in the second transmembrane domain is well studied (Herb et al., 1996;
+Higuchi et al., 1993) but has insufficient coverage in our dataset; the role of R764G
+(identified in two cancer types, Figure 4E) has not been functionally characterized in cancer.
+
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 7
+
+Author Manuscript
+
+We confirmed the occurrence of these RNA editing events in an independent set of breast
+tumor samples using an orthogonal Sequenom approach (Figure 5A and Figure S3A).
+
+Author Manuscript
+
+Given the availability of high-quality antibodies, we assessed the functional effects of the
+editing events in AZIN1, GRIA2 and COG3 using various functional assays. To examine the
+effects on cell proliferation or survival, we performed cell viability assays (upon
+overexpression) in MCF10A cells, a normal human breast epithelial cell line. Given similar
+levels of wild-type and edited proteins (Figure S3B), the edited AZIN1 (AZIN1S367G),
+GRIA2 (GRIA2R764G) and COG3(COG3I635V) significantly increased cell survival relative
+to the wild-type gene (t-test, p < 0.05, Figure 5B; see Experimental Procedures). We
+obtained similar results of cell viability assays based on cell counting (Figure S3C). Since
+these RNA editing events show cross-tumor clinical relevance, we further examined their
+effects in a different lineage. We performed similar viability assays in Ba/F3 cells, which is
+a murine leukemia cell line and an established drug screening platform for subsequent
+investigation (Cheung et al., 2014; Liang et al., 2012), and observed the same patterns (ttest, p < 0.05, Figure 5C). To examine the effects on cell survival, we assessed levels of
+active caspase 3 in MCF10A and found no significant changes (Figure S3D). These results
+were confirmed by a cell death detection ELISA kit (data not shown). To examine the
+effects on cell migration, we performed wound healing assays in MFC10A and observed no
+substantial effects (Figure S3E).
+Therapeutic liability of clinically relevant nonsynonymous RNA editing sites
+
+Author Manuscript
+Author Manuscript
+
+A critical question about RNA editing is whether some RNA editing could affect the
+response of cancer therapies. This question has significant clinical implications but has
+never been investigated. Given their confirmed “driver” behaviors in Ba/F3 (Figure 5C), we
+focused on the RNA editing in AZIN1, GRIA2 and COG3 and examined whether these
+events alter drug sensitivity using a high-throughput Ba/F3 differential cytotoxicity screen
+(Cheung et al., 2014; Quayle et al., 2012). Ba/F3 cells depend on interleukin-3 (IL-3) for
+proliferation, but readily become IL3-independent in the presence of an oncogene or
+oncogenic event (Liang et al., 2012). We screened 145 compounds targeting major signaling
+pathways in Ba/F3 addicted to these RNA editing events (in the absence of IL-3) and
+performed a “counterscreen” with the same Ba/F3 cells cultured with exogenous IL-3 to
+control for the cytotoxic activity of the compounds. In addition, we used a spontaneously
+transformed Ba/F3 cell line (originally transfected with PIK3R1 but not expressing
+significant levels of PIK3R1) as negative controls. Strikingly, compared to the wild-type
+genes, the edited genes selectively affected the sensitivity of Ba/F3 cells to several targeted
+therapeutics, including AZIN1S367G for the IGF-1R inhibitor BMS536924, GRIA2R764G for
+MEK inhibitors CI1040 and PD0325901, COG3I635V for MEK inhibitors CI1040,
+PD0325901 and trametinib (Figure 6A shows representative examples).
+Furthermore, we examined the editing levels of the 35 clinically relevant nonsynonymous
+RNA editing sites (Table S3) in cell lines from the Cancer Cell Line Encyclopedia (CCLE)
+(Barretina et al., 2012) and examined their correlations with the sensitivity data (IC50) of 24
+drugs available at the CCLE portal. Interestingly, we found that the editing levels of 16
+RNA editing sites were significantly correlated with drug sensitivity (FDR < 0.1, Figure
+
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 8
+
+Author Manuscript
+
+6B). Furthermore, across RNA editing sites, the drug clustering analysis showed meaningful
+patterns: three chemotherapy agents, paclitaxel, irinotecan and topotecan, were clustered
+together and their sensitivities were associated with the editing in AZIN1 and other sites;
+erlotinib was in the same cluster as the HER2 agent lapatinib; two RAF inhibitors, PLX4720
+and RAF265, were adjacent to one another; and two MEK inhibitors, AZD6244 and
+PD0325901, were tightly correlated. These results suggest that the effects of RNA editing on
+drug response are not limited to the cases we examined.
+
+Discussion
+
+Author Manuscript
+
+The advent of next-generation sequencing data has drawn widespread attention to the
+analysis of RNA editing (Li et al., 2011; Peng et al., 2012; Piskol et al., 2013; Ramaswami
+et al., 2012; Ramaswami et al., 2013); however, these studies have mainly focused on RNA
+editing events in normal tissues. More recently, a functional role for RNA editing in
+tumorigenesis has begun to emerge, but related studies have been limited to individual
+examples. The present study represents a systematic investigation of the global pattern and
+clinical relevance of A-to-I RNA editing across a broad range of cancer types and normal
+tissues.
+
+Author Manuscript
+
+The number of A-to-I RNA editing sites in humans is huge, but most sites exhibit editing at
+very low levels (Bazak et al., 2014), leading to a great challenge in detecting editing sites in
+a comprehensive manner. To ensure the high-quality analysis, we started with the highconfidence RNA editing sites reported in previous studies rather than calling novel editing
+sites without prior knowledge. We focused on RNA editing events with detected editing
+signals in multiple TCGA samples and further filtered those with potential mutational
+signals at the DNA level. Although “false” RNA-editing sites due to SNPs or mutations
+might not be completely removed, such noise in our data should be very rare. Because of the
+large number of RNA editing candidates identified in normal tissues in the RADAR
+database, we obtained sufficient numbers of RNA editing sites to assess the global patterns
+of A-to-I RNA editing. Further, the strong linear correlation between informative editing
+sites per cancer type and the total number of mapped reads (or bases) across cancer types
+indicates that our RNA editing sets are not biased towards well-studied cancer types.
+
+Author Manuscript
+
+The rich TCGA dataset allowed us to address some important questions about RNA editing
+on a large scale. We revealed a diversity of altered RNA editing events in tumor samples
+relative to normal tissues, which correlates best with the ADAR1 expression level globally.
+Note that this observation does not rule out the important role of ADAR2-mediated editing
+events in specific cancer types, as demonstrated in previous studies (Cenci et al., 2008;
+Galeano et al., 2013; Maas et al., 2001; Tomaselli et al., 2015). Based on the correlations of
+RNA editing levels with tumor subtype, stage or survival, we detected an appreciable
+number of RNA editing sites with potential clinical relevance (~3.5% of the total
+informative RNA editing sites examined). These editing sites show marked editing
+difference for distinct patient groups within a cancer type, and they may represent promising
+biomarker candidates for further assessment. An alternative way to infer clinically relevance
+could be based on levels of edited transcripts. However, unlike the editing level, which is a
+parameter independent from the expression level of the edited gene, the levels of edited
+
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 9
+
+Author Manuscript
+
+transcripts are linked to the gene expression level itself. Indeed, we observed that for a large
+proportion of RNA editing sites with clinical correlations based on the level of edited
+transcripts, their gene expression levels also showed corresponding correlations, suggesting
+the potential confounding effects of gene expression on detecting clinical relevance.
+Therefore, we focused on the editing-level-based clinically relevant sites in this study. Our
+datasets (both raw data and clinically relevant sites) have been made publically available
+through Synapse (Omberg et al., 2013), and thus provide a valuable resource for
+systematically dissecting the clinical utility of RNA editing.
+
+Author Manuscript
+Author Manuscript
+
+Importantly, we experimentally investigated the functional effects of several
+nonsynonymous RNA editing events with potential clinical relevance across multiple tumor
+types, including the well-studied editing site in AZIN1 and the other two previously
+functionally uncharacterized RNA editing sites in COG3 and GRIA2. Moreover, our study
+provides the evidence that a specific RNA editing event could selectively affect therapeutic
+responses. We demonstrated that the RNA editing event in COG3 and GRIA2 increased
+sensitivity to some targeted agents whereas the editing in AZIN1 engendered decreased
+sensitivity. Mutations in cancer genes can increase or decrease sensitivity to the same
+therapeutic agent based on where they are located in the targeted pathway. For example,
+mutations in the EGFR receptor increase sensitivity to drugs targeting the EGFR. However,
+mutations in KRAS which is clearly a driver can result in resistance to EGFR inhibitors.
+Furthermore, if the editing is a neomorph, it could either increase or decrease to the
+sensitivity to a specific drug. Thus, some RNA editing events may be functionally
+equivalent to “driver” mutations, making a notable contribution to tumor initiation and
+growth as well as playing a critical role in response to cancer therapy. Together, our findings
+highlight RNA editing as an exciting theme for investigating cancer mechanisms,
+identifying biomarkers, and developing therapeutic targets. Further efforts should be made
+to characterize the function of other clinically relevant RNA editing events (especially those
+in noncoding regions), to elucidate the interactions of these editing events with other types
+of molecular aberrations, and to investigate their utility in clinical practice.
+
+Experimental Procedures
+Characterization of A-to-I RNA editing profiles
+
+Author Manuscript
+
+We downloaded RNA-seq BAM files of 5672 patient tumor samples across 17 TCGA
+cancer types and their related 564 non-tumor tissue samples (if available) from the UCSC
+Cancer Genomics Hub (CGHub, https://cghub.ucsc.edu/). We also downloaded 740 BAM
+files of CCLE cell lines from CGHub. The detailed read mapping procedure (BAM
+generation) was previously described in TCGA marker papers (Brennan et al., 2013; The
+Cancer Genome Atlas Research Network, 2008; The Cancer Genome Atlas Research
+Network, 2012a; The Cancer Genome Atlas Research Network, 2012b; The Cancer Genome
+Atlas Research Network, 2012c; The Cancer Genome Atlas Research Network, 2013a; The
+Cancer Genome Atlas Research Network, 2013b).
+We obtained a comprehensive collection of ~1.4 million A-to-I RNA editing sites from the
+Rigorously Annotated Databases of A-to-I RNA Editing (RADAR, http://rnaedit.com/)
+(Ramaswami and Li, 2014). Note that these RNA editing sites were directly called from
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 10
+
+Author Manuscript
+Author Manuscript
+
+RNA-seq data from normal tissues and tumor samples, not from the comparison of editing
+profiles upon ADAR perturbation. We re-annotated them by ANNOVAR (Wang et al.,
+2010), and then filtered ~4,000 sites annotated in dbSNP (version 137), COSMIC and
+TCGA somatic mutations. Based on the RNA-seq reads mapped to the human reference
+genome (hg19), the editing level at a specific site in a given sample was calculated as the
+number of edited reads divided by the total number of reads (Ramaswami et al., 2013), and
+only the nucleotides with a base quality ≥ 20 were used. Those editing sites with at least 3
+edited reads in at least 3 samples per tissue type were considered to be detected RNA editing
+sites. To ensure adequate statistical power, we further identified the informative RNA
+editing sites among the detected RNA editing sites by requiring at least 30 samples
+(including normal samples if available) with a coverage ≥ 10 in a tissue/tumor type. Thus,
+given a cancer type, the tumor samples and their related normal samples had the same set of
+informative RNA editing sites in our analysis. To further rule out the possibility of potential
+contamination due to undetected SNPs or somatic mutations, we obtained whole-genome
+sequencing data from International Cancer Genome Consortium (ICGC) and whole-exome
+sequencing data from TCGA for the cancer types we surveyed and assessed if there were
+some potential mutational signals at informative RNA editing sites. We only found potential
+mutational signals at 310 sites out of 112572 across the 17 cancer types (0.28%) and
+excluded them from our analysis. RNA editing profiles were uploaded to Synapse
+(syn2374375), and are publically available.
+Comparisons of RNA editing patterns between cancer and normal samples
+
+Author Manuscript
+
+For the comparison between tumor and normal samples, we required the informative RNA
+editing sites with at least 5 pairs of tumor and normal samples with a coverage ≥ 10. If
+sufficient matched normal samples in which a site had adequate coverage were not
+available, the site was excluded from our analysis. We used the Wilcoxon test to detect RNA
+editing sites with differential editing between tumor and normal samples, and defined
+significantly differential editing sites as FDR < 0.05 and a mean editing level difference ≥
+5%. TCGA mRNA expression data were obtained from TCGA Synapse portal (syn300013)
+(Omberg et al., 2013). We used the paired student t-test to detect differentially expressed
+ADAR enzymes between normal and tumor samples.
+Identification of clinically relevant RNA editing sites
+
+Author Manuscript
+
+We obtained clinical information, including tumor subtypes, disease stage, and patient
+overall survival time from TCGA marker papers, or TCGA data portal (https://tcgadata.nci.nih.gov/tcga/). We used the Wilcoxon test or Kruskal-Wallis nonparametric
+ANOVA to detect RNA editing sites with differential editing among different tumor
+subtypes, and considered FDR < 0.01 to be statistically significant. We used the Wilcoxon
+test or Kruskal-Wallis nonparametric ANOVA to detect RNA editing sites with differential
+editing among different tumor stages, and considered FDR < 0.05 to be statistically
+significant. We used the univariate Cox test to examine whether the RNA editing level was
+significantly correlated with patient survival, and considered FDR < 0.05 to be statistically
+significant. We chose different FDR cutoffs based on the signal abundance in each analysis.
+Groups with fewer than 5 samples were excluded from the analysis. We required a mean
+RNA editing level difference, Diff ≥ 5% for at least two groups, thereby ensuring a sufficient
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 11
+
+Author Manuscript
+
+biological difference. The gene-annotation-based RNA type of an RNA editing site was
+annotated by ANNOVAR, and the sequence repetitive status and evolutionary conservation
+status (i.e., the conservation among humans, chimpanzees, and macaques) were annotated as
+in RADAR (Ramaswami and Li, 2014). To test the effect of tumor purity, we obtained the
+tumor purity data based on ABSOLUTE from synapse (syn1710466, https://
+www.synapse.org/#!Synapse:syn1710466)(Carter et al., 2012), and repeated the analysis
+with the tumor purity as a covariate in the ANOVA. We repeated the above analysis for the
+nonsynonymous RNA editing sites only, and considered FDR < 0.2 to indicate statistical
+significance. We then ranked the nonsynonymous RNA editing sites based on the number of
+cancer types with detected significance.
+
+Author Manuscript
+
+To assess if clinically relevant RNA editing sites are enriched in some RNA regions, we
+performed a coverage-dependent permutation test. First, for each cancer type, we classified
+all the informative RNA editing sites into 10 coverage groups (each with the same number
+of editing sites) based on the median coverage of a given RNA editing site across all
+sufficiently covered samples. Second, given the numbers of clinically relevant sites observed
+in each group, we randomly selected the same number of RNA editing sites as “pseudo
+clinically relevant sites”, so the whole pseudo set would have the same coverage distribution
+as the true clinically relevant sites. We then counted the frequencies of pseudo clinically
+relevant sites for each type of RNA region. We repeated this process for 1000 times, and
+based on the obtained distributions of these permutations, we assessed the statistical
+significance of the enrichment of the clinically relevant sites relative to the random
+expectation (defined as the frequency of permutations with the number of pseudo clinically
+relevant sites no fewer than the observed true clinically relevant sites). We did this analysis
+for each cancer type separately.
+
+Author Manuscript
+
+Sequenom validation
+Four selected RNA editing sites, AZIN1S367D, COPAI164V, COG3I635V, and GRIA2R764G,
+were validated on in-house breast cancer samples by Sequenom MassARRAY at MD
+Anderson Sequenome Core Facility, as previously described (Liang et al., 2012).
+Generation of stable BaF3 and MCF10A cell lines
+
+Author Manuscript
+
+The mutant open reading frames (ORFs) corresponding to the RNA editing sites in AZIN1,
+GRIA2 (the mutation was introduced at the R764G site only and the codon at Q607R
+remained as wild-type CAG) and COG3 were made by site-directed mutagenesis and
+confirmed by Sanger sequencing. Virus were produced by transfecting HEK293PA cells
+with the GFP control vectors or pHAGE-V5-puromycin expression vectors (carrying
+AZIN1-WT, AZIN1-S367D, GRIA2-WT, GRIA2-R764G, COG3-WT or COG3-I635V), and
+the Lentiviral Packaging Mix (psPAX2 and pMD2.G). BaF3 cells were transduced by the
+virus and were added RPMI 1640 medium/5% FBS in the low IL3 (0.0001ng/ml) and put
+back into the incubator for 4 weeks, followed by selection with puromycin (0.6 g/ml) and
+IL-3 withdrawal. Stable Ba/F3 cells were maintained in medium without IL-3. MCF10A
+cells were transduced by the virus followed by selection with puromycin (0.6 μg/ml). Stable
+MCF10A cells were maintained in completed DMEM/F12 (Invitrogen) full medium with
+5% Horse serum (Invitrogen), 20 ng/ml EGF (Peprotech), 10 ug/ml insulin (Sigma),
+
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 12
+
+Author Manuscript
+
+100ng/ml Cholera Toxin (Sigma), 0.5mg/ml Hydrocortisone. After 7 days of antibiotic
+selection, expression of the constructs was verified by Western blots.
+Cell extract preparation and western blotting
+Whole-cell lysates for western blotting were extracted with RIPA (25 mM Tris-HCl pH 7.6,
+150 mM NaCl, 1% NP-40, 1% sodium deoxycholate, 0.1% SDS, protease, and phosphatase
+inhibitor cocktail). Cell lysates (20 ug) were loaded onto 10% SDS-PAGE and transferred to
+a polyvinylidene fluoride membrane and protein expression was depicted with an enhanced
+chemiluminescence western blot detection kit (Amersham Biosciences). Antibodies used
+were AZIN1, Antizyme inhibitor 1Polyclonal antibody (Proteintech), GRIA2, AMPA
+Receptor (GluR2) (E1L8U) Rabbit mAb (Cell Signaling Technology), COG3 polyclonal
+antibody (Proteintech), V5 Tag Mouse Monoclonal Antibody (Life technologies), and ERK2
+(Santa Cruz biotechnology).
+
+Author Manuscript
+
+BaF3 and MCF10A cell viability assay
+BaF3 cells were transduced by the virus, and resuspended in BaF3 low IL-3 medium
+(0.0001 ng/ml). Then the cells were transferred to a 96-well plate and the assays were
+performed at week 1.5, 2, 3 and 4 time points. Stable MCF10A cell lines were seeded into
+96-well plates, and the assays were performed at day 0, 4, 8, 10 and 12 time points.
+CellTiter-Glo (Promega, Madison, WI, USA) was added to access cell viability according to
+manufacturer's instructions. The cell viability measurement was also performed based on
+cell counting after trypsin digestion. The significance of differences was analyzed with
+Student's t test, and p < 0.05 was considered statistically significant.
+Apoptosis assay
+
+Author Manuscript
+
+Cells (1.5×104) were seeded into 6-well plates for 24 hr before incubation with MCF10A
+full medium, MEBM added BPE (Lonza, Allendale, NJ), or DMEM medium without
+glucose and L-glutamine for another 24 hr. Apoptosis-induced DNA fragmentation was
+measured using the Cell Death Detection ELISA Kit (Roche Applied Science, Indianapolis,
+IN) according to manufacturer's instructions. Apoptosis-induced the active form of
+caspase-3 was tested using the PE Rabbit Anti-Active Caspase-3 (BD Biosciences, San Jose,
+CA) according to manufacturer's instructions. BD Canto II analyzer is used to read active
+caspase-3 in the PE channel.
+Wound healing assay
+
+Author Manuscript
+
+MCF10A cells (3.5×104) were seeded into 96-well ImageLock plates for 24 hr in
+DMEM/F12 medium included with 1% Horse serum, 4 ng/ml EGF, 2 ug/ml insulin, 20
+ng/ml Cholera Toxin, 0.1 mg/ml Hydrocortisone. Automated 96-well cell migration (scratch
+wound) on IncuCyte was analyzed by IncuCyte™ Cell Migration Kit (Essen BioScience,
+Ann Arbor, Michigan, USA), which comprises 96-pin woundmaking tool (WoundMaker™),
+Cell Migration Analysis software module and starter batch of 96-well ImageLock Plates.
+
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 13
+
+Ba/F3 drug screening assay
+
+Author Manuscript
+Author Manuscript
+
+The IL-3–dependent Ba/F3 parental cell line was maintained in RPMI 1640 medium
+containing 5% FBS and 5 ng/ml of IL-3. The spontaneously transformed Ba/F3 cell line was
+maintained in RPMI 1640 medium containing 5% FBS without IL-3. Stable Ba/F3 cell lines
+expressing the wild-type and edited genes were obtained and maintained by selection of
+puromycin (0.6 ug/ml) and IL-3 withdrawal. The 145-compound library was purchased from
+the John S. Dunn Gulf Coast Consortium for Chemical Genomics (Houston, TX). These
+compounds were dissolved in DMSO as 10 mM stock solutions. The day before treatment,
+cells (1×104) were seeded in 96-well plates in medium with or without IL-3. Eight serial
+dilutions of each compound were prepared in media, and final drug concentrations ranged
+from 0 to 10 μM. Cells were treated with DMSO or drug compounds in the presence or
+absence of IL-3 for 72 hr. Cell viability was determined using PrestoBlue (Promega,
+Madison, WI) for mitochondrial dehydrogenase activity. Drug screening was repeated
+independently to ensure the reproducibility of the results.
+To comprehensively assess the effects of RNA editing sites on drug sensitivity, we
+downloaded the drug screening data from CCLE (http://www.broadinstitute.org/ccle/home),
+and calculated the correlations between the RNA editing level and IC50.
+
+Supplementary Material
+Refer to Web version on PubMed Central for supplementary material.
+
+Acknowledgements
+Author Manuscript
+
+We gratefully acknowledge contributions from TCGA Research Network and TCGA Pan-Cancer Analysis
+Working Group. This study was supported by the National Institutes of Health (CA168394, CA098258 and
+U24CA143883 to G.B.M., R01CA175486 to H.L., R01GM102484 to J.B.L. and CCSG grant CA016672);
+NIH/NCI Uterine SPORE Career Development award; the R. Lee Clark Fellow Award from The Jeanne F. Shelby
+Scholarship Fund; a grant from the Cancer Prevention and Research Institute of Texas (RP140462 to H.L.); the
+Lorraine Dell Program in Bioinformatics for Personalization of Cancer Medicine (to H.L.); the Adelson Medical
+Research Foundation (to G.B.M.); and the Ellison Medical Foundation (to J.B.L.). We thank the MD Anderson
+high-performance computing core facility for computing, and LeeAnn Chastain for editorial assistance. G.B.M. has
+sponsored research support from AstraZeneca and is on the Scientific Advisory Board for AstraZeneca,
+ImmunoMet, Nuevolution and Precision Medicine.
+
+References
+
+Author Manuscript
+
+Bahn JH, Lee JH, Li G, Greer C, Peng G, Xiao X. Accurate identification of A-to-I RNA editing in
+human by transcriptome sequencing. Genome Research. 2012; 22:142–150. [PubMed: 21960545]
+Barretina J, Caponigro G, Stransky N, Venkatesan K, Margolin AA, Kim S, Wilson CJ, Lehar J,
+Kryukov GV, Sonkin D, et al. The Cancer Cell Line Encyclopedia enables predictive modelling of
+anticancer drug sensitivity (vol 483, pg 603, 2012). Nature. 2012; 492:290–290.
+Bass BL. RNA editing by adenosine deaminases that act on RNA. Annual Review of Biochemistry.
+2002; 71:817–846.
+Bass BL, Nishikura K, Keller W, Seeburg PH, Emeson RB, OConnell MA, Samuel CE, Herbert A. A
+standardized nomenclature for adenosine deaminases that act on RNA. RNA. 1997; 3:947–949.
+[PubMed: 9292492]
+Bazak L, Haviv A, Barak M, Jacob-Hirsch J, Deng P, Zhang R, Isaacs FJ, Rechavi G, Li JB, Eisenberg
+E, Levanon EY. A-to-I RNA editing occurs at over a hundred million genomic sites, located in a
+majority of human genes. Genome Research. 2014; 24:365–376. [PubMed: 24347612]
+
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 14
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Brennan CW, Verhaak RGW, McKenna A, Campos B, Noushmehr H, Salama SR, Zheng SY,
+Chakravarty D, Sanborn JZ, Berman SH, et al. The Somatic Genomic Landscape of Glioblastoma.
+Cell. 2013; 155:462–477. [PubMed: 24120142]
+Carter SL, Cibulskis K, Helman E, McKenna A, Shen H, Zack T, Laird PW, Onofrio RC, Winckler W,
+Weir BA, et al. Absolute quantification of somatic DNA alterations in human cancer. Nature
+Biotechnology. 2012; 30:413–421.
+Cenci C, Barzotti R, Galeano F, Corbelli S, Rota R, Massimi L, Di Rocco C, O'Connell MA, Gallo A.
+Down-regulation of RNA editing in pediatric astrocytomas: ADAR2 editing activity inhibits cell
+migration and proliferation. The Journal of Biological Chemistry. 2008; 283:7251–7260. [PubMed:
+18178553]
+Chan TH, Lin CH, Qi L, Fei J, Li Y, Yong KJ, Liu M, Song Y, Chow RK, Ng VH, et al. A disrupted
+RNA editing balance mediated by ADARs (Adenosine DeAminases that act on RNA) in human
+hepatocellular carcinoma. Gut. 2014; 63:832–843. [PubMed: 23766440]
+Chen CX, Cho DSC, Wang QD, Lai F, Carter KC, Nishikura K. A third member of the RNA-specific
+adenosine deaminase gene family, ADAR3, contains both single-and double-stranded RNA
+binding domains. RNA. 2000; 6:755–767. [PubMed: 10836796]
+Chen LL, Li Y, Lin CH, Chan THM, Chow RKK, Song YY, Liu M, Yuan YF, Fu L, Kong KL, et al.
+Recoding RNA editing of AZIN1 predisposes to hepatocellular carcinoma. Nature Medicine.
+2013; 19:209–216.
+Cheung LW, Yu S, Zhang D, Li J, Ng PK, Panupinthu N, Mitra S, Ju Z, Yu Q, Liang H, et al.
+Naturally occurring neomorphic PIK3R1 mutations activate the MAPK pathway, dictating
+therapeutic response to MAPK pathway inhibitors. Cancer Cell. 2014; 26:479–494. [PubMed:
+25284480]
+Chilibeck KA, Wu T, Liang C, Schellenberg MJ, Gesner EM, Lynch JM, MacMillan AM. FRET
+analysis of in vivo dimerization by RNA-editing enzymes. The Journal of Biological Chemistry.
+2006; 281:16530–16535. [PubMed: 16618704]
+Cho DS, Yang W, Lee JT, Shiekhattar R, Murray JM, Nishikura K. Requirement of dimerization for
+RNA editing activity of adenosine deaminases acting on RNA. The Journal of Biological
+Chemistry. 2003; 278:17093–17102. [PubMed: 12618436]
+Galeano F, Rossetti C, Tomaselli S, Cifaldi L, Lezzerini M, Pezzullo M, Boldrini R, Massimi L, Di
+Rocco CM, Locatelli F, Gallo A. ADAR2-editing activity inhibits glioblastoma growth through
+the modulation of the CDC14B/Skp2/p21/p27 axis. Oncogene. 2013; 32:998–1009. [PubMed:
+22525274]
+Gu TJ, Buaas FW, Simons AK, Ackert-Bicknell CL, Braun RE, Hibbs MA. Canonical A-to-I and Cto-U RNA Editing Is Enriched at 3′ UTRs and microRNA Target Sites in Multiple Mouse Tissues.
+PLoS One. 2012; 7:e33720. [PubMed: 22448268]
+Han SW, Kim HP, Shin JY, Jeong EG, Lee WC, Kim KY, Park SY, Lee DW, Won JK, Jeong SY, et
+al. RNA editing in RHOQ promotes invasion potential in colorectal cancer. J Exp Med. 2014;
+211:613–621. [PubMed: 24663214]
+Herb A, Higuchi M, Sprengel R, Seeburg PH. Q/R site editing in kainate receptor GluR5 and GluR6
+pre-mRNAs requires distant intronic sequences. Proceedings of the National Academy of Sciences
+of the United States of America. 1996; 93:1875–1880. [PubMed: 8700852]
+Higuchi M, Single FN, Kohler M, Sommer B, Sprengel R, Seeburg PH. RNA editing of AMPA
+receptor subunit GluR-B: a base-paired intron-exon structure determines position and efficiency.
+Cell. 1993; 75:1361–1370. [PubMed: 8269514]
+Jiang Q, Crews LA, Barrett CL, Chun HJ, Court AC, Isquith JM, Zipeto MA, Goff DJ, Minden M,
+Sadarangani A, et al. ADAR1 promotes malignant progenitor reprogramming in chronic myeloid
+leukemia. Proceedings of the National Academy of Sciences of the United States of America.
+2013; 110:1041–1046. [PubMed: 23275297]
+Kawahara Y, Zinshteyn B, Sethupathy P, Iizasa H, Hatzigeorgiou AG, Nishikura K. Redirection of
+silencing targets by adenosine-to-inosine editing of miRNAs. Science. 2007; 315:1137–1140.
+[PubMed: 17322061]
+Keegan LP, Gallo A, O'Connell MA. The many roles of an RNA editor. Nat Rev Genet. 2001; 2:869–
+878. [PubMed: 11715042]
+
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 15
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Li MY, Wang IX, Li Y, Bruzel A, Richards AL, Toung JM, Cheung VG. Widespread RNA and DNA
+Sequence Differences in the Human Transcriptome. Science. 2011; 333:53–58. [PubMed:
+21596952]
+Liang H, Cheung LWT, Li J, Ju ZL, Yu SX, Stemke-Hale K, Dogruluk T, Lu YL, Liu XP, Gu C, et al.
+Whole-exome sequencing combined with functional genomics reveals novel candidate driver
+cancer genes in endometrial cancer. Genome Research. 2012; 22:2120–2129. [PubMed:
+23028188]
+Liang H, Landweber LF. Hypothesis: RNA editing of microRNA target sites in humans? RNA. 2007;
+13:463–467. [PubMed: 17255198]
+Maas S, Patt S, Schrey M, Rich A. Underediting of glutamate receptor GluR-B mRNA in malignant
+gliomas. Proceedings of the National Academy of Sciences of the United States of America. 2001;
+98:14687–14692. [PubMed: 11717408]
+Maas S, Rich A. Changing genetic information through RNA editing. Bioessays. 2000; 22:790–802.
+[PubMed: 10944581]
+Martinez HD, Jasavala RJ, Hinkson I, Fitzgerald LD, Trimmer JS, Kung HJ, Wright ME. RNA Editing
+of Androgen Receptor Gene Transcripts in Prostate Cancer Cells. Journal of Biological Chemistry.
+2008; 283:29938–29949. [PubMed: 18708348]
+Nemlich Y, Greenberg E, Ortenberg R, Besser MJ, Barshack I, Jacob-Hirsch J, Jacoby E, Eyal E,
+Rivkin L, Prieto VG, et al. MicroRNA-mediated loss of ADAR1 in metastatic melanoma promotes
+tumor growth. The Journal of Clinical Investigation. 2013; 123:2703–2718. [PubMed: 23728176]
+Omberg L, Ellrott K, Yuan Y, Kandoth C, Wong C, Kellen MR, Friend SH, Stuart J, Liang H,
+Margolin AA. Enabling transparent and collaborative computational analysis of 12 tumor types
+within The Cancer Genome Atlas. Nature Genetics. 2013; 45:1121–1126. [PubMed: 24071850]
+Paz N, Levanon EY, Amariglio N, Heimberger AB, Ram Z, Constantini S, Barbash ZS, Adamsky K,
+Safran M, Hirschberg A, et al. Altered adenosine-to-inosine RNA, editing in human cancer.
+Genome Research. 2007; 17:1586–1595. [PubMed: 17908822]
+Peng ZY, Cheng YB, Tan BCM, Kang L, Tian ZJ, Zhu YK, Zhang WW, Liang Y, Hu XD, Tan XM, et
+al. Comprehensive analysis of RNA-Seq data reveals extensive RNA editing in a human
+transcriptome. Nature Biotechnology. 2012; 30:253–260.
+Piskol R, Peng ZY, Wang J, Li JB. Lack of evidence for existence of noncanonical RNA editing.
+Nature Biotechnology. 2013; 31:19–20.
+Qin YR, Qiao JJ, Chan TH, Zhu YH, Li FF, Liu H, Fei J, Li Y, Guan XY, Chen L. Adenosine-toinosine RNA editing mediated by ADARs in esophageal squamous cell carcinoma. Cancer
+Research. 2014; 74:840–851. [PubMed: 24302582]
+Quayle SN, Lee JY, Cheung LW, Ding L, Wiedemeyer R, Dewan RW, Huang-Hobbs E, Zhuang L,
+Wilson RK, Ligon KL, et al. Somatic mutations of PIK3R1 promote gliomagenesis. PloS One.
+2012; 7:e49466. [PubMed: 23166678]
+Ramaswami G, Li JB. RADAR: a rigorously annotated database of A-to-I RNA editing. Nucleic Acids
+Research. 2014; 42:D109–D113. [PubMed: 24163250]
+Ramaswami G, Lin W, Piskol R, Tan MH, Davis C, Li JB. Accurate identification of human Alu and
+non-Alu RNA editing sites. Nature Methods. 2012; 9:579–581. [PubMed: 22484847]
+Ramaswami G, Zhang R, Piskol R, Keegan LP, Deng P, O'Connell MA, Li JB. Identifying RNA
+editing sites using RNA sequencing data alone. Nature Methods. 2013; 10:128–132. [PubMed:
+23291724]
+Rueter SM, Dawson TR, Emeson RB. Regulation of alternative splicing by RNA editing. Nature.
+1999; 399:75–80. [PubMed: 10331393]
+The Cancer Genome Atlas Research Network. Comprehensive genomic characterization defines
+human glioblastoma genes and core pathways. Nature. 2008; 455:1061–1068. [PubMed:
+18772890]
+The Cancer Genome Atlas Research Network. Comprehensive genomic characterization of squamous
+cell lung cancers. Nature. 2012a; 489:519–525. [PubMed: 22960745]
+The Cancer Genome Atlas Research Network. Comprehensive molecular characterization of human
+colon and rectal cancer. Nature. 2012b; 487:330–337. [PubMed: 22810696]
+
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 16
+
+Author Manuscript
+Author Manuscript
+
+The Cancer Genome Atlas Research Network. Comprehensive molecular portraits of human breast
+tumours. Nature. 2012c; 490:61–70. [PubMed: 23000897]
+The Cancer Genome Atlas Research Network. Comprehensive molecular characterization of clear cell
+renal cell carcinoma. Nature. 2013a; 499:43–49. [PubMed: 23792563]
+The Cancer Genome Atlas Research Network. Integrated genomic characterization of endometrial
+carcinoma. Nature. 2013b; 497:67–73. [PubMed: 23636398]
+The Cancer Genome Atlas Research Network; Weinstein JN, Collisson EA, Mills GB, Shaw KRM,
+Ozenberger BA, Ellrott K, Shmulevich I, Sander C, Stuart JM, Network, C. G. A. R. The Cancer
+Genome Atlas Pan-Cancer analysis project. Nature Genetics. 2013; 45:1113–1120. [PubMed:
+24071849]
+Tomaselli S, Galeano F, Alon S, Raho S, Galardi S, Polito VA, Presutti C, Vincenti S, Eisenberg E,
+Locatelli F, Gallo A. Modulation of microRNA editing, expression and processing by ADAR2
+deaminase in glioblastoma. Genome Biology. 2015; 16:5. [PubMed: 25582055]
+Wahlstedt H, Daniel C, Enstero M, Ohman M. Large-scale mRNA sequencing determines global
+regulation of RNA editing during brain development. Genome Research. 2009; 19:978–986.
+[PubMed: 19420382]
+Wang K, Li M, Hakonarson H. ANNOVAR: functional annotation of genetic variants from highthroughput sequencing data. Nucleic Acids Research. 2010; 38:e164. [PubMed: 20601685]
+
+Author Manuscript
+Author Manuscript
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 17
+
+Author Manuscript
+
+Significance
+ADAR-mediated A-to-I RNA editing represents a widespread, phylogentically
+conserved, post-transcriptional mechanism to engender genomic diversity by
+reproducibly changing RNA sequences without a concomitant change in DNA
+sequences. The role of RNA editing in human cancer is only beginning to emerge from
+early studies of individual candidates in a few cancer types. Our systematic analysis of
+RNA editing across 17 cancer types demonstrates an appreciable number of RNA editing
+events associated with clinical characteristics of tumors and patient outcomes, some of
+which show functional effects on cell viability and drug sensitivity. Thus, aberrant RNA
+editing provides an underexplored mechanism to reproducibly alter protein or regulatory
+RNA sequences that could act as drivers and represent potential biomarkers or
+therapeutic targets in cancer.
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 18
+
+Author Manuscript
+Author Manuscript
+Figure 1. Overview of A-to-I RNA editing patterns in human cancer
+
+Author Manuscript
+
+(A) Numbers of TCGA tumor and normal samples analyzed in this study. (B) A correlation
+between the number of total mappable RNA-seq bases and the number of informative RNA
+editing sites across different cancer types. (C) The editing-level distributions at informative
+editing sites in different cancer types. Dashed and solid lines denote average and median for
+each cancer type, respectively. (D) The distributions of informative RNA editing sites in
+different types of RNA regions. See also Figure S1.
+
+Author Manuscript
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 19
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Figure 2. Comparison of the overall A-to-I RNA editing patterns between paired tumor and
+normal samples
+
+Author Manuscript
+
+(A) Numbers of over-editing sites and under-editing sites across different cancer types. (B)
+The correlation between the “net” proportion of over-editing sites (defined as the percentage
+of over-editing sites minus the percentage of under-editing sites) and the relative mRNA
+expression of ADAR1 (left), ADAR2 (middle), and ADAR3 (right) (fold change relative to
+normal tissues). To robustly detect a meaningful relation, the rank-based Spearman
+correlations were used and plotted. (C) Distribution of editing-level difference in BRCA
+relative to matched normal breast tissue samples (left panel) and the mRNA expression level
+of ADAR1 (right panel) (red in tumor and blue in normal). (D) Distribution of editing level
+difference in KICH samples relative to matched normal kidney samples. (A) and (B) overediting sites are in red; under-editing sites are in blue. (C) and (D) The paired Wilcoxon test
+was used to assess the difference between paired tumor and normal samples. The boxes
+
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 20
+
+Author Manuscript
+
+show the median±1 quartile, with whiskers extending to the most extreme data point within
+1.5 interquartile range from the box boundaries. See also Table S1.
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 21
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Figure 3. Identification and patterns of clinically relevant RNA editing sites
+
+(A) The overview of clinically relevant RNA editing sites identified by three complementary
+computational analyses: differential analysis among tumor subtypes, differential analysis
+among tumor stages, and correlation analysis with patient overall survivals. An explicative
+cartoon is shown for illustration purposes. (B-D) Statistical significance for the enrichment
+or depletion patterns of clinically relevant RNA editing sites through coverage-dependent
+permutation tests across 12 tumor types for different types of RNA regions: gene annotation
+(B), non-repetitive (C), non-Alu repetitive and Alu elements, and evolutionary conservation
+(D). See also Table S2.
+
+Author Manuscript
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 22
+
+Author Manuscript
+Author Manuscript
+Figure 4. Clinical relevance of nonsynonymous A-to-I RNA editing sites
+
+Author Manuscript
+
+(A) The clinical relevance of 8 nonsynonymous RNA editing sites identified in multiple
+cancer types. For each cancer type, the grey box indicates not significant, the red box
+indicates the significant differential editing among tumor subtypes (FDR < 0.2, Diff ≥ 5%),
+the green box indicates the significant differential editing among stages (FDR < 0.2, Diff ≥
+5%), the blue box indicates the association with the overall survival (FDR < 0.2, Diff ≥ 5%).
+(B-E) The representative plots showing clinical relevance of nonsynonymous RNA editing
+events in AZIN1S367D (CRC subtype: CIN, chromosomal instability; MSI, microsatellite
+instability) (B), COPAI164V (STAD subtype: CIN, chromosomal instability; EBV, Epstein–
+Barr virus (EBV)-positive; GS, genomically stable; MSI, microsatellite instability) (C),
+COG3I635V (D) and GRIA2R764G (E). The boxes show the median±1 quartile, with whiskers
+extending to the most extreme data point within 1.5 interquartile range from the box
+boundaries. See also Figure S2, Table S3.
+
+Author Manuscript
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 23
+
+Author Manuscript
+Author Manuscript
+Figure 5. Sequenom validation and functional effects of nonsynonymous RNA editing sites on
+cell viability
+
+Author Manuscript
+
+(A) Sequenom validation of AZIN1S367D. The upper panels show the results of a group of
+samples at cDNA and gDNA, respectively, where each blue symbol represents the AG
+genotype of a sample; while the bottom panels show the results of an individual sample in
+cDNA and gDNA, respectively, where there are one “A” peak and one “G” peak in cDNA
+but only one “A” peak in gDNA. (B) The effects of AZIN1S367D, GRIA2R764G and
+COG3I635V in MCF10A cell viability assays. (C) The effects of AZIN1S367D, GRIA2R764G
+and COG3I635V in BaF3 cell viability assays. Two-sided t-test was used to assess the
+difference. Error bars denote +/− SEM, * denotes p < 0.05, ** denotes p <0.001, and ***
+denotes p < 0.0001. See also Figure S3.
+
+Author Manuscript
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 24
+
+Author Manuscript
+Author Manuscript
+Figure 6. Effects of nonsynonymous RNA editing sites on drug sensitivity
+
+Author Manuscript
+
+(A) Spontaneously transformed Ba/F3 cells (negative control), Ba/F3 cells stably expressing
+AZIN1 and AZIN1S367D, GRIA2 and GRIA2R764G , COG3 and COG3I635V were screened
+against the drug library with or without IL-3 for 72 hr. Dose-response curves for the IGF-1R
+inhibitor BMS536924, the MEK inhibitors CI1040 and trametinib. The drugs were dissolved
+in DMSO, and only DMSO was added at the drug concentration of 0 as a control. At each
+drug dosage, the relative cell viability (measured based on three independent replicates) was
+obtained by normalizing the absolute cell viability to the DMSO control to remove the
+baseline difference between Ba/F3 cells with and without IL-3. Error bars denote +/− SD.
+(B) A heatmap showing the correlations of the RNA editing levels of 35 clinically relevant
+nonsynonymous sites with the IC50 values of 24 clinical drugs across CCLE cell line. The
+highlighted boxes indicate significant correlations at FDR < 0.1.
+
+Author Manuscript
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Han et al.
+
+Page 25
+
+Table 1
+
+Author Manuscript
+
+Summary of TCGA RNA-seq data used in this study
+Cancer Type Name (TCGA code)
+
+Author Manuscript
+Author Manuscript
+
+Num of
+normal
+samples
+
+Num of
+tumor
+Samples
+
+Sequence strategy
+
+Read length
+
+Average mappable reads
+
+Colorectal cancer (CRC)
+
+0
+
+228
+
+Single-end
+
+76
+
+21793066
+
+8493
+
+Uterine corpus endometrioid
+carcinoma (UCEC)
+
+4
+
+316
+
+Single-end
+
+76
+
+25324332
+
+14217
+
+Glioblastoma multiforme (GBM)
+
+0
+
+154
+
+Paired-end
+
+76
+
+106403279
+
+37934
+
+Lung Adenocarcinoma (LUAD)
+
+58
+
+488
+
+Paired-end
+
+48
+
+133297582
+
+54362
+
+Liver hepatocellular carcinoma
+(LIHC)
+
+50
+
+200
+
+Paired-end
+
+48
+
+139117210
+
+23540
+
+Bladder Urothelial Carcinoma
+(BLCA)
+
+19
+
+252
+
+Paired-end
+
+48
+
+144059158
+
+39270
+
+Kidney renal papillary cell
+carcinoma (KIRP)
+
+30
+
+198
+
+Paired-end
+
+48
+
+146793890
+
+36686
+
+Prostate adenocarcinoma (PRAD)
+
+52
+
+374
+
+Paired-end
+
+48
+
+147246105
+
+43078
+
+Brain Lower Grade Glioma
+(LGG)
+
+0
+
+486
+
+Paired-end
+
+48
+
+149851835
+
+51806
+
+Head and Neck Squamous Cell
+Carcinoma (HNSC)
+
+42
+
+426
+
+Paired-end
+
+48
+
+157436457
+
+35510
+
+Cervical squamous cell carcinoma
+and endocervical adenocarcinoma
+(CESC)
+
+3
+
+196
+
+Paired-end
+
+48
+
+161207521
+
+32797
+
+Breast invasive carcinoma
+(BRCA)
+
+105
+
+837
+
+Paired-end
+
+50
+
+161673379
+
+76555
+
+Kidney renal clear cell carcinoma
+(KIRC)
+
+67
+
+448
+
+Paired-end
+
+50
+
+166049114
+
+63717
+
+Stomach adenocarcinoma (STAD)
+
+33
+
+285
+
+Paired-end
+
+75
+
+169720033
+
+26389
+
+Lung squamous cell carcinoma
+(LUSC)
+
+17
+
+220
+
+Paired-end
+
+50
+
+171002267
+
+36822
+
+Thyroid carcinoma (THCA)
+
+59
+
+498
+
+Paired-end
+
+48
+
+171399819
+
+52701
+
+Kidney Chromophobe (KICH)
+
+25
+
+66
+
+Paired-end
+
+48
+
+174113816
+
+22317
+
+Author Manuscript
+Cancer Cell. Author manuscript; available in PMC 2016 October 12.
+
+Num of
+informative
+editing
+sites
+
+

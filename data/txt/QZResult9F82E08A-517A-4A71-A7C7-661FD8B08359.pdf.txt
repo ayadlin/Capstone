@@ -1,0 +1,1880 @@
+Published OnlineFirst November 22, 2011; DOI: 10.1158/0008-5472.CAN-11-2333
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+A Novel Method of Transcriptional Response Analysis to
+Facilitate Drug Repositioning for Cancer Therapy
+Guangxu Jin1,2, Changhe Fu1, Hong Zhao1,2, Kemi Cui1,2, Jenny Chang1,2,3, and Stephen T.C. Wong1,2,3
+
+Abstract
+Little research has been done to address the huge opportunities that may exist to reposition existing approved
+or generic drugs for alternate uses in cancer therapy. In addition, there has been little work on strategies to
+reposition experimental cancer agents for testing in alternate settings that could shorten their clinical
+development time. Progress in each area has lagged, in part, because of the lack of systematic methods to
+deﬁne drug off-target effects (OTE) that might affect important cancer cell signaling pathways. In this study, we
+addressed this critical gap by developing an OTE-based method to repurpose drugs for cancer therapeutics, based
+on transcriptional responses made in cells before and after drug treatment. Speciﬁcally, we deﬁned a new network
+component called cancer-signaling bridges (CSB) and integrated it with a Bayesian factor regression model
+(BFRM) to form a new hybrid method termed CSB-BFRM. Proof-of-concept studies were conducted in breast and
+prostate cancer cells and in promyelocytic leukemia cells. In each system, CSB-BFRM analysis could accurately
+predict clinical responses to more than 90% of drugs approved by the U.S. Food and Drug Administration and
+more than 75% of experimental clinical drugs that were tested. Mechanistic investigation of OTEs for several highranking drug–dose pairs suggested repositioning opportunities for cancer therapy, based on the ability to enforce
+retinoblastoma-dependent repression of important E2F-dependent cell-cycle genes. Together, our ﬁndings
+establish new methods to identify opportunities for drug repositioning or to elucidate the mechanisms of
+action of repositioned drugs. Cancer Res; 72(1); 33–44. 2011 AACR.
+
+Major Findings
+By developing a systematic approach to characterize offtarget effects of drugs, this study may help the ﬁeld learn
+how to reposition existing approved and generic drugs for
+alternate uses in cancer treatment.
+
+Introduction
+The study of drug repositioning has so far been limited to the
+"on-target repositioning" that applies a drug's known pharmacologic mechanism to a different therapeutic indication, for
+Authors' Afﬁliations: 1Department of Systems Medicine and Bioengineering, The Methodist Hospital Research Institute, Weill Cornell Medical
+College; 2NCI Center for Modeling Cancer Development, The Methodist
+Hospital Research Institute, Weill Medical College, Cornell University; and
+3
+Methodist Cancer Center, The Methodist Hospital, Houston, Texas
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+Corresponding Author: Stephen T.C. Wong, Department of Systems
+Medicine and Bioengineering, The Methodist Hospital Research Institute,
+Weill Medical College, Cornell University, 6670 Bertner Street, MC: R6-414,
+Houston, TX 77030. Phone: 1713-441-5883; Fax: 1713-441-8696; E-mail:
+stwong@tmhs.org
+doi: 10.1158/0008-5472.CAN-11-2333
+2011 American Association for Cancer Research.
+
+example, comparing the structural similarities of small molecules (1, 2) or known side effects (3). In contrast, "off-target
+repositioning" attempts to describe the pharmacologic
+mechanisms still unclear for known molecules. A number of
+approaches have recently been developed for off-target repositioning with the use of gene signatures (4–7),—subsets of
+genes, or drug similarity networks (8), identiﬁed in the cancer
+transcriptional proﬁles following drug treatment. One common limitation of these methods is that they do not include the
+disease-speciﬁc prior knowledge or known mechanisms in the
+off-target repositioning process, so that they can be used to
+ﬁnd similarities between the drugs but not the preference
+between them. Thus, we need to develop a method that
+incorporates prior knowledge of speciﬁc diseases to provide
+a more precise off-target drug repositioning.
+A primary challenge of off-target repositioning is to address
+the off-target effects (OTE) of a drug on the proteins downstream in the signaling pathways and the genes that are
+regulated by those proteins. As an example, in breast cancer,
+raloxifene, tamoxifen, and fulvestrant are the pioneering drugs
+targeting the estrogen receptor (ER; ref. 9). The targeted
+proteins, however, often generate downstream effects on the
+linked signaling proteins and ultimately exert unexpected
+OTEs on cancer transcription (10–12). Creighton and colleagues (12) showed that tamoxifen together with estrogen deprivation (ED) can shut down classic estrogen signaling and
+activate alternative pathways such as HER2, which can also
+regulate gene expression. The unexpected downstream signaling proteins and altered cancer transcription can be considered as the off-targets of the treated drugs.
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2012 American Association for Cancer Research.
+
+33
+
+Published OnlineFirst November 22, 2011; DOI: 10.1158/0008-5472.CAN-11-2333
+
+Jin et al.
+
+Quick Guide to Main Model Equations
+The strategy for off-target drug repositioning is illustrated in Fig. 1. Facilitated by cancer-signaling bridges (CSB), we established
+a new method to facilitate drug repositioning for cancer therapy.
+
+Major Assumptions of the Model
+CSB deﬁnition
+S is denoted as a protein set of a signaling pathway [i.e., NCI-PID (Pathway Interaction Database) or BioCarta pathway (ref. 13)].
+C is denoted as a cancer protein set deﬁned by the Online Mendelian Inheritance in Man database (14), in which each protein's
+coding gene (or genes) has a close relationship with a cancer genetic disorder.  is the instance set of network motifs (15), and S;C
+is a subset of , where an instance comprises a set of proteins and a number of protein–protein interactions between them
+(Supplementary Data).
+Each
+CSB is a speciﬁc instance of 1 type of network motif; its protein set is denoted as
+
+
+CSBj ðj 2 f1; 2; . . . ; S;C gÞ. A CSB satisﬁes that
+
+
+
+
+
+
+ 
+CSBj \ S > 0; CSBj \ C > 0; and CSBj  > CSBj \ ðS \ CÞ
+ðAÞ
+
+Off-Target Repositioning Method: CSB Bayesian Factor Regression Model
+Bayesian factor regression model (BFRM; 16, 17) is applied to the off-target drug repositioning. BFRM deconvolutes the cancer
+transcriptional response data into signatures with a model of the form
+Xi ¼ Ali þ i ði ¼ 1; 2; . . . ; mÞ
+
+ðBÞ
+
+where Xi is an n dimension vector of fold-change (treatment vs. control) of drug i in the cancer transcriptional response data;
+Xj;i ; j ¼ 1; 2; . . . ;n, is the median value of fold-changes of gene j in consideration of corresponding instances treated by drug i; m is
+the number of drugs; and n is the number of the coding genes for the CSB proteins expanded by the cancer proteins of a speciﬁc
+cancer type. A ¼ ða1 ; a2 ; . . . ; ak Þ is a sparse n  k matrix whose columns deﬁne the signatures Sl ; l ¼ 1; 2; . . . ; k, and each
+numerical value Aj;l deﬁnes the weight of gene j in the column of gene signature Sl. To address which parts of the cancer signals are
+responsible for the unknown pharmacologic mechanisms and to what extent they are targeted, the CSB-BFRM method needs to
+identify signatures (the targeted parts in the cancer signals) and effects (OTEs on the targeted parts; Fig. 1B). Thus, we deﬁne a
+weight matrix, A, as a combination of one output of BFRM, A, and another matrix, P ¼ ðr1 ; r2 ; . . . ; rk Þ, that contains the
+(sparse) probabilities that each gene is associated with each signature (refer to Materials and Methods). We call the matrix,
+L ¼ ðl1 ; l2 ; . . . ; lm Þ, an effect matrix. Each numerical value, Ll;i , deﬁnes the effect of drug i imposed on the gene signature, Sl.
+ ¼ ð1 ; 2 ; . . . ; m Þ reﬂects measurement error and residual biologic noise.
+Repositioning proﬁle
+The OTEs of a drug on a speciﬁc cancer are deﬁned as a repositioning proﬁle using A and L (Fig. 1C). A repositioning proﬁle,
+ ¼ ðv1 ; v2 ; . . . ; vm ÞT , is an m  k matrix to characterize the overall effects of m drugs on k signatures. The known drug targets
+are essential for identiﬁcation of a repositioning proﬁle. The targetable signatures are deﬁned by the non-zero weights at the
+rows of the targets across signatures of A. We denote the targetable signatures for drug i as a set Ti. For each targetable signature
+t 2 Ti , we deﬁne the product between Rt and the effect score Li;t as the overall effect of drug i imposed on signature t,
+P
+i;t ¼ Rt  Li;t , where Rt ¼ nj¼1 Aj;t denotes the response (or total weight) of the signature t to the drug i. The repositioning
+proﬁle for drug i, vi , i ¼ 1; 2; . . . ; m, is deﬁned as
+vi ¼
+
+
+Rt  Li;t ; t 2 Ti
+0;
+t2
+= Ti
+
+ðCÞ
+
+The target information for certain drugs may be unavailable. To deﬁne repositioning proﬁle for these drugs, we used a
+randomized process to simulate the targets of these drugs (refer to Materials and Methods). To reduce the computation bias, we
+
+
+repeated the randomized process 1,000 times and generated a sequence for repositioning proﬁles, X ¼ 1 ; 2 ; . . . ; 1;000 .
+
+34
+
+Cancer Res; 72(1) January 1, 2012
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2012 American Association for Cancer Research.
+
+Published OnlineFirst November 22, 2011; DOI: 10.1158/0008-5472.CAN-11-2333
+
+Off-Target Drug Repositioning Method for Cancer Therapy
+
+Repositioning score
+The identiﬁed repositioning proﬁle is applied to deﬁne a numerical value, called repositioning score, to distinguish the OTEs
+of the drugs. We used a supervised regression model, support vector regression (SVR), to deﬁne the repositioning score. If a drug i is
+approved by the U.S. Food and Drug Administration or undergoing clinical trials, the element of the label vector for prior
+knowledge, Li, is equal to 1. SVR outputs a regression prediction vector, Ph, for each regression between repositioning proﬁle h ,
+h ¼ 1; 2; . . . ; 1; 000, and the label vector, L. Ph is sorted in descending order. The drugs' ranks in the sorted Ph are recorded in a
+repositioning score vector, <h . Thus, we have a sequence for repositioning score,
+
+
+Q ¼ <1 ; <2 ; . . . ; <1;000
+
+ðDÞ
+
+The repositioning score for each drug is deﬁned as mean  standard variation across the 1,000 repositioning score vectors.
+Off-targets and OTEs
+The proposed repositioning score recognizes a drug's activity from the OTEs on the targetable signatures that comprise a
+number of off-targets. The off-targets are identiﬁed as the CSB proteins whose OTEs are non-zero. For a drug i, its OTE on a CSB
+protein j, j ¼ 1; 2; ::: ; n, in a targetable signature t, t 2 f1; 2; . . . ; kg, is deﬁned as the product of Aj;t and Lt;i . Thus, the the OTE of
+drug i on the targetable signature t is a vector,
+
+T
+Ei;t ¼ A1;t  Lt;i ; A2;t  Lt;i ; . . . ; Am;t  Lt;i
+ðEaÞ
+The OTE of drug i on CSB protein j is deﬁned as the summation of all of Ei;t;j ðt ¼ 1; 2; . . . ; kÞ across all of the targetable
+signatures Ti,
+OTEi;j ¼
+
+jTi j
+X
+
+ðEbÞ
+
+Ei;t;j
+
+t¼1
+
+Work has been conducted to address the off-targets using
+biomarkers or gene signatures (4, 12). Although gene signatures are able to identify which genes are changed during
+treatment with a drug, they cannot explain the associations
+between the expression changes of the genes and the OTEs on
+these genes of the drug in terms of the pathway mechanism of
+the disease. Moreover, these methods also fail to identify
+frequently changed genes, which were not considered in the
+gene signatures.
+In this article, we present a new method of off-target drug
+repositioning for cancer therapeutics based on transcriptional response. To include prior knowledge of signaling
+pathways and cancer mechanisms into the off-target repositioning process, we propose the use of cancer-signaling
+bridges (CSB) to connect signaling proteins to cancer proteins whose coding genes have a close relationship with
+cancer genetic disorders and then integrate CSBs with a
+powerful statistical regression model, the Bayesian factor
+regression model (BFRM), to recognize the OTEs of drugs on
+signaling proteins. The off-target repositioning method is
+thus named as CSB-BFRM.
+We applied CSB-BFRM to 3 cancer transcriptional response
+proﬁles and found that CSB-BFRM accurately predicts the
+activities of the U.S. Food and Drug Administration (FDA)approved drugs and clinical trial drugs for the 3 cancer types.
+Furthermore, we used the identiﬁed OTEs and off-targets to
+explain the action of the repositioned drugs. Four known drugs,
+
+www.aacrjournals.org
+
+each with 2 different doses, or 8 drug–dose pairs repositioned
+to the MCF7 breast cancer cell line [raloxifene (0.1 and 7.8
+mmol/L), tamoxifen (1 and 7 mmol/L), fulvestrant (1 and 0.01
+mmol/L), and paclitaxel (4.6 and 1 mmol/L)] were investigated.
+We showed that these drugs inhibit the transcription of certain
+key cell-cycle genes by enhancing the retinoblastoma (Rb)dependent repression of E2F-mediated gene transcription.
+They exhibited negative OTEs on the off-targets, the heterodimer E2F and DP-1, and the kinases CDK2 and CDK4/6, of Rb,
+but positive OTEs on the inhibitors p15 and Skp, Cullin, F-box
+containing complex (SCF) of the Rb's kinases. These results are
+consistent with the dose–response curves derived from the
+Developmental Therapeutics Program (DTP) of the National
+Cancer Institute/National Institutes of Health (NCI/NIH).
+
+Materials and Methods
+The drug-treated transcriptional response data were derived
+from Connectivity Map 02 (CMAP 02; ref. 4). There are 6,100
+treatment instances, in which 6,066 instances were treated on 3
+types of cancer cell lines: MCF7 breast cancer cell line, PC3
+prostate cancer cell line, and HL60 promyelocytic leukemia cell
+line. Each instance has a treatment case for 1 drug with 1
+dosage and variable numbers of controls (1, 5, or 6). There are
+3,095, 1,742, and 1,229 instances designed for MCF7, PC3, and
+HL60 cell lines, respectively. The transcriptional response data
+
+Cancer Res; 72(1) January 1, 2012
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2012 American Association for Cancer Research.
+
+35
+
+Published OnlineFirst November 22, 2011; DOI: 10.1158/0008-5472.CAN-11-2333
+
+Jin et al.
+
+Cancer proteins
+
+C3 C2......
+C1
+
+Expanded CSB proteins
+
+CS
+
+A drug
+
+P2
+
+P3
+
+S2
+
+......
+
+S1
+
+Treatment
+
+Ratio = treatment/control
+
+Drug
+matrix
+C Targetable signatures Weight
+3
+78 k
+
+Response data
+Treatment response matrix
+
+A drug’s targets
+
+Expanded CSB proteins
+
+B
+
+P1
+
+T/C
+
+P4
+
+Expanded CSB proteins
+
+Treat
+
+A specific cancer
+Control
+
+S3
+
+C3 C2
+C1
+
+Bs
+
+Transcriptional response
+Expanded CSB proteins
+
+A
+
+Weights
+
+Drugs
+
+Figure 1. CSB-BFRM model. T/C,
+treatment/control.
+
+BFRM
+
+Expanded CSB proteins
+
+R3
+
+R8
+
+Rk
+
+Signature
+
+Effect matrix
+
+R3
+
+R7
+
+R8
+
+R10
+
+Drug
+
+Drugs
+Signature
+
+w3
+
+w7
+
+w8
+
+wk
+
+Repositioning profile for the drug = {0, 0, ω3, 0, 0, 0, ω7, ω8, ......, ωk}
+Repositioning profile Prior knowledge
+
+Regression
+Drugs
+
+Repositioning score
+Sorted drugs
+
+D
+
+R7
+
+Signature
+
+Effect matrix
+Weight matrix
+
+Signature
+
+of MCF7 include 3,628 gene microarrays for 1,198 single-dose
+drugs, 96 multiple dose drugs, and 1,390 drug–dose pairs. The
+transcriptional response data of PC3 have 2,017 gene microarrays for 1,150 single-dose drugs, 31 multiple dose drugs, and
+1,215 drug–dose pairs. The transcriptional response data of
+HL60 comprise 1,406 gene microarrays for 1,061 single-dose
+drugs, 17 multiple dose drugs, and 1,099 drug–dose pairs.
+Additional data used in this article can be found in the
+Supplementary Data.
+Figure 1 illustrates the strategies used in our off-target
+repositioning method, CSB-BFRM, and the Quick Guide provides an overview of the key deﬁnitions and modeling
+components.
+Figure 1A shows the advantage of combining CSB and BFRM
+(16–19) to reposition drugs that cater not only to the treatment–response but also to the expanded cancer signaling
+mechanisms, making it feasible for off-target repositioning for
+cancers. In Fig. 1B, the input to CSB-BFRM is a treatment–
+response matrix X (n  m) whose m columns correspond to the
+
+36
+
+Cancer Res; 72(1) January 1, 2012
+
+treated drugs and n rows correspond to the coding genes for
+the identiﬁed CSB proteins for the cancer type of interest. The
+statistical factor analysis, BFRM, decomposes the treatment–
+response matrix X into another 2 matrices, weight matrix A
+(n  k) and effect matrix L (k  m). A weight matrix, A (n  k),
+is a sparse matrix (most of the elements are zero, as indicated
+by white color) whose columns deﬁne k signatures and
+their non-zero elements indicate which proteins are included
+in the signatures. BFRM imposes a sparse prior on the association of the genes to the signatures. Another matrix,
+P ¼ ðr1 ; r2 ; . . . ; rk Þ, contains the (sparse) probabilities that
+each gene is associated with each factor. The cutoff point for
+each element, Pi, j, of P matrix was chosen as the mean of all the
+non-zero values in the P matrix. If Pi, j is higher than the cutoff
+point, the corresponding value, Ai, j, of weight matrix A
+will be kept, and else, Ai, j is set as zero. An effect matrix,
+L (k  m), shows the effects of the m drugs imposed on the
+k signatures. BFRM model applies hierarchical priors for
+values of the non-zero elements in A and gets posterior via
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2012 American Association for Cancer Research.
+
+Published OnlineFirst November 22, 2011; DOI: 10.1158/0008-5472.CAN-11-2333
+
+Off-Target Drug Repositioning Method for Cancer Therapy
+
+Markov chain Monte Carlo (MCMC). MCMC analysis for
+the posterior simulation is implemented in a Gibbs sampling manner. The BFRM model is implemented with a
+software package, BFRM 2.0 (16, 17). The number of signatures, k, is determined by an evolution algorithm in the
+BFRM 2.0 software.
+In Fig. 1C, the repositioning proﬁle deﬁnition takes advantage of the identiﬁcation of the targetable signatures. If a drug's
+target information is available, the targetable signatures are
+deﬁned by the non-zero weights at the rows of the targets
+across signatures of A. The proteins in each targetable signature are determined by the non-zero elements in each corresponding column of A. For each targetable signature, the total
+of the non-zero weights is used to evaluate the response of the
+signature to the drug. In L, the score corresponding to the row
+of the signature and the column of the drug shows the effect of
+the drug on the signature. The OTE that the drug imposes on
+the signature is deﬁned as a weighted score obtained by
+multiplying the response of the signature to the drug by the
+effect of the drug on the signature. The repositioning proﬁle is
+used to illustrate the OTEs of the drug on all of the signatures,
+in which the OTEs for the targetable signatures are deﬁned as
+the weighted scores, whereas those for the untargetable signatures are zeros.
+Sometimes, the target information of a drug may be
+unavailable. We designed a randomized process to ﬁnd
+these targetable signatures. In the randomized process, a
+number of proteins randomly chosen from the CSB proteins
+were considered as the candidates for drug targets. The
+hypothesis is that the drug generates OTEs on the CSB
+proteins even if it does not target the CSB proteins directly.
+The number of proteins chosen is determined by a random
+numerical value drawn from a uniform distribution between
+1 and m, where m is the mean value of the targets for the
+drugs whose targets are known. The randomized process is
+repeated 1,000 times for those drugs with unknown targets
+to reduce the computational bias in the identiﬁcation of
+their candidate targets or off-targets. Still, some drugs have
+known drug targets that are not included in the CSB protein
+set. These targets are led to the CSB proteins, using the
+shortest paths in the protein–protein interaction network.
+The CSB proteins identiﬁed are considered as the targets or
+off-targets of these drugs.
+To rank the activities of drugs, we propose a single
+numerical value, repositioning score, for each drug. In this
+study, because a number of drugs are known to be FDAapproved or undergoing clinical trials for breast cancer,
+prostate cancer, and promyelocytic leukemia, we used the
+supervised regression model to deﬁne the repositioning
+score (Fig. 1D). For other cancer types, the FDA approval
+and clinical trial information may be unavailable. To apply
+the CSB-BFRM method to these cancer types, the supervised
+method should be replaced by an unsupervised data mining
+method, such as clustering. The SVR algorithm is implemented in R, using the package "e1071." All of the parameters
+are used as default except that the parameter "c" for crossvalidation is set to be 5. We speciﬁed cross-validation as 5fold.
+
+www.aacrjournals.org
+
+All of the materials and methods reported in this article are
+included in a Web-based tool, R2D2-CSB, which is available at
+http://r2d2drug.org/Software/csb/csb.aspx
+
+Results
+CSBs expand the signaling proteins to cancer proteins
+To investigate the off-target drug repositioning for cancers,
+we introduced the new network elements, CSBs, that can be
+used to extend the known canonical signaling pathways (13, 20)
+to the proteins whose coding genes have a close relationship
+with cancer genetic disorders (14, 21), or for short, cancer
+proteins (Fig. 2A). The data sources for deﬁnition of CSBs are
+listed in Supplementary Table S1. CSBs are the instances of
+network motifs (15, 22, 23), or building blocks, of the protein
+interaction networks (refs. 24–28; Supplementary Table S2).
+Besides being able to link many previously unrelated cancer
+proteins to a known signaling pathway of interest (Supplementary Fig. S1), CSBs have the following 4 characteristics that
+determine their important role in off-target drug repositioning:
+(i) CSBs are signiﬁcantly enriched in the connections between
+oncogenic signaling pathways and cancer proteins (Supplementary Table S3 and Data); (ii) most CSBs, nearly 70%, are not
+shared by multiple types of cancers but are speciﬁc to 1 cancer
+type (Fig. 2B); (iii) signaling proteins and cancer proteins linked
+by CSBs are signiﬁcantly more likely to be targeted by known
+anticancer drugs (Fig. 2D); and (iv) although most known
+anticancer drugs select the proteins in signaling pathways as
+their targets (Fig. 2C), they still generate relatively high effects,
+transmitted by CSBs, onto cancer proteins (Fig. 2E; Supplementary Data).
+Application of CSB-BFRM to cancer transcriptional
+response data
+We applied the proposed off-target repositioning method,
+CSB-BFRM, to 3 cancer transcriptional response data sets of
+MCF7 breast cancer cell line, PC3 prostate cancer cell line, and
+HL60 promyelocytic leukemia cell line (Supplementary Data).
+The inputs and outputs of CSB-BFRM are shown in Supplementary Tables S4 to S12. We tested the performance of CSBBFRM to predict the activities of FDA-approved drugs and
+drugs undergoing clinical trials for breast cancer, prostate
+cancer, and promyelocytic leukemia and used the identiﬁed
+off-targets and OTEs to explain the mechanisms of action of
+repositioned drugs.
+Performance of repositioning prediction
+To evaluate the performance of CSB-BFRM in prediction
+of drug activities based on the identiﬁed repositioning
+proﬁles of drugs, we used the receiver operating characteristic (ROC) method. The area under the ROC curve (AUC)
+illustrates how useful the repositioning proﬁles are for
+prediction of the known data of FDA approval and clinical
+trials information. In Fig. 3A and B, we show the ROC curves
+for the predictions on the activities of FDA-approved and
+clinical trial breast cancer drugs. The AUCs for the ROCs
+in Fig. 3A are 0.94  0.02 (P < 104; Fisher exact 2-tailed test)
+and those for the ROCs in Fig. 3B are 0.79  0.04 P < 104;
+
+Cancer Res; 72(1) January 1, 2012
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2012 American Association for Cancer Research.
+
+37
+
+Published OnlineFirst November 22, 2011; DOI: 10.1158/0008-5472.CAN-11-2333
+
+Jin et al.
+
+B
+
+C
+
+Signaling pathway
+
+#CSBs
+
+Six
+
+Five
+
+Four
+
+Pathways
+
+CSBs
+862
+1,305
+(59)
+1,639
+(31)
+(74)
+75
+35%
+39
+(24)
+23
+(2)
+(2)
+18%
+#proteins
+394
+(3)
+0% # anticancer
+
+E
+
+#Linked cancer types
+
+Extended by CSBs
+Not extended by CSBs
+
+**
+1.00
+
+***
+0.20
+
+*
+
+−0.05
+
+ay
+s
+w
+th
+
+te
+ro
+
+CS
+
+ro
+rp
+
+pa
+
+ce
+
+g
+in
+al
+Si
+
+gn
+
+an
+C
+
+Bs
+
+in
+s
+
+−1.00
+
+te
+i
+
+ei
+ot
+pr
+s’
+ay
+w
+
+0.00
+
+rp
+
+0.00
+
+th
+
+*
+
+0.50
+
+0.10
+
+Pa
+
+Cancer proteins
+
+drugs
+
+E scores
+
+G
+1 1
+
+D
+#drugs / #proteins
+
+S6
+
+C2
+Cancer-related
+C3 C1 proteins
+
+ns
+
+S5
+
+P2
+
+0
+
+Two
+
+S4
+
+3,750
+
+P1
+
+Three
+
+S3
+
+One
+
+P
+P
+
+7,500
+
+(CSB)
+
+ns
+
+ADP
+
+53%
+
+ce
+
+S2
+ATP
+
+70%
+
+11,250
+
+an
+
+S1
+
+%CSBs
+
+15,000
+
+C
+
+A
+
+Figure 2. CSBs and their roles in cancer study and drug discovery. A, CSBs extend the signaling proteins to cancer proteins. B, linked cancer types of CSBs.
+C, known anticancer drugs targeted on the proteins for signaling pathways, CSBs, and cancer. D, extended proteins by CSBs are more likely to be targeted by
+5
+14
+anticancer drugs than nonextended ones (signaling proteins, P < 10 ; cancer proteins, P < 10 ; Fisher exact 2-tailed test). E, the overall effects on
+protein sets evaluated by E-scores (refer to Supplementary Data for details). For known anticancer drugs, they have signiﬁcantly higher effects on cancer
+protein set than those of signaling pathways and CSB proteins.   , P < 1020;  , P < 104 Mann–Whitney U test.
+
+Fisher exact 2-tailed test). Because the FDA approval information for prostate cancer and promyelocytic leukemia is
+limited (Supplementary Table S13), it was merged with
+clinical trial information to do the repositioning predictions.
+The performance of the prediction on the FDA-approved
+and clinical trial prostate cancer drugs is indicated by the
+ROC curve shown in Fig. 3C. The AUC of the ROC curve
+in Fig. 3C is 0.78  0.03 (P < 104; Fisher exact 2-tailed test).
+The ROC curve for the prediction on the FDA-approved and
+clinical trial promyelocytic leukemia drugs is shown in Fig.
+3D and its AUC is 0.91  0.06 (P < 104; Fisher exact 2-tailed
+test). The results indicate that the activities of the FDAapproved and clinical trial drugs for breast cancer, prostate
+cancer, and promyelocytic leukemia are accurately predicted
+by the CSB-BFRM.
+For the repositioning on the MCF7 breast cancer cell line,
+we listed the ﬁrst 22 drugs with the highest repositioning
+scores in Table 1 and showed the ranks for all the 1,390 drugs
+in Supplementary Table S14. These ﬁrst 22 drugs predict all
+14 FDA-approved drugs (with drug dosages) from the 1,390
+drugs (P < 1010, hypergeometric test). Furthermore, we
+have listed the repositioned drugs with their repositioning
+scores for PC3 prostate cancer cell line and HL60 promyelocytic leukemia in Supplementary Tables S15 and S16. The
+relatively small numbers of drugs with the highest repositioning scores predict the FDA-approved drugs and clinical
+trial drugs for prostate cancer and promyelocytic leukemia
+
+38
+
+Cancer Res; 72(1) January 1, 2012
+
+(PC3: P < 104, hypergeometric test; HL60: P < 102, hypergeometric test).
+OTEs and off-targets
+We investigated 8 pairs of drug doses with relatively high
+repositioning scores repositioned for MCF7 breast cancer cell
+line, as shown in Table 2. The 8 drug–dose pairs are raloxifene
+at 0.1 and 7.8 mmol/L, tamoxifen at 1 and 7 mmol/L, paclitaxel at
+4.6 and 1 mmol/L, and fulvestrant at 1 and 0.01 mmol/L. We
+identiﬁed the off-targets for the 8 drug-dose pairs and listed
+them with their OTEs in Supplementary Table S17. To
+remove the redundant off-targets with relatively lower OTEs,
+we used the mean of the absolute values, jOTEj, of all off-targets
+as a threshold, d. We chose those off-targets whose OTEs
+are higher than the threshold d or lower than d for the
+following analysis. We conducted the gene set enrichment
+analysis (GSEA; ref. 29) on the off-targets of each drug. The
+off-targets of each drug are signiﬁcantly enriched in 2 important cellular functions, cell cycle (P < 105, hypergeometric
+test) and apoptosis of cells (P < 1026, hypergeometric test).
+The enrichment P values for all of the 8 drug-dose pairs are
+shown in Supplementary Table S18. We also conducted pathway analysis on the identiﬁed off-targets, using Ingenuity
+Pathway Analysis (IPA; Ingenuity Systems, Inc.) software.
+Subsequently, 2 important signaling pathways related to cell
+cycle and apoptosis were identiﬁed, namely, cell-cycle G1–S
+checkpoint and p53 signaling pathways.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2012 American Association for Cancer Research.
+
+Published OnlineFirst November 22, 2011; DOI: 10.1158/0008-5472.CAN-11-2333
+
+Off-Target Drug Repositioning Method for Cancer Therapy
+
+Figure 3. The prediction
+performance of CSB-BFRM on FDAapproved drugs and clinical trial
+drugs.
+
+Mechanisms of repositioned drugs
+The Rb-dependent repression of E2F-mediated transcription (30) is the key to understanding the mechanisms of the 8
+repositioned drug–dose pairs. We summarized the signal
+cascade as follows:
+
+↔
+
+INK4 −| CDK4/6
+
+↔
+
+SCF −| Cyclin D/E
+CDK2
+
+⎤
+⎥
+⎥
+⎥ ⎯p⎯
+→ Rb p −| Rb repression complex −| E2F ⇒ Cell cycle
+⎥
+DP-1
+⎥
+⎥
+⎦
+
+The OTEs and off-targets of the 8 repositioning drug–dose
+pairs for this signaling cascade are shown in Table 2. To
+better illustrate the drugs' effects on the signaling cascade,
+their OTEs and off-targets are also displayed in Fig. 4. All 8
+drug–dose pairs inhibit the core part of the signaling cascade, the heterodimer of E2F and DP-1. The inhibition of
+
+www.aacrjournals.org
+
+either E2F or DP-1 ensures that the gene expression is
+repressed even if Rb is phosphorylated. Still, some drug–
+dose pairs targeting other parts of the signaling cascade
+enforce the transcriptional repression. Paclitaxel at 4.6
+mmol/L has a relatively high positive OTE (higher than 0)
+
+on the RBL1 protein (a member of the Rb protein family),
+which increases the expression of RBL1 protein and
+strengthens the recruitment of histone deacetylases and
+other nuclear factors to repress gene expression. Paclitaxel
+at 4.6 mmol/L also has positive OTEs on the INK4 (p15) and
+SCF (BTRC) proteins, which enhances the inhibition of
+
+Cancer Res; 72(1) January 1, 2012
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2012 American Association for Cancer Research.
+
+39
+
+Published OnlineFirst November 22, 2011; DOI: 10.1158/0008-5472.CAN-11-2333
+
+Jin et al.
+
+Table 1. The activities of drugs predicted by repositioning scores for MCF7 breast cancer cell line
+Predicted rank
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+
+Repositioned drugs (conc.a)
+Raloxifene (0.0000001)
+Paclitaxel (0.0000046)
+Tamoxifen (0.000001)
+Paclitaxel (0.0000001)
+Fulvestrant (0.000001)
+Exemestane (0.00000001)
+Letrozole (0.000014)
+Sulindac (0.00005)
+Fulvestrant (0.00000001)
+Daunorubicin (0.000007)
+Clomifene (0.0000066)
+Sulindac (0.0001)
+Estradiol (0.00000001)
+Imatinib (0.00001)
+Estradiol (0.0000001)
+Methotrexate (0.0000088)
+Bezaﬁbrate (0.000011)
+Doxorubicin (0.0000068)
+Valproic acid (0.00005)
+Raloxifene (0.0000078)
+Amiloride (0.0000132)
+Tamoxifen (0.000007)
+
+Repositioning score (mean  SD)
+0.85  0.77
+2.75  1.01
+3.43  1.97
+5.46  33.73
+6.31  0.98
+21.82  86.28
+26.43  96.52
+29.02  18.10
+31.01  42.76
+37.95  83.48
+38.97  20.41
+46.48  19.31
+53.47  79.65
+55.64  68.28
+58.60  30.09
+59.80  127.82
+68.08  139.31
+70.22  218.72
+76.00  69.52
+80.74  84.14
+113.04  193.55
+124.33  137.36
+
+Statusb
+FDA CT
+FDA CT
+FDA CT
+FDA CT
+FDA CT
+FDA CT
+FDA CT
+CT
+FDA CT
+
+CT
+FDA CT
+CT
+FDA CT
+FDA CT
+FDA CT
+FDA CT
+FDA CT
+
+a
+
+Values in parentheses indicate concentrations (conc.) in mol/L.
+CT, clinical trial breast cancer drug; FDA, FDA-approved breast cancer drug.
+
+b
+
+CDK4/6 and cyclin D/E as well as phosphorylation of Rb,
+so that the association of Rb family members with both
+histone deacetylases and E2Fs is enhanced and gene expression is repressed. Fulvestrant at 1 and 0.01 mmol/L have
+negative OTEs (lower than 0) on the kinase CDK2 and
+decrease its expression, which in turn, reduce the phosphorylated Rb and enhance the Rb-dependent repression of
+E2F-mediated transcription. Thus, by various means, these
+drugs enforce the transcriptional repression of key cell-cycle
+genes.
+
+Consistency with dose–response curves
+We used the dose–response data derived from the DTP
+of NCI/NIH (31) to validate our hypothesis. Checking the
+dose–response curves for raloxifene, tamoxifen, paclitaxel,
+and fulvestrant (Fig. 5), we found that all of the 4 drugs with
+considered dosages (lower than 10 mmol/L) have a significant inhibition on cell growth. This result is consistent
+with the predicted OTEs enhancing the Rb-dependent
+repression of E2F-mediated transcription of the key genes
+for cell-cycle progression.
+The 4 repositioned drugs not only generate OTEs on the
+cell-cycle G1–S checkpoint signaling pathway but also
+impose OTEs on the p53 signaling pathway (Table 2
+and Fig. 4). The OTEs on the p53 signaling pathway are
+helpful to understand why raloxifene, tamoxifen, and pac-
+
+40
+
+Cancer Res; 72(1) January 1, 2012
+
+litaxel induce apoptosis at higher dosages, whereas fulvestrant does not induce any cell death on MCF7 (Fig. 5). In a
+comparison of the OTEs of raloxifene at lower and higher
+dosages, these 2 OTEs appear to be opposite to each other.
+At the lower dosage, the negative OTE decreases TP53 and
+blocks apoptosis, whereas at the higher dosage it increases
+apoptotic cell death. This is also seen with tamoxifen. On
+the other hand, paclitaxel is predicted to increase the
+expression of TP53 and induce apoptosis of cells at both
+lower and higher dosages. Several experiments on paclitaxel
+with dosages between 107 and 105 mol/L induce cell
+death. In contrast, fulvestrant decreases the expression
+of TP53 at both lower and higher dosages and cannot
+induce the apoptosis of cells at any of the considered
+dosages.
+
+Discussion
+In summary, we presented a new computational method
+for off-target drug repositioning using cancer transcriptional
+response data before and after treatment. Facilitated by
+the new network elements, CSBs, we have shown the potential of the proposed method, CSB-BFRM, in the repositioning
+of drugs for speciﬁc cancer types. CSB-BFRM performs well
+in predicting the activities of FDA-approved drugs and
+clinical trial drugs for breast cancer, prostate cancer, and
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2012 American Association for Cancer Research.
+
+www.aacrjournals.org
+TFDP1
+RBL1
+CDKN2B
+
+Cell-cycle G1–S
+
+Paclitaxel
+(4.6 mmol/L)
+
+Fulvestrant
+(1 mmol/L)
+
+Paclitaxel
+(1 mmol/L)
+
+p53 signaling pathway
+
+Cell-cycle G1–S
+
+Cell-cycle G1–S
+p53 signaling pathway
+
+CDK2
+TP53
+MDM2
+
+TFDP1
+E2F1
+E2F2
+E2F4
+
+TFDP1
+TP53
+MDM2
+
+Nucleus
+Nucleus
+Nucleus
+
+Nucleus
+Nucleus
+Nucleus
+Nucleus
+
+Nucleus
+Nucleus
+Nucleus
+
+Cytoplasm
+Nucleus
+Nucleus
+
+Nucleus
+Nucleus
+
+Nucleus
+
+Nucleus
+Nucleus
+Nucleus
+
+Nucleus
+Nucleus
+Nucleus
+Nucleus
+Nucleus
+Nucleus
+
+Nucleus
+Nucleus
+Nucleus
+Nucleus
+
+Location
+
+(Continued on following page)
+
+TFDP1
+TP53
+MDM2
+
+Cell-cycle G1–S
+p53 signaling pathway
+
+Tamoxifen
+(7 mmol/L)
+
+BTRC
+TP53
+MDM2
+
+Retinoblastoma-like 1 (p107)
+Cyclin-dependent kinase
+inhibitor 2B (p15, inhibits CDK4)
+Beta-transducin repeat containing
+Tumor protein p53
+Mdm2 p53-binding protein
+homolog
+Transcription factor Dp-1
+Tumor protein p53
+Mdm2 p53-binding protein
+homolog
+Transcription factor Dp-1
+E2F transcription factor 1
+E2F transcription factor 2
+E2F transcription factor 4,
+p107/p130-binding
+Cyclin-dependent kinase 2
+Tumor protein p53
+Mdm2 p53-binding protein
+homolog
+
+TP53
+TFDP1
+TP53
+TFDP1
+TP53
+MDM2
+
+p53 signaling pathway
+Cell-cycle G1–S
+p53 signaling pathway
+Cell-cycle G1–S
+p53 signaling pathway
+
+Raloxifene
+(7.8 mmol/L)
+Tamoxifen
+(1 mmol/L
+
+p53 signaling pathway
+
+Transcription factor Dp-1
+E2F transcription factor 1
+E2F transcription factor 2
+E2F transcription factor 4,
+p107/p130-binding
+Tumor protein p53
+Transcription factor Dp-1
+Tumor protein p53
+Transcription factor Dp-1
+Tumor protein p53
+Mdm2 p53-binding protein
+homolog
+Transcription factor Dp-1
+Tumor protein p53
+Mdm2 p53-binding protein
+homolog
+Transcription factor Dp-1
+
+TFDP1
+E2F1
+E2F2
+E2F4
+
+Raloxifene
+(0.1 mmol/L)
+
+Cell-cycle G1–S
+
+Entrez gene name
+
+Symbol
+
+Off-targets
+
+Signaling pathway
+
+Drugs
+
+regulator
+regulator
+regulator
+regulator
+regulator
+regulator
+
+regulator
+regulator
+regulator
+regulator
+
+regulator
+regulator
+regulator
+regulator
+Kinase
+Transcription regulator
+Transcription regulator
+
+Transcription
+Transcription
+Transcription
+Transcription
+
+Transcription regulator
+Transcription regulator
+Transcription regulator
+
+Enzyme
+Transcription regulator
+Transcription regulator
+
+Other
+Transcription regulator
+
+Transcription regulator
+
+Transcription regulator
+Transcription regulator
+Transcription regulator
+
+Transcription
+Transcription
+Transcription
+Transcription
+Transcription
+Transcription
+
+Transcription
+Transcription
+Transcription
+Transcription
+
+Family
+
+Table 2. The predicted off-targets and OTEs for the repositioned drugs on MCF7 breast cancer cell line
+
+1017
+7157
+4193
+
+7027
+1869
+1870
+1874
+
+7027
+7157
+4193
+
+8945
+7157
+4193
+
+5933
+1030
+
+7027
+
+7027
+7157
+4193
+
+7157
+7027
+7157
+7027
+7157
+4193
+
+7027
+1869
+1870
+1874
+
+Entrez gene ID
+
+&
+
+&
+&
+&
+&
+&
+&
+&
+
+0.0192
+0.0115
+0.01
+
+&
+%
+%
+
+&
+%
+%
+
+&
+&
+
+0.0192
+0.0134
+0.0184
+0.0142
+
+0.0201
+0.016
+0.0153
+
+0.0905
+0.083
+0.0583
+
+0.1404
+0.0933
+
+0.0583
+
+&
+%
+%
+
+&
+&
+%
+&
+%
+%
+
+0.0216
+0.0611
+0.0274
+0.0222
+0.0178
+0.0115
+0.0185
+0.0138
+0.0157
+
+&
+&
+&
+&
+
+Pathway
+
+0.0433
+0.0268
+0.0206
+0.0392
+
+Target
+
+OTEs
+
+Published OnlineFirst November 22, 2011; DOI: 10.1158/0008-5472.CAN-11-2333
+
+Off-Target Drug Repositioning Method for Cancer Therapy
+
+Cancer Res; 72(1) January 1, 2012
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2012 American Association for Cancer Research.
+
+41
+
+Published OnlineFirst November 22, 2011; DOI: 10.1158/0008-5472.CAN-11-2333
+
+42
+
+&
+&
+&
+0.0395
+0.0567
+0.0298
+Nucleus
+Nucleus
+Nucleus
+
+Kinase
+Transcription regulator
+Transcription regulator
+
+1017
+7157
+4193
+
+&
+&
+&
+&
+0.016
+0.0446
+0.0405
+0.0842
+7027
+1869
+1870
+1874
+Transcription regulator
+Transcription regulator
+Transcription regulator
+Transcription regulator
+Nucleus
+Nucleus
+Nucleus
+Nucleus
+
+Cancer Res; 72(1) January 1, 2012
+
+CDK2
+TP53
+MDM2
+p53 signaling pathway
+
+TFDP1
+E2F1
+E2F2
+E2F4
+Fulvestrant
+(0.01 mmol/L)
+
+Cell-cycle G1–S
+
+Transcription factor Dp-1
+E2F transcription factor 1
+E2F transcription factor 2
+E2F transcription factor 4,
+p107/p130-binding
+Cyclin-dependent kinase 2
+Tumor protein p53
+Mdm2 p53-binding protein
+homolog
+
+Pathway
+Entrez gene ID
+Family
+Location
+Symbol
+Signaling pathway
+
+Entrez gene name
+
+Off-targets
+Drugs
+
+Table 2. The predicted off-targets and OTEs for the repositioned drugs on MCF7 breast cancer cell line (Cont'd )
+
+Target
+
+OTEs
+
+Jin et al.
+
+promyelocytic leukemia, using the corresponding transcription response datasets. The predicted OTEs and off-targets
+help to better understand the mechanisms of action of
+repositioned drugs.
+In Table 1, the repositioning list for MCF7 breast cancer
+cell line includes all of the FDA-approved breast cancer drugs
+targeting the ER, which appear in the 1,390-drug set. The
+drugs are raloxifene at 0.1 and 7.8 mmol/L, tamoxifen at 1
+and 7 mmol/L, fulvestrant at 1 and 0.01 mmol/L, and estradiol
+at 0.01 and 0.1 mmol/L. The repositioning result is consistent
+with the fact that MCF7 is an ERþ breast cancer cell line. In
+addition, raloxifene and tamoxifen are the selective ER
+modulators (SERM; ref. 32). These SERMs function as
+pure antagonists when acting through ER-b on genes containing estrogen response elements but can function as
+partial agonists when acting on them through ER-a. The
+repositioning results for raloxifene and tamoxifen are consistent with the "partial agonist" property of raloxifene
+and tamoxifen. These 2 drugs generate higher effects at
+lower dosages. Raloxifene at 0.1 mmol/L has a higher repositioning rank than raloxifene at 7.8 mmol/L, and tamoxifen
+at 1 mmol/L has a higher repositioning rank than tamoxifen
+at 7 mmol/L.
+The identiﬁed off-targets and OTEs display the complexity of
+the drugs' activities. On one hand, some drugs at higher
+dosages have their own speciﬁc off-targets or OTEs. In the
+repositioning for the MCF7 breast cancer cell line, paclitaxel at
+4.6 mmol/L has extra positive OTEs on the RBL1 protein, Rb's
+kinase (CDK2), the cyclin proteins' inhibitor (SCF), and the
+inhibitor of kinase CDK4/6, INK4 (p15), which are absent at the
+lower dosage. These OTEs ensure that paclitaxel can strengthen the transcription repression on the key genes regulating the
+cell cycle. On the other hand, at different dosages, the same
+drug would generate different effects on its speciﬁc off-targets
+and signaling pathways. For example, at the higher dosages,
+raloxifene and tamoxifen have positive OTEs on p53 protein
+while exhibiting negative OTEs on p53 protein at the lower
+dosages. Because the complexity of the drugs' activities is not
+easily explained by "on-target" studies, the OTEs on the downstream signaling proteins have to be identiﬁed and linked to
+transcription, rather than simple analysis of the effects on
+known drug targets.
+BFRM plays a central role in recognizing the OTEs of
+repositioned drugs. It factorizes the response (fold change of
+expression) of a molecule into different component values
+according to the latent factors (signatures). The CSB-BFRM
+recognizes the essential latent factors (targetable signatures) and factorized component values (OTEs) for these
+signatures. For the repositioning on the MCF7 breast cancer
+cell line, we compared the original response (fold change) on
+off-targets in cell-cycle G1–S checkpoint and p53 signaling
+pathways with the recognized OTEs on these targets (Supplementary Fig. S2). The data scale is changed. Fold changes
+of the molecules are between 0.4 and 1.6, whereas OTEs are
+between 0.10 and 0.10. The factorized OTEs allow easy
+recognition of positive and negative effects. For instance, all
+of the original fold changes of tamoxifen at 1 mmol/L are
+higher than 1, whereas the OTEs are between 0.05 and 0.05.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2012 American Association for Cancer Research.
+
+Published OnlineFirst November 22, 2011; DOI: 10.1158/0008-5472.CAN-11-2333
+
+Off-Target Drug Repositioning Method for Cancer Therapy
+
+Raloxifene: 0.0000001 mol/L
+
+Raloxifene: 0.0000078 mol/L
+
+Figure 4. OTEs and off-targets of
+raloxifene, tamoxifen, paclitaxel, and
+fulvestrant on the cell-cycle G1–S
+checkpoint and p53 signaling
+pathways. Right, the signal cascade
+in the cell-cycle G1–S checkpoint
+signaling pathway. Left, the p53
+signaling pathway. The drug–dose
+pairs are listed in the middle. The
+drug-targeted pathway was
+generated using IPA software.
+
+Tamoxifen: 0.000001 mol/L
+Tamoxifen: 0.000007 mol/L
+
+Paclitaxel: 0.0000046 mol/L
+
+Paclitaxel: 0.0000001 mol/L
+
+Fulvestrant: 0.000001 mol/L
+
+Fulvestrant: 0.00000001 mol/L
+
+of interest. However, CSB-BFRM would face difﬁculties in
+repositioning drugs for rare cancer types, as prior knowledge
+is often unavailable. Fortunately, with the rapid development of next-generation sequencing, more people will be
+willing to study these rare cancer types and to generate
+corresponding genetic mutation data. The identiﬁcation of
+key genes with genetic disorders would allow further identiﬁcation of CSBs for these cancer types. Thus, we believe
+that using CSB-BFRM for repositioning drugs for rare cancer
+types will also be feasible.
+
+−7
+−6
+−5
+Log10 of concentration
+
+−100
+
+0
+
+100
+
+Tamoxifen
+
+−4
+
+−8
+
+−7
+−6
+−5
+Log10 of concentration
+
+−6
+
+−5
+
+−4
+
+100
+0
+−100
+
+Percent of control
+
+0
+−100
+
+−7
+
+Log10 of concentration
+
+−4
+
+Paclitaxel
+
+100
+
+Fulvestrant
+
+−8
+
+www.aacrjournals.org
+
+Percent of control
+
+−100
+
+0
+
+100
+
+Raloxifene
+
+−8
+
+Percent of control
+
+Figure 5. Dose–response curves for
+raloxifene, tamoxifen, fulvestrant,
+and paclitaxel. The value of dots
+between 0% and 100% means the
+drug inhibits the cell growth. The
+growth percentage of 100 means
+all cells are killed. The dose–
+response curves for raloxifene and
+tamoxifen imply that they induce the
+cell death at higher dosages,
+whereas the curve for paclitaxel
+shows that some experiments also
+cause the cell death. In contrast, the
+curve for fulvestrant indicates that at
+higher dosages, fulvestrant does not
+induce the cell death. The data
+source is DTP of NCI/NIH (31).
+
+Percent of control
+
+If we use the original fold changes, we cannot tell the
+difference between OTEs on the heterodimer of E2F and
+DP-1 (negative) and those for p53 (positive). The recognized
+OTEs are better in reﬂecting the mechanism of action of
+repositioned drugs.
+The proposed off-target drug repositioning method, CSBBFRM, takes advantage of the availability of disease-speciﬁc
+prior knowledge. For example, the deﬁnition of CSBs as
+shown in Fig. 1 requires prior knowledge of the cancer genes
+that have genetic disorders associated with the cancer type
+
+−12
+
+−10
+
+−8
+
+−6
+
+−4
+
+Log10 of concentration
+
+Cancer Res; 72(1) January 1, 2012
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2012 American Association for Cancer Research.
+
+43
+
+Published OnlineFirst November 22, 2011; DOI: 10.1158/0008-5472.CAN-11-2333
+
+Jin et al.
+
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+of Medicine; Xiang-Sun Zhang from Institute of Applied Mathematics, Chinese
+Academy of Sciences; Luonan Chen from Key Laboratory of Systems Biology,
+Shanghai Institutes for Biological Sciences, Chinese Academy of Sciences; as well
+as colleagues in the Cancer Systems Biology Laboratory, The Methodist Hospital
+Research Institute.
+
+Authors' Contributions
+G. Jin and S.T.C. Wong initiated the idea for applying systems biology in cancer
+drug repositioning as well as the CSB-BFRM model. G. Jin and C. Fu processed the
+data used in the analysis and developed the source code for CSB-BFRM model. G. Jin
+did the repositioning on MCF7, PC3, and HL60. C. Fu designed the Web-based
+interface for CSB-BFRM model. G. Jin, H. Zhao, J. Chang, and K. Cui discussed the
+biologic interpretation of the repositioning results. S.T.C. Wong supervised this
+work. G. Jin, H. Zhao, J. Chang, and S.T.C. Wong wrote the manuscript.
+
+Acknowledgments
+The authors appreciate the discussion and advice of Suzanne Fuqua, Michael
+Lewis, and Rachel Schiff from Lester and Sue Smith Breast Center, Baylor College
+
+Grant Support
+This work was supported by NIH grant U54CA149196 and John S. Dunn
+Research Foundation to S.T.C. Wong.
+The costs of publication of this article were defrayed in part by the
+payment of page charges. This article must therefore be hereby marked
+advertisement in accordance with 18 U.S.C. Section 1734 solely to indicate this
+fact.
+
+Received July 13, 2011; revised October 17, 2011; accepted November 9, 2011;
+published OnlineFirst November 22, 2011.
+
+References
+1.
+
+2.
+3.
+4.
+
+5.
+6.
+
+7.
+8.
+
+9.
+
+10.
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
+17.
+
+44
+
+Keiser MJ, Setola V, Irwin JJ, Laggner C, Abbas AI, Hufeisen SJ, et al.
+Predicting new molecular targets for known drugs. Nature 2009;462:
+175–81.
+Miller MA. Chemical database techniques in drug discovery. Nat Rev
+Drug Discov 2002;1:220–7.
+Campillos M, Kuhn M, Gavin AC, Jensen LJ, Bork P. Drug target
+identiﬁcation using side-effect similarity. Science 2008;321:263–6.
+Lamb J, Crawford ED, Peck D, Modell JW, Blat IC, Wrobel MJ, et al. The
+Connectivity Map: using gene-expression signatures to connect small
+molecules, genes, and disease. Science 2006;313:1929–35.
+Lamb J. The Connectivity Map: a new tool for biomedical research. Nat
+Rev Cancer 2007;7:54–60.
+Sirota M, Dudley JT, Kim J, Chiang AP, Morgan AA, Sweet-Cordero A,
+et al. Discovery and preclinical validation of drug indications using
+compendia of public gene expression data. Sci Transl Med 2011;3:
+96ra77.
+Sardana D, Zhu C, Zhang M, Gudivada RC, Yang L, Jegga AG. Drug
+repositioning for orphan diseases. Brief Bioinform 2011;12:346–56.
+Iorio F, Bosotti R, Scacheri E, Belcastro V, Mithbaokar P, Ferriero R, et al.
+Discovery of drug mode of action and drug repositioning from transcriptional responses. Proc Natl Acad Sci U S A 2010;107:14621–6.
+Wishart DS, Knox C, Guo AC, Cheng D, Shrivastava S, Tzur D, et al.
+DrugBank: a knowledgebase for drugs, drug actions and drug targets.
+Nucleic Acids Res 2008;36:D901–6.
+Keiser MJ, Hert J. Off-target networks derived from ligand set similarity. Methods Mol Biol 2009;575:195–205.
+Feyen O, Lueking A, Kowald A, Stephan C, Meyer HE, Gobel U, et al.
+Off-target activity of TNF-alpha inhibitors characterized by protein
+biochips. Anal Bioanal Chem 2008;391:1713–20.
+Creighton CJ, Massarweh S, Huang S, Tsimelzon A, Hilsenbeck SG,
+Osborne CK, et al. Development of resistance to targeted therapies
+transforms the clinically associated molecular proﬁle subtype of breast
+tumor xenografts. Cancer Res 2008;68:7493–501.
+Schaefer CF, Anthony K, Krupa S, Buchoff J, Day M, Hannay T, et al.
+PID: the Pathway Interaction Database. Nucleic Acids Res 2009;37:
+D674–9.
+Hamosh A, Scott AF, Amberger JS, Bocchini CA, McKusick VA. Online
+Mendelian Inheritance in Man (OMIM), a knowledgebase of human
+genes and genetic disorders. Nucleic Acids Res 2005;33:D514–7.
+Milo R, Shen-Orr S, Itzkovitz S, Kashtan N, Chklovskii D, Alon U.
+Network motifs: simple building blocks of complex networks. Science
+2002;298:824–7.
+Bild AH, Yao G, Chang JT, Wang Q, Potti A, Chasse D, et al. Oncogenic
+pathway signatures in human cancers as a guide to targeted therapies.
+Nature 2006;439:353–7.
+Chang JT, Carvalho C, Mori S, Bild AH, Gatza ML, Wang Q, et al. A
+genomic strategy to elucidate modules of oncogenic pathway signaling networks. Mol Cell 2009;34:104–14.
+
+Cancer Res; 72(1) January 1, 2012
+
+18. Andrechek ER, Mori S, Rempel RE, Chang JT, Nevins JR. Patterns of
+cell signaling pathway activation that characterize mammary development. Development 2008;135:2403–13.
+19. Andrechek ER, Cardiff RD, Chang JT, Gatza ML, Acharya CR, Potti A,
+et al. Genetic heterogeneity of Myc-induced mammary tumors reﬂecting diverse phenotypes including metastatic potential. Proc Natl Acad
+Sci U S A 2009;106:16387–92.
+20. Izmailov A, Yager TD, Zaleski H, Darash S. Improvement of base-calling
+in multilane automated DNA sequencing by use of electrophoretic
+calibration standards, data linearization, and trace alignment. Electrophoresis 2001;22:1906–14.
+21. Yildirim MA, Goh KI, Cusick ME, Barabasi AL, Vidal M. Drug-target
+network. Nat Biotechnol 2007;25:1119–26.
+22. Jin G, Zhang S, Zhang XS, Chen L. Hubs with network motifs organize
+modularity dynamically in the protein-protein interaction network of
+yeast. PLoS One 2007;2:e1207.
+23. Shen-Orr SS, Milo R, Mangan S, Alon U. Network motifs in the
+transcriptional regulation network of Escherichia coli. Nat Genet 2002;
+31:64–8.
+24. Kerrien S, Alam-Faruque Y, Aranda B, Bancarz I, Bridge A, Derow C,
+et al. IntAct–open source resource for molecular interaction data.
+Nucleic Acids Res 2007;35:D561–5.
+25. Xenarios I, Salwinski L, Duan XJ, Higney P, Kim SM, Eisenberg D. DIP,
+the Database of Interacting Proteins: a research tool for studying
+cellular networks of protein interactions. Nucleic Acids Res 2002;30:
+303–5.
+26. Chatr-aryamontri A, Ceol A, Palazzi LM, Nardelli G, Schneider MV,
+Castagnoli L, et al. MINT: the Molecular INTeraction database. Nucleic
+Acids Res 2007;35:D572–4.
+27. Mewes HW, Frishman D, Guldener U, Mannhaupt G, Mayer K, Mokrejs
+M, et al. MIPS: a database for genomes and protein sequences.
+Nucleic Acids Res 2002;30:31–4.
+28. Breitkreutz BJ, Stark C, Reguly T, Boucher L, Breitkreutz A, Livstone M,
+et al. The BioGRID Interaction Database: 2008 update. Nucleic Acids
+Res 2008;36:D637–40.
+29. Subramanian A, Tamayo P, Mootha VK, Mukherjee S, Ebert BL, Gillette
+MA, et al. Gene set enrichment analysis: a knowledge-based approach
+for interpreting genome-wide expression proﬁles. Proc Natl Acad Sci
+U S A 2005;102:15545–50.
+30. Sherr CJ, McCormick F. The RB and p53 pathways in cancer. Cancer
+Cell 2002;2:103–12.
+31. Holbeck SL, Collins JM, Doroshow JH. Analysis of Food and
+Drug Administration-approved anticancer agents in the NCI60
+panel of human tumor cell lines. Mol Cancer Ther 2010;9:
+1451–60.
+32. Riggs BL, Hartmann LC. Selective estrogen-receptor modulators –
+mechanisms of action and application to clinical practice. N Engl J Med
+2003;348:618–29.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2012 American Association for Cancer Research.
+
+Published OnlineFirst November 22, 2011; DOI: 10.1158/0008-5472.CAN-11-2333
+
+A Novel Method of Transcriptional Response Analysis to Facilitate
+Drug Repositioning for Cancer Therapy
+Guangxu Jin, Changhe Fu, Hong Zhao, et al.
+Cancer Res 2012;72:33-44. Published OnlineFirst November 22, 2011.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-11-2333
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2011/11/22/0008-5472.CAN-11-2333.DC1
+
+This article cites 32 articles, 10 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/72/1/33.full#ref-list-1
+This article has been cited by 1 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/72/1/33.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2012 American Association for Cancer Research.
+
+

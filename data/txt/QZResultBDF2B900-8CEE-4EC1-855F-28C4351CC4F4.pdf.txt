@@ -1,0 +1,922 @@
+Research Article
+
+Revealing Targeted Therapy for Human Cancer by Gene
+Module Maps
+1
+
+1,3,4
+
+5
+
+1
+
+David J. Wong, Dimitry S.A. Nuyten, Aviv Regev, Meihong Lin, Adam S. Adler,
+6
+4
+1,2
+Eran Segal, Marc J. van de Vijver, and Howard Y. Chang
+
+1,2
+
+1
+
+Programs in Epithelial Biology and 2Cancer Biology, Stanford University, Stanford, California; Departments of 3Radiation Oncology and
+Diagnostic Oncology, The Netherlands Cancer Institute, Amsterdam, the Netherlands; 5MIT Department of Biology and Broad Institute
+of MIT and Harvard, Cambridge, Massachusetts; and 6Department of Computer Science and Applied Mathematics, Weizmann
+Institute, Rehovot, Israel
+4
+
+hundreds of genes, which allowed definition of new molecular
+subtypes of cancer with distinct risks of metastasis, death, and
+response to therapy (1–6). However, whereas genomic technologies
+have improved the precision and prognostic power of cancer
+diagnoses, they have shed less light on how these newly recognized
+subtypes of cancers should be therapeutically targeted. As clinical
+experience with Her-2 and epidermal growth factor receptor
+inhibition in cancer has illustrated, identification and selection of
+patients who are likely to respond to molecularly targeted therapies
+are critical to the success of these approaches (7–10). Unfortunately, because a large number of genes with many diverse
+functions are identified in prognostic signatures, the laundry lists
+of genes may yield excellent prognostic markers without revealing
+much of the underlying biological mechanisms. In many instances,
+physicians and patients thus faced the quandary of knowledge of
+certain doom but little guidance for a course of action.
+Previously, investigators have suggested adjusting the intensity
+of current chemotherapeutic regimens based on cancer subtypes
+as defined by gene expression signatures (11). Alternatively, other
+groups have suggested using gene expression signatures of
+oncogenic pathways (12), drug-specific gene expression signatures
+predictive of cell killing (13), and gene expression signatures
+induced by drugs (14, 15) to guide targeted therapy. Whereas these
+methods are promising, they require extensive gene expression
+profiling of in vitro cell models to define expression signatures for
+each chemical entity. For instance, Lamb et al. (16) carried out 564
+arrays to determine the transcriptional response to 164 drugs, most
+of which in a single cell line.
+To address this challenge, we adapted the gene module map
+method to identify genotype-specific therapeutic targets for
+human cancer (17). In a gene module map, the genome-scale
+expression profile of each tumor is deconvoluted into a series of
+activated and deactivated gene modules representing distinct
+functional pathways, enabling a higher-order and systematic view
+of the perturbed functional network in cancer cells (17). We
+hypothesized that by intersecting the gene module map with
+genotypic data, such as previously identified prognostic gene
+expression signatures, we can identify unique functional features
+that cosegregate with each genetic subtype. Genotype-specific
+functional pathways can then form the basis of targeted therapies
+that match unique molecular interventions to the subset of
+patients most likely to respond.
+Clinically aggressive breast tumors acquire the ability to
+proliferate rapidly, invade through tissue planes, induce new blood
+vessel formation, and recruit inflammatory cells—many features
+that are normally reserved for the physiologic response of wound
+healing. We have discovered that a gene expression program
+reminiscent of wound healing, termed the ‘‘wound signature,’’ is a
+
+Abstract
+A major goal of cancer research is to match specific therapies
+to molecular targets in cancer. Genome-scale expression
+profiling has identified new subtypes of cancer based on
+consistent patterns of variation in gene expression, leading to
+improved prognostic predictions. However, how these new
+genetic subtypes of cancers should be treated is unknown.
+Here, we show that a gene module map can guide the
+prospective identification of targeted therapies for genetic
+subtypes of cancer. By visualizing genome-scale gene expression in cancer as combinations of activated and deactivated
+functional modules, gene module maps can reveal specific
+functional pathways associated with each subtype that might
+be susceptible to targeted therapies. We show that in human
+breast cancers, activation of a poor-prognosis ‘‘wound
+signature’’ is strongly associated with induction of both a
+mitochondria gene module and a proteasome gene module.
+We found that 3-bromopyruvic acid, which inhibits glycolysis,
+selectively killed breast cells expressing the mitochondria
+and wound signatures. In addition, inhibition of proteasome
+activity by bortezomib, a drug approved for human use in
+multiple myeloma, abrogated wound signature expression and
+selectively killed breast cells expressing the wound signature.
+Thus, gene module maps may enable rapid translation of
+complex genomic signatures in human disease to targeted
+therapeutic strategies. [Cancer Res 2008;68(2):369–78]
+
+Introduction
+One of the outstanding issues in treating cancer is the vexing
+heterogeneity in patient course and response to therapy, even in
+apparently similar tumors as defined by conventional criteria.
+Molecular genetic analyses over the last several decades have
+increasingly revealed the genetic heterogeneity that underlies the
+clinical spectrum of disease outcomes and progression. For
+instance, genome-wide gene expression profiling of apparently
+similar human tumors by traditional criteria have revealed
+consistent and large-scale differences in the expression pattern of
+
+Note: Supplementary data for this article are available at Cancer Research Online
+(http://cancerres.aacrjournals.org/).
+D.J. Wong and D.S.A. Nuyten contributed equally to this work.
+Requests for reprints: Howard Y. Chang, Program in Epithelial Biology, Stanford
+University, CCSR 2155, 269 Campus Drive, Stanford, CA 94305. E-mail: howchang@
+stanford.edu or Marc van de Vijver, Department of Diagnostic Oncology, The
+Netherlands Cancer Institute, Plesmanlaan 121, 1066 CX Amsterdam, the Netherlands.
+E-mail: m.vd.vijver@nki.nl.
+I2008 American Association for Cancer Research.
+doi:10.1158/0008-5472.CAN-07-0382
+
+www.aacrjournals.org
+
+369
+
+Cancer Res 2008; 68: (2). January 15, 2008
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2008 American Association for Cancer
+Research.
+
+Cancer Research
+
+Figure 1. Gene module map showing activation of mitochondria and proteasome gene sets in human breast cancers with poor prognosis wound signature. A, flow
+chart of the steps in our analysis to identify and test potential therapeutic targets in breast cancers with poor prognosis wound signature. B, a matrix of gene sets
+(rows ) versus 295 human breast cancer expression arrays (columns ), where a red (or green) entry indicates that the gene members of the particular gene set
+were significantly induced (or repressed) in the breast cancer sample more than would be expected by chance alone (P < 0.05, FDR <0.05). The brown entries (in the
+bar located below the matrix) indicate that the breast cancers have an activated wound signature. The gene sets that are significantly coactivated with the wound
+signature in the breast cancers are indicated by the red bar on the left of the matrix. The ‘‘wound signature–activated’’ and ‘‘wound signature–quiescent’’ gene sets are
+coded in red and green, respectively, on the right side of the matrix. The names of the gene sets that make up the proteasome module are labeled in blue. The names
+of the gene sets that make up the mitochondria module are labeled in brown.
+
+powerful and independent predictor of breast cancer metastasis
+and survival present in 40% of primary breast tumors (11, 18).
+Activation of the wound signature in primary breast cancer is
+most prominently due to coordinate amplification of two genes
+on chromosome arm 8q: MYC and CSN5 (19). In a retrospective
+study of 295 early breast tumors (stage I and II), the wound
+signature was the most significant predictor of metastasis in
+multivariate analysis, far ahead of traditional clinical, histologic,
+and molecular criteria (11). Whereas patients whose tumors lack
+the wound signature may be more assured of their good
+prognosis and avoid unnecessary adjuvant systemic therapy
+(11, 20), how patients with an activated wound signature should
+be treated is unclear. Here, we use gene module map as an
+unbiased approach to search for therapeutic targets in wound-like
+breast cancers and to identify glycolysis blockade and proteasome
+blockade as potential therapeutic strategies for these highly
+aggressive tumors.
+
+Cancer Res 2008; 68: (2). January 15, 2008
+
+Materials and Methods
+Gene module map. Gene module map was done as described with the
+program Genomica (17) using 1,256 gene sets derived from Gene Ontology
+(21) and the gene expression profiles of 295 human primary breast cancers
+from the Netherlands Cancer Institute (NKI) data set (11, 20). Briefly, given
+this collection of precompiled gene sets and this compendium of expression
+arrays, the method first identifies the gene sets that are induced or repressed
+significantly in the set of arrays (Fig. 1A). In the second step, the method
+identifies the gene sets that are significantly associated with particular
+clinical annotations, specifically the wound signature, in the breast cancer
+arrays. The coactivated gene sets were then combined into higher-level
+modules based on their Gene Ontology relations, specifically the mitochondria and proteasome modules. Genomica and the full gene module map of
+the 295 breast tumors can be downloaded and interactively queried.7
+
+7
+
+370
+
+http://genomica.weizmann.ac.il/
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2008 American Association for Cancer
+Research.
+
+Revealing Targeted Therapy for Human Cancer
+(0.1% FBS) for 24 h before RNA extraction. The array data are available at
+GEO (accession nos. GSE2824, GSE5307, and GSE8957).
+Data analysis. To determine the wound, mitochondria, and proteasome
+signature scores, we calculated the Pearson correlation coefficient of the
+expression pattern of genes in the mitochondria or proteasome signature
+relative to the expression pattern of these genes in serum-stimulated
+fibroblasts, as previously described for the wound score (11). The KD50 was
+defined as the dose of bortezomib required to kill 50% of tumor cells.
+Pearson correlations between KD50 and wound or proteasome scores were
+calculated in Winstat.
+To quantify the association of the proteasome signature with the wound
+signature in six independent human breast cancer data sets, we calculated
+the Pearson correlation of the wound signature score and the proteasome
+signature score across individuals in each data set. The wound scores and
+proteasome scores were plotted in linear regression plots, and the
+probability of observing the correlation by chance alone was calculated
+by one-sided t test (null hypothesis R = 0). Pearson correlation and linear
+regression were calculated in Winstat. Genes were mapped across different
+platforms using Unigene identifiers for the 512 wound signatures genes and
+LLID for the 50 proteasome module genes. When multiple probes were
+mapped to one Unigene cluster or LLID, expression data of duplicate probes
+were averaged. For Affymetrix data, expression values were log transformed
+and mean centered across genes. Data from platforms that used a
+nonbreast cancer reference were mean centered across genes. Data from
+platforms that used a breast cancer reference were not centered.
+
+Survival analysis. We compared metastasis-free survival and overall
+survival of patients with breast cancers that have activated versus repressed
+signatures using Kaplan-Meier survival plots by the Cox-Mantel log-rank
+test with the program Winstat (R. Fitch Software). Overall survival was
+defined by death from any cause and patients were censored at last followup. Distant metastasis was scored only if it was the first recurrence event as
+previously described (11, 20). If a patient developed a local recurrence, an
+axillary recurrence, a contralateral breast cancer, or a second primary
+cancer (except for nonmelanoma skin cancer), the patient was censored at
+this time. This is based on the theoretical possibility that these cancers can
+be a source for distant metastases. An ipsilateral supraclavicular recurrence
+shortly preceded distant metastasis in all but one patient. An ipsilateral
+supraclavicular recurrence was thus considered the first clinical evidence
+for metastatic disease in this analysis. Therefore, these patients were not
+censored at time of ipsilateral supraclavicular recurrence.
+Forty-five percent of the 295 primary breast cancers have an activated
+wound signature, 48% have an activated mitochondria signature, and 44%
+have an activated proteasome signature. Seventy-three percent of the
+mitochondria-activated cancers have an activated wound signature, and
+80% of the mitochondria-repressed cancers have a repressed wound
+signature. Similarly, 81% of the proteasome-activated cancers have an
+activated wound signature and 83% of the proteasome-repressed cancers
+have a repressed wound signature.
+Cell culture and drug treatment. MCF10A cell lines were stably
+transduced with vector only, E2F3, CSN5, MYC, or MYC and CSN5, as
+previously described (19). MCF10A cells were grown in DMEM/F-12
+(Invitrogen/Cambrex) with 5% fetal bovine serum (FBS), supplemented
+with epidermal growth factor (20 ng/mL), insulin (10 Ag/mL), and
+hydrocortisone (0.5 Ag/mL). All breast cancer cell lines were obtained from
+the NKI cryo-bank. Breast cancer cells were grown in DMEM (Invitrogen)
+with 10% FBS. 3-Bromopyruvic acid (Sigma) was dissolved in water and
+neutralized with NaOH immediately before use. Bortezomib was purchased
+from Millenium Pharmaceuticals. Proteasome blockade was confirmed
+12 h after treatment with 1 or 10 Amol/L bortezomib by measuring
+proteolytic activity with a luminogenic proteasome substrate relative to
+untreated cells per manufacturer’s instructions (Promega). For the cell
+killing assays, 104 cells were plated per well in 96-well plates. Cells were
+exposed to various concentrations of the indicated drugs in DMEM/F-12
+and low FBS (0.1%). Because bortezomib was in DMSO, cells were exposed
+to the vehicle (DMSO) and the same medium as a control. Viable cells
+were quantified by 3-(4,5-dimethylthiazol-2-yl)-2,5-diphenyltetrazolium
+(MTT; Roche) assay after 18 h of 3-bromopyruvic acid treatment; 24 h of
+MG132, calpain, or lysosome treatment; or 48 h of bortezomib treatment.
+Terminal deoxyribonucleotidyl transferase–mediated dUTP nick end
+labeling (TUNEL) assay for detection of apoptotic DNA fragmentation
+was done per manufacturer’s instruction (Roche).
+Microarrays. MCF10A cell lines and the breast cancer cell lines were
+cultured until reaching 70% confluence, then switched to low serum
+(0.1% FBS) for 48 h. The wound signature is induced by serum, and serum
+deprivation was necessary to quantify the inherent activation of wound
+signature in cancer cell lines. Total RNA was extracted using Trizol
+(Invitrogen). Amplification, labeling, and hybridization of the MCF10A cell
+lines were done on human cDNA microarrays with the Stratagene universal
+human reference RNA as previously described (19). Amplification, labeling,
+and hybridization of the breast cancer cell lines were carried out according
+to the NKI protocol8 using the NKI human 35k oligonucleotide array.
+The breast cancer cell line samples were hybridized against the NKI human
+breast cancer reference pool (consisting of 100 human breast tumors) and
+all experiments were carried out in duplicate (dye-swap). For bortezomib
+treatment, we examined gene expression changes in response to
+bortezomib after 24 h of treatment, before the onset of cell death (based
+on MTT assay after 24 h of bortezomib treatment; data not shown). Each
+cancer cell line was treated with 1 Amol/L bortezomib in low serum
+
+8
+
+Results
+Mitochondria module and proteasome module are coactivated with wound signature in human breast cancer. To
+identify novel therapeutic strategies for breast cancers with the
+poor prognosis wound signature, we used gene module map as an
+unbiased approach to discover new gene modules that are
+coactivated with the wound signature (Fig. 1A). We analyzed
+1,256 gene sets defined by Gene Ontology (21) terms in the gene
+expression profiles of 295 human primary breast cancers from NKI
+(20). For each microarray profile, the algorithm first compares
+genes that are induced (or repressed) by 3-fold versus their
+membership in gene sets and identifies gene sets that show
+enrichment in induced (or repressed) genes more than expected by
+chance (P < 0.05). P value of enrichment was determined by the
+hypergeometric distribution, and a false discovery rate (FDR)
+calculation was used to account for multiple hypothesis testing.
+The resulting gene module map is shown (Fig. 1B). Second, tumors
+that exhibited the poor-prognosis wound signature were identified
+(using hierarchical clustering of 512 wound signature genes as
+previously described; ref. 11), and we identified enriched gene sets
+that were significantly coactivated with the wound signature more
+than expected by chance alone and in at least 15 of the breast
+cancers (P < 0.05, FDR<0.05, hypergeometric distribution; Fig. 1B
+and Supplementary Table S1).
+We observed that five gene sets associated with mitochondrion
+were coordinately induced in tumors with an activated wound
+signature: the Gene Ontology terms mitochondrion, NADH dehydrogenase activity, hydrogen ion transporter activity, cation transporter activity, and oxidoreductase activity (labeled in brown in
+Fig. 1B). The member genes that enabled gene set hits in each of
+the gene sets were fused together into a single gene module,
+representing a refined group of coexpressed genes termed the
+‘‘mitochondria module’’ (Fig. 2A). The resulting mitochondria
+module is composed of 218 unique genes consisting exclusively of
+genes encoded in the nuclear genome, most of which encode
+proteins with known localization and/or function in the mitochondria (Supplementary Table S2). The module encompasses
+
+http://microarrays.nki.nl/
+
+www.aacrjournals.org
+
+371
+
+Cancer Res 2008; 68: (2). January 15, 2008
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2008 American Association for Cancer
+Research.
+
+Cancer Research
+
+Figure 2. Mitochondria gene module in human breast cancers. A, gene module map highlights the association of mitochondria module with activated wound signature.
+Top, wound signature status and identity of gene sets derived from Gene Ontology terms contributing to the mitochondria gene module. Five gene sets related to
+mitochondria were coordinately induced in tumor samples that had an activated wound signature; the average expression of their member genes in each array is
+displayed. Shown are the subset of breast cancer samples with the strongest coordinate activation or deactivation of the mitochondria module after accounting for
+multiple hypothesis testing (FDR <0.05, P < 0.05). Bottom, raw expression levels for the 218 genes that compose the mitochondria module along with their respective
+membership in each of the five gene sets (left). B, induction of mitochondria module in primary breast tumors predicts increased probability of death. Kaplan-Meier
+survival curve is shown. C, validation of the mitochondria module in an independent set of locally advanced breast cancers (2). Shown is a Kaplan-Meier relapse-free
+survival curve of patients in which the average expression of the mitochondria module in the primary breast tumor is above (induced) or below (repressed) zero,
+showing that the mitochondria module is a good predictor of survival in breast cancer in another data set.
+
+Cancer Res 2008; 68: (2). January 15, 2008
+
+372
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2008 American Association for Cancer
+Research.
+
+Revealing Targeted Therapy for Human Cancer
+
+expression of mitochondria genes in poor prognosis breast cancers
+suggested that this subset of breast cancers with activated wound
+signature may have a mitochondrial respiratory defect and have
+increased dependence on glycolysis for ATP production. Thus, we
+examined whether cells with an activated wound signature are more
+susceptible to a drug that blocks glycolysis. We have previously
+shown that immortalized but untransformed MCF10A breast
+epithelial cells do not express the wound signature, but the wound
+signature is partially or fully induced by overexpression of MYC or
+MYC plus CSN5, respectively (19). Expression of CSN5 alone does
+not induce the wound signature. In addition, we found that the
+oncogene E2F3 (23) is sufficient to drive MCF10A cells into
+proliferation in low serum but has only a modest effect on the
+wound signature (Supplementary Table S4 and data not shown). We
+also found that the mitochondrial signature is induced by
+overexpression of MYC or MYC plus CSN5, but not by CSN5 alone
+or E2F3 (Fig. 4A). We first treated these MCF10A cells of different
+genotypes with 3-bromopyruvic acid, which inhibits glycolysis and
+has been shown in previous studies to have selective killing in
+animal models of hepatocellular carcinoma (24, 25). We found that
+the MCF10A cells expressing MYC or MYC plus CSN5 were
+selectively killed by 10 Amol/L 3-bromopyruvic acid compared with
+those expressing vector control, CSN5, or E2F3 (Fig. 4B). This
+selective pharmacologic effect is not simply due to increased
+proliferation because MCF10A cells expressing CSN5 alone or E2F3
+have increased proliferation but are not killed (Fig. 4B). However,
+there was only a small increase in susceptibility to 3-bromopyruvic
+acid by MCF10A cells expressing MYC plus CSN5 at the 5 Amol/L
+dose and all of the MCF10A cells were equally killed at the 20 Amol/L
+dose (Fig. 4B), showing that the therapeutic margin of 3-bromopyruvic acid in selective killing of breast cells expressing the wound
+signature is narrow.
+Cells with activated wound signature are selectively killed
+by bortezomib. Based on our discovery of the induction of the
+proteasome signature in poor-prognosis breast cancers with
+activated wound signature, we examined whether MCF10A cells
+with activated wound signature were more susceptible to death by
+drugs that inhibit the ubiquitin-proteasome pathway. MCF10A cells
+expressing MYC or MYC plus CSN5 also induced the proteasome
+signature (Fig. 4A). In contrast, MCF10A cells expressing E2F3 or
+CSN5 alone did not induce the proteasome signature (Fig. 4A). We
+treated these MCF10A cells of different genotypes with proteasome
+inhibitors to determine whether we may achieve genotype-specific
+targeting of these cells. Cells expressing MYC or MYC plus CSN5
+were preferentially killed by the proteasome inhibitor MG132
+but not by protease inhibitors of calpain (LLM) or lysosome
+(E64; Fig. 4C and Supplementary Fig. S1). Based on dose titration,
+cells engineered to express the wound signature were exquisitely
+sensitive to proteasome inhibition (KD50 of MG132, 1 Amol/L),
+whereas cells without the wound signature were not significantly
+affected at 50-fold the dose (Fig. 4C). Bortezomib, a boroncontaining dipeptide derivative, is a potent and specific inhibitor of
+the proteasome with an inhibitory constant of 0.6 nmol/L (26).
+Bortezomib is approved by the U.S. Food and Drug Administration
+for the treatment of refractory multiple myeloma and is currently
+being investigated for solid tumors (26). Cells exhibiting the wound
+signature were also significantly more sensitive to killing by
+bortezomib; the KD50 of control cells expressing E2F3 or CSN5
+alone was at least higher by 100-fold (Fig. 4C). Nuclear morphology
+and TUNEL staining confirmed that genotype-specific cell killing
+occurs through apoptosis (Fig. 4D). These results show that breast
+
+multiple processes associated with the mitochondria, including
+respiration/oxidative phosphorylation, various other metabolic
+processes, apoptosis, mitochondrial biogenesis, and transport
+processes. Importantly, the genes in the mitochondria module
+were not simply an enriched subset of the wound signature: the
+overlap between the mitochondria module and wound signature
+was only seven genes.
+We also similarly observed that gene sets associated with the
+ubiquitin-proteasome pathway were coordinately induced in
+tumors with an activated wound signature: ubiquitin cycle,
+proteasome complex, proteasome core complex , and protein
+ubiquitination (labeled in blue in Fig. 1B). The member genes that
+enabled gene set hits in each of the four sets were similarly fused
+together into a single gene module, representing the ‘‘proteasome
+module’’ (Fig. 3A). The resulting proteasome module is composed
+of 50 unique genes, which are listed in Supplementary Table S3.
+The proteasome module is strongly induced in tumors with the
+wound signature (P < 0.05, FDR <0.05, hypergeometric distribution;
+Fig. 3A). In particular, genes that encode components of the 19S
+regulatory and 20S proteasome core subunits are most strongly
+associated with activation of the wound signature (P < 10 4,
+hypergeometric distribution). Only four genes of the proteasome
+module are part of the 512-gene wound signature; thus, this
+analysis also identified an expanded and coordinate activity of
+proteasome genes with the wound signature that we previously did
+not appreciate.
+Mitochondria and proteasome modules associated with
+poor prognosis in human breast cancers. Across all 295 tumors,
+the primary breast tumors that had increased expression of the
+proteasome module had significantly worse subsequent metastasis-free and overall survival (P < 10 3 and P < 10 7, respectively;
+Fig. 3B). The mitochondria module was not significantly associated
+with survival across all 295 samples; however, the 50 tumors that
+had the highest average expression of the mitochondria module
+had a statistically significant association with poor survival
+compared with the 50 tumors that had the lowest average
+expression (P < 0.02, Fig. 2B). Activity of the mitochondria module
+was not associated with survival in the remaining 195 tumors with
+modest or no coregulation of the mitochondria module. We also
+examined the prognostic value of the mitochondria module in an
+additional data set of 120 locally advanced breast cancers obtained
+with a different microarray platform for which relapse-free survival
+data were available (2). We carried out the exact same analysis
+and identified 50 tumors with the highest and 50 tumors with the
+lowest average expression of the mitochondria module. Tumors
+with an induced mitochondria module showed a significantly
+increased risk of cancer relapse (P < 0.05; Fig. 2C). Applying the
+mitochondria module to all 120 tumors (yielding 60 tumors with an
+average expression level of the mitochondria module above zero
+and 60 tumors with an average expression level below zero) also
+showed a significant increased risk of relapse for tumors with
+induced mitochondria module (P = 0.03; data not shown). Thus,
+similar to the wound signature, both the mitochondria and
+proteasome modules are associated with poor prognosis in human
+breast cancers.
+Cells with activated wound signature are selectively killed
+by 3-bromopyruvic acid. More than 70 years ago, Warburg (22)
+observed that cancer cells frequently induce glycolysis at the
+expense of mitochondrial respiration for energy production, and
+hypothesized that mitochondrial ‘‘respiration injury’’ is a fundamental defect in cancer. Our discovery of an alteration in the
+
+www.aacrjournals.org
+
+373
+
+Cancer Res 2008; 68: (2). January 15, 2008
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2008 American Association for Cancer
+Research.
+
+Cancer Research
+
+Figure 3. Proteasome gene module in human breast cancers. A, gene module map highlights the association of a proteasome module with activated wound signature.
+Top, wound signature status and identity of gene sets derived from Gene Ontology terms contributing to the proteasome gene module. Four gene sets related to the
+proteasome were coordinately induced in tumor samples that had an activated wound signature; the average expression of their member genes in each array is
+displayed. Shown are the subset of breast cancer samples with the strongest coordinate activation or deactivation of the proteasome module after accounting for
+multiple hypothesis testing (FDR <0.05, P < 0.05). Middle, raw expression levels for the 50 genes that compose the proteasome module along with their respective
+membership in each of the four gene sets (left ). Bottom, enrichment of high-grade histology and poor clinical outcomes in tumors with high proteasome module.
+B, induction of proteasome module in primary breast tumors predicts increased probability of distant metastasis and death. Kaplan-Meier survival curves are shown.
+
+Cancer Res 2008; 68: (2). January 15, 2008
+
+374
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2008 American Association for Cancer
+Research.
+
+Revealing Targeted Therapy for Human Cancer
+
+Figure 4. Glycolysis or proteasome inhibition selectively kills breast epithelial cells exhibiting the wound signature. A, mitochondria and proteasome scores
+of the transduced MCF10A breast epithelial cells. The degree of activation of the wound signature in the MCF10A cells is coded. B, genotype-specific killing
+of MCF10A breast epithelial cells exhibiting the wound signature by a glycolysis inhibitor, 3-bromopyruvic acid (3BrPA ), after 18 h. Columns, mean; bars, SE.
+C, genotype-specific killing of MCF10A breast epithelial cells exhibiting the wound signature by proteasome inhibitors, MG132 and bortezomib, after 24 and 48 h,
+respectively. Dose-response curves (mean F SE) are shown. D, bortezomib-mediated killing induces features of apoptosis. Pyknotic nuclei (Hoechst 334) and DNA
+fragmentation (TUNEL) are visualized. Percent of cells positive for TUNEL staining (mean F SE) is reported based on three independent experiments.
+
+luminescent proteasome substrate (data not shown), suggesting
+that genotype-specific killing is not due to differential degrees of
+proteasome inhibition but rather due to differential susceptibility
+to death from proteasome inhibition.
+
+epithelial cells expressing the wound signature are selectively killed
+through apoptosis by the proteasome inhibitor bortezomib.
+Bortezomib at both 1 and 10 Amol/L completely inhibited the
+ability of all of the transduced MCF10A cells to cleave a
+
+www.aacrjournals.org
+
+375
+
+Cancer Res 2008; 68: (2). January 15, 2008
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2008 American Association for Cancer
+Research.
+
+Cancer Research
+
+coordinate activities of the proteasome module and wound
+signature in multiple patient populations representing the full
+spectrum of breast cancer progression. As shown in Table 1,
+activation of the proteasome module and the wound signature are
+strongly and positively correlated in six independent cohorts of
+human breast cancers (P < 10 7 in all cases). These include primary
+stage I and II breast cancer, locally advanced disease (stage IIb,
+IIIa), lymph node–positive disease, and metastatic breast carcinomas (Table 1). Thus, the activity of the proteasome module and the
+wound signature are intimately linked in breast cancer initiation
+and progression.
+
+Wound signature predicts response to bortezomib. We next
+examined whether established breast cancer cell lines may also be
+targeted by bortezomib in a genotype-specific fashion. Breast
+cancer cell lines are often established from advanced breast
+carcinomas and have been adapted to in vitro growth. Thus, when
+we profiled eight breast cancer cell lines, we found that all eight
+had activated the wound signature, similar to MCF10A breast
+epithelial cells expressing MYC or MYC plus CSN5. Remarkably, the
+KD50 of bortezomib for the breast cancer lines and the transduced
+MCF10A cells was highly correlated with their wound signature
+scores as well as their proteasome signature scores (Fig. 5 and
+Supplementary Table S4), suggesting that the wound signature as
+well as the proteasome signature is a strong predictor for response
+to bortezomib. In addition, comparison of gene expression profiles
+before and after bortezomib treatment showed that bortezomib
+substantially decreased wound signature expression in six of eight
+breast cancer lines before induction of cell death (Supplementary
+Fig. S2A). The extent of the decrease in the wound signature after
+bortezomib treatment was modestly correlated with the efficacy of
+killing by proteasome inhibition (R = 0.56, P = 0.07; Supplementary Fig. S2B). Proteasome inhibition may be a pharmacologically
+tractable method to specifically kill breast tumor cells exhibiting
+the wound signature.
+Validation of the association between proteasome module
+and wound signature in six independent breast cancer data
+sets. To test the strength of the association between the
+proteasome gene module and wound signature, we examined the
+
+Discussion
+The modern pharmacopeia contains a full armamentarium
+against diverse molecular targets; thus, the challenge in postgenomic medicine is to match the right drug with the right disease.
+Here, we illustrate a general prospective strategy to identify
+targeted therapies for molecular subtypes of cancer identified by
+gene expression signatures. The gene module map method is
+general and may be applicable to other diseases such as inflammatory or metabolic disorders. We suggest that by providing a
+holistic view of the cellular network of the patient’s tumors in vivo
+through gene module map, investigators can identify integral but
+previously unrecognized consequences of oncogenic transformation. These additional molecular features may be amenable to
+interference by a drug already available for human use, becoming
+
+Figure 5. Wound signature predicts breast tumor cell killing by
+proteasome inhibition. A, list of breast cell lines analyzed. B, correlation
+of wound signature score with sensitivity to bortezomib in breast cell
+lines. Linear regression of wound score with bortezomib KD50. Numbers
+correspond to cell lines listed in A. C, correlation of proteasome signature
+score with sensitivity to bortezomib in breast cell lines.
+
+Cancer Res 2008; 68: (2). January 15, 2008
+
+376
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2008 American Association for Cancer
+Research.
+
+Revealing Targeted Therapy for Human Cancer
+
+Table 1. Correlation between wound signature and proteasome signature in six independent breast cancer data sets
+First author
+
+Samples (n)
+
+Van de Vijver (20)
+
+295
+
+Wang (33)
+Sorlie (2)
+Minn (34)
+Ma (35)
+
+286
+163
+99
+60
+
+Weigelt (36)
+
+169
+
+R
+
+Characteristics
+Stage I and II; lymph node negative and positive; untreated
+and treated adjuvantly (chemo and hormonal); ER+/
+97% T1-T2N0, 3% T3-4N0; no adjuvant treatment; ER+/
+Stage I-IV; mostly T2N1 or greater; treated neoadjuvantly; ER+/
+T1N0–T3N3a; no treatment data provided; ER+/ , PR+/ , Her-2/neu+/
+T1N0–T2N3a/T3N2a; all but four, ER+, PR+/ , mostly Her-2/neu ;
+adjuvant tamoxifen; no chemotherapy
+114 patients; 55 samples from various metastatic sites
+
+P
+
+0.76
+
+<10
+
+56
+
+0.60
+0.65
+0.76
+0.63
+
+<10
+<10
+<10
+<10
+
+29
+
+0.78
+
+<10
+
+35
+
+20
+19
+13
+
+Abbreviations: ER, estrogen receptor; PR, progesterone receptor.
+
+transcription factor turnover in gene activation (32) and the
+recent identification of the ubiquitin ligase activator CSN5 and its
+substrate MYC as oncogenes for breast cancers exhibiting wound
+signature (19).
+In summary, gene module analysis highlighted the potential role
+of genes with mitochondrial and proteasome function in a subset
+of poor prognosis breast cancers, which led to experimentally
+testable hypotheses for its mechanism and suggested possible
+therapeutic strategies. Previous gene-level analysis of the seven
+published breast cancer data sets did not detect the association
+between mitochondria-related genes or proteasome-related genes
+and cancer progression. As more genomic, epigenomic, and
+proteomic data sets are being generated, we believe that
+integration of these diverse streams of information via module
+maps will streamline studies of cancer and other diseases to
+provide robust biological and mechanistic insights. To facilitate
+such discoveries, we have implemented our method in a software
+tool called Genomica,9 and made it freely available for academic
+use, along with detailed tutorials on how to readily reproduce the
+results presented here and how to generate new module maps
+from other expression data and gene set collections. Judicious
+use of the gene module map may facilitate rapid translation of
+genomic and proteomic knowledge to specific therapies for
+patients.
+
+Achilles’ heels for the cancer cell. Illustrating this concept, our
+observation herein that mitochondria and proteasome signatures
+are coactivated with the wound signature led to the discovery
+that the glycolysis inhibitor 3-bromopyruvic acid and the
+currently available proteasome inhibitor bortezomib specifically
+kill breast epithelial cells that exhibit the poor-prognosis wound
+signature.
+The coactivation of a mitochondria gene module and the poorprognosis wound signature is likely explained as a different facet
+of MYC activation in these tumors. MYC has previously been
+shown to induce nuclearly encoded mitochondrial genes and
+mitochondrial biogenesis (27). We observed that breast epithelial
+cells that express the wound signature have only a 2-fold
+difference in susceptibility to 3-bromopyruvic acid. This narrow
+therapeutic window may be because 3-bromopyruvic acid also has
+some inhibitory activity on mitochondrial respiration (28), which
+would render cells with intact mitochondrial metabolism
+susceptible to this drug. Drugs that more specifically target
+glycolysis are being developed (29), and our findings suggest that
+this class of drugs should be examined in the future for their
+potential therapeutic use in breast cancers with the poor
+prognosis wound signature.
+The association of a proteasome gene module and the wound
+signature was particularly intriguing and consonant with additional evidence. From an independent genetic analysis (19), we
+had discovered that the wound signature in human breast cancer
+is caused by coordinate amplification of CSN5, which encodes an
+activator of cullin-based E3 ubiquitin ligases, and MYC, which
+encodes an oncogenic transcription factor. CSN5 induces the
+ubiquitination of MYC, recruiting the proteasome to MYC, and
+increases transcriptional activation of MYC target genes. Thus, we
+reasoned that when MYC and CSN5 activate a metastatic gene
+expression program in breast epithelial cells, such cells may
+become uniquely dependent on abnormal protein turnover
+mediated by the proteasome for survival. Bortezomib has been
+shown to be effective in inhibiting the growth of murine
+mammary tumors (30), but preliminary clinical trials of bortezomib in human breast cancer patients have been disappointing
+(31). We suggest that a critical determinant of bortezomib
+response in breast cancer is the wound signature (Fig. 4C), which
+should be incorporated in future clinical studies of bortezomib.
+The inhibition of wound signature expression by bortezomib is
+consistent with the essential roles of the proteasome in
+
+www.aacrjournals.org
+
+Acknowledgments
+Received 1/30/2007; revised 10/12/2007; accepted 11/15/2007.
+Grant support: NIH/National Cancer Institute grant R01-CA118759 (H.Y. Chang),
+American Cancer Society (H.Y. Chang), California Breast Cancer Research Program
+(H.Y. Chang and A.S. Adler), NIH/National Cancer Institute (E. Segal), Dutch Cancer
+Society grant NKB 2002-2575 (D.S.A. Nuyten and M.J. van de Vijver), Dean’s
+Fellowship at Stanford University (D.J. Wong), and Dermatology Foundation Research
+Fellowship and Research Career Development Award (D.J. Wong). E. Segal is the
+incumbent of the Soretta and Henry Shapiro career development chair. H.Y. Chang is
+a Kenneth G. and Elaine A. Langone Scholar of the Damon Runyon Cancer Research
+Foundation.
+The costs of publication of this article were defrayed in part by the payment of page
+charges. This article must therefore be hereby marked advertisement in accordance
+with 18 U.S.C. Section 1734 solely to indicate this fact.
+We thank Nir Friedman, Daphne Koller, and Stacey Wirt for useful discussions and
+experimental contributions.
+
+9
+
+377
+
+http://genomica.weizmann.ac.il
+
+Cancer Res 2008; 68: (2). January 15, 2008
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2008 American Association for Cancer
+Research.
+
+Cancer Research
+
+1. Perou CM, Sorlie T, Eisen MB, et al. Molecular
+portraits of human breast tumours. Nature 2000;406:
+747–52.
+2. Sorlie T, Tibshirani R, Parker J, et al. Repeated
+observation of breast tumor subtypes in independent
+gene expression data sets. Proc Natl Acad Sci U S A
+2003;100:8418–23.
+3. van ’t Veer LJ, Dai H, van de Vijver MJ, et al. Gene
+expression profiling predicts clinical outcome of breast
+cancer. Nature 2002;415:530–6.
+4. Pittman J, Huang E, Dressman H, et al. Integrated
+modeling of clinical and gene expression information
+for personalized prediction of disease outcomes. Proc
+Natl Acad Sci U S A 2004;101:8431–6.
+5. Ayers M, Symmans WF, Stec J, et al. Gene expression
+profiles predict complete pathologic response to neoadjuvant paclitaxel and fluorouracil, doxorubicin, and
+cyclophosphamide chemotherapy in breast cancer.
+J Clin Oncol 2004;22:2284–93.
+6. Chang JC, Wooten EC, Tsimelzon A, et al. Gene
+expression profiling for the prediction of therapeutic
+response to docetaxel in patients with breast cancer.
+Lancet 2003;362:362–9.
+7. Lynch TJ, Bell DW, Sordella R, et al. Activating
+mutations in the epidermal growth factor receptor
+underlying responsiveness of non-small-cell lung cancer
+to gefitinib. N Engl J Med 2004;350:2129–39.
+8. Paez JG, Janne PA, Lee JC, et al. EGFR mutations in
+lung cancer: correlation with clinical response to
+gefitinib therapy. Science 2004;304:1497–500.
+9. Piccart-Gebhart MJ, Procter M, Leyland-Jones B, et al.
+Trastuzumab after adjuvant chemotherapy in HER2positive breast cancer. N Engl J Med 2005;353:1659–72.
+10. Romond EH, Perez EA, Bryant J, et al. Trastuzumab
+plus adjuvant chemotherapy for operable HER2-positive
+breast cancer. N Engl J Med 2005;353:1673–84.
+11. Chang HY, Nuyten DS, Sneddon JB, et al. Robustness,
+scalability, and integration of a wound-response gene
+expression signature in predicting breast cancer survival.
+Proc Natl Acad Sci U S A 2005;102:3738–43.
+
+12. Bild AH, Yao G, Chang JT, et al. Oncogenic pathway
+signatures in human cancers as a guide to targeted
+therapies. Nature 2006;439:353–7.
+13. Potti A, Dressman HK, Bild A, et al. Genomic
+signatures to guide the use of chemotherapeutics. Nat
+Med 2006;12:1294–300.
+14. Stegmaier K, Ross KN, Colavito SA, O’Malley S,
+Stockwell BR, Golub TR. Gene expression-based highthroughput screening (GE-HTS) and application to
+leukemia differentiation. Nat Genet 2004;36:257–63.
+15. Wei G, Twomey D, Lamb J, et al. Gene expressionbased chemical genomics identifies rapamycin as a
+modulator of MCL1 and glucocorticoid resistance.
+Cancer Cell 2006;10:331–42.
+16. Lamb J, Crawford ED, Peck D, et al. The Connectivity Map: using gene-expression signatures to connect
+small molecules, genes, and disease. Science 2006;313:
+1929–35.
+17. Segal E, Friedman N, Koller D, Regev A. A module
+map showing conditional activity of expression modules
+in cancer. Nat Genet 2004;36:1090–8.
+18. Chang HY, Sneddon JB, Alizadeh AA, et al. Gene
+expression signature of fibroblast serum response
+predicts human cancer progression: similarities between
+tumors and wounds. PLoS Biol 2004;2:E7.
+19. Adler AS, Lin M, Horlings H, Nuyten DS, van de Vijver
+MJ, Chang HY. Genetic regulators of large-scale
+transcriptional signatures in cancer. Nat Genet 2006;
+38:421–30.
+20. van de Vijver MJ, He YD, van’t Veer LJ, et al. A geneexpression signature as a predictor of survival in breast
+cancer. N Engl J Med 2002;347:1999–2009.
+21. Ashburner M, Ball CA, Blake JA, et al. Gene ontology:
+tool for the unification of biology. The Gene Ontology
+Consortium. Nat Genet 2000;25:25–9.
+22. Warburg O. The metabolism of tumors. London:
+Constable Co. Ltd.; 1930.
+23. Leone G, DeGregori J, Yan Z, et al. E2F3 activity is
+regulated during the cell cycle and is required for the
+induction of S phase. Genes Dev 1998;12:2120–30.
+24. Geschwind JF, Ko YH, Torbenson MS, Magee C,
+Pedersen PL. Novel therapy for liver cancer: direct
+
+Cancer Res 2008; 68: (2). January 15, 2008
+
+378
+
+References
+
+intraarterial injection of a potent inhibitor of ATP
+production. Cancer Res 2002;62:3909–13.
+25. Ko YH, McFadden BA. Alkylation of isocitrate lyase
+from Escherichia coli by 3-bromopyruvate. Arch Biochem Biophys 1990;278:373–80.
+26. Mitchell BS. The proteasome-an emerging therapeutic target in cancer. N Engl J Med 2003;348:2597–8.
+27. Li F, Wang Y, Zeller KI, et al. Myc stimulates nuclearly
+encoded mitochondrial genes and mitochondrial biogenesis. Mol Cell Biol 2005;25:6225–34.
+28. Ko YH, Pedersen PL, Geschwind JF. Glucose catabolism in the rabbit VX2 tumor model for liver cancer:
+characterization and targeting hexokinase. Cancer Lett
+2001;173:83–91.
+29. Geschwind JF, Georgiades CS, Ko YH, Pedersen PL.
+Recently elucidated energy catabolism pathways
+provide opportunities for novel treatments in hepatocellular carcinoma. Expert Rev Anticancer Ther 2004;
+4:449–57.
+30. Teicher BA, Ara G, Herbst R, Palombella VJ, Adams J.
+The proteasome inhibitor PS-341 in cancer therapy. Clin
+Cancer Res 1999;5:2638–45.
+31. Yang CH, Gonzalez-Angulo AM, Reuben JM, et al.
+Bortezomib (VELCADE) in metastatic breast cancer:
+pharmacodynamics, biological effects, and prediction of
+clinical benefits. Ann Oncol 2006;17:813–7.
+32. Lipford JR, Smith GT, Chi Y, Deshaies RJ. A putative
+stimulatory role for activator turnover in gene expression. Nature 2005;438:113–6.
+33. Wang Y, Klijn JG, Zhang Y, et al. Gene-expression
+profiles to predict distant metastasis of lymph-nodenegative primary breast cancer. Lancet 2005;365:671–9.
+34. Minn AJ, Gupta GP, Siegel PM, et al. Genes that
+mediate breast cancer metastasis to lung. Nature 2005;
+436:518–24.
+35. Ma XJ, Wang Z, Ryan PD, et al. A two-gene expression
+ratio predicts clinical outcome in breast cancer patients
+treated with tamoxifen. Cancer Cell 2004;5:607–16.
+36. Weigelt B, Hu Z, He X, et al. Molecular portraits and
+70-gene prognosis signature are preserved throughout
+the metastatic process of breast cancer. Cancer Res
+2005;65:9155–8.
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2008 American Association for Cancer
+Research.
+
+Revealing Targeted Therapy for Human Cancer by Gene
+Module Maps
+David J. Wong, Dimitry S.A. Nuyten, Aviv Regev, et al.
+Cancer Res 2008;68:369-378.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+http://cancerres.aacrjournals.org/content/68/2/369
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2008/01/31/68.2.369.DC1
+
+This article cites 35 articles, 11 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/68/2/369.full#ref-list-1
+This article has been cited by 4 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/68/2/369.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications
+Department at pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications
+Department at permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2008 American Association for Cancer
+Research.
+
+

@@ -1,0 +1,2169 @@
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+Spatial Modeling of Drug Delivery Routes for
+Treatment of Disseminated Ovarian Cancer
+Kimberly R. Kanigel Winner1,2, Mara P. Steinkamp3,4, Rebecca J. Lee4, Maciej Swat5,
+Carolyn Y. Muller4,6, Melanie E. Moses1,2, Yi Jiang7, and Bridget S. Wilson3,4
+
+Abstract
+In ovarian cancer, metastasis is typically conﬁned to the
+peritoneum. Surgical removal of the primary tumor and macroscopic secondary tumors is a common practice, but more
+effective strategies are needed to target microscopic spheroids
+persisting in the peritoneal ﬂuid after debulking surgery. To
+treat this residual disease, therapeutic agents can be administered by either intravenous or intraperitoneal infusion. Here,
+we describe the use of a cellular Potts model to compare
+tumor penetration of two classes of drugs (cisplatin and
+pertuzumab) when delivered by these two alternative routes.
+The model considers the primary route when the drug is
+administered either intravenously or intraperitoneally, as well
+as the subsequent exchange into the other delivery volume as a
+secondary route. By accounting for these dynamics, the model
+
+Major Findings
+Mathematical modeling indicates that the most effective
+therapeutic route for targeting avascular and microscopic
+vascular ovarian tumors following debulking is likely to be
+peritoneal delivery. As secondary tumor volume expands, the
+use of both delivery routes is optimal to reach both avascular
+tumor spheroids common in ascites settings as well as neovascularized tumors attached to peritoneal organs.
+
+1
+Department of Biology, University of New Mexico, Albuquerque, New
+Mexico. 2Department of Computer Science, University of New Mexico,
+Albuquerque, New Mexico. 3Department of Pathology, University of
+New Mexico, Albuquerque, New Mexico. 4Cancer Center, University of
+New Mexico, Albuquerque, New Mexico. 5Department of Physics and
+Institute of Biocomplexity, Indiana University, Bloomington, Indiana.
+6
+Department of OB/GYN, University of New Mexico, Albuquerque,
+New Mexico. 7Department of Mathematics and Statistics, Georgia
+State University, Atlanta, Georgia.
+
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+K.R. Kanigel Winner and M.P. Steinkamp contributed equally to this article.
+Current address for K.R. Kanigel Winner: Department of Pharmacology, University of Colorado, Aurora, CO 80045.
+Corresponding Author: Bridget S. Wilson, University of New Mexico Health
+Sciences Center, MSC08-4640, Cancer Research Facility, Room 207, 915 Camino
+de Salud NE, Albuquerque, NM 87131-0001. Phone: 505-272-8852; Fax: 505-2721435; E-mail: bwilson@salud.unm.edu
+doi: 10.1158/0008-5472.CAN-15-1620
+2015 American Association for Cancer Research.
+
+revealed that intraperitoneal infusion is the markedly superior
+route for delivery of both small-molecule and antibody therapies into microscopic, avascular tumors typical of patients
+with ascites. Small tumors attached to peritoneal organs, with
+vascularity ranging from 2% to 10%, also show enhanced drug
+delivery via the intraperitoneal route, even though tumor
+vessels can act as sinks during the dissemination of small
+molecules. Furthermore, we assessed the ability of the antibody to enter the tumor by in silico and in vivo methods and
+suggest that optimization of antibody delivery is an important
+criterion underlying the efﬁcacy of these and other biologics.
+The use of both delivery routes may provide the best total
+coverage of tumors, depending on their size and vascularity.
+Cancer Res; 76(6); 1320–34. 2015 AACR.
+
+Introduction
+Ovarian cancer is the seventeenth most common and twelfth
+most deadly cancer in the United States (6). Because it is largely
+asymptomatic during the early stages of disease, 61% of patients
+present with cancer already disseminated throughout the abdominal cavity. As a consequence of late-stage diagnosis, the 5-year
+survival rate is only 44% (7). Intraperitoneal administration of
+cisplatin has been shown to correlate with improved overall
+survival with the greatest survival effect seen in patients surgically
+debulked to no gross residual disease (8–10). Combined intravenous/intraperitoneal chemotherapy has been recommended by
+the NCI (Bethesda, MD) as the standard-of-care for optimally
+debulked, FIGO stage III ovarian cancer patients (11). In this
+study, we explore the effectiveness of intraperitoneal versus intravenous therapy for residual disease as a function of tumor attachment and vascularity. We predict that improved outcomes may
+result from pathologic assessment of peritoneal tumor characteristics after cytoreduction, potentially leading to individualized
+decisions on the routes of drug administration. We tested this
+hypothesis using a hybrid agent–based computational model to
+simulate delivery of both small-molecule and antibody therapies.
+Disseminated ovarian tumors often exist as two distinct types:
+(i) avascular cell aggregates ("spheroids") that are loosely
+attached to organs within the peritoneal cavity or free ﬂoating
+in the ascites ﬂuid, and (ii) vascularized tumors colonizing
+peritoneal organs. For optimal treatment, drugs must be effective
+against both types of tumors. Furthermore, the route of drug
+delivery will likely have an effect on tumor drug penetration,
+binding, and accumulation. We focus here on strategies for the
+postsurgery treatment of microscopic residual tumors, where
+debulking has removed both the primary tumor and larger
+secondary tumors (>1 cm in diameter).
+
+1320 Cancer Res; 76(6) March 15, 2016
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Intraperitoneal versus Intravenous Drug Delivery for Ovarian Cancer
+
+Quick Guide to Model and Major Assumptions
+We assume that during the time scale of drug penetration (2–9 hours), cancer cells neither grow nor migrate. This is a reasonable
+assumption as in vitro studies suggest that ovarian cancer cells grown as spheroids have a reduced proliferation rate (1). Each cell is
+considered a single agent, occupying one voxel on a 3-dimensional lattice in the CompuCell3D simulation environment. Chemical
+dynamics are described in the following reaction–diffusion equation:
+qC1
+¼ DC1 r2 C1  gC1 þ a1 ½1  dðtðSÞ; vesselÞ  z1 ½1  dðtðSÞ; tumor Þ;
+qt
+
+ðAÞ
+
+where C1 is the chemical concentration, DC1 is the effective diffusion coefﬁcient, g 1 is the decay rate, a1 is the chemical output at the
+vessel, d is the Kronecker delta function that equals 0 when its variables are the same and equals 1 when they differ, S is the cell ID, t is
+the cell type, and z1 is the chemical uptake by the tumor cells. We use a forward Euler method to solve this diffusion equation.
+For drug concentrations in blood plasma and peritoneal ﬂuid at each time step, we use constant concentrations determined by ﬁts to
+patient data and rat data (Supplementary Table S1). Vessel voxels are reset to a new constant concentration at each time step;
+therefore, only voxels comprising the vessel surface contribute drug to nonvessel neighbor voxels, as in real vessels. Peritoneal ﬂuid
+voxels are treated similarly. After intravenous delivery, small-molecule drug has the same concentration at the vessel surface as in the
+plasma. In contrast, antibody concentration at the vessel surface is inhibited by the vascular wall, and concentration at the vessel
+surface is described by
+CVesselSurface ðtÞ ¼ CPlasma ðtÞ  B;
+
+ðBÞ
+
+where CPlasma(t) and CVesselSurface(t) is the concentration in blood and at the vessel surface, respectively, and B is the Biot number. The
+Biot number is the ratio of capillary extravasation to the free diffusion coefﬁcient in tumor tissue, an approach pioneered by Thurber
+and colleagues (2–4) to quantify passage of proteins across the vascular wall as the rate-limiting step of delivery.
+Our simulation environment represents small tumors of approximately 30 cells in diameter with a total of 13,997 cells. Tumors of
+this size should be well oxygenated with no necrotic core (5). The spherical tumor surface is completely exposed to ﬂuid, a similar
+conﬁguration to tumors suspended in peritoneal ﬂuid or attached to the mesentery. Drug is delivered simultaneously from tumor
+vessels and the peritoneal cavity. Simulation volume is 33  33  33 voxels. Voxels have a cube edge of 5.6 mm. The volume of each
+voxel is equivalent to the volume of an SKOV3.ip1 cancer cell, or 179.4 mm3 (5). For each drug, we deﬁne each Monte Carlo step as
+the time for molecules to diffuse the distance of one cell diameter, which is equivalent to 1/1207.183 minutes for cisplatin and 1/
+25.011 minutes for pertuzumab. Each vascular tumor contains a simulated vascular meshwork generated in Matlab by randomly
+placing unconnected cylinders of speciﬁed radii and lengths drawn from distributions corresponding to experimental observations.
+
+Drug Modeling Assumptions
+We consider only the primary rate-limiting step for drug diffusion in tumor tissue as determined by the molecular weight, shape,
+and lipophilicity of a drug (4). In the model, for low molecular weight cisplatin, we assume no explicit barriers within blood or
+tissue. For large molecular weight, cell-binding antibody, we consider the penetration from the intraperitoneal ﬂuid into tumor
+tissues as a passive process, and we parameterize it from our own ﬂuorescence recovery after photobleaching (FRAP) measurements.
+We consider drug distributions in two compartments, the blood (intravenous) and the peritoneal ﬂuid (intraperitoneal). The
+primary delivery compartment is the ﬁrst compartment into which drug is injected (either intravenously or intraperitoneally); the
+secondary compartment receives a wave of drug during distribution throughout the body. We ﬁt drug concentrations as polynomial
+functions of time. All cisplatin compartment concentrations and pertuzumab primary compartment concentrations are ﬁtted using
+patient data from the literature. Because we do not have simultaneous intraperitoneal and intravenous data for pertuzumab in
+patients, we use intraperitoneal/intravenous and intravenous/intraperitoneal ratios from antibodies delivered intravenously and
+intraperitoneally to rats (see Supplementary Table S1). We apply those ratios to patient data for primary intraperitoneal or
+intravenous delivery, assuming that ratios of drug in the secondary compartment to the primary compartment are doseindependent. Secondary compartment pertuzumab concentrations are calculated as the current concentration in the primary
+compartment times the ratio of the current concentration in the secondary compartment to that in the primary compartment.
+Explicit equations of primary and secondary ﬁts are provided in Supplementary Table S1. Primary and secondary concentrations
+are set as constant concentrations in the compartment ﬂuids for the duration of the time step, creating constant boundary conditions
+for the vessels and tumor surface.
+
+Drug movement between the peritoneal and the blood plasma
+compartments is a key feature of the pharmacokinetics affecting
+abdominal tumors. In healthy individuals, the volume of peritoneal ﬂuid is small (10–30 mL). This ﬂuid resides in the inter-
+
+www.aacrjournals.org
+
+stitial spaces and is secreted by mesothelial cells (reviewed in 12).
+The ﬂuid circulates through the cavity and enters the blood
+circulation via adjunct capillaries (40%–50%) or stomata on
+the underside of the diaphragm. The stomata can admit particles
+
+Cancer Res; 76(6) March 15, 2016
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+1321
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Winner et al.
+
+Table 1. Modeling parameters
+Parameter
+Time step for cisplatin
+Cisplatin effective diffusion
+coefﬁcient in tumor tissue
+Platinum (Pt) accumulation at
+current cisplatin concentration in
+SKOV3 cell (R2 ¼ 0.99) per MCS
+Cisplatin accumulated at IC50
+(50% viability of control) for
+SKOV-3, 2-hour exposure
+Time step for pertuzumab
+Nonspeciﬁc IgG FRAP-derived
+effective diffusion coefﬁcient in
+SKOV3.ip1 spheroids
+Pertuzumab Kd (binding
+percentage)
+Pertuzumab effective diffusion
+coefﬁcient in SKOV3.ip1 in vitro
+spheroids
+Pertuzumab binding reversal halflifea
+Pertuzumab decay ratea
+Biot number for pertuzumab in
+ovarian tumora
+
+ERBB2 receptor count on SKOV3.ip1
+Radius of SKOV3.ip1 cell
+Vascular area in human secondary
+tumors from bowel and omentum
+Mean length of tumor vessel
+segment in breast cancer xenograft
+Mean diameter of tumor vessel
+segment in breast cancer xenograft
+Mean diameter of tumor vessel
+segment in human ovarian tumors
+mg protein per SKOV-3 cell
+
+Model value
+1
+DTC ¼ 1207:183
+1
+
+
+0:4755  cisplatin1:289  DTC =120
+
+52.71
+
+Model units
+Min
+Cell diameter2/
+DTC
+mmol/L
+Accumulated
+per cell per DTC
+mmol/L (mmol per
+liter of cells)
+
+Values in common units
+6.40E6 cm2/s
+
+Source
+37
+Fig. 3; 40
+
+251 pmol/mg protein
+
+40
+
+1
+DTP ¼ 1500:679
+1
+
+Hour
+Cell diameter2/
+DTP
+
+DTP ¼ 25:0111 min
+1.33E7 cm2/s
+
+m
+
+981.68
+
+Molecules/
+cell volume
+Cell diameter2/
+hour
+
+9.1 nmol/L
+
+58
+
+5.37
+
+2
+
+6.20E10 cm /s
+
+m
+
+¥
+
+Hour1
+
+0
+0.0225
+
+40  5
+
+Hour1
+Ratio of
+plasma conc.
+to vessel
+surface conc.
+Receptors
+mm
+% Area of
+central slice
+mm
+
+18.46  0.54
+
+mm
+
+Fig. 5; 61
+
+19.2  16
+
+mm
+
+m
+
+0.21
+
+mg protein/mL
+
+40
+
+2,100,000
+3.5
+2–10
+
+m, 59
+60
+30
+
+m
+22
+m
+61
+
+Abbreviation: MCS, Monte Carlo step; m, measured.
+a
+Value estimated based on data obtained with other IgGs.
+
+up to 25 mm in diameter into the diaphragmatic lymphatics,
+which connect to the greater lymphatic system. Fluid ultimately
+drains back into the venous circulation. Because the blood and
+intraperitoneal compartments are intimately connected, our
+model accounts for the initial drug infusion into the primary
+peritoneal or blood compartment as well as the delayed appearance of drug in the secondary compartment.
+Mathematical modeling of drug delivery was pioneered in
+the 1960s and has progressed to current models that incorporate tumor-induced angiogenesis (13, 14). Recent reviews
+have summarized current strategies used to model anticancer
+drug penetration at different temporal and spatial scales
+(15, 16). Frieboes and colleagues incorporated experimental
+data into their 3-dimensional computational model of lymphoma growth (17) and have also modeled nanoparticle
+delivery and accumulation in developing tumors (18). Of
+particular note, Sinek and colleagues created a 2-dimensional
+multiscale model of cisplatin and doxorubicin intravascular
+delivery (19). For ovarian cancer, previous mathematical
+models have addressed the penetration of doxorubicin
+through multiple cell layers (20) the effectiveness of new or
+established treatments (21) and predicted survival rates of
+patients after surgery or drug treatment (22). The metabolic
+and spatial characteristics of ovarian cancer cell spheroids
+have also been considered (23).
+
+1322 Cancer Res; 76(6) March 15, 2016
+
+Few spatially explicit models of ovarian cancer exist aside from
+our own (5). Giverso and colleagues built a 2-dimensional
+cellular Potts model of ovarian cancer that explores the interaction
+of ovarian cancer cells with the mesothelial layer and underlying
+extracellular matrix during invasion (24). El-Kareh and colleagues
+modeled the penetration distance of cisplatin into the rat peritoneum with and without hyperthermia (25). This model and
+others, as well as experimental measures for penetration into
+tissues in the peritoneal cavity, suggest absorption of smallmolecule drugs by vessels can be a barrier to drug delivery (2).
+Here, we report results of a 3-dimensional spatial model of drug
+delivery using OvTM, our ovarian tumor model (5) parameterized
+for ovarian tumor spheroids in the peritoneum. OvTM was based
+on the cellular Potts model using the CompuCell3D simulation
+environment (26). We extend the OvTM to study drug dynamics
+for two delivery compartments, the blood and peritoneal ﬂuid,
+respectively. Results show that, for avascular spheroids and small,
+vascularized tumors in the process of seeding peritoneal organs,
+the intraperitoneal route is superior for drug delivery.
+
+Materials and Methods
+Drug penetration into spheroids
+SKOV3.ip-GFP-stable transfectants were a kind gift from Laurie
+Hudson and Angela Wandinger-Ness (University of New Mexico,
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Intraperitoneal versus Intravenous Drug Delivery for Ovarian Cancer
+
+OvTM Model
+
+Vascular density
+
+Pharmacokinetics
+of IP or IV delivery
+Concentration
+(μmol/L)
+
+Cisplatin
+80
+
+IP delivery
+
+IV delivery
+6
+
+60
+4
+
+40
+2
+
+20
+0
+0
+
+200
+
+400
+
+0
+0
+
+Time (min)
+
+100
+
+200
+
+300
+
+Time (min)
+
+Pertuzumab
+Concentration
+(μmol/L)
+
+Figure 1.
+Flow chart of drug delivery model
+inputs and output. The 3-D OvTM drug
+delivery model integrates tumor
+vascular densities and in vivo
+pharmacokinetic data from clinical and
+experimental studies. The
+pharmacokinetic data shown are ﬁts of
+cisplatin concentrations in the serum
+and peritoneal compartments (top)
+during and after intraperitoneal (IP)
+dosing from the peritoneal ﬂuid (left) or
+intravenous (IV) infusion (right) and ﬁts
+of pertuzumab concentrations
+(bottom) after intraperitoneal (left) or
+intravenous infusion (right). Available
+pertuzumab is much lower than the
+pertuzumab concentration in the blood
+due to the vascular endothelial barrier.
+(In the model, concentration is scaled
+with the Biot number; see Materials and
+Methods). Intraperitoneal and
+intravenous doses are 5 mg/kg. The
+intraperitoneal antibody concentration
+time course was calculated as 1,000
+times the ﬁt for an immunotoxin
+conjugate administered at 5 mg/kg i.p.
+
+1
+
+1
+
+0.5
+
+0.5
+
+0
+0
+
+10
+
+20
+
+30
+
+Time (h)
+
+0
+0
+
+Outcome
+
+10
+
+20
+
+30
+
+Time (h)
+
+Peritoneal concentration
+Serum concentration
+
+Albuquerque, NM) and were obtained in 2010. The parental
+SKOV3.ip cell line was authenticated in November 2014 by ATCC
+using short tandem repeat (STR) analysis by the Wandinger-Ness
+lab. For spheroid assays, 2,000 SKOV3.ip-GFP cells were seeded
+into each well of a Lipidure-coated 96-well plate (NOF America
+Corporation) and incubated for 48 hours to allow the formation
+of spheroids. Pertuzumab (Perjeta, Genentech) was purchased
+from the UNM Pharmacy and conjugated to Paciﬁc Blue 410 or
+Alexa Fluor 488 succinimidyl ester dyes per the manufacturer's
+guidelines (Life Technologies). Spheroids were incubated in ﬂuorescently conjugated pertuzumab at a ﬁnal concentration of 3.5
+mg/mL and imaged on a Zeiss 510 confocal microscope with a
+META detector. For FRAP analysis, spheroids were incubated for 1
+hour with 350 mg/mL nonbinding Alexa488-labeled IgG to allow
+complete penetration by diffusion. Images were collected on a
+Zeiss Axiovert 200M META using an LD LCI Plan-Neoﬂuar 25
+objective. A 14-mm circular region of interest was photobleached
+using an Argon laser at full power with maximum pinhole. Images
+were corrected for background ﬂuorescence and for photobleaching during acquisition. Fluorescence recovery over time was
+plotted and ﬁt to a single exponential to determine the recovery
+half-time. The diffusion coefﬁcient was estimated as shown by
+Axelrod and colleagues (27). Average values were obtained from
+analyzing a total of 34 regions of interest from two separate
+experiments.
+Ovarian cancer xenograft model
+Details of the human xenograft model in nude mice were
+previously described (5). In brief, 6- to 8-week-old BALB/c
+
+www.aacrjournals.org
+
+athymic nu/nu female mice purchased from the NCI-Frederick
+were engrafted by IP injection with 100 mL of a single-cell
+suspension containing 5  106 SKOV3.ip-GFP cells. Tumors
+develop in the peritoneal cavity within 1 to 3 weeks. Where
+speciﬁed, recipient mice were injected with 20 mg/kg pertuzumab-Paciﬁc Blue either by intraperitoneal injection (i.p.) or by
+tail-vein injection (intravenous). Mice were humanely sacriﬁced
+after speciﬁed time intervals. Tumors were excised and imaged on
+a Zeiss 510 confocal microscope equipped with a Coherent
+Chameleon Ultra II IR laser for two-photon imaging. All experiments using mice were approved by the UNM Animal Care and
+Use Committee, in accordance with NIH (Bethesda, MD) guidelines for the Care and Use of Experimental Animals.
+Quantiﬁcation of vasculature density and vessel diameter in
+patient tumors
+Specimens from 9 ovarian cancer patients were obtained from
+the UNM Human Tissue Repository. Patient samples were identiﬁed for which metastases to both bowel and omentum were
+available. Adjacent sections were stained with hematoxylin/eosin
+(H&E) to identify higher-chromatin tumor cells or processed for
+IHC with anti-CD31 antibodies (BD Biosciences) to identify
+endothelial cells. Brightﬁeld montages of each specimen were
+generated using Stereo Investigator image analysis software (MBF
+Bioscience) at 4 magniﬁcation on an Olympus IX-81 spinning
+disk confocal microscope. A board-certiﬁed pathologist distinguished tumor tissue from normal tissue by visual assessment
+of H&E-stained samples. CD31-labeled sections were imaged at
+20 magniﬁcation on the Olympus IX-81, and contours
+
+Cancer Res; 76(6) March 15, 2016
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+1323
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Winner et al.
+
+delineating the tumor area were drawn using Stereo Investigator
+software. Vessel area density within these tumor regions was
+calculated using the Stereo Investigator Area Fraction Fractionator
+Probe. Each tumor contour was systematically, randomly sampled with a rectangular region (counting frame) containing a
+lattice of grid points. Grid points were spaced 10 mm apart. A grid
+point was marked as vessel if the triangle deﬁned by the upper
+right-hand quadrant of the grid point "cross-hair" contained
+pixels darkly stained for CD31. Structure of the overall tissue and
+relative darkness of stain were taken into account in marking
+CD31-labeled points. Counting frame size and spacing varied
+from tumor to tumor to mark enough points to obtain good vessel
+area density estimates (at least 200 points/contour). Stereo Investigator software estimated the fractional area of each tumor
+covered by CD31-labeled vessels using the number of marked
+grid points, the size of the sampled area, and the total area of the
+tumor contour. Vessel diameter was calculated using Stereo
+Investigator Line Measure or Circle Measure tools. Each tumor
+section was divided roughly into quadrants, and 3 to 5 vessels
+were measured per quadrant, with multiple vessels (10–20)
+chosen per tumor (236 vessels measured in 18 tumors).
+
+Results
+Schematic of the modeling approach
+The integration of experimental and modeling results is
+outlined in Fig. 1. A critical aspect of our OvTM model is that,
+once drugs are administered by the intravenous or intraperitoneal route, there is transient delivery to the other compartment. Drug exchange between the two compartments is based
+on published studies as described in Supplementary Data. Fits
+for drug concentrations in the primary and secondary compartments over time, which are used as parameters in our model,
+are listed in Supplementary Table S1. Time courses of drug
+exchange used in the model are plotted in the pharmacokinetics
+box (Fig. 1). The model also explicitly integrates experimentally
+measured levels of tumor vascularity, with values discretized to
+ﬁt voxel dimensions. Parameters for penetration, binding, and
+cellular accumulation are listed in Table 1. Further explanation
+of model assumptions can be found in the Supplementary
+Material.
+In vitro spheroids serve as a model for drug penetration in
+avascular tumors
+In Fig. 2, we ﬁrst experimentally evaluate drug delivery to
+avascular, 3-dimensional cancer cell aggregates by passive penetration. SKOV3.ip1 ovarian cancer cells were grown as spheroids
+(2,000 cells), incubated for deﬁned intervals with ﬂuorescent
+small molecules or antibodies and then imaged by confocal
+microscopy. Naturally, ﬂuorescent doxorubicin (MW 543 Da)
+was used to represent the class of low molecular weight, highly
+lipophilic chemotherapeutic compounds; it is used here as a
+surrogate for the behavior of cisplatin (MW 300 Da), a ﬁrst-line
+therapy for ovarian cancer. Results for doxorubicin are shown
+in Fig. 2A, where the ﬂuorescence intensity plot below the 10minute image shows the drug well distributed across the spheroid.
+Note that the ﬂuorescence intensity continued to rise over the
+incubation period of 90 minutes, attributed to drug accumulation
+in cell nuclei as doxorubicin intercalated into DNA. The data are
+consistent with the fast penetration of small–molecular weight
+drugs in tumors (28). These results validate the use of a fast
+
+1324 Cancer Res; 76(6) March 15, 2016
+
+diffusion rate for cisplatin (640 mm2/second; ref. 29) in our
+simulations.
+We next experimentally evaluated the uptake of therapeutic
+antibodies into cultured spheroids. The passive diffusion coefﬁcient for these large proteins (150 kDa) was estimated by
+FRAP). The spheroids were incubated with ﬂuorescently tagged,
+nonbinding IgG for 1 hour. As shown in Fig. 2B, this is a
+sufﬁcient period for the IgG to diffuse through the intercellular
+spaces to the spheroid interior. A 28-mm diameter spot was
+photobleached, and diffusion of ﬂuorescent antibodies within
+the interstitial space in the absence of binding was estimated
+based upon ﬂuorescence recovery. As shown in Fig. 2C, an
+estimated diffusion coefﬁcient of 4.5 mm2/second for nonspeciﬁc IgG was similar to that of control (70 kDa dextran; 4.8
+mm2/second). We interpret this as evidence that the cell–cell
+junctions in these spheroids are insufﬁcient barriers to strongly
+limit protein penetration. Interestingly, average diffusion within in vitro spheroids was three times slower than estimates of in
+vivo nonbinding antibody diffusion by Berk and colleagues,
+indicating that other factors play an important role in vivo (30).
+Next, the penetration of targeted antibody was evaluated by
+incubating spheroids with subclinical levels (3.5 mg/mL) of Alexa
+488-conjugated pertuzumab, which binds the ERBB2 receptor
+and is abundantly expressed on the surface of SKOV3.ip1 cells.
+Note that ERBB2 expression is a feature of only approximately
+35% of ovarian tumors (31); it is reasonable to assume that our
+results should apply to antibodies directed at other surface receptors on ovarian tumor cells, such as ERBB3 and MET (31). Images
+in Fig. 2D and accompanying intensity plots show that there is a
+"wave front" of antibody binding as it penetrates into the tumor
+spheroid. Under these conditions, saturation of antibody binding
+is not achieved within the center of the spheroids even following
+an incubation period of 24 hours. The depth of ﬂuorescent
+antibody penetration into spheroids was measured at each time
+point and is plotted in Fig. 2E. On the basis of these data, the
+effective penetration rate of antibodies with high afﬁnity for
+tumor surface antigens is three orders of magnitude slower than
+predicted based upon nonspeciﬁc antibody diffusion. One goal of
+our model is to explore the relationship between binding rates,
+antibody concentration, and tumor penetrance.
+Incorporating vessel density from human ovarian tumors into
+the mathematical model
+Vascularization of tumors will also affect drug penetration.
+The range of vascular densities was estimated based on the
+analysis of disseminated ovarian tumors collected from 9
+ovarian cancer patients. Formalin-ﬁxed parafﬁn-embedded
+sections from these tumors were labeled with anti-CD31
+antibodies as a vascular endothelial cell marker. For each
+patient, paired samples of omentum and bowel metastases
+were evaluated to examine whether the site of metastasis
+affected vascular density. Vascular density was measured and
+reported as percent of total area analyzed (Fig. 3). Samples
+from each site showed no statistical difference with respect to
+distribution of vascular density, and there was no statistical
+correlation between percent vascular areas at the two sites in
+each patient (Supplementary Fig. S1). Mean percent vascular
+area was 4.8% with SD of 2.47% and a 95% conﬁdence
+interval from 3.57% to 6.03%. In our models, we consider
+vascular areas of 2% and 10%, which represent the extremes of
+observations from the 18 tumors. Supplementary Figure S2
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Intraperitoneal versus Intravenous Drug Delivery for Ovarian Cancer
+
+A
+
+10 min
+
+60 min
+
+90 min
+
+Intensity
+
+Doxorubicin
+
+30 min
+
+200
+
+200
+
+200
+
+200
+
+150
+
+150
+
+150
+
+150
+
+100
+
+100
+
+100
+
+100
+
+50
+
+50
+
+50
+
+50
+
+0
+500
+
+1,000
+
+0
+
+Distance (μm)
+
+B
+
+0
+
+0
+
+0
+0
+
+500
+
+0
+
+1,000
+
+Distance (μm)
+
+500
+
+0
+
+1,000
+
+Distance (μm)
+
+Estimated diffusion coefficient
+(µm2/sec)
+
+D
+
+1h
+
+6h
+
+1,000
+
+C
+
+Recovery
+
+Nonbinding IgG
+
+Bleach
+
+500
+
+Distance (μm)
+
+10
+8
+6
+4
+2
+0
+
+Nonbinding IgG
+
+70 kDa Dextran
+
+E
+
+24 h
+
+Pertuzumab
+
+Penetration (µm)
+
+Pertuzumab
+
+200
+150
+100
+50
+
+Intensity
+
+0
+
+200
+
+200
+
+200
+
+150
+
+150
+
+150
+
+100
+
+100
+
+100
+
+50
+
+50
+
+50
+
+0
+
+0
+0
+
+200
+
+400
+
+Distance (μm)
+
+0
+
+3
+
+6
+
+9 12 15 18 21 24
+Time (h)
+
+0
+0
+
+200
+
+400
+
+Distance (μm)
+
+0
+
+200
+
+400
+
+Distance (μm)
+
+Figure 2.
+Experimental measures of diffusion across spheroids in vitro. A, SKOV3.ip1-GFP spheroids of 2,000 cells were incubated with 3.5 mg/mL doxorubicin (red) for
+10–90 minutes as shown and imaged on a confocal microscope. Scale bar, 100 mm. Graphs below images indicate ﬂuorescent intensity measured across the spheroid
+along the speciﬁed line (white arrow). B, SKOV3.ip1-RFP spheroids were incubated with 350 mg/mL nonbinding FITC-conjugated IgG for 1 hour to allow
+homogeneous distribution of the IgG throughout interstitial spaces in the spheroid. (left; scale bar, 20 mm). Regions of interest (red circles) were bleached and
+ﬂuorescence recovery was measured over time (middle and right; scale bar, 10 mm). C, diffusion was estimated from the rate of recovery of ﬂuorescence (t)
+based on the radius of the circular region of interest. Diffusion of nonbinding IgG in the spheroids was comparable with that of 70 kDa FITC-Dextran. Black lines mark
+the mean diffusion rate  SEM. D, SKOV3.ip1-RFP spheroids were incubated with 3.5 mg/mL Alexa 488-conjugated pertuzumab for 1–24 hours, washed, and
+imaged live on a confocal microscope. Graphs indicate ﬂuorescence intensity across the spheroid along the speciﬁed line (white arrow). Scale bar, 50 mm.
+E, average depth of penetration over time of Alexa 488-conjugated pertuzumab into SKOV3.ip spheroids in vitro. Two to three spheroids were measured per time
+point. Error bars represent SD.
+
+www.aacrjournals.org
+
+Cancer Res; 76(6) March 15, 2016
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+1325
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Winner et al.
+
+Patient 7
+
+Patient 9
+
+C
+
+E
+
+Bowel
+
+A
+
+Patient 4
+
+2.7%
+
+7.4%
+
+F
+
+D
+
+Omentum
+
+B
+
+10.1%
+
+3.3%
+
+2.2%
+
+Vascular density (% total area)
+
+G
+
+H
+
+1%
+
+8.3%
+7%
+
+12
+10
+8
+6
+
+C
+
+4
+
+I
+
+2
+0
+el
+
+m
+
+u
+nt
+
+ow
+
+B
+
+e
+
+m
+
+O
+
+Metastatic site
+
+Figure 3.
+Vascular density was measured in ovarian cancer patient metastases to parameterize simulations of vascularized tumors. A–F, four-micron sections of matched
+bowel and omentum tumors from 9 ovarian cancer patients (UNM Human Tissue Repository) were labeled with anti-CD31 antibody (DAB, brown) to detect vascular
+endothelial cells. Vascular density (% area) is reported at the bottom right of each image. Metastases showed within- and between-patient variability in
+vascular density, with some patients having metastases with low vascular density (patient 7, A and B), some patients having tumor-dependent variability in vascular
+density (patient 9, C and D), and other patients having tumors with uniformly high vascular density (patient 4, E and F). G, average vascular density is comparable in
+omentum (4.85%) and bowel (4.75%). H and I, Matlab-based simulation of vascular trees that yield 1% and 7% vascular area within the center slice of a
+spheroid (H and I; radius, 65 cells).
+
+shows box plots with the means, quartiles, and farthest outliers for bowel and omentum samples.
+As a ﬁrst step for integrating these values into our cellular
+Potts model, we measured vessel diameters in tumor samples
+and showed that they predominantly ﬁt a truncated Gaussian
+distribution ranging from 1 to 48 mm. Vessel diameters exceeding 48 mm were omitted, including longitudinal sections. Using
+Matlab, a randomized distribution of unconnected vessels
+with diameters representing the calculated distribution was
+generated within spheroids of 13,997 cells, such that the
+
+1326 Cancer Res; 76(6) March 15, 2016
+
+vascular area varied from 2% to 10% in the central slice of the
+simulated tumor. Figure 3H and I illustrate this important
+feature of our simulation strategy.
+Intraperitoneal delivery of cisplatin to avascular tumors is
+superior to intravenous delivery
+In Fig. 4, we show cisplatin uptake in the OvTM model. We
+compare cellular accumulation of drug given different routes of
+delivery and tumor vascularity. Results are expressed in molecules cisplatin/cell. Note that prior work estimated the IC50 for
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Intraperitoneal versus Intravenous Drug Delivery for Ovarian Cancer
+
+cellular cytotoxicity to be approximately 5.6  106 cisplatin
+molecules per cell (32). To reach this level, cultured cells were
+exposed to 38 mmol/L cisplatin for 2 hours. Importantly, this
+provides a target level of drug accumulation to be achieved in
+our cell-based tumor model.
+Simulation conditions began with infusion of cisplatin
+by either route for 15 minutes (total 60 mg/m2), followed
+by tracking of drug accumulation until cisplatin levels in
+both compartments dropped to negligible levels (180
+minutes). Figure 4A and B reports results for avascular spheroids with a 30 cell diameter (14,000 cells). Results show that,
+for the same drug dose, the intraperitoneal route is clearly
+superior. Direct infusion of cisplatin in the peritoneum at this
+dose results in substantial and uniform drug levels across the
+avascular tumor (Fig. 4A; plot at right), reaching a predicted
+level of almost 5.7  106 molecules per cell.
+In contrast, intravenous delivery of cisplatin is predicted to have
+poor response. In this case, cisplatin reaches the avascular tumor
+solely by secondary delivery to the peritoneal ﬂuid. Cellular
+accumulation is very low (see plot to the right of Fig. 4B), with
+estimated cisplatin accumulation peaking at approximately
+42,000 cisplatin molecules per cell. There is again little cell–cell
+variability in drug uptake in this avascular setting. Importantly,
+cisplatin delivery to avascular tumors via the intravenous route
+results in accumulation far below the IC50 value.
+Cisplatin accumulation in tumor cells after intraperitoneal or
+intravenous delivery is inﬂuenced by vascular density
+We next report results for cisplatin accumulation in the same
+tumor volume, but with vascular densities of either 2% or 10%.
+Despite direct delivery of drug from the blood through vessels, the
+intraperitoneal route is again superior for these small tumors (Fig.
+4C–F). The cell-to-cell variability of cisplatin accumulation in
+vascularized ovarian tumors is one of the most striking results of
+these simulations. The uptake of drug is highly heterogeneous, as
+indicated by the large spread around the mean values plotted in
+each case. The marked spatial gradients in drug accumulation
+particularly following intraperitoneal delivery to vascularized
+tumors (Fig. 4C and E) is notable. As accompanying plots show,
+accumulation across the tumor is much less uniform than for the
+same size of avascular tumor (Fig. 4A). This result indicates that
+vessels are a sink for drug when cisplatin is infused directly into the
+peritoneum. The inverse relationship between the vascular density of the tumor and drug accumulation after intraperitoneal
+delivery may be an unappreciated factor in chemotherapy
+regimens.
+As shown in Fig. 4D, intravenous drug delivery to the 2%
+vascular tumor accumulates a median value (solid blue line) of
+only approximately 40,000 molecules per cell. Accumulation can
+reach a maximum of 140,000 molecules per cell in the cells
+nearest the vessels (green shaded area). For the 10% vascular
+tumor, these values reach a median of approximately 90,000
+molecules per cell, with a range of 50,000 to 180,000. This
+represents only a small improvement in delivery to the tumors
+over the avascular tumor (compare plots in Fig. 4B and F).
+Intraperitoneal delivery offers advantages for therapeutic
+antibodies
+Therapeutic antibodies have evolved as critical options for the
+targeted treatment of cancer (33), motivating our inclusion of
+these high–molecular weight biologics in our model. In vivo,
+
+www.aacrjournals.org
+
+passage of antibody across the vascular endothelium is a critical
+step in intravenous delivery of antibody to the tumor. In the
+model, this process is represented by the Biot value (see the Quick
+Guide). Effectively, for normal vasculature, this translates to an
+available pool of IgG that is only 2% of that inside the vessel. This
+applies equally to circulating antibody that is introduced by
+primary infusion or enters the blood by secondary exchange from
+the peritoneum. Simulations described below use Biot numbers
+reﬂecting both normal vasculature and "leaky" tumor vasculature.
+Other important considerations include expression levels of target
+receptors in the tumor tissue and the afﬁnity of the antibody.
+SKOV3.ip1 cells express more than 2 million ERBB2/HER2 receptors per cell; the afﬁnity of pertuzumab for ERBB2 is 9.1 nmol/L
+(Table 1).
+Results in Fig. 5 show predictions from the model for clinically
+relevant doses of pertuzumab (5 mg/kg), when administered by
+either intraperitoneal (top) or intravenous (bottom) routes,
+assuming normal vasculature. For the case of intraperitoneally
+delivered antibody, simulation parameters were ﬁt to the data of
+Pai and colleagues (34), where infusion of 1 L saline was followed
+by a 50 mL injection of antibody and a second infusion of saline.
+For the case of intravenously delivered antibody, parameters were
+ﬁt to data in the FDA bulletin 125409, with an infusion period of 3
+hours (35). Simulation results indicate the early appearance of a
+wave front of antibody binding (red). Peritoneal delivery to both
+the avascular tumor in Fig. 5A and the 2% vascular tumor in Fig.
+5B results in a rapidly advancing front and saturation of receptors
+within 0.4 hour. Note that the wave front is faster than experimental results in Fig. 1 with subclinical doses of antibody, as
+expected for the higher clinical dose. For the 10% vascular tumor,
+some heterogeneity is seen near the center of the tumor which is
+attributed to physical barriers of vessels that block antibody
+penetration within the tumor geometry. The median values for
+each of these simulations are plotted at right.
+As shown in Fig. 5D–F, simulation results for intravenous
+infusion of antibody are particularly striking and highlight the
+limitations of antibody transport across normal endothelium,
+represented by the low Biot number (4). Under these stringent
+conditions, there is a marked delay in antibody binding, with the
+wave front initiating at the border of the spheroid. This indicates
+that most of the antibody entering the tumor comes from the
+intraperitoneal ﬂuid, having arrived there after exchange from
+blood. Half-maximal saturation is seen many hours after intravenous introduction of drug. Even in the tumors with 2% and
+10% vascularity, there is negligible contribution from antibody
+entering the tissue via vessels. Plots to the right demonstrate that
+vascularized tumors have much greater heterogeneity in antibody
+binding.
+As vessels in tumors are often described as "leaky" (36), we
+considered it important to report results of simulations using
+higher Biot values to reﬂect a greater range of drug transport out of
+vessels within tumors (37, 38). For intravenous delivery of antibody, increasing the Biot number 3.6- (Biot, 0.08) or 8.9-fold
+(Biot, 0.20) resulted in a proportional improvement in accumulation rate (Fig. 6A and B). With the highest Biot value, simulations predict that cells could be nearly saturated within 3.5 hours,
+compared with less than6 hours with the transport conditions of
+normal vasculature. As seen in the plots in Fig. 6A and B, leaky
+vessels also reduce the heterogeneity in drug accumulation.
+Images in Fig. 6C–F provide experimental validation of our
+predictions that direct delivery of antibody to the peritoneum is
+
+Cancer Res; 76(6) March 15, 2016
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+1327
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Winner et al.
+
+Cisplatin accumulation
+0%
+Molecules/cell
+
+106
+10
+
+4.1
+0
+
+3.3
+
+Molecules/cell
+
+10
+
+4
+
+1.6
+
+10
+
+2
+
+0.81
+
+10
+
+0
+
+2.4
+
+0
+0
+
+50
+
+100
+
+150
+
+200
+
+6
+
+104
+
+Cells
+
+Molecules/cell
+
+10
+
+102
+
+50
+
+100
+
+150
+
+10
+
+4
+
+10
+
+2
+
+10
+
+0
+
+0
+
+10%
+Molecules/cell
+
+50
+
+100
+
+Min
+
+Molecules/cell at 180 min.
+
+10,000
+
+150
+
+200
+
+5,000
+
+0
+
+0 0.25 × 105
+
+104
+
+1 × 10 5
+
+5,000
+
+102
+10
+
+0
+
+0
+
+50
+
+100
+
+150
+
+200
+
+0
+
+10
+
+2 × 10 6
+
+0
+
+Min
+Molecules/cell
+
+0.5 × 105
+
+Molecules/cell at 180 min.
+
+106
+
+IP Delivery
+
+10%
+
+2 × 106
+
+0
+
+200
+
+Cells
+
+6
+
+5,000
+
+0
+0
+
+Cells
+
+Molecules/cell
+
+10
+
+IV Delivery
+
+Molecules/cell at 180 min.
+
+6
+
+104
+102
+100
+
+1328 Cancer Res; 76(6) March 15, 2016
+
+200
+
+Min
+2%
+
+IV Delivery
+
+150
+
+6
+
+IP Delivery
+
+G
+F
+
+100
+
+10
+
+100
+
+E
+
+50
+
+Min
+2%
+
+D
+
+x
+
+Min
+
+IV Delivery
+
+C
+
+4.9
+
+0
+
+IP Delivery
+
+0%
+
+5.7
+
+4
+
+102
+10
+
+B
+
+Molecules per cell
+(106)
+
+Cells
+
+A
+
+0
+
+50
+
+100
+
+Min
+
+150
+
+200
+
+5,000
+
+0
+0
+
+0.5 × 105
+
+1 × 10 5
+
+Molecules/cell at 180 min.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Intraperitoneal versus Intravenous Drug Delivery for Ovarian Cancer
+
+the superior route. Here, we took advantage of our human
+xenograft animal model. GFP-expressing SKOV3.ip1 cells were
+injected intraperitoneally into nude mice. After 2 weeks of tumor
+growth, ﬂuorescently tagged pertuzumab was injected either
+intravenously or intraperitoneally, followed by humane sacriﬁce
+of recipient mice at time points indicated. Tumors were excised
+from the mesentery or omentum and imaged by two-photon
+microscopy. As shown in Fig. 6C, intraperitoneal injection
+resulted in a near uniform binding of antibody to ERBB2 on
+tumor cells within 3 hours. In contrast, intravenous injection
+resulted in variable levels of drug binding within the ﬁrst 3 hours
+after administration (Fig. 6D). As shown in Fig. 6E, there was little
+improvement in drug binding even at 24 hours after intravenous
+delivery, particularly in tumors on the mesentery. At 72 hours after
+intravenous injection, binding of tagged antibody to cells in the
+tumor is markedly diminished, possibly due to internalization
+and degradation. Antibody at the tumor periphery at late time
+points after intravenous injection may be principally due to
+delayed secondary delivery from the peritoneal compartment.
+On the basis of the incomplete antibody penetration seen in vivo
+after intravenous delivery, we conclude that drug transport across
+tumor vessels in the SKOV3.ip1 xenograft model is close to that of
+normal vasculature but acknowledge that this may be highly
+variable among patients.
+
+Discussion
+Here, we use a spatially explicit model to represent the delivery
+of soluble drug and antibody-based therapies to microscopic
+ovarian tumors disseminated in the abdominal cavity (Fig. 1).
+In silico models have been useful for predicting drug response in
+ovarian cancer spheroids (23) and for examining the distribution
+and uptake of therapeutic antibodies during treatment (39). We
+incorporate pharmacokinetic parameters from in vitro studies
+along with vascular densities derived from human patients to
+help us understand how the interplay of drug dynamics at the
+molecular, cellular, and tissue scales impacts delivery to tumor
+cells. Our model is well integrated with experimental data,
+including measurements in cultured spheroids and xenograft
+models.
+In our simulations, we chose to focus on treatment strategies
+for microscopic residual disease after debulking surgery. Clinical evidence suggests a survival advantage for intraperitoneal
+over intravenous chemotherapy in optimally debulked patients
+with no remaining gross residual disease (R0) showing the
+highest survival advantage (8, 9, 40, 41). However, there is still
+reluctance in many hospitals to administer intraperitoneal
+therapy, due to the expertise required to implant peritoneal
+ports and to monitor for the potential complications of cytokine storms with intraperitoneal antibody delivery and other
+toxicities. A recent study reports that less than half of eligible
+
+patients receive intraperitoneal chemotherapy (40). In addition, neoadjuvant chemotherapy followed by interval cytoreductive surgery is gaining more popularity based on data
+suggesting equivalent survival in patients with any visible
+residual disease (42). Our model was able to assess the effect
+of delivery route on drug penetration into tumors, showing
+that the impact of the intraperitoneal route on efﬁcacy may
+be underappreciated. Results emphasize the importance of
+direct drug delivery to the peritoneum for superior penetration
+into microscopic avascular tumors, which likely comprise the
+majority of microscopic residual tumors in optimally debulked
+patients. We show that the same dose of cisplatin delivered
+intraperitoneally leads to uniformly higher accumulation within tumor cells. Although we do not include cell death in this
+model, the platinum accumulation levels modeled throughout
+a small tumor exceed accumulation levels determined in vitro
+under incubation conditions at the IC50 concentration of
+cisplatin established for cytotoxicity (32). Thus, the model
+predicts highest efﬁciency killing after intraperitoneal cisplatin
+treatment. Intravenous delivery leads to much less accumulation of cisplatin, with levels far below accumulation associated
+with effective killing. Because drug must reach avascular
+tumors from the peritoneal ﬂuid, intravenous delivery
+increases the time it takes for the drug to enter the peritoneal
+cavity. Intravenous delivery also limits the total concentration
+of cisplatin achieved in the peritoneal cavity. Therefore, this
+secondary delivery markedly reduces accumulation in tumor
+cells.
+Ovarian cancer cells also grow as vascularized tumors attached
+to peritoneal organs, and our previous studies in the SKOV3.ip
+xenograft model indicate that even small tumors (30–40 cells in
+diameter) may be well vascularized. Therefore, we went on to test
+how vascular density will alter drug penetration using our model.
+As the tumor vascular densities were variable among patients and
+between omentum and bowel tumors from the same patient
+(Supplementary Figs. S1 and S2), we tested drug penetration in
+tumors at the extremes of the vascular density range (2% and 10%
+vascular density). Surprisingly, the advantage of intraperitoneal
+delivery persists for small vascularized tumors. Even in tumors with
+10% vascular density, intraperitoneal delivery improved the accumulation of cisplatin in small tumors by 100-fold (Fig. 4) providing
+one explanation for improved survival after intraperitoneal treatment. This underscores the need for intraperitoneal chemotherapy
+in cases where patients have been optimally debulked to R0. An
+interesting ﬁnding from the simulations is that, as vascular density
+of the tumor increases, the drug accumulation after intraperitoneal
+delivery becomes much less uniform. After intraperitoneal delivery
+of cisplatin, drug concentration in the vessels is always lower than
+in the peritoneal ﬂuid. Therefore, the vessels act as a sink, absorbing
+small molecular weight drugs and reducing cisplatin accumulation
+in a small number of cells in proximity to the vessels. These cells
+
+Figure 4.
+Simulation of cisplatin accumulation in avascular and vascular spheroids of 14,000 cells. Central cross-sections of 3-D simulations after delivery of
+2
+60 mg/m cisplatin to 0.01 mm tumors (30 cells in diameter) show marked differences in accumulation based upon vascularity (0, 2% or 10%) and route of delivery
+[intravenous (IV) or intraperitoneal (IP)]. Images on the left represent drug accumulation in central cross-sections of 3-D simulations after intraperitoneal or
+intravenous delivery. The color bar on the right indicates the scale in molecules cisplatin/cell. A, C, and E, intraperitoneal delivery of cisplatin (diluted in 1,060 mL of
+saline). B, D, and F, intravenous delivery of cisplatin (diluted in the blood volume, 5L per patient). Plots report minimum/maximum (green area) and
+median (blue line) accumulation of drug over time, expressed in molecules per cell. Plots on the right show histograms of the distribution of accumulated cisplatin,
+showing heterogeneous accumulation across cells in the vascularized tumors at 180 minutes.
+
+www.aacrjournals.org
+
+Cancer Res; 76(6) March 15, 2016
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+1329
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Winner et al.
+
+Pertuzumab IP
+0.07 h
+
+0.2 h
+
+0.33 h
+
+0.8 h
+
+A
+
+1.0
+
+Antibodies bound per cell (millions)
+
+0.8
+
+Avascular
+
+B
+
+2% Vessels
+Antibodies
+bound per C
+cell (106)
+1.05
+
+0.4
+0.2
+0
+0
+
+5
+
+10
+
+15
+
+20
+
+5
+
+10
+
+15
+
+20
+
+10
+
+15
+
+20
+
+1.0
+0.8
+0.6
+0.4
+0.2
+0
+0
+
+1.0
+0.8
+0.6
+0.4
+0.2
+
+0.9
+
+0
+0
+
+0.75
+
+10% Vessels
+
+0.6
+
+Pertuzumab IV
+
+0.45
+
+0.6
+
+1.5 h
+
+D
+
+5
+
+Hours
+
+3h
+
+6h
+
+9h
+1.0
+
+0.3
+
+0.8
+
+0
+Avascular
+
+E
+
+2% Vessels
+
+F
+
+Antibodies bound per cell (millions)
+
+0.6
+
+0.15
+
+0.4
+0.2
+0
+0
+
+5
+
+10
+
+15
+
+20
+
+5
+
+10
+
+15
+
+20
+
+10
+
+15
+
+20
+
+1.0
+0.8
+0.6
+0.4
+0.2
+0
+0
+
+1.0
+0.8
+0.6
+0.4
+0.2
+0
+0
+
+10% Vessels
+
+5
+
+Hours
+
+Figure 5.
+Simulations of pertuzumab delivery to spheroids show that antibody binding exhibits "wave front" behavior when administered by either intravenous (IV) or
+intraperitoneal (IP) route. Binding of antibody within 0.01 mm tumors (avascular, 2% or 10% vascular density) is compared with intraperitoneal and intravenous
+delivery of 5 mg/kg pertuzumab. A–C, simulation results reporting pertuzumab accumulation in spheroids after intraperitoneal delivery. Because of fast
+antibody penetration after intraperitoneal delivery, pertuzumab accumulation is shown for multiples of 4.2 minutes in a 0.8-hour simulation. D–F, simulation results
+reporting pertuzumab accumulation after intravenous delivery (pertuzumab diluted in the blood volume, 5 L per patient). For simulations of intravenous
+delivery where antibody penetration is slower, pertuzumab accumulation is shown over 9 hours. The simulations predict at least a 2-fold improvement with
+intraperitoneal delivery over intravenous delivery. Plots on the right report the minimum/maximum (green area) and median (blue line) accumulation over time,
+expressed as molecules of antibody (each binding two receptors) per cell.
+
+1330 Cancer Res; 76(6) March 15, 2016
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Intraperitoneal versus Intravenous Drug Delivery for Ovarian Cancer
+
+2.5 h
+
+A
+
+3.5 h
+1.0
+
+Antibodies
+bound per
+cell
+(106)
+
+Antibodies bound per cell (millions)
+
+0.8
+
+1.05
+0.9
+0.75
+
+Biot = 0.08
+
+B
+
+0.6
+0.45
+0.3
+0.15
+0.0
+
+0.6
+0.4
+0.2
+0
+0
+
+5
+
+10
+
+15
+
+20
+
+0.6
+0.4
+0.2
+5
+
+Hours
+
+Tumors on the mesentery
+IV Pertuzumab (3 h)
+
+D
+
+Tumors on the omentum
+
+IP Pertuzumab (3 h)
+
+IV Pertuzumab (3 h)
+
+Mesentery
+
+Omentum
+
+GFP
+
+Center
+
+Surface
+
+Pertuzumab
+
+20
+
+0.8
+
+Biot = 0.2
+
+IP Pertuzumab (3 h)
+
+15
+
+1.0
+
+0
+0
+
+C
+
+10
+
+E
+
+Mesentery
+
+F
+
+72 h IV
+
+Center
+
+Pertuzumab
+
+Omentum
+24 h IV
+GFP
+
+Figure 6.
+A and B, simulated intravenous (IV) delivery of pertuzumab in tumors with leaky vessels. The Biot number of the vessels was increased to 0.08 (A; 3.6 times that of
+normal vasculature) and 0.2 (B; 8.9 times higher). Images show pertuzumab accumulation at 2.5 and 3.5 hours. Plots on the right report minimum/maximum
+(green area) and median (blue line) accumulation of pertuzumab over time expressed as receptors bound bivalently to antibody per cell. C–F, in vivo conﬁrmation
+that intraperitoneal (IP) delivery of Paciﬁc Blue 410–conjugated pertuzumab (blue) shows more complete tumor penetration compared with intravenous
+delivery. Nude mice were engrafted with human SKOV3.ip1-GFP cells. Two weeks after engraftment, mice were treated intraperitoneally or intravenously with
+0.4 mg Paciﬁc Blue–conjugated pertuzumab (20 mg/kg, injected in 50 mL saline). Images were acquired 3, 24, or 72 hours after intraperitoneal or intravenous
+delivery. Scale bar, 50 mm. C and D, comparison of ﬂuorescent antibody binding in tumors on the mesentery (C) or omentum (D) 3 hours after intraperitoneal or
+intravenous injection. After delivery by either route, antibody binding is equivalent on the tumor surface (top). Antibody penetration to the center of the tumor is only
+seen after intraperitoneal delivery (bottom). E and F, limited binding of ﬂuorescent antibody in tumors 24 (E) or 72 (F) hours after intravenous injection of
+pertuzumab-Paciﬁc Blue. Red arrows designate areas within the tumor mass with no detectable antibody binding.
+
+www.aacrjournals.org
+
+Cancer Res; 76(6) March 15, 2016
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+1331
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Winner et al.
+
+could be those that survive therapy and lead to relapse. Taken
+together, our model data strongly suggest that intraperitoneal
+therapy has biologic advantages in eradicating microscopic residual
+disease in the peritoneal cavity after complete cytoreductive surgery
+and underscores the need for prompt treatment postoperatively
+before residual cells and spheroids have an opportunity to establish
+macroscopic implants.
+Although patients initially respond well to platinum/taxol
+regimens, many will relapse. Novel treatment strategies,
+including therapeutic antibodies, are being considered to limit
+recurrence (43). Previous trials with anti-EGFR and anti-ERBB2
+antibodies had limited success (44). These disappointing
+results may be due to two factors: (i) ineffective delivery and
+(ii) poor stratiﬁcation of patients based upon receptor expression patterns. On the basis of IHC results for a tumor microarray representing 200 ovarian tumor patients, we recently
+determined that only a limited subset of ovarian tumors
+express signiﬁcant levels of either ERBB1/EGFR or ERBB2/
+HER2 (31). The SKOV3.ip cell line used in our studies here
+is an example of this ERBB2þ subset, as they express more than
+2 million ERBB2 per cell. With this as a model system, we
+examined the penetration of the anti-ERBB2 therapeutic antibody, pertuzumab, to determine whether the advantage of
+intraperitoneal delivery extends to this class of therapies.
+Antibodies, being larger molecules than chemotherapeutic
+agents, have more limited exchange between compartments.
+Simulations predicted a signiﬁcant difference in intraperitoneal
+versus intravenous delivery, again attributed to lower penetration from the blood into tumors. Our results suggest that
+intraperitoneal delivery, possibly in combination with delivery
+through the intravenous route, will yield optimal results for
+this class of therapeutics.
+Computer simulations provide powerful tools to investigate
+questions that cannot be answered with experiments alone. For
+example, our model predicts the distribution of cisplatin and
+pertuzumab accumulation with a spatial and temporal resolution that would be impractical to produce experimentally.
+The model additionally allows us to consider hypothetical
+tumor vascular densities and leakiness, which are difﬁcult
+parameters to manipulate experimentally. Where possible, we
+validate model predictions experimentally. In this model, we
+made the assumption that the vasculature is spatially homogeneous throughout the tumor, with the cross-sectional density reﬂecting the 3-dimensional network density. We recognize that the model could be further reﬁned to include a
+connected network of vessels with varying permeability and
+greater vessel heterogeneity.
+Because this study focused on early treatment time points, we
+did not include cell proliferation or cell death in our model.
+This is an acknowledged limitation of our model as, at later
+time points, apoptosis of cancer cells will likely increase the
+permeability of tumor tissue and inﬂuence drug penetration
+(45). Future additions to the OvTM could include explicit
+determination of pharmacodynamic outcomes such as tumor
+cell proliferation, migration, and viability in response to drug
+accumulation. For example, recent work by Powathil and
+colleagues examined the effect of hypoxia and cell-cycle
+dynamics on the efﬁcacy of chemotherapy (46). Tumor heterogeneity, as well as mutations and phenotypic changes that
+occur over the course of treatment, could be included in the
+model as data become available (47).
+
+1332 Cancer Res; 76(6) March 15, 2016
+
+Our model is a powerful predictive tool that can be used to test
+optimal dosing of both small-molecule drugs and therapeutic
+antibodies. The beneﬁts of peritoneal delivery likely applies to
+antibodies now in the pharmaceutical pipeline or in clinical trials
+that target other surface receptors more commonly expressed on
+ovarian tumor cells. Examples include intact antibodies and
+small-molecule inhibitors targeting ERBB3 and MET, as well as
+antibody–toxin conjugates, where low doses may be required to
+limit toxicity (48–50). In addition to new receptor targets, antibody afﬁnity, receptor expression levels, and vascular leakiness
+will be factors in the success of the antibodies in the pipeline for
+this disease. The OvTM model may be useful to predict outcomes
+for patients with advanced stage ovarian cancer, offering a new
+tool for optimizing personalized therapy decisions regarding drug
+choice and mode of delivery. Continued integration of simulations and experiment would maximize impact on future clinical
+practice.
+
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+Authors' Contributions
+Conception and design: K.R. Kanigel Winner, M.P. Steinkamp, C.Y. Muller,
+Y. Jiang, B.S. Wilson
+Development of methodology: K.R. Kanigel Winner, M.P. Steinkamp, R.J. Lee,
+M. Swat, C.Y. Muller, Y. Jiang
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): K.R. Kanigel Winner, M.P. Steinkamp, R.J. Lee
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): K.R. Kanigel Winner, M.P. Steinkamp, R.J. Lee,
+M. Swat, C.Y. Muller, M.E. Moses, Y. Jiang
+Writing, review, and/or revision of the manuscript: K.R. Kanigel Winner, M.P.
+Steinkamp, R.J. Lee, C.Y. Muller, M.E. Moses, Y. Jiang, B.S. Wilson
+Administrative, technical, or material support (i.e., reporting or organizing
+data, constructing databases): K.R. Kanigel Winner
+Study supervision: M.E. Moses, Y. Jiang, B.S. Wilson
+
+Acknowledgments
+The authors thank Dr. Michael Wester for algorithm development and runtime estimates; Scalenet Laboratory members Neal Holtschulte and Joshua
+Hecker for help with Python and Git; Dr. Tim Thomas for offering a computing
+"cluster in a box" to run simulations; the CC3D development group including
+Julio Belmonte; Dr. Susan Atlas and the Center for Advanced Research Computing (CARC); pathologist Dr. Lesley Lomo for scoring human ovarian tumor
+sections; Dr. Diane Lidke and Samantha Schwartz for help with FRAP analysis;
+Drs. Ashput Rajut, Meghan Pryor, and Francois Asperti-Boursin for valuable
+discussion; Dr. Sarah Adams for conceptual contributions to OvTM model
+development; The Human Tissue Repository, Flow Cytometry and Microscopy
+Core Facilities at the UNM Cancer Center; and Anna Holmes for technical
+assistance with IHC.
+
+Grant Support
+This study was supported by P50GM085273 (B.S. Wilson), NIH-CA119232
+(B.S. Wilson), NSF grant EF-1038682 (M.E. Moses), a James S. McDonnell
+Foundation Complex Systems Scholar Award (M.E. Moses and K.R. Kanigel
+Winner) and NIH grant 2T15-LM009451 (K.R. Kanigel Winner). Y. Jiang is
+partially supported by NIH/NCI: 1U01CA143069.
+The costs of publication of this article were defrayed in part by the
+payment of page charges. This article must therefore be hereby marked
+advertisement in accordance with 18 U.S.C. Section 1734 solely to indicate
+this fact.
+Received June 12, 2015; revised October 23, 2015; accepted December 18,
+2015; published OnlineFirst December 30, 2015.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Intraperitoneal versus Intravenous Drug Delivery for Ovarian Cancer
+
+References
+1. Shield K, Ackland ML, Ahmed N, Rice GE. Multicellular spheroids in
+ovarian cancer metastases: biology and pathology. Gynecol Oncol
+2009;113:143–8.
+2. Thurber GM, Schmidt MM, Wittrup KD. Antibody tumor penetration:
+transport opposed by systemic and antigen-mediated clearance. Adv Drug
+Deliv Rev 2008;60:1421.
+3. Thurber GM, Schmidt MM, Wittrup KD. Factors determining antibody
+distribution in tumors. Trends Pharmacol Sci 2008;29:57–61.
+4. Thurber GM, Weissleder R. A systems approach for tumor pharmacokinetics. PLoS One 2011;6:e24696.
+5. Steinkamp MP, Winner KK, Davies S, Muller C, Zhang Y, Hoffman RM, et al.
+Ovarian tumor attachment, invasion, and vascularization reﬂect unique
+microenvironments in the peritoneum: insights from xenograft and mathematical models. Front Oncol 2013;3:97.
+6. Howlader N, Noone AM, Krapcho M, Garshell J, Miller D, Altekruse SF,
+et al. editors. SEER Cancer statistics review, 1975-2012 [Internet]; 2015
+[cited 2015 June 6]. Bethesda, MD: National Cancer Institute. Available
+from: http://seer.cancer.gov/csr/1975_2012/
+7. Baldwin LA, Huang B, Miller RW, Tucker T, Goodrich ST, Podzielinski I,
+et al. Ten-year relative survival for epithelial ovarian cancer. Obstet Gynecol
+2012;120:612–8.
+8. Elit L, Oliver TK, Covens A, Kwon J, Fung MF, Hirte HW, et al. Intraperitoneal chemotherapy in the ﬁrst-line treatment of women with stage III
+epithelial ovarian cancer: a systematic review with metaanalyses. Cancer
+2007;109:692–702.
+9. Jaaback K, Johnson N. Intraperitoneal chemotherapy for the initial management of primary epithelial ovarian cancer. Cochrane Database Syst Rev
+2006:Cd005340.
+10. Tewari D, Java JJ, Salani R, Armstrong DK, Markman M, Herzog T, et al.
+Long-term survival advantage and prognostic factors associated with
+intraperitoneal chemotherapy treatment in advanced ovarian cancer: a
+gynecologic oncology group study. J Clin Oncol 2015;33:1460–6.
+11. National Cancer Institute. National Cancer Institute clinical announcement on intraperitoneal chemotherapy in ovarian cancer [Internet]; 2006
+[cited 2015 May]. Rockville, MD: NCI Cancer Therapy Evaluation Program.
+Available from: http://ctep.cancer.gov/highlights/20060105_ovarian.htm
+12. Krediet RT. The physiology of peritoneal solute, water, and lymphatic
+transport. In: Khanna R, Krediet RT, eds. Nolph and Gokal's textbook of
+peritoneal dialysis, 3rd ed. New York: Springer; 2009. p. 137–172.
+13. Macklin P, McDougall S, Anderson AR, Chaplain MA, Cristini V, Lowengrub J. Multiscale modelling and nonlinear simulation of vascular
+tumour growth. J Math Biol 2009;58:765–98.
+14. McDougall SR, Anderson ARA, Chaplain MAJ. Mathematical modelling of
+dynamic adaptive tumour-induced angiogenesis: Clinical implications
+and therapeutic targeting strategies. J Theor Biol 2006;241:564–89.
+15. Kim M, Gillies RJ, Rejniak KA. Current advances in mathematical modeling
+of anti-cancer drug penetration into tumor tissues. Front Oncol 2013;
+3:278.
+16. Byrne HM. Dissecting cancer through mathematics: from the cell to the
+animal model. Nat Rev Cancer 2010;10:221–30.
+17. Frieboes HB, Smith BR, Chuang Y-L, Ito K, Roettgers AM, Gambhir SS, et al.
+An integrated computational/experimental model of lymphoma growth.
+PLoS Comput Biol 2013;9:e1003008.
+18. Frieboes HB, Wu M, Lowengrub J, Decuzzi P, Cristini V. A computational
+model for predicting nanoparticle accumulation in tumor vasculature.
+PLoS One 2013;8:e56876.
+19. Sinek JP, Sanga S, Zheng X, Frieboes HB, Ferrari M, Cristini V. Predicting
+drug pharmacokinetics and effect in vascularized tumors using computer
+simulation. J Math Biol 2009;58:485–510.
+20. Evans CJ, Phillips RM, Jones PF, Loadman PM, Sleeman BD, Twelves CJ,
+et al. A mathematical model of doxorubicin penetration through multicellular layers. J Theor Biol 2009;257:598–608.
+21. Kohandel M, Sivaloganathan S, Oza A. Mathematical modeling of ovarian
+cancer treatments: sequencing of surgery and chemotherapy. J Theor Biol
+2006;242:62–8.
+22. Wilbaux M, Henin E, Oza A, Colomban O, Pujade-Lauraine E, Freyer G,
+et al. Dynamic modeling in ovarian cancer: an original approach linking
+early changes in modeled longitudinal CA-125 kinetics and survival to
+help decisions in early drug development. Gynecol Oncol 2014;133:
+460–6.
+
+www.aacrjournals.org
+
+23. Loessner D, Flegg JA, Byrne HM, Clements JA, Hutmacher DW. Growth of
+conﬁned cancer spheroids: a combined experimental and mathematical
+modelling approach. Integr Biol 2013;5:597–605.
+24. Giverso C, Scianna M, Preziosi L, Lo Buono N, Funaro A. Individual cellbased model for in vitro mesothelial invasion of ovarian cancer. Math
+Model Nat Phenom 2010;5:203–23.
+25. El-Kareh AW, Secomb TW. A theoretical model for intraperitoneal delivery
+of cisplatin and the effect of hyperthermia on drug penetration distance.
+Neoplasia 2004;6:117–27.
+26. Swat MH, Thomas GL, Belmonte JM, Shirinifard A, Hmeljak D, Glazier JA.
+Multi-scale modeling of tissues using CompuCell3D. Methods Cell Biol
+2012;110:325–66.
+27. Axelrod D, Koppel DE, Schlessinger J, Elson E, Webb WW. Mobility
+measurement by analysis of ﬂuorescence photobleaching recovery kinetics.
+Biophys J 1976;16:1055–69.
+28. Swabb EA, Wei J, Gullino PM. Diffusion and convection in normal and
+neoplastic tissues. Cancer Res 1974;34:2814–22.
+29. Nugent LJ, Jain RK. Extravascular diffusion in normal and neoplastic
+tissues. Cancer Res 1984;44:238–44.
+30. Berk DA, Yuan F, Leunig M, Jain RK. Direct in vivo measurement of targeted
+binding in a human tumor xenograft. Proc Natl Acad Sci U S A
+1997;94:1785–90.
+31. Davies S, Holmes A, Lomo L, Steinkamp MP, Kang H, Muller CY, et al. High
+incidence of ErbB3, ErbB4, and MET expression in ovarian cancer. Int J
+Gynecol Pathol 2014;33:402–10.
+32. Mistry P, Kelland LR, Loh SY, Abel G, Murrer BA, Harrap KR. Comparison of
+cellular accumulation and cytotoxicity of cisplatin with that of tetraplatin
+and amminedibutyratodichloro(cyclohexylamine)platinum(IV) (JM221)
+in human ovarian carcinoma cell lines. Cancer Res 1992;52:6188–93.
+33. Scott AM, Wolchok JD, Old LJ. Antibody therapy of cancer. Nat Rev Cancer
+2012;12:278–87.
+34. Pai LH, Bookman MA, Ozols RF, Young RC, Smith JW 2nd, Longo DL, et al.
+Clinical evaluation of intraperitoneal Pseudomonas exotoxin immunoconjugate OVB3-PE in patients with ovarian cancer. J Clin Oncol
+1991;9:2095–103.
+35. Song P, Krudys K, Grimstein C, Liu Q, Garnett C, Zineh I, reviewers.
+BLA 125409 clinical pharmacology review - pertuzumab. Washington:
+U.S. Food and Drug Administration Center for Drug Evaluation and
+Research, 2011. http://www.accessdata.fda.gov/drugsatfda_docs/nda/
+2012/125409Orig1s000ClinPharmR.pdf (cited October 11, 2014).
+36. Tredan O, Galmarini CM, Patel K, Tannock IF. Drug resistance and the solid
+tumor microenvironment. J Natl Cancer Inst 2007;99:1441–54.
+37. Pink DB, Schulte W, Parseghian MH, Zijlstra A, Lewis JD. Real-time
+visualization and quantitation of vascular permeability in vivo: implications for drug delivery. PLoS One 2012;7:e33760.
+38. McDonald DM, Baluk P. Signiﬁcance of blood vessel leakiness in cancer.
+Cancer Res 2002;62:5381–5.
+39. Thurber GM, Dane Wittrup K. A mechanistic compartmental model for
+total antibody uptake in tumors. J Theor Biol 2012;314:57–68.
+40. Wright AA, Cronin A, Milne DE, Bookman MA, Burger RA, Cohn DE, et al.
+Use and effectiveness of intraperitoneal chemotherapy for treatment of
+ovarian cancer. J Clin Oncol 2015;33:2841–7.
+41. Markman M, Reichman B, Hakes T, Lewis JL, Jones W, Rubin S, et al. Impact
+on survival of surgically deﬁned favorable responses to salvage intraperitoneal chemotherapy in small-volume residual ovarian cancer. J Clin
+Oncol 1992;10:1479–84.
+42. Morrison J, Haldar K, Kehoe S, Lawrie TA. Chemotherapy versus surgery for
+initial treatment in advanced ovarian epithelial cancer. Cochrane Database
+Syst Rev 2012;8:CD005343.
+43. Sheng Q, Liu J. The therapeutic potential of targeting the EGFR family in
+epithelial ovarian cancer. Br J Cancer 2011;104:1241–5.
+44. Siwak DR, Carey M, Hennessy BT, Nguyen CT, McGahren Murray MJ,
+Nolden L, et al. Targeting the epidermal growth factor receptor in epithelial
+ovarian cancer: current knowledge and future challenges. J Oncol
+2010;2010:568938.
+45. Macklin P, Mumenthaler S, Lowengrub J. Modeling multiscale necrotic and
+calciﬁed tissue biomechanics in cancer patients: application to cuctal
+carcinoma in situ (DCIS). In:Gefen A, editor. Multiscale computer modeling
+in biomechanics and biomedical engineering: Berlin, Germany: Springer;
+2013. p. 349–80.
+
+Cancer Res; 76(6) March 15, 2016
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+1333
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Winner et al.
+
+46. Powathil GG, Gordon KE, Hill LA, Chaplain MAJ. Modelling the effects of
+cell-cycle heterogeneity on the response of a solid tumour to chemotherapy: biological insights from a hybrid multiscale cellular automaton
+model. J Theor Biol 2012;308:1–19.
+47. Robertson-Tessi M, Gillies RJ, Gatenby RA, Anderson AR. Impact of
+metabolic heterogeneity on tumor growth, invasion, and treatment outcomes. Cancer Res 2015;75:1567–79.
+
+1334 Cancer Res; 76(6) March 15, 2016
+
+48. Aurisicchio L, Marra E, Roscilli G, Mancini R, Ciliberto G. The promise of
+anti-ErbB3 monoclonals as new cancer therapeutics. Oncotarget 2012;
+3:744–58.
+49. Sharma N, Adjei AA. In the clinic: ongoing clinical trials evaluating c-METinhibiting drugs. Ther Adv Med Oncol 2011;3:S37–50.
+50. Teicher BA, Chari RVJ. Antibody conjugate therapeutics: challenges and
+potential. Clin Cancer Res 2011;17:6389–97.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+Published OnlineFirst December 30, 2015; DOI: 10.1158/0008-5472.CAN-15-1620
+
+Spatial Modeling of Drug Delivery Routes for Treatment of
+Disseminated Ovarian Cancer
+Kimberly R. Kanigel Winner, Mara P. Steinkamp, Rebecca J. Lee, et al.
+Cancer Res 2016;76:1320-1334. Published OnlineFirst December 30, 2015.
+
+Updated version
+Supplementary
+Material
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-15-1620
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2015/12/30/0008-5472.CAN-15-1620.DC1
+
+Cited articles
+
+This article cites 44 articles, 11 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/76/6/1320.full#ref-list-1
+
+E-mail alerts
+
+Sign up to receive free email-alerts related to this article or journal.
+
+Reprints and
+Subscriptions
+Permissions
+
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+

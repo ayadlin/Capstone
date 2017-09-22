@@ -1,0 +1,897 @@
+Published OnlineFirst July 19, 2010; DOI: 10.1158/0008-5472.CAN-10-0460
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+Identification of Optimal Drug Combinations Targeting
+Cellular Networks: Integrating Phospho-Proteomics
+and Computational Network Analysis
+Sergio Iadevaia, Yiling Lu, Fabiana C. Morales, Gordon B. Mills, and Prahlad T. Ram
+
+Abstract
+Targeted therapeutics hold tremendous promise in inhibiting cancer cell proliferation. However, targeting
+proteins individually can be compensated for by bypass mechanisms and activation of regulatory loops. Designing optimal therapeutic combinations must therefore take into consideration the complex dynamic networks in
+the cell. In this study, we analyzed the insulin-like growth factor (IGF-1) signaling network in the MDA-MB231
+breast cancer cell line. We used reverse-phase protein array to measure the transient changes in the phosphorylation of proteins after IGF-1 stimulation. We developed a computational procedure that integrated mass action modeling with particle swarm optimization to train the model against the experimental data and infer the
+unknown model parameters. The trained model was used to predict how targeting individual signaling proteins
+altered the rest of the network and identify drug combinations that minimally increased phosphorylation of
+other proteins elsewhere in the network. Experimental testing of the modeling predictions showed that optimal
+drug combinations inhibited cell signaling and proliferation, whereas nonoptimal combination of inhibitors
+increased phosphorylation of nontargeted proteins and rescued cells from cell death. The integrative approach
+described here is useful for generating experimental intervention strategies that could optimize drug combinations and discover novel pharmacologic targets for cancer therapy. Cancer Res; 70(17); 6704–14. ©2010 AACR.
+
+Major Findings
+Simple and reliable strategies are needed to identify
+optimal combinations of molecular targeted drugs to
+treat individual cancer patients, to realize the fullest
+potential of a targeted therapeutic approach.
+
+Introduction
+Cell signaling networks are complex systems that integrate
+information from the cellular environment (1–5). Maps of
+complex networks were derived by interconnecting the individual pathways obtained from experimental data (6, 7).
+These studies revealed that signaling networks contain numerous features, such as feedback and feedforward loops
+(8, 9), which render it virtually impossible for the human
+mind to decipher how signals are integrated within the pathAuthors' Affiliation: Department of Systems Biology, The University of
+Texas M.D. Anderson Cancer Center, Houston, Texas
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+Corresponding Authors: Sergio Iadevaia or Prahlad T. Ram, M.D.
+Anderson Cancer Center, 7435 Fannin Street, Unit 950, P.O. Box
+301429, Houston, TX. Phone: 713-563-2848; Fax: 713-563-4235; E-mail:
+siadevai@mdanderson.org or pram@mdanderson.org.
+doi: 10.1158/0008-5472.CAN-10-0460
+©2010 American Association for Cancer Research.
+
+6704
+
+ways. Thus, computational approaches are needed to elucidate the regulatory properties of signaling networks (10–12).
+Several groups have used ordinary differential equations
+(ODE) to analyze the dynamics of signaling networks and
+generate experimentally testable predictions (6, 13–17). The
+use of mass action ODE modeling, however, is impaired
+because of incomplete knowledge about the concentrations
+and kinetics of signaling intermediates.
+Inferring the parameters for mass action modeling in signaling networks is challenging. The most common approach
+is to obtain parameters from the literature and fit the models
+to the experimental data to infer those that remain unknown
+(6, 13, 18–24). Unfortunately, the kinetic parameters reported
+in the literature may differ by orders of magnitude, depending on experimental conditions. Thus, it is difficult to determine whether discrepancies between computational and
+experimental data are due to inaccurate measures or incomplete modeling. Parameter estimation can be effectively
+accomplished using optimization methods, which enable
+quantitative model fitting to experimental data (25–31).
+However, the experimental techniques used to measure the
+activity of signaling proteins mainly provide qualitative or
+semiquantitative data. Optimization strategies are thus needed to identify sets of model parameters that equally fit the
+qualitative experimental data.
+Another challenge in the analysis of signaling networks is
+the identification of optimal target combinations. The most
+common methods of computational target identification are
+based on formulating mathematical models and designing
+
+Cancer Res; 70(17) September 1, 2010
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+Published OnlineFirst July 19, 2010; DOI: 10.1158/0008-5472.CAN-10-0460
+Integrative Identification of Optimal Drug Combinations
+
+Quick Guide to Equations and Assumptions
+Mass action modeling
+The dynamics of the IGFR network in MDA-MB231 cells were described using a mass action model of ODEs formulated as follows:
+Step 1: The pathways comprising the IGFR network were reconstructed into a set of chemical reactions that described the
+simplified mechanisms of activation and inhibition of relevant proteins. For example, mitogen-activated protein kinase (MAPK)
+phosphorylation was assumed to be catalyzed by MAPK kinase [MAP/ extracellular signal-regulated kinase kinase (MEK)/MAPKK]
+and occurred through an enzymatic reaction:
+kf1
+
+MAP K þ MEK 
+
+K2
+
+! C ! MAP K  þ MEK 
+
+
+ð1Þ
+
+kr1
+
+In equation 1, k1f, k1r, and K2 are the forward, reverse, and dissociation kinetic rate constants, respectively.
+Step 2: The set of chemical reactions was transformed into a system of coupled ODEs by assuming that the dynamics of the
+IGFR network obeyed the law of mass action. Specifically, the accumulation rate of the concentration of the ith signaling intermediate was expressed as the difference between its net rates of production (rp,i) and consumption (rc,i). Thus, the accumulation
+rate of the concentration of MEK* was expressed as follows:
+X
+
+
+dMEK  X
+rc;MEK  ¼ kf1 ½MAP K	½MEK  	 þ kr1 þ K2 ½C	
+ð2Þ
+¼
+rp;MEK  
+dt
+In equation 2, [MAPK], [MEK*], and [C] denote the concentration of MAPK, MEK* and C, respectively.
+The list of chemical reactions that described the consensus activation and inhibition mechanisms of proteins involved in the
+IGFR network and the corresponding system of ODEs are listed in Supplementary Material S1. To implement mass action modeling, it was necessary to infer the unknown model parameters, which are the kinetic rate constants and the initial concentrations of the proteins. In this regard, we trained the mass action model against transient data measured by RPPA using PSO. We
+selected PSO because of its superior ability to converge to more optimal solutions compared with other optimization algorithms
+(see Discussion).
+Particle swarm optimization
+PSO is a stochastic algorithm that mimics the behavior of swarms of animals that search for food (36). Particles in the swarm
+have a position xij, a velocity vij, and a fitness fi, in which i and j represent the number of particles and the dimension of the space
+solution, respectively. Each particle remembers its best position xijL locally and the best position xjG globally reached by the entire
+swarm. During the iterative search for food, particles update their position and velocities to improve their fitness according to the
+following rules:
+h
+i
+h
+i
+ij ðt þ 1Þ ¼ !ij ðtÞ þ c1 r1 xLij ðtÞ  xij ðtÞ þ c2 r2 xG
+j ðtÞ  xij ðtÞ
+xij ðt þ 1Þ ¼ xij ðtÞ þ ij ðtÞ
+
+ð3Þ
+
+In equations 3, ω is the inertia factor; r1 and r2 are two random numbers uniformly distributed in the interval [0,1]; and c1 and c2
+are the coefficients of self-recognition and social component (see ref. 37 and Supplementary Material S2 for details on parameters
+in equations 3).
+In our settings, the particle positions represented the unknown parameter values used in the mass action model to generate
+computationally the time courses of proteins that are measured by RPPA; the particle velocities denoted the extent to which the
+parameter values were iteratively changed; and the particle fitness was defined as the distance between the time courses of proteins experimentally and computationally measured. Model parameters were randomly initialized and iteratively changed according to equation 3 until the distance between the time courses of the measured and predicted proteins was minimal (i.e., optimal
+fitness). The distance between computed and measured time courses was evaluated using the SD-weighted square error:
+h
+i2
+c
+r X
+s
+y~m
+X
+ij  yij
+ 
+SqE ¼
+ð4Þ
+ ym
+j¼1 i¼1
+ij
+In equation 4, y˜ ijm and σ( yijm ) represent the mean and SD, respectively, of the proteins measured by RPPA, whereas yijc denotes the
+protein levels computed using the mass action model. Moreover, s represents the total number of data points comprising a single
+time course, and r is the total number of time courses. PSO was implemented to minimize the SD-weighted square error and train
+the mass action model against RPPA data to estimate the unknown model parameters.
+
+www.aacrjournals.org
+
+Cancer Res; 70(17) September 1, 2010
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+6705
+
+Published OnlineFirst July 19, 2010; DOI: 10.1158/0008-5472.CAN-10-0460
+Iadevaia et al.
+
+intervention strategies through environmental, genetic, and
+signaling perturbations (32–34). This approach can predict
+the effect of available drugs on signaling network dynamics,
+but it does not facilitate the search for drug combinations
+that would optimally inhibit aberrant signaling. Another
+strategy is to integrate mass action modeling with simulated
+annealing into a multiple-target optimal intervention (35).
+Because this approach is computationally expensive, alternative procedures are needed to enable the rapid search for targets in disease-related networks.
+In this study, we used reverse-phase protein array
+(RPPA) to measure the transient response of the MDAMB231 breast cancer cell line after stimulation by insulin-like growth factor (IGF-1). The reason for choosing
+the IGF receptor (IGFR) network is 2-fold: There is a large
+amount of experimental data and biological resources allowing us to build a consensus network and experimentally
+test it; components of this network are being targeted in
+several clinical trials for cancer therapy, thus having clinical applicability. We developed a computational procedure
+that integrated mass action modeling with particle swarm
+optimization (PSO) to train the model against normalized
+time courses of phosphorylated proteins in MDA-MB231
+cells and infer sets of unknown model parameters that
+equally fit the measured data. The trained mass action
+model was used to predict the effect of a targeted perturbation and tested using experimental data. The trained and
+tested mass action model was then used to identify the
+most influential molecules responsible for aberrant cell signaling and determine the optimal combinations of inhibitors and small interfering RNAs for inhibiting abnormal
+signaling in MDA-MB231 cells. Immunoblotting and cell viability assay were then used to test and validate the effect
+of drug combinations predicted by the mass action model.
+Our integrative approach is useful for generating experimental intervention strategies that could optimize drug
+combinations and discovering novel pharmacologic targets
+for cancer therapy.
+
+Materials and Methods
+Cell culture and stimulation
+The human MDA-MB231 breast cancer cell line (K-Ras
+and B-Raf mutants) was purchased from the America Type
+Culture Collection (ATCC). The cell line was validated by
+STR DNA fingerprinting using the AmpFlSTR Identifiler kit
+(Applied Biosystems). The STR profiles were compared with
+known ATCC fingerprints (http://www.atcc.org/) and to the
+Cell Line Integrated Molecular Authentication database version 0.1.200808 (38). Cells were cultured in RPMI supplemented with 5% fetal bovine serum. Cells were serum starved
+overnight and then subjected to treatment with 75 ng/mL
+IGF-1 (Cell Signaling Technology). For RPPA, cells were
+pretreated with 10 μmol/L U0126 (Promega) for 4 hours,
+followed by IGF-1 stimulation for 5, 15, 30, 60, 90, or 120 minutes. For immunoblotting, cells were pretreated with
+10 μmol/L U0126, 50 μmol/L LY294002 (CalbiochemNova-Biochem Corp.) and 50 nmol/L rapamycin (Calbiochem-
+
+6706
+
+Cancer Res; 70(17) September 1, 2010
+
+Nova-Biochem Corp.), individually or combined, for 1 hour,
+followed by IGF-1 stimulation for 5 or 60 minutes. For RPPA
+and immunoblotting, controls were incubated for the
+corresponding times with DMSO.
+Antibodies
+The following antibodies were used for RPPA and immunoblotting: anti–phospho-MAPK (T202/Y204), anti–phospho-GSK3 (S21/S9), anti–phospho-AKT (ser473), anti–
+phospho-TSC2 (T1462), anti–phospho-mammalian target
+of rapamycin (mTOR; S2448), anti–phospho-P70S6K
+(T389), anti-MAPK (p44/42), anti-AKT, anti-TSC2 (28A7),
+anti-mTOR, anti-P70S6K, and anti-actin were from Cell Signaling Technology; and anti-GSK3 was from Santa Cruz
+Biotechnology, Inc.
+Immunoblotting
+Immunoblotting was performed using standard procedures.
+Reverse-phase protein array
+Serial diluted lysates were arrayed on nitrocellulose-coated
+FAST slides (Whatman) using the Aushon 2470 Arrayer
+(Aushon Biosystems). Each slide was probed with a primary
+antibody plus a biotin-conjugated secondary antibody. The
+signal was amplified using the DakoCytomation-catalyzed
+system (DAKO) and visualized using a 3,3′-diaminobenzidine
+colorimetric reaction. The slides were scanned, analyzed, and
+quantified using the customized Microvigene software (VigeneTech, Inc.) to measure spot intensity. Each dilution curve
+was fitted with the logistic model “Supercurve Fitting” (39).
+The mean values of the protein levels in the nonstimulated
+cells were used to normalize the time courses of the phosphorylated proteins measured in IGF-1–stimulated cells.
+Crystal violet cell viability assay
+Viability assay was performed using standard procedures.
+Cells were treated for 3 days with the following: U0126 (concentration of 0.1–100 μmol/L), LY294002 (concentration of 0.1–100
+μmol/L), or rapamycin (concentration of 0.1–100 nmol/L);
+combination of U0126 (concentration of 0.5–50 μmol/L) and
+LY294002 [fixed at its quarter maximal effective concentration
+(EC25) value of 3.8 μmol/L] or rapamycin (fixed at its EC25 value of 0.1 nmol/L); and combination of U0126 (fixed at its EC25
+value of 3.5 μmol/L) and rapamycin (concentration of 0.5 to 50
+nmol/L). Corresponding controls were incubated with DMSO.
+The EC25 of each inhibitor was estimated (Supplementary Material S3) using Microsoft GraphPad Prism.
+Computational procedures
+Computational procedures are described in Supplementary Material S2.
+
+Results
+IGFR-1 signaling detection by RPPA
+Figure 1A shows the IGFR signaling network in the MDAMB231 cell line. Signal transduction is originated when IGF-1
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+Published OnlineFirst July 19, 2010; DOI: 10.1158/0008-5472.CAN-10-0460
+Integrative Identification of Optimal Drug Combinations
+
+Figure 1. A, IGFR signaling network topology in the MDA-MB231 cell line. Nodes, proteins; edges, protein interactions; red arrows, protein activation;
+and green plungers, protein inactivation. B, protein profiles were measured on RPPA in triplicate. The mean protein profiles of non–IGF-1-stimulated
+cells were used as controls for normalization. Circles, mean of the normalized protein profiles; bars, SD. Normalized time courses were computationally
+evaluated using the trained mass action model. Solid red lines, the mean time courses of the trajectories that equally fit the experimental data; dashed
+black lines, the fitting variability. C, histogram of model parameter regimens clustered according to the coefficient of variation (CV = SD/mean).
+
+www.aacrjournals.org
+
+Cancer Res; 70(17) September 1, 2010
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+6707
+
+Published OnlineFirst July 19, 2010; DOI: 10.1158/0008-5472.CAN-10-0460
+Iadevaia et al.
+
+complexes with IGFR and triggers IGFR autophosphorylation
+(40). Phosphorylated IGFR propagates the signal downstream
+through the MAPK and phosphoinositide-3-kinase (PI3K)
+pathways, and leads to MAPK and protein kinase B (PKB/
+AKT) phosphorylation (4, 5). The signals from the MAPK
+and PI3K cascades are routed to the mTOR pathway through
+tuberous sclerosis (TSC2) inactivation (1). Phosphorylated
+mTOR activates protein S6 kinase of 70 kDa (p70S6K), which
+inactivates the insulin receptor substrate (IRS-1) through
+a negative feedback loop (41). A detailed description of the
+network topology is provided in Supplementary Material
+S1. We used RPPA (42–46) to determine the changes in the
+phosphorylation of proteins in the IGFR network after IGF-1
+stimulation. To account for the intrinsic variability of these
+assays, all experiments were performed in three independent
+
+repeats. Figure 1B shows the time courses of the measured
+phosphorylated proteins; the curves show the protein fold
+change over the corresponding controls (Materials and
+Methods). After IGF-1 stimulation, the level of phosphoAKT peaked at 30 minutes (28-fold increase) and then settled
+toward a lower level at 120 minutes (18-fold increase).
+In contrast, signal transduction across the MAPK cascade
+remained essentially unchanged likely as a result of MAPK
+constitutive activation driven by K-Ras and B-Raf mutations in MDA-MB231 cells. AKT activation triggered glycogen synthase kinase (GSK3) and TSC2 downregulation
+through phosphorylation, and TSC2 inactivation facilitated
+phospho-mTOR and phospho-p70S6K upregulation. Thus,
+the levels of p-GSK3, p-TSC2, p-mTOR, and p-p70S6K initially increased and then adjusted to stationary levels.
+
+Figure 2. The effect of MEK inhibition
+on IGFR network dynamics. A, protein
+profiles of IGF-1–stimulated MDA-MB231
+cells predicted by the trained mass action
+model. Solid red lines, the protein time
+courses of the noninhibited cells; solid
+green lines, the protein profiles of
+MEK-inhibited cells. B, protein
+phosphorylation in MDA-MB231 cell
+lysates after stimulation with 75 ng/mL
+IGF-1 detected in triplicate by RPPA.
+Solid circles and red lines, the protein
+time courses of noninhibited cells; solid
+circles and green lines, the protein
+profiles of cells inhibited with MEK
+inhibitor for 4 h.
+
+6708
+
+Cancer Res; 70(17) September 1, 2010
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+Published OnlineFirst July 19, 2010; DOI: 10.1158/0008-5472.CAN-10-0460
+Integrative Identification of Optimal Drug Combinations
+
+Complementing mass action modeling with PSO
+Mass action modeling and model reduction. To predict
+the dynamics of the IGFR network after IGF-1 stimulation in
+MDA-MB231 cells, we developed a mass action ODE model.
+Our formulation was based on a set of 77 chemical reactions
+that described the consensus activation and inhibition
+mechanisms of proteins involved in the IGFR network. The
+resulting mass action model was structured into 127 ODEs
+and 313 unknown parameters. To decrease the complexity
+of the model, we developed a reduced version of the original
+model. The 77 chemical reactions were reduced to a subset
+of 41 reactions to describe the simplified interaction
+mechanisms of the most relevant species in the IGFR network, and the original model was reduced to 65 ODEs and
+161 model unknowns (Supplementary Material S4). We
+tested and validated the ability of the reduced model to
+adequately describe IGFR dynamics by showing that the protein profiles predicted by the reduced model matched those
+generated by the original model for randomly selected sets of
+parameters (Supplementary Material S5). Therefore, throughout the article, we exclusively used the reduced model to predict the dynamics of IGFR signaling network.
+Model training. The measured time course data of proteins in MDA-MB231 cells contain relevant information
+about the regulatory loops comprising the IGFR network.
+To exploit this information to optimally inhibit aberrant
+pathways, we used PSO to fit the model to the time courses
+of p-AKT, p-MAPK, p-GSK3, p-mTOR, p-p70S6K, and p-TSC2
+proteins and infer the 161 unknown parameters. Studies
+published in the literature typically use only two or three
+“readout” molecules to fit ODE models to experimental data
+and infer unknown parameters (14, 15, 26). In our study, we
+trained our model using six readout proteins and 126 experimental data points combined into a scalar fitness.
+Because of the substantial degree of uncertainty in parameter estimation, fitting mass action models to the qualitative
+data measured on RPPA required the identification of multiple trajectories that equally resembled the measured protein
+profiles. Using the integrative mass action modeling PSO
+procedure, we identified 10 sets of model parameters that
+equally fit the measured data (Supplementary File S1). We
+characterized the parameter regimens by ranking the parameters according to their coefficient of variation (CV) and
+found that 69% of them had a CV smaller than 1 (Fig. 1C).
+We calculated the means and SD of the identified trajectories
+to represent the entire set and the fitting variability. Figure 1B
+shows the mean trajectories and the fitting variability
+identified by the mass action model, which had been trained
+using PSO against normalized protein profiles measured on
+RPPA after IGF-1 stimulation of MDA-MB231 cells. The
+simulation results indicated that the integrative procedure
+adequately fit the time courses of all measured proteins.
+Model testing. To determine the ability of the trained
+model to correctly generate responses to perturbations that
+have not been explicitly included in the training data set, we
+used it to predict the dynamics of the IGFR network after
+inhibition of MEK. Figure 2A shows the transient IGFR signaling response to targeted MEK inhibition, as predicted by
+
+www.aacrjournals.org
+
+Figure 3. The effect of single-molecule inhibition on IGFR signaling in
+MDA-MB231 cells. Differential levels of proteins in single molecule–
+inhibited versus noninhibited MDA-MB231 cells after 2 h of stimulation
+with 75 ng/mL IGF-1 were predicted using the trained mass action model.
+Numerical values were converted to log10. Blue, inhibition; white, no
+variation; red, activation.
+
+the trained mass action model. MEK inhibition led to significant downregulation of its immediate downstream effector,
+p-MAPK. Inhibition of p-MAPK attenuated the inhibition of
+IRS-1 through direct interaction and through the p70S6K
+feedback loop. Consequently, p-AKT was upregulated. Activation of p-AKT increased the level of p-TSC2 but did not
+affect the level of p-mTOR or GSK3. Signals from the MAPK
+and mTOR cascades were integrated into the p70S6K pathway and led to p-p70S6K downregulation.
+The computational results were experimentally tested
+using an independent set of 252 data points measured by
+RPPA. Figure 2B shows the levels of p-AKT, p-MAPK,
+p-GSK3, p-mTOR, p-p70S6K, and p-TSC2 detected in triplicate in IGF-1–stimulated MDA-MB231 cells in the absence
+of the MEK inhibitor and after 4 hours of incubation with
+the MEK inhibitor. The experimental data indicated that
+MEK inhibition increased p-AKT and p-TSC2 levels, decreased p-MAPK and p-p70S6K levels, and slightly decreased
+p-GSK3 levels but had no significant effect on p-mTOR levels.
+Despite the limited discrepancy between the computed and
+measured profiles of p-GSK3, the experimental results adequately matched those predicted by the model. Therefore,
+the trained mass action model correctly predicted the effect
+of MEK inhibition on IGFR dynamics.
+Predicting inhibition of targeted molecules
+Individual inhibition of targeted molecules. To determine how to select drugs with the ability to inhibit the
+
+Cancer Res; 70(17) September 1, 2010
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+6709
+
+Published OnlineFirst July 19, 2010; DOI: 10.1158/0008-5472.CAN-10-0460
+Iadevaia et al.
+
+Figure 4. Combined inhibition of
+MEK and PI3K in MDA-MB231
+cells. A and B, protein levels were
+detected in unstimulated cells in
+the absence of inhibition (columns
+1) and after 1 h of incubation with
+the MEK and/or PI3K inhibitors
+(columns 2–4), and in cells
+stimulated with IGF-1 in the
+absence of inhibition (column 5)
+and after 1 h of incubation with
+the MEK and/or PI3K inhibitors
+(columns 6–8). Cells were
+stimulated with 75 ng/mL IGF-1
+for 5 min (A) or 60 min (B). C and
+D, density of the bands after
+normalization with respect to actin.
+
+pathways measured in MDA-MB231 cells, we used the
+trained and tested mass action model to predict the response of the IGFR network after molecules in the network had been individually inhibited (Supplementary
+Material S6). Figure 3 and Supplementary Material S6 show
+the differential levels of proteins in inhibited versus noninhibited MDA-MB231 cells after IGF-1 stimulation, as predicted by the mass action model for 3 of the 10 sets of
+parameters inferred using PSO (Supplementary File S2).
+These three sets were randomly selected to repeat the
+computational analysis in triplicate. The modeling results
+suggested that targeting one molecule at a time may activate nontargeted molecules, likely as a result of feedback
+loop compensation. Thus, targeting a single molecule may
+not be sufficient to adequately inhibit aberrant signaling.
+Although inhibition of molecules in the MAPK pathway
+
+6710
+
+Cancer Res; 70(17) September 1, 2010
+
+was predicted to activate the PI3K/AKT pathway, inhibition of intermediates comprising the PI3K/AKT pathway
+was predicted to activate the MAPK pathway. Because
+these pathways are often upregulated in many tumors
+(47), the combined inhibition of the MAPK and PI3K/
+AKT cascades emerged as a candidate strategy to inhibit
+aberrant signaling in MDA-MB231 cells.
+Combined inhibition of targeted molecules. Predicting
+the response of IGFR networks to the inhibition of individual
+molecules may not necessarily identify optimal drug combinations for pharmacologic intervention. In contrast, perturbing all molecules in the network simultaneously would
+identify optimal combinations needed to inhibit aberrant
+signaling. From a computational point of view, the effect of
+small interfering RNAs can be mimicked by varying the initial
+concentration of signaling proteins. The effect of the drug
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+Published OnlineFirst July 19, 2010; DOI: 10.1158/0008-5472.CAN-10-0460
+Integrative Identification of Optimal Drug Combinations
+
+inhibitor can be approximately simulated by varying the
+values of rescaled kinetic rate constants, such as in the classic example of competitive inhibition (48). Integrating mass
+action modeling with a random sampling of kinetic constants (inhibitors) and initial protein concentrations (small
+interfering RNAs) within predefined intervals of values would
+thus provide an unbiased, unsupervised means of computationally predicting the effect of simultaneously perturbing all
+molecules in the IGFR network (computational procedures).
+Combinations of signaling targets were identified by comparing the model parameters inferred using PSO from data
+measured in MDA-MB231 cells with randomly sampled model parameters that could restore user-defined signaling output. We defined the signaling network characterized by the
+
+measured time courses of p-AKT, p-MAPK, and p-p70S6K as
+aberrant, as these proteins are often upregulated in many
+tumors (47). We defined the state at which p-AKT, p-MAPK,
+and p-p70S6K levels were inhibited by at least 5-fold as
+user-defined signaling output. To obtain reliable results, we
+identified 200 collections of combined perturbations (Supplementary File S3) that restored the user-defined signaling
+changes in MDA-MB231 cells for the sets of parameters listed
+in Supplementary File S2.
+The most influential targets were scored according to
+the absolute value of the median deviation to the SD ratio
+(Supplementary Table S1). The computational analysis
+was repeated in triplicate using the same three randomly
+selected sets of parameters used to predict individual
+
+Figure 5. Combined inhibition of
+MEK and mTOR in MDA-MB231
+cells. A and B, protein levels were
+detected in unstimulated cells in
+the absence of inhibition (column 1)
+and after 1 h of incubation with
+the MEK and/or mTOR inhibitors
+(columns 2–4), and in cells
+stimulated with IGF-1 in the
+absence of inhibition (column 5)
+and after 1 h of incubation with
+the MEK and/or mTOR inhibitors
+(columns 6–8). Cells were
+stimulated with 75 ng/mL IGF-1 for
+5 min (A) or 60 min (B). C and D,
+density of the bands after
+normalization with respect to actin.
+
+www.aacrjournals.org
+
+Cancer Res; 70(17) September 1, 2010
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+6711
+
+Published OnlineFirst July 19, 2010; DOI: 10.1158/0008-5472.CAN-10-0460
+Iadevaia et al.
+
+inhibition of targeted molecules. Despite being ranked in a
+different order, the top five targets were the same for the
+three sets. All targets that scored as influential were characterized by a positive median deviation, which indicated
+activation of the reactions leading to inhibition of phosphorylated protein. Because p-IGFR, p-IRS-1, p-MEK, pMAPK, and p-AKT were scored as the most influential
+targets, combined inhibition of the PI3K/AKT and MAPK
+pathways was predicted to optimally facilitate disruption
+of the loops responsible for aberrant signaling in MDAMB231 cells.
+Experimental validation of modeling predictions
+The effect of drug combinations on the IGFR network in
+the MDA-MB231 cell line. We used immunoblotting to determine whether the combined inhibition of the MAPK and
+PI3K/AKT pathways would decrease the levels of p-AKT,
+p-MAPK, and p-p70S6K, and minimize changes in phosphorylation of other signaling proteins in the network. We also
+tested the combination of MEK and mTOR inhibitors to
+determine whether targeting pathways that differ from the
+predicted optimal combination would restore user-defined
+signaling changes in the MDA-MB231 cells.
+Figures 4A and B show the levels of p-AKT, p-MAPK,
+p-GSK3, p-mTOR, p-p70S6K, and p-TSC2 detected in the absence
+of inhibition, and after 1 hour of incubation with the MEK
+and/or PI3K inhibitors in unstimulated cells and IGF-stimulated
+cells. The experimental data indicated that, in IGF-stimulated
+cells inhibited with MEK and PI3K inhibitors (column 8),
+the levels of all phosphorylated proteins were significantly decreased compared with those of the corresponding proteins
+detected in noninhibited, IGF-stimulated cells (column 5).
+Figure 5A and B show the levels of p-AKT, p-MAPK,
+p-GSK3, p-mTOR, p-p70S6K, and p-TSC2 measured in the
+absence of inhibition, and after 1 hour of incubation with
+the MEK and/or mTOR inhibitors in unstimulated cells and
+IGF-stimulated cells. The experimental data indicated that
+p-MAPK, p-mTOR, and p-p70S6K levels in IGF-stimulated cells
+inhibited with MEK and mTOR inhibitors (column 8) were
+decreased compared with those of the corresponding proteins
+in noninhibited, IGF-1-stimulated cells (column 5). However,
+the p-AKT, p-GSK3, and p-TSC2 levels were increased.
+Supplementary Table S2 shows the qualitative comparison
+between the measured and predicted differential levels
+of phosphorylated proteins in IGF-stimulated cells in the absence of inhibition, and after 1 hour of incubation with MEK
+and PI3K inhibitors or MEK and mTOR inhibitors. Note that
+the experimental results agree with the modeling predictions
+for both drug combinations. Therefore, as predicted by the
+mass action model, combined inhibition of the MAPK and
+PI3K/AKT pathways optimally inhibited aberrant networks,
+but combinations of MEK and mTOR inhibitors did not
+decrease the levels of p-AKT, p-MAPK, and p-p70S6K, and
+increased phosphorylation of nontargeted protein.
+Cell sensitivity to drug combinations. Optimal inhibition
+of abnormal signaling networks must inhibit regulatory loops
+and redundant bypass to ultimately overcome the mechanism of feedback compensation that ensures cancer cell
+
+6712
+
+Cancer Res; 70(17) September 1, 2010
+
+Figure 6. Response curve of MDA-MB231 cells to dose concentration
+of drug inhibitors. A, cells were left nontreated as a control and
+incubated with LY294002 at its EC25 (3.8 μmol/L) or rapamycin at its EC25
+(0.1 nmol/L) in combination with U0126 at a concentration of 0.5 to
+50 μmol/L. B, cells were left nontreated as a control and incubated
+only with rapamycin at concentrations of 0.1 to 100 nmol/L or with a
+combination of U0126 at its EC25 (3.5 μmol/L) and rapamycin at a
+concentration of 0.5 to 50 μmol/L. Absorbance was normalized with
+respect to the value detected for the controls and was expressed as a
+percentage. Solid circles, mean of normalized absorbance; bars, SD.
+
+viability. To quantify the sensitivity of the MDA-MB231 cell
+line to MEK and PI3K, or MEK and mTOR inhibition, we used
+cell viability assays.
+Figure 6A shows the effect of drug combinations on the
+viability of MDA-MB231 cells, which was measured as the
+normalized absorbance of viable cells as a function of increasing MEK inhibition (U0126) in combination with PI3K
+inhibitor (LY294002) or mTOR inhibitor (rapamycin). The
+experimental results indicated that inhibiting cells with a
+combination of LY294002 and increasing concentrations of
+U0126 resulted in a dose-dependent decrease in cell viability.
+In contrast, cells treated with a combination of rapamycin
+and increasing concentrations of U0126 showed no change
+in cell proliferation up to 1 μmol/L of U0126 followed by partial rescue of cells with rapamycin. Combined MEK-PI3K
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+Published OnlineFirst July 19, 2010; DOI: 10.1158/0008-5472.CAN-10-0460
+Integrative Identification of Optimal Drug Combinations
+
+inhibition monotonically decreased cell viability, likely as a
+result of the optimal inhibition of the signaling pathways that
+led to inactivation of phosphorylated proteins (Fig. 4). In contrast, combined MEK-mTOR inhibition increased cell viability at low concentrations of the U0126 inhibitor, likely as a
+result of the nonoptimal inhibition of the signaling network
+that led to activation of p-AKT (Fig. 5). At high concentrations of the U0126 inhibitor, cell viability was significantly
+decreased for both drug combinations, likely as a result of
+U0126 inhibitor toxicity (Supplementary Material S3).
+To test whether the combination of MEK and mTOR
+inhibitors rescued cell proliferation by activation of p-AKT,
+we performed cell viability assays with rapamycin alone or
+with rapamycin in combination with U2016. The experimental results shown in Fig. 6B indicated that addition of
+a MEK inhibitor to cells treated with rapamycin increased
+cell viability from 40% to 73% and rescued cells from cell
+death. Therefore, the experimental results suggested that
+optimal inhibition of aberrant signaling through combined
+inhibition of the MAPK and PI3K pathways was correlated
+with decreased cell viability. In contrast, nonoptimal combined targeted inhibition led to inadequate inhibition of
+the signaling networks and increased cell viability.
+
+Discussion
+Integrating mass action modeling with optimization
+schemes is a quantitative approach to train ODE models using experimental data and identify optimal drug combinations that can inhibit signaling networks. PSO converged
+to more optimal solutions than did other optimization algorithms, including simulated annealing and genetic algorithms.
+Supplementary Table S3 summarizes the performance of the
+three algorithms in training the reduced mass action model
+against time courses of proteins (Supplementary File S4). Each
+simulation was repeated three times with different random
+seeds of the reduced model unknown parameters.
+The most simple and intuitive strategy to inhibit aberrant
+networks consists of inhibiting the input sources that trigger
+signal transduction. Thus, individual inhibition of IGFR could
+
+restore user-defined pathways in MDA-231 cells. However,
+constitutive p-MAPK activation driven by K-Ras and B-Raf
+mutations impairs this approach. The experimental results
+shown in Figs. 4 and 5, and the computational results shown
+in Fig. 3 also suggest that individual inhibition of targeted
+molecules frequently does not optimally inhibit cell signaling.
+A more effective inhibition of aberrant signaling is accomplished through multiple combined inhibitions of targeted
+molecules. The experimental results shown in Figs. 4 to 6 indicate that combined inhibition of the MAPK and PI3K/AKT
+pathways optimally inhibited the signaling networks and
+decreased cell viability. In contrast, combined inhibition of
+the MAPK and mTOR cascades led to significant activation
+of p-AKT and increased cell viability. Although several other
+kinases and pathways may potentially regulate the viability of
+the MDA-231 cells, the experimental results indicated that
+simultaneous inhibition of the MAPK and PI3K/AKT pathways was sufficient to significantly reduce cell proliferation.
+In conclusion, we propose a computational procedure that
+can be used to rapidly generate experimentally testable intervention strategies that may lead to an optimal use of available drugs and the discovery of novel signaling targets. The
+procedure is currently being used to identify and validate
+drug combinations that can inhibit aberrant networks in a
+panel of human cancer cell lines.
+Disclosure of Potential Conflicts of Interest
+No potential conflicts of interest were disclosed.
+
+Grant Support
+S. Iadevaia was supported in part by a training fellowship from the
+Pharmacoinformatics Training Program of the Keck Center of the Gulf Coast
+Consortia (NIH grant 5 T90 DK070109-04). This study was supported by the
+Kleberg Center for Molecular Markers, NIH P01CA099031, and The Komen
+Foundation (G.B. Mills), and DOD BC044268 and NIH R01CA125109 (P.T. Ram).
+The costs of publication of this article were defrayed in part by the payment
+of page charges. This article must therefore be hereby marked advertisement in
+accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+Received 02/23/2010; revised 07/02/2010; accepted 07/05/2010; published
+OnlineFirst 07/19/2010.
+
+References
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+
+Manning BD, Cantley LC. AKT/PKB signaling: navigating downstream. Cell 2007;129:1261–74.
+Wullschleger S, Loewith R, Hall MN. TOR signaling in growth and
+metabolism. Cell 2006;124:471–84.
+Seger R, Krebs EG. The MAPK signaling cascade. FASEB J 1995;9:
+726–35.
+Schlessinger J. Cell signaling by receptor tyrosine kinases. Cell
+2000;103:211–25.
+Ullrich A, Schlessinger J. Signal transduction by receptors with tyrosine kinase activity. Cell 1990;61:203–12.
+Bhalla US, Iyengar R. Emergent properties of networks of biological
+signaling pathways. Science 1999;283:381–7.
+Weng G, Bhalla US, Iyengar R. Complexity in biological signaling
+systems. Science 1999;284:92–6.
+Ma'ayan A, Jenkins SL, Neves S, et al. Formation of regulatory
+patterns during signal propagation in a Mammalian cellular network.
+Science 2005;309:1078–83.
+
+www.aacrjournals.org
+
+9.
+10.
+11.
+
+12.
+
+13.
+
+14.
+
+Alon U. Network motifs: theory and experimental approaches. Nat
+Rev Genet 2007;8:450–61.
+Bhalla US. Understanding complex signaling networks through
+models and metaphors. Prog Biophys Mol Biol 2003;81:45–65.
+Justman QA, Serber Z, Ferrell JE, Jr., El-Samad H, Shokat KM. Tuning the activation threshold of a kinase network by nested feedback
+loops. Science 2009;324:509–12.
+Aldridge BB, Burke JM, Lauffenburger DA, Sorger PK. Physicochemical modelling of cell signalling pathways. Nat Cell Biol 2006;8:
+1195–203.
+Bhalla US, Ram PT, Iyengar R. MAP kinase phosphatase as a locus
+of flexibility in a mitogen-activated protein kinase signaling network.
+Science 2002;297:1018–23.
+Birtwistle MR, Hatakeyama M, Yumoto N, Ogunnaike BA, Hoek JB,
+Kholodenko BN. Ligand-dependent responses of the ErbB signaling
+network: experimental and modeling analyses. Mol Syst Biol 2007;
+3:144.
+
+Cancer Res; 70(17) September 1, 2010
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+6713
+
+Published OnlineFirst July 19, 2010; DOI: 10.1158/0008-5472.CAN-10-0460
+Iadevaia et al.
+
+15. Muller M, Obeyesekere M, Mills GB, Ram PT. Network topology
+determines dynamics of the mammalian MAPK1,2 signaling network:
+bifan motif regulation of C-Raf and B-Raf isoforms by FGFR and
+MC1R. FASEB J 2008;22:1393–403.
+16. Tyson JJ, Chen K, Novak B. Network dynamics and cell physiology.
+Nat Rev Mol Cell Biol 2001;2:908–16.
+17. Tyson JJ, Csikasz-Nagy A, Novak B. The dynamics of cell cycle
+regulation. Bioessays 2002;24:1095–109.
+18. Alon U, Surette MG, Barkai N, Leibler S. Robustness in bacterial
+chemotaxis. Nature 1999;397:168–71.
+19. Barkai N, Leibler S. Robustness in simple biochemical networks.
+Nature 1997;387:913–7.
+20. Boman BM, Fields JZ, Bonham-Carter O, Runquist OA. Computer
+modeling implicates stem cell overproduction in colon cancer initiation. Cancer Res 2001;61:8408–11.
+21. Edwards JS, Ibarra RU, Palsson BO. In silico predictions of Escherichia coli metabolic capabilities are consistent with experimental
+data. Nat Biotechnol 2001;19:125–30.
+22. Elowitz MB, Leibler S. A synthetic oscillatory network of transcriptional regulators. Nature 2000;403:335–8.
+23. Fussenegger M, Bailey JE, Varner J. A mathematical model of
+caspase function in apoptosis. Nat Biotechnol 2000;18:768–74.
+24. Gardner TS, Cantor CR, Collins JJ. Construction of a genetic toggle
+switch in Escherichia coli. Nature 2000;403:339–42.
+25. Balsa-Canto E, Peifer M, Banga JR, Timmer J, Fleck C. Hybrid
+optimization method with general switching strategy for parameter
+estimation. BMC Syst Biol 2008;2:26.
+26. Chen WW, Schoeberl B, Jasper PJ, et al. Input-output behavior of
+ErbB signaling pathways as revealed by a mass action model trained
+against dynamic data. Mol Syst Biol 2009;5:239.
+27. Hegger R, Kantz H, Schmuser F, Diestelhorst M, Kapsch RP,
+Beige H. Dynamical properties of a ferroelectric capacitor observed
+through nonlinear time series analysis. Chaos 1998;8:727–36.
+28. Moles CG, Mendes P, Banga JR. Parameter estimation in biochemical pathways: a comparison of global optimization methods.
+Genome Res 2003;13:2467–74.
+29. Rodriguez-Fernandez M, Mendes P, Banga JR. A hybrid approach
+for efficient and robust parameter estimation in biochemical pathways. Biosystems 2006;83:248–65.
+30. Swameye I, Muller TG, Timmer J, Sandra O, Klingmuller U. Identification of nucleocytoplasmic cycling as a remote sensor in cellular
+signaling by databased modeling. Proc Natl Acad Sci U S A 2003;
+100:1028–33.
+31. Wang CC, Cirit M, Haugh JM. PI3K-dependent cross-talk interactions converge with Ras as quantifiable inputs integrated by Erk.
+Mol Syst Biol 2009;5:246.
+32. Araujo RP, Liotta LA, Petricoin EF. Proteins, drug targets and the
+mechanisms they control: the simple truth about complex networks.
+Nat Rev Drug Discov 2007;6:871–80.
+
+6714
+
+Cancer Res; 70(17) September 1, 2010
+
+33. Rajasethupathy P, Vayttaden SJ, Bhalla US. Systems modeling: a
+pathway to drug discovery. Curr Opin Chem Biol 2005;9:400–6.
+34. Schoeberl B, Eichler-Jonsson C, Gilles ED, Muller G. Computational
+modeling of the dynamics of the MAP kinase cascade activated by
+surface and internalized EGF receptors. Nat Biotechnol 2002;20:
+370–5.
+35. Yang K, Bai H, Ouyang Q, Lai L, Tang C. Finding multiple target
+optimal intervention in disease-related molecular network. Mol Syst
+Biol 2008;4:228.
+36. Kennedy J, Eberhart R. Particle swarm optimization. Proceedings of
+the fourth IEEE International Conference on Neural Networks. Perth,
+Australia: IEEE Service Center; 1995, p. 1942–8.
+37. Abraham A, Guo H, Liu H. Swarm intelligence: foundations, perspectives and applications. In: Nedjah N, de Macedo Mourelle L, editors.
+Studies in Computational Intelligence. Springer; 2006, p. 2–25.
+38. Romano P, Manniello A, Aresu O, Armento M, Cesaro M, Parodi B.
+Cell Line Data Base: structure and recent improvements towards
+molecular authentication of human cell lines. Nucleic Acids Res
+2009;37:D925–32.
+39. mdanderson.org. Houston: The University of Texas MD Anderson
+Cancer Center. [cited 2010 Feb 23]. Available from: http://bioinformatics.mdanderson.org/OOMPA/.
+40. Vastrik I, D'Eustachio P, Schmidt E, et al. Reactome: a knowledge
+base of biologic pathways and processes. Genome Biol 2007;8:R39.
+41. Easton JB, Kurmasheva RT, Houghton PJ. IRS-1: auditing the
+effectiveness of mTOR inhibitors. Cancer Cell 2006;9:153–5.
+42. Sheehan KM, Calvert VS, Kay EW, et al. Use of reverse phase protein
+microarrays and reference standard development for molecular
+network analysis of metastatic ovarian carcinoma. Mol Cell Proteomics 2005;4:346–55.
+43. Tibes R, Qiu Y, Lu Y, et al. Reverse phase protein array: validation
+of a novel proteomic technology and utility for analysis of primary
+leukemia specimens and hematopoietic stem cells. Mol Cancer Ther
+2006;5:2512–21.
+44. Mirzoeva OK, Das D, Heiser LM, et al. Basal subtype and MAPK/ERK
+kinase (MEK)-phosphoinositide 3-kinase feedback signaling determine susceptibility of breast cancer cells to MEK inhibition. Cancer
+Res 2009;69:565–72.
+45. Stemke-Hale K, Gonzalez-Angulo AM, Lluch A, et al. An integrative
+genomic and proteomic analysis of PIK3CA, PTEN, and AKT
+mutations in breast cancer. Cancer Res 2008;68:6084–91.
+46. Gonzalez-Angulo AM, Stemke-Hale K, Palla SL, et al. Androgen
+receptor levels and association with PIK3CA mutations and prognosis in breast cancer. Clin Cancer Res 2009;15:2472–8.
+47. Hennessy BT, Smith DL, Ram PT, Lu Y, Mills GB. Exploiting the
+PI3K/AKT pathway for cancer drug discovery. Nat Rev Drug Discov
+2005;4:988–1004.
+48. Nelson DL, Cox MM, editors. Lehninger principles of biochemistry.
+New York: Worth Publishers; 2000.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+Published OnlineFirst July 19, 2010; DOI: 10.1158/0008-5472.CAN-10-0460
+
+Identification of Optimal Drug Combinations Targeting Cellular
+Networks: Integrating Phospho-Proteomics and Computational
+Network Analysis
+Sergio Iadevaia, Yiling Lu, Fabiana C. Morales, et al.
+Cancer Res 2010;70:6704-6714. Published OnlineFirst July 19, 2010.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-10-0460
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2010/07/16/0008-5472.CAN-10-0460.DC1
+
+This article cites 44 articles, 19 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/70/17/6704.full#ref-list-1
+This article has been cited by 16 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/70/17/6704.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications
+Department at pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications
+Department at permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+

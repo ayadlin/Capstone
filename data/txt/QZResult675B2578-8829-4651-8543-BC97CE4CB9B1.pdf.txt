@@ -1,0 +1,1237 @@
+Research Article
+
+Gene Expression Profiling of Liposarcoma Identifies Distinct
+Biological Types/Subtypes and Potential Therapeutic Targets
+in Well-Differentiated and Dedifferentiated Liposarcoma
+1
+
+4
+
+3
+
+1
+
+1
+
+Samuel Singer, Nicholas D. Socci, Grazia Ambrosini, Elliot Sambol, Penelope Decarolis,
+1
+1
+3
+5
+4
+Yuhsin Wu, Rachael O’Connor, Robert Maki, Agnes Viale, Chris Sander,
+3
+2
+Gary K. Schwartz, and Cristina R. Antonescu
+1
+
+Sarcoma Biology Laboratory, Sarcoma Disease Management Program, Department of Surgery, 2Sarcoma Disease Management Program,
+Department of Pathology, 3Laboratory of New Drug Development, Department of Medicine, and 4Computational Biology Center,
+Memorial Sloan-Kettering Cancer Center and 5Genomics Core Facility, Sloan-Kettering Institute, New York, New York
+
+Abstract
+Classification of liposarcoma into three biological types
+encompassing five subtypes, (a) well-differentiated/dedifferentiated, (b) myxoid/round cell, and (c) pleomorphic, based on
+morphologic features and cytogenetic aberrations, is widely
+accepted. However, diagnostic discordance remains even
+among expert sarcoma pathologists. We sought to develop a
+more systematic approach to liposarcoma classification based
+on gene expression analysis and to identify subtype-specific
+differentially expressed genes that may be involved in liposarcoma genesis/progression and serve as potential therapeutic targets. A classifier based on gene expression profiling
+was able to distinguish between liposarcoma subtypes, lipoma,
+and normal fat samples. A 142-gene predictor of tissue class
+was derived to automatically determine the class of an
+independent validation set of lipomatous samples and shows
+the feasibility of liposarcoma classification based entirely on
+gene expression monitoring. Differentially expressed genes for
+each liposarcoma subtype compared with normal fat were
+used to identify histology-specific candidate genes with an indepth analysis of signaling pathways important to liposarcoma
+pathogenesis and progression in the well-differentiated/
+dedifferentiated subset. The activation of cell cycle and
+checkpoint pathways in well-differentiated/dedifferentiated
+liposarcoma provides several possible novel therapeutic strategies with MDM2 serving as a particularly promising target.
+We show that Nutlin-3a, an antagonist of MDM2, preferentially
+induces apoptosis and growth arrest in dedifferentiated liposarcoma cells compared with normal adipocytes. These results
+support the development of a clinical trial with MDM2 antagonists for liposarcoma subtypes which overexpress MDM2
+and show the promise of using this expression dataset for new
+drug discovery in liposarcoma. [Cancer Res 2007;67(14):6626–36]
+
+Introduction
+Liposarcoma is the single most common soft tissue sarcoma and
+accounts for at least 20% of all sarcomas in adults (1). Liposarcomas are a heterogeneous group of mesenchymal tumors that
+
+Note: Supplementary data for this article are available at Cancer Research Online
+(http://cancerres.aacrjournals.org/).
+Requests for reprints: Samuel Singer, Memorial Sloan-Kettering Cancer Center,
+1275 York Avenue, H1220, New York, NY 10021. Phone: 212-639-2940; Fax: 646-422-2300;
+E-mail: singers@mskcc.org.
+I2007 American Association for Cancer Research.
+doi:10.1158/0008-5472.CAN-07-0584
+
+Cancer Res 2007; 67: (14). July 15, 2007
+
+may arise in any anatomic site. Surgery serves as the mainstay of
+therapy for localized liposarcoma. However, for locally advanced
+and disseminated disease there are few effective treatment options.
+Insight into the genetic events that drive the biology of these
+tumors may allow for molecular subtyping and the development of
+novel selective therapeutic strategies for advanced disease. Subtype
+is the most important determinant of clinical outcome (2–6);
+however, little is known about the genetic events specific to
+liposarcoma subtype. Widely used histopathologic and clinical
+criteria, such as liposarcoma subtype, location, age, and size, can
+be incorporated into liposarcoma-specific nomograms and used
+to estimate patient outcome (7). However, even in using such tools,
+a significant variability in predictive value exists among different
+clinical laboratories and hospitals with regard to the assessment of
+liposarcoma histologic subtype, which has been primarily based on
+morphologic appearance of the tumor.
+Liposarcomas with similar morphologic appearance can follow
+different clinical courses and show divergent responses to systemic
+therapy. A correct histologic categorization is important because
+patients with pleomorphic liposarcoma have a 3-fold higher risk of
+distant metastasis compared with patients with dedifferentiated
+liposarcoma and are more likely to respond to treatment with
+systemic ifosfamide-based chemotherapy (8). However, the accurate
+discrimination of pleomorphic from dedifferentiated liposarcoma
+based on morphology alone is often a challenge even for an
+experienced soft tissue pathologist. Transcriptional profiling is a
+powerful tool for analyzing the relationships between tumors,
+discovering new tumor subgroups, assigning tumors to predefined
+classes, and predicting disease outcome. For this reason, we decided
+to develop a more systematic approach to the classification of
+liposarcoma based on gene expression analysis using microarrays.
+Previous sarcoma gene expression profiling studies have shown
+that liposarcomas tended to cluster with malignant fibrous histiocytoma and leiomyosarcoma. However, these studies contained too
+few samples of any given liposarcoma subtype to draw clear
+distinctions specific to subtype (9, 10). A liposarcoma specific RNA
+expression profiling study compared eight pleomorphic liposarcomas to eight dedifferentiated liposarcomas and found no correlation
+between expression data and histologic subtype (11). In contrast,
+Matrix-CGH analysis provided unequivocal separation of dedifferentiated and pleomorphic subtypes, concluding that genomic
+profiling might be more advantageous than RNA expression analysis
+for subtype classification. Another liposarcoma-specific microarray
+study of 28 liposarcomas (11 well differentiated, 3 dedifferentiated,
+7 myxoid, 7 round cell) and eight lipomas found by hierarchical
+clustering analysis that the dedifferentiated tumors formed a cluster
+
+6626
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 7, 2017. © 2007 American Association for Cancer
+Research.
+
+Gene Expression Profiling of Liposarcoma
+
+with the myxoid/round cell subtype and that the well-differentiated
+liposarcomas clustered with lipoma (12). In this study, they were
+unable to distinguish well-differentiated liposarcoma from lipoma
+based on gene expression profiles, and the incorrect grouping of
+dedifferentiated samples with myxoid/round cell tumors was most
+likely due to the limited sample numbers analyzed in this study. One
+of the major limitations of these liposarcoma array studies was the
+very limited sample number per subtype, and the fact that the same
+data set was used for both signature discovery and validation.
+Here, we applied a microarray-based gene expression profiling
+approach to identify molecular signatures that distinguish liposarcoma subtype and developed a support vector machine (SVM)
+classifier demonstrating high discrimination accuracy between
+subtypes of liposarcoma, using a training set of 80 samples, and
+then validated this classifier on an independent test set of 49
+lipomatous tissue samples. Differentially expressed genes for each
+liposarcoma subtype compared with normal fat were used to
+identify histology-specific signaling pathways and candidate genes
+important to liposarcoma pathogenesis and progression. We found
+significant activation of cell cycle and checkpoint pathways in welldifferentiated and dedifferentiated liposarcoma subtypes compared
+with normal fat and postulated that several of these differentially
+expressed genes may serve as potential therapeutic targets. We
+then validated a particularly promising target, MDM2, and showed
+that Nutlin-3a, an MDM2 antagonist, induced substantial apoptosis
+and inhibited proliferation in dedifferentiated liposarcoma cell
+lines but showed no effects in human adipocyte cell lines. These
+data supports the clinical development of MDM2 antagonists for
+treatment of patients with well-differentiated/dedifferentiated
+liposarcoma.
+
+Materials and Methods
+Patient population and sample acquisition. Sequential patients seen
+at Memorial Sloan-Kettering Cancer Center between February 2002 and
+September 2005 for treatment of liposarcoma were evaluated for this study.
+Informed consent was obtained, and the project was approved by the local
+institutional review board (IRB protocol 02-060). Liposarcomas consist
+three biological types encompassing the five subtypes (well differentiated,
+dedifferentiated, myxoid, round cell, and pleomorphic). Lipomas and
+normal fat tissue were obtained at the time of surgical resection. Before
+RNA extraction, two 5-Am H&E histologic sections were cut from the top
+and bottom of the cryomold to assess for subtype, percentage of necrosis,
+cellularity, and normal/stromal tissue contamination. Regions chosen for
+analysis contained tumor cellularity of >75%, no mixed histology, and no
+area of necrosis or fibrosis.
+RNA isolation and preparation for microarray analysis. A cryomold
+(0.5 cm  1 cm  1 cm), once typed for histology and macrodissected to
+assure subtype uniformity and to eliminate necrotic/normal tissue
+contamination, was used for RNA extraction and subsequent array analysis.
+Cryomold tumor samples were weighed and 1 mL of QIAzol lysis reagent
+was used for every 100 mg of tissue. The cryomold tissue specimens were
+then homogenized in QIAzol lysis reagent using Mixer Mill MM 300 (Retsch,
+Inc.) following standard procedures. After alcohol washing, the RNA sample
+was purified and eluted using the RNeasy Mini Spin Column from the
+RNeasy Lipid Tissue Mini kit (QIAGEN, Inc.). cDNA was synthesized in the
+presence of oligo(dT)24-T7 from Genset Corp. cRNA was prepared using
+biotinylated UTP and CTP and hybridized to HG U113A oligonucleotide
+arrays (Affymetrix, Inc.). Fluorescence was measured by laser confocal
+scanner (Agilent) and converted to signal intensity by means of Affymetrix
+Microarray Suite v5 software. The gene expression data are available at
+www.cbio.mskcc.org/Public/Liposarcoma.
+Statistical methods and analysis. An unsupervised hierarchical
+clustering with 1
+U Pearson correlation distance function and ward
+
+www.aacrjournals.org
+
+linkage was used to investigate whether there was evidence for natural
+groupings of samples based on correlations between gene expression
+profiles. To assess the robustness, a parametric bootstrap resampling
+technique was used in which 1,000 bootstrap replicas for the original
+dataset were generated and clustered. A consensus tree was built from these
+1000 bootstrap trees; the number at each node in the consensus tree
+indicates how many of the bootstrap trees had that subcluster. We then
+used the SVM supervised learning algorithm to classify the liposarcoma and
+normal fat samples. The SVM method computes the hyperplane that best
+discriminates between two groups by maximizing the distance to the
+closest points (margins). To make distinctions between these six tissue
+types, the classification problem is divided into a series of all 15 possible
+pair-wise comparisons. Each test sample is presented sequentially to these
+15 pair-wise classifiers, which classify the sample into one of the pairs. A
+voting procedure is then used to determine into which group the sample
+belongs. We then evaluated the accuracy of this multiclass SVM-based
+classifier for liposarcoma subtype and normal fat diagnosis using a set of 69
+liposarcomas and nine normal fat samples. To determine the optimal
+settings over the various variables, such as the number of genes ( features)
+to use and the penalty cost function value, we use the cross-validation
+method. The idea is to divide the data into a training set and a test set. In
+our case, we used 10-fold cross validation, so the data was divided into a
+training set of 90% of the samples and at test set of 10%. This division is
+done randomly each time. We can then measure the performance for a
+given set of variable values by training on the training set and scoring on
+the test set. For the specific case of choosing the optimal number of genes
+to use, we ranked all the genes by their absolute t score and then tested
+models with varying numbers of genes from 1 to N (where N was roughly
+100). Performance in the cross validation seemed to level off at about
+15 genes per pair-wise classifier. The optimal SVM-based classifier was then
+tested on an independent blind test set of 49 lipomatous tissue specimens,
+consisting of 14 well differentiated, 13 dedifferentiated, 5 myxoid, 3 round
+cell, 6 pleomorphic liposarcoma, and 8 normal fat tissue samples.
+Identification of therapeutic targets. The gene expression profiles
+from 10 patients with pure well-differentiated liposarcoma (no known
+dedifferentiated component), 10 patients with dedifferentiated liposarcoma,
+10 patients with pure myxoid liposarcoma (no known round cell
+component), 10 patients with round cell liposarcoma, and 10 patients with
+pleomorphic liposarcoma were separately compared with the gene profiles
+from 10 patients with normal fat tissue. A gene discrimination analysis was
+done using a standard t test on the log of the expression signal. Genes were
+filtered by significance and on the fold change between the liposarcoma
+subtype and normal fat. To deal with the multiple testing problem, we used
+the false discovery rate (FDR) method to obtain corrected P values. Because
+the different comparison pairs gave vastly different significant levels, we
+picked cutoff values in the FDR for each comparison. In all cases, the cutoff
+was either 0.05 or smaller for the more significant comparisons. From each
+subtype-specific gene list, we selected potential therapeutic molecular
+targets that showed at least a 2-fold differential expression compared with
+normal fat. The Ingenuity Pathway Analysis application,6 a web-based
+bioinformatic tool that maps gene lists (ranked by FDR or fold change) to a
+database of fully annotated biological interactions between genes displayed
+in a graphical format, was used to determine the significant gene
+interaction networks based on liposarcoma expression profiles. The most
+promising target genes in this pathway analysis were validated with
+quantitative reverse transcription–PCR (RT-PCR).
+Expression quantification using real-time RT-PCR. This was done
+using the remaining RNA available after U133A chip hybridization.
+Extracted RNA was transcribed into cDNA using TaqMan RT reagents.
+One-step RT-PCR performs RT and PCR in a single-buffer system. Real-time
+analysis was used to quantitate gene expression. To compensate for
+potential degradation of target RNA and differences in the amount of
+starting material, real-time analysis was done in parallel on cDNA from each
+
+6627
+
+6
+
+https://analysis.ingenuity.com
+
+Cancer Res 2007; 67: (14). July 15, 2007
+
+Downloaded from cancerres.aacrjournals.org on September 7, 2017. © 2007 American Association for Cancer
+Research.
+
+Cancer Research
+sample using rRNA as an endogenous control. The copy numbers obtained
+for the gene under study were divided by the corresponding copy numbers
+for the rRNA control to yield a normalized expression index. Real-time
+PCR was carried out according to the manufacturers’ instructions, using an
+Applied Biosystems Prism 7900HT Sequence Detection System (Applied
+Biosystems). All primers/probes were designed using ABI Prism Primer
+Express 1.5 software (Applied Biosystems) with the probes spanning exonic
+junctions.
+Cell culture and drug treatments. LS141 and DDLS cell lines were
+established from human dedifferentiated liposarcoma tissue samples. The
+normal human adipocyte (NADIP) cell line was established in culture from
+human s.c. fat tissue. Cells were grown in RPMI 1640, supplemented with
+10% fetal bovine serum, 100 units/mL penicillin, and 100 Ag/mL
+streptomycin and maintained at 37jC in 5% CO2. The selective smallmolecule antagonist of MDM2 nutlin-3a (13) was prepared as a 10 mmol/L
+stock solution in DMSO and stored at 20jC.
+Proliferation assays. To evaluate the antiproliferative effect of nutlin
+exposure on LS141, DDLS, and NADIP cells, DNA content was estimated
+using the CyQuant Cell Proliferation kit (Molecular Probes). In brief, cells
+were plated in 96-well plates at a density of 2  104 cells per well and
+allowed to adhere overnight at 37jC. After treatment, cells were incubated
+with CyQuant dye and lysed. This dye exhibits strong fluorescence when
+bound to cellular nucleic acids, and, as such, the fluorescent signal is
+proportional to DNA content. Plates were read using the Spectramax M2
+fluorescence microplate reader (Molecular Devices) at 480/520 nm
+excitation/emission.
+Apoptosis assays. Evaluation of apoptosis was carried out using the
+Guava NexinTM kit (Guava Technologies) following the manufacturer’s
+instructions. Briefly, cells were treated in duplicate 60-mm culture plates.
+Both adherent and floating cells were collected and washed once in cold
+PBS and once in 1 Annexin V binding buffer. Cells were then resuspended
+at a concentration of 1  106 cells/mL. Annexin V (5 AL) and 7-AAD (2.5 AL)
+were added to 50 AL of the cell suspension and allowed to incubate on ice
+for 30 min in the dark. The Annexin V–positive population was counted
+using the Guava perchloric acid (Guava Technologies), and data were
+analyzed using FloJo software (Tree Star, Inc.).
+Immunoblotting. Cells were lysed in radioimmunoprecipitation assay
+buffer supplemented with protease inhibitor cocktail tablets (Complete
+Mini, Roche Diagnostics) and 1 mmol/L NaVO3. Total protein concentration
+of the lysates was measured by Bio-Rad protein assay (Bio-Rad Laboratories), and equal amounts of protein were loaded on 4% to 12% PAGE gels
+(Invitrogen). Membranes were blotted with antibodies specific for MDM2,
+p53, and p21 (Santa Cruz Biotechnology, Inc.). The equal loading of protein
+was confirmed by Amido Black staining (Sigma Chemical) and Western
+blotting for a-tubulin (Upstate Biotechnology).
+
+Results
+Microarrays of liposarcoma group in distinct genomic
+clusters according to type and subtype. Here, we used microarrays to explore systematically the molecular variation underlying
+the biological and clinical heterogeneity in liposarcoma. Using
+Affymetrix U133A GeneChip arrays, we generated gene expression
+profiles for 69 liposarcomas, 7 lipomas, and 9 normal fat tissue
+specimens. Unsupervised hierarchical clustering was used to allow
+the dominant structure to dictate the separation of samples into
+clusters based on overall similarity in gene expression without
+prior knowledge of the sample identity (Fig. 1). This unsupervised
+clustering approach shows that the normal fat, lipoma, and
+liposarcoma subtypes form relatively discrete clusters. Three
+distinct global clusters were observed: (a) normal fat, lipoma,
+and well-differentiated liposarcoma; (b) dedifferentiated and
+pleomorphic liposarcoma; and (c) myxoid/round cell liposarcoma.
+Within the first cluster, lipomas form a distinct group from normal
+fat and well-differentiated liposarcoma. In this first global cluster,
+two well-differentiated liposarcoma clustered with the normal fat
+samples. For the second global cluster, most of the pleomorphic
+liposarcomas form a distinct subcluster from the dedifferentiated
+subtype. However, four dedifferentiated samples cluster with the
+pleomorphic samples and three well-differentiated samples cluster
+with dedifferentiated liposarcoma samples. In the third global
+cluster, two distinct subclusters are formed, one containing five
+myxoid and four round cell samples and the other subcluster
+containing 14 myxoid and five round cell liposarcoma samples.
+Generation and validation of a SVM-based method for
+classification of liposarcoma and normal fat samples. We then
+used the supervised learning SVM algorithm to build a classifier
+to determine the subtype of liposarcoma cases and to show the
+feasibility of liposarcoma classification based entirely on gene
+expression measurements. A 10-fold cross-validation method was
+used to both test the performance and to determine the optimal
+number of genes to use. With 15 genes per pair-wise classifier ( for a
+total of 142 genes), we were able to determine subtype with an
+accuracy of 90.8 F 0.2% (see Supplementary Table S1 for 142 gene
+classifier). We then used this set of genes and validated the results
+on an independent test set of 49 lipomatous tissue specimens,
+consisting of 14 well differentiated, 13 dedifferentiated, 5 myxoid,
+3 round cell, 6 pleomorphic liposarcoma, and 8 normal fat tissue
+
+Figure 1. Hierarchical clustering of the liposarcoma, lipoma, and normal fat tissue expression data set. Before clustering, the data was filtered to remove genes
+that were scored absent in >75% of the samples, leaving 13,341 of the original 22,215 probe sets. Standard hierarchical clustering was done using the Pearson
+correlation to define the distance and ward linkage for the clustering. To assess the robustness, a parametric bootstrap resampling technique was used. The number at
+each node indicates how many of the bootstrap trees had that subcluster. Liposarcoma subtypes include well-differentiated (WD ), dedifferentiated (DediffLS ),
+myxoid (MLS ), round cell (RC ), and pleomorphic (PL).
+
+Cancer Res 2007; 67: (14). July 15, 2007
+
+6628
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 7, 2017. © 2007 American Association for Cancer
+Research.
+
+Gene Expression Profiling of Liposarcoma
+
+Figure 2. Eighty genes most highly
+differentially expressed comparing
+dedifferentiated to pleomorphic
+liposarcoma.
+
+samples. This SVM classifier predicted the correct overall biological
+type of lipomatous tissue (normal fat versus well differentiated/
+dedifferentiated versus myxoid/round cell versus pleomorphic) for
+45 of 49 samples (92%) and correctly identified the correct tissue
+subtype in 43 of 49 samples (86%). The misclassified biological types
+included one pleomorphic liposarcoma sample from the thigh that
+was misclassified as dedifferentiated liposarcoma, one dedifferentiated liposarcoma from the pelvis with 20% necrosis that was
+misclassified as pleomorphic and two well-differentiated liposarcomas one from the thigh and the other from the ankle that were
+misclassified as normal fat. The misclassified subtypes included one
+myxoid liposarcoma with increased cellularity that was misclassified
+as round cell, one retroperitoneal dedifferentiated liposarcoma
+sample misclassified as a well-differentiated liposarcoma, and one
+retroperitoneal well-differentiated liposarcoma with extensive myxoid change misclassified as a dedifferentiated liposarcoma. Subtype
+sample misclassification may be due to insufficient sampling or
+
+www.aacrjournals.org
+
+enhanced sensitivity of the gene expression analysis for progression
+of liposarcoma to a more aggressive, higher-grade subtype.
+The list of the 15 most informative genes in the pleomorphic
+versus dedifferentiated liposarcoma SVM class predictor (see Supplementary Table S1, DD versus PL) was highly instructive with 12
+genes located on the amplified chromosome 12 subregion 12q13q15 commonly found in the large ring or marker chromosomes
+associated with dedifferentiated liposarcoma. The overexpressed
+genes in this subregion serve as the major feature used to discriminate these subtypes. The 80 genes significantly differentially
+expressed greater than 2-fold when comparing dedifferentiated with
+pleomorphic liposarcoma as shown in Fig. 2. Many of these
+differentially expressed genes encode proteins critical for controlling the G1-S transition (CDK4, MDM2, cyclin D1, cyclin D2, CCT2,
+GSPT1, CKS2, CKS1B), regulation of G2-M phase of cell cycle (KPNA2,
+TUSC4), growth factor receptors (FRS2, NTRK3), regulation of
+transcription [WT1 (Wilms’ tumor suppressor), HIP2, SCML1,
+
+6629
+
+Cancer Res 2007; 67: (14). July 15, 2007
+
+Downloaded from cancerres.aacrjournals.org on September 7, 2017. © 2007 American Association for Cancer
+Research.
+
+Cancer Research
+
+Table 1. Overexpressed genes in well-differentiated and dedifferentiated liposarcoma compared with normal fat
+Gene
+
+Title
+
+Fold change
+
+(A) Well-differentiated liposarcoma versus normal fat gene list
+ZIC1
+Zic family member 1
+TOP2A
+Topoisomerase (DNA) II a 170 kDa
+RRM2
+Ribonucleotide reductase M2 polypeptide
+FOXD1
+Forkhead box D1
+GAS41
+Glioma-amplified sequence 41
+CDK4
+Cyclin-dependent kinase 4
+MDM2
+MDM2, p53 binding protein
+CDKN2A
+Cyclin-dependent kinase inhibitor 2A (p16)
+HCAP-G
+Chromosome condensation protein G
+IGF-II
+Insulin-like growth factor II
+SAS
+Sarcoma-amplified sequence
+ARHGAP4
+Rho GTPase-activating protein 4
+TYMS
+Thymidylate synthetase
+MADL1
+MAD2 mitotic arrest deficient-like
+OS4
+Conserved gene amplified in osteosarcoma
+RACGAP1
+Rac GTPase activating protein 1
+RBL1
+Retinoblastoma-like 1 (p107)
+RAD17
+RAD17 homologue, mitotic checkpoint
+FUBP1
+Far upstream element (FUSE) binding protein 1
+BRCA2
+Breast cancer 2, early onset
+MARKS
+Myristoylated alanine-rich protein kinase C substrate
+IRS4
+Insulin receptor substrate 4
+CDC2
+Cell division cycle 2, G1-S and G2-M
+UBE2B
+Ubiquitin-conjugating enzyme E2B (RAD6 homologue)
+RAD1
+RAD1 homologue, DNA damage response
+(B) Dedifferentiated liposarcoma versus normal fat gene list
+TOP2A
+Topoisomerase (DNA) II a 170 kDa
+RRM2
+Ribonucleotide reductase M2 polypeptide
+HEC
+Highly expressed in cancer
+ZIC1
+Zic family member 1 (odd-paired homologue, Dros.)
+TRO
+Trophinin
+CDC2
+Cell division cycle 2, G1-S and G2-M
+FOXD1
+Forkhead box D1
+HCAP-G
+Chromosome condensation protein G
+CDK4
+Cyclin-dependent kinase 4
+MELK
+Maternal embryonic leucine zipper kinase
+CDC20
+CDC20 cell division cycle 20 homologue, spindle
+MDM2
+Mdm2, p53 binding protein
+TYMS
+Thymidylate synthetase
+CDKN2A
+Cyclin-dependent kinase inhibitor 2A (p16)
+CKS2
+CDC28 protein kinase regulatory subunit 2
+BUB1B
+BUB1 budding uninhibited by benzimidazoles 1 homologue h
+MAD2L1
+MAD2 mitotic arrest deficient-like 1
+RACGAP1
+Rac GTPase-activating protein 1
+SAS
+Sarcoma-amplified sequence
+CDH11
+Cadherin 11, type 2, OB-cadherin (osteoblast)
+RRM2
+Ribonucleotide reductase M2 polypeptide
+SOX4
+Sex-determining region Y–box 4
+CCNB2
+Cyclin B2
+SMO
+Smoothened homologue (Drosophila)
+TCF3
+Transcription factor 3
+CCNE2
+Cyclin E2
+BAX
+BCL2-associated X protein
+SSX2IP
+Synovial sarcoma, X breakpoint 2 interacting protein
+CDKN3
+Cyclin-dependent kinase inhibitor 3 (CDK2-assoc dual specificity phosphatase)
+UBE2C
+Ubiquitin-conjugating enzyme E2C
+GLI2
+GLI-Kruppel family member GLI2
+
+37.2
+32.4
+18.1
+15.5
+13.7
+11.6
+10.2
+9.0
+8.2
+7.0
+6.8
+5.7
+5.3
+3.4
+3.3
+3.3
+2.4
+2.4
+2.3
+2.3
+2.2
+2.2
+2.2
+1.9
+1.7
+103.2
+38.5
+35.7
+35.5
+28.3
+19.9
+17.9
+17.2
+14.0
+13.3
+9.9
+9.6
+9.2
+7.7
+7.5
+7.0
+6.3
+6.1
+5.7
+5.2
+5.2
+4.7
+4.3
+3.4
+3.4
+3.2
+3.2
+3.1
+2.9
+2.9
+2.8
+
+(Continued on the following page)
+
+Cancer Res 2007; 67: (14). July 15, 2007
+
+6630
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 7, 2017. © 2007 American Association for Cancer
+Research.
+
+Gene Expression Profiling of Liposarcoma
+
+Table 1. Overexpressed genes in well-differentiated and dedifferentiated liposarcoma compared with normal fat (Cont’d)
+Gene
+RBL1
+CKS1B
+MARKS
+CCNB1
+CDC7
+FUBP1
+CALR
+PLOD
+CDC25B
+RFC4
+CHEK1
+
+Title
+
+Fold change
+
+Retinoblastoma-like 1 (p107)
+CDC28 protein kinase regulatory subunit 1B
+Myristoylated alanine-rich protein kinase C substrate
+Cyclin B1
+CDC7 cell division cycle 7, G1-S transition of mitotic cell cycle
+FUSE binding protein 1
+Calreticulin
+Procollagen-lysine, 2-oxoglutarate 5-dioxygenase
+Cell division cycle 25B
+Replication factor C (activator 1) 4, 37 kDa, DNA replication
+CHK1 checkpoint homologue, DNA damage response
+
+2.8
+2.8
+2.8
+2.8
+2.7
+2.7
+2.6
+2.5
+2.5
+2.4
+2.0
+
+NOTE: A, selected overexpressed genes from 251 genes that were differentially expressed with a FDR of <0.005, comparing the mean log gene expression
+levels in eight pure well-differentiated liposarcoma samples (no dedifferentiated component in sample or elsewhere in patient’s tumor) to the mean
+gene log expression levels from nine normal fat tissue samples. B, selected overexpressed genes from the 130 genes that were differentially expressed
+with a FDR of <1  10 7 and >2-fold change, comparing the mean log gene expression levels of 20 pure dedifferentiated liposarcoma samples to those
+from nine normal fat tissue samples.
+
+GABPA, and WHSC1] or known oncogenes [RAB11B (RAS oncogene
+family)], GTPase signal transduction, SSPN-sarcospan (Kras oncogene–associated gene)]. Supplementary Fig. S1 shows the list of
+80 genes most highly correlated with well-differentiated/dedifferentiated class distinction. Many of the genes most useful for this
+distinction relate to the control of lipid, fatty acid, and carbohydrate
+metabolism (PLIN, APM1, GPD1, LPL, ADH1B, LBP, PNPLA2,
+LIPE, ACSL1, DGAT1, CLU, APM2, FABP4, HK2, APOL6), control
+of apoptosis (CIDEA, SOCS3 MAPT, DAPK2, BAG2, BAX, BIRC5survivin, SULF1), cytoskeleton structural genes (CKAP4, MAPT,
+FARP1, CTNNB1, ENC1, MARKS, TMP4, plectin1), RAS pathway
+genes (RAB23, HRASLS3, RAB20), transcription factors (PPARGC1A,
+PBX3, TLE4, SATB2, RBM9, FOXF2, ID3, FOXM1, SOX11) or cell
+cycle control genes (p130, cyclin H, MAPK1, CDC2, BUB1B, cyclin B2,
+CKS2, CDC20, DUSP4). The progression of well-differentiated to
+dedifferentiated liposarcoma seems to be governed by the
+differential expression of key cell cycle, transcription factor genes,
+cytoskeleton/microtubule assembly, and apoptotic control genes.
+Together, these data suggest that genes useful for liposarcoma class
+prediction may also provide insight into liposarcoma pathogenesis
+and progression from low-grade to high-grade liposarcoma.
+Results showing significant up-regulated genes in each
+liposarcoma subtype compared with normal fat. The genes
+differentially expressed for each liposarcoma subtype compared
+with normal fat can be used to identify candidate genes in
+liposarcoma differentiation and tumorigenesis and to identify new
+therapeutic molecular targets. Table 1A and B and Supplementary
+Tables S2 to S4 shows the significant up-regulated genes for each
+liposarcoma subtype compared with normal fat by comparing the
+mean log expression levels in each liposarcoma subtype samples
+with the normal fat tissue samples. To limit this gene list and to
+avoid multiple testing problem, we applied a stringent FDR for
+each subtype comparison and only examined genes that were
+differentially expressed more than 2-fold compared with normal fat.
+Bioinformatic pathway analysis of differentially expressed
+genes in the three biological types of liposarcoma compared
+with normal fat reveals type-specific pathway alterations and
+potential therapeutic targets. The ingenuity pathway analysis
+
+www.aacrjournals.org
+
+application,6 a web-based bioinformatic tool that maps gene lists
+(ranked by FDR or fold change) to a database of fully annotated
+biological interactions between genes displayed in a graphical
+format, was used to determine the significant gene interaction
+networks based on liposarcoma expression profiles. Comparison of
+gene expression in well-differentiated/dedifferentiated liposarcoma,
+myxoid/round cell liposarcoma, and pleomorphic liposarcoma
+with normal fat results in 998, 449, and 201 genes, respectively,
+that were differentially expressed more than 2-fold. These 998 genes
+for the well-differentiated/dedifferentiated type were entered into
+the ingenuity pathway analysis, resulting in 364 ‘‘focus genes’’ based
+on sufficient annotation of biological interactions. This final gene
+list resulted in 15 high-scoring interaction networks. Given the
+space limitations, we will present data from one of the most
+informative interaction networks in the well-differentiated/dedifferentiated subtype. Although there were several additional
+informative networks for all the biological types of liposarcoma,
+these will be developed in future publications. One of the most
+informative networks in this analysis contained a maximum of
+35 genes, scored highly relative to other networks, and drew
+attention to several cell cycle and checkpoint genes, the majority of
+which are significantly over expressed in well-differentiated/
+dedifferentiated liposarcoma compared with normal fat (see
+Fig. 3A). CDK4, MDM2, CDC2, CDC7, cyclin B1 (CCNB1), cyclinB2
+(CCNB2), cyclin E2 (CCNE2), and key regulators of the cell cycle
+were significantly overexpressed in well-differentiated and dedifferentiated liposarcoma compared with normal fat and account
+for the high cellular proliferation found in these liposarcoma
+subtypes. Figure 3B depicts the differentially expressed genes in cell
+cycle regulation pathways specific to phases of the cell cycle in
+well-differentiated and dedifferentiated liposarcoma.
+MDM2 as therapeutic target in well-differentiated/dedifferentiated liposarcoma. For these studies, we treated the two
+dedifferentiated liposarcoma cell lines with amplified MDM2
+(LS141 and DDLS) and a NADIP cell line, which does not have
+amplified MDM2 with nutlin (5 Amol/L) for 1 to 5 days and cell
+viability was measured (Fig. 4A). As indicated, both of the
+dedifferentiated liposarcoma cell lines were highly sensitive to
+
+6631
+
+Cancer Res 2007; 67: (14). July 15, 2007
+
+Downloaded from cancerres.aacrjournals.org on September 7, 2017. © 2007 American Association for Cancer
+Research.
+
+Cancer Research
+
+Figure 3. A, cell cycle and mitotic checkpoint gene interaction network in well-differentiated/dedifferentiated liposarcoma compared with normal fat. Red,
+overexpressed genes; green, underexpressed genes: the degree of color is proportional to the amount of differential expression. B, cell cycle regulation in
+well-differentiated/dedifferentiated liposarcoma.
+
+Cancer Res 2007; 67: (14). July 15, 2007
+
+6632
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 7, 2017. © 2007 American Association for Cancer
+Research.
+
+Gene Expression Profiling of Liposarcoma
+
+nutlin whereas the NADIP cells remained resistant to the drug. The
+mechanism of decreased cell growth seems to be in part mediated
+by an induction of apoptosis as indicated by Annexin V labeling
+(Fig. 4B) and a G2 cell cycle arrest (Fig. 4C). Although both cell lines
+are sensitive to the drug, this effect was greatest for the LS141 cell
+line with 48 h of drug exposure and only 5 Amol/L of nutlin. This
+increase in apoptosis in the LS141 cells can explain its increased
+sensitivity to single-agent drug therapy even among dedifferentiated liposarcoma cell lines.
+We next elected to examine changes in MDM2, p53, and p21
+expression in the three cell lines. For these studies the cell lines
+were treated with 2.5 to 10 Amol/L of nutlin for 24 h and then
+examined for changes in these molecular events. As shown in
+Fig. 5, nutlin induces p53 in both the LS141 and the DDLS cell lines.
+The interruption of the MDM2-p53 interaction also results in a
+significant increase in MDM2 by an established autoregulatory
+feedback loop (13, 14). This effect was greatest for the LS141 cell
+line and may be explained by the presence of a common
+polymorphism in codon 72 of p53 for LS141, which was not
+found in DDLS. This polymorphism has been associated with
+more efficient transcription of p53 and p21 (15) and may explain
+the increased sensitivity of LS141 cells to nutlin compared
+with the DDLS cell line. The increase in p53 induces p21 in
+the liposarcoma cell lines at nutlin concentrations as low as
+2.5 Amol/L. In LS141 and DDLS cell lines, a nutlin concentration
+of 5 Amol/L activates the p53-p21 axis, resulting in a G2 cell
+cycle arrest (Fig. 4C). In contrast, in the NADIP cells, in which
+MDM2 is not amplified and p53 is functional, 5 Amol/L nutlin
+do not result in increased expression of MDM2, p53, or p21 and
+there is no change in cell cycle or apoptosis. In the NADIP cells,
+increased expression of p53 is only seen at high nutlin concentrations (10 Amol/L) with minimal induction of p21. In summary,
+nutlin-3a, a small molecular antagonist of MDM2, preferentially
+activates the p53 pathway in dedifferentiated liposarcoma cell lines
+compared with NADIP cells, leading to a G2 cell cycle arrest and
+apoptosis in liposarcoma cells. These results suggest that liposarcoma cells with MDM2 overexpression retain critical functionality in downstream p53-dependent apoptotic signaling pathways
+and that the growth suppressive effects of the p53 pathway is
+well preserved in liposarcoma and, in fact, substantially more
+pronounced than NADIPs in response to MDM2 antagonists.
+
+Discussion
+Mortality rates for patients with liposarcoma are highly
+heterogeneous and are largely dependent on the histologic subtype,
+location, tumor burden, and patient age (6, 7). Histologic subtype
+based on the morphologic appearance of the tumor is the most
+important prognostic factor for survival, yet prior studies have
+shown a high level of disagreement (25–40%) even among expert
+pathologists for histologic type (16, 17) and emphasize the need
+to develop new objective methods of liposarcoma classification.
+High-throughput transcriptional profiling using DNA microarrays
+provides tools to tackle this heterogeneity. Genome-wide expression studies of various cancers have identified subtypes of tumors
+previously unrecognized but biologically and clinically relevant
+with respect to morphologic features and prognosis (9, 10, 18–20).
+This is important because molecular distinct tumor subtypes
+represent different diseases that ideally would require different
+treatments. Most recently, particular subtypes of liposarcoma have
+been found to be associated with specific chromosomal trans-
+
+www.aacrjournals.org
+
+locations and specific cytogenetic abnormalities (21–23) and have
+been used to improve the accuracy of subtype classification when
+combined with morphology. However, cytogenetic analysis is labor
+intensive and remains difficult to uniformly apply to all samples
+because some subtypes do not grow well in short-term culture.
+Immunohistochemical analysis of MDM2 and CDK4 protein
+expression may help to discriminate benign lipomas characterized
+by 12q13-15 rearrangements from well-differentiated liposarcoma/
+atypical lipomatous tumors characterized by 12q13-15 amplification with overrepresentation of the CDK4 and MDM2 genes
+(24, 25). A recent study has shown that MDM2 and CDK4
+immunoexpressions correlate closely with the gene amplification
+status in soft tissue tumors and show the utility of MDM2 and CDK4
+immunostaining as helpful adjuncts to distinguish well-differentiated liposarcoma from benign adipose tumors and dedifferentiated
+liposarcoma from poorly differentiated sarcomas (26). However,
+amplification and overexpression of CDK4, MDM2, GLI, and
+SAS genes of the 12q13-15 region has been detected in 45% of
+leiomyosarcoma and 54% of rhabdomyosarcoma (27, 28) and has
+also been detected frequently in human parosteal osteosarcomas
+(29) and in 10% of Ewing’s sarcoma (30). This suggests that the
+molecular deregulation of CDK4 and MDM2 is not specific for
+the well-differentiated/dedifferentiated liposarcoma subtypes.
+To further improve subtype classification, we sought to develop a
+classifier based on gene expression monitoring to automatically
+discover the distinction between liposarcoma subtypes and normal
+fat samples. In this analysis we examine all three biological groups of
+liposarcoma, as well as lipoma and normal fat. Using an unsupervised
+hierarchical clustering of gene expression profiles, three main
+clusters are found that show significant differences with respect to
+both tumor differentiation and subtype. These results suggest that
+lipomatous tissues with similar histologic features of differentiation
+show similarities in gene expression. A 142-gene multiclass SVMbased classifier using 15 genes per pair-wise classifier was able to
+determine subtype with over 90% accuracy, and on an independent
+test set subtype was 86% of samples correctly. The high performance
+of this SVM-based classifier shows the promise of using a relatively
+small subset of genes to enhance the diagnostic accuracy of
+liposarcoma subtype based entirely on morphologic features.
+Activation of cell cycle and checkpoint pathways in welldifferentiated and dedifferentiated liposarcoma. The cyclin-CDK
+complexes serve as important regulators of key cell cycle transitions.
+The cyclin D–CDK4/6 for G1 progression (31), cyclin E–CDK2 for
+G1-S transition, cyclin A–CDK2 for S-phase progression (32), and
+cyclin A/B–CDC2 (CDK1) for entry into M phase (33). Figure 3B
+shows the interplay of key genes for regulating the stages of the cell
+cycle and how the measured alterations in key gene expression levels
+in the various phases of the cell cycle pathway can lead to
+uncontrolled growth and contribute to liposarcoma formation. The
+increased expression of the G1-S phase regulators CDK4 and cyclin E
+would serve to enhance the G1-S transition. The universal CDI
+inhibitor Kip2 (p57, CDKN1C), which inhibits all of the G1 kinases
+(CDK2, CDK4, and CDK6), is 5-fold reduced in dedifferentiated
+liposarcoma compared with normal fat. The decrease in p57 levels
+with progression from well-differentiated to dedifferentiated liposarcoma may account for the increase in cellular proliferation
+usually associated with dedifferentiated liposarcoma and may
+further enhance G1-S transition in this subtype (34).
+An important regulator of the G2-M checkpoint, CDC2, is
+significantly overexpressed in all liposarcoma subtypes compared
+with normal fat based on microarray analysis (Table 1A and B;
+
+6633
+
+Cancer Res 2007; 67: (14). July 15, 2007
+
+Downloaded from cancerres.aacrjournals.org on September 7, 2017. © 2007 American Association for Cancer
+Research.
+
+Cancer Research
+
+Figure 4. A, proliferation assay of the two dedifferentiated liposarcoma cell lines (A) with amplified MDM2 (LS141 and DDLS) and the NADIP cell line (B ), which
+does not have amplified MDM2, which were treated with 5 Amol/L of nutlin-3 for 1 to 5 d, and cell viability was measured. LS141 and DDLS (A ) showed 80% inhibition
+of proliferation after 5 d of treatment with nutlin-3 compared with NADIP cells (B), which were found to have only 15% inhibition of proliferation. B, exposure of
+LS141 and DDLS cells to 5 Amol/L nutlin-3 for 48 h resulted in a 3-fold and 5-fold increase in apoptosis over baseline levels, respectively, as indicated by Annexin V
+labeling. Although both cell lines are sensitive to the drug, this effect was greatest for the LS141 cell line. Exposure of NADIP cells to 5 Amol/L nutlin-3 for 48 h resulted
+in no change in apoptosis. C, effect of 5 Amol/L nutlin-3 on cell cycle distribution in LS141, DDLS, and NADIP cells. A G2 cell cycle arrest was found in LS141
+and DDLS cells after treatment with nutlin-3. In contrast, no change in cell cycle was seen in NADIP cells after nutlin-3 treatment.
+
+Cancer Res 2007; 67: (14). July 15, 2007
+
+6634
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 7, 2017. © 2007 American Association for Cancer
+Research.
+
+Gene Expression Profiling of Liposarcoma
+
+Figure 5. Western blot for MDM2, p53, and p21 after treatment with 2.5 to
+10 Amol/L of nutlin for 24 h in dedifferentiated liposarcoma cell lines with
+amplified MDM2 and in a NADIP cell line with normal MDM2 expression.
+
+Supplementary Tables S2–S4) and RT-PCR (Supplementary Fig. S2).
+As well-differentiated liposarcoma progresses to dedifferentiated
+liposarcoma, in addition to the substantial f4-fold further
+increase in CDC2 expression, there is a 3-fold increase in cyclin
+B1 and 4-fold increase in cyclin B2 expression compared with
+normal fat. However, additional factors besides cyclin B transcription rate are involved in regulating mitosis from G2. In early G2,
+inhibitory phosphorylation of CDC2 by wee1 is counteracted by
+the CDC25 phosphatase (35). CDC25B is 3-fold overexpressed in
+dedifferentiated liposarcoma compared with normal fat. CDC25 is
+phosphorylated and activated by cyclin B/CDC2 complexes. Studies
+using recombinant proteins suggest that a positive feed-back loop
+between CDC2 and CDC25 is necessary for the full activation of
+cyclin B/CDC2 that induces abrupt entry into mitosis in vivo (36).
+Several of these differentially expressed cell cycle control genes
+serve as potential therapeutic targets in liposarcoma which are
+subtype specific. Based on the high-expression levels of CDK4, cyclin
+E2, cyclin B1, cyclin B2, and CDC2 in well-differentiated and
+dedifferentiated liposarcoma compared with normal fat, one would
+predict that flavopiridol, a pan cyclin–dependent kinase inhibitor,
+which has been shown to bind to and directly inhibit cyclin B1–CDC2
+kinase, CDK2, CDK4, and CDK6 should show increased antitumor
+activity in these liposarcoma subtypes. We are now evaluating in
+preclinical studies the activity of flavopiridol compounds in welldifferentiated and dedifferentiated liposarcoma cell lines.
+The mitotic checkpoint protein MAD2 was found to be 6-fold,
+10-fold, and 13-fold overexpressed in dedifferentiated, round cell,
+and pleomorphic liposarcoma, respectively, compared with normal
+fat (validated by real-time RT-PCR; see Supplementary Fig. S2). The
+low-grade liposarcoma subtypes, well differentiated and myxoid,
+were found to not overexpress MAD2. MAD2 is a direct target of
+E2F and is aberrantly expressed in cells with defects in the Rb
+pathway (37, 38). Aberrant MAD2 expression has been associated
+with checkpoint defects leading to aneuploidy. The spindle
+checkpoint serves to maintain genomic stability by preventing
+the onset of anaphase until all chromosomes are properly attached
+to the mitotic spindle. The MAD2 checkpoint protein is a key
+component of this checkpoint system because it inhibits the
+anaphase-promoting complex and its coactivator CDC20. Spindle
+damaging agents, such as paclitaxel (Taxol), stabilize microtubules,
+inducing a mitotic arrest and activating the spindle cell checkpoint
+before the subsequent sub-G1 apoptosis (39). Recent work suggests
+that overexpression of MAD2 protein in checkpoint-defective
+cells enhances paclitaxel sensitivity (40, 41). We plan further
+
+www.aacrjournals.org
+
+studies to test the spindle checkpoint response in dedifferentiated
+liposarcoma cell lines so as to develop a strategy for fostering
+enhanced apoptosis after treatment with microtubule inhibitors,
+such as paclitaxel. Previous work has shown that flavopiridol
+enhances paclitaxel-induced apoptosis only when given after
+paclitaxel treatment (42). The elevated levels of MAD2 in
+dedifferentiated, round cell, and pleomorphic liposarcoma may
+make these subtypes sensitive to paclitaxel therapy, either alone
+or in combination with flavopiridol.
+MDM2 as a therapeutic target in liposarcoma subtypes that
+overexpress MDM2. In this study, we have shown that MDM2 is
+overexpressed in well-differentiated and dedifferentiated liposarcoma compared with normal fat tissue and in dedifferentiated
+liposarcoma cell lines compared with normal human preadipocyte
+cells. Overproduction of MDM2 not only down-modulates p53
+stability and function, inhibiting wild-type p53–mediated apoptosis,
+but also interacts physically and functionally with pRb and inhibits
+pRb growth regulatory function (43), leading to loss of the two main
+inhibitory systems of cell proliferation that act at the G1-S and G2-M
+checkpoints (see Fig. 3B). MDM2 facilitates the shift into S phase by
+activating E2F-1 (44). Activation of E2F-1 triggers dissociation of
+E2F-1–pRb complexes, which removes the block from G1-S phase.
+Thus, amplification of MDM2 in well-differentiated and dedifferentiated liposarcoma can function both to induce cell proliferation
+and enhance cell survival. Because p53 mutations are relatively
+infrequent in liposarcoma subtypes with amplified MDM2 (45, 46), we
+postulated that selective activation of p53 might offer an alternative
+therapeutic strategy for these liposarcoma subtypes, which are largely
+resistant to conventional chemotherapy. However, it is not known
+if p53-dependent apoptotic signaling is functionally intact in
+dedifferentiated liposarcoma cells and if this effect could be used
+to preferentially induce cell death in liposarcoma cells compared
+with NADIP cells. In this study, we report on the first molecular
+and functional analysis of the p53 pathway in dedifferentiated
+liposarcoma and NADIP cell lines using the recently developed
+MDM2 antagonist, nutlin-3a, as a specific p53 inducer (13).
+Treatment of dedifferentiated liposarcoma cells with nutlin-3a at
+concentrations as low as 2.5 Amol/L results in increased levels of
+p53 protein and its downstream transcriptional targets MDM2
+and p21. Nutlin-3a treatment of two dedifferentiated liposarcoma
+cell lines resulted in significant induction of apoptosis and
+inhibition of proliferation associated with a G2 cell cycle arrest.
+In contrast, NADIP cells following treatment with 2.5 to 5 Amol/L
+concentrations of nutlin-3a showed no apoptosis, cell cycle, or
+proliferative changes. For the normal adipocyte cells, induction of
+p53, p21, and MDM2 was seen only following treatment with high
+(10 Amol/L) concentrations of nutlin-3a. Thus, downstream p53
+pathway signaling in dedifferentiated liposarcoma cell lines with
+overexpressed MDM2 seems to be much more pronounced than
+normal adipocyte cells and suggests that MDM2 antagonists, such
+as nutlin-3a, might serve as an effective therapeutics for liposarcomas with MDM2 amplification and at the same time induce
+few antiproliferative or apoptotic effects on normal cells.
+In summary, we have shown the utility of gene expression
+analysis for the diagnosis of liposarcoma subtype and how
+differential gene expression between liposarcoma tissue types
+and normal fat can be combined with bioinformatic pathway
+analysis to prioritize genes as potential therapeutic targets.
+Activation of cell cycle and checkpoint pathways in welldifferentiated and dedifferentiated liposarcoma combined with
+MDM2 overexpression in these subtypes identified MDM2 as a
+
+6635
+
+Cancer Res 2007; 67: (14). July 15, 2007
+
+Downloaded from cancerres.aacrjournals.org on September 7, 2017. © 2007 American Association for Cancer
+Research.
+
+Cancer Research
+
+promising drug target. A highly specific MDM2 antagonist, nutlin3a, results in substantial apoptosis in dedifferentiated liposarcoma
+cell lines that were not found in NADIP cells. These results further
+support the clinical development of MDM2 antagonists for the
+treatment of liposarcoma that overexpress MDM2 and show the
+promise of this transcriptional dataset to provide additional novel
+targets for drug discovery.
+
+References
+1. Mack T. Sarcomas and other malignancies of soft
+tissue, retroperitoneum, peritoneum, pleura, heart,
+mediastinum and spleen. Cancer 1995;75:211–44.
+2. Antonescu CR, Tschernyavsky SJ, Decuseara R, et al.
+Prognostic impact of P53 status, TLS-CHOP fusion
+transcript structure, and histological grade in myxoid
+liposarcoma: a molecular and clinicopathologic study of
+82 cases. Clin Cancer Res 2001;7:3977–87.
+3. Eilber FC, Eilber FR, Eckardt J, et al. The impact of
+chemotherapy on the survival of patients with highgrade primary extremity liposarcoma. Ann Surg 2004;
+240:686–95; discussion 95–7.
+4. Gebhard S, Coindre JM, Michels JJ, et al. Pleomorphic
+liposarcoma: clinicopathologic, immunohistochemical,
+and follow-up analysis of 63 cases: a study from the
+French Federation of Cancer Centers Sarcoma Group.
+Am J Surg Pathol 2002;26:601–16.
+5. Kooby DA, Antonescu CR, Brennan MF, Singer S.
+Atypical lipomatous tumor/well-differentiated liposarcoma of the extremity and trunk wall: importance of
+histological subtype with treatment recommendations.
+Ann Surg Oncol 2004;11:78–84.
+6. Singer S, Antonescu CR, Riedel E, Brennan MF.
+Histologic subtype and margin of resection predict
+pattern of recurrence and survival for retroperitoneal
+liposarcoma. Ann Surg 2003;238:358–70; discussion
+70–1.
+7. Dalal KM, Kattan MW, Antonescu CR, Brennan
+MF, Singer S. Subtype specific prognostic nomogram
+for patients with primary liposarcoma of the
+retroperitoneum, extremity, or trunk. Ann Surg
+2006;244:381–91.
+8. Eilber F, Eilber F, Eckardt J, et al. Ifosfamide based
+chemotherapy is associated with improved survival in
+patients with primary extremity synovial sarcoma. New
+Orleans (LA): ASCO; 2004.
+9. Nielsen TO, West RB, Linn SC, et al. Molecular
+characterisation of soft tissue tumours: a gene expression study. Lancet 2002;359:1301–7.
+10. Segal NH, Pavlidis P, Antonescu CR, et al.
+Classification and subtype prediction of adult soft
+tissue sarcoma by functional genomics. Am J Pathol
+2003;163:691–700.
+11. Fritz B, Schubert F, Wrobel G, et al. Microarray-based
+copy number and expression profiling in dedifferentiated and pleomorphic liposarcoma. Cancer Res 2002;62:
+2993–8.
+12. Shimoji T, Kanda H, Kitagawa T, et al. Clinicomolecular study of dedifferentiation in well-differentiated liposarcoma. Biochem Biophys Res Commun 2004;
+314:1133–40.
+13. Vassilev LT, Vu BT, Graves B, et al. In vivo activation
+of the p53 pathway by small-molecule antagonists of
+MDM2. Science 2004;303:844–8.
+14. Tovar C, Rosinski J, Filipovic Z, et al. Small-molecule
+MDM2 antagonists reveal aberrant p53 signaling in
+cancer: implications for therapy. Proc Natl Acad Sci
+U S A 2006;103:1888–93.
+
+Cancer Res 2007; 67: (14). July 15, 2007
+
+Acknowledgments
+Received 2/12/2007; revised 4/11/2007; accepted 5/14/2007.
+Grant support: Soft Tissue Sarcoma Program Project PO1 CA047179, Kristin Ann
+Carr Fund, and NIH T32 training grant CA09501 (E.B. Sambol).
+The costs of publication of this article were defrayed in part by the payment of page
+charges. This article must therefore be hereby marked advertisement in accordance
+with 18 U.S.C. Section 1734 solely to indicate this fact.
+The authors thank Lyubomir Vassilev (Discovery Oncology, Hoffmann-La Roche
+Inc.) for his helpful comments and suggestions.
+
+15. Thomas M, Kalita A, Labrecque S, Pim D, Banks L,
+Matlashewski G. Two polymorphic variants of wild-type
+p53 differ biochemically and biologically. Mol Cell Biol
+1999;19:1092–100.
+16. Alvegard TA, Berg NO. Histopathology peer
+review of high-grade soft tissue sarcoma: the Scandinavian Sarcoma Group experience. J Clin Oncol 1989;7:
+1845–51.
+17. Coindre J, Trojani M, Contesso G, David M.
+Reproducibility of a histopathologic grading system for
+adult soft-tissue sarcoma. Cancer 1986;58:306–9.
+18. Alizadeh AA, Eisen MB, Davis RE, et al. Distinct types
+of diffuse large B-cell lymphoma identified by gene
+expression profiling. Nature 2000;403:503–11.
+19. Perou CM, Sorlie T, Eisen MB, et al. Molecular
+portraits of human breast tumours. Nature 2000;406:
+747–52.
+20. Schaner ME, Ross DT, Ciaravino G, et al. Gene
+expression patterns in ovarian carcinomas. Mol Biol Cell
+2003;14:4376–86.
+21. Bassett MD, Schuetze SM, Disteche C, et al. Deepseated, well differentiated lipomatous tumors of the
+chest wall and extremities: the role of cytogenetics in
+classification and prognostication. Cancer 2005;103:
+409–16.
+22. Meis-Kindblom JM, Sjogren H, Kindblom LG, et al.
+Cytogenetic and molecular genetic analyses of liposarcoma and its soft tissue simulators: recognition of
+new variants and differential diagnosis. Virchows Arch
+2001;439:141–51.
+23. Sandberg AA. Updates on the cytogenetics and
+molecular genetics of bone and soft tissue tumors:
+liposarcoma. Cancer Genet Cytogenet 2004;155:1–24.
+24. Dei Tos AP, Doglioni C, Piccinin S, et al. Coordinated
+expression and amplification of the MDM2, CDK4, and
+HMGI-C genes in atypical lipomatous tumours. J Pathol
+2000;190:531–6.
+25. Pilotti S, Della Torre G, Mezzelani A, et al. The
+expression of MDM2/CDK4 gene product in the
+differential diagnosis of well differentiated liposarcoma and large deep-seated lipoma. Br J Cancer 2000;
+82:1271–5.
+26. Binh MB, Sastre-Garau X, Guillou L, et al. MDM2 and
+CDK4 immunostainings are useful adjuncts in diagnosing well-differentiated and dedifferentiated liposarcoma
+subtypes: a comparative analysis of 559 soft tissue
+neoplasms with genetic data. Am J Surg Pathol 2005;29:
+1340–7.
+27. Ragazzini P, Gamberi G, Pazzaglia L, et al. Amplification of CDK4, MDM2, SAS and GLI genes in
+leiomyosarcoma, alveolar and embryonal rhabdomyosarcoma. Histol Histopathol 2004;19:401–11.
+28. Anderson J, Gordon A, Pritchard-Jones K, Shipley J.
+Genes, chromosomes, and rhabdomyosarcoma. Genes
+Chromosomes Cancer 1999;26:275–85.
+29. Wunder JS, Eppert K, Burrow SR, Gokgoz N, Bell
+RS, Andrulis IL. Co-amplification and overexpression
+of CDK4, SAS and MDM2 occurs frequently in
+human parosteal osteosarcomas. Oncogene 1999;18:
+783–8.
+
+6636
+
+30. Ladanyi M, Lewis R, Jhanwar SC, Gerald W, Huvos
+AG, Healey JH. MDM2 and CDK4 gene amplification in
+Ewing’s sarcoma. J Pathol 1995;175:211–7.
+31. Sherr CJ. G1 phase progression: cycling on cue. Cell
+1994;79:551–5.
+32. Fang F, Newport JW. Evidence that the G1-S and G2M transitions are controlled by different cdc2 proteins
+in higher eukaryotes. Cell 1991;66:731–42.
+33. Riabowol K, Draetta G, Brizuela L, Vandre D, Beach
+D. The cdc2 kinase is a nuclear protein that is
+essential for mitosis in mammalian cells. Cell 1989;57:
+393–401.
+34. Gomez Lahoz E, Liegeois NJ, Zhang P, et al. Cyclin Dand E-dependent kinases and the p57(KIP2) inhibitor:
+cooperative interactions in vivo . Mol Cell Biol 1999;19:
+353–63.
+35. Russell P, Nurse P. cdc25+ functions as an inducer
+in the mitotic control of fission yeast. Cell 1986;45:
+145–53.
+36. Izumi T, Maller JL. Elimination of cdc2 phosphorylation sites in the cdc25 phosphatase blocks initiation of
+M-phase. Mol Biol Cell 1993;4:1337–50.
+37. Nahle Z, Polakoff J, Davuluri RV, et al. Direct coupling
+of the cell cycle and cell death machinery by E2F. Nat
+Cell Biol 2002;4:859–64.
+38. Ren B, Cam H, Takahashi Y, et al. E2F integrates
+cell cycle progression with DNA repair, replication,
+and G(2)/M checkpoints. Genes Dev 2002;16:245–56.
+39. Jordan MA, Wendell K, Gardiner S, Derry WB, Copp
+H, Wilson L. Mitotic block induced in HeLa cells by low
+concentrations of paclitaxel (Taxol) results in abnormal
+mitotic exit and apoptotic cell death. Cancer Res 1996;
+56:816–25.
+40. Sudo T, Nitta M, Saya H, Ueno NT. Dependence of
+paclitaxel sensitivity on a functional spindle assembly
+checkpoint. Cancer Res 2004;64:2502–8.
+41. Sihn CR, Suh EJ, Lee KH, Kim TY, Kim SH.
+p55CDC/hCDC20 mutant induces mitotic catastrophe
+by inhibiting the MAD2-dependent spindle checkpoint activity in tumor cells. Cancer Lett 2003;201:
+203–10.
+42. Motwani M, Delohery TM, Schwartz GK. Sequential
+dependent enhancement of caspase activation and
+apoptosis by flavopiridol on paclitaxel-treated human
+gastric and breast cancer cells. Clin Cancer Res 1999;5:
+1876–83.
+43. Xiao ZX, Chen J, Levine AJ, et al. Interaction between
+the retinoblastoma protein and the oncoprotein MDM2.
+Nature 1995;375:694–8.
+44. Martin K, Trouche D, Hagemeier C, Sorensen TS, La
+Thangue NB, Kouzarides T. Stimulation of E2F1/DP1
+transcriptional activity by MDM2 oncoprotein. Nature
+1995;375:691–4.
+45. Dei Tos AP, Doglioni C, Piccinin S, et al. Molecular
+abnormalities of the p53 pathway in dedifferentiated
+liposarcoma. J Pathol 1997;181:8–13.
+46. Pilotti S, Della Torre G, Lavarino C, et al. Distinct
+mdm2/p53 expression patterns in liposarcoma subgroups: implications for different pathogenetic mechanisms. J Pathol 1997;181:14–24.
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 7, 2017. © 2007 American Association for Cancer
+Research.
+
+Gene Expression Profiling of Liposarcoma Identifies Distinct
+Biological Types/Subtypes and Potential Therapeutic Targets
+in Well-Differentiated and Dedifferentiated Liposarcoma
+Samuel Singer, Nicholas D. Socci, Grazia Ambrosini, et al.
+Cancer Res 2007;67:6626-6636.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+http://cancerres.aacrjournals.org/content/67/14/6626
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2007/07/24/67.14.6626.DC1
+
+This article cites 45 articles, 13 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/67/14/6626.full#ref-list-1
+This article has been cited by 26 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/67/14/6626.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications
+Department at pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications
+Department at permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 7, 2017. © 2007 American Association for Cancer
+Research.
+
+

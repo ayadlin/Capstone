@@ -1,0 +1,1041 @@
+Published OnlineFirst November 5, 2010; DOI: 10.1158/0008-5472.CAN-10-1400
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+Mathematical and Experimental Approaches to Identify and
+Predict the Effects of Chemotherapy on Neuroglial
+Precursors
+€ rg Dietrich2,3, and Mark Noble2
+Ollivier Hyrien1, Jo
+
+Abstract
+The adverse effects of chemotherapy on normal cells of the body create substantial clinical problems for many
+cancer patients. However, relatively little is known about the effects, other than promotion of cell death, of such
+agents on the function of normal precursor cells critical in tissue homeostasis and repair. We have combined
+mathematical and experimental analyses to identify the effects of sublethal doses of chemotherapy on glial
+precursor cells of the central nervous system. We modeled the temporal development of a population of
+precursor and terminally differentiated cells exposed to sublethal doses of carmustine (BCNU), a classic
+alkylating chemotherapeutic agent used in treatment of gliomas and non-Hodgkin's lymphomas, as a multitype
+age-dependent branching process. We fitted our model to data from in vitro clonal experiments using the
+method of pseudo-likelihood. This approach identifies several novel drug effects, including modification of the
+cell cycle length, the time between division and differentiation, and alteration in the probability of undergoing
+self-renewal division in precursor cells. These changes of precursor cell function in the chemotherapy-exposed
+brain may have profound clinic implications.
+Major Findings: We applied our computational approach to analyze the effects of BCNU on clonal cultures of
+oligodendrocyte progenitor cells—one of the best-characterized neural progenitor cells in the mammalian brain.
+Our analysis reveals that transient exposures to BCNU increased the cell cycle length of progenitor cells and
+decreased their time to differentiation, while also decreasing the likelihood that they will undergo self-renewing
+divisions. By investigating the behavior of our mathematical model, we demonstrate that precursor cell
+populations should recover spontaneously from transient modifications of the timing of division and of
+differentiation, but such recovery will not happen after alteration of cell fate. These studies identify means
+by which precursor cell function can be critically compromised by transient exposure to chemotherapy with
+long-term consequences on the progenitor cell pool even in the absence of drug-induced apoptosis. These
+analyses also provide novel tools that apply broadly to identify effects of chemotherapeutic agents and other
+physiological stressors. Cancer Res; 70(24); 10051–9. 2010 AACR.
+
+Introduction
+Treatment of cancer with chemotherapy is associated with
+a wide range of adverse side effects, which may affect the
+normal dividing cell populations of multiple organ systems,
+including the hematopoietic system and brain. Dose-limiting
+Authors' Affiliations: 1Department of Biostatistics and Computational
+Biology and 2Department of Biomedical Genetics, University of Rochester
+Medical Center, Rochester, New York; and 3Department of Neurology,
+Division of Neuro-Oncology, Massachusetts General Hospital Cancer
+Center, Harvard Medical School, Boston, Massachusetts
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+Corresponding Author: Ollivier Hyrien, Department of Biostatistics and
+Computational Biology, University of Rochester Medical Center, 601
+Elmwood Avenue, Rochester, NY 14642. Phone: 585-275-5303; Fax:
+585-273-1031. E-mail: Ollivier_Hyrien@urmc.rochester.edu
+doi: 10.1158/0008-5472.CAN-10-1400
+2010 American Association for Cancer Research.
+
+toxicities are frequently seen in tissues that contain dividing
+precursor cells (a term used here to include both tissuespecific stem cells and the lineage-committed progenitor cells
+they generate as intermediates in the production of differentiated cell types).
+Although toxicity of chemotherapy may be seen both as
+acute and chronic complications, the alterations in cellular
+function (other than cell death) resulting in long-term and
+delayed adverse effects are poorly understood. For instance,
+the promotion of differentiation of dividing precursor cells
+into nondividing differentiated cells provides a nonlethal
+means of reducing the number of precursor cells available
+for tissue homeostasis or repair. Still another means by which
+dividing precursor cells may be reduced in number would be if
+exposure to chemotherapeutic agents induced a nonproductive mitotic arrest, such that the cells neither divide nor
+differentiate.
+Clonal analysis offers the most powerful means of analyzing the behavior of precursor cells in respect to division and
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+10051
+
+Published OnlineFirst November 5, 2010; DOI: 10.1158/0008-5472.CAN-10-1400
+Hyrien et al.
+
+ancestor of the myelin-forming oligodendrocytes of the central nervous system (CNS). Damage to
+Modeling cell kinetics in the absence of drug exposure
+myelinated regions of the CNS presenting as radiographic leukoenceThe mathematical model describes the evolution over time of the composition of
+phalopathy may be seen in patients
+clones originating from oligodendrocyte-type-2 astrocyte progenitor cells (O-2A/OPC). It
+treated with systemic chemotherconsiders the physiological potential of O-2A/OPCs to either divide into 2 O-2A/OPCs or
+apy (1–4). We have recently shown
+differentiate into postmitotic, terminally differentiated oligodendrocytes. On completion
+that O-2A/OPCs themselves are
+of its "lifespan" (referring either to the mitotic cycle duration, or to the time to
+vulnerable to multiple chemotherdifferentiation calculated from the occurrence of the last cell division), an O-2A/OPC
+apeutic agents, including carmuseither divides into 2 O-2A/OPCs, or differentiates into a single oligodendrocyte. Death of
+tine (BCNU), cisplatin, cytosine
+O-2A/OPCs and oligodendrocytes was not detected during our experiment, and was
+arabinoside (Ara-C), and 5-fluortherefore omitted from the model. The events of division and differentiation are
+ouracil (5, 6). O-2A/OPCs have prostochastic in nature, and the model assumes that they are governed by probabilities
+ven useful to investigate subtle
+of division denoted by pk, possibly dependent on the cell generation k. The probability of
+changes in division and differentiadifferentiation is 1–pk. The mitotic cycle duration and the time to differentiation of O-2A/
+tion due to the ability to analyze
+OPCs are modeled by nonnegative random variables t1 and t2 with possibly dissimilar
+these functions over time in single
+distributions. In doing so, the model allows the time to division to be shorter (or longer)
+clones of these cells. Such clonal
+than the time to differentiation, as needed. As shown in Figure 1, the model considers the
+analysis has provided the basis for
+possibility for symmetric and asymmetric cell division by allowing daughter cells to have
+the analysis of multiple modulaidentical or distinct developmental fates.
+tors of division and differentiation,
+including signaling molecules,
+Modeling cell kinetics in the presence of drug exposure
+inhibitors of cyclin-dependent
+kinases, and alterations in intracelDrug exposure at sublethal doses may alter the fate of O-2A/OPCs as follows: (1) the
+lular redox balance (7–19). Morefate of O-2A/OPCs changes, for example, an O-2A/OPC that would have divided, if it had
+over, O-2A/OPCs are one of the few
+not been exposed to the drug, differentiates into an oligodendrocyte; (2) the time to
+precursor cell populations that
+differentiation of O-2A/OPCs decreases (or increases), thereby accelerating (or delaying)
+have been successfully used in
+the generation of oligodendrocytes; (3) the time to division of O-2A/OPCs increases or
+the development of mathematical
+decreases, causing the generation of new O-2A/OPCs to be delayed or accelerated. These
+approaches to the quantitative
+parameters may change in concert. After the drug is washed out, residual drug effects
+analysis of division and differentiamay persist in subsequent, nondirectly exposed progenies.
+tion (20–31).
+To better understand the effects of
+chemotherapy on precursor cell function in normal cell populadifferentiation, and offers an ideal platform to mathematitions, we developed a computational approach that quantifies
+cally analyze these biological processes. One of the cell types
+effects of transient drug exposures on clones of precursor cells.
+most suitable for analyzing the sublethal effects of cheOur mathematical model is a multitype age-dependent branchmotherapy on alterations of precursor cell function is the
+ing process (32–34), which describes the evolution over time of
+oligodendrocyte-type-2 astrocyte progenitor cell (also
+clones of O-2A/OPCs and oligodendrocytes. It allows analysis of
+referred to as oligodendrocyte precursor cell, and here
+such properties as cell fate, cell cycle length, and duration
+abbreviated as an O-2A/OPC). This cell is the immediate
+
+Quick Guide to Assumptions and Equations
+
+division
+
+{
+
+or
+
+τ1
+
+Pr(division) = pk
+F(t) = Pr(τ1≤ t)
+
+or
+Effect 2:
+Differentiation
+occurs sooner
+
+differentiation
+
+{
+
+Effect 1:
+Division
+occurs later
+
+Pr(differentiation) = 1 – pk
+G(t) = Pr(τ2≤ t )
+
+τ2
+Effect 3:
+change of cell fate
+(e.g., Differentiation occurs
+instead of division)
+
+O-2A/OPCs
+
+Oligodendrocytes
+
+Drug exposure
+
+Normal condition
+
+10052
+
+Cancer Res; 70(24) December 15, 2010
+
+Figure 1. Model structure in the
+absence of drug exposure (left)
+and a description of the possible
+effects of drug exposures (right).
+F(t) and G(t) denote the c.d.f.s for
+the time to division and for the
+time to differentiation of
+progenitor cells; pk denotes the
+probability of division of any
+generation-k progenitor.
+
+Exposure to chemotherapy
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+Published OnlineFirst November 5, 2010; DOI: 10.1158/0008-5472.CAN-10-1400
+The Effects of Chemotherapy on Neuroglial Precursors
+
+between the final cell cycle and the occurrence of overt differentiation. It also considers possible alterations induced by drug
+exposures in the timing of division and differentiation, and in the
+probability of self-renewing division. This approach was applied
+to investigate alterations of the division and differentiation of O2A/OPCs, following exposure to BCNU. The analysis demonstrates that transient exposure to sublethal concentrations of
+BCNU compromises the capacity of O-2A/OPCs for continued
+cell division while promoting their premature differentiation
+into nondividing oligodendrocytes, thereby leading to the generation of fewer total progeny from each individual clonal
+founder cell. In addition, we analyzed drug effects in regard
+to how changes in parameter values (e.g., the probability of
+division or the timing of division and differentiation) influence
+the behavior of the mathematical model. Our investigations
+suggest, for instance, that a small reduction in the probability of
+division induced by transient exposure to BCNU may change
+dramatically the composition of the population that does not
+spontaneously restore normal cell numbers after chemotherapy
+is completed.
+
+Materials and Methods
+Clonal experiments on oligodendrocyte generation
+All experiments were conducted by growing O-2A/OPCs at
+clonal densities in tissue culture flasks as previously described
+(5, 10, 12, 15). O-2A/OPCs generate clones of cells that can be
+individually examined for their composition. The O-2A/OPC
+lineage is ideally suitable for such analysis, as changes in cell
+morphology are tightly correlated with changes in their antigenic profile, allowing identification of their state of differentiation with >98% accuracy using a microscope (10–16). One
+day after plating, half of the cultures were transiently exposed
+to 1 mmol/L BCNU for 1 hour (to reflect the half-life of BCNU in
+vivo; refs. 35, 36). This dose did not result in significant cell
+death (<5% reduction in number of viable cells) of O-2A/OPCs
+in mass culture. This level of exposure is at least 90% lower than
+the 8 to 10mmol/L concentrations of BCNU reported to be
+achieved in the CNS with low-dose exposures in vivo (36, 37).
+BCNU was washed out and clones were followed daily. Control
+flasks were treated similarly, but in the absence of BCNU. Every
+day from day 2 to day 7, the composition of 100 clones (50
+controls and 50 treated) was analyzed by morphologic examination, yielding a total of 600 independent observations (each
+observation provided the numbers of O-2A/OPCs and oligodendrocytes counted in a same clone using a microscope).
+Branching process models of dividing and
+differentiating O-2A/OPCs
+One of the primary challenges in studying subtle aspects of
+progenitor cell function is that time-lapse microscopy, the
+most sensitive technique, requires costly instrumentation,
+only allows limited numbers of clones to be studied, and
+cannot be applied in vivo. In contrast, clonal analysis can be
+conducted so as to obtain larger amounts of data at low cost,
+and can even be used to study differentiation in vivo (38). The
+problem with clonal analysis, however, is that the events of
+division and differentiation of progenitor cells and their
+
+www.aacrjournals.org
+
+alteration by exposures to a chemotherapeutic agent are
+not directly observable. To address this problem, we developed a branching process model of the generation of clonal
+families of O-2A/OPCs, which is defined by the following
+assumptions (see also Fig. 1):
+Model assumptions under normal conditions
+A1. The process begins at time t ¼ 0 with a single progenitor
+cell of generation 1. Every progenitor cell of generation k  1
+either divides into 2 progenitor cells of generation k þ 1 with
+probability pk, or it differentiates into a single oligodendrocyte
+with probability 1–pk. In our analyses we set
+pk ¼ 1=f1 þ expðh0 þ h1 kÞg;
+where ð0 ; 1 Þ are free parameters. The probability of division
+decreases with the generation whenever 1 > 0, and increases
+otherwise (29).
+A2. The mitotic cycle duration (referred to below as the
+time to division) of any progenitor cell was modeled as a
+nonnegative random variable with cumulative distribution
+function (cdf ) FðÞ, whereas their time to differentiation
+(calculated from the time of last cell division) was modeled
+as a nonnegative random variable with c.d.f. GðÞ. On the basis
+of past studies (27, 29, 30), these 2 distributions were allowed
+to be dissimilar, so the time to division could be stochastically
+shorter/longer than the time to differentiation, if needed. Both
+distributions were assumed not to change with generation (8,
+29), and were taken from the family of 2-parameter gamma
+distributions. Write m1 and s 21 (resp. m2 and s 22 ) for the mean
+and variance of the time to division (resp. differentiation).
+A3. The traditional independence assumptions for branching
+processes are adopted (32–34). Time-lapse experiments (29)
+suggested that significant correlation might exist between the
+time to division of sister cells. However, such dependencies have
+little effect on the behavior of branching processes, and, for
+instance, do not affect the expected cell counts (39–41).
+The expected numbers of O-2A/OPCs and oligodendrocytes
+at time t under assumptions (A1–A3) are given by
+¥
+X
+
+mO2A=OPC ðtÞ ¼
+p1    pk 2k F k ðtÞ  pkþ1 F kþ1 ðtÞ
+k¼0
+
+
+ð1  pkþ1 ÞF k  GðtÞ ;
+¥
+X
+moligodendrocyte ðtÞ ¼
+p1    pk ð1  pkþ1 Þ2k F k  GðtÞ:
+k¼0
+
+R1
+where F  GðtÞ ¼ 0 F ðt  xÞdGðxÞ denotes the convolution of F(t) and G(t), and where Fkþ1 ðtÞ ¼ Fk  FðtÞ, and
+where, by convention, p1    pk ¼ 1 when k ¼ 0. Expressions
+for variances of cell numbers are more complicated but can
+also be derived (30).
+Model assumptions under drug exposure
+To describe the temporal development of clones transiently
+exposed to a sublethal dose of drug, we account for the possible
+changes that a drug may induce on the fate of O-2A/OPCs and
+on the timing of their division and their differentiation (Fig. 1B).
+Although the model presented below considers only the case of
+
+Cancer Res; 70(24) December 15, 2010
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+10053
+
+Published OnlineFirst November 5, 2010; DOI: 10.1158/0008-5472.CAN-10-1400
+Hyrien et al.
+
+a drug that induces differentiation of O-2A/OPCs into oligodendrocytes (such as BCNU), alternative models could be
+similarly developed for when drug exposure promotes selfrenewal division.
+B1. The process begins at time t ¼ 0 with a single progenitor
+cell of generation 1.
+B2. Every cell that completes its lifespan prior to the time of
+drug exposure obeys assumptions (A1–A3).
+B3. Every cell exposed to the drug before dividing or
+differentiating is subject to changes defined by the following
+assumptions, which rely on an experimental observation that
+BCNU causes O2A/OPCs to differentiate (5, 6).
+(i) An O-2A/OPC that intended to divide before being
+exposed to the drug will change its fate with probability
+q, and differentiate into an oligodendrocyte instead of
+dividing. In such circumstances, the time to differentiation calculated from the time of drug exposure is
+modeled by a nonnegative random variable with c.d.f.
+Gtreated ðÞ, assumed gamma with mean mtreated and
+variance s 2treated . In contrast, if the cell fate does not
+change, the duration between drug exposure and the
+cell division is reduced/increased by a factor  relative
+to how long this duration would have been if the cell
+had not been exposed to the drug.
+(ii) An O-2A/OPC that intended to differentiate into an
+oligodendrocyte before drug exposure will not change
+its fate. However, the duration between the time of drug
+exposure and the time of differentiation may be altered,
+and this duration is reduced/increased by a factor r
+relative to how long it would have been if the cell had
+not been exposed to the drug.
+B4. O-2A/OPCs born after drug exposure obey assumptions
+(A1–A3), except that
+(iii) Their probability of division may differ from those of
+O-2A/OPCs that proliferate in untreated clones.
+Denoting by qk the probability of division of generation-k O-2A/OPCs born after the time of drug exposure, we set
+qk ¼ minfa  pk ; 1g;
+where  is a free parameter capturing an increase ( >
+1) or a reduction ( < 1 ) in the probability of division
+of O-2A/OPCs postexposure, and quantifying a residual effect of chemotherapy.
+The times to division and the times to differentiation differ from those of O-2A/OPCs that proliferate in
+untreated clones by constant factors r and . We
+therefore assumed that the times to division and
+the times to differentiation were gamma distributed
+with means and variances
+(
+ post
+post
+m2 ¼ m2
+m1 ¼ rm1
+and
+:
+2;post
+2;post
+2 2
+s1
+¼ r s1
+s2
+¼ 2 s 22
+Assumption (B4) has not yet been supported by any
+experimental studies, and one goal of our studies will
+be to test it.
+B5. Same assumption as A3.
+
+10054
+
+Cancer Res; 70(24) December 15, 2010
+
+The model parameters, including the means and variances
+of the time to division and of the time to differentiation, the
+probability of division, and parameters describing the effects
+of the drug, were estimated using the method of simulated
+pseudo-maximum likelihood (refs. 27, 28, 30, 31; see also
+Supplementary Materials). Their standard errors were computed using the method of Bootstrap (42).
+
+Results
+Experimental results
+The evolution over time of clonal compositions in control
+and treated groups were significantly different (Fig. 2),
+suggesting that BCNU was able to disrupt the processes
+of division and differentiation of O-2A/OPCs. Transient
+BCNU exposure reduced the number of progenitors per
+clone, and increased the number of oligodendrocytes shortly
+after drug exposure. Over time, however, the mean number
+of oligodendrocytes increased faster in untreated than in
+treated clones. These results could occur for multiple reasons. One possibility is that BCNU increased the probability
+that O-2A/OPCs will exit the cell cycle and differentiate into
+oligodendrocytes. It is also possible that drug exposure
+lengthened the cell cycle time (such that treated cells
+divided later), or that the period of time between the final
+cell division and differentiation into an oligodendrocyte was
+shortened. These alterations in precursor functions also
+could happen in combination.
+Model-based analysis of in vitro data
+Using our mathematical model, we investigated the effects
+of BCNU on the clonal compositions. The resulting parameter
+estimates and their standard errors are shown in Table 1.
+Untreated clones. The mean time to division of O-2A/
+OPCs (defined as the average time separating 2 successive cell
+divisions) in untreated clones was estimated as 25:5  10:8
+hours (mean  SD), consistent with past analyses (29). The
+time to differentiation of untreated O-2A/OPCs lasted for
+24:9  4:5 hours, suggesting that the times required for O2A/OPCs to divide or to differentiate into oligodendrocytes
+were on average virtually identical. The probability of division
+of O-2A/OPCs decreased with each generation, but only
+slightly; the probability of division of founder cells was close
+to 0.83, and decreased to 0.75 after 7 divisions. These estimates were higher than those previously reported (24–29); the
+larger numbers of O-2A/OPCs per clone observed in the present experiment support this difference.
+BCNU-treated clones. Drug exposure seemed to alter cell
+proliferation and differentiation in multiple ways. First, BCNU
+exposure increased the time to division in O-2A/OPCs. We
+estimated that the residual mitotic cycle duration (defined as the
+duration between the time of drug exposure and the time at
+which the cell divides) was on average 2.5 times longer in O-2A/
+OPCs directly exposed to BCNU during their lifespan (i.e., before
+washing out the drug) than in O-2A/OPCs of untreated clones
+(40 versus 16 hours). In contrast with the lengthening of cell
+cycle time in progenitor cells exposed to BCNU, our analysis
+indicated that the residual time to differentiation (the duration
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+Published OnlineFirst November 5, 2010; DOI: 10.1158/0008-5472.CAN-10-1400
+The Effects of Chemotherapy on Neuroglial Precursors
+
+Figure 2. Mean (top) and SD
+(bottom) of the number of O-2A/
+OPCs (left) and of the number of
+oligodendrocytes (right) per clone
+over time in untreated (blue) and
+BCNU-treated (green) clones.
+Experimental mean and SD (each
+computed using 50 replicates) are
+shown as dashed lines; the fitted
+model is displayed as solid lines.
+Error bars indicate 2SEM.
+
+between drug exposure and the time at which the cell
+differentiates) was only slightly shorter in O-2A/OPCs exposed
+to BCNU (11 versus 13 hours). The analysis suggested also that
+BCNU exposure altered the balance between self-renewal of
+
+O-2A/OPCs and their differentiation into oligodendrocytes
+by reducing the probability of division, thereby inducing
+differentiation of progenitor cells into oligodendrocytes.
+Specifically, approximately 36% of the O-2A/OPCs that
+
+Table 1. Parameter estimates (and associated SE)
+In the absence of drug exposure
+Time to division
+Time to differentiation
+Probability of division
+
+m1 (hr)
+m2 (hr)
+h0
+
+25.5 (0.8)
+24.9 (2.8)
+1.66 (0.08)
+
+s 1 (hr)
+s 2 (hr)
+h1
+
+10.8 (0.3)
+4.5 (0.5)
+0.07 (0.02)
+
+mtreated (hr)
+r
+
+1.7 (0.6)
+2.5 (0.3)
+
+s treated (hr)
+
+1.9 (0.4)
+
+
+
+0.85 (0.13)
+
+q
+
+0.64 (0.04)
+
+During exposure to BCNU
+Time to differentiation when cell fate changes
+Change in time to division when cell fate
+does not change
+Change in time to differentiation when
+cell fate does not change
+Probability of change in cell fate (differentiation
+instead of division)
+
+Following exposure to BCNU (i.e., after washing out the drug)
+Change in time to division
+Change in time to differentiation
+Change in probability of division
+
+www.aacrjournals.org
+
+rpost
+post
+a
+
+0.98 (0.05)
+0.71 (0.03)
+1.01 (0.03)
+
+Cancer Res; 70(24) December 15, 2010
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+10055
+
+Published OnlineFirst November 5, 2010; DOI: 10.1158/0008-5472.CAN-10-1400
+Hyrien et al.
+
+otherwise would have divided before drug exposure now
+underwent differentiation.
+Once BCNU was washed out, the cell cycle length and the
+probabilities of division returned to the values displayed by
+untreated cells. The time to differentiation of O-2A/OPCs generated post-exposure, however, was estimated as 30% shorter on
+average in treated than in untreated clones (17.4 versus 24.9
+hours). Thus, with the potential exception of the time to differentiation, transient exposure to BCNU did not cause impairments in progenitor cell function that were passed on to the
+next generation of progenitor cells. Note that the estimated
+difference in the mean time to differentiation induced only small
+changes in the numbers of O-2A/OPCs and oligodendrocytes.
+Model-based predictions
+Stationary conditions. Under normal conditions, a stationary population of precursor and terminally differentiated
+cells is thought to regulate its balance by letting precursor
+cells divide or differentiate in equal frequency (e.g., by means
+of asymmetric division). Our branching process achieves
+"stationarity" if the probability of division is set to pk ¼ :5,
+in which case the model is said to be critical. The mean
+number of precursor cells at any time t generated by any
+precursor cell born at time 0 reduces to
+¥
+X
+1
+1
+mprecursor ðtÞ ¼
+F k ðtÞ F kþ1 ðtÞ  F k  GðtÞ;
+2
+2
+k¼0
+and converges to
+m¥precursor ¼
+
+mF þ mG
+2mF
+
+1.
+
+as tR! ¥ (see Supplementary
+Materials), where
+R
+mF ¼ x  dFðxÞ and mG ¼ x  dGðxÞ denote the mean time
+to division and the mean time to differentiation of precursor
+cells. It is worth noting that the mean number of precursor cells
+will stabilize around 1 only if the mean time to division and the
+mean time to differentiation are identical (i.e., mF ¼ mG ); otherwise it will increase to a value different from 1 (< 1 when
+mF > mG , and conversely when mF <mG ), even though every
+precursor cell generates on average 1 precursor cell. Therefore,
+by modifying only mF and mG , and leaving unchanged the
+probability of division, one can modulate the limiting value
+m¥precursor , which may fall anywhere in ð:5; ¥Þ. For instance,
+with a mitotic cycle duration twice as long as the time to
+differentiation, the mean number of precursor cells approaches
+m¥precursor ¼ ð2mG þ mG Þ=4mG ¼ 0:75, as t increases.
+The stability of a stationary precursor cell population may
+be disrupted either by changing the probability of division to a
+value P different than 1/2 or by altering the timing of division
+and/or differentiation of precursor cells. Using numerical
+investigations, we evaluated the effects of hypothetical drug
+exposures on the population size when these effects persist
+over time and when they are transient.
+The effects of drug exposure on the probability of division
+and the timing of division/differentiation persist over time
+either because they are passed to cells of subsequent generations at division, or because drug exposure lasts an extended
+period of time.
+
+10056
+
+Cancer Res; 70(24) December 15, 2010
+
+If the change in the probability of division persists over
+time, the pools of precursor cells and of terminally differentiated cells will gradually deplete if P < 1/2, whereas both
+populations will expand if P > 1/2 (Fig. 3). Small changes in
+the probability of division can dramatically affect the population size. For instance, 10 days postexposure, the average
+number of precursor cells decreases by almost 20% by lowering the probability of division from 0.50 to 0.49.
+If the mean time to division and/or the mean time to differentiation remain altered for an extended time period, the
+number of precursor cells will either increase or decrease,
+and converge to a value determined by equation (1), with mF
+and mG replaced by their altered values (Fig. 3). For example, if
+the mean time to division and the mean time to differentiation
+were identical before drug exposure, and if drug exposure
+resulted in a 2.5-fold increase in the mean time to division
+and a 0.85-fold decrease in the mean time to differentiation (as
+estimated for BCNU using clonal experiments), the number of
+precursor cells would become 33% smaller than under normal
+conditions (where 0:33 ¼ ðmnormal  mtreated Þ=mnormal , with
+mnormal ¼ 1 and mtreated ¼ ð2:5 þ 0:85Þ=ð2  2:5Þ). Thus, the
+population would stabilize again, but to a level lower than the
+one existing prior to drug exposure.
+When the probability of division and the timing of division
+and differentiation are transiently altered, so that these parameters eventually return to their pre-exposure values (as
+seemed to be the case for BCNU), the temporal behavior of
+the number of precursor cells will depend on the type of
+changes induced by the drug. If the drug alters only the timing
+of division and/or differentiation for a limited time period, the
+asymptotic mean number of cells will still obey equation (1),
+such that the population will spontaneously recover over time
+and return to its original size, thereby leaving ultimately no
+sign of a drug exposure on the population size. In contrast, if
+drug exposure modulates transiently the probability of division such that precursor cells may change their fate (e.g.,
+differentiate instead of divide), the population size will stop
+decreasing or increasing after drug removal but will not return
+to its pre-exposure level, making drug effects permanent,
+unless a therapeutic intervention is used.
+Therapeutic strategies. Therapeutic interventions modulating the probability of division of precursor cells and/or the
+timing of their division/differentiation could be developed to
+restore impaired neural populations. As shown in Figure 4, the
+benefit of an intervention obtained by altering the timing of
+division and/or differentiation endures only while therapy is
+maintained. Once therapy is interrupted so that the mean
+time to division and the mean time to differentiation become
+identical to those existing pretherapy, the population size will
+return to its preintervention level as if no therapy had ever
+been used. Thus, the gains in cell number attributable to
+changes in the timing of division/differentiation would offer
+no long-term benefits. This phenomenon follows from identity
+(1), which states that the long-term mean number of cells is
+solely determined by the mean time to division and the mean
+time to differentiation of precursor cells. In contrast, therapies
+modulating the probability of division will have long-lasting
+benefits; that is, once the intervention is stopped, cell gains
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+Published OnlineFirst November 5, 2010; DOI: 10.1158/0008-5472.CAN-10-1400
+The Effects of Chemotherapy on Neuroglial Precursors
+
+Figure 3. Precursor cell numbers
+during drug exposure (started at
+t ¼ 0) relative to absence of
+exposure as a function of time.
+The calculations assumed a
+branching process model of a
+population of precursor and
+terminally differentiated cells in
+which, in the absence of drug
+exposure: (a) the events of division
+and differentiation are equally
+likely for every precursor cell; (b)
+the times to division and the times
+to differentiation of precursor cells
+are identically distributed,
+exponential with mean 24 hours.
+The calculations assumed further
+that drug exposure changed either
+the probability of division (P; left),
+or the mean time to division
+(m1 ; middle), or the mean time to
+differentiation (m2 ; right).
+
+Figure 4. The mean number of precursor cells (top) and terminally differentiated cells (bottom) under normal conditions (dotted lines); after transient exposure
+to chemotherapy at 24 hours and without intervention (dashed lines ); after transient exposure to chemotherapy at 24 hours and a therapeutic intervention (e.g.,
+growth factor application to enhance neural progenitor cell proliferation or other neuroprotective agents) started at 48 hours (dash-dotted); after transient exposure to
+chemotherapy at 24 hours and to therapeutic intervention between 48 and 450 hours (–). Chemotherapy was assumed to transiently reduce the probability of division
+by 36%, increase the time to completion of division by 2.5, and reduce the time to differentiation by 0.85 (as estimated for BCNU using our clonal data). Left,
+intervention decreases the mean time to division; continued 2-fold decrease (dash-dotted); temporary 4-fold decrease (solid). Right, the intervention increases only
+the probability of division from 0.5 to 0.51 or 0.53. The parameter values and time scale used in these simulations were selected arbitrarily.
+
+www.aacrjournals.org
+
+Cancer Res; 70(24) December 15, 2010
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+10057
+
+Published OnlineFirst November 5, 2010; DOI: 10.1158/0008-5472.CAN-10-1400
+Hyrien et al.
+
+will persist. Small increases in the probability of division may
+result in a rapid recovery of the cell population.
+
+Discussion
+Our present studies reveal that a single transient exposure
+of O-2A/OPCs to levels of BCNU equivalent to 10% or 15% of
+that achieved in low dose clinical applications was sufficient
+to alter several parameters of progenitor cell function. These
+changes include lengthening of the cell cycle, shortening of the
+time between final division and differentiation, and a reduction in the probability that a progenitor cell will undergo selfrenewing division. Although effects on cell cycle time and
+probability of the occurrence of a self-renewing division were
+only seen in progenitors exposed to BCNU, the effects of these
+changes on clonal composition became larger over time.
+Moreover, transient exposure resulted in smaller clones, a
+lesser proportion of progenitor cells per clone, and ultimately
+a reduction in the total number of oligodendrocytes in clones.
+Although it is well recognized that exposure to chemotherapy can damage multiple tissues of the body, there seems to be
+no prior information on the ability of chemotherapeutic
+agents to alter cell cycle length, time to differentiation or
+probability of self-renewal in dividing precursor cells. Moreover, our studies seem to provide the first demonstration that
+cell cycle length and the time between final division and
+differentiation can be changed in opposite directions.
+Although induction of cell death is one means of reducing
+the numbers of precursor cells available for normal tissue
+maintenance or repair, such reductions can also come about,
+for instance, by disrupting the normal balance between selfrenewing division and differentiation into nondividing progeny. It is also possible to reduce new cell generation simply by
+increasing the cell cycle length of a dividing progenitor cell, so
+that fewer cells are generated within any given time period.
+It was of particular interest that the transient perturbations
+in cell cycle length and probability of differentiation lead to
+changes in clonal composition that become more pronounced
+over time. There is little understanding of the processes that
+lead to the appearance of neurologic and/or pathologic
+changes weeks or months after chemotherapy has been
+completed. Because of the importance of precursor cells in
+normal tissue homeostasis, small perturbations during drug
+exposure can have effects that are observed more clearly at
+later time points. This phenomenon indicates that sublethal
+disruption of precursor cell function needs to be analyzed in a
+manner that reflects the cumulative nature of developmental
+and homeostatic processes. Numerical investigations (Fig. 4)
+suggested that drugs altering normal precursor cells could
+have rapidly occurring effects. Drug effects in vivo are often
+detected at delayed time points because cell turnover is likely
+to be slower in vivo than in vitro, and also because endpoints
+observed during in vivo studies differ from those considered in
+our in vitro experiments and numerical simulations. Recent
+studies support the concept that there is substantial contribution of new oligodendrocytes to myelinated tracts throughout life (43). Together with findings that oligodendrocytes
+themselves are highly vulnerable to multiple chemotherapeu-
+
+10058
+
+Cancer Res; 70(24) December 15, 2010
+
+tic agents (5, 6), reductions in the progenitor cell pool caused
+even by increasing the probability of differentiation during the
+time of drug exposure could limit efficacy of subsequent
+repair/homeostasis by reducing the total number of available
+progenitors. Analysis of the effects of higher drug levels of
+BCNU in vivo revealed a transient increase in cell death, but a
+long-lasting reduction in the number of dividing oligodendrocyte progenitor cells (5), suggesting that this population
+does not become replenished in vivo.
+The results derived from our stochastic model offer possible
+explanations of the long-lasting effects of chemotherapy on
+normal cells of the CNS that have been observed in both clinical
+studies and animalmodels of neurotoxicity. We found that small
+changes in self-renewal probability can severely reduce the
+number of cells within a relatively short period of time, even
+in situations in which it seems that the effects of the chemotherapeutic agent on precursorcell functiondo not persist once drug
+exposure is terminated. Even if precursor cell functions were to
+return to their normal values after drug exposure, our simulations demonstrate that this would not be sufficient to promote
+recovery of cell number. As cell division in the CNS remains at
+reduced levels for prolonged periods after cessation of treatment with BCNU, cisplatin, 5-FU, and cytarabine (5, 6), this
+would further compromise normal repair and/or homeostasis.
+Cell kinetics may be impacted by the microenvironment,
+contact inhibition, or any other feedback mechanisms, the
+potential contributions of which were not explicitly described
+by our model. For instance, contact inhibition may likely
+promote cell renewal when cell density decreases, and vice
+versa when the density increases. Our past studies, including
+time-lapse experiments (29), did not, however, support any
+association between cell density and cell cycle length in vitro.
+The role played by these mechanisms in the damaged CNS of
+cancer patients remains unclear. Although not comprehensive, our model was still useful in studying the potential effects
+of chemotherapy on precursor cells of the CNS in vivo, and in
+deciphering the consequences of, for example, a simple modulation of the time to division or the time to differentiation.
+Additional studies should be conducted to assess the broader
+applicability of our conclusions.
+The discovery of chemotherapeutic agents with limited toxicity for the normal cells of the organism is one of the central
+challenges in the field of cancer treatment. The approaches
+provided by our present studies offer highly sensitive means of
+examining subtle adverse effects. Moreover, the principles that
+underlie these quantitative approaches are sufficiently general
+as to make them applicable to the analysis of any cellular
+perturbation that alters cell division or differentiation.
+Grant Support
+This work is supported by NIH Grants R01-CA134839, R01-NS39511, P30ES001247, and NS44701. J.D. is a recipient of the Paul Calabresi Career Development Award for Clinical Oncology (NIH-K12) and the Stephen E. and
+Catherine Pappas Foundation Award for Brain Tumor Research.
+The costs of publication of this article were defrayed in part by the payment
+of page charges. This article must therefore be hereby marked advertisement in
+accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+Received 04/20/2010; revised
+published OnlineFirst 11/05/2010.
+
+10/21/2010;
+
+accepted
+
+10/25/2010;
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+Published OnlineFirst November 5, 2010; DOI: 10.1158/0008-5472.CAN-10-1400
+The Effects of Chemotherapy on Neuroglial Precursors
+
+References
+1.
+
+2.
+3.
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+17.
+
+18.
+
+19.
+
+20.
+
+Brown MS, Stemmer SM, Simon JH, Stears JC, Jones RB, Cagnoni
+PJ, et al. White matter disease induced by high-dose chemotherapy:
+longitudinal study with MR imaging and proton spectroscopy. AJNR
+Am J Neuroradiol 1998;19:217–21.
+Keime-Guibert F, Napolitano M, Delattre JY. Neurological complications of radiotherapy and chemotherapy. J Neurol 1998;245:695–708.
+Macdonald DR. Neurologic complications of chemotherapy. Neurol
+Clin 1991;9:955–67.
+Stemmer SM, Stears JC, Burton BS, Jones RB, Simon JH. White
+matter changes in patients with breast cancer treated with high-dose
+chemotherapy and autologous bone marrow support. AJNR Am J
+Neuroradiol 1994;15:1267–73.
+€ schel M, Noble M. CNS proDietrich J, Han R, Yang Y, Mayer-Pro
+genitor cells and oligodendrocytes are targets of chemotherapeutic
+agents in vitro and in vivo. J Biol 2006;5:22.
+€ schel M, Noble M.
+Han R, Yang YM, Dietrich J, Luebke A, Mayer-Pro
+Systemic 5-fluorouracil treatment causes a syndrome of delayed
+myelin destruction in the central nervous system. J Biol 2008;7:12.
+Durand B, Fero M, Roberts J, Raff M. p27Kip1 alters the response of
+cells to mitogen and is part of a cell-intrinsic timer that arrests the cell
+cycle and initiates differentiation. Curr Biol 1998;6:431–40.
+Gao F, Apperly J, Raff M. Cell-intrinsic timers and thyroid hormone
+regulate the probability of cell-cycle withdrawal and differentiation of
+oligodendrocyte precursor cells. Dev Biol 1998;197:54–66.
+Gao F, Durand B, Raff M. Oligodendrocyte precursor cells count time
+but not cell divisions before differentiation. Curr Biol 1997;7:152–5.
+Ibarrola N, Mayer-Proschel M, Rodriguez-Pena A, Noble M. Evidence
+for the existence of at least two timing mechanisms that contribute to
+oligodendrocyte generation in vitro. Dev Biol 1996;180:1–21.
+Noble M, Murray K, Stroobant P, Waterfield MD, Riddle P. Plateletderived growth factor promotes division and motility and inhibits
+premature differentiation of the oligodendrocyte/type-2 astrocyte
+progenitor cell. Nature 1988;333:560–2.
+Power J, Mayer-Proschel M, Smith J, Noble M. Oligodendrocyte
+precursor cells from different brain regions express divergent properties consistent with the differing time courses of myelination in these
+regions. Dev Biol 2002;245:362–75.
+Raff MC, Lillien LE, Richardson WD, Burne JF, Noble MD. Plateletderived growth factor from astrocytes drives the clock that times
+oligodendrocyte development in culture. Nature 1988;333:562–565.
+Small RK, Riddle P, Noble M. Evidence for migration of oligodendrocyte-type-2 astrocyte progenitor cells into the developing rat optic
+nerve. Nature 1987;328:155–7.
+€ schel M, Noble M. Redox state is a central
+Smith J, Ladi E, Mayer-Pro
+modulator of the balance between self-renewal and differentiation in a
+dividing glial precursor cell. Proc Natl Acad Sci USA 2000;97:10032–37.
+Temple S. Division and differentiation of isolated CNS blast cells in
+microculture. Nature 1989;340:471–3.
+Tokumoto YM, Applerly JA, Gao F-B, Raff MC. Postranscriptional
+regulation of p18 and p27 Cdk inhibitor proteins and the timing of
+oligodendrocyte differentiation. Dev Biol 2002;245:224–234.
+Tokumoto YM, Tang DG, Raff MC. Two molecularly distinct intracellular pathways to oligodendrocyte differentiation: role of a p53 family
+protein. EMBO J 2001;20:5261–8.
+Tokumoto YM, Durand B, Raff MC. An analysis of the early events when
+oligodendrocyte precursor cells are triggered to differentiate by thyroid
+hormone, retinoic acid, or PDGF withdrawal. Dev Biol 1999;213:327–39.
+€ schel M, Noble M. Quantitative
+Yakovlev AY, Boucher K, Mayer-Pro
+insight into proliferation and differentiation of O-2A progenitor cells
+in vitro: the clock model revisited. Proc Natl Acad Sci USA 1998;
+95:14164–7.
+
+www.aacrjournals.org
+
+21. Yakovlev AY, Mayer-Proschel M, Noble M. A stochastic model of
+brain cell differentiation in tissue culture. J Math Biol 1998;37:49–60.
+22. Yakovlev AY, Mayer-Proschel M, Noble M. Stochastic formulations of
+a clock model for temporally regulated generation of oligodendrocytes in vitro. Math Comput Model 2000;125:37.
+23. Boucher K, Yakovlev AY, Mayer-Proschel M, Noble M. A stochastic
+model of temporarily regulated generation of oligodendrocytes in
+vitro. Math Biosci 1999;159:47–78.
+24. Boucher K, Zorin A, Yakovlev AY, Mayer-Proschel M, Noble M. An
+alternative stochastic model of generation of oligodendrocytes in cell
+culture. J Math Biol 2001;43:22–36.
+25. von Collani E, Tsodikov A, Yakovlev A, Mayer-Proschel M, Noble M. A
+random walk model of oligodendrocyte generation in vitro and associated estimation problems. Math Biosci 1999;159:189–204.
+26. Zorin AA, Yakovlev AY, Mayer-Proschel M, Noble M. Estimation problems associated with stochastic modeling of proliferation and differentiation of O-2A progenitor cells in vitro. Math Biosci 2000;167:109–21.
+27. Hyrien O, Mayer-Proschel M, Noble M, Yakovlev A. A stochastic
+model to analyze clonal data on multi-type cell populations. Biometrics 2005;61:199–207.
+28. Hyrien O, Mayer-Proschel M, Noble M, Yakovlev A. Estimating the
+lifespan of oligodendrocytes from clonal data on their development in
+cell culture. Math Biosci 2005;193:255–74.
+29. Hyrien O, Ambescovic I, Mayer-Proschel M, Noble M, Yakovlev A.
+Stochastic modeling of oligodendrocytes generation in cell culture:
+model validation with time-lapse data. Theor Biol Med Model 2006;3:21.
+30. Hyrien O, Chen R, Mayer-Proschel M, Noble M. Saddlepoint approximations to the moments of multitype age-dependent branching
+processes, with applications. Biometrics 2010;66:567–77.
+31. Hyrien O. Pseudo-likelihood estimation for discretely observed multitype Bellman-Harris branching processes. J Stat Plan Inference
+2007;137:1375–88.
+32. Jagers P. Branching processes with biological applications. London:
+John Wiley & Sons; 1975.
+33. Yakovlev AY, Yanev NM. Transient processes in cell proliferation
+kinetics. Heidelberg:Springer-Verlag; 1989.
+34. Kimmel M, Axelrod DE. Branching processes in biology. New York:
+Springer-Verlag; 2002.
+35. Ali-Osman F, Giblin J, Dougherty D, Rosenblum ML. Application of in vivo
+and in vitro pharmacokinetics for physiologically relevant drug exposure
+in a human tumor clonogenic cell assay. Cancer Res 1987;47:3718–24.
+36. Levin VA, Hoffman W, Weinkam RJ. Pharmacokinetics of BCNU in man:
+a preliminary study of 20 patients. Cancer Treat Rep 1978;62:1305–12.
+37. Henner WD, Peters WP, Eder JP, Antman K, Schnipper L, Frei E.
+Pharmacokinetics and immediate effects of high-dose carmustine in
+man. Cancer Treat Rep 1986;70:877–80.
+38. Cepko C, Ryder EF, Austin CP, Walsh C, Fekete DM. Lineage analysis
+using retrovirus vectors. Methods Enzymol 1995;254:387–419.
+39. Crump KS, Mode CJ. An age-dependent branching process with
+correlations among sister cells. J Appl Probab 1969;6:205–10.
+40. Olofsson P. Branching processes with local dependencies. Ann Appl
+Probab 1996;6:238–68.
+41. Hyrien O, Chen R, Zand MS. An age-dependent branching process
+model for the analysis of CFSE-labeling experiments. Biol Direct
+2010;5:41.
+42. Efron B, Tibshirani R.J. An introduction to the bootstrap. Boca Raton,
+Florida: Chapman and Hall/CRC; 1998.
+43. Rivers LE, Young KM, Rizzi M, Jamen F, Psachoulia K, Wade A, et al.
+PDGFRA/NG2 glia generate myelinating oligodendrocytes and piriform projection neurons in adult mice. Nat Neurosci 2008;11:1392–
+401.
+
+Cancer Res; 70(24) December 15, 2010
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+10059
+
+Published OnlineFirst November 5, 2010; DOI: 10.1158/0008-5472.CAN-10-1400
+
+Mathematical and Experimental Approaches to Identify and
+Predict the Effects of Chemotherapy on Neuroglial
+Precursors
+Ollivier Hyrien, Jörg Dietrich and Mark Noble
+Cancer Res 2010;70:10051-10059. Published OnlineFirst November 5, 2010.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-10-1400
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2010/11/04/0008-5472.CAN-10-1400.DC1
+
+This article cites 39 articles, 5 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/70/24/10051.full#ref-list-1
+This article has been cited by 1 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/70/24/10051.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications
+Department at pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications
+Department at permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2010 American Association for Cancer
+Research.
+
+

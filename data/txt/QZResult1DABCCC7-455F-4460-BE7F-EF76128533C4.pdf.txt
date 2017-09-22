@@ -1,0 +1,1137 @@
+Published OnlineFirst December 17, 2010; DOI: 10.1158/0008-5472.CAN-10-3174
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+The Molecular Basis of Synergism between Carboplatin and
+ABT-737 Therapy Targeting Ovarian Carcinomas
+Harsh Vardhan Jain1 and Michael Meyer-Hermann2,3
+
+Abstract
+Resistance to standard chemotherapy (carboplatin þ paclitaxel) is one of the leading causes of therapeutic
+failure in ovarian carcinomas. Emergence of chemoresistance has been shown to be mediated in part by members
+of the Bcl family of proteins including the antiapoptotic protein Bcl-xL, whose expression is correlated with shorter
+disease-free intervals in recurrent disease. ABT-737 is an example of one of the first small-molecule inhibitors of
+Bcl-2/Bcl-xL that has been shown to increase the sensitivity of ovarian cancer cells to carboplatin. To exploit the
+therapeutic potential of these two drugs and predict optimal doses and dose scheduling, it is essential to
+understand the molecular basis of their synergistic action. Here, we build and calibrate a mathematical model of
+ABT-737 and carboplatin action on an ovarian cancer cell line (IGROV-1). The model suggests that carboplatin
+treatment primes cells for ABT-737 therapy because of an increased dependence of cells with DNA damage on BclxL for survival. Numerical simulations predict the existence of a threshold of Bcl-xL below which these cells are
+unable to recover. Furthermore, co- plus posttreatment of ABT-737 with carboplatin is predicted to be the best
+strategy to maximize synergism between these two drugs. A critical challenge in chemotherapy is to strike a
+balance between maximizing cell-kill while minimizing patient drug load. We show that the model can be used to
+compute minimal doses required for any desired fraction of cell kill. These results underscore the potential of the
+modeling work presented here as a valuable quantitative tool to aid in the translation of novel drugs such as ABT737 from the experimental to clinical setting and highlight the need for close collaboration between modelers and
+experimental scientists. Cancer Res; 71(3); 705–15. 2010 AACR.
+
+Major Findings
+The reduced ability of DNA-damaged cancer cells to
+withstand changes in intracellular Bcl-xL concentration is
+predicted to be the principle reason behind the observed
+synergism between carboplatin and ABT-737. This suggests co- plus post-treatment of tumors by ABT-737 with
+carboplatin as the optimal strategy to maximize cell-kill,
+whilst minimizing patient drug load.
+
+Introduction
+Ovarian cancer is the fifth most common cause of cancer
+death in women in the developed world. Although progress has
+Authors' Affiliations: 1Mathematical Biosciences Institute, The Ohio State
+University, Columbus, Ohio; 2Department of Systems Immunology, Helmholtz Centre for Infection Research (HZI), Braunschweig, Germany; and
+3
+Frankfurt Institute for Advanced Studies (FIAS), Frankfurt am Main,
+Germany
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+Corresponding Author: Michael Meyer-Hermann, Helmholtz Centre for
+Infection Research (HZI), Inhoffenstr. 7, 38124 Braunschweig, Germany.
+Phone: 49-151-52726087; Fax: 49-531-6181-7099; E-mail:
+michael.meyer-hermann@helmholtz-hzi.de
+doi: 10.1158/0008-5472.CAN-10-3174
+2010 American Association for Cancer Research.
+
+been made in its treatment with the introduction of platinumtaxane–based chemotherapy since the 1980s, the mortality rate
+remains largely unchanged in the past 2 decades (1). The
+overall 5-year survival rate is only 29%, possibly due to infrequent early diagnosis coupled with the emergence of drug
+resistance in recurrent disease (2). The current gold standard
+for chemotherapy targeting ovarian cancer is a combination of
+carboplatin, a platinum-based compound, together with paclitaxel, an antimitotic drug. In fact, a majority of patients
+respond well to this treatment initially. However, most will
+suffer relapse following complete clinical response and the
+emergence of drug resistance is observed in a majority of these
+cases, implying an overall poor prognosis (3).
+Several factors may contribute to this drug resistance,
+including decreased drug uptake by and/or increased efflux
+from cancer cells, increased rate of drug-induced DNA damage
+repair, loss of p53 function, and protection from apoptosis
+(3, 4). In particular, ectopic expression of the apoptosis
+inhibitor protein Bcl-xL has been linked to drug resistance.
+Bcl-xL is a member of the Bcl-2 family of intracellular proteins
+that are crucial regulators of programmed cell death (5). In
+ovarian cancers, Bcl-xL expression in primary tumors is associated with shorter disease-free intervals following successive
+bouts of chemotherapy (6). Furthermore, in vitro studies have
+shown that overexpression of Bcl-xL confers resistance to cell
+death induced by a variety of chemotherapeutic agents including cisplatin (a carboplatin analogue), and paclitaxel (6–8).
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+705
+
+Published OnlineFirst December 17, 2010; DOI: 10.1158/0008-5472.CAN-10-3174
+Jain and Meyer-Hermann
+
+Quick Guide to Main Model Equations
+The model schematic for tumor cell growth inhibition mediated by application of carboplatin and ABT-737 is presented in
+Fig. 1. The following is a brief description of the principal equations and underlying assumptions that drive this reaction diagram.
+Here, N and M refer to proliferating and arrested tumor cell numbers per well (ovarian cancer cell line IGROV-1), respectively. B,
+C, X, and P are total unbound Bcl-xL, carboplatin, free ABT-737, and Bcl-xL–ABT-737 complex concentration in micromoles per
+well, respectively. For a detailed description of the model and various terms, we refer the reader to the Supplementary Material.
+dN
+¼ ln N dn ðbÞN aðCÞN þ Mðt; a ¼ ar Þ
+dt
+
+(A)
+
+This equation models the growth of proliferating IGROV-1 tumor cells in conditioned growth medium, in vitro, as described in
+ref. 11. Therapy is provided in the form of carboplatin (C) and ABT-737 (X) alone, or in combination. Tumor cells proliferate at a
+constant rate, ln, whereas their rate of death d n is mediated by the amount of free Bcl-xL per cell, b. Note that b ¼ B/T, where
+Rt
+T ¼ NðtÞ þ 0 Mðt; aÞda is the total number of IGROV-1 cells at any time t. Furthermore, in response to carboplatin therapy,
+proliferating cells undergo cell-cycle arrest at a rate, a, dependent on the amount of carboplatin administered, C.
+
+Major Assumptions of the Model
+Assumption on apoptosis control
+To keep the number of unknown parameters at a minimum, proapoptotic members of the Bcl family are not included in our
+model; instead, cell survival is assumed to depend on free Bcl-xL, which, in conjugation with its proapoptotic counterparts and its
+free concentration per cell, is taken into account while estimating parameters relating to Bcl-xL dynamics (See Table 1 and
+Supplementary Material, Section B2).
+Assumption on arrested cell recovery
+An additional source term for N is M(t, a ¼ ar). This represents cells that are able to recover from carboplatin-induced DNA
+damage, with some characteristic recovery time ar, and is described in Equation (B).
+qM qM
+þ
+¼ dm ½b; Cðt  aÞ; aM
+qt
+qa
+Arrested IGROV-1 cells undergo apoptosis in an age-structured manner (a is the age variable), with death rate dm proportional
+to the amount of carboplatin present at the time of cell-cycle arrest [C(t  a)] and the amount of unbound Bcl-xL per cell, b. The
+following boundary condition is imposed on this equation:
+Mðt; 0Þ ¼ aðCÞN
+
+(B)
+
+This is a source term for M, which corresponds to the rate of cell-cycle arrest  of proliferating cells in Equation (A).
+Assumption on DNA repair
+On the basis of experimental observations in ref. 11, it is assumed that arrested cells begin to undergo apoptosis approximately
+16 hours after the application of carboplatin. This time of onset of death may be reduced if free Bcl-xL levels are lowered because
+of the application of ABT-737. The delay of 16 hours is explained by the sequence of events that follow DNA damage, including
+damage recognition, followed by DNA repair or eventual cell death. A detailed review of these events is presented in ref. 21.
+Furthermore, on the basis of experimental observations in ref. 11, it is assumed that the arrested cells that have not undergone
+apoptosis after 48 hours recover to the proliferating population. In the absence of data by which to estimate a rate of recovery, it is
+taken to occur instantaneously at the end of this time period. Thus, ar is taken to have a value of 48 hours.
+Assumption on carboplatin degradation
+Following ref. 31, the rate of carboplatin decay in culture medium is assumed to obey the first-order kinetics.
+dC
+¼ lc ðCÞ
+dt
+
+(C)
+
+In ref. 31, in vitro cell proliferation assays of Jurkat cells cultured in the presence of carboplatin showed that for cell
+concentrations below 107 per mL, the rate of decay lc of carboplatin was unaffected by the presence of cells and was in fact
+approximately linear. In the experimental conditions relevant to our model, IGROV-1 cell numbers do not exceed 106 per mL.
+Assumption on free Bcl-xL
+The rate of change of free intracellular Bcl-xL concentration is modeled by
+Z t
+dB
+d m ðb; Cðt  aÞ; aÞM da  k1 BX þ K1 P
+¼ gðbÞT  lb B þ ln Nbs  dn ðbÞbN  b
+dt
+0
+
+(D)
+
+Bcl-xL is produced by all tumor cells at a rate g that depends on the current amount of Bcl-xL per cell b. It undergoes natural
+decay at a rate lb. When a new cell is added as a result of proliferation, it is assumed to instantaneously establish a constitutive
+706
+
+Cancer Res; 71(3) February 1, 2011
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst December 17, 2010; DOI: 10.1158/0008-5472.CAN-10-3174
+The Molecular Basis of Synergism between Carboplatin
+
+level bs of expression of free Bcl-xL. This represents an addition to the total Bcl-xL concentration B at the rate lnNbs, whereas cell
+death in both proliferating and arrested cell populations results in the loss of Bcl-xL. The integral term in the rate of loss of Bcl-xL
+due to arrested cell death reflects the fact that apoptosis in cells of all ages in this compartment must be accounted for. Finally,
+free Bcl-xL may interact with its small molecule inhibitor ABT-737 (X) to form complexes (P), where k1 is the forward rate of the
+reaction B þ XP and k1 is the backward rate.
+Assumption on ABT-737 dynamics
+The dynamics of free ABT-737 concentration in cell culture medium is given by
+dX
+¼ lx X  k1 BX þ k1 P
+dt
+
+(E)
+
+ABT-737 undergoes decay at a rate lx, corresponding to its natural half-life. Given the small size of small molecule inhibitors
+such as ABT-737 and their large permeability through cell membrane, it is assumed that ABT-737 is free to move in and out of
+cells, and when inside cells, it rapidly forms complexes P with Bcl-xL.
+Conversely, inhibition of Bcl-xL expression with transfection
+by bcl-xS (9), small interfering RNA (siRNA; refs. 10, 11), or a
+monoclonal antibody (ABT-737; ref. 11) increases sensitivity of
+ovarian cancer cell lines to these chemotherapeutic agents. It
+may therefore be concluded that concomitant inhibition of
+Bcl-xL with chemotherapy could be an attractive treatment
+strategy for this cancer type (10, 11).
+Witham and colleagues assess the therapeutic potential of
+cotreatment of an ovarian cancer cell line (IGROV-1) expressing Bcl-xL with ABT-737 and carboplatin (11). ABT-737
+belongs to a class of compounds that are nonpeptidic small
+molecule inhibitors of Bcl-xL/Bcl-2 proteins and has been
+shown to exhibit significant single-agent activity against small
+cell lung carcinoma tumor xenografts in mice (12). It acts by
+blocking the Bcl-xL–BH3 binding groove, which prevents it
+from sequestering proapoptotic members of the Bcl-2 family
+such as Bad, Bid, and Bim (13). According to Witham and
+colleagues (11), ABT-737 shows modest cytotoxic activity as a
+single-agent in in vitro cell proliferation assays of IGROV-1
+cells. However, when given in combination with carboplatin,
+an increase in cell growth inhibition, coupled with a decrease
+in time to apoptosis, is observed. In fact, the relative timing of
+scheduling of the two drugs plays an important role in
+determining therapy efficacy. Posttreatment of cells with
+ABT-737, following treatment with carboplatin, is predicted
+to be the best strategy, indicating that carboplatin sensitizes
+the cells to anti-Bcl-xL therapy. Finally, IGROV-1 tumor xenografts in mice are shown to respond equally well to the 2 drugs
+delivered alone, whereas therapy efficacy is greatly enhanced
+when the drugs are given in combination.
+Although these findings have the potential of representing a
+significant advance in the treatment of ovarian cancers, an
+important step in the realization of these therapies is to
+develop an understanding of the molecular basis of synergism
+between such drugs. Evaluating key parameters such as the
+degree of synergism and optimization of chemotherapeutic
+schedules can be time consuming and costly. Quantitative
+modeling such as that described in this article has the potential
+to answer these questions while providing further insights into
+the mechanism of action of these therapies. We have previously
+developed models of tumor growth (14–16) and evaluated the
+
+www.aacrjournals.org
+
+therapeutic potential of small molecule inhibitors of Bcl-2 as
+antiangiogenic agents (17, 18). In this article, we present a
+multiscale model, with age structure of combination chemotherapy and anti-Bcl-xL therapy targeting ovarian carcinomas, that is validated by direct comparison with experimental
+results taken from Witham and colleagues (11). Using this, we
+are able to provide a quantitative justification for the hypothesis that carboplatin sensitizes cancer cells to ABT-737. We
+propose an optimal dosing regimen for carboplatin and ABT737 and thus provide a useful tool to make predictions relating
+to treatment protocols for drugs that are similar in action to
+these compounds.
+
+Materials and Methods
+Model foundation
+To capture the relevant intracellular dynamics of Bcl-xL–
+controlled cell apoptosis, a biochemically motivated ordinary
+differential equation model was developed. This was linked
+to a population-level model describing cell culture growth
+dynamics. An age structure was imposed on this to accurately
+simulate carboplatin-induced DNA damage and subsequent
+cell death. A model schematic detailing the effects of carboplatin and ABT-737 on a population of ovarian cancer
+(IGROV-1) cells is shown in Fig. 1. The choice of this particular
+cell line is based on the experiments described in ref. 11,
+wherein IGROV-1 cells were shown to specifically express high
+levels of Bcl-xL while expressing little or no Bcl-2. Furthermore, they exhibited maximum sensitivity to ABT-737 as a
+single agent.
+The following sections describe the principles underlying our
+model formulation. All simulations of the model were carried
+out on Matlab. The simulation methodology is described in
+greater detail in Supplementary Material, Section C.
+Bcl-xL as a regulator of cell death
+IGROV-1 cells have been shown to grow exponentially (19)
+in the time frame of interest to us (the experiments described
+in ref. 11) were conducted over an average of 4 to 5 days. We
+therefore assume an exponential growth for IGROV-1 cells in
+the absence of therapy, as shown in Fig. 1A. The intrinsic
+
+Cancer Res; 71(3) February 1, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+707
+
+Published OnlineFirst December 17, 2010; DOI: 10.1158/0008-5472.CAN-10-3174
+Jain and Meyer-Hermann
+
+A
+
+B
+
+C
+
+D
+
+Figure 1. Model schematic. A, IGROV-1 cells are assumed to grow exponentially when cultured in the presence of growth medium and in the absence
+of any therapy. B, in the case wherein IGROV-1 cells are treated with ABT-737 alone, cell death rate is taken to be a function of intracellular free Bcl-xL
+level (not shown), which will be decreased upon the application of ABT-737. C, in the case wherein IGROV-1 cells are treated with carboplatin alone,
+they undergo cell-cycle arrest at a rate dependent on the amount of drug delivered. The arrested cells subsequently undergo apoptosis at a rate proportional to
+the amount of drug present at the time of arrest. This occurs in an age-dependent fashion to account for experimentally observed time lag between
+therapy administration and PARP cleavage leading to cell death. Recovery of arrested cells to the proliferating population is also accounted for. D, in the case
+wherein IGROV-1 cells are treated with carboplatin and ABT-737 in combination, the two modules described in B and C previously are put together, with
+arrested IGROV-1 cell death rate and time to onset of death now a function of Bcl-xL levels.
+
+growth rate of the cells is fit to cell proliferation data taken
+from ref. 19, as shown in Fig. 2A.
+Next, we include in our model, the regulation of cellular
+apoptosis controlled by Bcl-xL, a schematic for which is shown
+in Fig. 1B. The intrinsic growth rate of IGROV-1 cells estimated
+earlier is divided into a constant proliferation rate, ln, together
+with a death rate that is taken to be a function of unbound Bcl-xL
+concentration per cell. Choosing the death rate in this manner
+allows us to avoid estimating intracellular levels for a number
+of proteins and binding parameters, for which little or no
+experimental data are available. Furthermore, ABT-737 shows
+specific activity against Bcl-xL and Bcl-2 (12), of which IGROV-1
+cells do not express Bcl-2 (11). Therefore, it is reasonable to
+assume that changes in intracellular Bcl-xL induced by ABT-737
+would contribute to cell death in this experimental setup.
+To model the effect of application of ABT-737 therapy, its
+concentration (X) is tracked in time, together with the concentration of Bcl-xL summed over all cells (B). In the absence
+of experimental data detailing the mechanism of entry of small
+molecule inhibitors into the cell, it is assumed that ABT-737 is
+free to move in and out of the cell, and once inside the cell, it
+complexes rapidly with Bcl-xL. This is a reasonable assump-
+
+708
+
+Cancer Res; 71(3) February 1, 2011
+
+tion, as these small molecule inhibitors are designed to be cell
+wall permeable. The law of mass action is used to translate the
+binding reaction between ABT-737 and Bcl-xL into a system of
+differential equations that govern the temporal dynamics of
+these molecules (20).
+The precise functional form for the death rate of proliferating
+cells is chosen by conducting fits of the model to in vitro cell
+growth inhibition data taken from ref. 11, wherein ABT-737
+therapy is applied singly to IGROV-1 cell cultures (see Fig. 2B).
+The resultant rate reflects the fact that a drop in the levels of
+Bcl-xL, possibly due to binding ABT-737, would free proapoptotic proteins of the Bcl family such as Bax and Bak that are
+otherwise sequestered by Bcl-xL. These would then be able to
+translocate to the cell mitochondria, inducing release of cytochrome c and triggering the apoptotic pathway. Details regarding the fit are presented in Supplementary Material, Section B2.
+An age-structured model of carboplatin therapy
+The cytotoxicity of carboplatin is primarily due to its interaction with nucleophilic N-7 sites of purine bases in DNA to
+form intrastrand adducts. This DNA damage is subsequently
+recognized by a number of candidate proteins such as the
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst December 17, 2010; DOI: 10.1158/0008-5472.CAN-10-3174
+The Molecular Basis of Synergism between Carboplatin
+
+Table 1. List of parameter values
+Parameter
+
+Value
+
+Units
+
+Source
+
+ln
+b0
+b0
+n
+a0
+C0
+r0
+r1
+bl
+k
+2
+a0
+
+bs
+lc
+lb
+g0
+k1
+k1
+lx
+ar
+
+1.3713
+1.4017
+0.22 
+1.7404
+1.9762
+60
+3.79 
+99
+0.1494
+1,700
+0.01
+1.4
+3.4486
+0.15 
+0.1676
+1.0397
+0.31 
+86.4
+86.4
+0.4632
+2
+
+Per day
+Per day
+mM Bcl-xL per cell
+Dimensionless
+Per day
+mM carboplatin
+Per day per mM carboplatin
+Per day per mM carboplatin
+mM Bcl-xL per cell
+Dimensionless
+Days
+Days
+Dimensionless
+mM Bcl-xL per cell
+Per day
+Per day
+mM Bcl-xL per cell per day
+Per mM protein per day
+Per day
+Per day
+Days
+
+11, 19a
+11b
+11, 19b
+11, 19b
+11b
+11b
+11b
+11b
+11b
+11b
+11b
+11b
+11b
+27, 28, 29, 30c
+31
+32, 33c
+
+103
+
+103
+ 103
+
+103
+
+103
+
+d
+
+27e
+12, 34f
+35g
+11
+
+a
+
+In the absence of values in the literature, biologically realistic values for these parameters were chosen so that the solution profiles
+best fit experimental observation as described in refs. 11 and 19.
+b
+In the absence of data, intracellular expression of Bcl-xL was taken to be similar to that of Bcl-2 (IGROV-1 cells are known to express
+only Bcl-xL and not Bcl-2; ref. 11). Typical expression of Bcl-2 in cells is 75 nmol/L (28). However, much of this is sequestered by the
+proapoptotic members of the Bcl family such as Bax and Bid. Typical expression levels of these are in the range of 200 to 600 nmol/L
+Bax (29) and 25 nmol/L Bid (28), respectively. Furthermore, the dissociation constant for Bcl-2 binding with proapoptotic proteins in
+the Bcl family can be as low as 0.6 nmol/L (30). Using reaction rates for Bcl-2 binding to Bax taken from ref. 27, we get that free Bcl-2
+concentrations can range from 0.008 to 0.3 nmol/L per cell. Therefore, a value of 0.15 nmol/L lying between these two limits was
+chosen to represent the free Bcl-xL expression levels in IGROV-1 cells.
+c
+The half-life of Bcl-xL was assumed to be similar to that of Bcl-2. This has a reported value of between 12 and 20 hours; therefore, a
+mean value of 16 hours is chosen.
+d
+The rate of Bcl-xL production is chosen so that all cells constitutively express bS amount of free Bcl-xL. This gives g 0 ¼ 2lb bs .
+e
+It was assumed that the rate of forward reaction of ABT-737 with Bcl-xL was similar to that of Bax binding to Bcl-2 because of their
+comparable binding affinities.
+f
+The binding affinity of ABT-737 with Bcl-xL is 1 nmol/L.
+g
+The half-life of ABT-737 in culture medium is taken to be the same as that of 072RB, another small molecule inhibitor of the Bclfamily. It should be noted that the range of half-lives of other small molecule inhibitors such as sHA-14-I and Su5416 also has similar
+reported values.
+
+nonhistone chromosomal high-mobility groups 1 and 2. This
+results in the activation of a number of downstream pathways
+that could eventually lead to cell-cycle arrest, followed by a
+decision to survive or undergo apoptosis based on the extent
+and hence reparability of DNA damage. Many mechanisms
+related to these pathways remain to be elucidated (21).
+To model these effects of application of carboplatin therapy
+on IGROV-1 cells, an additional compartment is added to the
+cell population, a schematic of which is presented in Fig. 1C.
+Upon drug application, the proliferating cells will undergo cellcycle arrest at a certain rate dependent on the amount of therapy
+administered. A Hill-like functional form with Hill coefficient 1 is
+chosen to represent this rate (see Supplementary Material,
+
+www.aacrjournals.org
+
+Section B3), as it makes the biologically realistic assumption
+that when carboplatin concentration is zero, there will be no
+change in DNA integrity. As the amount of drug applied
+increases, the rate of cell-cycle arrest increases because of
+increasing levels of DNA damage, up to a maximum level.
+Furthermore, this profile also matches the cell proliferation
+assays as described in ref. 11, wherein carboplatin-induced cell
+growth inhibition was reported to follow a Hill function curve.
+The arrested cells are removed to a separate compartment,
+where the cells will undergo apoptosis or will recover to the
+proliferating population. An age structure is imposed on the
+cells in this compartment to reflect the time taken from
+induction of DNA damage to eventual cell death or recovery.
+
+Cancer Res; 71(3) February 1, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+709
+
+Published OnlineFirst December 17, 2010; DOI: 10.1158/0008-5472.CAN-10-3174
+Jain and Meyer-Hermann
+
+A
+
+B
+
+C
+
+D
+
+Figure 2. Fit to control and ABT-737-only therapy. A, IGROV-1 proliferation rate is estimated by fitting the model as described in Fig. 1A to daily
+counts of IGROV-1 cells cultured in the presence of growth medium alone (19). B, for the case when ABT-737 is administered to IGROV-1 cell cultures, the
+model is modified according to that described in Fig. 1B. This is subsequently fit to cell growth and survival assays, as that described in ref. 11, wherein
+cells are treated with varying amounts of ABT-737 and level of growth inhibition recorded 4 days hence. C and D, corresponding to various doses of ABT-737 in
+B, intracellular Bcl-xL (in nanomoles per liter per cell, C) and total free ABT-737 (in micromoles per liter per well, D) are shown. Upon therapy, Bcl-xL
+levels drop very rapidly (inset, C) and recover at a rate dependent on the quantity of ABT-737 delivered. Black squares, experimental data.
+
+Models of chemotherapy have previously incorporated an age
+structure that is imparted to the equations governing cell
+growth, as it progresses through the cell cycle (22, 23). However, it is known that carboplatin is not cell-cycle specific and
+affects cells in all stages of the cell cycle (24). Thus, in our
+model, we do not distinguish between the various phases of
+cell growth. To the best of our knowledge, this is the first time
+that an age structure has been applied to a model of platinumbased chemotherapy wherein the age of arrested cells is
+tracked to mimic the experimentally observed delay in the
+onset of apoptosis from the time of cell arrest.
+It has been experimentally determined that cell cytotoxicity
+is linearly correlated with the amount of platinum bound to
+the DNA and hence the extent of DNA damage (21). This is
+reflected in our choice of the rate of arrested cell death. This is
+taken to be function of age a of the arrested cell and the
+amount of carboplatin at the time of cell-cycle arrest, C(t  a).
+These cells begin dying at some characteristic age achar,
+determined experimentally to be 48 hours in ref. 11. Cells
+are also allowed to recover to the proliferating population, as
+explained in Equation (B) of the Quick Guide. Both the rate of
+arrest of proliferating cells and the rate of arrested cell death
+
+710
+
+Cancer Res; 71(3) February 1, 2011
+
+are fit to in vitro cell growth inhibition data taken from ref. 11,
+wherein carboplatin therapy is applied singly to IGROV-1 cell
+cultures (see Fig. 3). Further details regarding the fits are
+presented in Supplementary Material, Section B3.
+Finally, to simulate combination therapy, the two singletherapy modules must be combined appropriately. We first
+note that it has been experimentally shown that Bcl-xL does not
+protect cells from undergoing cell-cycle arrest as a result of
+chemotherapy-induced DNA damage (8). We therefore propose the following model schematic, as shown in Fig. 1D.
+Carboplatin induces DNA damage leading to cell-cycle arrest
+and subsequent cell death, which might be accentuated by
+anti-Bcl-xL therapy. This, of course, also has an effect on
+proliferating IGROV-1 cells and has been quantified earlier.
+In this case, we have two unknown functions that need to be
+determined—the time of onset of arrested cell death, which is
+now a function of intracellular Bcl-xL (as opposed to a constant
+in the carboplatin-only case), and arrested cell death rate,
+which must also depend on intracellular Bcl-xL in addition
+to arrested cell age and the amount of carboplatin at the time of
+cell-cycle arrest. The full set of equations modeling combination therapy is given in Supplementary Material, Section A.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst December 17, 2010; DOI: 10.1158/0008-5472.CAN-10-3174
+The Molecular Basis of Synergism between Carboplatin
+
+methodology are available in the Supplementary Material.
+Figure 2 shows the simulations resulting from the application
+of ABT-737 alone. Figure 2B shows the best fit to the experimental data in terms of IGROV-1 cell number N at the end of
+4 days of therapy. Figure 2C and D show the corresponding
+intracellular Bcl-xL levels (b) and ABT-737 concentrations (X),
+respectively. It is observed that the application of therapy on
+day 0 causes a sharp decrease in the intracellular Bcl-xL level.
+As the amount of drug delivered is increased, the cells take
+longer to recover their constitutive levels of Bcl-xL expression,
+even though most of the free drug has degraded by this time.
+Figure 3B shows the best fit to the experimental data in
+terms of total IGROV-1 cell number T at the end of 4 days of
+carboplatin therapy administered at day 0. Here, the death
+rate of arrested cells has already been estimated as described
+in Supplementary Materials and plotted in Fig. 3A. As can be
+seen, in agreement with experimental data, the arrested cells
+begin dying at around 16 hours posttherapy. Figure 3C shows
+the carboplatin concentration (C) for varying doses administered at day 0. Given the relatively low rate of carboplatin
+decay, even at the end of 4 days of therapy, the level of drug in
+cell culture assays remains high, indicating that the time
+period of action of a single dose of carboplatin is significantly
+longer than that of ABT-737.
+
+A
+
+B
+
+C
+
+Figure 3. Fit to carboplatin-only therapy. A, upon carboplatin therapy, the
+percentage of IGROV-1 cells surviving was recorded over a period of 48
+hours, as in experiments described in ref. 11. The death rate of arrested
+cells is estimated from these data as a function of carboplatin
+concentration and time from the application of therapy, and the resulting fit
+is shown. B, for the case when carboplatin is administered to IGROV-1 cell
+cultures, the model is modified according to that described in Fig. 1C.
+This is subsequently fit to cell growth and survival assays, as that
+described in ref. 11, wherein cells are treated with varying amounts of
+carboplatin and level of growth inhibition recorded 4 days hence. C,
+corresponding to various doses of carboplatin as described earlier, drug
+profiles (in micromoles per liter per well) as a function of time are shown.
+Black squares, experimental data.
+
+Results
+The two single-therapy modules as described in the preceding section are calibrated against in vitro cell proliferation
+assays as described in ref. 11, and the resulting fits shown in
+Figs. 2 and 3. Details regarding the fits and simulation
+
+www.aacrjournals.org
+
+Carboplatin treatment primes cells for anti-Bcl-xL
+therapy
+We begin our simulation of combination therapy by simulating a cell growth inhibition assay as described in ref. 11,
+wherein the amount of ABT-737 administered on day 0 was
+fixed at 0.6 mmol/L, which by itself would result only in a 6% to
+7% growth inhibition after 4 days (Fig. 4C, solid circle and
+dashed line) as compared with the no-therapy control case
+(Fig. 4C, asterisk and dotted line). The amount of carboplatin
+coadministered was adjusted so that 50% growth inhibition
+was achieved by day 4. It was observed that 10 mmol/L
+carboplatin was required in addition to 0.6 mmol/L ABT-737
+to achieve this. Administered without any ABT-737 cotreatment, 10 mmol/L carboplatin would induce only a 30% growth
+inhibition in the same period (Fig. 4C, solid triangle and dashdotted line). Thus, the effect of combination therapy, assuming
+mutually independent action of the 2 drugs, is predicted to be
+only 37% growth inhibition. This implies that to simulate the
+observed synergism between the drugs, and given that anti-BclxL therapy does not affect the rate of carboplatin-induced cellcycle arrest (8), the additional growth inhibition must be a
+result of enhanced arrested cell death rate because of ABT737–induced lowering of intracellular Bcl-xLb. This assumption
+is built into the model as depicted in Fig. 1D and quantified in
+our fits of arrested cell death rate (Fig. 4B) and time to onset of
+arrested cell apoptosis [achar(b); Fig. 4A]. Note that experimental data relating to relative timing of dosage of ABT-737
+and carboplatin, as described in following sections, are also
+taken into account while conducting these fits. The resultant fit
+to cell growth inhibition data is shown in Fig. 4C. The model
+further predicts that in this scenario, most of the arrested cells
+undergo apoptosis and are extremely unlikely to recover to the
+proliferating population (data not shown).
+
+Cancer Res; 71(3) February 1, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+711
+
+Published OnlineFirst December 17, 2010; DOI: 10.1158/0008-5472.CAN-10-3174
+Jain and Meyer-Hermann
+
+A
+
+C
+
+B
+
+D
+
+Figure 4. Combination therapy. A, in the case wherein IGROV-1 cells were cultured in the presence of both carboplatin and ABT-737, it was observed
+that the time of onset of arrested cell death was decreased (11). Hence, the dependence of this death rate on intracellular Bcl-xL concentration is determined by
+fitting experimental data taken from ref. 11. Black squares, experimental data. B, in the case of combination therapy, the (normalized) maximum death
+rate of arrested cells is shown as a function of intracellular Bcl-xL. The model is modified according to that described in Fig. 1D, and a fit is carried out to data
+shown in Figs. 4C and 5 in order to estimate the functional form of the Bcl-xL–dependent death rate of arrested cells. The experimental data being fit
+is in the form of several combination indices based on scheduling of ABT-737 with respect to carboplatin therapy as reported in ref. 11. To match these data, it
+is necessary to assume that the arrested cells that have incurred DNA damage as a result of carboplatin therapy are extremely sensitive to changes in
+intracellular Bcl-xL—if this level decreases by more than 1%, the cells will undergo apoptosis. C, an additional data point used to fit Bcl-xL–dependent
+death rate of arrested cells is the 50% cell growth inhibition that results from coadministering 10 mmol/L carboplatin with 0.6 mmol/L ABT-737. Shown here is
+the resultant fit. Data point, black square; simulation, solid line. Inset, the effect of combination therapy on intracellular Bcl-xL. Also plotted are the
+effects of giving these drug doses alone on IGROV-1 cell growth, with model simulations in dotted or dashed lines. D, simulations of the full model are
+carried out to obtain CI values (inscribed on the dosage curve) computed for a 50% desired cell kill for various combinations of carboplatin and ABT-737.
+Following the experimental protocol in ref. 11, it is assumed that both drugs are given simultaneously at day 0 and the level of growth inhibition of IGROV-1
+cells recorded at day 4. The indicated value (dotted lines) is the experimental data point available from ref. 11. Simulations indicate that a combination
+of 1.2 mmol/L ABT-737 together with 8 mmol/L carboplatin maximizes the synergism between the 2 drugs.
+
+ABT-737 impairs the ability of cells to recover from
+DNA damage
+To fit experimental data relating to relative timing of
+ABT-737 and carboplatin application (shown in Fig. 5, last
+column, rows 1–5), a number of different functional forms
+were tried for arrested cell death rate (for details, see
+Supplementary Material, Section B4). In these experiments,
+carboplatin was administered to IGROV-1 cells in culture for
+1 day, the cells were pre-, co-, or posttreated with 0.6 mmol/L
+ABT-737, and cell growth inhibition was recorded at day 4
+(Fig. 5, as in ref. 11, solid boxes indicate all drug washed from
+
+712
+
+Cancer Res; 71(3) February 1, 2011
+
+cell culture). It was found that posttreatment with ABT-737
+induced maximum level of synergism between the two drugs
+and was proposed as regimen of choice. The best fit to these
+data was obtained upon assuming that a greater than 1%
+fluctuation in the value of intracellular Bcl-xL implies that
+the arrested cells will be unable to recover from DNA
+damage and consequently undergo apoptosis (Fig. 4B). Note
+that the experimental data point in the last column of row 5
+(Fig. 5) does not match with our model simulations (penultimate column, row 5). This is discussed in further detail in
+the next section.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst December 17, 2010; DOI: 10.1158/0008-5472.CAN-10-3174
+The Molecular Basis of Synergism between Carboplatin
+
+Figure 5. Scheduling of ABT-737. IGROV-1 cells are treated with a range of concentrations of carboplatin for a period of 24 hours and pretreated,
+cotreated, or posttreated with 0.6 or 1.2 mmol/L ABT-737. Following the convention in ref. 11, rectangular boxes indicate the addition of new drug and
+removal of any drug previously added. Carboplatin is administered on day 1 and removed 24 hours later. Combination indices (CI; last column) are
+computed for a 50% desired cell kill, as reported in ref. 11 and are used to fit the full model system as in Fig. 1D describing combination therapy. For the various
+dosing regimens, IC50 of carboplatin as estimated numerically is reported in micromoles per liter values. For comparison with experimental CI values, a ratio of
+the various IC50 values with that from schedule number 3 (a ¼ 44 mmol/L) is used, as this has a reported CI of 1 and therefore regarded as the baseline. In
+general, there is a good agreement with the experimental data. Simultaneous treatment and posttreatment with ABT-737 are predicted as the best therapeutic
+strategy that fully exploits the basis of synergism between the 2 therapies in the case when the total dose of ABT-737 is fixed at 1.2 mmol/L.
+
+Optimal dose scheduling regimens
+Having extensively calibrated and fitted our model, we can
+now use it to investigate in detail the levels of synergism
+predicted for various dose-scheduling regimens. Following the
+experimental protocol laid down in ref. (11), we take as an
+indication of level of synergism a ratio of the predicted
+carboplatin concentration required to obtain 50% cell growth
+inhibition when combined with 1 to 3 doses of ABT-737 each
+of 0.6 mmol/L, with the control case, wherein the cells are
+cotreated with both drugs for 24 hours (row 3). A ratio of 1 or
+greater indicates suboptimal dosing, whereas a ratio of less
+than 1 indicates optimal dosing. (Combination indices calculated as described in ref. 25. See Supplementary Material,
+Section D for an explanation of these calculations.) Therefore,
+to find an optimal schedule, we need to minimize the amount
+of carboplatin required, for a given fixed amount of ABT-737
+administered, to achieve a desired cell-kill fraction, by varying
+the timing of administering the two drugs with respect to each
+other. As can be seen from the first 5 rows of Fig. 5, the
+
+www.aacrjournals.org
+
+experimental data and model simulations both predict that
+pretreatment of IGROV-1 cells with ABT-737 is a suboptimal
+strategy. However, the true usefulness of the model lies in the
+ability to test dosing regimens suggested by but yet untested in
+experiments and which would take a very long time if carried
+out. Simulation indicates that cotreatment, followed by
+immediate posttreatment with ABT-737, indicates greater
+therapeutic benefit than purely posttreatment (row 2 vs. rows
+7 and 8). This is also a better strategy than simply cotreatment
+but with double dose of ABT-737 (row 9). Finally, pretreatment
+in all but case 6 (rows 4, 5, and 10) seems to do worse as
+compared with any strategy that avoids pretreatment. Thus, in
+agreement with experimental results, the model predicts that
+if only a single dose of ABT-737 may be given in combination
+with carboplatin therapy, posttreatment is the best option
+(row 1). However, if 2 doses of ABT-737 are allowed, the best
+strategy is predicted to be cotreatment, immediately followed
+by posttreatment (row 2). Note that in row 6, as 3 doses of
+ABT-737 are being delivered, best results are predicted. In fact,
+
+Cancer Res; 71(3) February 1, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+713
+
+Published OnlineFirst December 17, 2010; DOI: 10.1158/0008-5472.CAN-10-3174
+Jain and Meyer-Hermann
+
+if 3 doses of ABT-737 are allowed, the model predicts that 1 to
+2 doses must be given post–carboplatin treatment; the timing
+of the third dose is relatively flexible (not shown). Therefore, in
+all cases, posttreatment with ABT-737 is indicated.
+Prediction of optimal relative dosages
+Finally, we turn our attention to a key question that arises in
+the chemotherapeutic treatment of cancers—"What should
+the relative dose sizes of two (or more) drugs be, in order to
+maximize tumor cell exposure, while minimizing the amount
+of drugs administered?" Figure 4D is a phase diagram showing
+the amounts of carboplatin and ABT-737 required to achieving
+a desired cell growth inhibition of 50% when these two drugs
+are administered simultaneously. Here, minimizing patient
+drug load is equivalent to minimizing their CI. (Note: We are
+attempting to minimize the following function, subject to
+the condition that after 4 days, cell numbers in culture should
+be half the value in the case when no therapy is given.
+Xð0Þ
+CI ¼ Cð0Þ
+C5 0 þ X5 0 . Here, C(0) and X(0) are the doses of carboplatin and ABT-737 administered at time t ¼ 0; C50 and X50 are
+the amounts of the two drugs required to achieve 50% growth
+inhibition when administered singly; C(0) is allowed to vary
+between 0 and C50 and the constraint used to generate values
+of X(0). This may be regarded as an optimization problem in a
+single variable C(0) that takes values on a closed interval and
+therefore attains its minimum therein.) A computation of the
+CI for each pair of doses is enumerated along the dose curve. A
+combination of 8 mmol/L carboplatin together with 1.2 mmol/
+L ABT-737 is predicted to optimize the synergism between the
+2 drugs. Such phase diagrams can similarly be computed for
+any desired cell kill.
+
+Discussion
+In this article, we presented a model of combination
+chemotherapy comprising the platinum-based drug carboplatin, together with a novel small molecule inhibitor ABT-737, in
+the case of ovarian carcinomas. To elucidate the mechanism
+of interaction between the 2 drugs, details of the apoptotic
+pathway were incorporated at a molecular level and a cell age
+structure was applied to simulate the effect of DNA damage on
+cell fate. The model was extensively calibrated against experimental data and subsequently used to make key predictions
+regarding dose and schedule optimization that arise in the
+field of cancer chemotherapeutics.
+The model could verify the experimentally proposed hypothesis that carboplatin sensitizes cancer cells for treatment with
+ABT-737. In fact, it explicitly emerged from our simulations that
+the principal reason for this is the reduced ability of DNAdamaged cells to withstand changes in intracellular Bcl-xL
+concentration. In addition, a hypothesized reduction in the
+time of onset of arrested cell death as a result of coadministration of ABT-737 with carboplatin was predicted to have limited
+impact on cell growth inhibition and therefore on synergism
+between the 2 drugs. The model further predicted the existence
+of a threshold for intracellular Bcl-xL concentration below
+which carboplatin-treated cells are unable to survive.
+
+714
+
+Cancer Res; 71(3) February 1, 2011
+
+It has been proposed that insufficient exposure of tumor
+cells to drugs could contribute to chemoresistance development, calling for a need to conduct studies aimed at optimizing
+chemotherapeutic schedules (26). However, such studies have
+typically high financial as well as human costs. Using modeling
+such as that presented here to arrive at principles of optimal
+dose scheduling can lead to significant cost savings and faster
+clinically applicable results. For instance, for a maximum of 2
+fixed doses of ABT-737 and a single dose of carboplatin, we
+predicted that cotreatment immediately, followed by posttreatment of ABT-737 with carboplatin, was the best strategy. In
+fact, such regimens can easily be computed for any given
+number of doses of the 2 drugs to be administered over a
+given length of time. Likewise, fixing the target cell kill at 50%,
+we were able to predict dose sizes of these 2 drugs to be
+coadministered in order to optimize their synergism and hence
+minimize patient drug load. Such phase diagrams can also be
+computed for any desired cell kill to minimize drug dose or
+under a constraint on the maximum tolerated amount of each
+drug to maximize cell kill. Although this is, of course, not
+intended to replace clinical testing, it can minimize the various
+choices that need to be examined experimentally, in addition
+to being a quantitative tool useful for interpreting experimental
+results.
+Relative dose scheduling experiments reported in ref. 11
+suggest that pretreatment of IGROV-1 cells with ABT-737,
+followed by cotreatment with carboplatin and ABT-737, is
+suboptimal (Fig. 5, row 5, last column). However, this is in
+contradiction to the additive effect predicted when cells are
+simply cotreated with the 2 drugs (Fig. 5, row 3, last column),
+as in the previous case, one is starting with fewer cells at the
+time of cotreatment. Our model predicted a near-additive
+effect in both cases, and an experiment such as that suggested
+in row 6 of the same figure, where pre-, co-, and posttreatment
+is carried out, would help to understand this apparent discrepancy.
+The model presented here was conscientiously fit to relevant experimental data and a balance between incorporating
+the maximum possible biological details and keeping
+unknowns to a minimum was striven for. The simplicity of
+the model, combined with good agreement between numerical simulations and experimental data, suggests that it may
+be a valuable tool for hypothesis generation. However, the
+quality of the model predictions will have to be verified in
+further experiments. For instance, instead of recording cell
+growth inhibition in response to the various therapies at the
+end of 4 days, it would be extremely useful to maintain a daily
+cell count record. This could then be used to fine-tune the
+proliferating cell death rate, rate of cell arrest, and most
+important, a rate for cell recovery from DNA damage (which
+is taken in to occur spontaneously after a certain length of
+time in our model due to a lack of such data). A measure of the
+constitutive levels of expression of some of the key players in
+the Bcl family, especially Bcl-xL, would help to precisely
+quantify the effect of ABT-737 on DNA-damaged cells. Then,
+simulations of the predicted effect of the therapies could be
+carried out with confidence on any given cell line. The input
+data required would only be a comparison of the level of
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst December 17, 2010; DOI: 10.1158/0008-5472.CAN-10-3174
+The Molecular Basis of Synergism between Carboplatin
+
+expression of such proteins, which could be obtained by
+methods such as Western blotting. The model described in
+this article has the potential of developing into a valuable
+quantitative tool to aid in the translation of drugs such as
+ABT-737 from the experimental to clinical settings and underscores the need for close collaboration between modeling and
+simulation efforts and experimentalists. Given the high costs
+of drug development, such collaborations can have a farreaching impact on the field of cancer therapeutics.
+Disclosure of Potential Conflicts of Interest
+No potential conflicts of interest were disclosed.
+
+Acknowledgments
+The authors gratefully acknowledge the feedback and comments of Prof.
+Helen Byrne.
+
+Grant Support
+H.V. Jain was supported by the National Science Foundation Award
+(0635561). M. Meyer-Hermann was supported by the EU-NEST project MAMOCELL in FP6 and by the BMBF GerontoMitoSys project. FIAS was supported by
+the ALTANA AG.
+The costs of publication of this article were defrayed in part by the payment
+of page charges. This article must therefore be hereby marked advertisement in
+accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+Received August 26, 2010; revised November 11, 2010; accepted December 6,
+2010; published OnlineFirst December 17, 2010.
+
+References
+1.
+2.
+
+3.
+
+4.
+5.
+6.
+
+7.
+
+8.
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+15.
+
+16.
+
+17.
+
+18.
+19.
+
+Roett MA, Evans P. Ovarian cancer: an overview. Am Fam Physician
+2009;80:609–16.
+Despierre E, Lambrechts D, Neven P, Amant F, Lambrechts S, Vergote
+I. The molecular genetic basis of ovarian cancer and its roadmap
+towards a better treatment. Gynecol Oncol 2010;117:358–65.
+Vasey PA. Resistance to chemotherapy in advanced ovarian cancer:
+mechanisms and current strategies. Br J Cancer 2003;89 Suppl 3:
+S23–8.
+Stewart DJ. Mechanisms of resistance to cisplatin and carboplatin.
+Crit Rev Oncol Hematol 2007;63:12–31.
+Adams JM. Ways of dying: multiple pathways to apoptosis. Genes
+Dev 2003;17:2481–95.
+Williams J, Lucas PC, Griffith KA, Choi M, Fogoros S, Hu YY, et al.
+Expression of Bcl-xL in ovarian carcinoma is associated with chemoresistance and recurrent disease. Gynecol Oncol 2005;96:287–95.
+Liu JR, Fletcher B, Page C, Hu C, Nunez G, Baker V. Bcl-xL is
+expressed in ovarian carcinoma and modulates chemotherapyinduced apoptosis. Gynecol Oncol 1998;70:398–403.
+Minn AJ, Rudin CM, Boise LH, Thompson CB. Expression of Bcl-xL
+can confer a multidrug resistance phenotype. Blood 1995;86:1903–10.
+Villedieu M, Louis MH, Dutoit S. Absence of Bcl-xL down-regulation in
+response to cisplatin is associated with chemoresistance in ovarian
+carcinoma cells. Gynecol Oncol 2007;105:31–44.
+re M, Simonin K, Duval RE, Villedieu M, LeroyBrotin E, Meryet-Figuie
+Dudal J, et al. Bcl-xL and MCL-1 constitute pertinent targets in ovarian
+carcinoma and their concomitant inhibition is sufficient to induce
+apoptosis. Int J Cancer 2010;126:885–95.
+Witham J, Valenti MR, De-Haven-Brandon AK, Vidot S, Eccles SA,
+Kaye SB, et al. The Bcl-2/Bcl-xL family inhibitor ABT-737 sensitizes
+ovarian cancer cells to carboplatin. Clin Cancer Res 2007;13:7191–8.
+Oltersdorf T, Elmore SW, Shoemaker AR, Armstrong RC, Augeri DJ,
+Belli BA, et al. An inhibitor of Bcl-2 family proteins induces regression
+of solid tumours. Nature 2005;435:677–81.
+Stauffer SR. Small molecule inhibition of the Bcl-X(L)-BH3 proteinprotein interaction: proof-of-concept of an in vivo chemopotentiator
+ABT-737. Curr Top Med Chem 2007;7:961–5.
+Kempf H, Bleicher M, Meyer-Hermann M. Spatio-temporal cell
+dynamics in tumour spheroid irradiation. Eur Phys J D 2010;60:177–93.
+Schaller G, Meyer-Hermann M. Continuum versus discrete model: a
+comparison for multicellular tumour spheroids. Philos Trans A Math
+Phys Eng Sci 2006;364:1443–64.
+Schaller G, Meyer-Hermann M. Multicellular tumor spheroid in an offlattice Voronoi-Delaunay cell model. Phys Rev E Stat Nonlin Soft
+Matter Phys 2005;71:051910.
+€ r JE, Jackson TL. Quantification of endothelial cell-tarJain HV, No
+geted anti-Bcl-2 therapy and its suppression of tumor growth and
+vascularization. Mol Cancer Ther 2009;8:2926–36.
+€ r JE, Jackson TL. Modeling the VEGF-Bcl-2-CXCL8
+Jain HV, No
+pathway in intratumoral angiogenesis. Bull Math Biol 2008;70:89–117.
+nard S, Colnaghi MI.
+Bottero F, Tomassetti A, Canevari S, Miotti S, Me
+Gene transfection and expression of the ovarian carcinoma marker
+
+www.aacrjournals.org
+
+20.
+
+21.
+22.
+
+23.
+
+24.
+
+25.
+
+26.
+27.
+
+28.
+
+29.
+
+30.
+31.
+
+32.
+
+33.
+
+34.
+
+35.
+
+folate binding protein on NIH/3T3 cells increases cell growth in vitro
+and in vivo. Cancer Res 1993;53:5791–6.
+Levine HA, Sleeman BD, Nilsen-Hamilton M. A mathematical model
+for the roles of pericytes and macrophages in the initiation of angiogenesis. I. The role of protease inhibitors in preventing angiogenesis.
+Math Biosci 2000;168:77–115.
+Siddik ZH. Cisplatin: mode of cytotoxic action and molecular basis of
+resistance. Oncogene 2003;22:7265–79.
+Basse B, Ubezio P. A generalised age- and phase-structured model of
+human tumour cell populations both unperturbed and exposed to a
+range of cancer therapies. Bull Math Biol 2007;69:1673–90.
+Spinelli L, Torricelli A, Ubezio P, Basse B. Modelling the balance
+between quiescence and cell death in normal and tumour cell populations. Math Biosci 2006;202:349–70.
+Nguyen HN, Sevin BU, Averette HE, Perras J, Ramos R, Donato D,
+et al. Cell cycle perturbations of platinum derivatives on two ovarian
+cancer cell lines. Cancer Invest 1993;11:264–75.
+Chou TC, Talalay P. Quantitative analysis of dose-effect relationships:
+the combined effects of multiple drugs or enzyme inhibitors. Adv
+Enzyme Regul 1984;22:27–55.
+Tan DS, Ang JE, Kaye SB. Ovarian cancer: can we reverse drug
+resistance? Adv Exp Med Biol 2008;622:153–67.
+Chen C, Cui J, Zhang W, Shen P. Robustness analysis identifies the
+plausible model of the Bcl-2 apoptotic switch. FEBS Lett
+2007;581:5143–50.
+Hua F, Cornejo MG, Cardone MH, Stokes CL, Lauffenburger DA.
+Effects of Bcl-2 levels on Fas signaling-induced caspase-3 activation:
+molecular genetic tests of computational model predictions. J Immunol 2005;175:985–95.
+Kuwana T, Mackey MR, Perkins G, Ellisman MH, Latterich M, Schneiter
+R, et al. Bid, Bax, and lipids cooperate to form supramolecular openings in the outer mitochondrial membrane. Cell 2002;111:331–42.
+Wang S, Yang D, Lippman ME. Targeting Bcl-2 and Bcl-xL with nonpeptidic small-molecule antagonists. Semin Oncol 2003;30:133–42.
+Di Pasqua AJ, Goodisman J, Kerwood DJ, Toms BB, Dabrowiak JC.
+Modification of carboplatin by Jurkat cells. J Inorg Biochem
+2007;101:1438–41.
+Blagosklonny MV, Alvarez M, Fojo A, Neckers LM. bcl-2 protein
+downregulation is not required for differentiation of multidrug resistant
+HL60 leukemia cells. Leukoc Res 1996;20:101–7.
+Eischen CM, Packham G, Nip J, Fee BE, Hiebert SW, Zambetti GP,
+et al. Bcl-2 is an apoptotic target suppressed by both c-Myc and
+E2F-1. Oncogene 2001;20:6983–93.
+Mohammad RM, Goustin AS, Aboukameel A, Chen B, BanerjeeS, Wang
+G, et al. Preclinical studies of TW-37, a new nonpeptidic small-molecule
+inhibitor of Bcl-2, in diffuse large cell lymphoma xenograft model reveal
+drug action on both Bcl-2 and Mcl-1. Clin Cancer Res 2007;13:2226–35.
+Ponassi R, Biasotti B, Tomati V, Bruno S, Poggi A, Malacarne D, et al.
+A novel Bim-BH3-derived Bcl-xL inhibitor: biochemical characterization, in vitro, in vivo and ex-vivo anti-leukemic activity. Cell Cycle
+2008;7:3211–24.
+
+Cancer Res; 71(3) February 1, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+715
+
+Published OnlineFirst December 17, 2010; DOI: 10.1158/0008-5472.CAN-10-3174
+
+The Molecular Basis of Synergism between Carboplatin and
+ABT-737 Therapy Targeting Ovarian Carcinomas
+Harsh Vardhan Jain and Michael Meyer-Hermann
+Cancer Res 2011;71:705-715. Published OnlineFirst December 17, 2010.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-10-3174
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2010/12/17/0008-5472.CAN-10-3174.DC1
+
+This article cites 34 articles, 8 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/71/3/705.full#ref-list-1
+This article has been cited by 3 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/71/3/705.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications
+Department at pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications
+Department at permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+

@@ -1,0 +1,515 @@
+HHS Public Access
+Author manuscript
+Author Manuscript
+
+Cell. Author manuscript; available in PMC 2016 November 19.
+Published in final edited form as:
+Cell. 2015 November 19; 163(5): 1059–1063. doi:10.1016/j.cell.2015.11.002.
+
+Improving Cancer Treatment via Mathematical Modeling:
+Surmounting the Challenges is Worth the Effort
+Franziska Michor1 and Kathryn Beal2
+Franziska Michor: michor@jimmy.harvard.edu; Kathryn Beal: bealk@mskcc.org
+1Department
+
+of Biostatistics and Computational Biology, Dana-Farber Cancer Institute, and
+Department of Biostatistics, Harvard T. H. Chan School of Public Health, Boston, MA 02115, USA
+
+Author Manuscript
+
+2Department
+
+of Radiation Oncology, Memorial Sloan-Kettering Cancer Center, New York, NY,
+
+10065, USA
+
+Abstract
+Drug delivery schedules are key factors in the efficacy of cancer therapies, and mathematical
+modeling of population dynamics and treatment responses can be applied to identify better drug
+administration regimes as well as provide mechanistic insights. To capitalize on the promise of
+this approach, the cancer field must meet the challenges of moving this type of work into clinics.
+
+Author Manuscript
+Author Manuscript
+
+Cancer research and oncology has entered a new era of targeted therapy (Sawyers, 2004)
+and patient-tailored therapeutic intervention (Shrager and Tenenbaum, 2014), but resistance
+(Gottesman et al., 2002; Holohan et al., 2013) and tumor heterogeneity (Anderson et al.,
+2011; Burrell et al., 2013; Ding et al., 2012; Gerlinger et al., 2012; Landau et al., 2013) have
+been a barrier for realizing the clinical impact of these discoveries. This barrier is, in
+essence, a quantitative population genetics problem – the need to quantitatively describe
+heterogeneous tumor cell populations and their dynamics over time and during treatment.
+Using such mathematical descriptions, it is then possible to evaluate which drugs,
+combinations and schedules are best for a given patient. For instance, if drugs are
+administered at sufficiently low doses, no drug holidays are necessary to limit the side
+effects and reduce patient toxicity; however, if drugs are administered at more concentrated
+doses, which may lead to higher cell kill, then rest periods are needed to limit side effects.
+Such drug holidays can lead to an exponential rebound of the tumor cell population and
+hence pose a significant risk for the emergence of resistance. It is unclear, a priori, which of
+these two example strategies are going to be more effective in reducing tumor burden and
+preventing the emergence or outgrowth of a resistant tumor subclone. In order to answer this
+question, several clinical studies have been performed to identify optimum dosing
+frequencies (Hryniuk, 2001) (Lake and Hudis, 2004). However, it is both unethical and too
+time-consuming to test all possible dosing schedules in pre-clinical or clinical studies, and
+therefore only limited clinical experimentation can be performed.
+
+Publisher's Disclaimer: This is a PDF file of an unedited manuscript that has been accepted for publication. As a service to our
+customers we are providing this early version of the manuscript. The manuscript will undergo copyediting, typesetting, and review of
+the resulting proof before it is published in its final citable form. Please note that during the production process errors may be
+discovered which could affect the content, and all legal disclaimers that apply to the journal pertain.
+
+Michor and Beal
+
+Page 2
+
+Author Manuscript
+Author Manuscript
+
+Mathematical modeling of the treatment response of heterogeneous cell populations
+represents an attractive avenue towards narrowing the set of possibilities that should be
+tested in preclinical models and in the clinical setting (Figure 1). Mathematical modeling
+can in principle be used to systematically search through the millions of possible dose
+administration strategies (each determined by a unique dose-time profile) and combination
+schedules (each determined by a combination of different drugs administered at different
+dose-time profiles) to identify the schedules that maximally extend patient survival. Indeed,
+a significant amount of research effort has been devoted to developing mathematical models
+that identify the most effective chemotherapeutic administration regimens using
+optimization and control techniques (Coldman and Murray, 2000; Costa et al., 1992, 1995;
+Katouli and Komarova, 2011; Kimmel M., 2006; Ledzewicz and Schattler, 2009; Martin et
+al., 1992; Martin and Teo, 1993; Murray and Coldman, 2003). These models are in general
+aimed at rapidly minimizing the total tumor burden. However, long-term patient survival
+depends not only on quickly decimating the total number of tumor cells, but also on
+controlling drug-resistant subpopulations within the tumor. The simultaneous achievement
+of these two goals is complicated by the fact that they are often accomplished by exerting
+opposing evolutionary selection pressures. Furthermore, both long-term toxicity and doselimiting side effects must be avoided.
+Below we will highlight several examples of promising, modeling-based findings, some of
+which represent the few that have been or will soon be tested clinically. We will then discuss
+the challenges that the field must meet to enable more extensive clinical testing of
+mathematically discovered treatment modalities.
+
+Illustrative Examples of Mathematically Modeled Treatment Regimens
+Author Manuscript
+Author Manuscript
+
+In a landmark study, Norton and Simon (Norton and Simon, 1977) observed that clinical
+experience was at odds with a fundamental concept that had been instrumental in designing
+dose schedules for the treatment of human cancer: that small tumors were more sensitive to
+cytotoxic therapy than larger tumors of the same histology. The underlying assumption was
+that smaller tumors have a large fraction of actively dividing cells. However, Norton and
+Simon observed that in many cases, the low-dose low-concentration schedules used for
+smaller tumors were inferior to more high-concentration, dose-dense protocols that were a
+relatively novel approach at that time. To understand this observation, they probed the
+relationship between tumor size and sensitivity to therapy by inspecting growth curves of
+tumors exposed to anti-cancer agents. They found that most untreated malignancies can be
+described using a Gompertzian growth law, which predicts an S-shaped growth curve.
+According to this law, the growth rate of tumor cells is smallest for both very small and very
+large tumors, but is maximum at the inflection point. Their resulting mathematical model led
+to the conclusion that a dose schedule capable of dramatically depleting a tumor of
+intermediate size may not be sufficient to cure a small tumor. They thus suggested more
+intense schedules, higher doses, and prolonged therapy. The authors later set out to validate
+their predictions in a large randomized clinical trial (Citron et al., 2003) of axillary nodepositive breast cancer. They found, as predicted, that dose-dense schedules significantly
+increased disease-free survival and overall survival. Their approach thus became the first
+mathematical model providing clinically-validated predictions.
+
+Cell. Author manuscript; available in PMC 2016 November 19.
+
+Michor and Beal
+
+Page 3
+
+Author Manuscript
+Author Manuscript
+
+The model by Norton and Simon was based on the observation that treatment efficacy can
+drop if insufficient drug is administered at a time when the tumor is kinetically less sensitive
+to treatment. This ‘kinetic resistance’ is unlike acquired resistance due to genetic and/or
+epigenetic events that prevent the drug from entering the cell, binding to its target, or other
+mechanisms. This ‘biochemical’ type of resistance was first addressed by Goldie and
+Colman who developed a mathematical model relating the probability of drug sensitivity of
+a tumor to the rate at which cells accumulate changes that enable them to become resistant
+to therapy (Goldie and Coldman, 1979). The model assumed that there is a certain
+probability per cancer cell division that a resistance-causing (epi)genetic change arises. By
+calculating the probability of resistance and the expected number of resistant cells, the
+authors found not only that an increase in the mutation rate increases the probability of a
+resistant phenotype emerging, but also that the probability of there being at least one
+resistant cell will increase dramatically during a very short interval in the biological history
+of the tumor. The clinical recommendation based on these results was that therapy be
+initiated as quickly as possible to maximize the probability of a cure. This approach was
+later also predicted to maximize patient survival due to the emergence of more lethal cancer
+states such as metastases (Haeno et al., 2012).
+
+Author Manuscript
+Author Manuscript
+
+A subsequent extension of this mathematical model considered two types of resistant cells,
+each insensitive to a different chemotherapeutic agent (Goldie et al. 1982). The goal of the
+model was to take both types of resistance into account and identify treatment schedules that
+would maximize the chance of a cure by preventing the emergence of doubly resistant cells.
+Using a computer program to simulate the development of such doubly resistant cells, they
+predicted that alternating the treatment regimen of the two drugs at every cycle would be the
+most effective strategy to prevent resistance. This prediction became known as the GoldieColdman hypothesis. A clinical trial in Italy tested this hypothesis in women with resectable
+mammary carcinoma and more than three positive axillary lymph nodes (Bonadonna et al.,
+1995). The patients were randomized into two treatment arms, either receiving treatments
+sequentially or in an alternating fashion. The primary endpoints were relapse-free and
+overall survival, and the median duration of follow-up was nine years. The trial results
+demonstrated significantly longer survival, both progression-free and overall, for patients
+who received the sequential regimen as compared to the alternating regimen. A subsequent
+phase II study also evaluated the efficacy of alternating and sequential regimens of docetaxel
+and doxorubicin as first-line chemotherapy for metastatic breast cancer (Paridaens et al.,
+2003). The alternating and sequential groups achieved similar objective tumor response rates
+and median duration of response, but medial survival times were significantly shorter in the
+alternating than the sequential group. Furthermore, patients receiving sequential therapy
+were more likely to complete the planned eight chemotherapy cycles and had a lower
+incidence of side effects.
+These trial results suggest that at least in those clinical settings, the Goldie-Coldman
+hypothesis did not hold. However, the possibility remains that the hypothesis might lead to
+better survival times in other cancer types and/or treatment approaches (such as
+chemotherapy and radiation therapy). Indeed, several studies have investigated the outcome
+of radiation therapy followed by chemotherapy versus chemotherapy concomitant with
+radiation therapy. For example, in non-metastatic breast cancer, both radiation and
+Cell. Author manuscript; available in PMC 2016 November 19.
+
+Michor and Beal
+
+Page 4
+
+Author Manuscript
+
+chemotherapy are often used as adjuvant treatment following surgery. A randomized study
+performed in the 1990’s comparing the sequencing options (of radiation versus
+chemotherapy first) showed a reduction in the rate of distant metastases in the group that
+received chemotherapy first (Recht et al., 1996). However, those results were later updated
+(Bellon et al., 2005) and shown to be non-significant, and then disputed in a meta-analysis
+of three well-documented randomized trials designed to study this question (Hickey et al.,
+2013). Thus, the findings regarding implementations of the Goldman-Coldie hypothesis in
+the clinic remain mixed and no clear validation of the hypothesis has been obtained so far. In
+fact, other recent approaches have suggested that it would be beneficial to administer
+combination treatment upfront to prevent the outgrowth of resistance (Bhang et al., 2015;
+Bozic et al., 2013; Glickman and Sawyers, 2012).
+
+Author Manuscript
+Author Manuscript
+
+To determine if modeling approaches could be applied to specific resistance mechanisms to
+individual drugs, we developed a mathematical model of non-small cell lung cancer cell
+response to treatment with the epidermal growth factor receptor (EGFR) inhibitor erlotinib
+(Chmielecki et al., 2011) in which resistance was considered to arise predominantly due to a
+second-site EGFR mutation (Pao et al., 2005), T790M, which emerges with a low
+probability during each sensitive cell division. The model, similar to the approach by Goldie
+and Coldman, was based on a stochastic branching process in which erlotinib-sensitive cells
+proliferate and die according to rates determined in a patient-derived cell line. Resistant cells
+then also proliferate and die according to rates determined in cells isogenic to the sensitive
+line apart from the T790M mutation. These in vitro cell culture experiments demonstrated
+that resistant cells had a fitness lower than sensitive cells in the absence of treatment, a
+finding explaining the low frequencies of pre-existing T790M-positive clones in patients
+(Chmielecki et al., 2011). The mathematical model was then used to search through the
+space of all clinically tolerated erlotinib schedules to identify the one that would
+significantly delay the emergence of T970M-driven resistance. Unlike the FDA-approved
+schedule of 150mg per day, the optimum consisted of administering a low dose of 50mg per
+day together with twice weekly high dose pulses at the clinically determined maximally
+tolerated dose; the clinical study testing this hypothesis was initiated at Memorial SloanKettering in 2013 (http://clinicaltrials.gov/show/NCT01967095). Preliminary results show
+that this schedule is well tolerated and might reduce the rate of progression in patients with
+brain metastases (Yu et al., 2015).
+
+Author Manuscript
+
+Although only these three population-based modeling approaches have so far led to clinical
+implementation, several other frameworks have been developed that might soon be tested in
+the clinic. These include a mathematical model suggesting the use of an adaptive therapeutic
+approach that changes in response to the variability in both space and time of the tumor
+microenvironment, cell phenotype, and response to treatment (Gatenby et al. 2009), and a
+model investigating alternative radiation schedules in primary glioblastoma (Leder et al.,
+2014). Another recent approach incorporates genetic heterogeneity in the context of
+selecting optimum combination strategies (Zhao et al., 2014). Other groups have used
+evolutionary game theory to investigate optimal combination therapies (Basanta et al., 2012)
+or used patient-derived data on tumor stem cell turnover to identify prognostic factors
+(Stiehl et al., 2015).
+
+Cell. Author manuscript; available in PMC 2016 November 19.
+
+Michor and Beal
+
+Page 5
+
+Author Manuscript
+Author Manuscript
+
+These studies serve as examples of quantitative descriptions of heterogeneous cell
+populations responding to treatment. The potential of this approach is obvious – it enables us
+to systematically investigate hypotheses and test alternative options for treatment. While
+mathematical models and pre-clinical studies of optimized treatment schedules are
+encouraging, limitations of the approach are also plentiful, as illustrated by the lack of
+resolution regarding the efficacy of alternating versus sequential treatments discussed above.
+The predictive utility of a model parameterized using a particular pre-clinical model depends
+on the accuracy not only of the mathematical model, but also the in vitro or in vivo model
+vis a vis the human cancer it models, as well as the biological assumptions and quality of the
+data. The ability of the modeling predictions to be verified or falsified, not just in a model
+system, but eventually in a clinical study is the essential test. In addition, knowledge is
+evolving: more complex aspects of tumor biology are emerging and need to be incorporated
+into quantitative modeling approaches. These include single cell genetic and epigenetic
+heterogeneity (Van Loo and Voet, 2014) and interactions between cancer cells and the
+immune system (Sharma et al., 2011) as well as the microenvironment. The analysis of
+datasets that comprehensively and quantitatively capture such features may require novel
+mathematical approaches and simulation tools that, for instance, can take advantage of
+today’s most powerful supercomputers.
+
+Author Manuscript
+Author Manuscript
+
+Importantly, translation of these concepts and ideal models into a clinical setting presents
+both logistical and patient-specific challenges related to the tumor micro-environment. It is
+always difficult to translate a result from a cell line or animal model into a human clinical
+study; while there are logistical concerns related to administering any type of cancer-related
+treatment, we will discuss the complexities of treating brain tumor patients with radiation as
+a specific example. The first challenge regarding scheduling altered or “optimized”
+scheduled radiation, for instance as proposed in Leder et al. (2014), reflects the process of
+treating patients at a specific time each day. There are staffing concerns with respect to
+hours of operation and coordination of scheduling multiple patients throughout the day on
+each linear accelerator. There is also the potential of treatment- or tumor-related toxicity that
+may fluctuate daily and affect whether or not patients can tolerate treatment at very specific
+time(s) each day. Most patients are also fatigued and may have neurologic symptoms related
+to their brain tumors or treatment, which makes it difficult to adhere to a complicated or
+specific timing schedule. With careful patient selection and consideration of scheduling
+constraints, though, these challenges may be overcome. The observation of variable tumor
+volume amongst patients reflects the fact that there is great variability amongst patients with
+the extent of their brain tumor resection related to the location of their tumors in different
+regions of the brain and the original extent of the tumor. A patient who has a gross total
+resection with only microscopic residual disease may have a very different response to an
+altered or optimized treatment schedule than a patient who has a large, relatively intact
+tumor. The potential variability of tumor volume between brain tumor patients is much
+greater than in the breast cancer studies referred to above. This variability could certainly
+affect the outcome of an optimized radiation schedule clinical trial.
+Other challenges are related to variability in the tumor microenvironment that may be the
+result of molecular differences amongst patients’ tumors or even more simply the wide
+range of medications, or chemotherapy, that brain tumor patients often require as part of the
+Cell. Author manuscript; available in PMC 2016 November 19.
+
+Michor and Beal
+
+Page 6
+
+Author Manuscript
+
+management of their brain tumors. These medications may alter the cancer cells’ sensitivity
+to radiation or may change the vascular environment and thus indirectly affect sensitivity to
+radiation. Even if a study were designed that controlled for the use of common medications
+for brain tumor patients, such as corticosteroids, antiepileptics, or temozolomide, the
+requirements of some medications are likely to change during the course of radiation, or
+patients may discontinue some medications in the midst of their course of radiation due to
+toxicity. There are innumerable possibilities of drug combinations during radiation therapy
+for brain tumors that could both positively and negatively impact the effect of radiation. The
+exact schedule of those standard adjuvant chemotherapies, or perhaps investigational
+immunotherapies, may also alter the radiosensitivity, or clonal expansion, possibilities at
+any given moment. A fully optimized model would need to incorporate those possible
+influences as well.
+
+Author Manuscript
+Author Manuscript
+
+Despite these challenges in designing and effectively executing a clinical trial to test
+treatment regimes derived from mathematical modeling and preclinical data, the endeavor
+should be pursued. The results with the current standard treatment are suboptimal with a
+median survival of only 15 months for patients with primary glioblastoma, the most
+common type of malignant brain tumor. However, following surgery, radiation remains the
+most effective therapy for glioblastoma and thus optimizing the effect of radiation remains
+an attractive option. Historically there have been many studies of various schedules of
+radiation for glioblastomas, including dose escalation, but the results from all are
+disappointing to date (Brada et al., 1999; Curran et al., 1996; Horiot et al., 1988). Notably,
+none of these studies have been based upon a mathematically optimized schedule. A
+hypothesis worth testing is that a clinical trial of a mathematically optimized radiation
+schedule could yield an improved result and identify altered radiation scheduling as an
+opportunity for improved outcomes in other types of brain tumors or other cancer types.
+Despite the logistical, tumor-, and patient-specific challenges listed above, a trial of an
+optimized radiation schedule is an achievable goal with careful patient selection, patient
+management, and support from all the stakeholders including clinicians, scientists, and the
+patients and their families. The glioblastoma mouse model study comparing a standard
+schedule to an optimized schedule (Leder et al., 2014) proves the concept that an altered
+radiation schedule can affect survival. This theory must be tested in humans with
+glioblastoma as these patients need every opportunity possible to improve their outcome.
+
+Author Manuscript
+
+Despite the operational, biological and mathematical obstacles that need to be overcome for
+successful implementation of a mathematically predicted modeling strategy in the clinic, we
+strongly believe that surmounting these challenges is worth the effort. The Norton-Simon
+hypothesis was the first demonstration that a mathematically derived schedule might be
+clinically superior, but many recent and forthcoming approaches hold great promise, and we
+have high hopes that rational quantitative investigations might contribute to new hope for
+cancer patients.
+
+Cell. Author manuscript; available in PMC 2016 November 19.
+
+Michor and Beal
+
+Page 7
+
+Author Manuscript
+
+References
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Anderson K, Lutz C, van Delft FW, Bateman CM, Guo Y, Colman SM, Kempski H, Moorman AV,
+Titley I, Swansbury J, et al. Genetic variegation of clonal architecture and propagating cells in
+leukaemia. Nature. 2011; 469:356–361. [PubMed: 21160474]
+Basanta D, Gatenby RA, Anderson AR. Exploiting evolution to treat drug resistance: combination
+therapy and the double bind. Molecular pharmaceutics. 2012; 9:914–921. [PubMed: 22369188]
+Bellon JR, Come SE, Gelman RS, Henderson IC, Shulman LN, Silver BJ, Harris JR, Recht A.
+Sequencing of chemotherapy and radiation therapy in early-stage breast cancer: updated results of a
+prospective randomized trial. Journal of clinical oncology: official journal of the American Society
+of Clinical Oncology. 2005; 23:1934–1940. [PubMed: 15774786]
+Bhang HE, Ruddy DA, Krishnamurthy Radhakrishna V, Caushi JX, Zhao R, Hims MM, Singh AP,
+Kao I, Rakiec D, Shaw P, et al. Studying clonal dynamics in response to cancer therapy using highcomplexity barcoding. Nature medicine. 2015; 21:440–448.
+Bozic I, Reiter JG, Allen B, Antal T, Chatterjee K, Shah P, Moon YS, Yaqubie A, Kelly N, Le DT, et
+al. Evolutionary dynamics of cancer in response to targeted combination therapy. eLife. 2013;
+2:e00747. [PubMed: 23805382]
+Brada M, Sharpe G, Rajan B, Britton J, Wilkins PR, Guerrero D, Hines F, Traish D, Ashley S.
+Modifying radical radiotherapy in high grade gliomas; shortening the treatment time through
+acceleration. International journal of radiation oncology, biology, physics. 1999; 43:287–292.
+Burrell RA, McGranahan N, Bartek J, Swanton C. The causes and consequences of genetic
+heterogeneity in cancer evolution. Nature. 2013; 501:338–345. [PubMed: 24048066]
+Chmielecki J, Foo J, Oxnard GR, Hutchinson K, Ohashi K, Somwar R, Wang L, Amato KR, Arcila M,
+Sos ML, et al. Optimization of dosing for EGFR-mutant non-small cell lung cancer with
+evolutionary cancer modeling. Science translational medicine. 2011; 3:90ra59.
+Citron ML, Berry DA, Cirrincione C, Hudis C, Winer EP, Gradishar WJ, Davidson NE, Martino S,
+Livingston R, Ingle JN, et al. Randomized trial of dose-dense versus conventionally scheduled and
+sequential versus concurrent combination chemotherapy as postoperative adjuvant treatment of
+node-positive primary breast cancer: first report of Intergroup Trial C9741/Cancer and Leukemia
+Group B Trial 9741. Journal of clinical oncology: official journal of the American Society of
+Clinical Oncology. 2003; 21:1431–1439. [PubMed: 12668651]
+Coldman AJ, Murray JM. Optimal control for a stochastic model of cancer chemotherapy.
+Mathematical biosciences. 2000; 168:187–200. [PubMed: 11121565]
+Costa MI, Boldrini JL, Bassanezi RC. Optimal chemical control of populations developing drug
+resistance. IMA journal of mathematics applied in medicine and biology. 1992; 9:215–226.
+[PubMed: 1295929]
+Costa MI, Boldrini JL, Bassanezi RC. Drug kinetics and drug resistance in optimal chemotherapy.
+Mathematical biosciences. 1995; 125:191–209. [PubMed: 7881194]
+Curran WJ, Scott CB, Yunk W. No survival benefit of hyperfractionated radiotherapy (RT) to 72 Gy &
+carmustine versus standard RT & carmustine for malignant glioma patients. Preliminary results of
+RTOG 90–06. Proc Am Soc Clin Oncology. 1996:154.
+Ding L, Ley TJ, Larson DE, Miller CA, Koboldt DC, Welch JS, Ritchey JK, Young MA, Lamprecht
+T, McLellan MD, et al. Clonal evolution in relapsed acute myeloid leukaemia revealed by wholegenome sequencing. Nature. 2012; 481:506–510. [PubMed: 22237025]
+Gerlinger M, Rowan AJ, Horswell S, Larkin J, Endesfelder D, Gronroos E, Martinez P, Matthews N,
+Stewart A, Tarpey P, et al. Intratumor heterogeneity and branched evolution revealed by
+multiregion sequencing. The New England journal of medicine. 2012; 366:883–892. [PubMed:
+22397650]
+Glickman MS, Sawyers CL. Converting cancer therapies into cures: lessons from infectious diseases.
+Cell. 2012; 148:1089–1098. [PubMed: 22424221]
+Goldie JH, Coldman AJ. A mathematic model for relating the drug sensitivity of tumors to their
+spontaneous mutation rate. Cancer treatment reports. 1979; 63:1727–1733. [PubMed: 526911]
+Gottesman MM, Fojo T, Bates SE. Multidrug resistance in cancer: role of ATP-dependent transporters.
+Nature reviews Cancer. 2002; 2:48–58. [PubMed: 11902585]
+
+Cell. Author manuscript; available in PMC 2016 November 19.
+
+Michor and Beal
+
+Page 8
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Haeno H, Gonen M, Davis MB, Herman JM, Iacobuzio-Donahue CA, Michor F. Computational
+modeling of pancreatic cancer reveals kinetics of metastasis suggesting optimum treatment
+strategies. Cell. 2012; 148:362–375. [PubMed: 22265421]
+Hickey BE, Francis DP, Lehman M. Sequencing of chemotherapy and radiotherapy for early breast
+cancer. The Cochrane database of systematic reviews. 2013; 4:CD005212. [PubMed: 23633328]
+Holohan C, Van Schaeybroeck S, Longley DB, Johnston PG. Cancer drug resistance: an evolving
+paradigm. Nature reviews Cancer. 2013; 13:714–726. [PubMed: 24060863]
+Horiot JC, van den Bogaert W, Ang KK, Van der Schueren E, Bartelink H, Gonzalez D, de Pauw M,
+van Glabbeke M. European Organization for Research on Treatment of Cancer trials using
+radiotherapy with multiple fractions per day. A 1978–1987 survey. Frontiers of radiation therapy
+and oncology. 1988; 22:149–161. [PubMed: 3280411]
+Hryniuk W. Dosage parameters in chemotherapy of breast cancer. Breast disease. 2001; 14:21–30.
+[PubMed: 15687633]
+Katouli AA, Komarova NL. The worst drug rule revisited: mathematical modeling of cyclic cancer
+treatments. Bulletin of mathematical biology. 2011; 73:549–584. [PubMed: 20396972]
+Kimmel M, SA. Control Theory Approach to Cancer Chemotherapy: Benefiting from Phase
+Dependence and Overcoming Drug Resistance. Springer; Berlin/Heidelberg: 2006. p. 185-221.
+(Springer Berlin Heidelberg: Springer Berlin Heidelberg)
+Lake DE, Hudis CA. High-dose chemotherapy in breast cancer. Drugs. 2004; 64:1851–1860.
+[PubMed: 15329034]
+Landau DA, Carter SL, Stojanov P, McKenna A, Stevenson K, Lawrence MS, Sougnez C, Stewart C,
+Sivachenko A, Wang L, et al. Evolution and impact of subclonal mutations in chronic lymphocytic
+leukemia. Cell. 2013; 152:714–726. [PubMed: 23415222]
+Leder K, Pitter K, Laplant Q, Hambardzumyan D, Ross BD, Chan TA, Holland EC, Michor F.
+Mathematical modeling of PDGF-driven glioblastoma reveals optimized radiation dosing
+schedules. Cell. 2014; 156:603–616. [PubMed: 24485463]
+Ledzewicz U, Schattler H. On the optimality of singular controls for a class of mathematical models
+for tumor anti-angiogenesis. American Institute of Mathematical Sciences. 2009; 11:691–715.
+Martin RB, Fisher ME, Minchin RF, Teo KL. Optimal control of tumor size used to maximize survival
+time when cells are resistant to chemotherapy. Mathematical biosciences. 1992; 110:201–219.
+[PubMed: 1498450]
+Martin, RB.; Teo, KL. Optimal Control of Drug Administration in Cancer Chemotherapy. World
+Scientific Pub Co Inc; 1993.
+Murray JM, Coldman AJ. The effect of heterogeneity on optimal regimens in cancer chemotherapy.
+Mathematical biosciences. 2003; 185:73–87. [PubMed: 12900142]
+Norton L, Simon R. Tumor size, sensitivity to therapy, and design of treatment schedules. Cancer
+treatment reports. 1977; 61:1307–1317. [PubMed: 589597]
+Pao W, Miller VA, Politi KA, Riely GJ, Somwar R, Zakowski MF, Kris MG, Varmus H. Acquired
+resistance of lung adenocarcinomas to gefitinib or erlotinib is associated with a second mutation in
+the EGFR kinase domain. PLoS medicine. 2005; 2:e73. [PubMed: 15737014]
+Paridaens R, Van Aelst F, Georgoulias V, Samonnig H, Cocquyt V, Zielinski C, Hausmaninger H,
+Willemse P, Boudraa Y, Wildiers J, et al. A randomized phase II study of alternating and
+sequential regimens of docetaxel and doxorubicin as first-line chemotherapy for metastatic breast
+cancer. Annals of oncology: official journal of the European Society for Medical Oncology/
+ESMO. 2003; 14:433–440. [PubMed: 12598350]
+Recht A, Come SE, Henderson IC, Gelman RS, Silver B, Hayes DF, Shulman LN, Harris JR. The
+sequencing of chemotherapy and radiation therapy after conservative surgery for early-stage breast
+cancer. The New England journal of medicine. 1996; 334:1356–1361. [PubMed: 8614420]
+Sawyers C. Targeted cancer therapy. Nature. 2004; 432:294–297. [PubMed: 15549090]
+Sharma P, Wagner K, Wolchok JD, Allison JP. Novel cancer immunotherapy agents with survival
+benefit: recent successes and next steps. Nature reviews Cancer. 2011; 11:805–812. [PubMed:
+22020206]
+Shrager J, Tenenbaum JM. Rapid learning for precision oncology. Nature reviews Clinical oncology.
+2014; 11:109–118.
+Cell. Author manuscript; available in PMC 2016 November 19.
+
+Michor and Beal
+
+Page 9
+
+Author Manuscript
+
+Stiehl T, Baran N, Ho AD, Marciniak-Czochra A. Cell division patterns in acute myeloid leukemia
+stem-like cells determine clinical course: a model to predict patient survival. Cancer research.
+2015; 75:940–949. [PubMed: 25614516]
+Van Loo P, Voet T. Single cell analysis of cancer genomes. Current opinion in genetics &
+development. 2014; 24:82–91. [PubMed: 24531336]
+Yu HA, Sima CS, Reales D, Jordan S, Rudin CM, Kris MG, Michor F, Pao W, Riely GJ. A phase I
+study of twice weekly pulse dose and daily low dose erlotinib as initial treatment for patients (pts)
+with EGFR-mutant lung cancers. Poster presented at: ASCO Annual Meeting Proceedings. 2015
+Zhao B, Hemann MT, Lauffenburger DA. Intratumor heterogeneity alters most effective drugs in
+designed combinations. Proceedings of the National Academy of Sciences of the United States of
+America. 2014; 111:10773–10778. [PubMed: 25002493]
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Cell. Author manuscript; available in PMC 2016 November 19.
+
+Michor and Beal
+
+Page 10
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Figure 1. Exploring Complex Dependencies in Cancer Biology with Mathematical Modeling
+
+The complexity of cancer includes not only the heterogeneous cell population of a tumor,
+but also its interaction with the microenvironment and immune system and responses to
+different kinds of treatments. Mathematical modeling of the impact of these factors on tumor
+cell population dynamics facilitates the generation testable hypotheses regarding the
+evolution of resistance and identifying prospectively optimum treatment strategies designed
+to maximize the chance of a cure.
+
+Author Manuscript
+Cell. Author manuscript; available in PMC 2016 November 19.
+
+

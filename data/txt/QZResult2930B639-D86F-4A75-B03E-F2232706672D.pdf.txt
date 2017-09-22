@@ -1,0 +1,1564 @@
+Published OnlineFirst July 31, 2014; DOI: 10.1158/0008-5472.CAN-14-1210
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+Dynamics of Leukemia Stem-like Cell Extinction in Acute
+Promyelocytic Leukemia
+Benjamin Werner1, Robert E. Gallagher2, Elisabeth M. Paietta2, Mark R. Litzow3, Martin S. Tallman4,
+Peter H. Wiernik5, James L. Slack6, Cheryl L. Willman7, Zhuoxin Sun8, Arne Traulsen1, and David Dingli3,9
+
+Abstract
+Many tumors are believed to be maintained by a small number of cancer stem–like cells, where cure is thought
+to require eradication of this cell population. In this study, we investigated the dynamics of acute promyelocytic
+leukemia (APL) before and during therapy with regard to disease initiation, progression, and therapeutic
+response. This investigation used a mathematical model of hematopoiesis and a dataset derived from the North
+American Intergroup Study INT0129. The known phenotypic constraints of APL could be explained by a
+combination of differentiation blockade of PML–RARa–positive cells and suppression of normal hematopoiesis.
+All-trans retinoic acid (ATRA) neutralizes the differentiation block and decreases the proliferation rate of
+leukemic stem cells in vivo. Prolonged ATRA treatment after chemotherapy can cure patients with APL by
+eliminating the stem-like cell population over the course of approximately one year. To our knowledge, this study
+offers the ﬁrst estimate of the average duration of therapy that is required to eliminate stem-like cancer cells from
+a human tumor, with the potential for the reﬁnement of treatment strategies to better manage human
+malignancy. Cancer Res; 74(19); 5386–96. 2014 AACR.
+
+Major Finding
+By combining a mathematical model of hematopoiesis
+with data from a large randomized trial of acute promyelocytic leukemia, this study offers the ﬁrst determination of
+the average duration of therapy required to eliminate all
+stem-like cells in a human tumor.
+
+Introduction
+The cancer stem cell (CSC) hypothesis states that at the root
+of most (perhaps all) tumors, there is a population of cancer
+stem cells that is not only able to renew itself but also gives rise
+1
+Department of Evolutionary Theory, Max Planck Institute for Evolutionary
+€ n, Germany. 2Monteﬁore Medical Center, Bronx, New York,
+Biology, Plo
+New York. 3Division of Hematology and Department of Internal Medicine,
+Mayo Clinic, Rochester, Minnesota. 4Northwestern University, Chicago,
+Illinois. 5Beth Israel Medical Center, New York, New York. 6Division of
+Hematology, Mayo Clinic Arizona, Scottsdale, Arizona. 7University of New
+Mexico Cancer Center, Albuquerque, New Mexico. 8Department of Biostatistics and Computational Biology, Dana Farber Cancer Institute and
+Harvard School of Public Health, Boston, Massachusetts. 9Department of
+Molecular Medicine, Mayo Clinic, Rochester, Minnesota.
+
+A. Traulsen and D. Dingli contributed equally to this article.
+Current address for M.S. Tallman: Leukemia Service, Department of Medicine, Memorial Sloan Kettering Cancer Center, Weill Cornell Medical
+College, New York, New York
+Corresponding Author: David Dingli, Mayo Clinic, 200 First St SW,
+Rochester, MN 55905. Phone: 507-284-3417; Fax: 507-266-4972; E-mail:
+dingli.david@mayo.edu
+doi: 10.1158/0008-5472.CAN-14-1210
+2014 American Association for Cancer Research.
+
+5386
+
+to the bulk of the tumor cell population (26–29). These CSCs
+are essential for the origin and the continued growth and
+maintenance of the tumor. As a consequence, these cells are an
+important target of therapy, as it is thought that eradication of
+such cells is necessary for a potential cure of the tumor. Various
+models have been developed that address this hypothesis from
+a theoretical perspective and there is increasing evidence for its
+support from animal models of cancer. Although CSCs were
+initially isolated from patients with acute leukemia (26–29),
+they have now been identiﬁed in virtually all types of tumors. It
+is therefore important to understand the dynamics of these
+cells under therapy and whether they can be eradicated,
+leading to cure of the disease and long-term survival of
+patients. Here, we utilize data from a clinical trial of therapy
+for APL to understand the dynamics of leukemic stem cells
+under therapy. We use a mathematical/computational model
+of hematopoiesis together with quantitative data from the
+North American Intergroup Study INT0129 (30, 31) to determine the probability that the leukemic stem cells are eradicated at a certain time under this treatment regimen. APL was
+chosen for a number of reasons: (i) the disease is well deﬁned
+with most patients having the translocation t(15q22;17q12),
+leading to PML–RARa oncogene activation (14–16), (ii) the
+tumor burden can be quantitated using quantitative real-time
+PCR (qRT-PCR; refs. 31, 32), (iii) targeted therapy in the form of
+all-trans retinoic acid (ATRA) is available and highly effective
+(33, 34), (iv) the availability of serial quantitative data on
+disease burden from a large randomized clinical trial that
+allows us to investigate the effects of ATRA treatment and
+chemotherapy separately (31, 32, 35), and (v) the availability of
+a mathematical/computational model of hematopoiesis that
+has already been utilized to understand the dynamics of
+
+Cancer Res; 74(19) October 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst July 31, 2014; DOI: 10.1158/0008-5472.CAN-14-1210
+
+Dynamics of Acute Promyelocytic Leukemia
+
+Quick Guide to Equations and Assumptions
+Our multicompartment model of hematopoiesis has been described elsewhere, but here we describe it brieﬂy for clarity
+(Fig. 1; refs. 1–6). Cells in a given compartment i with probability ei differentiate and produce two cells that migrate to the next
+downstream compartment ði þ 1Þ or self-renew and increase compartment i by one cell with probability 1  "i . Here,
+"compartments" are not understood as physical spaces but as an accounting tool to keep track of the replication and differentiation
+of each cell. Proliferation rates ri are intrinsic for each compartment and with ri < riþ1 . Parameters describing cells in non–stem cell
+compartments i > 0 are ﬁxed, by allometric scaling arguments (1) and data from human hematopoiesis and are given by "hi ¼ 0:85,
+rhi ¼ ðg h Þi rh0 with g h ¼ 1:26. Thus, the rate of proliferation increases exponentially with the compartment [subscripts refer to the
+compartment, whereas superscripts refer to healthy (h) or cancerous (c) cells]. In the stem cell compartment i ¼ 0,
+N0 ¼ 400; "h0 ¼ 0:5, and rh0 ¼ 1=365 days (7–10). Undisturbed, the above system reaches a steady state, where cell numbers
+ﬂuctuate around an average cell count. In the absence of disease, the steady state for each compartment is given by
+Nih ¼
+
+N0h ð2"Þi1
+:
+g i ð2"  1Þi
+
+Under this parameter setting, we need 32 compartments to represent hematopoiesis with a daily output of approximately
+3:5  1011 cells (1–6). This can be viewed as an almost continuous differentiation process of cells (Fig. 1).
+Because of the high cell turnover rates, the dynamics of normal cells in such hierarchies can be captured by a linear system of
+differential equations (5, 6). An arbitrary number of mutations can be described analytically by similar equations if mutated cells
+proliferate independently (5, 6). We model the dynamics of normal and leukemic cell lineages by such systems of differential
+equations. The equations for normal cells follow from the inﬂux and output of healthy cells in each compartment and are derived as
+
+
+follows. Cells in compartment i increase in number due to self-renewal at rate 1  "hi rhi Nih and decrease due to differentiation of
+cells into compartment i þ 1 at rate "hi rhi Nih , leading to a change in number arising from processes within the compartment of
+
+
+h
+; see Fig. 1 for a graphical
+þ 1  2"hi rhi Nih . In addition, there is an inﬂux from upstream compartment i  1 at rate þ2"hi1 rhi1 Ni1
+representation. Collecting all terms gives
+8
+h
+h
+"hi1 Ni1
+i<l
+þð1  2"hi Þrih Nih þ 2ri1
+>
+>
+>
+>
+>
+<
+h 2
+d h
+h h ðNi Þ
+h
+h
+h
+i¼l
+Ni ðtÞ ¼ þð1  2"i Þri Nih þNic þ 2ri1 "i1 Ni1
+>
+dt
+>
+>
+h 2
+>
+ðN h Þ2
+>
+h
+:þð1  2"hi Þrih ðNh i Þ c þ 2ri1
+"hi1 h i1 c
+i > l:
+Ni þNi
+
+Ni1 þNi1
+
+Here, l denotes the compartment where the cancer-driving mutation occurs, i.e., the leukemic stem–like cells. Compartments
+upstream of l are not affected by this mutation and proliferate independently (Fig. 1). However, the proliferation of healthy cells,
+Nih , in and downstream of compartment l is potentially inhibited by the leukemic cells, Nic . This interference is modeled by Hill
+functions (11). In the absence of malignant cells, homeostasis is normal, but proliferation of healthy cells is suppressed with
+increasing numbers of leukemic cells (12).
+The dynamics of leukemic cells can be described by the following set of equations
+8
+0
+i<l
+>
+>
+>
+<
+d c
+N ðtÞ ¼ þð1  2"ci Þric Nic
+i¼l
+>
+dt i
+>
+>
+:
+c
+c
+"ci1 Ni1
+i > l:
+þð1  2"ci Þric Nic þ 2ri1
+In the absence of therapy, the number of leukemic cells in the compartment of origin grows exponentially for eic < 0.5, leading
+to an even faster growth in downstream compartments. Leukemic cells proliferate independently of healthy cells as evidenced
+by observations in animal models of disease (13). The leukemia-driving cells occupy compartment l (Fig. 1, bottom). Thus,
+leukemic cells can only be found in and downstream of compartment l. In addition, the leukemic cell proliferation properties differ
+signiﬁcantly from those of healthy cells.
+
+Model Constraints
+1. Phenotype: Because PML–RARa expression reduces differentiation and enhances self-renewal of cells (13–17), we supposed
+that "c < "h ¼ 0:85. Generally, APL is associated with pancytopenia due to a reduction in bone marrow output. Therefore, we
+adjusted our parameters to reduce the cells in compartment 31 to 10% to 20% of normal while ensuring that the
+
+www.aacrjournals.org
+
+Cancer Res; 74(19) October 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+5387
+
+Published OnlineFirst July 31, 2014; DOI: 10.1158/0008-5472.CAN-14-1210
+
+Werner et al.
+
+intramedullary compartments were hypercellular. ATRA reverses the differentiation block and, therefore, "c ! 0:85. In vitro,
+ATRA slows down the rate of replication of leukemic cells by at least a factor of 0.61 (18). While chemotherapy kills the
+majority of cancer cells, the proliferation properties of surviving cancer cells remain unchanged.
+2. Time to diagnosis and origin of the disease: The disease must start from a single leukemic stem cell in keeping with the clonal
+origin of cancer. Using data from Guibal and colleagues (13), we inferred that the minimum time for diagnosis in mice is
+approximately 120 days. Using our previously described allometric scaling relationship (19, 20) comparing timescales
+ 1=4
+mi
+; where T and M refer to the time to diagnosis and the species-speciﬁc adult mass,
+between mice and men, TTmi ¼ M
+M
+hu
+
+3.
+
+4.
+5.
+6.
+7.
+
+hu
+
+respectively, we could determine that the minimum time from the appearance of the ﬁrst leukemic stem cell in humans to
+diagnosis is more than 872 days. An animal model of APL suggests that the disease may originate in a colony-forming unit,
+granulocyte-macrophage (CFU-GM cell; ref. 13), which in our model would reside in compartments 13 to 15. A limited study
+of three patients also suggests that CD34þCD38 cells do not have the t(15q22;17q12), typical of the disease (21).
+Clonal burden in bone marrow: The average tumor burden of leukemic stem cells at the time of diagnosis is approximately
+1% of the tumor population present in the bone marrow (22), and the leukemic cells represent 65% to 98% of the marrow
+cellularity (23).
+The average time for the bone marrow to appear normal after therapy with ATRA is 38 days (range, 25–90 days; ref. 23).
+Patients treated with ATRA alone for induction often have an increase in their leukocyte count that peaks between 12 and
+14 days after initiation of therapy (23).
+Time to relapse: If patients are treated with ATRA alone until they have a morphologic remission, they relapse on average
+after approximately 110 days (45–300; ref. 24, 25).
+ATRA does not alter the dynamic properties of normal hematopoietic cells.
+
+mutations in other hematologic disorders (1–6). In the following, we provide a brief summary of the clinical trial, a description of the mathematical model together with the justiﬁcation
+of the constraints used to determine the model parameters,
+followed by a description of the data ﬁtting and presentation of
+results. Details of the mathematical model as well as the
+clinical trial are provided in Materials and Methods. In summary, our mathematical model contains a ﬁxed number of
+compartments that represent different stages of cell differentiation. At each stage, cells proliferate with a ﬁxed rate ri and
+differentiate into the next downstream compartment with
+probability "i . This general framework allows us to describe
+normal hematopoiesis as well as the initiation and progression
+of different types of leukemia, deﬁned by changes in proliferation and differentiation parameters of malignant cells. As a
+result, we provide an estimate of the timescale with which a
+leukemic stem cell population is eliminated in humans.
+
+Patients and Methods
+Clinical trial INT0129
+The North American Intergroup trial of ATRA in APL was
+initially reported in 1997 with subsequent updates
+(30, 36, 37). Patients were recruited from centers afﬁliated
+with the Cancer and Leukemia Group B, the Southwest
+Oncology Group, and the Eastern Cooperative Oncology
+Group. Brieﬂy, patients with newly diagnosed APL were
+randomly assigned to induction therapy either with combination chemotherapy: daunorubicin (45 mg/m2 daily on
+days 1–3) and cytosine arabinoside (100 mg/m2 by continuous infusion for 7 days; N ¼ 191) or ATRA alone (45 mg/m2
+orally in two divided doses daily) that could be given for up
+to 90 days (N ¼ 188). Pediatric patients less than 3 years of
+
+5388
+
+Cancer Res; 74(19) October 1, 2014
+
+age were treated with the same protocol, but with appropriate
+dose modiﬁcations. Subsequently, patients who achieved a
+complete remission with induction therapy received two cycles
+of consolidation: the ﬁrst cycle was identical to the initial
+induction chemotherapy regimen while the second cycle consisted of high dose cytosine arabinoside (2 g/m2 every 12 hours
+for 4 days) with daunorubicin 45 mg/m2 daily on days 1 and 2.
+The patients were subsequently randomized to observation or
+maintenance therapy with ATRA (45 mg/m2 orally in two
+divided doses daily) for up to 1 year. Fifty-four patients who
+received induction with ATRA were randomized to maintenance with ATRA, whereas 56 patients initially treated with
+chemotherapy went on ATRA maintenance after the second
+randomization. Patients had serial measurement of the PML–
+RARa oncogene as previously described (31, 32, 35). Our
+mathematical/computational model was ﬁtted to this serial
+data, after normalization of PML–RARa to GAPDH with the
+pretreatment copy number value of PML–RARa/GAPDH normalized to 1. Serial collection of blood samples for qRT-PCR
+quantiﬁcation was not mandatory for the trial and as a result
+the data set is incomplete in this respect.
+Parameter estimation
+We use the initial condition of 1 leukemic stem cell in
+compartment l with the described constraints to numerically
+solve the deterministic equations from above for each compartment using standard numerical procedures implemented
+in Mathematica. Throughout this process, we assume that the
+effect of ATRA on leukemic cells is constant. Each numerical
+solution gives the disease scenario arising from a given set of
+model parameters. In our case, we had to determine four key
+parameters: (i) the proliferation rate and (ii) differentiation
+probability in the compartment of the cancer-initiating cell
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst July 31, 2014; DOI: 10.1158/0008-5472.CAN-14-1210
+
+Dynamics of Acute Promyelocytic Leukemia
+
+Stem cells
+
+Progenitor cells
+
+Mature cells
+
+1 − ε h2
+1 − ε h1
+1 − ε h0
+
+ε h0
+r 0h
+
+ε h2
+
+ε h1
+r 1h
+
+ε h30
+
+r 2h
+
+h
+r 31
+
+1 − ε h16
+1 − ε h15
+
+ε h14
+
+ε c15
+
+ε c16
+
+ε c30
+
+ε h15
+
+ε h16
+
+ε h30
+
+1 − ε c15
+
+1 − ε c16
+
+Figure 1. Schematics of our hierarchical hematopoiesis model. Top, undisturbed healthy hematopoiesis. At the root of our hierarchical structure
+(compartment 0) is the stem cell compartment with a few slowly dividing stem cells (light red, proliferation rate rh0 ) that can self-renew with probability 1  "h0
+and differentiate with probability "h0 . Cells undergo several differentiations with probabilities "hi and proliferate with rates rhi until they reach the mature
+cell state (compartment 31 in our case, dark red). Bottom, hematopoiesis is disturbed by leukemic cells (dark yellow). The leukemia-driving
+
+
+mutation occurs in compartment 15. The self-renewal capacity 1  "ci of the leukemic cells is signiﬁcantly increased and malignant cells accumulate
+in bone marrow compartments. Concomitantly, the proliferation of healthy cells (red) is suppressed by cancer cells and thus the healthy cell count
+decreases in compartments downstream of compartment 15.
+
+(rc15 and "c15 ) and (iii) the proliferation rate and (iv) differentiation probability of cancer cells in the bone marrow (rc1625
+and "c1625 ). We then performed an extensive parameter search,
+varying these four parameters within a wide range compatible
+with the phenotypic constrains of the disease (i.e., rc15 > rh15 and
+"c15 < "h15 as well as rc1625 < rh1625 and "c1625 < "h1625 ). We
+compared the properties of the modeled disease scenario to
+the restrictive phenotypic constrains of the disease (points i–
+vii) described above. If the model prediction deviated in a
+single point from the phenotypic constraints, the parameter
+set was discarded. This resulted in a restricted set of parameters for the disease in the absence of therapy.
+We assumed that therapy with either ATRA or chemotherapy was started as soon as a diagnosis was made. The proliferation and differentiation parameters of the leukemic cells
+were altered to ﬁt the available response data in case of ATRA
+therapy. Chemotherapy was implemented as a single catastrophic event, in which the majority of cancer and healthy
+cells are killed, but the proliferation properties of the surviving
+cancer cells remain unchanged. Healthy cells are not affected
+by ATRA therapy and thus their dynamic properties are only
+indirectly altered by the response of the leukemic cells to
+therapy.
+
+www.aacrjournals.org
+
+Stochastic simulations
+We inferred the distribution of extinction times of leukemic
+stem–like cells by performing stochastic simulations implemented by a Gillespie algorithm (38), based on an agent-based
+representation of our hierarchical organization (5). We used
+parameter estimations from our deterministic ﬁtting procedure, and therefore parameters were ﬁxed during all stochastic
+simulations. We performed in total 104 independent stochastic
+simulations and recorded the time until all cancer stem–like
+cells went extinct, leading to a distribution of cancer stem–like
+extinction times.
+
+Results
+Dynamics of untreated APL
+Initially, we had to determine the time course and dynamic
+properties of the leukemic stem and progenitor cells taking into
+account the constraints that we identiﬁed from the literature,
+in particular the known biology of the disease (Fig. 1; refs. 13–
+17, 21, 23). Given that PML–RARa expression leads to a block in
+differentiation, we had to impose a lower probability for the
+differentiation of leukemic cells compared with healthy cells
+"cl < "h ¼ 0:85 in our model. The leukemic stem cell in APL may
+
+Cancer Res; 74(19) October 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+5389
+
+Published OnlineFirst July 31, 2014; DOI: 10.1158/0008-5472.CAN-14-1210
+
+Werner et al.
+
+Table 1. Parameter estimate for APL stem and
+progenitor cells before therapy
+Parameter
+
+i ¼ 15
+
+16  i  25
+
+26  i  31
+
+g Ci
+"Ci
+
+1.34
+
+1.12
+
+1.12
+
+0.45
+
+0.07
+
+0.85
+
+NOTE: Here, i ¼ 15 represents the compartment of the
+founding APL cancer stem–like cell. Compartments 16  i
+ 25 represent the bone marrow cell load and compartments
+26  i  31 differentiated cells that can be found in the
+bloodstream. The parameters "ci denote the differentiation
+probabilities of cancerous cells in compartment i and the
+parameters g ci the increase in proliferation rate of cancerous
+cells per compartment.
+
+arise in a CFU-GM cell (13, 21), and therefore l ¼ 15 was chosen
+as the founding compartment of APL in our hierarchical
+model, based on our prior results (1, 39). We estimated that
+the minimum time between the onset of the ﬁrst leukemic
+stem cell and disease was 872 days (13, 19, 20), where disease
+was deﬁned as a reduction in bone marrow output to
+approximately 20% of normal, leading to cytopenias that
+are typical for this leukemia. At the same time, the bone
+marrow compartments will be expanded and the marrow
+appears hypercellular. The parameter estimates that led to
+the best ﬁt to the data are presented in Table 1.
+Our ﬁts suggest that the leukemic stem cells replicate faster
+and self-renew with a higher probability than normal CFU-GM
+cells in the same compartment. Even based on their higher selfrenewal capacity alone, they have a considerable ﬁtness advantage compared with the normal progenitor cells. If we count
+the number of offspring cells produced by a mutant cell in a
+given compartment and compare it with the number of
+offspring of a normal cell, we obtain for relative ﬁtness in our
+mathematical model (fj; ref. 40),
+fj ¼
+
+1  "cj "hj
+1  "hj "cj
+
+:
+
+This translates into a relative ﬁtness advantage of 6.9
+compared with normal CFU-GM (17). Moreover, our ﬁtting
+suggests that the leukemic progenitor cells (downstream of
+the leukemic stem cells) have an extremely high ﬁtness
+advantage (based on the virtual absence of normal cells in
+the circulation), estimated at 75 compared with their normal
+counterparts (normalized to 1) due to the block in differentiation (and enhanced self-renewal). These estimates provide a vivid explanation of the rapid disease progression and
+early high lethality associated with this disease before the
+advent of ATRA therapy.
+Dynamics of disease under chemotherapy treatment
+We implement chemotherapy treatment as a single catastrophic event, in which the majority of both leukemic and
+healthy cells are killed instantly. The proliferation parameters
+
+5390
+
+Cancer Res; 74(19) October 1, 2014
+
+of surviving cells remain unchanged after chemotherapy treatment. Therefore, we only need to infer a single parameter (the
+fraction of killed cells under chemotherapy) to determine the
+dynamics of patients with APL under chemotherapy from our
+mathematical model. We vary the fraction of killed cells and ﬁt
+the resulting dynamics to the serial qRT-PCR data of the
+fraction of patients treated with chemotherapy in the INT0129
+trial. Our best parameter estimates (see Figs. 2 and 3) suggest
+that only 0.3% of all cancer cells survived, compatible with
+more than 2 log kill of leukemic cells. However, this also implies
+that approximately 105 leukemic stem cells survive and relapse
+is to be expected. This prediction is conﬁrmed by observations
+from the follow up of the INT0129 trial were the risk of relapse
+of chemotherapy-treated patients (without ATRA maintenance) was high. Note, that the characteristic peak of bone
+marrow output, 10 to 12 days after ATRA treatment, does not
+occur with chemotherapy (Fig. 2A vs. C).
+Dynamics of disease under therapy with ATRA
+ATRA alters the behavior of leukemic cells by (i) inducing
+differentiation and (ii) slows down the rate of replication of
+leukemic stem cells. Fitting of our model to serial RT-PCR data
+from the INT0129 trial (Figs. 2 and 3A) provides an estimate for
+the leukemic cell parameters under therapy as reported
+in Table 2. We consider that therapy starts immediately after
+diagnosis or 870 days from the appearance of the ﬁrst leukemic
+stem cell. We assume that the differentiation probabilities
+return to normal under ATRA therapy. The proliferation rates
+within the bone marrow, g ATRA
+1625 , are ﬁxed by the time until the
+bone marrow output peaks. The proliferation rate of cancer
+, has only a minor inﬂuence on this dynamics
+stem cells, g ATRA
+15
+due to the exponential growth characteristics of hematopoiesis, and is thus difﬁcult to estimate from the data. However, it
+is a crucial parameter to assess the probability of relapse. For
+the best parameter estimate, the rate of replication of the
+leukemic stem cells returns to normal compared with other
+
+
+CFU-GM cells g c15 ¼ 1:34 ! g ATRA
+¼ 1:26 . At the same
+15
+time, the differentiation block of the cells is removed
+ c
+
+¼ 0:85 ¼ "h15 . Zhu and colleagues
+"15 ¼ 0:45 ! "ATRA
+15
+showed that the doubling time of NB4 cells treated with ATRA
+increased in vitro from 25.2 hours to 41.26 hours (slowed the
+cells by a factor of 0.6; ref. 18). In our in vivo model, there is also
+such a slowdown effect. Our proliferation rates in compartment i scale via ri ¼ ðg Þi r0: .
+Thus, a decrease in doubling times of cancer cells under
+ATRA treatment by a factor of 0.6 in the experiment corresponds to ð
+
+g ATRA
+15
+15
+g c15 Þ
+
+ 0:4 in our theoretical model based on
+
+the scaling of replication rates. With this in mind, our relative
+reduction
+in
+leukemic
+stem
+cell
+replication
+ c
+
+g ¼ 1:34 ! g ATRA ¼ 1:26 is in qualitative agreement with
+the ﬁnding of Zhu and colleagues. We note that the replication
+rate in vivo would be expected to be slower than what is
+observed in vitro (41).
+In addition, ATRA therapy affects more downstream progenitor cells correcting their differentiation block back to
+
+
+normal "c1625 ¼ 0:07 ! "ATRA
+1625 ¼ 0:85 . Fitting also suggests
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst July 31, 2014; DOI: 10.1158/0008-5472.CAN-14-1210
+
+Dynamics of Acute Promyelocytic Leukemia
+
+ATRA maintenance
+ATRA no maintenance
+Model
+
+Tumor burden (%)
+
+10 3
+10 2
+10 1
+10 0
+10 −1
+
+A
+
+B
+
+Chemotherapy
+Chemotherapy + ATRA maintenance
+Model
+
+Chemotherapy + ATRA maintenance
+
+10 −2
+10 3
+
+Tumor burden (%)
+
+ATRA maintenance
+ATRA no maintenance
+
+Chemotherapy
+
+10 2
+10 1
+10 0
+10 −1
+10 −2
+
+D
+
+C
+0
+
+50
+
+100
+
+150
+
+200
+
+Time (days)
+
+0
+
+1,000
+
+500
+
+1,500
+
+Time (days)
+
+Figure 2. Clinical data and model predictions, subdivided in different treatment classes. A, the treatment progression of patients with ATRA therapy for up to 90
+2
+days (triangles) and patients with continued ATRA therapy for up to 1 year (dots) and our best model ﬁt (line, R ¼ 0.43, see Methods and Materials for
+details on the ﬁtting procedure) for the ﬁrst 250 days after treatment initiation. B, the complete available dataset for ATRA-treated patients (follow-up of up to
+1,600 days after treatment initiation). The initial treatment response cannot be distinguished for both groups. Yet, the relapse probability for patients
+without maintenance therapy is higher and they tend to relapse faster. C, group of patients treated with chemotherapy only (cubes) and our model prediction
+2
+for this treatment scenario (line, R ¼ 0.38). First, the signiﬁcant initial peak in tumor burden that is typical for ATRA treatment is absent in this case.
+Second, also there is a good initial response; chemotherapy is likely not able to kill all cancer stem cells. Therefore, relapse occurs often and relatively quickly. If
+chemotherapy is followed by ATRA maintenance therapy (diamonds), tumor burden tends to diminish. D, the complete available dataset for chemotherapy
+with and without ATRA maintenance.
+
+that ATRA increases the rate of replication of downstream
+leukemic progenitors compared with normal cells. The latter
+prediction is compatible with the observation of a rapid
+increase in the neutrophil count in patients treated with ATRA
+alone (Figs. 2 and 3C).
+In Fig. 4, we provide a comparison of individual ﬁts of the
+model to patient speciﬁc data for a patient induced with ATRA
+(Fig. 4A) and another patient randomized to chemotherapy
+only induction (Fig. 4B). The model ﬁts especially well the
+ATRA-treated patient.
+Extinction time of leukemic stem cells
+Our model is in line with in vivo mouse experiments (13) that
+before the initiation of therapy, the leukemic stem cell population ði ¼ 15Þ, increases exponentially (Fig. 3B). Thus, at the
+
+
+ diag 
+c
+cells,
+T
+time of diagnosis T diag , we expect to ﬁnd N15
+where
+
+
+c
+c
+diag
+N c T diag ¼ eð1215 Þr15 T
+ð1Þ
+
+the number of leukemic stem cells decreases exponentially
+such that
+ diag  ð12"ATRA ÞrATRA t
+ATRA
+c
+15
+15
+N15
+ðt Þ ¼ N15
+T
+ð2Þ
+e
+Therefore, the average extinction time for the leukemic
+stem–like cells (i.e., for the elimination of all leukemic
+stem–like cells) is given by:
+
+ c
+1  2"c15 r15
+ext
+diag
+t ¼
+¼ aT diag
+ð3Þ
+ATRA T
+ð1  2"ATRA
+15 Þr15
+On average the time for clonal extinction under ATRA
+treatment is approximately 312 days (0.36  870 days).
+However, this time increases exponentially with the number
+of cells at diagnosis, and, therefore, continued therapy with
+ATRA is a prerequisite to cure this disease. These results are
+compatible with clinical observations and justify the need
+for maintenance therapy for approximately 1 year that
+seems to lead to a cure in many patients as treated in the
+INT0129 trial (Fig. 3D).
+
+15
+
+For our parameters, we obtain 4  107 leukemic stem cells
+at the time of diagnosis in compartment 15 (CFU-GM),
+where the mutation originates (19, 20). Under ATRA therapy,
+
+www.aacrjournals.org
+
+Relapse
+Relapse of seemingly successful treated patients is a common phenomenon in acute leukemia. Presumably, this relapse
+
+Cancer Res; 74(19) October 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+5391
+
+Published OnlineFirst July 31, 2014; DOI: 10.1158/0008-5472.CAN-14-1210
+
+Werner et al.
+
+B 1,400
+
+A
+
+Bone marrow peak (%)
+
+Tumor burden (%)
+
+10
+
+3
+
+102
+101
+100
+10−1
+
+1,200
+1,000
+800
+600
+400
+
+10−2
+0
+
+20
+
+40
+
+60
+
+80
+
+820
+
+100
+
+D
+
+800
+Healthy cells
+Cancer cells under
+ATRA treatment
+
+600
+
+400
+
+200
+
+0
+0
+
+20
+
+40
+
+60
+
+860
+
+880
+
+80
+
+1.0
+
+Fraction of patients cured
+
+Cell count (%)
+
+C
+
+840
+
+Time of diagnosis (days)
+
+Time (days)
+
+100
+
+1 year of treatment
+0.8
+
+Calculated time
+
+0.6
+0.4
+0.2
+0.0
+150
+
+200
+
+Time (days)
+
+250
+
+300
+
+350
+
+400
+
+450
+
+500
+
+Time (days)
+
+2
+
+Figure 3. A, response of APL cells to ATRA treatment inferred from the North American Intergroup trial (dots) and our model predictions (line, R ¼ 0.54, model
+parameter as in Tables 1 and 2). A peak in tumor burden (here after 7–10 days) of ATRA treatment is typical of APL and is caused by the rapid differentiation of
+APL progenitor cells. B, dependence of the height of the bone marrow peak on the time of disease diagnosis. Later diagnosis results in a higher bone
+marrow cancer cell load and thus in a higher peak after treatment. C, cell count of healthy and leukemic cells under ATRA treatment inferred from the model
+(parameters as in A). The peak of leukemia cells occurs approximately 7 days after treatment initiation. The healthy cell count peaks approximately
+50 days after treatment initiation and declines to normal levels afterwards. D, estimated probability of patients being cured (gray line) under continuous ATRA
+treatment inferred from stochastic individual-based computer simulations (see Materials and Methods for details; parameters as in A). The black dot
+corresponds to the deterministic extinction time (here after 312 days) of the leukemic cancer stem–like cells given by equation (3). Because of the inherent
+stochastic nature of the proliferation properties of the cancer stem–like cells, only 42% of patients are cured after 312 days of ATRA treatment and we
+expect 58% of the patients with remaining APL stem–like cells in the bone marrow. After one year of ATRA treatment (gray dot), approximately 92% of patients
+had no remaining cancer stem–like cells left.
+
+is caused by the remaining cancer stem and progenitor cells
+after therapy as well as the selection of mutant cells resistant to
+therapy through a variety of mechanisms, including mutations
+in the LBD domain of RARa, increased ATRA catabolism,
+abnormal trafﬁcking of ATRA to the nucleus, the presence of
+cytoplasmic retinoic acid binding protein, and overexpression
+of BP1 (42, 43). Thus, the question of whether and when
+treatment eradicates all cancer stem cells is critical. As intrinsic cell properties, such as the exact time of cell proliferation or
+differentiation, are stochastic, one naturally expects the actual
+extinction time of the leukemic stem cell pool to differ in
+patients (44, 45). To obtain the distribution of these extinction
+times under ATRA treatment, we implemented a computational representation of the mathematical model (see Materials and Methods) by utilizing standard Gillespie algorithms
+(38) and ran exact individual-based stochastic simulations on
+this model. We assumed that the initial decline from approximately 4  107 to 105 leukemic stem cells under ATRA
+treatment follows the deterministic equations. We performed
+
+5392
+
+Cancer Res; 74(19) October 1, 2014
+
+104 independent realizations of the stochastic simulations
+initialized with 105 leukemic stem cells under ATRA treatment
+that use the parameter estimations from Tables 1 and 2 and
+recorded the extinction times of the leukemic stem cell pool.
+The probability of leukemic stem cell eradication under ATRA
+therapy that lasted less than 200 days is negligible (Fig. 3D
+and Fig. 5). Only 42% of patients would be expected to be cured
+after 312 days (deterministic extinction time), imposing a high
+risk of relapse for over half of the patients. However, after one
+year of ATRA treatment up to 92% of patients are free of
+leukemic stem cells according to this model and therefore
+"cured" of their disease.
+
+Discussion
+If we hope to better treat cancer, with emerging therapeutic
+approaches, a detailed understanding of cancer initiation,
+cancer progression, and response to treatment is essential.
+Here, we combine a mathematical/computational approach
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst July 31, 2014; DOI: 10.1158/0008-5472.CAN-14-1210
+
+Dynamics of Acute Promyelocytic Leukemia
+
+A
+
+B
+
+10
+
+Tumor burden (%)
+
+Tumor burden (%)
+
+10 3
+2
+
+10 1
+10
+
+10 3
+10 2
+10 1
+10 0
+10 −1
+10 −2
+0
+
+0
+
+200
+
+400
+600
+800
+Time (days)
+
+10 −1
+
+1,000 1,200
+
+ATRA no maintenance
+Model
+
+Chemotherapy
+Model
+
+10 −2
+0
+
+50
+
+100
+
+150
+
+200
+
+250 0
+
+50
+
+100
+
+150
+
+200
+
+250
+
+Time (days)
+
+Time (days)
+
+2
+
+2
+
+Figure 4. A, disease dynamics for a single patient treated with ATRA (R ¼ 0.95). B, disease dynamics of a single patient treated with chemotherapy (R ¼ 0.61).
+The initial response to ATRA treatment is well described by our model prediction (blue line). However, this patient did not receive maintenance therapy
+and ﬁnally relapsed 861 days after the initial treatment. In contrast, the patient treated with chemotherapy had an initial response to therapy, but progressed in
+between cycles of chemotherapy. This variation could be caused by stochastic effects of cell proliferation together with a varying number of surviving
+cancer stem–like cells per treatment.
+
+with clinical trial data of treatment response of patients with
+APL to ATRA therapy and/or chemotherapy. This approach
+allows us to model leukemia progression from the occurrence
+of the ﬁrst leukemic stem cell until the potential elimination of
+the last cancer stem cell under treatment and thus provides
+a detailed understanding of all phases of APL under two
+different treatment regimes. At least one murine model of
+APL suggests that the disease originates in a CFU-GM cell
+(13, 22) and thus within the lower half (here compartment
+15) of our hierarchical model. We acknowledge that there is
+still some disagreement on the true origin of the leukemic
+stem cell in APL (21, 46, 47), partly based on the animal
+model used (46, 48) and it is likely that other mutations in
+addition to the t(15q22;17q12) are required for APL to
+develop (49). Although the cancer stem cell hypothesis is
+
+Table 2. Parameters estimates for APL cells in
+response to ATRA therapy
+Parameter
+
+i ¼ 15
+
+16  i  25
+
+26  i  31
+
+g hi
+
+1.26
+
+1.26
+
+1.26
+
+g ATRA
+i
+
+1.26
+
+1.44
+
+1.44
+
+"hi
+
+0.85
+
+0.85
+
+0.85
+
+"ATRA
+i
+
+0.85
+
+0.85
+
+0.85
+
+denote the differentiation probaNOTE: Here, "hi and "ATRA
+i
+bilities in compartment i of healthy cells and cancerous cells
+under ATRA treatment, respectively. The parameters g hi and
+g ATRA
+represent the relative increase of the proliferation rate
+i
+per compartment for healthy cells and cancer cells under
+ATRA treatment.
+
+www.aacrjournals.org
+
+increasingly accepted, and cancer-initiating (stem) cells
+have been isolated from many tumors, the ﬁeld is still
+somewhat controversial (27–29). Several possible explanations exist for the divergent results observed vis-a-vis the
+presence, frequency, surface marker expression, and functional properties of these putative cells, including (i) the
+animal model used for engraftment that provides the
+complex microenvironment for cells to survive and grow,
+(ii) genetic/epigenetic heterogeneity between tumors, (iii)
+stage of the tumor, and others (47–49). However, the
+presence of cellular hierarchies within acute leukemia is
+less controversial and a critical component of our modeling
+approach.
+We ﬁnd that an interaction of leukemic and healthy cells is
+sufﬁcient to explain the known phenotypic constrains of APL.
+The bone marrow in APL usually appears hypercellular at
+diagnosis, but a fraction of patients may have a hypocellular
+bone marrow at diagnosis. This can be explained by the
+suppression of healthy cells combined with a differentiation
+block of APL cells in the bone marrow.
+Our model of acute promyelocytic leukemia also reveals that
+bone marrow failure syndromes are not necessarily due to
+failures of the normal hematopoietic stem cell pool. They can
+also occur by suppression of the proliferation of normal cells by
+leukemic cells, for example, due to competition for cytokines.
+This also implies that hematopoiesis returns to normal after
+the eradication of the malignant cells as is typical for many
+acute leukemias and is in line with our model as well as recent
+observations in vivo (12).
+Our model suggests that, in addition to the block of differentiation, APL stem–like cells have an increased proliferation
+rate, and thus they have a signiﬁcant ﬁtness advantage (6.9 to
+normal CFU-GM cells with 1.0) compared with normal cells.
+Despite this ﬁtness advantage, the disease progresses slowly
+
+Cancer Res; 74(19) October 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+5393
+
+Published OnlineFirst July 31, 2014; DOI: 10.1158/0008-5472.CAN-14-1210
+
+Werner et al.
+
+A
+
+B
+
+90 days ATRA treatment
+110
+
+0.8
+
+0.30
+
+0.20
+0.15
+0.10
+0.05
+0.00
+
+90
+
+1.5×106 2.0×106 2.5×106 3.0×106
+Number of APL stem cells
+
+80
+70
+
+1.5 × 106
+
+2.0 × 106
+
+2.5 × 106
+
+3.0 × 106
+
+Relapse time
+
+Probability
+
+100
+
+Probability
+
+550
+
+0.25
+
+Relapse time
+
+340 days ATRA treatment
+
+0.6
+0.4
+0.2
+
+500
+
+0.0
+
+0
+
+500 1,000 1,500 2,000 2,500
+Number of APL stem cells
+
+450
+
+400
+0
+
+500
+
+1,000
+
+1,500
+
+2,000
+
+2,500
+
+Number of APL stem cells
+
+Number of APL stem cells
+
+Figure 5. The insets show the distribution of remaining APL stem cells for (A) 90 days of continued ATRA treatment and (B) 340 days of continued ATRA
+treatment due to stochastic individual-based simulations with the parameters from Tables 1 and 2. After 340 days of ATRA treatment, almost 60% of
+patients are expected to be cancer stem cell–free and thus potentially cured. The main panels shows the expected relapse time of patients where elimination of
+cancer stem cells was not achieved, depending on the size of the remaining pool of cancer stem cells. These relapse times correspond well with observations
+in clinical studies.
+
+initially, as cells accumulate in the bone marrow, but only
+weakly affect the output of normal hematopoietic cells (17).
+The output of fully differentiated healthy cells only starts to
+decrease slowly approximately 600 days after the occurrence of
+the ﬁrst leukemic stem cell and diagnosis typically occurs after
+approximately 870 days (2.4 years). This is substantially shorter
+than the timescale for the clinical development of chronic
+myeloid leukemia, multiple myeloma or solid malignancies
+such as colon cancer (3, 50).
+We ﬁnd that chemotherapy provides a signiﬁcant initial
+response but is unlikely to cure the disease, as a substantial
+fraction of leukemic stem–like cells is expected to survive
+treatment and leads to relapse of the disease. Indeed, we ﬁnd
+several patients in the INT0129 trial that underwent three
+cycles of chemotherapy (per protocol) but relapsed in time
+intervals of approximately 100 to 300 days.
+The model suggests that ATRA has differential effects on APL
+stem–like cells compared with leukemic cells further downstream within its hierarchy. ATRA removes the differentiation
+block and increases the proliferation rate of APL cells in the
+bone marrow. This leads to a rapid expansion of most APL
+progenitor cells and causes the typical bone marrow peak after
+10 to 13 days of ATRA treatment. The bone marrow will appear
+free of APL blasts after approximately 20 days. However, cure
+requires the extinction of all APL stem–like cells. We ﬁnd, in line
+with in vitro studies, that ATRA decreases the proliferation rate
+of leukemic stem–like cells to 0.4 compared with untreated
+leukemic stem–like cells and thus slows down the eradication
+of APL stem–like cells. Thus, despite a fast initial response,
+continued ATRA therapy is necessary to reduce the risk of
+relapse. Our model suggests that, in the absence of additional
+mutations, ATRA therapy for one year would result in a high
+likelihood of eradication of all leukemic stem–like cells and thus
+a cure in many patients. This is compatible with long-term
+follow-up of patients on the INT0129 trial, where only 3.3% of
+
+5394
+
+Cancer Res; 74(19) October 1, 2014
+
+patients who achieved complete remission experienced a late
+relapse (deﬁned as occurring >3 years after diagnosis; ref. 37).
+Our model in its current form does not consider the intrinsic
+heterogeneity present in most leukemias or the emergence of
+mutant subclones that may lead to relapse of the disease. Such
+extensions of the model may be possible in the future but
+require more detailed knowledge about the structure of the
+tumor. Regardless, our modeling also illustrates the impact of
+stochastic effects on the response to treatment, and in part
+explains why outcomes can be vastly different between patients
+with similar disease status at diagnosis, even without considerations of tumor evolution. However, our model suggests that
+continued ATRA treatment can eventually eradicate all leukemic stem–like cells and thus potentially cure APL, and provides
+for the ﬁrst time a time scale for the in vivo eradication of
+leukemic stem–like cells in humans.
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+Disclaimer
+The content is solely the responsibility of the authors and does not necessarily
+represent the ofﬁcial views of the National Cancer Institute.
+
+Authors' Contributions
+Conception and design: B. Werner, A. Traulsen, D. Dingli
+Development of methodology: B. Werner, A. Traulsen, D. Dingli
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): R.E. Gallagher, E. Paietta, M.R. Litzow, M.S. Tallman,
+P.H. Wiernik, J. Slack, C. Willman, Z. Sun
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): B. Werner, R.E. Gallagher, E. Paietta, A. Traulsen,
+D. Dingli
+Writing, review, and/or revision of the manuscript: B. Werner, R.E. Gallagher, E. Paietta, M.R. Litzow, M.S. Tallman, P.H. Wiernik, C. Willman, Z. Sun,
+A. Traulsen, D. Dingli
+
+Grant Support
+This study was coordinated by the ECOG-ACRIN Cancer Research Group
+(Robert L. Comis, MD, and Mitchell D. Schnall, MD, PhD, Group Co-Chairs) and
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst July 31, 2014; DOI: 10.1158/0008-5472.CAN-14-1210
+
+Dynamics of Acute Promyelocytic Leukemia
+
+supported in part by Public Health Service Grants CA21115, CA14958, CA13650,
+CA17145, CA86726, and CA56771 from the National Cancer Institute, NIH, and
+the Department of Health and Human Services.
+The costs of publication of this article were defrayed in part by the
+payment of page charges. This article must therefore be hereby marked
+
+advertisement in accordance with 18 U.S.C. Section 1734 solely to indicate this
+fact.
+Received April 18, 2014; revised July 17, 2014; accepted July 24, 2014;
+published OnlineFirst July 31, 2014.
+
+References
+1.
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+16.
+17.
+
+18.
+
+19.
+20.
+21.
+
+Dingli D, Traulsen A, Pacheco JM. Compartmental architecture and
+dynamics of hematopoiesis. PLoS ONE 2007;2:e345.
+Traulsen A, Pacheco JM, Dingli D. On the origin of multiple mutant
+clones in paroxysmal nocturnal hemoglobinuria. Stem Cells 2007;
+25:3081–4.
+Dingli D, Traulsen A, Pacheco JM. Chronic myeloid leukemia: origin,
+development, response to therapy and relapse. Clin Leukemia 2008;
+2:133–9.
+Dingli D, Luzzatto L, Pacheco JM. Neutral evolution in paroxysmal
+nocturnal hemoglobinuria. Proc Natl Acad Sci U S A 2008;105:
+18496–500.
+Werner B, Dingli D, Lenaerts T, Pacheco JM, Traulsen A. Dynamics of
+mutant cells in hierarchical organized tissues. PLoS Comput Biol
+2011;7:e1002290.
+Werner B, Dingli D, Traulsen A. A deterministic model for the occurrence and dynamics of multiple mutations in hierarchically organized
+tissues. J R Soc Interface 2013;10:20130349.
+Buescher ES, Alling DW, Gallin JI. Use of an X-linked human neutrophil
+marker to estimate timing of lyonization and size of the dividing stem
+cell pool. J Clin Invest 1985;76:1581–4.
+Rufer N, Brummendorf TH, Kolvraa S, Bischoff C, Christensen K,
+Wadsworth L, et al. Telomere ﬂuorescence measurements in granulocytes and T lymphocyte subsets point to a high turnover of hematopoietic stem cells and memory T cells in early childhood. J Exp Med
+1999;190:157–67.
+Shepherd BE, Guttorp P, Lansdorp PM, Abkowitz JL. Estimating
+human hematopoietic stem cell kinetics using granulocyte telomere
+lengths. Exp Hematol 2004;32:1040–50.
+Shepherd BE, Kiem HP, Lansdorp PM, Dunbar CE, Aubert G, Larochelle A, et al. Hematopoietic stem cell behavior in non-human
+primates. Blood 2007;110:1806–13.
+Heck HD. Statistical theory of cooperative binding to proteins. The
+Hill equation and the binding potential. J Am Chem Soc 1971;93:
+23–9.
+Miraki-Moud F, Anjos-Afonso F, Hodby KA, Griessinger E, Rosignoli G,
+Lillington D, et al. Acute myeloid leukemia does not deplete normal
+hematopoietic stem cells but induces cytopenias by impeding their
+differentiation. Proc Natl Acad Sci U S A 2013;110:13576–81.
+Guibal FC, Alberich-Jorda M, Hirai H, Ebralidze A, Levantini E, Di
+Ruscio A, et al. Identiﬁcation of a myeloid committed progenitor as
+the cancer-initiating cell in acute promyelocytic leukemia. Blood
+2009;114:5415–25.
+de The H, Chomienne C, Lanotte M, Degos L, Dejean A. The t(15;17)
+translocation of acute promyelocytic leukaemia fuses the retinoic acid
+receptor alpha gene to a novel transcribed locus. Nature 1990;347:
+558–61.
+Piazza F, Gurrieri C, Pandolﬁ PP. The theory of APL. Oncogene
+2001;20:7216–22.
+Ablain J, de The H. Revisiting the differentiation paradigm in acute
+promyelocytic leukemia. Blood 2011;117:5795–802.
+Welch JS, Yuan W, Ley TJ. PML-RARA can increase hematopoietic
+self-renewal without causing a myeloproliferative disease in mice. J
+Clin Invest 2011;121:1636–45.
+Zhu J, Shi XG, Chu HY, Tong JH, Wang ZY, Naoe T, et al. Effect of
+retinoic acid isomers on proliferation, differentiation and PML relocalization in the APL cell line NB4. Leukemia 1995;9:302–9.
+Pacheco JM, Traulsen A, Antal T, Dingli D. Cyclic neutropenia in
+mammals. Am J Hematol 2008;83:920–1.
+Pacheco JM, Traulsen A, Dingli D. The allometry of chronic myeloid
+leukemia. J Theor Biol 2009;259:635–40.
+Turhan AG, Lemoine FM, Debert C, Bonnet ML, Baillou C, Picard F,
+et al. Highly puriﬁed primitive hematopoietic stem cells are PML-RARA
+
+www.aacrjournals.org
+
+22.
+
+23.
+
+24.
+
+25.
+
+26.
+
+27.
+28.
+29.
+30.
+
+31.
+
+32.
+
+33.
+34.
+
+35.
+
+36.
+
+37.
+
+38.
+39.
+40.
+
+negative and generate nonclonal progenitors in acute promyelocytic
+leukemia. Blood 1995;85:2154–61.
+Nasr R, Guillemin MC, Ferhi O, Soilihi H, Peres L, Berthier C, et al.
+Eradication of acute promyelocytic leukemia-initiating cells through
+PML-RARA degradation. Nat Med 2008;14:1333–42.
+Chen ZX, Xue YQ, Zhang R, Tao RF, Xia XM, Li C, et al. A clinical and
+experimental study on all-trans retinoic acid-treated acute promyelocytic leukemia patients. Blood 1991;78:1413–9.
+Huang ME, Ye YC, Chen SR, Chai JR, Lu JX, Zhoa L, et al. Use of alltrans retinoic acid in the treatment of acute promyelocytic leukemia.
+Blood 1988;72:567–72.
+Frankel SR, Eardley A, Heller G, Berman E, Miller WH Jr, Dmitrovsky E, et al. All-trans retinoic acid for acute promyelocytic
+leukemia. Results of the New York Study. Ann Intern Med 1994;
+120:278–86.
+Lapidot T, Sirard C, Vormoor J, Murdoch B, Hoang T, Caceres-Cortes
+J, et al. A cell initiating human acute myeloid leukaemia after transplantation into SCID mice. Nature 1994;367:645–8.
+Reya T, Morrison SJ, Clarke MF, Weissman IL. Stem cells, cancer, and
+cancer stem cells. Nature 2001;414:105–11.
+Rosen JM, Jordan CT. The increasing complexity of the cancer stem
+cell paradigm. Science 2009;324:1670–3.
+Kreso A, Dick JE. Evolution of the cancer stem cell model. Cell Stem
+Cell 2014;14:275–91.
+Tallman MS, Andersen JW, Schiffer CA, Appelbaum FR, Feusner JH,
+Ogden A, et al. All-trans-retinoic acid in acute promyelocytic leukemia.
+N Engl J Med 1997;337:1021–8.
+Gallagher RE, Yeap BY, Bi W, Livak KJ, Beaubier N, Rao S, et al.
+Quantitative real-time RT-PCR analysis of PML-RAR alpha mRNA in
+acute promyelocytic leukemia: assessment of prognostic signiﬁcance
+in adult patients from intergroup protocol 0129. Blood 2003;101:
+2521–8.
+Slack JL, Willman CL, Andersen JW, Li YP, Viswanatha DS, Bloomﬁeld
+CD, et al. Molecular analysis and clinical outcome of adult APL patients
+with the type V PML-RARalpha isoform: results from intergroup protocol 0129. Blood 2000;95:398–403.
+Tallman MS, Altman JK. How I treat acute promyelocytic leukemia.
+Blood 2009;114:5126–35.
+Chomienne C, Balitrand N, Ballerini P, Castaigne S, de The H, Degos L.
+All-trans retinoic acid modulates the retinoic acid receptor-alpha in
+promyelocytic cells. J Clin Invest 1991;88:2150–4.
+Gallagher RE, Willman CL, Slack JL, Andersen JW, Li YP, Viswanatha
+D, et al. Association of PML-RAR alpha fusion mRNA type with
+pretreatment hematologic characteristics but not treatment outcome
+in acute promyelocytic leukemia: an intergroup molecular study. Blood
+1997;90:1656–63.
+Tallman MS, Andersen JW, Schiffer CA, Appelbaum FR, Feusner
+JH, Woods WG, et al. All-trans retinoic acid in acute promyelocytic leukemia: long-term outcome and prognostic factor analysis
+from the North American Intergroup protocol. Blood 2002;100:
+4298–302.
+Douer D, Zickl LN, Schiffer CA, Appelbaum FR, Feusner JH, Shepherd
+L, et al. All-trans retinoic acid and late relapses in acute promyelocytic
+leukemia: very long-term follow-up of the North American Intergroup
+Study I0129. Leuk Res 2013;37:795–801.
+Gillespie DT. Exact stochastic simulation of coupled chemical reactions. J Phys Chem 1977;81:2340–61.
+Dingli D, Antal T, Traulsen A, Pacheco JM. Progenitor cell self-renewal
+and cyclic neutropenia. Cell Prolif 2009;42:330–8.
+Traulsen A, Pacheco JM, Dingli D. Reproductive ﬁtness advantage
+of BCR-ABL expressing leukemia cells. Cancer Lett 2010;294:
+43–8.
+
+Cancer Res; 74(19) October 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+5395
+
+Published OnlineFirst July 31, 2014; DOI: 10.1158/0008-5472.CAN-14-1210
+
+Werner et al.
+
+41. West GB, Woodruff WH, Brown JH. Allometric scaling of metabolic rate
+from molecules and mitochondria to cells and mammals. Proc Natl
+Acad Sci U S A 2002;99 Suppl 1:2473–8.
+42. Awwad RT, Do K, Stevenson H, Fu SW, Lo-Coco F, Costello M, et al.
+Overexpression of BP1, a homeobox gene, is associated with resistance to all-trans retinoic acid in acute promyelocytic leukemia cells.
+Ann Hematol 2008;87:195–203.
+43. Tomita A, Kiyoi H, Naoe T. Mechanisms of action and resistance to alltrans retinoic acid (ATRA) and arsenic trioxide (As2O 3) in acute
+promyelocytic leukemia. Int J Hematol 2013;97:717–25.
+44. Dingli D, Traulsen A, Pacheco JM. Stochastic dynamics of hematopoietic tumor stem cells. Cell Cycle 2007;6:441–6.
+45. Traulsen A, Lenaerts T, Pacheco JM, Dingli D. On the dynamics of
+neutral mutations in a mathematical model for a homogeneous stem
+cell population. J R Soc Interface 2013;10:20120810.
+
+5396
+
+Cancer Res; 74(19) October 1, 2014
+
+46. Grimwade D, Enver T. Acute promyelocytic leukemia: where does it
+stem from? Leukemia 2004;18:375–84.
+47. Wojiski S, Guibal FC, Kindler T, Lee BH, Jesneck JL, Fabian A, et al.
+PML-RARalpha initiates leukemia by conferring properties of selfrenewal to committed promyelocytic progenitors. Leukemia 2009;
+23:1462–71.
+48. Wartman LD, Welch JS, Uy GL, Klco JM, Lamprecht T, Varghese N,
+et al. Expression and function of PML-RARA in the hematopoietic
+progenitor cells of Ctsg-PML-RARA mice. PLoS ONE 2012;7:e46529.
+49. Wartman LD, Larson DE, Xiang Z, Ding L, Chen K, Lin L, et al.
+Sequencing a mouse acute promyelocytic leukemia genome reveals
+genetic events relevant for disease progression. J Clin Invest 2011;
+121:1445–55.
+50. Hobbs JR. Growth rates and responses to treatment in human myelomatosis. Br J Haematol 1969;16:607–17.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst July 31, 2014; DOI: 10.1158/0008-5472.CAN-14-1210
+
+Dynamics of Leukemia Stem-like Cell Extinction in Acute
+Promyelocytic Leukemia
+Benjamin Werner, Robert E. Gallagher, Elisabeth M. Paietta, et al.
+Cancer Res 2014;74:5386-5396. Published OnlineFirst July 31, 2014.
+
+Updated version
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-14-1210
+
+This article cites 49 articles, 17 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/74/19/5386.full#ref-list-1
+This article has been cited by 1 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/74/19/5386.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+

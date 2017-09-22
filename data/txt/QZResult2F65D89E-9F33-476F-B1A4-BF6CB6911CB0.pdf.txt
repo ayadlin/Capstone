@@ -1,0 +1,1405 @@
+1744
+
+Molecular Basis Explanation for Imatinib Resistance
+of BCR-ABL Due to T315I and P-Loop Mutations
+From Molecular Dynamics Simulations
+Tai-Sung Lee, PhD1
+Steven J. Potts, PhD2
+Hagop Kantarjian, MD3
+Jorge Cortes, MD3
+Francis Giles, MD4
+Maher Albitar, MD5
+
+BACKGROUND. Computational simulations have become powerful tools for understanding detailed interactions in biologic systems. To the authors’ knowledge to
+date, the mechanism of imatinib resistance in BCR-ABL has not been clarified at
+the atomic level, and computational studies are required.
+
+METHODS. Molecular dynamics (MD) simulations on the complex of imatinib
+with the wild-type, T315I mutant, and 10 other P-loop mutants of the tyrosine kinase BCR-ABL were performed to study the mechanism of imatinib resistance.
+
+1
+
+RESULTS. Simulations suggested that imatinib resistance of T315I results mainly
+
+Consortium for Bioinformatics and Computational Biology and Department of Chemistry, University of Minnesota, Minneapolis, Minnesota.
+
+comes from the breakdown of interactions between imatinib and both E286 and
+
+2
+
+gen bonding is the main contribution. The current results also demonstrated that
+
+Aperio Technologies, Vista, California.
+
+3
+
+Department of Leukemia, The University of
+Texas M. D. Anderson Cancer Center, Houston,
+Texas.
+4
+
+M290, contradictory to what was believed previously, in that the missing hydrothe unfavorable electrostatic interaction between P-loop and imatinib is the main
+reason for resistance for the P-loop mutations. Furthermore, in Y253H, protonation of the histidine at the e position, is essential for rendering this mutation resistant to imatinib.
+
+Cancer Therapy and Research Center and University of Texas Health Science Center, San Antonio, Texas.
+
+offer insight and information that other simple modeling methods cannot pro-
+
+5
+
+vide regarding the problem of BCR-ABL imatinib resistance, especially in the
+
+Quest Diagnostics Nichols Institute, San Juan
+Capistrano, California.
+
+CONCLUSIONS. The current results indicated that large-scale simulations may
+
+case of conformational changes because of remote mutations. Imatinib resistance
+mechanisms that were not anticipated previously were revealed by analyzing the
+interactions between imatinib and individual residues based on simulation
+results. This results demonstrated that MD is a powerful way to verify and predict
+the clinical response or resistance to imatinib and to other potential drugs.
+Cancer 2008;112:1744–53.  2008 American Cancer Society.
+
+KEYWORDS: BCR-ABL, imatinib resistance, tyrosine kinase inhibitor imatinib, molecular dynamics simulations, molecular mechanics-Poisson-Boltzmann surface
+area.
+
+Supported in part by the National Center for
+Supercomputing Applications (NCSA) under
+MCB050050N and MCB070003T grants and utilized the cobalt system of NCSA and the lonestar
+system of Texas Advanced Computing Center.
+Address for reprints: Tai-Sung Lee, PhD, Consortium for Bioinformatics and Computational Biology
+and Department of Chemistry, University of Minnesota, P.O. Box 14800, Minneapolis, MN 55414; Fax:
+(612) 626-7541; E-mail: leex2750@umn.edu
+Received July 9, 2007; revision received October
+3, 2007; accepted November 6, 2007.
+
+ª 2008 American Cancer Society
+
+C
+
+hronic myelogenous leukemia (CML) is triggered by the BCRABL oncoprotein, which contains a constitutively activated ABL
+tyrosine kinase domain.1,2 Hence, inhibitors of the ABL domain can
+be used to treat most chronic-phase CML.3
+Imatinib is an inhibitor of the tyrosine kinase BCR-ABL and currently is used to treat CML.4 Although imatinib is an effective inhibitor in most cases, mutations of BCR-ABL often show different
+degrees of resistance to imatinib, especially the theronine to isoleucine mutation at position 315 (T315I) and the adenosine triphosphate phosphate-binding loop (P-loop) mutations.5–8 Patients who
+
+DOI 10.1002/cncr.23355
+Published online 13 March 2008 in Wiley InterScience (www.interscience.wiley.com).
+
+BCR-ABL Imatinib Resistance Simulation/Lee et al.
+
+have progressed to advanced-stage CML frequently
+fail to respond or lose their response to therapy
+because of imatinib resistance.5,9,10 Understanding of
+the mechanism of imatinib resistance clearly is a
+critical step toward imatinib modification or the
+design of new inhibitors.11–14
+There have been many significant analyses on
+the crystal structure of the complex of imatinib and
+the ABL domain.13,15–21 That structure provides very
+valuable information for understanding the molecular basis of imatinib binding. However, the crystal
+structure is an average structure and does not necessarily represent the true structure, especially when
+the structure undergoes a rapid equilibrium within
+few conformations. Furthermore, mutation-effect
+analyses based on the static structure normally
+ignore possible short- or long-range conformational
+changes and do not include any dynamic effects
+caused by thermal motions. Finally, the crystal structure, although it potentially is close to the structure
+in vivo or in vitro, may differ significantly from the
+true structure in certain regions, because the experimental conditions of a crystal structure differ greatly
+from the real-life conditions.
+Computational simulations can provide structural
+details, energy landscape, dynamic behaviors, and
+other properties that experiments either cannot provide or have difficulty offering. To our knowledge, few
+computational simulations have been performed on
+the problem of imatinib resistance, most likely because
+of the size of the system. Monte Carlo simulations
+reportedly have studied tyrosine kinase binding specificity and drug resistance.22 Molecular dynamics (MD)
+simulations and molecular mechanics-Poisson-Boltzmann surface area (MM-PBSA) calculations23 have
+proven useful for studying protein-ligand interactions.
+A 0.4-ns MD simulation with cutoff models has been
+reported24 and some insights of imatinib resistance
+caused by T315I have been revealed. However, simulations with cutoff models are more valuable in a localized area and do not account for the structural
+changes in larger areas that are common in flexible
+molecules, such as kinases.
+Here, we report the first large-scale MD simulations and MM-PBSA calculations on the complex of
+imatinib with the wild-type, T315I mutant, and other
+10 P-loop mutants of the tyrosine kinase BCR-ABL.
+Instead of cutoff models,24 we used full periodic
+boundary conditions and full treatment of long-range
+electrostatic interactions, and 30-ns simulations of
+each mutant were performed to ensure proper sampling of data. To our knowledge, this work includes
+by far the longest MD simulations conducted to date
+on BCR-ABL, and we anticipate that it will be a
+
+1745
+
+powerful technique for use in large, complex molecules such as kinases. Detailed mechanisms of imatinib resistance have been revealed through these sets
+of full-scale simulations.
+
+MATERIALS AND METHODS
+Simulation Setup
+The crystal structure of the complex of the kinase
+domain of ABL and imatinib was used as the initial
+structure (PDB code 1IEP).25 All crystal water molecules were removed, and missing hydrogen atoms of
+the protein and imatinib were added. Then, the complex was put into a 60 3 80 3 60 cubic angstroms
+water box with TIP3P water molecules.26 Sodium/
+chloride ions were added to reach the physiologic
+concentration of sodium ions (0.14 M) and overall
+electric neutrality. The resulting system contained
+36,123 atoms (ABL, 4441 atoms; imatinib, 68 atoms;
+water, 31,674 atoms; Na1, 18 atoms; Cl2, 9 atoms).
+All preparation steps were performed using the
+VMD software package (version 1.8.6; available at:
+http://www.ks.uiuc.edu/Research/vmd/ Accessed on
+August 1, 2007).27
+Missing charge parameters for imatinib were
+obtained by using the restrained electrostatic chargefitting (RESP)28 procedure with the imatinib structure
+(initially taken from the complex) fully optimized at a
+restricted Hartree-Fock (RHF)/6–3111 level by using
+the Gaussian03 package29 and the with electrostatic
+potential from an RHF/6–3111 single-point calculation. Other missing parameters were transferred from
+similar atom types. All MD simulations were performed using the NAMD package (version 2.6)30 with
+the CHARMM27 force field.31 Default parameters
+and settings were used except as specified below. Periodic boundary conditions were used along with the
+isothermal-isobaric ensemble (NPT) at 1 atmosphere
+and 298 K. The smooth particle mesh Ewald (PME)
+method32 was used with 60, 80, and 60 Fast Fourier
+Transform (FFT) grid points for the lattice directions x,
+y, and z, respectively. A cutoff of 12 Å for nonbonded
+interactions was used with switching van der Waals
+(vdW) potential beginning at 10 Å with the SHAKE
+algorithm33 applied to bonds that involved hydrogens.
+The following procedure was used before the
+data collection (production) MD simulations. First,
+all atoms of the protein complex were restrained at
+their crystal structure positions with a force constant
+of 50 kcal/mol/Å2. Next, water and ion molecules
+were energy-optimized, and they underwent the following simulated annealing: The temperature was
+increased from 0 kelvin (K) to 600 K (1 K per picosecond [ps]), was kept at 600 K for 500 ps, then was
+
+1746
+
+CANCER
+
+April 15, 2008 / Volume 112 / Number 8
+
+decreased from 600 K to 300 K at 21 K per ps, and
+was kept at 300 K for 500 ps. Then, the system was
+kept at 300 K for 4 ns. The same procedure was
+repeated again and resulted in an equilibration simulation of 10 ns for water molecules and ions.
+The water/ion-equilibrated system then was used
+as the starting point for the production simulations.
+Mutant systems were created by using the VMD package27 based on this water/ion-equilibrated system.
+One or 2 nearby cations/anions were removed to
+allow mutants that involved charge changes to reach
+electric neutrality with an additional 1 ns for equilibration of waters and ions. Then, the restraint force
+constant gradually was reduced to 3 kcal/mol/Å2 during a 500-ps period followed by 2000 energy-minimization steps for all atoms and then a 300 ps of
+heating period with the temperature increased from
+0 K to 300 K (1 K per ps).
+In the production run, for each mutant, a 20-ns
+MD simulation was performed without any restraining potential applied. The last 15 ns of data were
+used for data analysis.
+
+Relative Binding Free Energy Analysis
+The MM-PBSA approach23,34 was used to analyze
+differences in the relative binding free energy,
+DDGbinding, to wild-type. It can be broken as
+follows: DDGbinding 5 DEelectrostatic 1 DEvdW 1 DDGPB
+1 D DGnonpolar, where DEelectrostatic is the electrostatic
+contribution, DEvdW is the vdW contribution, DDGPB
+is the polar solvation contribution, and DDGnonpolar is
+the nonpolar contribution. Those terms were calculated by using the PBEQ module of the CHARMM
+package (version 32b1).35
+
+RESULTS
+MD Simulation Results
+MD simulations for wild-type and 11 mutants of the
+ABL domain complex with imatinib were performed
+with 10-ns equilibration of waters and ions, 5-ns
+equilibration of the whole system, and 15 ns of data
+collection for each mutant, as described above (see
+Materials and Methods). The 11 mutants were
+E255K, E255V, G250E, L248V, M244V, Q252H,
+Q252Hp, T315I, Y253F, Y253H, and Y253Hp, where H
+denotes the histidine residue protonated at the d
+position and Hp denotes the histidine residue protonated at both the d and e positions, resulting in a
+positively charged histidine. Except for T315I, all
+mutations were in the P-loop region, defined as residues 244 through 255.36
+Figure 1 shows the root mean square deviation
+(RMSD) of the active site for 4 selected mutants dur-
+
+FIGURE 1. At the active site, for all ABL atoms within 10 angstroms (Å)
+from the imatinib molecule, the root mean square deviation (RMSD) is shown
+in Å for selected mutants. WT indicates wild-type; ns, nanoseconds.
+
+ing production simulations. Other mutants exhibited
+similar curves and, hence, are not shown. The RMSD
+is an indicator of the stability of MD simulations.
+The analyses indicated that the simulations were
+stable after 5 ns. The average RMSD was approximately 1.5 Å to 2 Å and remained stable after 5 ns.
+The RMSD results suggested that at least a few nanoseconds of equilibration are necessary to study this
+system.
+
+Relative Binding Free Energy Analysis
+Table 1 lists the calculated and experimental values
+of relative binding free energy between imatinib and
+mutated ABL (DDGbind) (related to the wild-type).
+The values were calculated by using the MM-PBSA
+approach, and each entry represents the average
+values for 15,000 data points from a 15-ns production MD trajectory with 1 ps sampling frequency.
+The experimental values are not very consistent,
+because the experimental conditions may differ
+widely. The calculated values, however, agree qualitatively with the experimental trends. T315I clearly had
+very strong imatinib resistance, because it had the
+largest DDGbind value, and Q252H suggested weaker
+imatinib resistance compared with the other mutations between those 2 extremes.
+The contributions to the relative binding free
+energies from P-loop residues and other residues also
+are listed in Table 1. The mutations studied here,
+except T315I, are all P-loop mutations. The contributions to DDGbind, however, are very different for each
+mutation. Previous research suggests that the P-loop
+mutations contribute to the major cases of imatinib
+resistance,36 because the mutations either decrease
+
+BCR-ABL Imatinib Resistance Simulation/Lee et al.
+
+1747
+
+TABLE 1
+Experimental and Calculated Values of Binding Free Energy Between Imatinib and Mutated ABL (Related to the Wild Type)*
+Experimental
+
+Residue
+
+P-loop
+
+Others
+
+PBSA
+
+Total (SD)
+
+E255K
+E255V
+G250E
+L248V
+M244V
+Q252H
+Q252Hp
+T315I
+Y253F
+Y253H
+Y253Hp
+
+1.80
+2.01
+20.66
+0.87
+0.37
+2.14
+2.18
+0.46
+0.41
+0.62
+6.75
+
+0.14
+1.05
+2.03
+2.01
+3.14
+21.40
+21.17
+5.49
+0.95
+20.82
+1.15
+
+0.03
+20.92
+2.16
+1.77
+1.11
+1.26
+0.46
+0.89
+1.41
+0.95
+0.69
+
+1.97 (36)
+2.14 (90)
+3.53 (39)
+4.65 (43)
+4.62 (37)
+2.00 (18)
+1.47 (24)
+6.84 (22)
+2.77 (25)
+0.75 (19)
+8.60 (21)
+
+Shah
+20027
+
+Bradeen
+200641
+
+Azam
+200313
+
+Corbin
+200342
+
+1.97
+
+1.69
+1.81y
+0.89
+
+1.78
+
+1.88
+2.07y
+1.52
+
+1.94
+
+1.39
+2.12y
+1.81
+1.81
+1.81
+
+0.88
+0.88
+1.81y
+
+2.08y
+2.08y
+0.97
+0.93
+0.93
+2.08y
+
+1.81y
+1.81y
+
+2.01
+2.01
+
+0.69
+1.17
+1.17
+2.07y
+1.52
+2.07y
+2.07y
+
+Corbin
+200218
+
+Roumiantsev
+20028
+
+3.14y
+2.53
+
+2.64
+0.78
+
+P-loop indicates adenosine triphosphate phosphate-binding-loop; PBSA indicates Poisson-Bolzmann surface area calculations; SD, standard deviation; E, glutamine; K, lysine; V, valine; G, glycine; L, leucine; M,
+methionine; Q, glutamine; H, histidine residue protonated at the d position; T, threonine; I, isoleucine; Y, tyrosine; F, phenylalanine; Hp, histidine residue protonated at the both the d and e positions, resulting
+in a positively charged histidine.
+* The first 4 columns are a breakdown of the relative binding-free energies into different components.
+y
+Lower-limit values (ie, the actual values should be greater).
+
+direct contact between imatinib and the P-loop or
+distort the P-loop conformation.7 By examining the
+contribution of DDGbind from P-loop residues to
+mutations in P-loop, only E255K, E255V, Q252H,
+Q252Hp, and Y253Hp made contributions >1.0 kcal/
+mol from the P-loop. The residues at 252 and 255 did
+not directly contact imatinib. The mutation L248V,
+which occurs at the point of direct contact with imatinib, received only 0.87 kcal/mol from the P-loop.
+To understand the binding changes more deeply,
+we broke down the contributions to the interaction
+between imatinib and the P-loop further into the
+electrostatic and vdW parts and into each residue.
+The electrostatic part represents the classic longrange columbic interaction, including charge-charge
+and other multipole interactions. The vdW part is the
+‘‘contact energy.’’ These 2 terms represent the major
+part of nonbonding interactions in MD simulations.
+For all entries, a positive value indicates a reduction
+in binding energy, because negative binding energy
+indicates that the binding is stronger.
+Table 2 shows the detailed mutation effect on
+each P-loop residue for all mutations that we studied. E255K reduced (ie, increased to a more positive
+value) the electrostatic interaction for residue 255.
+E255V had a similar but smaller effect, and E255V
+also affected the binding-free energy contribution for
+residue 253, suggesting that E255V changes the local
+conformation and influences the interaction between
+other residues (253) and imatinib.
+
+Table 2 shows that only G250E had a net
+increase in electrostatic contribution at residue 250.
+Residue 248 and 253 were the only 2 residues that
+contacted imatinib directly.
+L248V had a 0.48 kcal/mol decrease in vdW,
+which means that the contact with imatinib was decreased. However, this vdW contribution accounted
+for only part of the effect on the P-loop, because
+L248V made a net contribution of only 0.87 kcal/mol
+to all P-loop residues (Table 1). The remaining contribution came from other residues, suggesting that
+L248V also causes a small conformation change of
+the whole P-loop.
+Surprisingly, M244V had very little effect on Ploop residues, along with T315I, Y253F, and Y253H.
+Y253F only caused small changes in vdW at residue
+253, consistent with biochemical intuition. Y253H
+caused significant changes in both electrostatic and
+vdW interactions, although the changes were in different directions and they roughly cancelled each
+other. Conversely, Y253Hp affected binding significantly.
+To briefly summarize Table 2, a ‘‘negative-topositive’’ or ‘‘negative-to-neutral’’ change weakened
+the binding, suggesting that there may be a strong
+dipole moment at the P-loop binding head of the
+imatinib molecule that prefers a negatively charged
+environment in the P-loop. Decreasing this electrostatic interaction is one of the major reasons for imatinib resistance by E255K(V), Q252Hp, and Y253Hp,
+
+1748
+
+CANCER
+
+April 15, 2008 / Volume 112 / Number 8
+
+TABLE 2
+The Electrostatic and van der Waals Contributions to Relative Bind
+Free Energy of Imatinib for Different Mutants From Selected
+Adenosine Triphosphate Phosphate-binding Loop Residues*
+M244
+
+E255K
+E255V
+G250E
+L248V
+M244V
+Q252H
+Q252Hp
+T315I
+Y253F
+Y253H
+Y253Hp
+
+K245
+
+G250
+
+Ele
+
+vdW
+
+Ele
+
+vdW
+
+Ele
+
+vdW
+
+Ele
+
+vdW
+
+0.00
+0.01
+0.00
+0.01
+0.01
+0.02
+0.00
+0.02
+0.01
+0.01
+0.02
+
+0.00
+0.00
+0.00
+0.00
+0.01
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+
+0.01
+0.02
+20.02
+0.05
+20.02
+0.12
+0.02
+0.14
+0.09
+0.03
+0.37y
+
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+
+20.04
+20.03
+0.10
+0.16
+20.01
+0.19
+0.07
+0.07
+20.03
+0.15
+0.17
+
+0.02
+20.13
+20.15
+0.48y
+20.04
+0.04
+0.01
+0.18
+0.13
+0.27y
+0.32y
+
+0.00
+0.04
+20.76y
+20.01
+0.00
+0.03
+0.00
+20.01
+0.00
+0.01
+0.03
+
+0.00
+0.00
+20.02
+20.01
+20.01
+0.00
+20.01
+20.01
+0.00
+20.04
+0.01
+
+vdW
+
+Ele
+
+Q252
+Ele
+E255K
+E255V
+G250E
+L248V
+M244V
+Q252H
+Q252Hp
+T315I
+Y253F
+Y253H
+Y253Hp
+
+L248
+
+0.15
+20.08
+0.22
+0.17
+0.13
+20.14
+1.73y
+0.07
+0.05
+0.19
+20.12
+
+vdW
+0.03
+0.09
+0.04
+0.04
+0.03
+0.20y
+0.06
+0.03
+0.01
+0.12
+0.21y
+
+Y253
+Ele
+0.17
+20.35y
+0.13
+0.18
+0.16
+20.88y
+0.17
+0.15
+20.14
+21.58y
+1.62y
+
+G254
+
+0.01
+1.28y
+0.02
+0.02
+0.08
+2.59y
+0.23
+0.05
+0.37y
+1.98y
+4.26y
+
+20.03
+0.18
+20.01
+20.03
+20.01
+20.02
+20.04
+20.04
+20.04
+20.26y
+20.02
+
+vdW
+20.01
+0.08
+0.01
+0.00
+20.01
+0.01
+20.03
+20.02
+20.03
+20.12
+20.01
+
+E255
+Ele
+
+vdW
+y
+
+1.50
+0.94y
+0.13
+20.07
+0.14
+20.04
+0.05
+20.07
+0.03
+20.11
+20.13
+
+0.00
+20.08
+0.01
+0.00
+20.01
+20.01
+20.02
+20.01
+20.01
+20.02
+20.02
+
+Ele indicates electrostatic contribution; vdW, van der Waals contribution; E, glutamine; K, lysine; V,
+valine; G, glycine; L, leucine; M, methionine; Q, glutamine; H, histidine residue protonated at the d
+position; T, threonine; I, isoleucine; Y, tyrosine; F, phenylalanine; Hp, histidine residue protonated at
+the both the d and e positions, resulting in a positively charged histidine.
+* Only residues with changes of interaction >0.20 kcal/mol are listed. Each column shows the interaction energy (in kcal/mol) between imatinib and the residue listed at the top of each column.
+y
+Entries with absolute values >0.20 kcal/mol.
+
+whereas the effect of L248V is caused mainly by the
+changes in imatinib contacts.
+The changes in the interactions between P-loop
+residues and imatinib apparently do not account for
+all mutation effects. The same analysis was performed on other residues, and selected results, which
+are the residues with relative binding free energy
+changes >0.20 kcal/mol because of mutation, are
+listed in Table 3.
+Table 3 shows that almost every mutation had a
+significant effect on the interactions between imatinib and E286 and M290. E286 and M290 are located
+at the C-helix, which is near the ligand entrance.
+Both the epsilon oxygen (Oe) of E286 and the sulfur
+(S) of M290 could form a hydrogen bond to N21,
+which is considered one of the anchor points of imatinib.22 Apparently, the C-helix is flexible enough so
+
+that every mutation changes its position relative to
+imatinib. However, the effects on E286 and M290
+appeared to be in different directions, and the net
+effects were not significant for most mutations, ie,
+when the interaction from 1 residue increased, the
+interaction from the other residue decreased. To verify the importance of these 2 residues, selected simulation results of E286K and M290L also are listed in
+Table 3 and indicate that the electrostatic interaction
+was decreased significantly in E286K and moderately
+in M290L, consistent with previous experimental
+observations.13,37
+Conversely, Table 3 also demonstrates that T315I
+reduced the interactions from both E286 and M290;
+in fact, this was the main reason for the strong effect
+of T315I, contradicting prior suggestions that the loss
+of hydrogen bond between T315I and imatinib is the
+main reason for the T315I mutation effect.15,38 The
+positions of E286 and M290 relative to imatinib
+changed significantly. According to our results, T315I
+does cause the loss of hydrogen bond between
+T(I)35I and imatinib (in the form of electrostatic
+energy), but it also increases the contact energy (in
+the form of vdW); thus, the overall effect on the
+interaction between T(I)315 and imatinib actually is
+tighter binding upon T315I mutation. The conformational change of the C-helix, resulting in significantly
+reduced interaction contributions from E286 and
+M290 (Figs. 2, 3), causes the imatinib resistance of
+T315I. These results are consistent with a smaller
+scale MD study.24 In fact, equivalent mutations were
+identified in other kinases that caused significant
+conformational changes, eg, T338I (T315I equivalent
+here) in c-Src.39,40
+P-loop mutations also affect the contribution
+from F382, which is at the other side of imatinib
+from the P-loop. This implies that P-loop mutations
+do cause a shifting in the position of imatinib,
+although the shift may not be very significant,
+because only has a significant impact on the contribution from F382.
+E255V has a broader impact on interactions
+from various residues, suggesting that E255V may
+cause a greater conformational change. Compared
+with E255K, although E255V has a smaller impact
+on the electrostatic contribution from P-loop residues, the overall effect from E255V is greater than
+that from E255K, clearly because of the larger
+conformational change caused by E255V. This observation is consistent with the experimental
+data.41,42
+G250E, L248V, and M244V also have a large
+impact on conformation, as suggested by Tables 1
+and 3. However, except for L248V, those mutations
+
+BCR-ABL Imatinib Resistance Simulation/Lee et al.
+
+1749
+
+TABLE 3
+The Electrostatic and van der Waals Contributions to Relative Binding-free Energy of Imatinib for Different Mutants From Selected
+Non-P Loop Residues*
+T315
+
+E255K
+E255V
+G250E
+L248V
+M244V
+Q252H
+Q252Hp
+T315I
+Y253F
+Y253H
+Y253Hp
+E286K
+M290L
+
+A269
+
+M290
+
+Ele
+
+vdW
+
+Ele
+
+vdW
+
+Ele
+
+vdW
+
+Ele
+
+vdW
+
+0.05
+20.03
+0.09
+0.04
+0.02
+20.02
+0.01
+0.49y
+20.03
+0.03
+20.22y
+0.06
+0.40y
+
+0.07
+0.35
+0.09
+0.10
+20.06
+0.10
+20.04
+20.94y
+20.01
+0.13
+20.39y
+20.05
+0.07
+
+0.03
+20.03
+20.03
+0.03
+20.02
+0.10
+20.02
+0.07
+0.03
+0.00
+0.26y
+20.03
+20.03
+
+20.10
+0.12
+20.06
+0.01
+0.07
+20.16
+0.00
+20.11
+20.05
+0.00
+20.65y
+0.07
+0.11
+
+1.32y
+20.44y
+2.13y
+2.41y
+2.23y
+20.25y
+20.31y
+2.14y
+1.67y
+20.62y
+1.52y
+5.16y
+21.03y
+
+20.11
+1.06y
+20.39y
+20.37y
+20.58y
+0.09
+0.19
+0.22y
+20.53y
+20.04
+0.23y
+0.14
+0.01
+
+20.58y
+20.18
+20.52y
+20.56y
+20.47y
+20.46y
+20.55y
+0.64y
+20.49y
+20.47y
+20.06
+0.17
+0.86y
+
+20.29y
+21.24y
+20.29y
+20.26y
+20.03
+20.44
+20.26y
+0.58y
+20.28y
+20.43y
+20.32y
+20.27y
+1.33y
+
+I293
+
+E255K
+E255V
+G250E
+L248V
+M244V
+Q252H
+Q252Hp
+T315I
+Y253F
+Y253H
+Y253Hp
+
+E286
+
+F359
+
+I360
+
+F382
+
+Ele
+
+vdW
+
+Ele
+
+vdW
+
+Ele
+
+vdW
+
+Ele
+
+vdW
+
+0.04
+0.04
+0.01
+0.04
+20.02
+0.06
+0.04
+0.06
+0.00
+0.04
+0.09
+
+20.21
+21.04y
+20.19
+20.11
+0.16
+20.41y
+20.23y
+0.28y
+20.29y
+20.44y
+20.32y
+
+20.20
+20.69y
+20.03
+20.02
+0.10
+20.21
+20.16
+0.15
+20.07
+20.10
+20.12
+
+20.18
+20.85
+20.06
+0.35y
+0.52y
+20.28y
+20.48y
+0.55y
+20.17
+20.20y
+20.23y
+
+20.17
+20.55y
+20.11
+20.13
+20.25
+20.08
+20.03
+20.22y
+20.01
+0.07
+20.10
+
+20.19
+21.96y
+20.16
+20.02
+20.10
+20.27y
+20.15
+20.25y
+0.05
+0.05
+20.40y
+
+0.42y
+0.85y
+0.22y
+20.02
+20.11
+1.10y
+0.07
+20.05
+0.43y
+0.73y
+0.41y
+
+0.65y
+0.31y
+0.54y
+0.34y
+0.44y
+0.43y
+0.47y
+0.12
+0.67y
+1.47y
+0.27y
+
+Ele indicates electrostatic contribution; vdW, van der Waals contribution; E, glutamine; K, lysine; V, valine; G, glycine; L, leucine; M, methionine; Q, glutamine; H, histidine residue protonated at the d position;
+T, threonine; I, isoleucine; Y, tyrosine; F, phenylalanine; Hp, histidine residue protonated at the both the d and e positions, resulting in a positively charged histidine.
+* Only residues with changes of interaction >0.20 kcal/mol are listed. Each column shows the interaction energy (in kcal/mol) between imatinib and the residue listed at the top of each column.
+y
+Entries with absolute values >0.20 kcal/mol.
+
+do not affect the binding between imatinib and the
+P-loop, as suggested reviously.7 Rather, they change
+the relative position of imatinib to other residues
+and, hence. the interactions between them.
+
+PBSA Analysis
+The PBSA contribution can be considered the effect
+of the solvent/ion responding to ABL and imatinib
+conformational changes. It is not possible to break
+down PBSA contributions to the atomic level. Nevertheless, the PBSA contribution can be used as an indicator of the global conformational change of ABL
+because of mutations. Table 1 clearly shows the relative magnitude of conformational changes because
+of various mutations.
+Q252H and Q252Hp had quite different effects on
+each residue, although the overall effects were similar
+despite our lack of knowledge of the protonation state
+of the histidine residue. Conversely, Y253Hp had a
+
+much greater effect compared with Y253H. Experimental data41,42 suggest that Y253H has large imatinib resistance and, thus, that Y253Hp may be the
+right form of mutation (ie, the histidine is likely to be
+double-protonated and positively charged). The estimated pKa of H253 in Y253H is 5.32, and the pKa of
+H252 in Q252H is 7.07 according to the PROPKA
+server (available at: http://propka.ki.ku.dk/ Accessed
+on August 1, 2007) and based on the snapshot structures at 20 ns.
+
+Result Summary
+In summary, our simulations and PBSA results indicated that the unfavorable electrostatic interaction
+between the P-loop and imatinib, except for mutations of the direct contact residues (such as L248 and
+Y253), was the main reason for imatinib resistance in
+the P-loop mutations that involved ‘‘negative-to-positive’’ or ‘‘negative-to-neutral’’ charge changes. Other
+
+1750
+
+CANCER
+
+April 15, 2008 / Volume 112 / Number 8
+
+FIGURE 2. Representative wild-type structures (top) and theronine T315I (bottom) of imatinib and T(I)315, E286, and M290. The structures are snapshots at
+the 15-nanosecond time stamp of molecular dynamics simulations. T315I clearly changed the overall binding conformation of imatinib and, hence, the binding
+free energy.
+
+P-loop mutations caused the conformational changes
+and reduced the interaction between imatinib and
+non-P-loop residues.
+For T315I, our results suggest that the effect of
+the T315I mutation comes mainly from the change
+of the C-helix conformation. More specifically, the
+main effect comes from the impact on the interactions between imatinib and E286 and M290.
+
+DISCUSSION
+Shah et al.7 have proposed the possible mechanism
+of imatinib resistance for various mutations in the Ploop. Our results are not very consistent with their
+suggestions. Intuitive analyses based on static structures are useful but also are limited. It would be
+impossible to draw the same conclusions as our
+simulation results based only on any simple, static
+
+BCR-ABL Imatinib Resistance Simulation/Lee et al.
+
+FIGURE 3. Representative schematic views of wild-type structures (top)
+and T315I structures (bottom) from snapshots at the 15-nanosecond time
+stamp of molecular dynamics simulations. T315I clearly changed the conformation of the C-helix in which glutamate 286 (GLU286) and methionine 290
+(MET290) reside. The ‘‘head’’ of the C-helix moves away from the imatinib
+molecule. Imatinib is shown in yellow.
+
+structure models. Simple computational models,
+although they may be useful for very small conformational changes,38,43,44 cannot provide a detailed
+description of dynamic behaviors and cannot predict
+realistic conformational changes.
+According to our simulations, T315I leads to significant conformational changes, as demonstrated
+previously39,40: hence the binding affinity between
+imatinib and the ABL domain. When the imatinib
+molecule was aligned for the wild-type and for
+T315I, the RMSD of the C-helix was approximately
+3.5 Å between 2 simulations. More specifically, E286
+and M290 were the main source of the reduction in
+binding-free energy (Table 3).
+A similar rationale also may be applied to 2 new
+drugs, nilotinib45 and dasatinib,46 in which T315I
+also exhibits strong drug resistance. Weisberg et al.
+demonstrated47 that nilotinib has close contact with
+E286, similar to imatinib. The position change of
+E286 due to T315I may be the reason for nilotinib resistance, as reported by von Bubnoff et al.48
+
+1751
+
+Dasatinib does not seem to interact directly with
+E286; however, T315I still causes dasatinib resistance.47 A possible explanation is that, in the case of
+dasatinib, E286 is not interacting with the inhibitor,
+but some conformational changes due to T315I
+will be expected and will break some interactions
+between dasatinib and the surrounding residues; or,
+as suggested by Levinson et al.,40 the resistance to
+dasatinib most likely is because of the effects of
+T315I on E286 and prevents the formation of an
+active Src site. Large-scale simulations of the dasatinib/ABL complex may provide a clearer picture.
+Compared with the pioneering MD simulations
+by Pricl et al.,24 our simulations used the full periodic
+boundary conditions and included every water molecule in a large water box instead of a cutoff on the
+boundary and an only 30-Å water cap. The conclusions of Pricl et al. were consistent with our findings
+of a strong contribution from E286 for the T315I
+mutation, which suggests that their simulations may
+be enough for studying immediately nearby residues.
+However, M290 was not a strong contributor,
+whereas K271, R362, and D381 made strong contributions in their results, which are not consistent
+with ours (K271, R362, and D381 are not listed in
+our Tables here because of their small contributions).
+A possible explanation is that the system may require
+at least a few nanoseconds of equilibration (Fig. 1)
+before it reaches a well equilibrated state in which
+key residues are rearranged in response to the mutation effect. In addition, the movements of far residues
+may require noncutoff simulations. Furthermore, with
+a total simulation time of 30 ns and 15 ns of data
+analysis, the errors in our simulations should be from
+0.5 to 1 order smaller than the errors in the report by
+Pricl et al. (<1 ns of total simulation and 0.4 ns of
+data analysis). Thus, the work reported here represents a major step forward for simulations of the
+ABL/imatinib system.
+Although the calculated relative changes in binding free energy agreed with experimental data qualitatively (Table 1), some results were not consistent. It
+was believed that M244V caused only weak imatinib
+resistance; however, the current calculated relative
+change in binding free energy was 4.62 kcal/mol.
+The large deviation may have several causes: More
+accurate estimates of the changes in binding free
+energy should consider the equilibrium between the
+active and inactive conformations for each mutant,
+like some recently reported Monte Carlo simulations.22 In the current study, only simulation results
+of the inactive form are reported, which may not
+have captured realistic binding changes. Simulations
+that start with different possible conformations40
+
+1752
+
+CANCER
+
+April 15, 2008 / Volume 112 / Number 8
+
+may lead to a better understanding of this system. In
+addition, the SH2/SH3 domains were not included in
+our study, because we assumed that the domain-domain interfaces were far from the imatinib binding
+site and that the effect would be small. However,
+that assumption may be not valid in some cases and
+should be verified. Finally, more accurate MD parameters for this system should be developed based on
+well chosen mutations to establish quantitative
+assessments of MD simulations in this system.
+In conclusion, to our knowledge, we have presented the first full-scale MD simulations on the problem of imatinib resistance for the BCR-ABL system,
+and the mechanisms of imatinib resistance of some
+mutants at the atomic level were revealed. We expect
+that, as computational tools become more and more
+powerful, more realistic simulations of the ABL/imatinib system, along with other potential drugs, and a
+detailed understanding of their interactions will
+become plausible in the very near future.
+
+REFERENCES
+1.
+
+Faderl S. The biology of chronic myeloid leukemia. N Engl
+J Med. 1999;341:164–172.
+2. Deininger MW, Goldman JM, Melo JV. The molecular biology of chronic myeloid leukemia. Blood. 2000;96:3343–3356.
+3. Ren R. Mechanisms of BCR-ABL in the pathogenesis of
+chronic myelogenous leukaemia. Nat Rev Cancer. 2005;5:
+172–183.
+4. Manley PW. Imatinib: a selective tyrosine kinase inhibitor.
+Eur J Cancer. 2002;38:S19–S27.
+5. Roche-Lestienne C. Several types of mutations of the ABL
+gene can be found in chronic myeloid leukemia patients
+resistant to STI571, and they can pre-exist to the onset of
+treatment. Blood. 2002;100:1014–1018.
+6. Branford S, Rudzki Z, Walsh S, et al. Detection of BCR-ABL
+mutations in patients with CML treated with imatinib is
+virtually always accompanied by clinical resistance, and
+mutations in the ATP phosphate-binding loop (P-loop) are
+associated with a poor prognosis. Blood. 2003;102:276–283.
+7. Shah NP, Nicoll JM, Nagar B, et al. Multiple BCR-ABL kinase domain mutations confer polyclonal resistance to the
+tyrosine kinase inhibitor imatinib (STI571) in chronic
+phase and blast crisis chronic myeloid leukemia. Cancer
+Cell. 2002;2:117–125.
+8. Roumiantsev S, Shah NP, Gorre ME, et al. Clinical resistance to the kinase inhibitor STI-571 in chronic myeloid
+leukemia by mutation of Tyr-253 in the ABL kinase domain
+P-loop. Proc Natl Acad Sci USA. 2002;99:10700–10705.
+9. Yoshida C, Melo JV. Biology of chronic myeloid leukemia
+and possible therapeutic approaches to imatinib-resistant
+disease. Int J Hematol. 2004;79:420–433.
+10. von Bubnoff N, Schneller F, Peschel C, Duyster J. BCR-ABL
+gene mutations in relation to clinical resistance of Philadelphia-chromosome-positive leukaemia to STI571: a prospective study. Lancet. 2002;359:487–491.
+11. Shah NP. Overriding imatinib resistance with a novel ABL
+kinase inhibitor. Science. 2004;305:399–401.
+
+12. Weisberg E, Manley PW, Cowan-Jacob SW, Hochhaus A,
+Griffin JD. Second generation inhibitors of BCR-ABL for the
+treatment of imatinib-resistant chronic myeloid leukaemia.
+Nat Rev Cancer. 2007;7:345–356.
+13. Azam M, Latek RR, Daley GQ. Mechanism of autoinhibition and STI-571/imatinib resistance revealed by mutagenesis of BCR-ABL. Cell. 2003;112:831–843.
+14. Manley PW, Cowan-Jacob SW, Mestan J. Advances in the
+structural biology, design and clinical development of
+BCR-ABL kinase inhibitors for the treatment of chronic
+myeloid leukaemia. Biochim Biophys Acta. 2005;1754:3–13.
+15. Schindler T, Bornmann W, Pellicena P, Miller WT, Clarkson
+B, Kuriyan J. Structural mechanism for STI-571 inhibition of Abelson tyrosine kinase. Science. 2000;289:1938–
+1942.
+16. Gorre ME, Sawyers CL. Molecular mechanisms of resistance to STI571 in chronic myeloid leukemia. Curr Opin
+Hematol. 2002;9:303–307.
+17. Nagar B, Hantschel O, Young MA, et al. Structural basis for
+the autoinhibition of c-ABL tyrosine kinase. Cell. 2003;112:
+859–871.
+18. Corbin AS, Buchdunger E, Pascal F, Druker BJ. Analysis of
+the structural basis of specificity of inhibition of the ABL
+kinase by STI571. J Biol Chem. 2002;277:32214–32219.
+19. Cowan-Jacob SW, Fendrich G, Floersheimer A, et al. Structural biology contributions to the discovery of drugs to
+treat chronic myelogenous leukaemia. Acta Crystallogr D
+Biol Crystallogr. 2007;63(pt 1):80–93.
+20. Nimmanapalli R, Bhalla K. Mechanisms of resistance to
+imatinib mesylate in BCR-ABL-positive leukemias. Curr
+Opin Oncol. 2002;14:616–620.
+21. Nardi V, Azam M, Daley GQ. Mechanisms and implications
+of imatinib resistance mutations in BCR-ABL. Curr Opin
+Hematol. 2004;11:35–43.
+22. Verkhivker GM. In silico profiling of tyrosine kinases binding specificity and drug resistance using Monte Carlo
+simulations with the ensembles of protein kinase crystal
+structures. Biopolymers. 2007;85:333–348.
+23. Massova I, Kollman PA. Computational alanine scanning to
+probe protein-protein interactions: a novel approach to
+evaluate binding free energies. J Am Chem Soc. 1999;121:
+8133–8143.
+24. Pricl S, Fermeglia M, Ferrone M, Tamborini E. T315Imutated BCR-ABL in chronic myeloid leukemia and imatinib: insights from a computational study. Mol Cancer Ther.
+2005;4:1167–1174.
+25. Nagar B, Bornmann WG, Pellicena P, et al. Crystal structures of the kinase domain of c-ABL in complex with the
+small molecule inhibitors PD173955 and imatinib (STI571). Cancer Res. 2002;62:4236–4243.
+26. Jorgensen WL, Chandrasekhar J, Madura JD, Impey RW,
+Klein ML. Comparison of simple potential functions for
+simulating liquid water. J Chem Phys. 1983;79:926–935.
+27. Humphrey W, Dalke A, Schulten K. VMD: visual molecular
+dynamics. J Mol Graphics. 1996;14:33–38.
+28. Bayly CI, Cieplak P, Cornell W, Kollman PA. A well-behaved
+electrostatic potential based method using charge restraints for deriving atomic charges: the RESP model.
+J Phys Chem. 1993;97:10269–10280.
+29. Frisch MJ, Trucks GW, Schlegel HB, et al. Gaussian 03, Revision C.02. Wallingford, Conn: Gaussian, Inc.; 2004.
+30. Phillips JC, Braun R, Wang W, et al. Scalable molecular
+dynamics with NAMD. J Comput Chem. 2005;26:1781–
+1802.
+
+BCR-ABL Imatinib Resistance Simulation/Lee et al.
+31. MacKerell AD Jr, Brooks B, Brooks CL III, et al. CHARMM:
+the energy function and its parameterization with an overview of the program. In: Schyeler PvR, Alinger LN, Clark T, et al.,
+eds. Encyclopedia of Computational Chemistry. Chichester,
+United Kingdom: John Wiley & Sons; 1998:271–277.
+32. Essmann U, Perera L, Berkowitz ML, Darden T, Hsing L,
+Pedersen LG. A smooth particle mesh Ewald method.
+J Chem Phys. 1995;103:8577–8593.
+33. Ryckaert JP, Ciccotti G, Berendsen HJC. Numerical integration of the Cartesian equations of motion of a system with
+constraints: molecular dynamics of n-alkanes. J Comput
+Phys. 1977;23:327–341.
+34. Srinivasan J, Cheatham TE, Cieplak P, Kollman PA, Case
+DA. Continuum solvent studies of the stability of DNA,
+RNA, and phosphoramidate-DNA helices. J Am Chem Soc.
+1998;120:9401–9409.
+35. Brooks BR, Bruccoleri RE, Olafson BD, States DJ, Swaminathan S, Karplus M. CHARMM: a program for macromolecular energy minimization and dynamics calculations.
+J Comput Chem. 1983;4:187–217.
+36. Nicolini FE, Corm S, Le QH, Roche-Lestienne C, Preudhomme C. The prognosis impact of BCR-ABL P-loop mutations: worse or not worse? Leukemia. 2007;21:193–194.
+37. Jiang X, Saw KM, Eaves A, Eaves C. Instability of BCR-ABL
+gene in primary and cultured chronic myeloid leukemia
+stem cells. J Natl Cancer Inst. 2007;99:680–693.
+38. Gambacorti-Passerini CB, Gunby RH, Piazza R, Galietta A,
+Rostagno R, Scapozza L. Molecular mechanisms of resistance to imatinib in Philadelphia-chromosome-positive
+leukaemias. Lancet Oncol. 2003;4:75–85.
+39. Kato JY, Takeya T, Grandori C, Iba H, Levy JB, Hanafusa H.
+Amino acid substitutions sufficient to convert the nontransforming p60c-src protein to a transforming protein.
+Mol Cell Biol. 1986;6:4155–4160.
+40. Levinson NM, Kuchment O, Shen K, et al. A Src-like inactive conformation in the ABL Tyrosine Kinase Domain.
+PLoS Biol [serial online]. 2006;4:e144.
+
+1753
+
+41. Bradeen HA, Eide CA, O’Hare T, et al. Comparison of imatinib mesylate, dasatinib (BMS-354825), and nilotinib
+(AMN107) in an N-ethyl-N-nitrosourea (ENU)-based mutagenesis screen: high efficacy of drug combinations. Blood.
+2006;108:2332–2338.
+42. Corbin AS, Rosee PL, Stoffregen EP, Druker BJ, Deininger
+MW. Several BCR-ABL kinase domain mutants associated
+with imatinib mesylate resistance remain sensitive to imatinib. Blood. 2003;101:4611–4614.
+43. Cowan-Jacob SW, Guez V, Fendrich G, et al. Imatinib
+(STI571) resistance in chronic myelogenous leukemia: molecular basis of the underlying mechanisms and potential
+strategies for treatment. Mini Rev Med Chem. 2004;4:285–
+299.
+44. Burgess MR, Skaggs BJ, Shah NP, Lee FY, Sawyers CL. Comparative analysis of 2 clinically active BCR-ABL kinase
+inhibitors reveals the role of conformation-specific binding in resistance. Proc Natl Acad Sci USA. 2005;102:3395–
+3400.
+45. Kantarjian H. Nilotinib in imatinib-resistant CML and Philadelphia chromosome-positive ALL. N Engl J Med. 2006;
+354:2542–2551.
+46. Das J, Chen P, Norris D, et al. 2-Aminothiazole as a novel
+kinase inhibitor template. Structure-activity relationship
+studies toward the discovery of N-(2-chloro-6-methylphenyl)-2-[[6-[4-(2-hydroxyethyl)-1-piperazinyl)]-2-methyl-4pyrimidinyl]amino)]-1,3-thiazole-5-carboxamide (dasatinib;
+BMS-354825) as a potent pan-Src kinase inhibitor. J Med
+Chem. 2006;49:6819–6832.
+47. Weisberg E, Manley P, Mestan J, Cowan-Jacob S, Ray A,
+Griffin JD. AMN107 (nilotinib): a novel and selective inhibitor of BCR-ABL. Br J Cancer. 2006;94:1765–1769.
+48. von Bubnoff N, Manley PW, Mestan J, Sanger J, Peschel C,
+Duyster J. BCR-ABL resistance screening predicts a limited
+spectrum of point mutations to be associated with clinical
+resistance to the ABL kinase inhibitor nilotinib (AMN107).
+Blood. 2006;108:1328–1333.
+
+

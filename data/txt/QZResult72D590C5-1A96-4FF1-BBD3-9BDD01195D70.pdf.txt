@@ -1,0 +1,1479 @@
+Published OnlineFirst November 20, 2015; DOI: 10.1158/0008-5472.CAN-15-0828
+
+Cancer
+Research
+
+Therapeutics, Targets, and Chemical Biology
+
+Elucidation and Pharmacological Targeting of
+Novel Molecular Drivers of Follicular Lymphoma
+Progression
+Brygida Bisikirska1, Mukesh Bansal1, Yao Shen1, Julie Teruya-Feldstein2,3,
+Raju Chaganti4, and Andrea Califano1
+
+Abstract
+Follicular lymphoma, the most common indolent subtype of
+non-Hodgkin lymphoma, is associated with a relatively long
+overall survival rate ranging from 6 to 10 years from the time of
+diagnosis. However, in 20% to 60% of follicular lymphoma
+patients, transformation to aggressive diffuse large B-cell lymphoma (DLBCL) reduces median survival to only 1.2 years. The
+speciﬁc functional and genetic determinants of follicular lymphoma transformation remain elusive, and genomic alterations
+underlying disease advancement have only been identiﬁed for a
+subset of cases. Therefore, to identify candidate drivers of follicular lymphoma transformation, we performed systematic analysis of a B-cell–speciﬁc regulatory model exhibiting follicular
+lymphoma transformation signatures using the Master Regulator
+
+Inference algorithm (MARINa). This analysis revealed FOXM1,
+TFDP1, ATF5, HMGA1, and NFYB to be candidate master regulators (MR) contributing to disease progression. Accordingly,
+validation was achieved through synthetic lethality assays in
+which RNAi-mediated silencing of MRs individually or in combination reduced the viability of (14;18)-positive DLBCL
+(t-DLBCL) cells. Furthermore, speciﬁc combinations of smallmolecule compounds targeting synergistic MR pairs induced loss
+of viability in t-DLBCL cells. Collectively, our ﬁndings indicate that
+MR analysis is a valuable method for identifying bona ﬁde contributors to follicular lymphoma transformation and may therefore guide the selection of compounds to be used in combinatorial
+treatment strategies. Cancer Res; 76(3); 664–74. 2015 AACR.
+
+Introduction
+
+lymphomas, predominantly DLBCL, an event representing the
+hallmark of aggressive disease and poor prognosis. The frequency
+of histologic transformation in patients initially diagnosed with
+follicular lymphoma ranges from 20% to 60% depending on
+clinical and pathologic criteria, with median survival dropping to
+1.2 years following transformation (5).
+The molecular events leading to follicular lymphoma transformation are poorly characterized. Although, several genomic
+alterations have been associated with follicular lymphoma transformation, including TP53 mutation, MYC rearrangement, REL
+ampliﬁcation, and CDKN2A/CDKN2B deletion (6), these represent approximately 23% of all transformed follicular lymphoma
+cases (7). In addition to genetic alterations (8–10), epigenetic
+mechanisms (11) and microenvironment signals (12) have also
+been implicated in follicular lymphoma transformation, contributing to a relatively large, heterogeneous, and poorly understood
+molecular landscape.
+Our recent elucidation of master regulators (MR) of glioma,
+prostate cancer, and germinal center reaction (13–15) suggests
+that distinct molecular events may induce aberrant activation of a
+relatively small number of MR genes, representing the causal,
+functional drivers of established follicular lymphoma transformation signature (16). Thus, to identify such candidate functional
+drivers of follicular lymphoma transformation, we interrogated
+an established human B-cell regulatory network, assembled from
+a large collection of normal and tumor-related gene expression
+proﬁles (GEP) using the ARACNe algorithm (17). This approach
+has been highly successful in discovering novel mechanisms of
+tumorigenesis and tumor progression, including synergistic
+gene–gene interactions that could not be elucidated by more
+conventional analytic approaches (13–15, 18).
+
+Follicular lymphoma is the second most common non-Hodgkin lymphoma (NHL) subtype, right after diffuse large B-cell
+lymphoma (DLBCL), comprising about 22% of the annually
+diagnosed cases (1). Follicular lymphoma is generally diagnosed
+in elderly patients (>60 years of age) and is a slow-progressing
+neoplasm, with a median survival rate of 10 years. Despite an
+overall indolent course and some improvement in overall survival
+by rituximab-based therapy (2), follicular lymphoma remains an
+incurable disease. The canonical t(14;18)(q32;q21) chromosomal translocation represents the most frequent genetic alteration of
+this disease, detected in the vast majority of these tumors, leading
+to aberrant expression of the antiapoptotic protein BCL2 (3).
+However, this alteration alone is insufﬁcient for tumor initiation,
+as the translocation is also found in healthy individuals (4). Over
+time, follicular lymphoma transforms to more aggressive B-cell
+1
+Department of Systems Biology, Columbia University, New York, New
+York. 2Department of Pathology, Memorial Sloan-Kettering Cancer
+Center, New York, New York. 3Department of Pathology, Icahn School
+of Medicine at Mount Sinai, New York, New York. 4Cell Biology Program, Memorial Sloan-Kettering Cancer Center, New York, New York.
+
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+B. Bisikirska and M. Bansal authors contributed equally to this article.
+Corresponding Author: Andrea Califano, Columbia University, 1130 St. Nicholas
+Ave., New York, NY 10032. Phone: 212-851-5183; Fax 212-851-4630; E-mail:
+ac2248@cumc.columbia.edu
+doi: 10.1158/0008-5472.CAN-15-0828
+2015 American Association for Cancer Research.
+
+664 Cancer Res; 76(3) February 1, 2016
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+Published OnlineFirst November 20, 2015; DOI: 10.1158/0008-5472.CAN-15-0828
+
+Master Regulators of Follicular Lymphoma Transformation
+
+The analysis identiﬁed novel candidate follicular lymphoma
+transformation MRs that were experimentally validated, including synthetic-lethal pairs, whose RNAi-mediated cosilencing collapsed the follicular lymphoma transformation signature and
+induced signiﬁcant viability reduction. FDA-approved drugs computationally predicted as B-cell–speciﬁc inhibitors of these MRs
+were shown to induce t-DLBCL cell death, both individually and
+in combination.
+The proposed drug prioritization methodology is highly general, relying only on the availability of a cell-speciﬁc regulatory
+model and disease-relevant small-molecule signatures. This paves
+the road to a more efﬁcient precision medicine pipeline for the
+simultaneous and systematic prioritization of small-molecule
+compounds for either single-agent or combination therapy.
+
+Materials and Methods
+Cell lines, antibodies, and reagents
+CB33, SUDHL4, and SUDHL6 cells provided by R. Dalla-Favera
+(Columbia University, New York, NY) were maintained in
+Iscove's Modiﬁed Dulbecco Medium (Life Technologies), supplemented with 10% FBS (Gemini) and antibiotics. The HF1 follicular cell line provided by R. Levy (Stanford University, Stanford,
+CA) was maintained in DMEM (Life Technologies), supplemented with 10% FBS and antibiotics. Cells were tested negative for
+mycoplasma. Cells were not further authenticated. Antibodies:
+rabbit anti-MYC (XP; Cell Signaling Technology); rabbit antiFOXM1 and mouse anti-GAPDH (Santa Cruz Biotechnology);
+rabbit anti-HMGA1, anti-ATF5, anti-NFYB, and mouse antiTFDP1 (Abcam). Alprostadil, clemastine, cytarabine, and troglitazone (Tocris) and econazole nitrate and promazine hydrochloride (Sigma) were reconstituted in DMSO (Sigma).
+Gene silencing, qRT-PCR, and microarray assays
+Gene silencing was performed using smart-pool siRNA (Dharmacon) delivered by 96-well Shuttle nucleoporation system
+(Amaxa) according to the manufacturer's instructions (Lonza).
+Detailed information on nucleoporation, qRT-PCR, and microarray assays is included in Supplementary Methods. All microarray data have been submitted to Gene Expression Omnibus
+(www.ncbi.nlm.nih.gov/geo; accession number GSE66714).
+Cell viability
+Cell viability was evaluated by PrestoBlue staining according to
+the manufacturer's instructions (Invitrogen). Fluorescence was
+measured using VICTOR 3V Plate Reader (Perkin Elmer). Smallmolecule screening was performed using the CellTiter-Glo Luminescent Cell Viability Assay (Promega) in the Columbia HTS
+Facility. Cells were plated in 384-well plates, 24 hours prior to
+treatment with serial dilutions of the single compounds. Cell
+viability was analyzed at 48 hours to assess compound toxicity
+(Supplementary Fig. S4).
+Table 1. Overlap of MRs inferred by MARINa from different datasets
+Subtype
+MR mode
+Dataset 1
+MYC high
+Activated MR
+13
+Repressed MR
+5
+MYC low
+Activated MR
+5
+Repressed MR
+20
+All samples
+Activated MR
+9
+Repressed MR
+23
+
+Tissue microarray analysis
+Tissue microarray analysis (TMA) construction, diagnostic
+staining for GCB-origin markers, FISH analysis for t(14;18), and
+immunohistochemical staining for MRs were done in the Department of Pathology at Memorial Sloan-Kettering Cancer Center
+(New York, NY) according to ref. 19.
+Computational and statistical methods
+Classiﬁcation of patient samples and cell lines by MYC activity. GEP
+patient samples were obtained from Dataset 1 (16) and Dataset 2
+(20). Samples were classiﬁed as "low" and "high MYC activity" by
+clustering methods using MYC targets obtained from ref. 16. An
+outlier in the cluster analysis was excluded from further analysis.
+To classify cell lines for experimental validation by MYC activity,
+we performed clustering analysis using MYC targets on 61 samples
+from ref. 21. This dataset contained 38 follicular lymphoma
+samples, 13 transformed DLBCL samples (selected on the basis
+of BCL2 translocation), 10 normal GCB, 3 DLBCL cell lines
+(SUDHL4, SUDHL6, and VAL), and LCL-CB33.
+Master Regulator Inference algorithm. We conducted MR analysis
+independently for "high activity MYC" and "low activity MYC" for
+Dataset 1 (16) and Dataset 2 (20) samples. Dataset 1 contains 6
+paired samples in each group, whereas Dataset 2 has 5 and
+7 paired samples in "high activity MYC" and "low activity MYC,"
+respectively.
+Computation of similarity between drug treatment and siRNA
+signatures. We used Gene Set Enrichment Analysis (GSEA; ref. 22)
+to assess drug signature similarity, based on enrichment of the 200
+most upregulated genes and 200 most repressed genes from
+signature A in the other signature B, and vice versa. Enrichment
+scores were averaged to obtain a single metric and associated
+similarity P value.
+Fisher exact test. Fisher exact test was used to assess MR overlap
+from each dataset (Table 1), independently for "high" and "low"
+MYC activity samples and to test whether speciﬁc MR proteins
+have positive/negative expression in DLBCL versus follicular
+lymphoma TMAs (Table 2).
+
+Results
+Inference of MRs of follicular lymphoma transformation
+To infer candidate MRs of follicular lymphoma ! DLBCL
+transformation (henceforth follicular lymphoma transformation),
+we used the Master Regulator Inference algorithm (MARINa;
+refs. 13–15). MARINa assessed the relevance of a transcriptional
+factor as a candidate MR of follicular lymphoma transformation
+by evaluating whether its transcriptional targets are highly enriched
+in genes differentially expressed in patient samples following
+transformation. Indeed, if aberrant activity of a transcriptional
+factor was responsible for transformation, then its activated and
+
+Dataset 2
+17
+10
+6
+25
+12
+17
+
+Overlap
+10
+2
+5
+12
+6
+10
+
+P
+2.00E07
+1.30E01
+2.00E06
+1.00E03
+3.00E05
+2.00E03
+
+Integrated P
+2.00E03
+2.00E03
+6.70E02
+
+Abbreviation: MR, master regulator.
+
+www.aacrjournals.org
+
+Cancer Res; 76(3) February 1, 2016
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+665
+
+Published OnlineFirst November 20, 2015; DOI: 10.1158/0008-5472.CAN-15-0828
+
+Bisikirska et al.
+
+Table 2. MR protein expression in follicular lymphoma and DLBCL patients' samples by TMA analysis
+MR
+Subtype
+Samples (n)
+Positive, n (%)
+HMGA1
+DLBCL-GC
+19
+13 (68%)
+FL
+58
+0 (0%)
+DLBCL t(14;18)
+5
+5 (100%)
+FL t(14;18)
+6
+0 (0%)
+TFDP1
+DLBCL-GC
+20
+4 (20%)
+FL
+75
+17 (23%)
+DLBCL t(14;18)
+5
+3 (60%)
+FL t(14;18)
+7
+0 (0%)
+FOXM1
+DLBCL-GC
+18
+16 (89%)
+FL
+88
+33 (38%)
+DLBCL t(14;18)
+4
+3 (75%)
+FL t(14;18)
+7
+4 (57%)
+NFYB
+DLBCL-GC
+18
+7 (39%)
+FL
+101
+40 (40%)
+DLBCL t(14;18)
+4
+3 (75%)
+FL t(14;18)
+7
+1 (14%)
+ATF5
+DLBCL-GC
+18
+17 (94%)
+FL
+81
+22 (27%)
+DLBCL t(14;18)
+4
+4 (100%)
+FL t(14;18)
+7
+0 (0%)
+
+Negative, n (%)
+6 (32%)
+58 (100%)
+0 (0%)
+6 (100%)
+16 (80%)
+58 (77%)
+2 (40%)
+7 (100%)
+2 (11%)
+55 (62%)
+1 (25%)
+3 (43%)
+11 (61%)
+61 (60%)
+1 (25%)
+6 (85%)
+1 (6%)
+59 (73%)
+0 (0%)
+7 (100%)
+
+P
+7.00E10
+2.20E03
+7.00E01
+4.50E02
+5.90E05
+5.30E01
+6.20E01
+9.00E02
+1.20E07
+3.00E03
+
+Abbreviations: FL, follicular lymphoma; n, number; TMA, tissue microarray.
+
+repressed targets should be overexpressed and underexpressed
+following transformation, respectively (Fig. 1). Prior data from
+glioma (13) and prostate cancer (14) studies show that top
+candidate MRs are highly enriched in genes eliciting essentiality
+or synthetic lethality. In addition, RNAi-mediated silencing of MRs
+should at least partially revert the follicular lymphoma transformation signature (13, 14).
+As a regulatory model in this study, we used an ARACNeinferred interactome for human B cells (21). Follicular lymphoma
+transformation signatures were deﬁned using patient-matched
+GEPs from 12 patient biopsies at follicular lymphoma diagnosis
+and following transformation (Dataset 1; ref. 16). As reported,
+patient signatures were stratiﬁed into two distinct molecular
+subtypes, representing high and low MYC activity, respectively
+
+(16). Thus, we performed independent MR analysis for each
+subtype (Fig. 2A and B; Supplementary Table S1A and S1B).
+Results were compared with equivalent MARINa analysis of an
+independent dataset (Dataset 2; ref. 20), comprising 12 additional patient-matched biopsies before and after transformation
+(Supplementary Table S1C and S1D). Despite only marginal
+signiﬁcance (10% overlap in differentially expressed genes,
+P  0.05), which is generally the case when the same phenotype
+is proﬁled by different laboratories using different technologies
+(13, 23), MRs inferred from these datasets were almost perfectly
+overlapping (77% identical MRs in the top 13, P ¼ 0.01 by Fisher
+exact test), for both the high and the low MYC activity groups
+(Table 1). This is consistent with previous reports on the algorithm; see refs. 13 and 23 for details.
+
+Figure 1.
+Model of follicular lymphoma
+transformation to DLBCL and
+experimental approach to abrogate
+transformed gene signature. GCBderived aberrant follicular lymphoma
+cells after acquiring new oncogenic
+events undergo further transformation
+to DLBCL. These new aberrations cause
+erroneous downstream signaling of
+genes called MRs. Targeting of activated
+MR by siRNA/shRNA silencing or smallmolecule inhibition should impair their
+regulatory function and abrogate the
+follicular lymphoma–transformed
+signature.
+
+666 Cancer Res; 76(3) February 1, 2016
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+Published OnlineFirst November 20, 2015; DOI: 10.1158/0008-5472.CAN-15-0828
+
+Master Regulators of Follicular Lymphoma Transformation
+
+Figure 2.
+MR inference and mRNA expression after silencing of activated MRs in SUDHL6 cell line. A, MR of high MYC activity patients. B, MR of low MYC activity patients.
+Genes are sorted by NES; red, activated MR; blue, repressed MR. C, qRT-PCR analysis of MR mRNA levels at 20 hours after siRNA silencing in SUDHL6.
+Relative mRNA expression levels of activated MR and repressed MR were normalized to GAPDH. Heatmap represents average fold change normalized to
+control nontarget siRNA. Blue, downregulation; white, no change; red, upregulation (Supplementary Table S2).
+
+Activated MRs are functional drivers of the follicular lymphoma
+transformation signature
+MARINa identiﬁed both activated and repressed candidate MRs
+of follicular lymphoma transformation (Fig. 2; Supplementary
+Table S1A and S1B). To experimentally validate these results, we
+concentrated on the high MYC activity subtype, including 13
+activated (FOXM1, MYC, ENO1, TFDP1, NFE2L2, E2F3, NFYB,
+CREM, MAZ, NR1H3, ATF5, HMGA1, CEBPG) and 5 repressed
+MRs (SP3, JUN, BPTF, RBL2, KLF12; Supplementary Table S1A).
+We selected two t(14;18)—positive DLBCL cell lines, SUDHL6
+(24) and SUDHL4 (henceforth t-DLBCL cells; ref. 25), representing germinal center B-cell type (GCB) tumors, harboring the
+canonical BCL2 translocation t(14;18)(q32;q21), the follicular
+lymphoma–derived cell line HF1 (26), and as a control an
+
+www.aacrjournals.org
+
+immortalized lymphoblastoid cell line LCL-CB33 (27). There are
+no conﬁrmed cell lines representative of transformed follicular
+lymphoma. As a result, we used the t(14;18)–positive DLBCL cell
+lines as the model that best recapitulates the aberrant activity of
+the MRs we have identiﬁed from the analysis of transformed
+follicular lymphoma in patients. SUDHL6 and SUDHL4 cells
+clustered with high MYC activity follicular lymphoma–transformed patients (Supplementary Fig. S1A and S1B). mRNA
+expression levels of activated MRs were evaluated by qRT-PCR
+in all B-lymphoma cell lines (Supplementary Fig. S2A). Two
+genes, NF1H3 and CREM, were excluded from the study due to
+insufﬁcient mRNA expression and availability of Dharmacon
+library siRNAs, respectively. Activated MRs were systematically
+silenced by nucleoporation with the targeting siRNA pool in
+
+Cancer Res; 76(3) February 1, 2016
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+667
+
+Published OnlineFirst November 20, 2015; DOI: 10.1158/0008-5472.CAN-15-0828
+
+Bisikirska et al.
+
+SUDHL6 cells (Supplementary Fig. S2B). These express high levels
+of MYC protein and overall highest levels of activated MR mRNA,
+among all tested DLBCL cell lines (Supplementary Fig. S2A). As
+expected, individual MR silencing, conﬁrmed by qRT-PCR,
+signiﬁcantly affected the expression of several other MARINainferred MRs, (Fig. 2C; Supplementary Table S2), suggesting
+cooperative activity, as a regulatory module, and supporting
+their inference as functional drivers of follicular lymphoma
+transformation.
+Speciﬁcally, individual silencing of activated MR inhibited and
+activated expression of several other activated and repressed MRs,
+respectively, consistent with their inference as positive regulators
+of follicular lymphoma transformation signature. To select dominant activated MR genes, representing the most upstream regulators in the follicular lymphoma transformation control module, we ranked them based on their overall effect on other
+MARINa-inferred MRs, based on qRT-PCR data (Supplementary
+Table S2B). Following each MR silencing, gene expression of all
+other MRs was log-transformed and discretized into three states: H
+(fold-change, FC > 0.5), L (FC < 0.5), and M for the others.
+Silenced MRs were ranked by average effect on all other MRs, using
+their discretized state. The ﬁve highest ranking MRs (FOXM1,
+TFDP1, ATF5, HMGA1, and NFYB) were selected for further study
+(henceforth, selected MRs).
+Differential MR protein expression is conﬁrmed in patient
+TMAs
+To assess MR protein levels in patients, we compared TMAs
+from patients diagnosed with DLBCL against those with follicular lymphoma, by immunostaining with speciﬁc antibodies
+(Supplementary Fig. S3A). TMAs were evaluated by a boardcertiﬁed pathologist and scored using a two-tier scale: negative
+<5% and positive 5% positive cells. Staining patterns were
+analyzed in two complementary ways. First, we compared
+DLBCL samples identiﬁed by common diagnostic markers used
+to identify GCB-like tumors (BCL2þ, CD10þ, BCL6þ, MUM)
+to follicular lymphoma samples (Fig. 3A). The analysis revealed
+that HMGA1, FOXM1, and ATF5 were statistically signiﬁcantly
+overexpressed in GCB-DLBCL versus follicular lymphoma
+patients, whereas TFDP1 and NFYB were not signiﬁcant (Table
+2). Next, we compared only DLBCL patients with the canonical
+t(14:18) translocation, as detected by FISH, to follicular lymphoma patients (Fig. 3B) to identify those more likely to
+represent follicular lymphoma transformation. These results
+conﬁrmed that all selected MRs, including NFYB and TFDP1,
+had higher protein expression in follicular lymphoma–transformed patients, although the difference for FOXM1 was not
+statistically signiﬁcant. These results were consistent with
+protein expression data from the follicular lymphoma cell line
+HF1 compared with high MYC t-DLBCL cell lines (Supplementary Fig. S2B), suggesting that overexpression of the selected
+MRs in follicular lymphoma–transformed patients is associated
+with the process of transformation and that TFDP1 and NFYB
+are uniquely overexpressed following follicular lymphoma
+transformation.
+Activated MRs are synergistic drivers of DLBCL cell
+proliferation
+A hallmark of follicular lymphoma transformation is an
+increase in cellular proliferation, which usually correlates with
+higher MYC expression and activity (20). To evaluate an involve-
+
+668 Cancer Res; 76(3) February 1, 2016
+
+Figure 3.
+Protein expression of activated MRs in DLBCL patients. Protein expression by
+immunohistochemical analysis in TMAs from follicular lymphoma (FL) and
+DLBCL patients. A, expression of MRs in follicular lymphoma and DLBCL
+patients deﬁned by GCB markers. B, expression of MRs in follicular lymphoma
+and DLBCL patients with t(14;28) translocation. Bars represent number of
+patients with positive MR expression. See Table 2 for details.
+
+ment of the selected MRs in cell proliferation in vitro, we assessed
+viability following their siRNA-pool–mediated silencing in
+SUDHL6, SUDHL4, HF1, and CB33 cell lines. As conﬁrmed by
+Western blot analysis and qRT-PCR, signiﬁcant mRNA and protein level reductions were observed at 20 hours (Supplementary
+Fig. S2C and S2D).
+MARINa-inferred MRs frequently participate in synergistic
+regulation, consistent with their activity within a common
+regulatory module (13, 14). As a result, we also performed
+siRNA-mediated cosilencing of all 10 possible selected MRpairs (Fig. 4A). siRNA targeting Ubiquitin B or AllStars Cell
+Death Control siRNA were used as positive controls. Results
+were normalized to control scrambled siRNA (NT). Conﬁrming
+previous studies (13–15), while individual MR silencing
+(except for ATF5) did not signiﬁcantly reduce cell viability at
+24 hours, in either DLBCL cell line, MR cosilencing profoundly
+affected cell viability for most MR pairs, (7/10) in SUDHL6 and
+(10/10) in SUDHL4, supporting their role as candidate synergistic dependencies of t-DLBCL cells. In contrast, there was only
+minimal effect in control cells, (2/10) in HF1 cells and 0/10 in
+CB33 cells. This suggests that follicular lymphoma transformation results from and is dependent on the cooperative effect of
+multiple dysregulated transcriptional factors and not from
+aberrant activity of any individual one in isolation.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+Published OnlineFirst November 20, 2015; DOI: 10.1158/0008-5472.CAN-15-0828
+
+Master Regulators of Follicular Lymphoma Transformation
+
+A
+
+B
+
+SUDHL6
+
+Cell viability [fold change]
+
+1.4
+1.2
+1
+0.8
+0.6
+0.4
+0.2
+
+HF1
+
+Cell viability [fold change]
+
+SUDHL4
+
+Cell viability [fold change]
+
+0
+1.4
+1.2
+1
+0.8
+0.6
+0.4
+0.2
+0
+1.4
+1.2
+
+C
+
+1
+0.8
+0.6
+
+0.4
+0.2
+
+1.2
+1
+0.8
+0.6
+0.4
+0.2
+
+NFYB
+ATF5
+NFYB+ATF5
+
+FOXM1
+NFYB
+FOXM1+NFYB
+
+FOXM1
+ATF5
+FOXM1+ATF5
+
+TFDP1
+NFYB
+TFDP1+NFYB
+
+TFDP1
+ATF5
+TFDP1+ATF5
+
+TFDP1
+FOXM1
+TFDP1+FOXM1
+
+HMGA1
+NFYB
+HMGA1+NFYB
+
+HMGA1
+ATF5
+HMGA1+ATF5
+
+HMGA1
+FOXM1
+HMGA1+FOXM1
+
+HMGA1
+TFDP1
+HMGA1+TFDP1
+
+0
+
+POSITIVE CTRL
+NEGATIVE CTRL…
+
+CB33
+
+Cell viability [fold change]
+
+0
+1.4
+
+Figure 4.
+Synergistic MRs drive t-DLBCL cell proliferation and deﬁne transformed follicular lymphoma gene signature. A, cell viability measured by PrestoBlue at
+24 hours after single and paired MRs silencing of SUDHL6, SUDHL4, HF1, and CB33 cell lines. B and C, GSEA of differentially expressed genes after MR silencing in
+SUDHL6 cell line in patient-derived signatures of follicular lymphoma transformation using datasets from ref. 16 and ref. 20, respectively.
+
+Gene expression analysis of t-DLBCL cells following MR
+silencing
+To further validate the role of inferred MRs in follicular lymphoma transformation, we analyzed the gene expression signature of t-DLBCL cells following both individual MR and MR-pair
+silencing. Speciﬁcally, if some of the MARINa-inferred MRs are
+bona ﬁde causal determinants of follicular lymphoma transformation, their silencing should at least partially abrogate the
+follicular lymphoma transformation signature, with a more profound effect when MR pairs are cosilenced. To test our hypothesis,
+we selected the ﬁve MR pairs producing the most signiﬁcant
+synergistic cell viability reduction in both t-DLBCL cell lines,
+including HMGA1/TFDP1, HMGA1/ATF5, HMGA1/FOXM1,
+ATF5/TFDP1, and NFYB/FOXM1, and performed GEPs of
+SUDHL6 cells at 20 hours following silencing of each MR and
+MR pair (Fig. 4B and C) (Supplementary Methods). Differential
+gene expression analysis, with respect to NT control SUDHL6
+cells, was performed using a SAM test (28). We used GSEA analysis
+to assess whether genes differentially expressed following MR
+silencing were negatively enriched in genes differentially
+expressed in patients following follicular lymphoma transformation in the high-MYC subtype, using both independent
+studies (Fig. 4B and C; refs. 16, 20). We also compared normalized enrichment score (NES) for individual MR silencing
+versus MR-pair silencing, to further evaluate the synergistic
+
+www.aacrjournals.org
+
+nature of MR regulation. Analysis of patient signatures from
+both datasets (16, 20) consistently identiﬁed 2 pairs (HMGA1/
+TFDP1 and ATF5/TFDP1) as effecting the most striking reversal
+of t-DLBCL cell gene expression to a follicular lymphoma–like
+state. For both pairs, cosilencing signiﬁcantly outperformed
+individual MR silencing, both by NES and/or P value assessment. In addition, the HMGA1/FOXM1 pair was identiﬁed and
+experimentally validated as a candidate synergistic based on
+signatures from Dataset 2 (20). Taken together, these assays
+show that most MARINa-inferred MRs indeed regulate genes in
+the follicular lymphoma transformation signature, even
+though, individually, their effect is not sufﬁcient to induce
+follicular lymphoma transformation signature collapse.
+Indeed, genes differentially expressed following individual MR
+silencing, including HMGA1, TFDP1, and ATF5, were signiﬁcantly enriched in genes expressed in follicular lymphoma
+patients before transformation. In sharp contrast, consistent
+with previous results in other tumors, MR-pair silencing leads
+to follicular lymphoma transformation signature collapse and
+signiﬁcant loss of cell viability at 24 hours.
+Targeting follicular lymphoma transformation MRs with smallmolecule perturbations
+Identiﬁcation of MR proteins representing novel functional
+drivers of tumor-related phenotypes may open relevant
+
+Cancer Res; 76(3) February 1, 2016
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+669
+
+Published OnlineFirst November 20, 2015; DOI: 10.1158/0008-5472.CAN-15-0828
+
+Bisikirska et al.
+
+therapeutic opportunities (18). As proof of concept, we thus
+proceeded to assess whether B-cell–speciﬁc inhibitors of validated
+MRs could be systematically identiﬁed from small-molecule
+perturbation assays. Following the Connectivity Map rationale
+(29), we reasoned that the differential expression signature following MR silencing in human B cells represent an ideal multiplexed gene reporter assays to assess the activity of candidate
+small-molecule inhibitors of the same MR. As transcriptional
+factor targets are highly conserved across 18 distinct subtypes
+of human B cells, including follicular lymphoma and DLBCL
+(the rationale for using the B-cell interactome for this analysis;
+ref. 30), we proceeded to assess 92 compounds for which GEPs
+were available following perturbation of an ABC (OCI-LY3)
+and a GCG (OCI-LY7) DLBCL cell lines (31). Speciﬁcally, we
+assessed enrichment of compound-induced signatures in genes
+differentially expressed following siRNA-mediated silencing of
+validated follicular lymphoma transformation MRs in SUDHL6
+cells, using a two-tail GSEA (23) to account for both overexpressed and underexpressed genes, to identify compounds
+
+HF1
+
+Concentration [μmol/L]
+
+CB33
+Cytarabine
+
+that signiﬁcantly recapitulate relevant MR silencing (Supplementary Table S3A).
+As individual MR silencing had little effect on tumor viability,
+we prioritized four compound combinations predicted to target
+the synergistic MR pairs inducing greatest viability reduction in
+SUDHL6 and SUDHL4 cells. These were tested in SUDHL4 and
+SUDHL6 (t-DLBCL), HF1 (follicular lymphoma), and LCL-CB33
+(normal control) cells (Supplementary Table S3B). For each
+combination, we used a 10  10 dilution matrix, with individual
+compound concentrations ranging from 0.003 mmol/L to 20
+mmol/L (Supplementary Fig. S4). Cell viability was assessed by
+ATP levels at 48 hours following compound treatment (see
+Materials and Methods). To evaluate compound synergy, we used
+the Excess-over-Bliss (EOB) score (Supplementary Methods),
+deﬁned as a difference between the observed and predicted
+additive drug combination effect (Fig. 5; Supplementary Table
+S5). Compound pairs were considered strongly synergistic at EOB
+ 20. As expected, compound pairs predicted to target synergistic
+MRs were strongly synergistic in t-DLBCL cells but not in follicular
+
+20
+10
+5
+1
+0.5
+0.1
+0.05
+0.02
+0.01
+0.003
+0.96 1.52 2.0 2.5 3.5
+
+5
+
+7 10 14 20
+
+SUDHL4
+
+SUDHL6
+
+20
+10
+5
+1
+0.5
+0.1
+0.05
+0.02
+0.01
+0.003
+
+20
+14
+10
+7
+5
+3.5
+2.5
+2.0
+1.52
+0.96
+
+20
+14
+10
+7
+5
+3.5
+2.5
+2.0
+1.52
+0.96
+
+0.96 1.52 2.0 2.5 3.5
+
+5
+
+0.96 1.52 2.0 2.5 3.5
+
+7 10 14 20
+
+5
+
+7 10 14 20
+
+0.96 1.52 2.0 2.5 3.5
+
+5
+
+7 10 14 20
+
+0.96 1.52 2.0 2.5 3.5
+
+5
+
+7 10 14 20
+
+0.96 1.52 2.0 2.5 3.5
+
+5
+
+7 10 14 20
+
+0.96 1.52 2.0 2.5 3.5
+
+5
+
+7 10 14 20
+
+Concentration [μmol/L]
+
+Cytarabine
+
+Alprostadil
+20
+10
+5
+1
+0.5
+0.1
+0.05
+0.02
+0.01
+0.003
+0.96 1.52 2.0 2.5 3.5
+
+5
+
+7 10 14 20
+
+20
+14
+10
+7
+5
+3.5
+2.5
+2.0
+1.52
+0.96
+
+20
+14
+10
+7
+5
+3.5
+2.5
+2.0
+1.52
+0.96
+
+20
+10
+5
+1
+0.5
+0.1
+0.05
+0.02
+0.01
+0.003
+0.96 1.52 2.0 2.5 3.5
+
+5
+
+0.96 1.52 2.0 2.5 3.5
+
+7 10 14 20
+
+5
+
+7 10 14 20
+
+Concentration [μmol/L]
+
+Econazole
+
+Troglitazone
+20
+14
+10
+7
+5
+3.5
+2.5
+2.0
+1.52
+0.96
+0.96 1.52 2.0 2.5 3.5
+
+5
+
+7 10 14 20
+
+20
+14
+10
+7
+5
+3.5
+2.5
+2.0
+1.52
+0.96
+
+20
+14
+10
+7
+5
+3.5
+2.5
+2.0
+1.52
+0.96
+
+20
+14
+10
+7
+5
+3.5
+2.5
+2.0
+1.52
+0.96
+0.96 1.52 2.0 2.5 3.5
+
+5
+
+0.96 1.52 2.0 2.5 3.5
+
+7 10 14 20
+
+5
+
+7 10 14 20
+
+Concentration [μmol/L]
+
+Cytarabine
+
+Promazine
+20
+10
+5
+1
+0.5
+0.1
+0.05
+0.02
+0.01
+0.003
+0.96 1.52 2.0 2.5 3.5
+
+5
+
+7 10 14 20
+
+Clemastine
+
+20
+14
+10
+7
+5
+3.5
+2.5
+2.0
+1.52
+0.96
+
+20
+14
+10
+7
+5
+3.5
+2.5
+2.0
+1.52
+0.96
+
+20
+10
+5
+1
+0.5
+0.1
+0.05
+0.02
+0.01
+0.003
+0.96 1.52 2.0 2.5 3.5
+
+5
+
+7 10 14 20
+
+0.96 1.52 2.0 2.5 3.5
+
+5
+
+7 10 14 20
+
+Concentration [μmol/L]
+Excess of BLISS
+
+-50
+
+0
+
+≥50
+
+Figure 5.
+Effect of drug combinations on cell viability in B-lymphoma cell lines. Cell viability of SUDHL6, SUDHL4, HF1, and CB33 cells treated with the combination of
+compounds for 48 hours was evaluated by ATP assay. Compound synergy is represented by EOB score; we deﬁned EOB 20 as strongly synergistic and
+EOB 20 as strongly antagonistic. Color-coded matrices represent EOS scores; red, positive; blue, negative.
+
+670 Cancer Res; 76(3) February 1, 2016
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+Published OnlineFirst November 20, 2015; DOI: 10.1158/0008-5472.CAN-15-0828
+
+Master Regulators of Follicular Lymphoma Transformation
+
+lymphoma and control cells. Among these, alprostadil/cytarabine
+(targeting the HMGA1/FOXM1 pair) were strongly synergistic in
+both t-DLBCL cell lines. Troglitazone/cytarabine (targeting the
+FOXM1/NFYB pair) and econazole/promazine (targeting the
+HMGA1/TFDP1 pair) presented stronger synergistic activity in
+SUDHL4 versus SUDHL6 cells and vice versa, respectively, consistent with greater viability reduction following cosilencing of the
+associated MR pairs. Finally, clemastine/cytarabine (both targeting FOXM1), showed no synergistic activity in any of the four cell
+lines, as expected.
+Although the clinical relevance of these results is limited by the
+relatively small number of proﬁled compounds and by lack of in
+vivo validation, all of the four predicted compound combinations
+induced synergistic t-DLBCL cell death. Thus, these results represent an important proof of concept that MR analysis, combined
+with straightforward perturbational assays, can help identify
+compound combinations that are effective in abrogating tumor
+cell viability in vitro.
+
+Discussion
+Precision cancer medicine has been almost universally predicated on the use of targeted inhibitors for oncogenes harboring activating mutations, based on the "oncogene addiction"
+paradigm (32). Although this has been transformational for
+some tumors, from chronic myelogenous leukemia to lung
+cancer, it also presents signiﬁcant limitations. Indeed, oncogene mutations are neither individually sufﬁcient nor necessary for implementing and maintaining molecularly distinct
+tumor subtypes. Consistently, there are no fully penetrant
+genomic alterations responsible for inducing follicular lymphoma transformation of every high or low MYC subtype
+patient, even though the gene expression signatures of patients
+undergoing follicular lymphoma transformation to either subtype are virtually identical, suggesting a common, conserved
+functional regulators set.
+As a result, we decided to approach follicular lymphoma
+transformation from a different and highly complementary perspective. Rather than looking for recurrent genetic or epigenetic
+alterations in a transformed patient cohort, we interrogated a
+B-cell–speciﬁc regulatory network to identify transcriptional factors that are responsible for the speciﬁc regulation of genes that are
+differentially expressed following patient follicular lymphoma
+transformation to either the low MYC or high MYC subtype. As
+previously shown for glioma, breast cancer, and even Alzheimer
+disease, and as conﬁrmed by DIGGIT analysis (18), the MRs of
+follicular lymphoma transformation were downstream of most
+previously reported genetic alterations, including CARD11,
+CD79A, CD79B, STAT3, CREBBP, TNFRSF14, SOCS1, BCL10,
+PRKCB, and PLCG2 (data not shown) (10). As a result, they
+represent nononcogene dependencies, as proposed in ref. 33,
+whose aberrant regulatory activity is the result of one or more
+genetic or epigenetic alterations in their upstream pathways.
+Even though the MARINa algorithm has already been effectively used to elucidate novel functional drivers in glioblastoma,
+prostate cancer, leukemia, and breast cancer, our study presents
+signiﬁcant novelty in two distinct areas. First, we report a novel
+tumor checkpoint, comprising 18 MR proteins, whose synergistic
+activity regulates the genes that are differentially expressed in
+follicular lymphoma patients following transformation. Coinhibition of activated MR pairs induces rapid and speciﬁc cell death
+
+www.aacrjournals.org
+
+in t-DLBCL cells, but not in follicular lymphoma related and
+normal related B cells. Second, we used the MR-silencing signature
+to elucidate compounds that, in combinations, may induce
+t-DLBCL–speciﬁc cell death, opening a new avenue in precision
+cancer medicine, especially for phenotypes lacking a canonical
+targetable oncogene dependency.
+Critically, both the B-cell–speciﬁc regulatory model and the
+follicular lymphoma transformation signatures were derived
+from primary patient tissue. Thus, our predictions are independent of potentially idiosyncratic cell line or mouse model dependencies and should have high likelihood of being further recapitulated in vivo. Our model for the transformation process is
+consistent with the recently proposed linear evolution model (9),
+suggesting that transformed follicular lymphoma originates from
+the dominant follicular lymphoma clone as a result of new
+oncogenic events. However, as MARINa analysis is agnostic to
+the underlying tumor progression mechanism and only predicts
+the regulatory proteins that become aberrantly activated as a result
+of these secondary events our ﬁndings would equally support
+alternative hypotheses, such as divergent evolution.
+Conﬁrming results from previous studies (13, 14, 18), MARINa-inferred MRs were found to be highly enriched in synthetic
+lethal pairs. Although several of these genes were previously
+reported as overexpressed in hematologic malignancies, such as
+MYC (34), FOXM1 (35), TFDP1 (36), and ATF5 (37), the majority
+of inferred MRs were not previously causally associated with
+follicular lymphoma transformation nor were they shown to
+represent individual/synergistic dependencies of transformed
+DLBCL. Five of these MRs emerged as the strongest causal determinant of follicular lymphoma transformation signature, including FOXM1, TFDP1, ATF5, HMGA1, MYC, and NFYB. Interestingly, with the exception of MYC, these genes had been previously
+reported among 26 MRs of the germinal center reaction (15),
+suggesting that dysregulation of proteins presiding over B-cell
+maturation programs by a complex landscape of genetic and
+epigenetic alterations may be responsible for transformation of
+GCB-originated follicular lymphoma to DLBCL. Immunohistochemical assays in patient-derived TMAs conﬁrmed overexpression of the ﬁve MR proteins in DLBCL patients harboring the
+canonical t(14;18)(q32;q21) translocation, compared with follicular lymphoma tumors.
+We showed that MRs act synergistically to preserve the transformed follicular lymphoma state. Indeed, siRNA-mediated cosilencing of MR pairs, including HMGA1/TFDP1 and ATF5/TFDP1,
+and FOXM1/HMGA1, had a profound effect on t-DLBCL cell
+viability but not on that of follicular lymphoma and lymphoblastoid cell lines. Consistently, analysis of GEPs from SUDHL6
+cells following cosilencing of these MR pairs showed a signiﬁcant
+shift toward a follicular lymphoma–like signature. Slight differences in the analyses were likely associated with the differences in
+Lymphochip cDNA gene sets used in these analyses (10,731 and
+4,908 genes, respectively).
+HMGA1/TFDP1 and ATF5/TFDP1 pairs were consistently
+identiﬁed from both patient signatures. HMGA1 proteins are
+members of a nonhistone, chromatin-binding protein family,
+detected at high level during the process of embryogenesis in
+contrast to normal adult tissues and associated with a variety of
+aggressive human malignancies (reviewed in ref. 38). A recent
+study of HMGA1's role in reprograming somatic cell into
+pluripotent stem cell (39) suggests that HMGA1 could be an
+important MR of neoplastic transformations, responsible for
+
+Cancer Res; 76(3) February 1, 2016
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+671
+
+Published OnlineFirst November 20, 2015; DOI: 10.1158/0008-5472.CAN-15-0828
+
+Bisikirska et al.
+
+tumor state plasticity and reprogramming. Yet, our study
+represents the ﬁrst evidence where HMGA1 is identiﬁed as a
+mechanistic regulator of follicular lymphoma transformation
+and as a potentially synergistic cofactor. TFDP1 is an established heterodimerization partner of E2F family proteins, regulating transcriptional activity of cell-cycle progression genes
+(40). Both TFDP1 and E2F1 can interact and inhibit transcriptional activity of p53 and are expressed in NHLs (36). A
+member of the E2F family, E2F3, was also inferred as an
+activated MR by MARINa analysis, suggesting that these proteins may represent interacting partners in follicular lymphoma
+progression. Finally, ATF5 is a member of the ATF/CREB family
+of transcriptional factors, widely expressed in neoplastic and
+normal tissues; however, only in neoplastic cells was silencing
+of ATF5 shown to induce cell death (41). ATF5 was also
+associated with sensitivity to bortezomib-induced apoptosis
+in SUDHL6, but not SUDHL4 DLBCL cell lines (37), nonetheless it was never reported in the context of follicular lymphoma
+transformation.
+Precise characterization of MR genes representing individual/
+synergistic oncogene and nononcogene dependencies of transformed DLBCL opens a range of novel opportunities for targeted
+pharmacologic treatment. Here we demonstrate that relevant MR
+inhibitors, likely operating indirectly, could be effectively inferred
+from the analysis of GEPs following small-molecule perturbation
+in representative cell lines.
+Speciﬁcally, based on our previously ascertained conservation
+of regulatory interactions across 18 distinct human B-cell subtypes, including follicular lymphoma and DLBCL, we used GEPs
+of DLBCL cell lines following treatment with a library of 92 FDAapproved compounds to infer novel candidate inhibitors of
+follicular lymphoma transformation MRs. Our analysis identiﬁed
+several compound combinations that were experimentally validated, showing synergistic activity in t-DLBCL cells but not in
+normal or follicular lymphoma–derived cells. Remarkably, even
+though this study represents only a proof of concept, it prioritized
+cytarabine, a drug frequently used in combination therapy for the
+treatment of acute leukemias and lymphomas (42, 43). Indeed,
+high-dose cytarabine, in combination with cisplatin and dexamethasone (DHAP), etoposide, cisplatin, and methylprednisolone (ESHAP), is representative of key chemotherapeutic regimens for NHL and Hodgkin lymphoma treatment (43). Our study
+identiﬁed the novel synergistic interaction of cytarabine and
+alprostadil (Prostaglandin E1) or troglitazone to induce cell death
+in DLBCL cells but not in follicular lymphoma and control cells.
+Prostaglandins are hormone-like lipid metabolites, playing a key
+role in inﬂammatory response (44). Although prostaglandins are
+associated with wide range of cancers they were also shown to
+induce apoptosis in human leukemia cell lines (45). Troglitazone
+is an anti-inﬂammatory drug, initially used for treatment of
+patients with type 2 diabetes. It activates PPARs and decreases
+NF-kB (46). As PPARg agonists were shown to induce apoptosis in
+human B lymphomas (47), troglitazone could prove a very
+realistic choice in transformed follicular lymphoma. Because of
+adverse events, this drug was withdrawn from the market in 2000.
+Yet, new troglitazone derivatives with lower toxicity and anti-
+
+proliferative activity are now emerging (48). Two other compounds, econazole nitrate and promazine hydrochloride, showed
+synergy in the SUDHL6 cell line. Econazole is best known as an
+antifungal medication but there is increasing evidence that it may
+also have anticancer properties (49). Moreover, it was shown that
+sensitivity to econazole is speciﬁcally mediated by MYC in the
+HL60 cell line. Indeed, MYC-negative cells were resistant to this
+agent (50).
+Taken together, these data suggest that the systematic, networkbased identiﬁcation of MR genes may represent an alternative and
+highly complementary approach to the targeting of classic oncogene dependencies. Once these dependencies are identiﬁed, their
+small-molecule inhibitors, including both individual drugs and
+synergistic drug combinations, can be effectively prioritized. If
+further validated, such an approach would signiﬁcantly extend the
+reach of precision cancer medicine, especially as the analyses
+performed in this article can be performed in hours to days using
+high-performance computing platforms. This would allow the
+efﬁcient prioritization of compound and compound combinations to treat individual tumors.
+
+Disclosure of Potential Conﬂicts of Interest
+R. Chaganti is a director, consultant; has ownership interest (including
+patents) and is a consultant/advisory board member for Cancer Genetics, Inc.
+A. Califano is a founder and SAB chair at Darwin Health; reports receiving a
+commercial research grant from Merrimack; has ownership interest (including
+patents) in Darwin Health; and is a consultant/advisory board member for
+Cancer Genetics, Inc. and Dow Agro. No potential conﬂicts of interest were
+disclosed by the other authors.
+
+Authors' Contributions
+Conception and design: B. Bisikirska, M. Bansal, A. Califano
+Development of methodology: M. Bansal, A. Califano
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): B. Bisikirska, M. Bansal, J. Teruya-Feldstein,
+R. Chaganti
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): B. Bisikirska, M. Bansal, Y. Shen
+Writing, review, and/or revision of the manuscript: B. Bisikirska, M. Bansal,
+Y. Shen, A. Califano
+Study supervision: A. Califano
+
+Acknowledgments
+The authors thank Riccardo Dalla-Favera and Laura Pasqualucci for providing cell lines (CB33, SUDHL4, and SUDHL6) and gene expression data for 226
+B-cell samples including cell lines and FISH data for BCL2 translocation in
+DLBCL samples.
+
+Grant Support
+This work was supported by the CTD2 (Cancer Target Discovery and
+Development; 5U01CA168426) and the MAGNet (Multiscale Analysis of
+Genomic and Cellular Networks - http://magnet.c2b2.columbia.edu/;
+5U54CA121852) grants.
+The costs of publication of this article were defrayed in part by the payment of
+page charges. This article must therefore be hereby marked advertisement in
+accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+Received March 30, 2015; revised October 8, 2015; accepted October 21,
+2015; published OnlineFirst November 20, 2015.
+
+References
+1. A clinical evaluation of the International Lymphoma Study Group classiﬁcation of non-Hodgkin's lymphoma. The Non-Hodgkin's Lymphoma
+Classiﬁcation Project. Blood 1997;89:3909–18.
+
+672 Cancer Res; 76(3) February 1, 2016
+
+2. Guirguis HR, Cheung MC, Piliotis E, Spaner D, Berinstein NL, Imrie K, et al.
+Survival of patients with transformed lymphoma in the rituximab era. Ann
+Hematol 2014;93:1007–14.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+Published OnlineFirst November 20, 2015; DOI: 10.1158/0008-5472.CAN-15-0828
+
+Master Regulators of Follicular Lymphoma Transformation
+
+3. Vaandrager JW, Schuuring E, Raap T, Philippo K, Kleiverda K, Kluin P.
+Interphase FISH detection of BCL2 rearrangement in follicular lymphoma
+using breakpoint-ﬂanking probes. Genes Chromosomes Cancer 2000;27:
+85–94.
+4. Limpens J, Stad R, Vos C, de Vlaam C, de Jong D, van Ommen GJ, et al.
+Lymphoma-associated translocation t(14;18) in blood B cells of normal
+individuals. Blood 1995;85:2528–36.
+5. Montoto S, Davies AJ, Matthews J, Calaminici M, Norton AJ, Amess J, et al.
+Risk and clinical implications of transformation of follicular lymphoma to
+diffuse large B-cell lymphoma. J Clin Oncol 2007;25:2426–33.
+6. Freedman AS. Biology and management of histologic transformation of
+indolent lymphoma. Hematology Am Soc Hematol Educ Program 2005:
+314–20.
+7. Goff LK, Neat MJ, Crawley CR, Jones L, Jones E, Lister TA, et al. The use of
+real-time quantitative polymerase chain reaction and comparative genomic hybridization to identify ampliﬁcation of the REL gene in follicular
+lymphoma. Br J Haematol 2000;111:618–25.
+8. Berglund M, Enblad G, Thunberg U, Amini RM, Sundstrom C, Roos G, et al.
+Genomic imbalances during transformation from follicular lymphoma to
+diffuse large B-cell lymphoma. Mod Pathol 2007;20:63–75.
+9. Pasqualucci L, Khiabanian H, Fangazio M, Vasishtha M, Messina M,
+Holmes AB, et al. Genetics of follicular lymphoma transformation. Cell
+Rep 2014;6:130–40.
+10. Okosun J, Bodor C, Wang J, Araf S, Yang CY, Pan C, et al. Integrated
+genomic analysis identiﬁes recurrent mutations and evolution patterns
+driving the initiation and progression of follicular lymphoma. Nat Genet
+2014;46:176–81.
+11. Hayslip J, Montero A. Tumor suppressor gene methylation in follicular
+lymphoma: a comprehensive review. Mol Cancer 2006;5:44.
+12. Rawal S, Chu F, Zhang M, Park HJ, Nattamai D, Kannan S, et al. Cross talk
+between follicular Th cells and tumor cells in human follicular lymphoma
+promotes immune evasion in the tumor microenvironment. J Immunol
+2013;190:6681–93.
+13. Carro MS, Lim WK, Alvarez MJ, Bollo RJ, Zhao X, Snyder EY, et al. The
+transcriptional network for mesenchymal transformation of brain
+tumours. Nature 2010;463:318–25.
+14. Aytes A, Mitrofanova A, Lefebvre C, Alvarez MJ, Castillo-Martin M, Zheng T,
+et al. Cross-species regulatory network analysis identiﬁes a synergistic
+interaction between FOXM1 and CENPF that drives prostate cancer malignancy. Cancer Cell 2014;25:638–51.
+15. Lefebvre C, Rajbhandari P, Alvarez MJ, Bandaru P, Lim WK, Sato M,
+et al. A human B-cell interactome identiﬁes MYB and FOXM1 as master
+regulators of proliferation in germinal centers. Mol Syst Biol 2010;6:
+377.
+16. Lossos IS, Alizadeh AA, Diehn M, Warnke R, Thorstenson Y, Oefner PJ, et al.
+Transformation of follicular lymphoma to diffuse large-cell lymphoma:
+alternative patterns with increased or decreased expression of c-myc and its
+regulated genes. Proc Natl Acad Sci U S A 2002;99:8886–91.
+17. Basso K, Margolin AA, Stolovitzky G, Klein U, Dalla-Favera R, Califano A.
+Reverse engineering of regulatory networks in human B cells. Nat Genet
+2005;37:382–90.
+18. Chen JC, Alvarez MJ, Talos F, Dhruv H, Rieckhof GE, Iyer A, et al.
+Identiﬁcation of causal genetic drivers of human disease through systems-level analysis of regulatory networks. Cell 2014;159:402–14.
+19. Hedvat CV, Hegde A, Chaganti RS, Chen B, Qin J, Filippa DA, et al.
+Application of tissue microarray technology to the study of non-Hodgkin's
+and Hodgkin's lymphoma. Hum Pathol 2002;33:968–74.
+20. Davies AJ, Rosenwald A, Wright G, Lee A, Last KW, Weisenburger DD, et al.
+Transformation of follicular lymphoma to diffuse large B-cell lymphoma
+proceeds by distinct oncogenic mechanisms. Br J Haematol 2007;136:
+286–93.
+21. Basso K, Saito M, Sumazin P, Margolin AA, Wang K, Lim WK, et al.
+Integrated biochemical and computational approach identiﬁes BCL6 direct
+target genes controlling multiple pathways in normal germinal center B
+cells. Blood 2010;115:975–84.
+22. Subramanian A, Tamayo P, Mootha VK, Mukherjee S, Ebert BL, Gillette MA,
+et al. Gene set enrichment analysis: a knowledge-based approach for
+interpreting genome-wide expression proﬁles. Proc Natl Acad Sci U S A
+2005;102:15545–50.
+23. Lim WK, Lyashenko E, Califano A. Master regulators used as breast cancer
+metastasis classiﬁers. Pac Symp Biocomput 2009;14:504–15.
+
+www.aacrjournals.org
+
+24. Siminovitch KA, Jensen JP, Epstein AL, Korsmeyer SJ. Immunoglobulin
+gene rearrangements and expression in diffuse histiocytic lymphomas
+reveal cellular lineage, molecular defects, and sites of chromosomal translocation. Blood 1986;67:391–7.
+25. Bakhshi A, Jensen JP, Goldman P, Wright JJ, McBride OW, Epstein AL, et al.
+Cloning the chromosomal breakpoint of t(14;18) human lymphomas:
+clustering around JH on chromosome 14 and near a transcriptional unit on
+18. Cell 1985;41:899–906.
+26. Knuutila S, Klefstrom J, Szymanska J, Lakkala T, Peltomaki P, Eray M, et al.
+Two novel human B-cell lymphoma lines of lymphatic follicle origin:
+cytogenetic, molecular genetic and histopathological characterisation. Eur
+J Haematol 1994;52:65–72.
+27. Lombardi L, Newcomb EW, Dalla-Favera R. Pathogenesis of Burkitt lymphoma: expression of an activated c-myc oncogene causes the tumorigenic
+conversion of EBV-infected human B lymphoblasts. Cell 1987;49:161–70.
+28. Tusher VG, Tibshirani R, Chu G. Signiﬁcance analysis of microarrays
+applied to the ionizing radiation response. Proc Natl Acad Sci U S A
+2001;98:5116–21.
+29. Lamb J, Crawford ED, Peck D, Modell JW, Blat IC, Wrobel MJ, et al. The
+Connectivity Map: using gene-expression signatures to connect small
+molecules, genes, and disease. Science 2006;313:1929–35.
+30. Mani KM, Lefebvre C, Wang K, Lim WK, Basso K, Dalla-Favera R, et al. A
+systems biology approach to prediction of oncogenes and molecular
+perturbation targets in B-cell lymphomas. Mol Syst Biol 2008;4:169.
+31. Woo HJ, Shimoni Y, Yang SW, Subramaniam P, Iyer A, Nicoletti P.
+Elucidating compound mechanism of action by network dysregulation
+analysis in perturbed cells. Cell 2015;162:441–51.
+32. Weinstein IB. Cancer. Addiction to oncogenes–the Achilles heal of cancer.
+Science 2002;297:63–4.
+33. Luo J, Solimini NL, Elledge SJ. Principles of cancer therapy: oncogene and
+non-oncogene addiction. Cell 2009;136:823–37.
+34. Yano T, Jaffe ES, Longo DL, Raffeld M. MYC rearrangements in histologically progressed follicular lymphomas. Blood 1992;80:758–67.
+35. Uddin S, Hussain AR, Ahmed M, Siddiqui K, Al-Dayel F, Bavi P, et al.
+Overexpression of FoxM1 offers a promising therapeutic target in diffuse
+large B-cell lymphoma. Haematologica 2012;97:1092–100.
+36. Chan JA, Olvera M, Lai R, Naing W, Rezk SA, Brynes RK. Immunohistochemical expression of the transcription factor DP-1 and its heterodimeric
+partner E2F-1 in non-Hodgkin lymphoma. Appl Immunohistochem Mol
+Morphol 2002;10:322–6.
+37. Shringarpure R, Catley L, Bhole D, Burger R, Podar K, Tai YT, et al. Gene
+expression analysis of B-lymphoma cells resistant and sensitive to bortezomib. Br J Haematol 2006;134:145–56.
+38. Shah SN, Resar LM. High mobility group A1 and cancer: potential biomarker and therapeutic target. Histol Histopathol 2012;27:567–79.
+39. Shah SN, Kerr C, Cope L, Zambidis E, Liu C, Hillion J, et al. HMGA1
+reprograms somatic cells into pluripotent stem cells by inducing stem cell
+transcriptional networks. PLoS One 2012;7:e48533.
+40. O'Connor DJ, Lam EW, Grifﬁn S, Zhong S, Leighton LC, Burbidge SA, et al.
+Physical and functional interactions between p53 and cell cycle co-operating transcription factors, E2F1 and DP1. EMBO J 1995;14:6184–92.
+41. Monaco SE, Angelastro JM, Szabolcs M, Greene LA. The transcription factor
+ATF5 is widely expressed in carcinomas, and interference with its function
+selectively kills neoplastic, but not nontransformed, breast cell lines. Int J
+Cancer 2007;120:1883–90.
+42. Bishop JF, Matthews JP, Young GA, Bradstock K, Lowenthal RM. Intensiﬁed
+induction chemotherapy with high dose cytarabine and etoposide for acute
+myeloid leukemia: a review and updated results of the Australian Leukemia
+Study Group. Leuk Lymphoma 1998;28:315–27.
+43. McCarthy J, Gopal AK. Successful use of full-dose dexamethasone, highdose cytarabine, and cisplatin as part of initial therapy in non-hodgkin and
+hodgkin lymphoma with severe hepatic dysfunction. Clin Lymphoma
+Myeloma 2009;9:167–70.
+44. Ricciotti E, FitzGerald GA. Prostaglandins and inﬂammation. Arterioscler
+Thromb Vasc Biol 2011;31:986–1000.
+45. Soleymani Fard S, Jeddi Tehrani M, Ardekani AM. Prostaglandin E2 induces
+growth inhibition, apoptosis and differentiation in T and B cell-derived
+acute lymphoblastic leukemia cell lines (CCRF-CEM and Nalm-6). Prostaglandins Leukot Essent Fatty Acids 2012;87:17–24.
+46. Wolffenbuttel BH, Graal MB. New treatments for patients with type 2
+diabetes mellitus. Postgrad Med J 1996;72:657–62.
+
+Cancer Res; 76(3) February 1, 2016
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+673
+
+Published OnlineFirst November 20, 2015; DOI: 10.1158/0008-5472.CAN-15-0828
+
+Bisikirska et al.
+
+47. Padilla J, Leung E, Phipps RP. Human B lymphocytes and B lymphomas
+express PPAR-gamma and are killed by PPAR-gamma agonists. Clin
+Immunol 2002;103:22–33.
+48. Bordessa A, Colin-Cassin C, Grillier-Vuissoz I, Kuntz S, Mazerbourg S,
+Husson G, et al. Optimization of troglitazone derivatives as potent antiproliferative agents: towards more active and less toxic compounds. Eur J
+Med Chem 2014;83:129–40.
+
+674 Cancer Res; 76(3) February 1, 2016
+
+49. Ho YS, Wu CH, Chou HM, Wang YJ, Tseng H, Chen CH, et al. Molecular
+mechanisms of econazole-induced toxicity on human colon cancer cells:
+G0/G1 cell cycle arrest and caspase 8-independent apoptotic signaling
+pathways. Food Chem Toxicol 2005;43:1483–95.
+50. Chen X, Xu H, Yuan P, Fang F, Huss M, Vega VB, et al. Integration of external
+signaling pathways with the core transcriptional network in embryonic
+stem cells. Cell 2008;133:1106–17.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+Published OnlineFirst November 20, 2015; DOI: 10.1158/0008-5472.CAN-15-0828
+
+Elucidation and Pharmacological Targeting of Novel Molecular
+Drivers of Follicular Lymphoma Progression
+Brygida Bisikirska, Mukesh Bansal, Yao Shen, et al.
+Cancer Res 2016;76:664-674. Published OnlineFirst November 20, 2015.
+
+Updated version
+Supplementary
+Material
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-15-0828
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2015/11/20/0008-5472.CAN-15-0828.DC1
+
+Cited articles
+
+This article cites 49 articles, 15 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/76/3/664.full#ref-list-1
+
+E-mail alerts
+
+Sign up to receive free email-alerts related to this article or journal.
+
+Reprints and
+Subscriptions
+Permissions
+
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2016 American Association for Cancer Research.
+
+

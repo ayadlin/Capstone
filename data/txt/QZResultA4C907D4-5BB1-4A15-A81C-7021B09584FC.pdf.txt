@@ -1,0 +1,1717 @@
+Published OnlineFirst February 3, 2014; DOI: 10.1158/0008-5472.CAN-13-2511
+
+Cancer
+Research
+
+Integrated Systems and Technologies
+
+Noninvasive Quantiﬁcation of Solid Tumor Microstructure
+Using VERDICT MRI
+Eletheria Panagiotaki1, Simon Walker-Samuel2, Bernard Siow1,2, S. Peter Johnson3, Vineeth Rajkumar3,
+R. Barbara Pedley3, Mark F. Lythgoe2, and Daniel C. Alexander1
+
+Abstract
+There is a need for biomarkers that are useful for noninvasive imaging of tumor pathophysiology and drug
+efﬁcacy. Through its use of endogenous water, diffusion-weighted MRI (DW-MRI) can be used to probe local
+tissue architecture and structure. However, most DW-MRI studies of cancer tissues have relied on simplistic
+mathematical models, such as apparent diffusion coefﬁcient (ADC) or intravoxel incoherent motion (IVIM)
+models, which produce equivocal results on the relation of the model parameter estimate with the underlying
+tissue microstructure. Here, we present a novel technique called VERDICT (Vascular, Extracellular and
+Restricted Diffusion for Cytometry in Tumors) to quantify and map histologic features of tumors in vivo.
+VERDICT couples DW-MRI to a mathematical model of tumor tissue to access features such as cell size,
+vascular volume fraction, intra- and extracellular volume fractions, and pseudo-diffusivity associated with
+blood ﬂow. To illustrate VERDICT, we used two tumor xenograft models of colorectal cancer with different
+cellular and vascular phenotypes. Our experiments visualized known differences in the tissue microstructure
+of each model and the signiﬁcant decrease in cell volume resulting from administration of the cytotoxic drug
+gemcitabine, reﬂecting the apoptotic volume decrease. In contrast, the standard ADC and IVIM models
+failed to detect either of these differences. Our results illustrate the superior features of VERDICT for
+cancer imaging, establishing it as a noninvasive method to monitor and stratify treatment responses. Cancer
+Res; 74(7); 1902–12. 2014 AACR.
+
+Introduction
+Classical histology provides the gold standard for diagnosis of cancer, offering the sole method to access speciﬁc
+information on the cellular architecture of tissue such as the
+viability of cells, their size, and packing density. However,
+histology requires invasive extraction of the tissue, typically
+through biopsy, and is generally limited to small sampling
+regions. Noninvasive techniques, such as MRI and computed
+tomography, are widely used in clinical research for tumor
+detection and for measuring progression and regression via
+gross volumetric changes. However, such changes in tumor
+size can take many weeks or months to occur, and more
+sensitive imaging techniques for probing the tumor micro-
+
+Authors' Afﬁliations: 1Department of Computer Science, Centre for
+Medical Image Computing; 2Division of Medicine, Centre for Advanced
+Biomedical Imaging; 3UCL Cancer Institute, University College London,
+London, United Kingdom
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+E. Panagiotaki and S. Walker-Samuel contributed equally to this work.
+Corresponding Author: Eleftheria Panagiotaki, Department of Computer
+Science, Centre for Medical Image Computing, University College London,
+Gower Street, London WC1E 6BT, United Kingdom. Phone: 44-20-76791027; Fax: 44-20-7679-0255; E-mail: E.Panagiotaki@cs.ucl.ac.uk
+doi: 10.1158/0008-5472.CAN-13-2511
+2014 American Association for Cancer Research.
+
+1902
+
+environment before and following therapy are urgently
+required.
+Diffusion-weighted MRI (DW-MRI) of tumors is increasingly
+used as a research tool, both for diagnostic imaging (1) and
+measuring response to therapy (2). It is sensitive to the
+displacement of water particles at length scales much smaller
+than the image resolution and as water mobility is inﬂuenced
+by interactions with cellular structures, DW-MRI can be used
+to infer information about the local tissue architecture for the
+whole tumor. Most studies have used the technique in its
+simplest form by summarizing water mobility via the apparent
+diffusion coefﬁcient (ADC; refs. 1–4) often assuming that
+reduced ADC reﬂects increased cellularity. However, while
+some studies have found a negative correlation between tumor
+ADC and cellularity (1, 3), others have found no such correlation (4, 5). The inconsistency most likely arises because ADC
+is a gross measurement that conﬂates various physiologic
+parameters, including cell density, size, shape, permeability,
+subcellular architecture, and vascular perfusion effects. These
+biophysical mechanisms affect the ADC in different ways that
+can compete and even cancel each other, confounding overall
+speciﬁcity.
+Model-based DW-MRI approaches can potentially separate
+these effects to provide estimates of speciﬁc histologic features
+and thus offer a much richer description of the underlying
+tissue on which to base a diagnosis or grade assessment. This
+has proven successful in brain imaging, where geometric
+models of brain tissue predict the measured signal more
+
+Cancer Res; 74(7) April 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst February 3, 2014; DOI: 10.1158/0008-5472.CAN-13-2511
+
+Noninvasive Quantiﬁcation Tumor Tissue with VERDICT MRI
+
+accurately than simple ADC models and provide estimates of
+speciﬁc tissue features, such as ﬁber orientation distribution,
+diameter distribution, and packing density (6–9). A few early
+attempts to model the diffusion signal in a similar way in
+tumors exist. The intravoxel incoherent motion (IVIM) model
+(10) assumes that tissue water resides in two nonexchanging
+compartments: vascular (pseudo-diffusing water inside blood
+vessels) and nonvascular (diffusing water in and around cells).
+IVIM has been used to study various cancer types, such as
+breast (11), prostate (12), pancreatic (13), and kidney (14)
+tumors, showing improvement in data description compared
+with the ADC. However, while the IVIM model acknowledges
+and separates out the additional signal from vascular water, its
+description of diffusion in the cellular component of the tissue
+remains simplistic; just as for the ADC, it does not account
+for cellular geometry and compartmentalization. Xu and
+colleagues (15) used a geometric tissue model of cancer cells
+with computer simulations to demonstrate the limitation of
+considering ADC alone, but made no attempt to estimate the
+model parameters from measured data.
+Here, we propose a noninvasive imaging paradigm, called
+VERDICT (Vascular, Extracellular and Restricted Diffusion for
+Cytometry in Tumors), for quantifying microstructural features of tumors, in vivo, and demonstrate its use in two wellcharacterized tumor xenograft models of colorectal cancer.
+The VERDICT model includes the three primary components:
+(i) vascular, (ii) extracellular–extravascular space (EES), and
+(iii) intracellular water that inﬂuence the DW-MRI signal and
+exist in a wide range of tumors. Fitting the model to DW-MRI
+datasets with various diffusion times and diffusion weightings
+(see Materials and Methods) provides estimates of the size and
+packing density of the cells, the vascular and EES volume
+fractions as well as the pseudo-diffusion coefﬁcient associated
+with blood ﬂow. The aims of the study are: (i) to compare the
+VERDICT model with current models (ADC and IVIM); (ii) to
+investigate the accuracy of VERDICT parameter estimates in
+representative tissue samples (colorectal xenograft models) by
+comparison with histology; (iii) to evaluate the sensitivity of the
+VERDICT framework to differences in tumor pathophysiology
+by comparing two different human colorectal carcinoma cell
+lines (LS174T and SW1222); (iv) to assess the ability of VERDICT to detect response to therapy. Two experiments were
+performed. The ﬁrst addressed aims 1, 2, and 3 by ﬁtting
+VERDICT, IVIM, and ADC models to DW-MRI signals from
+both cell lines. The second experiment addressed aim 4 by
+assessing the acute response to a chemotherapeutic agent
+(gemcitabine). For this experiment, we aimed to detect small,
+acute changes in cell size induced by gemcitabine.
+
+Materials and Methods
+Animal models
+All experiments were performed in accordance with the
+local ethical review panel, the UK Home Ofﬁce Animals Scientiﬁc Procedures Act 1986, and United Kingdom Co-ordinating Committee on Cancer Research guidelines (16). A total of
+5  106 human colorectal adenocarcinoma cells (LS174T
+and SW1222) were injected subcutaneously into the ﬂanks of
+
+www.aacrjournals.org
+
+female nude MF1 NU/NU mice (2–3 months, 20–25 g). Mice
+were scanned at 5 weeks following inoculation, when tumors
+were 8 to 12 mm in diameter. Subcutaneous xenografts formed
+from these cell lines exhibit markedly different phenotypes:
+SW1222 tumors form a well-differentiated cellular structure
+featuring regular gland-like structures and dense vasculature,
+while the LS174T is moderately to poorly differentiated, with
+tightly packed cells and low vascular perfusion (17, 18).
+The VERDICT model
+The mathematical model of the VERDICT framework characterizes water diffusion in vascular, EES, and intracellular
+compartments in tumors. These three tissue components are
+common to a wide range of different types of tumors, although
+their precise nature may vary signiﬁcantly. Mathematically,
+VERDICT is the sum of three parametric models, each describing the diffusion magnetic resonance signal in a separate
+population of water from one of the three components:
+*
+
+*
+
+*
+
+Signal S1 comes from intracellular water trapped inside cells.
+Signal S2 comes from EES water adjacent to, but outside cells
+and blood vessels.
+Signal S3 arises from water in blood undergoing
+microcirculation in the capillary network.
+
+The model does not incorporate exchange between the three
+water populations. The total magnetic resonance signal for the
+multi-compartment VERDICT model is:
+3
+X
+S¼
+fi Si
+ð1Þ
+i¼1
+
+where fi is the proportion of signal with no diffusion weighting (b ¼ 0) from water molecules in population i, 0  fi  1;
+X
+3
+f ¼ 1:
+i¼1 i
+To model the signal for the intracellular compartment, we
+can use any one of multiple models for restricted diffusion in
+domains of various shapes (19, 20). Here, we use spheres
+because the cells in our tumors are quite isotropic, but
+ellipsoids or cylinders are other possibilities. The model for
+the EES compartment uses a diffusion tensor model (21).
+Here, we constrain it to be isotropic, but if the cells and their
+arrangement are anisotropic, this diffusion tensor should
+also be anisotropic. The vascular pseudo-diffusion model
+also uses a diffusion tensor model. Preliminary experiments
+(22) suggest a high degree of anisotropy in this component of
+our data, so we used a diffusion tensor that assumes pseudodiffusion in the vascular space is oriented along a single
+direction, but more isotropic models may be appropriate in
+situations in which the capillaries have less coherent orientation (see Supplementary Data). In total, seven parameters
+of the VERDICT model were estimated in this study: f1, f2, f3,
+P, R, u, and w, where f1 is the volume fraction of the
+intracellular compartment, f2 is the volume fraction of the
+EES compartment, f3 is the volume fraction of the vascular
+compartment, P is the pseudo-diffusion coefﬁcient, R is the
+cell radius parameter, which we refer to as cell radius index,
+as it relates to the distribution of actual radii in a nontrivial
+
+Cancer Res; 74(7) April 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+1903
+
+Published OnlineFirst February 3, 2014; DOI: 10.1158/0008-5472.CAN-13-2511
+
+Panagiotaki et al.
+
+way (7), and u and w deﬁne the main orientation of the
+anisotropic diffusion tensor.
+In vivo MRI
+DW-MR images were acquired in vivo, using a 9.4T scanner
+(Agilent) with maximum gradient strength 400 mT/m. We used
+a pulsed gradient spin echo (PGSE) sequence (23) with 46
+diffusion weightings: diffusion times D ¼ 10, 20, 30, and 40
+milliseconds, gradient durations d ¼ 3 milliseconds for all D
+and d ¼ 10 milliseconds for D ¼ 30 and 40 milliseconds;
+gradient strength |G| varied from 40 to 400 mT/m in 10 steps
+of 40 mT/m for d ¼ 3 milliseconds and |G| ¼ 40, 80, and 120
+mT/m for d ¼ 10 milliseconds. Separate images were acquired
+with diffusion gradients placed along each of the three imaging
+coordinate axes. We used minimum echo times (TE) for each d
+and D combination to maximize the signal-to-noise ratio (SNR)
+and chose repetition times (TR) to minimize gradient heating
+effects. For each combination of diffusion weighting parameters, we acquired b ¼ 0 images to correct for T1 and T2
+dependence. A separate diffusion tensor imaging (DTI) acquisition was also performed using a 42-direction scheme with b ¼
+1,000 s/mm2 and six unweighted (b ¼ 0) measurements.
+Imaging parameters for the diffusion-weighted imaging and
+DTI acquisitions were: in-plane ﬁeld of view 25 mm  25 mm,
+matrix size 64  64, with 5 mm  0.5 mm slices. Total
+acquisition time for one animal was 2.5 hours.
+Response to gemcitabine
+For the therapy study, a shortened version of the imaging
+protocol was used with 13 diffusion weightings, as well as the
+DTI scan. The protocol was chosen to ﬁt within a scanning time
+constraint of 1 hour that we impose to achieve sufﬁcient
+temporal resolution for the experiment while allowing investigation for an effect at just 5 hours postdosing. The 13
+weightings are a subset of the 46 in the full protocol including
+long and short diffusion times and a range of gradient strengths
+chosen to cover the range of signal attenuations evenly, and
+thus support a good ﬁt of the model to the data. Five mice
+bearing LS174T xenografts were scanned before and 5 hours
+after intraperitoneal administration of 120 mg/kg of gemcitabine (Gemzar; Eli Lilly and Company) in 0.2 mL saline (24). A
+control group (n ¼ 5 LS174T) was administered 0.2 mL saline
+and underwent an identical imaging protocol. The speciﬁc
+imaging parameters for the response study were: D ¼ 10, 30,
+and 40 milliseconds with d ¼ 3 milliseconds for |G| ¼ 120, 280,
+and 360 mT/m and D ¼ 30 and 40 milliseconds with and d ¼ 10
+milliseconds for |G| ¼ 40 and 120 mT/m. The DTI acquisition
+had 15 directions and one b ¼ 0 measurement. Total acquisition time for each animal was 1 hour, although the same
+number of measurements typically requires around 15 minutes
+on a human system.
+Model ﬁtting
+VERDICT uses a similar iterative optimization procedure (8)
+for model ﬁtting that accounts for local minima and Rician
+noise. First, the ﬁtting was performed with data averaged over
+all voxels within a tumor region of interest (ROI); subsequently,
+the ﬁtting was repeated in each voxel. A set of model para-
+
+1904
+
+Cancer Res; 74(7) April 1, 2014
+
+meters was constrained in the optimization using transformations to limit the range of each parameter to biophysically
+meaningful values. The cell radius index R was constrained so
+that 0.1 mm  R  20.1 mm, the pseudo-diffusion coefﬁcient P
+was constrained to be larger than free water diffusion [P  3.05
+mm2/ms (25)], and the volume fractions of all compartments
+were constrained to [0,1] and to sum to 1. To increase the
+stability of the ﬁtting, we ﬁx the diffusion coefﬁcient of the
+intracellular and EES compartments to a value that provides
+the best ﬁt to the data: dR ¼ d k ¼ 9  1010 m2/s. The
+implementation will be available in the open source Camino
+toolkit at http://cmic.cs.ucl.ac.uk/camino/.
+Statistical analysis
+This was performed using the R software platform. Results
+were presented as box-and-whisker or ladder plots. Significance for discriminating the two cell lines was assessed by
+Mann–Whitney U test, and response to therapy by a paired
+Mann–Whitney U test. A P < 0.05 was considered to be
+signiﬁcant.
+Histologic analysis
+To validate the estimates we obtain from VERDICT, we used
+histologic analysis to acquire independent measurements of
+cell size, cell density, and detection of apoptotic cells. For the
+assessment of apoptosis in vitro at 24 and 72 hours, we use ﬂow
+cytometry. Details of each method are in Supplementary
+Materials and Methods.
+
+Results
+Experiment 1: characterization of tumor types
+The aim of the ﬁrst experiment was to characterize differences between two tumor xenografts SW1222 and LS174T,
+using different models (ADC, IVIM, and VERDICT). Figure 1
+shows that VERDICT captures the broad trends in the data for
+both cell lines by comparing the measured and predicted
+normalized diffusion signal S as a function of the imaging
+parameters (gradient strength |G|, diffusion time D, pulse
+width d, and gradient orientation; Supplementary Fig. S1 shows
+the VERDICT ﬁt to all the samples). Conversely, also in Fig. 1,
+the ADC and IVIM models exhibit clear departures from the
+data for both cell lines (note that both the ADC and IVIM
+models are inherently isotropic so the predicted signals for the
+x, y, and z gradient directions overlap). These departures
+illustrate an inability of ADC and IVIM to model the variation
+in the signal; results are similar for all the tumor samples. These
+results show that VERDICT explains the DW-MRI data for both
+cell lines better than current models (aim 1). Supplementary
+Fig. S2 shows an example of DW-MRI data averaged over a ROI
+in the tumor and magnetic resonance images for various
+diffusion weightings (b values), to illustrate data quality in
+both datasets.
+Parameter estimation and comparison with histology
+Table 1 shows the model parameter estimates with the
+reference values from histology and other MRI methods. The
+cell radius indices R for SW1222 tumors were signiﬁcantly
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst February 3, 2014; DOI: 10.1158/0008-5472.CAN-13-2511
+
+Noninvasive Quantiﬁcation Tumor Tissue with VERDICT MRI
+
+D=10 ms
+D=20 ms
+D=30 ms
+D=40 ms
+
+LS174T
+VERDICT
+
+1
+
+ADC
+
+1
+0.9
+
+0.9
+
+0.8
+
+0.8
+
+0.8
+
+0.7
+
+0.7
+
+0.7
+
+0.6
+
+0.6
+
+S
+
+S
+
+0.5
+0.4
+0.3
+0.2
+0
+
+0.5
+
+0.5
+
+0.4
+
+0.4
+
+0.3
+
+0.3
+
+0.2
+0.05 0.1 0.15 0.2 0.25
+
+0.1
+0
+
+0.3 0.35 0.4
+
+z dir d =3 ms
+z dir d =10 ms
+
+S
+
+0.9
+
+0.6
+
+IVIM
+
+1
+
+x dir d =3 ms
+x dir d =10 ms
+y dir d =3 ms
+y dir d =10 ms
+
+0.2
+0.05 0.1 0.15 0.2 0.25 0.3
+
+G(T/m)
+
+0.1
+0
+
+0.35 0.4
+
+G(T/m)
+
+0.05 0.1 0.15
+
+0.2 0.25 0.3 0.35 0.4
+
+G(T/m)
+
+SW1222
+1
+
+VERDICT
+
+ADC
+
+1
+0.9
+
+0.9
+
+0.8
+
+0.8
+
+0.8
+
+0.7
+
+0.7
+0.6
+
+0.7
+
+0.6
+
+S
+
+S
+
+S
+
+0.5
+
+0.4
+
+0.4
+
+0.4
+
+0.3
+
+0.3
+0.2
+0.1
+0
+
+0.6
+
+0.5
+
+0.5
+
+0.05 0.1 0.15 0.2
+
+0.25 0.3 0.35 0.4
+
+G(T/m)
+
+0.2
+
+0.3
+
+0.1
+
+0.2
+
+0
+0
+
+IVIM
+
+1
+
+0.9
+
+0.05 0.1 0.15 0.2
+
+0.25 0.3 0.35 0.4
+
+G(T/m)
+
+0.1
+0
+
+0.05 0.1 0.15
+
+0.2 0.25 0.3 0.35 0.4
+
+G(T/m)
+
+Figure 1. Fits of the VERDICT, the ADC, and the IVIM models to the data from the ﬁrst DW-MRI experiment for an example tumor sample from each cell line. The
+symbols represent the measured data and the lines show the corresponding ﬁts by the model. The normalized signal S is plotted for all values of d, D, as a
+function of the gradient strength |G|, for all diffusion directions (x, phase direction; y, read direction; z, slice direction). The VERDICT provides a good ﬁt,
+while the ADC and IVIM models fail to represent the data.
+
+ration, cell diameters measured on histologic sections were on
+an average smaller (12.3%) than VERDICT estimates.
+Of each of the volume fraction parameters, VERDICT
+ascribed the greatest value to the intracellular space, with
+
+greater than those for LS174T by a factor of 1.4 as in histology.
+The absolute size estimates took physiologically realistic
+values, ranging from 7 to 14 mm (cell diameter of 14–28
+mm; Fig. 2). As expected, because of shrinkage during prepa-
+
+Table 1. Microstructure parameters measured by VERDICT compared with histologic (or other MRI)
+methods
+Reference
+
+Cell diameter, mm
+Intracellular volume
+Vascular volume
+Pseudo-diffusion
+(perfusion
+for reference)
+EES volume
+
+LS174T
+
+SW1222
+
+16.1  0.8a
+0.79  0.01a
+0.08b
+0.15  0.11
+mL/g/minc
+
+22.5  2a
+0.80  0.02a
+0.25b
+0.28  0.16
+mL/g/minc
+
+—
+
+—
+
+VERDICT
+Ratio
+(SW/LS)
+1.4
+1.0
+3.1
+1.9
+
+—
+
+Ratio
+(SW/LS)
+
+LS174T
+
+SW1222
+
+18.5  0.9
+0.84  0.02
+0.12  0.02
+(7.4  0.8) 
+109 m2/s
+
+25.5  1.2
+0.68  0.02
+0.22  0.01
+(11.8  0.5) 
+109 m2/s
+
+1.4
+0.8
+1.8
+1.6
+
+0.03  0.01
+
+0.19  0.01
+
+1.6
+
+NOTE: The ratio of the value of each parameter measured in each tumor type is also shown. No histologic values for the EES volume
+were available for either tumor type.
+a
+Measured from histologic sections in this study.
+b
+Folarin and colleagues (18).
+c
+Walker-Samuel and colleagues (26).
+
+www.aacrjournals.org
+
+Cancer Res; 74(7) April 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+1905
+
+Published OnlineFirst February 3, 2014; DOI: 10.1158/0008-5472.CAN-13-2511
+
+Panagiotaki et al.
+
+experiment explored the accuracy of VERDICT estimates in
+comparison with histology, satisfying aim 2.
+The comparison between the two cell lines found all VERDICT parameter estimates signiﬁcantly different (Fig. 3), distinguishing the microstructure of the two tumor types (aim
+3). Figure 3F–J displays parameter estimates for the ADC and
+the IVIM models. None of the parameter estimates from either
+the ADC or the IVIM models show signiﬁcant differences
+between the two tumor types, which highlights the additional
+discriminatory power of the VERDICT model. We also present,
+for completeness, the orientation angle estimates for all the
+samples in Supplementary Table S1.
+Parameter maps
+Figure 4 shows microstructural parameter maps for the
+volume fractions of each model component, the cell radius
+index R and the perfusion coefﬁcient P from a voxel by voxel
+ﬁtting of VERDICT. As with the whole ROI analysis, spatial
+mapping allows clear differences between the two cell lines to
+be discerned, particularly via the intracellular volume fraction,
+the radius index, and the pseudo-diffusion coefﬁcient (aim 3).
+Also they reveal similar trends to the averaged signal results
+in Fig. 3A, for all parameters. This demonstrates the ability of
+VERDICT to investigate tumors at a regional basis to reveal
+potential heterogeneity.
+
+Figure 2. A, histologic appearance (hematoxylin and eosin) of an SW1222
+tumor showing a well-differentiated structure with regular blood vessels
+around glands. Arrows indicate blood vessels; example cells are outlined
+in red. B, hematoxylin and eosin staining of a poorly differentiated LS174T
+tumor (no blood vessels present in this section).
+
+values from LS174T on an average 1.2 times greater than
+from SW1222 tumors (mean volume fraction 0.84  0.02 and
+0.68  0.02, respectively). The analysis of equivalent histologic
+sections from the tumors found a measured intracellular
+volume fraction ratio of 1.0 between the SW1222 and LS174T
+tumors (SW/LS). For the EES volumes, the estimates in SW1222
+tumors were larger than those in LS174T. VERDICT also
+distinguished between the two tumor types based on their
+vascular characteristics. Both the vascular volume fraction and
+pseudo-diffusion coefﬁcient P were signiﬁcantly greater in
+SW1222 tumors than in LS174T tumors. This characteristic
+difference between the two cell lines has been previously
+described by Folarin and colleagues (18) in a study conducted
+at the same laboratory and using the same stock of cells as used
+in this study. The absolute values for mean vascular volumes
+were 0.12 and 0.22 for LS174T and SW1222 tumors, respectively, consistent with previous measurements of 0.08 and 0.25
+(18), again, performed at the same laboratory with the same
+samples as the current study, even though the ratio for
+VERDICT was 1.8 and the measured vascular volume fraction
+ratio of the reference was 3.1. Moreover, our own measurements using arterial spin labeling MRI (26) gave perfusion
+estimates that were 1.9 times larger in SW1222 than LS174T
+tumors, and this ratio from VERDICT estimates was 1.6. This
+
+1906
+
+Cancer Res; 74(7) April 1, 2014
+
+Experiment 2: response to gemcitabine
+Flow cytometry of LS174T cells treated with 5 mmol/L
+gemcitabine for 24 hours showed a >5-fold increase in apoptosis, compared with untreated controls (15.5%  3.2% and
+2.4%  2.3%, respectively). This conﬁrms the sensitivity of the
+cell line to gemcitabine. In vitro microscopy of LS174T cell
+cultures revealed a signiﬁcant decrease in cell size from 5 hours
+following exposure to gemcitabine, relative to controls, which
+is consistent with the time course of apoptotic volume
+decrease (AVD) reported previously (Fig. 5F; ref. 27).
+For in vivo VERDICT data analysis, parameter estimation
+pre- and post-gemcitabine therapy was performed by ﬁtting
+the model to the averaged signal over the whole tumor ROI for
+each dataset. No signiﬁcant change in any parameter estimate
+was observed in a control group injected with saline solution
+(P > 0.05). The ADC and IVIM model estimates showed no
+signiﬁcant change in treatment and control groups. At 5 hours
+following gemcitabine administration, VERDICT showed a
+signiﬁcant increase in vascular volume fraction and a significant decrease in intracellular volume fraction (P < 0.05, Mann–
+Whitney paired U test) in Fig. 5A–E, identifying response to
+therapy (aim 4). Most samples also showed a small increase in
+cell radius (mean 17% in three samples) and in pseudo-diffusion coefﬁcient (mean 11.6% in three samples), but the overall
+change was not signiﬁcant.
+Histologic assessment showed no signiﬁcant increase in
+staining for caspase-3 (a marker of apoptosis) at 5 hours
+following gemcitabine administration; however, a signiﬁcant
+increase in the percentage caspase-stained cells was measured
+at 24 and 72 hours, relative to controls (Fig. 5G; control, 18% 
+3%; 24 hours, 35%  5%; 72 hours, 27%  5%; P < 0.05). No
+change in cell size was visible on histologic sections at 5 hours.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst February 3, 2014; DOI: 10.1158/0008-5472.CAN-13-2511
+
+Noninvasive Quantiﬁcation Tumor Tissue with VERDICT MRI
+
+Figure 3. Microstructure
+parameter estimates for both
+tumor types (LS174T and
+SW1222) for VERDICT (A–E),
+ADC (F) and IVIM (G–J) models.
+Boxes deﬁne the interquartile
+range, whiskers the full range,
+and thick central lines the
+median. Signiﬁcant differences
+between groups are represented
+by asterisks (P < 0.05, Mann–
+Whitney U test). Volume fraction,
+cell radius index, and pseudodiffusion estimates from the
+VERDICT model were
+signiﬁcantly different between
+the two cell lines. Conversely, the
+ADC and IVIM estimates showed
+no signiﬁcant difference between
+tumor types, where f1 is the
+volume fraction of the slow
+diffusion component and f2 of the
+fast diffusion component; d1 is
+the diffusivity and d2 is the
+pseudo-diffusivity for the
+vascular water.
+
+Discussion
+Through its use of the dispersion of endogenous tissue
+water, DW-MRI in combination with an appropriate mathematical model has a promising role as a quantitative imaging
+technique for probing complex tumor microstructure. Such
+noninvasive approaches are urgently needed in the clinic for
+
+www.aacrjournals.org
+
+grading disease and assessing response to therapy, and to
+replace invasive and often practically challenging techniques
+such as needle biopsy. Previous studies using DW-MRI in
+tumors have concentrated on the use of ADC and IVIM
+techniques and, despite numerous attempts to establish a
+correlation between tumor microstructure and their
+
+Cancer Res; 74(7) April 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+1907
+
+Published OnlineFirst February 3, 2014; DOI: 10.1158/0008-5472.CAN-13-2511
+
+Panagiotaki et al.
+
+A
+
+LS174T
+
+SW1222
+
+10
+
+10
+
+20
+
+20
+
+30
+
+30
+
+40
+
+40
+
+50
+
+50
+
+60
+
+60
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+B
+
+b=0
+
+x10–4
+6
+5
+4
+3
+2
+1
+
+10
+
+20
+
+30
+
+40
+
+50
+
+D
+
+LS174T
+
+0.9
+
+10
+
+20
+
+20
+
+30
+
+30
+
+40
+
+40
+
+0.4
+
+50
+
+50
+
+0.2
+
+60
+
+60
+10
+
+0.9
+
+1
+
+10
+
+60
+1
+
+SW1222
+
+20
+
+30
+
+40
+
+50
+
+60
+
+0.8
+0.7
+0.6
+0.5
+0.3
+0.1
+
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+0
+
+Intracellular volume fraction
+
+E
+
+x10–6
+1.4
+
+10
+
+10
+
+0.8
+
+10
+
+10
+
+1.2
+
+20
+
+20
+
+0.7
+
+20
+
+20
+
+1
+
+30
+
+30
+
+0.5
+
+30
+
+30
+
+0.8
+
+40
+
+40
+
+50
+
+50
+
+60
+
+60
+
+0.6
+
+40
+
+40
+
+0.4
+
+50
+
+50
+
+0.2
+
+0.3
+0.1
+
+60
+
+60
+10
+
+20
+
+30
+
+40
+
+50
+
+10
+
+60
+
+20
+
+30
+
+40
+
+50
+
+60
+
+0
+
+Vascular volume fraction
+
+C
+
+1
+0.9
+
+10
+
+20
+
+30
+
+40
+
+50
+
+0.6
+0.4
+0.2
+
+10
+
+60
+
+20
+
+30
+
+40
+
+50
+
+60
+
+0
+
+Cell radius
+
+F
+
+x10–8
+3
+
+10
+
+10
+
+2.5
+
+20
+
+20
+
+2
+
+0.5
+
+30
+
+30
+
+40
+
+0.4
+
+40
+
+40
+
+50
+
+50
+
+0.2
+
+50
+
+50
+
+60
+
+60
+
+0.1
+
+60
+
+60
+
+10
+
+10
+
+20
+
+20
+
+0.7
+
+30
+
+30
+
+40
+
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+0.8
+0.6
+
+0.3
+
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+0
+
+EES volume fraction
+
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+1.5
+1
+0.5
+
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+P (pseudo-diffusion)
+
+Figure 4. Microstructure parameter maps in the central slice through two example tumors, one LS174T and one SW1222. A, the b ¼ 0 images; B, the volume
+fraction of the vascular component; C, the volume fraction of the EES; D, the volume fraction of the intracellular space; E, the radius index map; and F, the
+pseudo-diffusion coefﬁcient map.
+
+parameter estimates, the results remain equivocal. VERDICT
+provides a more effective probe of microstructure than ADC
+and IVIM, signiﬁcantly enhancing DW-MRI tumor studies. We
+expect the technique to be broadly applicable in a wide variety
+of biologic tissue and adjustable for different types of tumors,
+although adjustments to the models for each individual compartment are likely to be necessary for best performance in
+different applications.
+This study investigated the human colorectal carcinoma cell
+lines SW1222 and LS174T whose markedly differing phenotypes provide a useful comparative model system. VERDICT
+provided a better ﬁt to in vivo data than both the standard ADC
+and IVIM models. The parameter estimates of VERDICT were
+broadly consistent with histology and arterial spin labeling
+MRI, performed either during the study, or taken from previously published reports in the literature from our own laboratory, using the same stock of cells as used in this study. Our
+results also showed that, unlike ADC and IVIM, VERDICT
+identiﬁed statistically signiﬁcant differences between the two
+tumor types, such as greater blood volume, pseudo-diffusion
+coefﬁcient, cell size, EES volume fraction, and lower intracellular volume fraction in SW1222 tumors, compared with
+LS174T tumors.
+
+1908
+
+Cancer Res; 74(7) April 1, 2014
+
+Some discrepancies between VERDICT estimates and our
+reference values do appear. Minor disagreement was observed
+for the intracellular volume fraction, which VERDICT predicted to be larger for LS174T than SW1222, while histology
+did not. These differences may arise for various reasons, for
+example, due to limitations of the model (discussed later),
+imperfect parameter estimates from histology [sectioning
+and/or ﬁxation can signiﬁcantly alter the original state of the
+tissue and the water it contains (28)], and bias and inaccuracy
+in the use of stereologic techniques to infer three-dimensional
+structure.
+VERDICT was also used to detect changes induced by a
+chemotoxic agent. Flow cytometry demonstrated sensitivity
+of LS174T cells to gemcitabine, with a signiﬁcant increase in
+apoptosis at 24 hours following dosing, which is in agreement
+with previous studies (29). At 5 hours following administration
+of gemcitabine, VERDICT estimates of intracellular volume
+signiﬁcantly decreased by 8.5%. An in vitro experiment also
+revealed a signiﬁcant decrease in LS174T cell size from 5 hours
+after gemcitabine dosing, while the size of control cells
+remained constant. In contrast, no change in cell size could
+be detected on histologic sections, although the tissue processing associated with histology could well mask this effect. No
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst February 3, 2014; DOI: 10.1158/0008-5472.CAN-13-2511
+
+Noninvasive Quantiﬁcation Tumor Tissue with VERDICT MRI
+
+Figure 5. Results of gemcitabine
+(GEM) response experiments (in
+vivo, in vitro, and ex vivo). A–E,
+ladder plots showing parameter
+estimates from the VERDICT
+model, pre- and 5 hours after
+administration of gemcitabine, in
+LS174T tumors. Black lines, 120
+mg/kg gemcitabine group; gray
+lines, saline-only control group.
+A signiﬁcant increase in vascular
+volume (A) and decrease in
+intracellular volume (C) were
+measured ( , P < 0.05, Mann–
+Whitney U test). No signiﬁcant
+change was measured in any of
+the parameter estimates in the
+control group. A reduction in cell
+size was detected in serial in vitro
+measurements of LS174T cell
+sizes in culture, using brightﬁeld
+microscopy, in which exposure
+to gemcitabine (5 mmol/L)
+signiﬁcantly decreased cell size
+from 5 hours onwards, relative
+to controls (F). This effect is
+consistent with AVD and occurred
+in advance of apoptosis-related
+biochemical effects.
+Representative images of tumor
+sections stained for caspase-3
+(brown) and hematoxylin and eosin
+(purple and pink) are shown in
+G. Caspase did not signiﬁcantly
+increase at 5 hours, but was
+signiﬁcantly increased at 24 hours.
+
+signiﬁcant increase in immunohistochemical staining of
+tumor sections for caspase ("executioner" proteins that are
+upregulated during apoptosis) or DNA double strand breaks
+was found at 5 hours. However, biochemical effects would not
+necessarily be expected at this early time point. Caspase
+staining was signiﬁcantly increased at 24 and 72 hours. The
+change in cell size at 5 hours following dosing identiﬁed with in
+vivo VERDICT and during in vitro experiments, before caspase
+upregulation, are consistent with previous descriptions of AVD
+(27). This raises the exciting possibility that in vivo detection of
+AVD with VERDICT could offer an early response biomarker
+that is identiﬁable before histologically measurable effects.
+Less anticipated was the signiﬁcant increase in blood volume that was also measured. Vascular effects caused by
+chemotherapy have been reported previously, such as in breast
+cancer at 2 months (30) and 7 days (31) following therapy. This
+acute effect could also potentially be due to antivascular effects
+caused by apoptosis of endothelial cells (32, 33). Gemcitabine
+has been found to induce a transient pulmonary constriction
+within 30 minutes of administration into an isolated lung
+perfusion model, which is further suggestive of a direct vas-
+
+www.aacrjournals.org
+
+cular effect (34). Thus, the increase in pseudo-diffusion measured by VERDICT could either be due to a tumor-speciﬁc
+effect or due to systemic vascular toxicity.
+The key features of the VERDICT model that enable it to ﬁt
+the data better than ADC or IVIM are: (i) signal anisotropy,
+which simple ADC and IVIM models do not capture, but
+VERDICT does (here in the vascular compartment); and (ii)
+restricted diffusion, which neither ADC nor IVIM model incorporate, but VERDICT does with the intracellular compartment.
+Signal anisotropy is evident in Fig. 1 and Supplementary Fig. S2
+from the separation of the signals with the same b value but
+different direction. However, anisotropic versions of the ADC
+model [the diffusion tensor model (21)] and the IVIM model (a
+two-tensor model), as well as an isotropic version of VERDICT
+(with an isotropic vascular compartment), are also inferior to
+the VERDICT model (Supplementary Fig. S3). Thus, both
+additional features of the VERDICT model are necessary to
+explain the signal in this application.
+Wider use and acceptance of the VERDICT technique will
+rely on its implementation in the clinic, which places limits
+on acquisition times required for good patient compliance.
+
+Cancer Res; 74(7) April 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+1909
+
+Published OnlineFirst February 3, 2014; DOI: 10.1158/0008-5472.CAN-13-2511
+
+Panagiotaki et al.
+
+The acquisition protocol of the ﬁrst DW-MRI experiment
+was purposefully designed to establish the best form for the
+model, and for supporting feasible and stable microstructure
+parameter estimation rather than for use as a working
+protocol. The reduced protocol used in the second experiment is representative, in terms of number of measurements, of what might be feasible to acquire clinically. This
+protocol returned parameter values comparable with those
+found in the ﬁrst experiment, which suggests that prospects
+are good for ﬁnding an economical protocol for clinical
+acquisitions using, for example, experiment design optimization, as in ref. 35.
+An important issue in translation of the VERDICT framework to clinical applications is the limited gradient strength
+available on clinical magnetic resonance systems, which typically have 40 to 60 mT/m rather than 400 mT/m in the animal
+scanner we used in this study. Cells in many human tumors
+have a size similar to the cells in the xenograft models we use
+here, that is, around 15 mm. The standard PGSE sequence with
+a gradient strength of 60 mT/m is sensitive to pore sizes with
+diameters of 5 to 25 mm (35, 36), although smaller pores are still
+detectable but can be identiﬁed only as "small" rather than
+sized accurately (7, 35). Thus, VERDICT may be best suited to
+applications where the cell size ﬁts within the 5 to 25 mm range.
+Limited gradient strength means that SNR is lower in data from
+clinical systems compared with animal systems. Although
+voxels are larger, which mitigates the effect to some extent,
+we can expect a reduction of the SNR of 20 in the data
+presented here to as low as 10 in clinical applications. We
+believe such data can still support estimation of the VERDICT
+parameters, as models of similar complexity, such as the
+diffusion tensor model, are routinely ﬁtted to data of similar
+SNR in human brain imaging applications. Nevertheless, applications will require careful experiment design to maximize the
+precision and utility of the recovered parameters. Once applications are established, the stability of the VERDICT parameter
+estimates across centers is also likely to be similar to that of the
+diffusion tensor model, although we would hope that through
+the use of experiment design optimization during the early
+translation phases, we can agree on common imaging protocols from the outset to minimize cross-center variation.
+New applications are likely to require some adaptation of
+the model to suit the microstructure under investigation.
+We expect that the set of compartments (vascular, EES, and
+restricted) is likely to suit a wide variety of tumors and other
+tissue types. However, the precise models for each compartment are likely to require tuning depending on the shape and
+arrangement of cellular structures. This can require signiﬁcant
+development informed from both histology and pilot MRI
+studies following a similar procedure to ref. 8, which identiﬁes
+the best model from a set of candidates for white matter tissue,
+and which gives some detail of the similar procedure that led to
+the choice of model for this study (22). Once a good candidate
+model for a clinical application is identiﬁed, widespread adoption will require further steps involving patient-by-patient
+validation, for example of parameter estimates against biopsy
+histology, which is often available from the clinical diagnostic
+routine.
+
+1910
+
+Cancer Res; 74(7) April 1, 2014
+
+Although more complex than current models for DW-MRI in
+tumors, VERDICT is still a major simpliﬁcation of real tissue
+microenvironment. For example, it is well known that tumor
+vasculature is leaky, leading to signiﬁcant exchange of water
+between the vascular and other spin populations; VERDICT
+does not currently model this effect. We speciﬁcally designed
+the model to have the minimum number of parameters
+required to ﬁt the data and found that including any additional
+parameters does not signiﬁcantly improve the ﬁt and destabilizes the model, increasing the variance of parameter estimates. The effects of exchange between compartments most
+likely manifest as changes in the estimated volume fractions of
+the three tissue components. Indeed, we observe that the
+SW1222 tumors have higher EES volume fraction than the
+LS174T tumors, which could potentially arise from its highly
+fenestrated vascular structure. Another assumption of VERDICT is that cells are perfectly spherical and nonspherical cells
+tend to cause the radius index to overestimate the actual radius
+through similar mechanisms to those discussed in ref. 7.
+Because of the inherent modeling limitations, it is important
+to remember when interpreting the parameter estimates from
+any model-based technique that the model is an approximation. Other effects not accounted for by the model may well
+inﬂuence the parameters designed to capture one particular
+effect.
+Other useful histologic features may be accessible from
+other kinds of DW-MRI measurement, warranting development of more intricate models. For example, it may be possible
+to estimate permeability or exchange time parameters via
+stimulated echo measurements, as in ref. 37, or double
+pulsed-ﬁeld gradient (dPFG) measurements, as in ref. 38. With
+varying echo and repetition times, we may be able to estimate
+compartmental relaxation (39). It may be possible to estimate
+pore-size distributions, as in refs. 6 and 8 with sufﬁcient SNR,
+for example, by spatial smoothing of the diffusion-weighted
+imaging data or enforcing spatial continuity of parameter
+estimates. Pore shapes are potentially accessible through dPFG
+(40). Oscillating gradient DW-MRI provides measurements for
+shorter diffusion times, potentially improving sensitivity to
+smaller structures (41–43).
+
+Conclusion
+This study proposes the VERDICT acquisition and mathematical model to noninvasively estimate microstructural parameters in tumors, which we evaluated in two distinct human
+colorectal carcinoma xenografts. We found that the estimated
+parameters accurately reﬂected known differences in the
+microstructure and pathophysiology of the two tumor types,
+such as cell size, pseudo-diffusion, and cell and vascular
+volume fractions. This approach could potentially provide
+new, powerful biomarkers of tumor grade and progression,
+which could lead to the establishment of techniques for
+noninvasive treatment stratiﬁcation. A key advantage of this
+technique is its ability to characterize whole-tumor microstructure, in contrast to traditional histology that samples only
+a very small region. Finally, the model detected microstructural
+changes, in particular a cell volume decrease, acutely after
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst February 3, 2014; DOI: 10.1158/0008-5472.CAN-13-2511
+
+Noninvasive Quantiﬁcation Tumor Tissue with VERDICT MRI
+
+administration of a cytotoxic agent (gemcitabine), indicating
+potential utility of the technique in the early assessment of
+response to therapy.
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+Authors' Contributions
+Conception and design: E. Panagiotaki, S. Walker-Samuel, M.F. Lythgoe, D.C.
+Alexander
+Development of methodology: E. Panagiotaki, S. Walker-Samuel, M.F. Lythgoe, D.C. Alexander
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): S. Walker-Samuel, B. Siow, V. Rajkumar, R.B. Pedley,
+M.F. Lythgoe
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): E. Panagiotaki, S. Walker-Samuel, B. Siow, V. Rajkumar, R.B. Pedley, M.F. Lythgoe, D.C. Alexander
+
+Writing, review, and/or revision of the manuscript: E. Panagiotaki,
+S. Walker-Samuel, B. Siow, S.P. Johnson, R.B. Pedley, M.F. Lythgoe, D.C. Alexander
+Administrative, technical, or material support (i.e., reporting or organizing data, constructing databases): E. Panagiotaki, S. Walker-Samuel, S.P.
+Johnson
+Study supervision: S. Walker-Samuel, M.F. Lythgoe, D.C. Alexander
+
+Grant Support
+This work was supported by Engineering and Physical Sciences Research
+Council (EPSRC) grant EP/E056938/1, EP/E007748, and EP/H046410/1, Kings
+College London & UCL CR-UK, and EPSRC Comprehensive Cancer Imaging
+Centre, in association with the MRC and Department of Health (England; C1519/
+A10331). S. Walker-Samuel is supported by the Wellcome Trust.
+The costs of publication of this article were defrayed in part by the payment of
+page charges. This article must therefore be hereby marked advertisement in
+accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+Received August 30, 2013; revised December 16, 2013; accepted January 15,
+2014; published OnlineFirst February 3, 2014.
+
+References
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+Rumboldt Z, Camacho DLA, Lake D, Welsh CT, Castillo M. Apparent
+diffusion coefﬁcients for differentiation of cerebellar tumors in children.
+Am J Neuroradiol 2006;27:1362–9.
+Afaq A, Andreou A, Koh DM. Diffusion-weighted magnetic resonance
+imaging for tumour response assessment: why, when and how?
+Cancer Imaging 2010;10:S179–88.
+Eis M, Els T, Hoehnberlage M. High resolution quantitative relaxation
+and diffusion MRI of three different experimental brain tumors in rat.
+Magn Reson Med 1995;34:835–44.
+Squillaci E, Manenti G, Cova M, Di Roma M, Miano R, Palmieri G, et al.
+Correlation of diffusion-weighted MR imaging with cellularity of renal
+tumours. Anticancer Res 2004;24:4175–9.
+Yoshikawa MI, Ohsumi S, Sugata S, Kataoka M, Takashima S, Mochizuki T, et al. Relation between cancer cellularity and apparent diffusion
+coefﬁcient values using diffusion-weighted magnetic resonance imaging in breast cancer. Radiat Med 2008;26:222–6.
+Assaf Y, Blumenfeld-Katzir T, Yovel Y, Basser PJ. AxCaliber: a method
+for measuring axon diameter distribution from diffusion MRI. Magn
+Reson Med 2008;59:1347–54.
+Alexander DC, Hubbard PL, Hall MG, Moore EA, Ptito M, Parker GJM,
+et al. Orientationally invariant indices of axon diameter and density
+from diffusion MRI. Neuroimage 2010;52:1374–89.
+Panagiotaki E, Schneider T, Siow B, Hall MG, Lythgoe MF, Alexander
+DC. Compartment models of the diffusion MR signal in brain white
+matter: a taxonomy and comparison. Neuroimage 2012;59:2241–54.
+Zhang H, Schneider T, Wheeler-Kingshott CA, Alexander DC. NODDI:
+practical in vivo neurite orientation dispersion and density imaging of
+the human brain. Neuroimage 2012;61:1000–16.
+Le Bihan D, Breton E, Lallemand D, Aubin ML, Vignaud J, Laval-Jeantet
+M. Separation of diffusion and perfusion in intravoxel incoherent
+motion MR imaging. Radiology 1988;168:497–505.
+Sigmund EE, Cho GY, Kim S, Finn M, Moccaldi M, Jensen JH, et al.
+Intravoxel incoherent motion imaging of tumor microenvironment in
+locally advanced breast cancer. Magn Reson Med 2011;65:1437–47.
+Riches SF, Hawtin K, Charles-Edwards EM, de Souza NM. Diffusionweighted imaging of the prostate and rectal wall: comparison of
+biexponential and monoexponential modelled diffusion and associated perfusion coefﬁcients. NMR Biomed 2009;22:318–25.
+Klauss M, Lemke A, Gruenberg K, Simon D, Re TJ, Wente MN, et al.
+Intravoxel incoherent motion MRI for the differentiation between mass
+forming chronic pancreatitis and pancreatic carcinoma. Invest Radiol
+2011;46:57–63.
+Chandarana H, Kang SK, Wong S, Rusinek H, Zhang JL, Arizono S, et al.
+Diffusion-weighted intravoxel incoherent motion imaging of renal tumors
+with histopathologic correlation. Invest Radiol 2012;47:688–96.
+Xu J, Does MD, Gore JC. Sensitivity of MR diffusion measurements to
+variations in intracellular structure: effects of nuclear size. Magn Reson
+Med 2009;61:828–33.
+
+www.aacrjournals.org
+
+16. Workman P, Aboagye EO, Balkwill F, Balmain A, Bruder G, Chaplin DJ,
+et al. Guidelines for the welfare and use of animals in cancer research.
+Br J Cancer 2010;102:1555–77.
+17. El Emir E, Qureshi U, Dearling JLJ, Boxer GM, Clatworthy I, Folarin AA,
+et al. Predicting response to radioimmunotherapy from the tumor
+microenvironment of colorectal carcinomas. Cancer Res 2007;67:
+11896–905.
+18. Folarin AA, Konerding MA, Timonen J, Nagl S, Pedley RB. Threedimensional analysis of tumour vascular corrosion casts using stereoimaging and micro-computed tomography. Microvasc Res 2010;80:
+89–98.
+19. Neuman CH. Spin-echo of spins diffusing in a bounded medium.
+J Chem Phys 1974;60:4508–11.
+20. Callaghan PT. Principles of nuclear magnetic resonance microscopy:
+Oxford, United Kingdom: Oxford University Press; 1993.
+21. Basser PJ, Mattiello J, Lebihan D. MR diffusion tensor spectroscopy
+and imaging. Biophys J 1994;66:259–67.
+22. Panagiotaki E, Walker-Samuel S, Siow B, Johnson P, Pedley R,
+Lythgoe MF, et al. In vivo characterisation of colorectal tumour microstructure with DW-MRI. Salt Lake City, UT: International Society for
+Magnetic Resonance in Medicine; 2013.
+23. Stejskal EO, Tanner JE. Spin diffusion measurements: spin echoes in
+the presence of a time-dependent ﬁeld gradient. J Chem Phys 1965;
+42:288.
+24. Veerman G, vanHaperen V, Vermorken JB, Noordhuis P, Braakhuis
+BJM, Pinedo HM, et al. Antitumor activity of prolonged as compared
+with bolus administration of 20 ,20 -diﬂuorodeoxycytidine in vivo
+against murine colon tumors. Cancer Chemother Pharmacol 1996;
+38:335–42.
+25. Mills R. Self-diffusion in normal and heavy water in the range 1–45. deg.
+J Phys Chem 1973;77:685–8.
+26. Walker-Samuel S, Burrell J, Ramasawmy R, Johnson P, Wells J, Siow
+B, et al. Imaging the relationship between tumour interstitial ﬂuid
+velocity and microvascular perfusion with convection MRI. Int Soc
+Magn Reson Med. 2012.
+27. Poulsen KA, Andersen EC, Hansen CF, Klausen TK, Hougaard C,
+Lambert IH, et al. Deregulation of apoptotic volume decrease and ionic
+movements in multidrug-resistant tumor cells: role of chloride channels. Am J Physiol Cell Physiol 2010;298:C14–25.
+28. Hopwood D. Cell and tissue ﬁxation, 1972–1982. Histochem J 1985;
+17:389–442.
+29. Wang H, Li M, Rinehart JJ, Zhang RW. Pretreatment with dexamethasone increases antitumor activity of carboplatin and gemcitabine in
+mice bearing human cancer xenografts: in vivo activity, pharmacokinetics, and clinical implications for cancer chemotherapy. Clin Cancer
+Res 2004;10:1633–44.
+30. Mankoff DA, Dunnwald LK, Gralow JR, Ellis GK, Schubert EK, Tseng J,
+et al. Changes in blood ﬂow and metabolism in locally advanced breast
+
+Cancer Res; 74(7) April 1, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+1911
+
+Published OnlineFirst February 3, 2014; DOI: 10.1158/0008-5472.CAN-13-2511
+
+Panagiotaki et al.
+
+31.
+
+32.
+
+33.
+
+34.
+
+35.
+
+36.
+
+1912
+
+cancer treated with neoadjuvant chemotherapy. J Nucl Med 2003;
+44:1806–14.
+Zhou C, Choe R, Shah N, Durduran T, Yu G, Durkin A, et al. Diffuse
+optical monitoring of blood ﬂow and oxygenation in human breast
+cancer during early stages of neoadjuvant chemotherapy. J Biomed
+Opt 2007;12:051903.
+Francia G, Shaked Y, Hashimoto K, Sun J, Yin M, Cesta C, et al. Lowdose metronomic oral dosing of a prodrug of gemcitabine (LY2334737)
+causes antitumor effects in the absence of inhibition of systemic
+vasculogenesis. Mol Cancer Ther 2012;11:680–9.
+Dieckmann K-P, Struss WJ, Budde U. Evidence for acute vascular
+toxicity of cisplatin-based chemotherapy in patients with germ cell
+tumour. Anticancer Res 2011;31:4501–5.
+Pages P-B, Facy O, Mordant P, Ladoire S, Magnin G, Lokiec F, et al.
+Isolated lung perfusion as an adjuvant treatment of colorectal cancer
+lung metastases: a preclinical study in a pig model. PLoS ONE 2013;8:
+e59485.
+Alexander DC. A general framework for experiment design in diffusion
+MRI and its application in measuring direct tissue-microstructure
+features. Magn Reson Med 2008;60:439–48.
+Dyrby TB, Søgaard LV, Hall MG, Ptito M, Alexander DC. Contrast and
+stability of the axon diameter index from microstructure imaging with
+diffusion MRI. Magn Reson Med 2013;70:711–21.
+
+Cancer Res; 74(7) April 1, 2014
+
+37. Stanisz GJ, Szafer A, Wright GA, Henkelman RM. An analytical model
+of restricted diffusion in bovine optic nerve. Magn Reson Med
+1997;37:103–11.
+
+€tt J, van Westen D, Brockstedt S, Lasic
+ S, Stahlberg F,
+38. Nilsson M, La
+et al. Noninvasive mapping of water diffusional exchange in the human
+brain using ﬁlter-exchange imaging. Magn Reson Med 2013;69:
+1572–80.
+39. Paran Y, Bendel P, Margalit R, Degani H. Water diffusion in the different
+microenvironments of breast cancer. NMR Biomed 2004;17:170–80.
+40. Shemesh N, Westin C-F, Cohen Y. Magnetic resonance imaging by
+synergistic diffusion–diffraction patterns. Phys Rev Lett 2012;108:
+058103.
+41. Colvin DC, Loveless ME, Does MD, Yue Z, Yankeelov TE, Gore JC.
+Earlier detection of tumor treatment response using magnetic resonance diffusion imaging with oscillating gradients. Magn Reson Imaging 2011;29:315–23.
+42. Colvin DC, Yankeelov TE, Does MD, Yue Z, Quarles C, Gore JC. New
+insights into tumor microstructure using temporal diffusion spectroscopy. Cancer Res 2008;68:5941–7.
+43. Gore JC, Xu JZ, Colvin DC, Yankeelov TE, Parsons EC, Does MD.
+Characterization of tissue structure at varying length scales
+using temporal diffusion spectroscopy. NMR Biomed 2010;23:
+745–56.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst February 3, 2014; DOI: 10.1158/0008-5472.CAN-13-2511
+
+Noninvasive Quantification of Solid Tumor Microstructure Using
+VERDICT MRI
+Eletheria Panagiotaki, Simon Walker-Samuel, Bernard Siow, et al.
+Cancer Res 2014;74:1902-1912. Published OnlineFirst February 3, 2014.
+
+Updated version
+Supplementary
+Material
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-13-2511
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2014/02/05/0008-5472.CAN-13-2511.DC1
+
+Cited articles
+
+This article cites 40 articles, 9 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/74/7/1902.full#ref-list-1
+
+E-mail alerts
+
+Sign up to receive free email-alerts related to this article or journal.
+
+Reprints and
+Subscriptions
+Permissions
+
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+

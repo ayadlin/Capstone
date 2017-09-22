@@ -1,0 +1,1849 @@
+HHS Public Access
+Author manuscript
+Author Manuscript
+
+Nature. Author manuscript; available in PMC 2014 August 20.
+Published in final edited form as:
+Nature. 2014 February 20; 506(7488): 376–381. doi:10.1038/nature12873.
+
+Genetics of rheumatoid arthritis contributes to biology and drug
+discovery
+A full list of authors and affiliations appears at the end of the article.
+
+Abstract
+Author Manuscript
+
+A major challenge in human genetics is to devise a systematic strategy to integrate diseaseassociated variants with diverse genomic and biological datasets to provide insight into disease
+
+Users may view, print, copy, download and text and data- mine the content in such documents, for the purposes of academic research,
+subject always to the full Conditions of use: http://www.nature.com/authors/editorial_policies/license.html#terms
+*
+Correspondence authors: Robert M. Plenge and Yukinori Okada, Robert M. Plenge, MD, PhD, Director, Genetics & Genomics,
+Division of Rheumatology, Immunology, and Allergy, Brigham and Women’s Hospital, Harvard Medical School, 77 Avenue Louis
+Pasteur, Suite 168, Boston, MA 02115, USA., Telephone: +1-617-525-4451, Fax: +1-617-525-4488, robert.plenge@merck.com,
+Yukinori Okada, MD, PhD, Division of Rheumatology, Immunology, and Allergy, Brigham and Women’s Hospital, Harvard Medical
+School, 77 Avenue Louis Pasteur, Suite 255, Boston, MA 02115, USA., Telephone: +1-617-525-4055, Fax: +1-617-525-4488,
+yokada@broadinstitute.org.
+73Full list of contributing authors for the RACI and GARNET consortia is provided in Supplementary Information.
+Supplementary Information is available in the online version of the paper at www.nature.com/nature.
+
+Author Manuscript
+
+Author contributions
+Y.O. carried out the primary data analyses. D.W. managed drug target gene data. G.T. conducted histone mark analysis. T.R., W.H.,
+T.E., A.M., B.E.S., P.L.D., and L.F. conducted eQTL analysis. C.T., K.I., Y.K., K.O., A.S., S.Y., G.X., E.K., and K.A.S. conducted de
+novo replication study. R.R.G., A.M., W.O., T.B., T.W.B., L.J., J.Yin, L.Y., D.S., J.Yang, P.M.V., M.A.B., and H.X. conducted in
+silico replication study. E.A.S, D.D., C.J., T.K., R.Y., and A.T. managed GWAS data. All other authors contributed to additional
+analyses and genotype and clinical data enrollments. Y.O. and R.M.P. designed the study and wrote the manuscript, with contributions
+from all authors on the final version of the manuscript.
+Summary statistics from the GWAS meta-analysis, source codes, and data sources used in this study are available at http://
+plaza.umin.ac.jp/~yokada/datasource/software.htm. Reprints and permissions information is available at www.nature.com/reprints.
+R.R.G., A.M., W.O., T.B., and T.W.B. are employees of Genentech. P.T. is an employee of GlaxoSmithKline. The senior author
+(R.M.P.) is currently employed by Merck & Company. The other authors declare no competing financial interests. Readers are
+welcome to comment on the online version of the paper.
+
+Author Manuscript
+
+Web resources
+Summary statistics from the GWAS meta-analysis, source codes, and data sources, http://plaza.umin.ac.jp/~yokada/datasource/
+software.htm
+GARNET consortium, http://www.twmu.ac.jp/IOR/garnet/home.html
+i2b2, https://www.i2b2.org/index.html
+SLEGEN, https://slegen.phs.wfubmc.edu/public/index.cfm
+1000 Genomes Project, http://www.1000genomes.org/
+minimac, http://genome.sph.umich.edu/wiki/Minimac
+mach2dat, http://www.sph.umich.edu/csg/abecasis/MACH/index.html
+Annovar, http://www.openbioinformatics.org/annovar/
+ImmVar, http://www.immvar.org/
+NIH Roadmap Epigenomics Mapping Consortium, http://www.roadmapepigenomics.org/
+GWAS catalogue, http://www.genome.gov/GWAStudies/
+COSMIC, http://cancer.sanger.ac.uk/cancergenome/projects/cosmic/
+MGI, http://www.informatics.jax.org/
+MAGENTA, http://www.broadinstitute.org/mpg/magenta/
+Ingenuity, http://www.ingenuity.com/
+BIOCARTA, http://www.biocarta.com/
+GRAIL, http://www.broadinstitute.org/mpg/grail/
+DAPPLE, http://www.broadinstitute.org/mpg/dapple/dapple.php
+R statistical software, http://www.r-project.org/
+DrugBank, http://www.drugbank.ca/
+TTD, http://bidd.nus.edu.sg/group/ttd/ttd.asp
+
+Okada et al.
+
+Page 2
+
+Author Manuscript
+Author Manuscript
+
+pathogenesis and guide drug discovery for complex traits such as rheumatoid arthritis (RA)1.
+Here, we performed a genome-wide association study (GWAS) meta-analysis in a total of
+>100,000 subjects of European and Asian ancestries (29,880 RA cases and 73,758 controls), by
+evaluating ~10 million single nucleotide polymorphisms (SNPs). We discovered 42 novel RA risk
+loci at a genome-wide level of significance, bringing the total to 1012–4. We devised an in-silico
+pipeline using established bioinformatics methods based on functional annotation5, cis-acting
+expression quantitative trait loci (cis-eQTL)6, and pathway analyses7–9 – as well as novel methods
+based on genetic overlap with human primary immunodeficiency (PID), hematological cancer
+somatic mutations and knock-out mouse phenotypes – to identify 98 biological candidate genes at
+these 101 risk loci. We demonstrate that these genes are the targets of approved therapies for RA,
+and further suggest that drugs approved for other indications may be repurposed for the treatment
+of RA. Together, this comprehensive genetic study sheds light on fundamental genes, pathways
+and cell types that contribute to RA pathogenesis, and provides empirical evidence that the
+genetics of RA can provide important information for drug discovery.
+We conducted a three-stage trans-ethnic meta-analysis (Extended Data Fig. 1). Based on the
+polygenic architecture of RA10 and shared genetic risk among different ancestry3,4, we
+hypothesized that combining GWAS of European and Asian ancestry would increase power
+to detect novel risk loci. In Stage I, we combined 22 GWAS for 19,234 cases and 61,565
+controls of European and Asian ancestry2–4. We performed trans-ethnic, European-specific,
+and Asian-specific GWAS meta-analysis by evaluating ~10 million SNPs11. Characteristics
+of the cohorts, genotyping platforms, quality control (QC) criteria are described in Extended
+Data Table 1 (overall λGC < 1.075).
+
+Author Manuscript
+
+Stage I meta-analysis identified 57 loci that satisfied a genome-wide significance threshold
+of P < 5.0×10−8, including 17 novel loci (Extended Data Fig. 2). We then conducted a twostep replication study (Stage II for in-silico and Stage III for de-novo) in 10,646 RA cases
+and 12,193 controls for the loci with P < 5.0×10−6 in Stage I. In a combined analysis of
+Stages I–III, we identified 42 novel loci with P < 5.0×10−8 in either of the trans-ethnic,
+European, or Asian meta-analyses. This increases the total number of RA risk loci to 101
+(Table 1 and Supplementary Table 1).
+
+Author Manuscript
+
+Comparison of 101 RA risk loci revealed significant correlations of risk allele frequencies
+(RAF) and odds ratios (OR) between Europeans and Asians (Extended Data Fig. 3a–c;
+Spearman’s ρ = 0.67 for RAF and 0.76 for OR; P < 1.0×10−13), although 5 loci
+demonstrated population-specific associations (P < 5.0×10−8 in one population but P > 0.05
+in the other population without overlap of 95% confidence intervals [95%CI] of OR). In the
+population-specific genetic risk model, the 100 RA risk loci outside of the major
+histocompatibility complex (MHC) region12 explained 5.5% and 4.7% of heritability in
+Europeans and Asians, respectively, with 1.6% of the heritability by the novel loci. The
+trans-ethnic genetic risk model, based on RAF from one population but OR from the other
+population, could explain the majority (>80%) of the known heritability in each population
+(4.7% for Europeans and 3.8% for Asians). These observations support our hypothesis that
+the genetic risk of RA is shared, in general, among Asians and Europeans
+
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 3
+
+Author Manuscript
+
+We assessed enrichment of 100 non-MHC RA risk loci in epigenetic chromatin marks
+(Extended Data Fig. 3d)13. Of 34 cell types investigated, we observed significant enrichment
+of RA risk alleles with trimethylation of histone H3 at lysine 4 (H3K4me3) peaks in primary
+CD4+ regulatory T cells (Treg cells; P < 1.0×10−5). For the RA risk loci enriched with Treg
+H3K4me3 peaks, we incorporated the epigenetic annotations along with trans-ethnic
+differences in patterns of linkage disequilibrium (LD) to fine-map putative causal risk alleles
+(Extended Data Fig. 3e–f).
+We found that approximately two-thirds of RA risk loci demonstrated pleiotropy with other
+human phenotypes (Extended Data Fig. 4), including immune-related diseases (e.g., vitiligo,
+primary biliary cirrhosis), inflammation-related or hematological biomarkers (e.g.,
+fibrinogen, neutrophil counts) and other complex traits (e.g., cardiovascular diseases).
+
+Author Manuscript
+
+Each of 100 non-MHC RA risk loci contains on average ~4 genes in the region of LD (in
+total 377 genes). To systematically prioritize the most likely biological candidate gene, we
+devised an in silico bioinformatics pipeline. In addition to the published methods that
+integrate data across associated loci7,8, we evaluated several biological datasets to test for
+enrichment of RA risk genes, which help to pinpoint a specific gene in each loci (Extended
+Data Fig. 5–6, Supplementary Tables 2–4).
+
+Author Manuscript
+
+We firstly conducted functional annotation of RA risk SNPs. Sixteen percent of SNPs were
+in LD with missense SNPs (r2 > 0.80; Extended Data Fig. 5a–b). The proportion of
+missense RA risk SNPs was higher compared to a set of genome-wide common SNPs
+(8.0%), and relatively much higher in the explained heritability (~26.8%). Using cis-eQTL
+data obtained from peripheral blood mononuclear cells (5,311 individuals)6 and from CD4+
+T cells and CD14+16− monocytes (212 individuals), we found that RA risk SNPs in 44 loci
+showed cis-eQTL effects (FDR-q or permutation P < 0.05; Extended Data Table 2).
+Second, we evaluated whether genes from RA risk loci overlapped with PID genes14, and
+observed significant overlap (14/194 = 7.2%, P = 1.2×10−4; Fig. 1a and Extended Data Fig.
+5c). Classification categories of PID genes showed different patterns of overlap: highest
+proportion of overlap in “immune dysregulation” (4/21 = 19.0%, P = 0.0033) but no overlap
+in “innate immunity”.
+
+Author Manuscript
+
+Third, we evaluated overlap with cancer somatic mutation genes15, under the hypothesis that
+genes with cell growth advantages may contribute to RA development. Among 444 genes
+with registered cancer somatic mutations15, we observed significant overlap with
+hematological cancers (17/251 = 6.8%, P = 1.2×10−4; Fig. 1b and Extended Data Fig. 5d),
+but not from non-hematological cancers (6/221 = 2.7%, P = 0.56).
+Fourth, we evaluated overlap with genes implicated in knockout mouse phenotypes16.
+Among the 30 categories of phenotypes16, we observed 3 categories significantly enriched
+with RA risk genes (P < 0.05/30 = 0.0017): “hematopoietic system phenotype”, “immune
+system phenotype”, and “cellular phenotype” (Extended Data Fig. 5e).
+Fifth, we conducted molecular pathway enrichment analysis (Fig. 1c and Extended Data Fig.
+5f). We observed enrichment (FDR-q < 0.05) for T cell related pathways, consistent with
+
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 4
+
+Author Manuscript
+
+cell-specific epigenetic marks, as well as enrichment for B cell and cytokine signaling
+pathways (e.g., IL-10, interferon, GM-CSF). For comparison, our previous RA GWAS
+meta-analysis2 did not identify the B cell and cytokine signaling pathways, thereby
+indicating that as more loci are discovered, further biological pathways are identified.
+Based on these new findings, we adopted the following 8 criteria to prioritize each of the
+377 genes from the 100 non-MHC RA risk loci (Fig. 2 and Extended Data Fig. 6a–c): (i)
+genes with RA risk missense variant (n = 19); (ii) cis-eQTL genes (n = 51); (iii) genes
+prioritized by PubMed text-mining7 (n = 90); (iv) genes prioritized by protein-protein
+interaction (PPI)8 (n = 63); (v) PID genes (n = 15); (vi) hematological cancer somatic
+mutation genes (n = 17); (vii) genes prioritized by associated knockout mouse phenotypes (n
+= 86); and (viii) genes prioritized by molecular pathway analysis9 (n = 35).
+
+Author Manuscript
+
+Ninety-eight genes (26.0%) had a score ≥2, which we defined as “candidate biological RA
+risk genes”. Nineteen loci included multiple biological RA risk genes (e.g., IL3 and CSF2 at
+5q31), while no biological gene was selected from 40 loci (Supplementary Table. 5).
+To provide empirical evidence of the pipeline, we evaluated relationships of the gene scores
+to independent genomic or epigenetic information. Genes with higher biological scores were
+more likely to be the nearest gene to the risk SNP (18.6% for gene score <2 and 49.0% for
+gene score ≥2; P = 2.1×10−8), and also to be included in the region where RA risk SNPs
+were overlapping with H3K4me3 Treg peaks (41.9% for gene score <2 and 57.1% for gene
+score ≥2; P = 0.034). Further, Treg cells demonstrated the largest increase in overlapping
+proportions with H3K4me3 peaks for increase of biological gene scores compared to other
+cell types (Extended Data Fig. 6d).
+
+Author Manuscript
+
+Finally, we evaluated the potential role of RA genetics in drug discovery. We hypothesized
+that if human genetics is useful for drug target validation, then it should identify existing
+approved drugs for RA. To test this “therapeutic hypothesis”1, we obtained 871 drug target
+genes corresponding to approved, clinical trial, or experimental drugs of human diseases
+(Supplementary Table 6)17,18. We evaluated whether any of the protein-products from the
+biological RA risk genes, or any genes from a direct PPI network with them (Fig. 3a), are
+the pharmacologically active targets of approved RA drugs (Extended Data Fig. 7a).
+
+Author Manuscript
+
+Twenty-seven drug target genes of approved RA drugs demonstrated significant overlap
+with 98 biological RA risk genes and 2,332 genes from the expanded PPI network (18 genes
+overlapped; 3.7-fold enrichment by permutation analysis, P < 1.0×10−5; Fig. 3b). For
+comparison, all drug target genes (regardless of disease indication) overlapped with 247
+genes, which is 1.7-fold enrichment more than expected by chance, but less than 2.2-fold
+enriched compared to overlap of the target genes of RA drugs (P = 0.0035). Examples of
+approved RA therapies identified by this analysis include tocilizumab19,20 (anti-IL6R),
+tofacitinib21 (JAK3 inhibitor), and abatacept21 (CTLA4-Ig; Fig. 3c and Extended Data Fig.
+8).
+We also assessed how approved drugs for other diseases might be connected to biological
+RA risk genes. We highlight CDK6 and CDK4, targets of three approved drugs for different
+types of cancer22 (Fig. 3d). In support for repurposing, one CDK6/CDK4 inhibitor,
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 5
+
+Author Manuscript
+
+flavopiridol, has been shown to ameliorate disease activity in animal models of RA22.
+Further, the biology is plausible, since several approved RA drugs were initially developed
+for cancer treatment and then repurposed for RA (e.g., rituximab). While further
+investigations are necessary, we propose that target genes/drugs selected by this approach
+could represent promising candidates for novel drug discovery for RA treatment.
+We note that a non-random distribution of drug-to-disease indications in the databases could
+potentially bias our results. Namely, since RA risk genes are enriched for genes with
+immune function, spurious enrichment with drug targets could occur if the majority of drug
+indications in databases were for immune-mediated diseases or immune-related target genes.
+However, such enrichment was not evident in our analysis (~11% for drug indications and
+~9% for target genes; Extended Data Fig. 7b).
+
+Author Manuscript
+
+In summary, through a comprehensive genetic study with >100,000 subjects, we identified
+42 novel RA risk loci and provided novel insight into RA pathogenesis. We particularly
+highlight the role of genetics for drug discovery. While there are anecdotal examples1,23, our
+study provides a systematic approach by which human genetic data can be efficiently
+integrated with other biological information to derive biological insights and drug discovery.
+
+Methods
+Subjects
+
+Author Manuscript
+
+Our study included 29,880 RA cases (88.1% seropositive and 9.3% seronegative for anticitrullinated peptide antibody [ACPA] or rheumatoid factor [RF], and 2.6% for unknown
+autoantibody status) and 73,758 controls. All RA cases fulfilled the 1987 criteria of the
+American College of Rheumatology for RA diagnosis24, or were diagnosed as RA by a
+professional rheumatologist. The 19,234 RA cases and 61,565 controls enrolled in the Stage
+I trans-ethnic GWAS meta-analysis were obtained from 22 studies from European and Asian
+ancestries (14,361 RA cases and 43,923 controls from 18 studies of Europeans and 4,873
+RA cases and 17,642 controls from 4 studies of Asians); BRASS2, CANADA2, EIRA2,
+NARAC12, NARAC22, WTCCC2, Rheumatoid Arthritis Consortium International for
+Immunochip (RACI)-UK4, RACI-US4, RACI-SE-E4, RACI-SE-U4, RACI-NL4, RACI-ES4,
+RACI-i2b2, ReAct, Dutch (including AMC, BeSt, LUMC, and DREAM), anti-TNF
+response to therapy collection (ACR-REF: BRAGGSS, BRAGGSS2, ERA, KI, and TEAR),
+CORRONA, Vanderbilt, 3 studies from the GARNET consortium (BioBank Japan Project3,
+Kyoto University3, and IORRA3), and Korea. Of these, GWAS data of 4,309 RA cases and
+8,700 controls from 6 studies (RACI-i2b2, ReAct, Dutch, ACR-REF, CORRONA, and
+Vanderbilt) have not been previously published.
+
+Author Manuscript
+
+The 3,708 RA cases and 5,535 controls enrolled in the Stage II in silico replication study
+were obtained from 2 studies from Europeans (2,780 RA cases and 4,700 controls from
+Genentech and SLEGEN) and Asians (928 RA cases and 835 controls from China)
+[manuscript submitted]. The 6,938 RA cases and 6,658 controls enrolled in the Stage III de
+novo replication study were obtained from 2 studies from Europeans (995 RA cases and
+1,101 controls from CANADAII2) and Asians (5,943 RA cases and 5,557 controls from
+BioBank Japan Project, Kyoto University, and IORRA3).
+
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 6
+
+Author Manuscript
+
+All subjects in the Stage I, Stage II and Stage III studies were confirmed to be independent
+through analysis of overlapping SNP markers. Any duplicate subjects were removed from
+the Stage II and Stage III replication studies, leading to slightly different sample sizes
+compared to previous studies that used these same collections2,3.
+All participants provided written informed consent for participation in the study as approved
+by the ethical committees of each of the institutional review boards. Detailed descriptions of
+the study design, participating cohorts, and the clinical characteristics of the RA cases are
+provided in detail at Extended Data Fig. 1 and Extended Data Table 1a, as well as the
+previous reports2–4.
+Genotyping, quality control, and genotype imputation of GWAS data
+
+Author Manuscript
+Author Manuscript
+
+Genotyping platforms and QC criteria of GWAS, including cutoff values for sample call
+rate, SNP call rate, MAF, and Hardy-Weinberg equilibrium (HWE) P-value, covariates in
+the analysis, and imputation reference panel information are provided for each study in
+Extended Data Table 1b. All studies were analyzed based on the same analytical protocol,
+including exclusion of closely-related subjects and outliers in terms of ancestries, as
+described elsewhere3. After applying QC criteria, whole-genome genotype imputation was
+performed using 1000 Genome Project Phase I (α) European (n = 381) and Asian (n = 286)
+data as references11. We excluded monomorphic or singleton SNPs or SNPs with deviation
+of HWE (P < 1.0×10−7) from each of the reference panels. GWAS data were split into ~300
+chunks that evenly covered whole-genome regions and additionally included 300 kbp of
+duplicated regions between neighboring chunks. Immunochip data were split into ~2,000
+chunks which included each of the targeted regions or SNPs on the array. Each chunk was
+pre-phased and imputed by using minimac (release stamp 2011-10-27). SNPs in Xchromosome were imputed for males and females separately. We excluded imputed SNPs
+which were duplicated between chunks, SNPs with minor allele frequency (MAF) < 0.005 in
+RA cases or controls, or with low imputation score (Rsq < 0.5 for genome-wide array and <
+0.7 for Immunochip) from each study. We found that imputation of Immunochip effectively
+increased the number of the available SNPs in by 7.0 fold (from ~129,000 SNPs to ~924,000
+SNPs) to cover ~12% of common SNPs (MAF > 0.05) included in the 1000 Genomes
+Project reference panel for the European ancestry11.
+Stage I trans-ethnic genome-wide meta-analysis
+
+Author Manuscript
+
+Associations of the SNPs with RA were evaluated by logistic regression models assuming
+additive effects of the allele dosages including top 5 or 10 principal components as
+covariates (if available) using mach2dat v1.0.16 (Extended Data Table 1b). Allele dosages
+of the SNPs in X chromosome were assigned as 0/1/2 for females and 0/2 for males and
+analyzed separately. Meta-analysis was performed for the trans-ethnic study (both
+Europeans and Asians), European study, and Asian study separately. The SNPs available in
+≥3 studies were evaluated in each GWAS meta-analysis, which yielded ~10 million
+autosomal and X-chromosomal SNPs. Information about the SNPs, including the coded
+alleles, was oriented to the forward strand of the NCBI build 37 reference sequence. Metaanalysis was conducted by an inverse-variance method assuming a fixed-effects model on
+the effect estimates (Beta) and the standard errors (SE) of the allele dosages using the
+
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 7
+
+Author Manuscript
+
+Java™ source code implemented by the authors25. Double GC correction was carried out
+using the inflation factor (λGC) obtained from the results of each GWAS and the GWAS
+meta-analysis25, after removing the SNPs located ±1 Mbp of known RA loci or in the MHC
+region (chromosome 6, 25–35 Mbp). While there is not yet uniform consensus on the
+application of double GC correction, we note that potential effects of double GC correction
+would not be substantial in our study because of the small values of the inflation factors in
+the GWAS meta-analysis (λGC < 1.075 and λGC_1000 < 1.005; Extended Data Table 1b).
+
+Author Manuscript
+
+As for the definition of known RA risk loci in this study, we included the loci which showed
+significant associations in one of the previous studies (P < 5.0×10−8) or which had been
+replicated in independent cohorts. We consider the locus including multiple independent
+signals of associations as a single locus, such as the MHC locus12 and TNFAIP34. Although
+6 of these 59 loci previously identified as known RA risk loci did not reach a suggestive
+level of association (defined as P < 5.0×10−6) in our Stage I meta-analysis, previous studies
+have gone on to replicate most of these associations in additional samples (Supplementary
+Table 1)2,3. Thus, the number of confirmed RA risk loci is 101 (including the MHC region).
+Stage II and Stage III replication studies
+
+Author Manuscript
+
+In silico (Stage II) and de novo (Stage III) replication studies were conducted using
+independent European and Asian subjects (Extended Data Table 1). The 146 loci that
+satisfied P < 5.0×10−6 in the Stage I trans-ethnic, European, or Asian GWAS meta-analysis
+were selected for the Stage II in silico replication study. The SNPs that demonstrated the
+most significant associations were selected from each of the loci. When the SNP was not
+available in replication datasets, a proxy SNP with the highest LD (r2 > 0.80) was
+alternatively assessed. GWAS QC, genotype imputation, association analysis were assessed
+in the same manner as in the Stage I GWAS. For the 60 loci that demonstrated suggestive
+associations in the combined result of Stage I GWAS meta-analysis and the Stage II in silico
+replication study but not included as a known RA risk locus, we calculated statistical power
+to newly achieve genome-wide significance threshold of P < 5.0×10−8 for Europeans and
+Asians separately, which were estimated based on the allele frequencies, OR, and de novo
+replication sample sizes of the populations. We then selected top 20 SNPs with the highest
+statistical power for Europeans and Asians separately (in total 32 SNPs), and conducted the
+Stage III de novo replication study. Genotyping methods, quality control, and confirmation
+of subject independence in the Stage III de novo replication study were described in the
+previous studies2,3. The combined study of the Stage I GWAS meta-analysis and the Stage
+II and III replication studies was conducted by an inverse-variance method assuming a
+fixed-effects model25.
+
+Author Manuscript
+
+Trans-ethnic and functional annotations of RA risk SNPs
+Trans-ethnic comparisons of RAF (in the reference panels), OR, and explained heritability
+were conducted using the results of the Stage I GWAS meta-analysis of Europeans and
+Asians. Correlations of RAF and OR were evaluated using Spearman’s correlation test. OR
+were defined based on minor alleles in Europeans. Explained heritability was estimated by
+applying a liability-threshold model assuming disease prevalence of 0.5%10 and using RAF
+and OR of the population(s) according to the genetic model. For population-specific genetic
+
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 8
+
+Author Manuscript
+
+risk model, RAF and OR of the same population was used. For trans-ethnic genetic risk
+model, RAF of the population but OR of the other population was used.
+Details of the overlap enrichment analysis of RA risk SNPs with H3K4me3 peaks have been
+described elsewhere13. Briefly, we evaluated whether the RA risk SNPs (outside of the
+MHC region) and SNPs in LD (r2 > 0.80) with them were enriched in overlap with
+H3K4me3 chromatin immunoprecipitation followed by sequencing (ChIP-seq) assay peaks
+of 34 cell types obtained from NIH Roadmap Epigenomics Mapping Consortium, by a
+permutation procedure with ×105 iterations
+Fine-mapping of causal risk alleles
+
+Author Manuscript
+
+For fine-mapping of the causal risk alleles, we selected the 31 RA risk loci where the risk
+SNPs yielded P < 1.0×10−3 in the Stage I GWAS meta-analysis of both Europeans and
+Asians with same directional effects of alleles (outside of the MHC region). As for finemapping using LD structure differences between the populations, we calculated average
+numbers of the SNPs in LD (r2 > 0.80) in Europeans, in Asians, in both Europeans and
+Asians, separately.
+
+Author Manuscript
+
+As for fine-mapping using H3K4me3 peaks of Treg primary cells, we firstly evaluated
+H3K4me3 peak overlap enrichment of the SNPs in LD (in Europeans and Asians) compared
+to the neighboring SNPs (±2 Mbp). We fixed the SNP positions but physically slid
+H3K4me3 peak positions by 1 kbp bins within ±2 Mbp regions of the risk SNPs, and
+calculated overlap of the SNPs in LD with H3K4me3 peaks for each sliding step, and
+evaluated the significance of overlap in the original peak positions by one-sided exact test
+assuming enrichment of overlap. For the 10 loci that demonstrated significant overlap (P <
+0.05), we calculated the average number of the SNPs which were in LD in both Europeans
+and Asians and also included in H3K4me3 peaks.
+Pleiotropy analysis
+
+Author Manuscript
+
+We downloaded phenotype-associated SNPs and phenotype information from NHGRI
+GWAS catalogue database26 on January 31, 2013. We selected significantly associated
+4,676 SNPs (P < 5.0×10−8) corresponding to 311 phenotypes (other than RA). We manually
+curated the phenotypes by combining the same but differently named phenotypes into the
+single phenotype (eg. from “Urate levels”, “Uric acid levels”, and “Renal function-related
+traits (urea)” into “Urate levels”), or splitting the merged phenotypes into the sub-categorical
+phenotypes (eg. from “White blood cell types” into “Neutrophil counts” , “Lymphocyte
+counts” , “Monocyte counts” , “Eosinophil counts” or “Basophil counts”). Lists of curated
+phenotypes and SNPs are available at http://plaza.umin.ac.jp/~yokada/datasource/
+software.htm.
+For each of the selected NHGRI SNPs and the RA risk SNPs identified by our study
+(located outside of the MHC region), we defined the genetic region based on ±25 kbp of the
+SNP or the neighboring SNP positions in moderate LD with it in Europeans or Asians (r2 >
+0.50). If multiple different SNPs with overlapping regions were registered for the same
+NHGRI phenotype, they were merged into the single region. We defined “region-based
+
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 9
+
+Author Manuscript
+
+pleiotropy” if two phenotype-associated SNPs shared part of their genetic regions or shared
+any UCSC ref gene(s) (hg19) partly overlapping with each of the regions (Extended Data
+Fig. 4a). We defined “allele-based pleiotropy” if two phenotype-associated SNPs were in
+LD in Europeans or Asians (r2 > 0.80). We defined the direction of effect as “concordant”
+with RA risk if the RA risk allele also leads to increased risk of the NHGRI disease or
+increased dosage of the quantitative trait; similarly, we defined relationships as “discordant”
+if the RA risk allele is associated with decreased risk of the NHGRI disease phenotype (or if
+the RA risk allele leads to decreased dosage of the quantitative trait).
+
+Author Manuscript
+
+We evaluated statistical significance of region-based pleiotropy of the registered phenotypes
+with RA by a permutation procedure with ×107 iterations. When one phenotype had n loci of
+which m loci were in region-based pleiotropy with RA, we obtained a null distribution of m
+by randomly selecting n SNPs from obtained NHGRI GWAS catalogue data and calculating
+number of the observed region-based pleiotropy with RA for each of the iteration steps. For
+null distribution estimation, we did not include the SNPs associated with several
+autoimmune diseases which were previously reported to share pleiotropic associations with
+RA (Crohn's disease, type 1 diabetes, multiple sclerosis, celiac disease, systemic lupus
+erythematosus, ulcerative colitis, and psoriasis)2.
+Prioritization of biological candidate genes from RA risk loci
+
+Author Manuscript
+
+For the RA risk SNPs outside of the MHC region, functional annotations were conducted by
+Annovar (hg19). The RA risk SNPs were classified if any of the SNPs in LD (r2 > 0.80) in
+Europeans or Asians were annotated in order of priority of missense (or nonsense),
+synonymous, or non-coding (with or without cis-eQTL) SNPs. We also applied this SNP
+annotation scheme to randomly selected 10,000 genome-wide common SNPs (MAF > 0.05
+in Europeans or Asians).
+We then assessed cis-eQTL effects by referring two eQTL datasets; the study for PBMC
+obtained from 5,311 European subjects6 and newly-generated cell-specific eQTL analysis
+for CD4+ T cells and CD14+16− monocytes from 212 European subjects (ImmVar project;
+Raj et al., manuscript submitted). When the RA risk SNP was not available in eQTL data
+sets, we alternatively used the results of best proxy SNPs in LD with the highest r2 value
+(>0.80). We applied the significance thresholds defined in the original studies (FDR-q <
+0.05 for PBMC eQTL and gene-based permutation P < 0.05 for cell-specific eQTL).
+
+Author Manuscript
+
+We obtained PID genes and their classification categories defined by the International Union
+of Immunological Societies (IUIS) Expert Committee14, downloaded cancer somatic
+mutation genes from the Catalogue of Somatic Mutations in Cancer (COSMIC) database15,
+and downloaded knockout mouse phenotype labels and gene information from the Mouse
+Genome Informatics (MGI) database16 on January 31, 2013 (Supplementary Table 2–5). We
+defined 377 RA risk genes included in the 100 RA risk loci (outside of the MHC region)
+according to the criteria described in the previous section (±25 kbp or r2 > 0.50), and
+evaluated overlap with PID categories, cancer phenotypes with registered somatic
+mutations, and phenotype labels of knockout mouse genes with human orthologs. Statistical
+significance of enrichment in gene overlap was assessed by a permutation procedure with
+×106 iterations. For each iteration step, we randomly selected 100 genetic loci matched for
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 10
+
+Author Manuscript
+
+number of nearby genes with those in non-MHC 100 RA risk loci. When one gene category
+had m genes overlapping with RA risk genes, we obtained a null distribution of m by
+calculating number of genes in the selected loci overlapping with RA risk genes for each
+iteration step.
+
+Author Manuscript
+
+We conducted molecular pathway enrichment analysis using MAGENTA software9 and
+adopting Ingenuity and BIOCARTA databases as pathway information resources. We
+conducted two patterns of analyses by inputting genome-wide SNP P-values of the current
+trans-ethnic meta-analysis (Stage I) and the previous meta-analysis of RA2, separately. Since
+the previous meta-analysis was conducted using imputed data based on HapMap Phase II
+panels, we re-performed the meta-analysis using the same subjects but newly imputed
+genotype data based on the 1000 Genome Project reference panel11, to make SNP coverage
+conditions identical between the meta-analyses. Significance of the molecular pathway was
+evaluated by FDR-q values obtained from ×105 iterations of permutations.
+
+Author Manuscript
+
+We scored each of the genes included in the RA risk loci (outside of the MHC region) by
+adopting the following 8 selection criteria and calculating the number of the satisfied
+criteria: (i) genes of which RA risk SNPs or any of the SNPs in LD (r2 > 0.80) with them
+were annotated as missense variants; (ii) genes of which significant cis-eQTL of either of
+PBMC, T cell, and monocyte were observed for RA risk SNPs (FDR-q < 0.05 for PBMC
+and permutation P < 0.05 for T cells and monocytes); (iii) genes prioritized by PubMed textmining using GRAIL7 with gene-based P < 0.05; (iv) genes prioritized by PPI network
+using DAPPLE8 with gene-based P < 0.05; (v) PID genes14; (vi) hematological cancer
+somatic mutation genes15; (vii) genes of which ≥2 of associated phenotype labels
+(“hematopoietic system phenotype”, “immune system phenotype”, and “cellular
+phenotype”; P < 1.0×10−4) were observed for knockout mouse16; and (viii) genes prioritized
+by molecular pathway analysis using MAGENTA9 which were included in the significantly
+enriched pathways (FDR-q < 0.05) with gene-based P < 0.05. Since these criteria showed
+weak correlations with each other (R2 < 0.26; Extended Data Fig. 6c), each gene was given
+a score based on the number of criteria that were met (scores ranging from 0–8 for each
+gene). We defined the genes with score ≥2 as “biological RA risk genes”.
+
+Author Manuscript
+
+For each gene in RA risk loci, we evaluated whether the gene was the nearest gene to the
+RA risk SNP within the risk locus, or whether the RA risk SNP (or SNPs in LD with it) of
+the gene overlapped with H3K4me3 histone peaks of cell types. Difference of proportions to
+be the nearest gene between biological RA risk genes (score ≥2) and non-biological genes
+(score <2) was evaluated by using Fisher’s exact test implemented in R statistical software
+(ver 2.15.2). Difference of proportions of the genes overlapping with Treg primary cell
+H3K4me3 peaks between biological and non-biological genes was assessed by a
+permutation procedure by shuffling the overlapping status of RA risk SNPs/loci with ×105
+iterations.
+Drug target gene enrichment analysis
+We obtained drug target genes and corresponding drug information from DrugBank17 and
+Therapeutic Targets Database (TTD)18 databases on January 31, 2013, as well as additional
+literature searches. We selected drug target genes which had pharmacological activities (for
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 11
+
+Author Manuscript
+
+the genes from DrugBank) and human orthologs, and was annotated to any of the approved,
+clinical trial, or experimental drugs (Supplementary Table 6). We manually extracted drug
+target genes annotated to approved RA drugs based on discussions with professional
+rheumatologists (Extended Data Fig. 7a). We extracted genes in direct PPI with biological
+RA risk genes by using InWeb database27. In order to take account of potential dependence
+between PPI genes and drug target genes, overlap of biological RA risk genes and genes in
+direct PPI with them with drug target genes was assessed by a permutation procedure with
+×105 iterations.
+
+Author Manuscript
+
+Let x be the set of the biological RA risk genes and genes in direct PPI with them (= nx
+genes), y be the set of genes with protein products that are the direct target of approved RA
+drugs (= ny genes), z be the set of genes with protein products that are the direct target of all
+approved drugs (= nz genes). We defined nx∩y and nx∩z as the numbers of the genes
+overlapping between x and y, and between x and z, respectively. For each of 10,000 iteration
+steps, we randomly selected a gene set of x’ including nx genes from the entire PPI network
+(= 12,735 genes). We defined nx∩y’ and nx∩z’ as the numbers of the genes overlapping
+between x’ and y, and between x’ and z, respectively. The distributions of nx∩y’, nx∩z’ and
+nx∩y’/nx∩z’ obtained from the total iterations were defined as the null distributions of nx∩y,
+nx∩z, and nx∩y/nx∩z, respectively. Fold enrichment of overlap with approved RA drug target
+genes was defined as nx∩y/m(nx∩y’), where m(t) represents mean value of the distribution of
+t. Fold enrichment of overlap with approved all drug target genes was defined as
+nx∩z/m(nx∩z’). Relative fold enrichment of overlap with RA drug target genes and with all
+drug target genes was defined as (nx∩y/nx∩z)/m(nx∩y’/nx∩z’). Significance of the enrichment
+was evaluated by one-sided permutation tests examining nx∩y, nx∩z, and nx∩y/nx∩z in their
+null distributions.
+
+Author Manuscript
+
+Supplementary Material
+Refer to Web version on PubMed Central for supplementary material.
+
+Authors
+
+Author Manuscript
+
+Yukinori Okada1,2,3,*, Di Wu1,2,3,4,5, Gosia Trynka1,2,3, Towfique Raj2,3,6, Chikashi
+Terao7,8, Katsunori Ikari9, Yuta Kochi10, Koichiro Ohmura8, Akari Suzuki10, Shinji
+Yoshida9, Robert R. Graham11, Arun Manoharan11, Ward Ortmann11, Tushar
+Bhangale11, Joshua C. Denny12,13, Robert J. Carroll12, Anne E. Eyler13, Jeffrey D.
+Greenberg14, Joel M. Kremer15, Dimitrios A. Pappas16, Lei Jiang17, Jian Yin17,
+Lingying Ye17, Ding-Feng Su18, Jian Yang19,20, Gang Xie21,22,23, Ed Keystone24,
+Harm-Jan Westra25, Tõnu Esko26,27,3, Andres Metspalu26, Xuezhong Zhou28,
+Namrata Gupta3, Daniel Mirel3, Eli A. Stahl29, Dorothée Diogo1,2,3, Jing Cui1,2,3,
+Katherine Liao1,2,3, Michael H. Guo1,3,27, Keiko Myouzen10, Takahisa Kawaguchi7,
+Marieke J.H. Coenen30, Piet L.C.M. van Riel31, Mart A.F.J. van de Laar32, HenkJan Guchelaar33, Tom W.J. Huizinga34, Philippe Dieudé35,36, Xavier Mariette37,38,
+S. Louis Bridges Jr.39, Alexandra Zhernakova25,34, Rene E.M. Toes34, Paul P.
+Tak40,41,42, Corinne Miceli-Richard43,44, So-Young Bang45, Hye-Soon Lee45, Javier
+Martin46, Miguel A. Gonzalez-Gay47, Luis Rodriguez-Rodriguez48, Solbritt
+
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 12
+
+Author Manuscript
+
+Rantapää-Dahlqvist49,50, Lisbeth Ärlestig49,50, Hyon K. Choi51,52,53, Yoichiro
+Kamatani54, Pilar Galan55, Mark Lathrop56, the RACI consortium73, the GARNET
+consortium73, Steve Eyre57,58, John Bowes57,58, Anne Barton57, Niek de Vries59,
+Larry W. Moreland60, Lindsey A. Criswell61, Elizabeth W. Karlson1, Atsuo
+Taniguchi9, Ryo Yamada62, Michiaki Kubo63, Jun S. Liu4, Sang-Cheol Bae45, Jane
+Worthington57,58, Leonid Padyukov64, Lars Klareskog64, Peter K. Gregersen65,
+Soumya Raychaudhuri1,2,3,66, Barbara E. Stranger67,68, Philip L. De Jager2,3,6,
+Lude Franke25, Peter M. Visscher19,20, Matthew A. Brown19, Hisashi Yamanaka9,
+Tsuneyo Mimori8, Atsushi Takahashi69, Huji Xu17, Timothy W. Behrens11, Katherine
+A. Siminovitch21,22,23, Shigeki Momohara9, Fumihiko Matsuda7,70,71, Kazuhiko
+Yamamoto10,72, and Robert M. Plenge1,2,3,*
+
+Affiliations
+Author Manuscript
+
+1Division
+
+Author Manuscript
+Author Manuscript
+
+of Rheumatology, Immunology, and Allergy, Brigham and Women’s
+Hospital, Harvard Medical School, Boston, MA, USA. 2Division of Genetics, Brigham
+and Women’s Hospital, Harvard Medical School, Boston, MA, USA. 3Program in
+Medical and Population Genetics, Broad Institute, Cambridge, MA, USA.
+4Department of Statistics, Harvard University, Cambridge, MA, USA. 5Centre for
+Cancer Research, Monash Institute of Medical Research, Monash University,
+Clayton, Victoria, Australia. 6Program in Translational NeuroPsychiatric Genomics,
+Institute for the Neurosciences, Department of Neurology, Brigham and Women’s
+Hospital, Boston, MA, USA. 7Center for Genomic Medicine, Kyoto University
+Graduate School of Medicine, Kyoto, Japan. 8Department of Rheumatology and
+Clinical immunology, Graduate School of Medicine, Kyoto University, Kyoto, Japan.
+9Institute of Rheumatology, Tokyo Women’s Medical University, Tokyo, Japan.
+10Laboratory for Autoimmune Diseases, Center for Integrative Medical Sciences,
+RIKEN, Yokohama, Japan. 11Immunology Biomarkers Group, Genentech, South
+San Francisco, CA, USA. 12Department of Biomedical Informatics, Vanderbilt
+University School of Medicine, Nashville, TN, USA. 13Department of Medicine,
+Vanderbilt University School of Medicine, Nashville, TN, USA. 14New York
+University Hospital for Joint Diseases, New York, NY, USA. 15Department of
+Medicine, Albany Medical Center and The Center for Rheumatology, Albany, NY,
+USA. 16Division of Rheumatology, Department of Medicine, New York, Presbyterian
+Hospital, College of Physicians and Surgeons, Columbia University, New York, NY,
+USA. 17Department of Rheumatology and Immunology, Shanghai Changzheng
+Hospital, Second Military Medical University, Shanghai 200003, China.
+18Department of Pharmacology, Second Military Medical University, Shanghai,
+200433, China 19University of Queensland Diamantina Institute, Translational
+Research Institute, Brisbane, Queensland, Australia. 20Queensland Brain Institute,
+The University of Queensland, Brisbane, Queensland, Australia. 21Samuel
+Lunenfeld Research Institute, Mount Sinai Hospital, Toronto, Canada. 22Toronto
+General Research Institute, Toronto, Canada. 23Department of Medicine, University
+of Toronto, Toronto, Canada. 24Department of Medicine, Mount Sinai Hospital and
+University of Toronto, Toronto, Canada. 25Department of Genetics, University
+Medical Center Groningen, University of Groningen, Hanzeplein 1, Groningen, the
+
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 13
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+Netherlands. 26Estonian Genome Center, University of Tartu, Riia 23b, 51010,
+Tartu, Estonia. 27Division of Endocrinology, Children’s Hospital, Boston, MA, USA.
+28School of Computer and Information Technology, Beijing Jiaotong University,
+Beijing, China. 29The Department of Psychiatry at Mount Sinai School of Medicine,
+New York, USA. 30Department of Human Genetics, Radboud University Nijmegen
+Medical Centre, Nijmegen, The Netherlands. 31Department of Rheumatology,
+Radboud University Nijmegen Medical Centre, Nijmegen, The Netherlands.
+32Department of Rheumatology and Clinical Immunology, Arthritis Center Twente,
+University Twente & Medisch Spectrum Twente, Enschede, The Netherlands.
+33Department of Clinical Pharmacy and Toxicology, Leiden University Medical
+Center, Leiden, The Netherlands. 34Department of Rheumatology, Leiden University
+Medical Centre, Leiden, The Netherlands. 35Service de Rhumatologie et INSERM
+U699 Hôpital Bichat Claude Bernard, Assistance Publique des Hôpitaux de Paris,
+Paris, France. 36Université Paris 7-Diderot, Paris, France. 37Université Paris-Sud,
+Orsay, France. 38APHP–Hôpital Bicêtre, INSERM U1012, Le Kremlin Bicêtre, Paris,
+France. 39Division of Clinical Immunology and Rheumatology, Department of
+Medicine, University of Alabama at Birmingham, Birmingham, AL, USA. 40AMC/
+University of Amsterdam, Amsterdam, the Netherlands. 41GlaxoSmithKline,
+Stevenage, U.K. 42University of Cambridge, Cambridge, U.K. 43Institut National de
+la Santé et de la Recherche Médicale (INSERM) U1012. 44Université Paris-Sud 11,
+Rhumatologie, Hôpital Bicêtre, Assistance Publique-Hôpitaux de Paris (AP-HP), Le
+Kremlin Bicêtre, France. 45Department of Rheumatology, Hanyang University
+Hospital for Rheumatic Diseases, Seoul, South Korea. 46Instituto de Parasitologia y
+Biomedicina Lopez-Neyra, CSIC, Granada, Spain. 47Department of Rheumatology,
+Hospital Marques de Valdecilla, IFIMAV, Santander, Spain. 48Hospital Clinico San
+Carlos, Madrid, Spain. 49Department of Public Health and Clinical Medicine, Umeå
+University, Umeå, Sweden. 50Department of Rheumatology, Umeå University,
+Umeå, Sweden. 51Channing Laboratory, Department of Medicine, Brigham and
+Women’s Hospital, Harvard Medical School, Boston, MA, USA. 52Section of
+Rheumatology, Boston University School of Medicine, Boston, MA, USA. 53Clinical
+Epidemiology Research and Training Unit, Boston University School of Medicine,
+Boston, MA, USA. 54Centre d’Etude du Polymorphisme Humain (CEPH), Paris,
+France. 55Université Paris 13 Sorbonne Paris Cité, UREN (Nutritional Epidemiology
+Research Unit), Inserm (U557), Inra (U1125), Cnam, Bobigny, France. 56McGill
+University and Génome Québec Innovation Centre, Montréal, Canada. 57Arthritis
+Research UK Epidemiology Unit, Centre for Musculoskeletal Research, University
+of Manchester, Manchester Academic Health Science Centre, Manchester, UK.
+58National Institute for Health Research, Manchester Musculoskeletal Biomedical
+Research Unit, Central Manchester University Hospitals National Health Service
+Foundation Trust, Manchester Academic Health Sciences Centre, Manchester, UK.
+59Department of Clinical Immunology and Rheumatology & Department of Genome
+Analysis, Academic Medical Center/University of Amsterdam, Amsterdam, The
+Netherlands. 60Division of Rheumatology and Clinical Immunology, University of
+Pittsburgh, Pittsburgh, PA, USA. 61Rosalind Russell Medical Research Center for
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 14
+
+Author Manuscript
+Author Manuscript
+
+Arthritis, Division of Rheumatology, Department of Medicine, University of California
+San Francisco, San Francisco, CA, USA. 62Unit of Statistical Genetics, Center for
+Genomic Medicine Graduate School of Medicine Kyoto University, Kyoto, Japan.
+63Laboratory for Genotyping Development, Center for Integrative Medical Sciences,
+RIKEN, Yokohama, Japan. 64Rheumatology Unit, Department of Medicine (Solna),
+Karolinska Institutet, Stockholm, Sweden. 65The Feinstein Institute for Medical
+Research, North Shore–Long Island Jewish Health System, Manhasset, NY, USA.
+66NIHR Manchester Musculoskeletal Biomedical, Research Unit, Central
+Manchester NHS Foundation Trust, Manchester Academic Health Sciences Centre,
+Manchester, UK. 67Section of Genetic Medicine, University of Chicago, Chicago, IL,
+USA. 68Institute for Genomics and Systems Biology, University of Chicago,
+Chicago, IL, USA. 69Laboratory for Statistical Analysis, Center for Integrative
+Medical Sciences, RIKEN, Yokohama, Japan. 70Core Research for Evolutional
+Science and Technology (CREST) program, Japan Science and Technology
+Agency, Kawaguchi, Saitama, Japan. 71Institut National de la Sante et de la
+Recherche Medicale (INSERM) Unite U852, Kyoto University Graduate School of
+Medicine, Kyoto, Japan. 72Department of Allergy and Rheumatology, Graduate
+School of Medicine, the University of Tokyo, Tokyo, Japan.
+
+Acknowledgements
+
+Author Manuscript
+
+R.M.P. is supported by National Institutes of Health (NIH) grants R01-AR057108, R01-AR056768, U01GM092691, and R01-AR059648 and holds a Career Award for Medical Scientists from the Burroughs Wellcome
+Fund. Y.O. is supported by a grant from the Japan Society of the Promotion of Science (JSPS). D.W. is supported
+by a grant from the Australian National Health and Medical Research Council, 1036541. G.T. is supported by the
+Rubicon grant from the Netherlands Organization for Scientific Research (NOW). A.Z. is supported by a grant
+from the Dutch Reumafonds (11-1-101) and from Rosalind Franklin Fellowship, University of Groningen, The
+Netherlands. SC.B., SY.B., and H.L. are supported by the Korea Healthcare technology R&D project, Ministry for
+Health & Welfare, Republic of Korea (A121983). J.M., M.A.G., and L.R. is funded by RETICS program, RIER,
+RD12/0009 from Instituto de Salud Carlos III, Health Ministry, Spain. S.R-D, and L.Ä.’s work is supported by the
+Medical Biobank of Northern Sweden, Umeå, Sweden. L.P. and L.K. are supported by a senior investigator grant
+from the European Research Council (ERC). M.A.B. is funded by the National Health and Medical Research
+Foundation (Australia) Senior Principal Research Fellowship, and a Queensland State Government Premier’s
+Fellowship. H.X. is funded by the National Natural Science Foundation of China (grants 30972339, 81020108029,
+and 81273283) and the Science and Technology Commission of Shanghai Municipality (grants 08XD1400400,
+11410701600, and 10JC1418400). S.M. is supported by Health and Labour Sciences Research Grants. The
+BioBank Japan Project is supported by the Ministry of Education, Culture, Sports, Science and Technology of the
+Japanese government. We thank to Kaori Akari, Drs. Katsushi Tokunaga and Nao Nishida, and all collaborators in
+the RACI and GARNET consortia for supporting the study.
+
+References
+Author Manuscript
+
+1. Plenge RM, Scolnick EM, Altshuler D. Validating therapeutic targets through human genetics. Nat
+Rev Drug Discov. 2013; 12:581–594. [PubMed: 23868113]
+2. Stahl EA, et al. Genome-wide association study meta-analysis identifies seven new rheumatoid
+arthritis risk loci. Nat Genet. 2010; 42:508–514. [PubMed: 20453842]
+3. Okada Y, et al. Meta-analysis identifies nine new loci associated with rheumatoid arthritis in the
+Japanese population. Nat Genet. 2012; 44:511–516. [PubMed: 22446963]
+4. Eyre S, et al. High-density genetic mapping identifies new susceptibility loci for rheumatoid
+arthritis. Nat Genet. 2012; 44:1336–1340. [PubMed: 23143596]
+
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 15
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Author Manuscript
+
+5. Ferreira RC, et al. Functional IL6R 358Ala Allele Impairs Classical IL-6 Receptor Signaling and
+Influences Risk of Diverse Inflammatory Diseases. PLoS Genet. 2013; 9:e1003444. [PubMed:
+23593036]
+6. Westra HJ, et al. Systematic identification of trans eQTLs as putative drivers of known disease
+associations. Nat Genet. 2013; 45:1238–1243. [PubMed: 24013639]
+7. Raychaudhuri S, et al. Identifying relationships among genomic disease regions: predicting genes at
+pathogenic SNP associations and rare deletions. PLoS Genet. 2009; 5:e1000534. [PubMed:
+19557189]
+8. Rossin EJ, et al. Proteins encoded in genomic regions associated with immune-mediated disease
+physically interact and suggest underlying biology. PLoS Genet. 2011; 7:e1001273. [PubMed:
+21249183]
+9. Segre AV, Groop L, Mootha VK, Daly MJ, Altshuler D. Common inherited variation in
+mitochondrial genes is not enriched for associations with type 2 diabetes or related glycemic traits.
+PLoS Genet. 2010; 6:e1001058. [PubMed: 20714348]
+10. Stahl EA, et al. Bayesian inference analyses of the polygenic architecture of rheumatoid arthritis.
+Nat Genet. 2012; 44:483–489. [PubMed: 22446960]
+11. 1000 Genomes Project Consortium et al. An integrated map of genetic variation from 1,092 human
+genomes. Nature. 2012; 491:56–65. [PubMed: 23128226]
+12. Raychaudhuri S, et al. Five amino acids in three HLA proteins explain most of the association
+between MHC and seropositive rheumatoid arthritis. Nat Genet. 2012; 44:291–296. [PubMed:
+22286218]
+13. Trynka G, et al. Chromatin marks identify critical cell types for fine mapping complex trait
+variants. Nat Genet. 2013; 45:124–130. [PubMed: 23263488]
+14. Parvaneh N, Casanova JL, Notarangelo LD, Conley ME. Primary immunodeficiencies: a rapidly
+evolving story. J Allergy Clin Immunol. 2013; 131:314–323. [PubMed: 23374262]
+15. Forbes SA, et al. COSMIC: mining complete cancer genomes in the Catalogue of Somatic
+Mutations in Cancer. Nucleic Acids Res. 2011; 39:D945–D950. [PubMed: 20952405]
+16. Eppig JT, Blake JA, Bult CJ, Kadin JA, Richardson JE. The Mouse Genome Database (MGD):
+comprehensive resource for genetics and genomics of the laboratory mouse. Nucleic Acids Res.
+2012; 40:D881–D886. [PubMed: 22075990]
+17. Knox C, et al. DrugBank 3.0: a comprehensive resource for ‘omics’ research on drugs. Nucleic
+Acids Res. 2011; 39:D1035–D1041. [PubMed: 21059682]
+18. Zhu F, et al. Therapeutic target database update 2012: a resource for facilitating target-oriented
+drug discovery. Nucleic Acids Res. 2012; 40:D1128–D1136. [PubMed: 21948793]
+19. Smolen JS, et al. Consensus statement on blocking the effects of interleukin-6 and in particular by
+interleukin-6 receptor inhibition in rheumatoid arthritis and other inflammatory conditions. Ann
+Rheum Dis. 2013; 72:482–492. [PubMed: 23172750]
+20. Nishimoto N, et al. Study of active controlled tocilizumab monotherapy for rheumatoid arthritis
+patients with an inadequate response to methotrexate (SATORI): significant reduction in disease
+activity and serum vascular endothelial growth factor by IL-6 receptor inhibition therapy. Mod
+Rheumatol. 2009; 19:12–19. [PubMed: 18979150]
+21. McInnes IB, Schett G. The pathogenesis of rheumatoid arthritis. N Engl J Med. 2011; 365:2205–
+2219. [PubMed: 22150039]
+22. Sekine C, et al. Successful treatment of animal models of rheumatoid arthritis with small-molecule
+cyclin-dependent kinase inhibitors. J Immunol. 2008; 180:1954–1961. [PubMed: 18209094]
+23. Sanseau P, et al. Use of genome-wide association studies for drug repositioning. Nat Biotechnol.
+2012; 30:317–320. [PubMed: 22491277]
+24. Arnett FC, et al. The American Rheumatism Association 1987 revised criteria for the classification
+of rheumatoid arthritis. Arthritis Rheum. 1988; 31:315–324. [PubMed: 3358796]
+25. Okada Y, et al. Meta-analysis identifies multiple loci associated with kidney function-related traits
+in east Asian populations. Nat Genet. 2012; 44:904–909. [PubMed: 22797727]
+26. Hindorff LA, et al. Potential etiologic and functional implications of genome-wide association loci
+for human diseases and traits. Proc Natl Acad Sci U S A. 2009; 106:9362–9367. [PubMed:
+19474294]
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 16
+
+Author Manuscript
+
+27. Lage K, et al. A human phenome-interactome network of protein complexes implicated in genetic
+disorders. Nat Biotechnol. 2007; 25:309–316. [PubMed: 17344885]
+28. Ueda H, et al. Association of the T-cell regulatory gene CTLA4 with susceptibility to autoimmune
+disease. Nature. 2003; 423:506–511. [PubMed: 12724780]
+29. Elliott P, et al. Genetic Loci associated with C-reactive protein levels and risk of coronary heart
+disease. JAMA. 2009; 302:37–48. [PubMed: 19567438]
+30. Cortes A, et al. Identification of multiple risk variants for ankylosing spondylitis through highdensity genotyping of immune-related loci. Nat Genet. 2013; 45:730–738. [PubMed: 23749187]
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 17
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Figure 1. Overlap of RA risk loci with PID, hematological cancer somatic mutation, and
+molecular pathways
+
+Author Manuscript
+
+a, Overlap of RA risk genes with PID genes, subset by PID categories (I-VIII). b, Examples
+of overlap of hematological cancer somatic mutation genes with RA risk genes. c,
+Comparisons of molecular pathway analysis results between the current trans-ethnic metaanalysis (y-axis) and the previous meta-analysis for rheumatoid arthritis (x-axis)2. Each dot
+represents a molecular pathway. Dotted line represents FDR-q = 0.05 or y = x.
+
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 18
+
+Author Manuscript
+Author Manuscript
+Author Manuscript
+Figure 2. Prioritized biological RA risk genes
+
+Author Manuscript
+
+Representative biological RA risk genes. We list the summary gene score derived from
+individual criterion (filled red box indicates criterion satisfied; 98 genes with score ≥2 out of
+377 genes included in the RA risk loci were defined as “biological candidate genes”; see
+details in Extended Data Fig. 6). Filled blue box indicates the nearest gene to the RA risk
+SNP. Filled green boxes indicate overlap with H3K4me3 peaks in immune-related cells.
+Filled purple boxes indicate overlap with drug target genes. Full results are in
+Supplementary Table 5.
+
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Okada et al.
+
+Page 19
+
+Author Manuscript
+Author Manuscript
+Figure 3. Connection of biological RA risk genes to drug targets
+
+Author Manuscript
+
+a, PPI network of biological RA risk genes and drug target genes. b, Overlap and relative
+enrichment of 98 biological RA risk genes with targets of approved RA drugs and with all
+drug target genes. Enrichment was more apparent than that from all 377 RA risk genes
+(Extended Data Fig. 7c). c, Connections between RA risk SNPs (blue), biological genes
+(purple), genes from PPI (green), and approved RA drugs (orange). Full results are in
+Extended Data Fig. 8. d, Connections between RA genes and drugs indicated for other
+diseases.
+
+Author Manuscript
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+Author Manuscript
+
+Author Manuscript
+
+Author Manuscript
+A/G
+C/T
+A/G
+C/G
+C/A
+T/C
+
+T/C
+C/T
+
+IL20RB
+CLNK
+TEC
+IRF4
+ETV7
+PPIL4
+
+PVT1
+10p14
+
+3
+4
+4
+6
+6
+6
+7
+7
+8
+8
+8
+10
+10
+10
+10
+11
+11
+11
+11
+
+rs9826828
+
+rs13142500
+
+rs2664035
+
+rs9378815
+
+rs2234067
+
+rs9373594
+
+rs67250450
+
+rs4272
+
+rs998731
+
+rs678347
+
+rs1516971
+
+rs12413578
+
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+rs793108
+
+rs2671692
+
+rs726288
+
+rs968567
+
+rs4409785
+
+chr11:107967350
+
+rs73013527
+
+C/T
+A/G
+C/T
+
+ETS1
+
+C/T
+
+FADS1-FADS2-FADS3
+
+ATM
+
+T/C
+
+SFTPD
+
+CEP57
+
+T/C
+
+GRHL2
+
+A/G
+
+TPD52
+
+WDFY4
+
+T/C
+G/A
+
+CDK6
+
+ZNF438
+
+T/C
+G/A
+
+JAZF1
+
+T/A
+G/A
+
+3
+
+EOMES
+
+3
+
+rs3806624
+
+PLCL2
+
+rs4452313
+
+G/C
+
+2
+
+rs6715284
+
+A/G
+
+2
+
+rs6732565
+CFLAR-CASP8
+
+2
+ACOXL
+
+1
+
+rs2105325
+
+rs10175798
+
+C/A
+
+1
+
+A/G
+
+T/C
+
+MTF1-INPP5B
+
+1
+
+rs227163
+
+rs28411352
+
+LBH
+
+C/T
+
+TNFRSF9
+
+LOC100506023
+
+A1/A2
+(+)
+
+Genes
+
+SNP
+
+Chr.
+
+1.09 (1.06–1.12)
+
+1.21 (1.13–1.29)
+
+1.12 (1.09–1.16)
+
+1.12 (1.07–1.16)
+
+1.14 (1.07–1.20)
+
+1.07 (1.05–1.10)
+
+1.08 (1.05–-1.10)
+
+1.20 (1.13–1.29)
+
+1.15 (1.10–1.20)
+
+1.08 (1.05–1.11)
+
+1.08 (1.05–1.11)
+
+1.10 (1.06–1.13)
+
+1.10 (1.07–1.14)
+
+1.09 (1.06–1.12)
+
+1.15 (1.10–1.20)
+
+1.09 (1.06–1.12)
+
+1.07 (1.04–1.10)
+
+1.10 (1.07–1.13)
+
+1.44 (1.28–1.61)
+
+1.08 (1.05–1.11)
+
+1.09 (1.06–1.12)
+
+1.15 (1.10–1.20)
+
+1.07 (1.05–1.10)
+
+1.08 (1.06–1.11)
+
+1.12 (1.08–1.15)
+
+1.11 (1.08–1.14)
+
+1.04 (1.02–1.06)
+
+OR (95%CI)
+
+P
+
+1.2E–10
+
+1.4E–08
+
+1.2E–11
+
+1.8E–08
+
+1.6E–05
+
+2.8E–09
+
+1.3E–09
+
+4.8E–08
+
+1.3E–10
+
+1.6E–08
+
+1.9E–08
+
+5.0E–09
+
+3.7E–09
+
+3.0E–09
+
+1.6E–09
+
+1.7E–10
+
+9.5E–08
+
+3.0E–09
+
+8.6E–10
+
+8.6E–09
+
+1.6E–10
+
+1.8E–09
+
+2.7E–08
+
+1.1E–09
+
+6.9E–13
+
+2.8E–12
+
+3.9E–04
+
+Trans-ethnic
+
+1.08 (1.05–1.11)
+
+1.21 (1.13–1.29)
+
+1.12 (1.08–1.16)
+
+1.12 (1.07–1.16)
+
+0.96 (0.86–1.06)
+
+1.06 (1.03–1.09)
+
+1.07 (1.04–1.10)
+
+1.20 (1.12–1.29)
+
+1.16 (1.11–1.21)
+
+1.10 (1.06–1.13)
+
+1.09 (1.06–1.12)
+
+1.10 (1.07–1.14)
+
+1.11 (1.07–1.14)
+
+1.07 (1.02–1.12)
+
+1.14 (1.09–1.19)
+
+1.09 (1.05–1.12)
+
+1.08 (1.05–1.11)
+
+1.10 (1.06–1.15)
+
+1.44 (1.28–1.61)
+
+1.08 (1.05–1.12)
+
+1.11 (1.08–1.15)
+
+1.15 (1.10–1.20)
+
+1.10 (1.07–-1.14)
+
+1.09 (1.06–1.12)
+
+1.12 (1.08–1.15)
+
+1.10 (1.07–1.14)
+
+1.00 (0.97–1.03)
+
+OR (95%CI)
+
+European
+
+1.0E–06
+
+1.1E–08
+
+3.6E–09
+
+1.8E–08
+
+4.1E–01
+
+2.6E–05
+
+6.1E–07
+
+7.5E–08
+
+3.2E–11
+
+7.3E–09
+
+6.6E–09
+
+1.2E–08
+
+2.6E–09
+
+6.5E–03
+
+4.1E–08
+
+1.4E–07
+
+3.3E–08
+
+2.4E–06
+
+8.7E–10
+
+2.8E–08
+
+5.2E–11
+
+2.5E–09
+
+9.4E–09
+
+4.2E–08
+
+3.3E–11
+
+5.9E–09
+
+9.3E–01
+
+P
+
+Asian
+
+1.14 (1.08–1.21)
+
+-
+
+1.16 (1.07–1.27)
+
+-
+
+1.22 (1.14–1.31)
+
+1.10 (1.05–1.14)
+
+1.09 (1.04–1.14)
+
+-
+
+-
+
+1.03 (0.98–1.10)
+
+1.02 (0.96–1.10)
+
+1.06 (0.98–1.15)
+
+1.02 (0.84–1.23)
+
+1.11 (1.07–1.15)
+
+1.22 (1.06–1.41)
+
+1.10 (1.04–1.15)
+
+1.03 (0.97–1.08)
+
+1.10 (1.04–1.15)
+
+-
+
+1.06 (0.99–1.14)
+
+1.04 (0.99–1.09)
+
+-
+
+1.04 (1.00–1.08)
+
+1.07 (1.02–1.13)
+
+1.13 (1.04–1.23)
+
+1.12 (1.06–1.19)
+
+1.11 (1.08–1.16)
+
+OR (95%CI)
+
+Novel rheumatoid arthritis risk loci identified by trans-ethnic GWAS meta-analysis in >100,000 subjects.
+
+4.1E–06
+
+-
+
+4.3E–04
+
+-
+
+8.8E–09
+
+9.9E–06
+
+4.4E–04
+
+-
+
+-
+
+2.6E–01
+
+4.9E–01
+
+1.3E–01
+
+8.5E–01
+
+4.8E–08
+
+7.0E–03
+
+2.3E–04
+
+3.3E–01
+
+2.8E–04
+
+-
+
+1.0E–01
+
+9.2E–02
+
+-
+
+4.0E–02
+
+6.4E–03
+
+5.2E–03
+
+7.8E–05
+
+3.1E–09
+
+P
+
+Author Manuscript
+
+Table 1
+Okada et al.
+Page 20
+
+14
+14
+16
+17
+17
+18
+19
+21
+21
+22
+22
+X
+
+rs3783782
+
+rs1950897
+
+rs4780401
+
+rs72634030
+
+rs1877030
+
+rs2469434
+
+chr19:10771941
+
+rs73194058
+
+rs1893592
+
+rs11089637
+
+rs909685
+
+chrX:78464616
+
+A/C
+
+IFNGR2
+UBASH3A
+
+1.11 (1.07–1.15)
+
+1.13 (1.10–1.16)
+
+1.08 (1.05–1.11)
+
+1.11 (1.08–1.14)
+
+1.08 (1.05–1.12)
+
+1.47 (1.30–1.67)
+
+1.07 (1.05–1.10)
+
+1.09 (1.06–1.12)
+
+1.12 (1.08–1.17)
+
+1.07 (1.05–1.10)
+
+1.10 (1.07–1.13)
+
+1.14 (1.09–1.18)
+
+1.10 (1.07–1.13)
+
+1.09 (1.06–1.13)
+
+1.09 (1.06–1.12)
+
+OR (95%CI)
+
+P
+
+3.5E–08
+
+1.4E–16
+
+2.1E–09
+
+7.2E–12
+
+1.2E-06
+
+8.6E–10
+
+8.9E–10
+
+1.9E–08
+
+1.5E–09
+
+4.1E–08
+
+8.2E–11
+
+2.2E–09
+
+1.6E–12
+
+6.8E–09
+
+1.1E–10
+
+Trans-ethnic
+
+1.16 (0.78–1.75)
+
+1.11 (1.08–1.15)
+
+1.10 (1.06–1.15)
+
+1.11 (1.07–1.15)
+
+1.13 (1.08–1.18)
+
+1.47 (1.30–1.67)
+
+1.05 (1.02–1.08)
+
+1.09 (1.05–1.13)
+
+1.12 (1.06–1.19)
+
+1.09 (1.06–1.13)
+
+1.09 (1.06–1.12)
+
+1.12 (0.96–-1.31)
+
+1.11 (1.07–1.14)
+
+1.09 (1.06–1.13)
+
+1.09 (1.06–1.12)
+
+OR (95%CI)
+
+European
+
+4.6E–01
+
+6.4E–12
+
+2.0E–07
+
+9.8E–09
+
+2.6E–08
+
+8.8E–10
+
+6.7E–04
+
+1.3E–05
+
+2.9E–05
+
+8.7E–09
+
+5.0E–08
+
+1.4E–01
+
+2.8E–11
+
+6.9E–09
+
+2.1E–08
+
+P
+
+1.11 (1.07–1.15)
+
+1.23 (1.14–1.33)
+
+1.06 (1.02–1.10)
+
+1.11 (1.05–1.18)
+
+1.03 (0.98–1.08)
+
+-
+
+1.11 (1.07–1.15)
+
+1.09 (1.04–1.14)
+
+1.12 (1.07–1.18)
+
+1.03 (0.98–1.08)
+
+1.16 (1.08–1.25)
+
+1.14 (1.09–1.19)
+
+1.08 (1.02–1.14)
+
+-
+
+1.10 (1.04–1.17)
+
+OR (95%CI)
+
+Asian
+
+3.6E–08
+
+2.0E–07
+
+8.9E–04
+
+1.3E–04
+
+2.9E–01
+
+-
+
+1.2E–08
+
+3.2E–04
+
+9.6E–06
+
+2.5E–01
+
+1.1E–04
+
+4.4E–09
+
+1.0E–02
+
+-
+
+1.1E–03
+
+P
+
+Chr., chromosome; freq., frequency; EUR, European; ASN, Asian; OR, odds ratio; 95%CI, 95% confidence interval; GWAS, genome-wide association study.
+
+ancestry are indicated. Association results with P < 5.0×10−8 are highlighted in bold. SNP IDs, positions, and alleles are based on positive strand of NCBI build 37. A1 represent risk allele of rheumatoid
+arthritis. Full results of the studies are indicated in Supplementary Table 1.
+
+SNPs newly associated with P < 5.0×10−8 in the combined study of the Stage I GWAS meta-analysis and the Stage II and III replication studies of trans-ethnic (Europeans and Asians), European, or Asian
+
+A/C
+
+C/A
+
+ILF3
+
+P2RY10
+
+C/T
+
+CD226
+
+C/T
+
+C/T
+
+MED1
+
+A/T
+
+C/T
+
+C1QBP
+
+SYNGR1
+
+A/C
+
+TXNDC11
+
+UBE2L3-YDJC
+
+T/C
+T/G
+
+RAD51B
+
+C/T
+
+13
+
+rs9603616
+A/G
+
+12
+
+PRKCH
+
+G/A
+
+SH2B3-PTPN11
+
+12
+
+rs773125
+
+rs10774624
+COG6
+
+A/G
+
+CDK2
+
+Author Manuscript
+A1/A2
+(+)
+
+Author Manuscript
+Genes
+
+Author Manuscript
+
+Chr.
+
+Author Manuscript
+
+SNP
+
+Okada et al.
+Page 21
+
+Nature. Author manuscript; available in PMC 2014 August 20.
+
+

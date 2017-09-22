@@ -1,0 +1,1324 @@
+Published OnlineFirst December 26, 2013; DOI: 10.1158/0008-5472.CAN-13-1481
+
+Cancer
+Research
+
+Molecular and Cellular Pathobiology
+
+Identiﬁcation of Alternative Splicing Events Regulated by the
+Oncogenic Factor SRSF1 in Lung Cancer
+Fernando J. de Miguel1, Ravi D. Sharma4, María J. Pajares1,2, Luis M. Montuenga1,2,
+Angel Rubio4, and Ruben Pio1,3
+
+Abstract
+Abnormal alternative splicing has been associated with cancer. Genome-wide microarrays can be used to
+detect differential splicing events. In this study, we have developed ExonPointer, an algorithm that uses data from
+exon and junction probes to identify annotated cassette exons. We used the algorithm to proﬁle differential
+splicing events in lung adenocarcinoma A549 cells after downregulation of the oncogenic serine/arginine-rich
+splicing factor 1 (SRSF1). Data were generated using two different microarray platforms. The PCR-based
+validation rate of the top 20 ranked genes was 60% and 100%. Functional enrichment analyses found a substantial number of splicing events in genes related to RNA metabolism. These analyses also identiﬁed genes
+associated with cancer and developmental and hereditary disorders, as well as biologic processes such as cell
+division, apoptosis, and proliferation. Most of the top 20 ranked genes were validated in other adenocarcinoma
+and squamous cell lung cancer cells, with validation rates of 80% to 95% and 70% to 75%, respectively. Moreover,
+the analysis allowed us to identify four genes, ATP11C, IQCB1, TUBD1, and proline-rich coiled-coil 2C (PRRC2C),
+with a signiﬁcantly different pattern of alternative splicing in primary non–small cell lung tumors compared with
+normal lung tissue. In the case of PRRC2C, SRSF1 downregulation led to the skipping of an exon overexpressed in
+primary lung tumors. Speciﬁc siRNA downregulation of the exon-containing variant signiﬁcantly reduced cell
+growth. In conclusion, using a novel analytical tool, we have identiﬁed new splicing events regulated by the
+oncogenic splicing factor SRSF1 in lung cancer. Cancer Res; 74(4); 1105–15. 2013 AACR.
+
+Introduction
+Alternative splicing is the process by which different mRNA
+isoforms are processed from a single primary transcript. In
+humans, estimates indicate that as many as 95% of multiexonic
+genes are alternatively spliced (1). Cassette exon, in which an
+exon is either retained or spliced out of the transcript, is the
+most common alternative splicing event in mammals, and
+accounts for approximately half of all events (2–4). Alternative
+splicing has an essential role in the regulation of cell homeostasis. When this process becomes deregulated it can lead to
+pathologic conditions such as cancer (5–8). Deregulation of
+splicing is often associated with an abnormal expression
+
+Authors' Afﬁliations: 1Division of Oncology, Center for Applied Medical
+Research (CIMA); Departments of 2Histology and Pathology and 3Biochemistry and Genetics, Schools of Science and Medicine, University of
+Navarra, Pamplona; and 4CEIT and TECNUN, University of Navarra, San
+Sebastian, Spain
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+F.J. de Miguel and R.D. Sharma contributed equally to this work.
+Corresponding Authors: Luis M. Montuenga, CIMA Building, Pio XII
+Avenue 55, 31008 Pamplona, Spain. Phone: 34-948-194700; Fax: 34948-194714; E-mail: lmontuenga@unav.es, or Angel Rubio, CEIT, Paseo
+Mikeletegi 48, San Sebastian, Spain. Phone: 34-943-212800; Fax: 34-943213076; E-mail: arubio@ceit.es
+doi: 10.1158/0008-5472.CAN-13-1481
+2013 American Association for Cancer Research.
+
+pattern of splicing factors (9). One of these factors is serine/
+arginine-rich splicing factor 1 (SRSF1). This molecule is a
+member of the serine/arginine-rich protein family, which is
+involved in constitutive and alternative splicing (10). The
+SRSF1 protein contains 2 RNA recognition motives (RRM) at
+the N-terminal and one arginine/serine rich domain at the Cterminal. The arginine/serine rich domain mediates protein–
+protein interactions in the spliceosome assembly (11). The
+SRSF1 protein is also implicated in other functions, such as
+nonsense-mediated RNA decay, translation and RNA transport, genome stability, and senescence (12, 13). The expression
+of SRSF1 is upregulated in several human neoplasias and
+participates in the establishment and maintenance of a transformed phenotype (14, 15). Consequently, the study of the
+alternative splicing events regulated by this factor is of particular interest.
+A number of genome-wide array approaches have been
+developed to study changes in alternative splicing (16). These
+arrays contain probes in exons (exon arrays), probes along the
+whole genome (tiling arrays), or probes in exons and junctions
+(junction arrays). The characteristics of the splicing arrays
+developed to date are summarized in Supplementary Table S1.
+The analytical process for the evaluation of differential splicing
+events is a key aspect to consider when using these arrays. A
+serious limitation of exon arrays is that the exclusion of an exon
+must be inferred by the absence of a signal. In contrast, a
+microarray design that includes junction probes indicates the
+exclusion of an exon by the hybridization of probes to the
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+1105
+
+Published OnlineFirst December 26, 2013; DOI: 10.1158/0008-5472.CAN-13-1481
+
+de Miguel et al.
+
+skipping junction. Consequently, the current trend is to work
+with arrays that include probes in annotated junctions. Unfortunately, there are very few algorithms that take advantage of
+the redundancy provided by junction probes (17–25).
+In this study we have developed an algorithm, named
+ExonPointer, which combines data from exon and junction
+probes and was optimized to identify annotated cassette
+exons. We used the algorithm to identify differential alternative
+cassette events in lung adenocarcinoma A549 cells after the
+downregulation of SRSF1. Expression data were generated
+using 2 platforms: Oryzon custom arrays (Agilent technology)
+and GeneSplice arrays (Affymetrix technology). Validation
+rates were 60% and 100% for Agilent and Affymetrix platforms,
+respectively, which demonstrate the effectiveness of this procedure in ﬁnding alternative splicing events. In addition, most
+of these events were validated in other lung cancer cell lines
+and, more importantly, allowed us to identify genes with
+signiﬁcant differences in splicing between primary lung
+tumors and normal lung tissue. Finally, functional studies
+demonstrated the implication of one splicing isoform of proline-rich coiled-coil 2C (PRRC2C), one of the SRSF1-regulated
+genes, in cell proliferation. In conclusion, we have developed a
+useful tool for the analysis of alternative splicing and have
+identiﬁed new splicing events regulated by the oncogenic
+splicing factor SRSF1.
+
+Materials and Methods
+Biological material
+Primary lung tumors were obtained from patients with non–
+small cell lung cancer who had been treated with resectional
+surgery at the Clinica Universidad de Navarra (Pamplona,
+Spain). Clinicopathologic characteristics of the patients are
+shown in Supplementary Table S2. Nontumor lung specimens
+were sampled at a distance from the tumor to guarantee that
+the tissues were free from cancerous cells. Tissue samples were
+immediately frozen in liquid nitrogen and stored at 80 C
+until extraction of RNA. Samples were included in the study if
+greater than 70% of their cells were tumor cells. The study
+protocol was approved by the Institutional Ethical Committee
+and all patients gave written informed consent. RNA extraction
+was performed as previously described (26).
+Lung adenocarcinoma cell lines A549, HCC827, and H2087
+were obtained from the American Type Culture Collection.
+Squamous cell carcinoma cell lines HCC95 and LUDLU-1 were
+obtained from the Korean Cell Line Bank and the European
+Collection of Cell Cultures, respectively. Cell lines were authenticated by analysis of their genetic alterations. Cells were grown
+in RPMI supplemented with 2 mmol/L glutamine, 10% Fetalclone (Thermo), 100 U/mL of penicillin and 100 mg/mL of
+streptomycin (Invitrogen).
+Downregulation of SRSF1 and expression analysis
+Cells were transfected with a 30 nmol/L solution of a
+nontargeting scramble siRNA (50 -ACGACACGCAGGTCGTCATtt-30 ) or an SRSF1 siRNA (50 -TGAAGCAGGTGATGTATGTtt-30 ) using lipofectamine as described by the manufacturer (Invitrogen). Cells were incubated for 48 hours after
+transfection. Total RNA was extracted using the RNA/DNA
+
+1106
+
+Cancer Res; 74(4) February 15, 2014
+
+Mini Kit (Qiagen). The efﬁciency of the SRSF1 siRNA knockdown was determined by real-time PCR, using SYBR Green
+PCR Master Mix and the following primers: 50 -GGAACAACGATTGCCGCATCTA-30 (forward); 50 -CTTGAGGTCGGATGTCGCGGATA-30 (reverse).
+Microarray hybridization
+Samples from 3 independent experiments using lipofectamine alone, scramble siRNA, or SRSF1 siRNA (i.e., a total of nine
+samples) were labeled and hybridized in 2 different platforms:
+Agilent custom-built microarrays from Oryzon Genomics and
+Affymetrix GeneSplice arrays. The former were developed by
+Oryzon Genomics in collaboration with our group, and have
+been previously described (27). These arrays contain exon
+probes and thermodynamically balanced junction probes. The
+noncommercial Human GeneSplice Arrays were obtained
+through a Technology Access program with Affymetrix. These
+high-density arrays contain an average of 8 probes per probeset. RNA labeling and hybridization on the Agilent microarrays
+were performed by Oryzon Genomics, as previously described
+(27). Labeling and hybridization on the Affymetrix GeneSplice
+microarrays were performed by the Proteomics, Genomics and
+Bioinformatics Core Facility of the Center for Applied Medical
+Research (CIMA) following manufacturer's instructions. The
+microarray data from this study have been submitted to Gene
+Expression Omnibus (http://www.ncbi.nlm.nih.gov/geo) under
+accession number GSE53410.
+ExonPointer algorithm
+The ExonPointer algorithm was used to process and analyze
+the microarray data. The aim in the design of ExonPointer was
+to identify differential alternative splicing, i.e. genes that show
+different relative concentrations of their isoforms, under different conditions. Fig. 1 illustrates the summarized steps of
+ExonPointer. The mathematical deﬁnition of differential alternative splicing and the analytical steps are described in detail
+in Supplementary Methods. Probes that did not indicate
+expression levels greater than the background noise were
+excluded from the analysis. Short genes with no more than
+2 exons (i.e., no more than 3 probe sets) were also excluded.
+Supplementary Fig. S1 shows a representative example of the
+report generated by the algorithm, which points to the differential splicing event in a given gene.
+
+Downregulation, expression analysis, and sequencing of
+PRRC2C
+Cells were cultured and transfected as described in section
+"Down-regulation of SRSF1 and expression analysis." The
+siRNA sequences were as follows: PRRC2C 50 -CGAACAGCCAGUCCAGCAA[dA][dA]-30 ; PRRC2C-L (long) 50 -GGAAGAGGACUCAGCCACA[dA][dA]-30 ; PRRC2C-S (short) 50 -GCACCCCAGGCAAAGCAGA[dA][dA]-30 . Primers used to quantify and
+sequence the PRRC2C-L variant were: 50 -GTCCAGCAAAATGAACAGCA-30 (forward) and 50 -GAGTCCTCTTCCCACAGCTCTCT-30 (reverse). Primers used to quantify and sequence the
+PRRC2C-S variant were: 50 -ACCCCAGGCAAAGCAGAG-30 (forward) and 50 -GATCGCCTGAGGTTTGATTG-30 (reverse). The
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst December 26, 2013; DOI: 10.1158/0008-5472.CAN-13-1481
+
+Identiﬁcation of SRSF1-Regulated Splicing Events
+
+Figure 1. A, representation of the
+different steps of the ExonPointer
+algorithm. In the case of Affymetrix,
+cel ﬁles are processed at a low level
+using standard Affymetrix methods
+(background removal and quantile
+normalization). The Oryzon arrays
+are preprocessed (background
+correction and normalization) using
+Oryzon's proprietary methods.
+Once all the probe signals are
+known, the residuals of the median
+polish algorithm are used as the
+input into a linear model. The linear
+model provides a P value for each
+probe. B, ExonPointer analysis
+of a particular gene. In the lower
+part of the ﬁgure, it can be
+observed that the residuals of the
+probes that hit an exon and its
+ﬂanking junctions are positive and
+the residuals of the skipping
+junction are negative. The linear
+model computes the P values that
+correspond to these residuals. The
+values are close to zero for the exon
+and ﬂanking probes and close to
+one for the skipping junction. The
+overall P value is computed using
+the Irwin–Hall distribution. These P
+values are summarized taking into
+account the possible inclusion or
+retention of the analyzed exon.
+
+PCR products were sequenced in the Proteomics, Genomics,
+and Bioinformatics Core Facility of CIMA.
+MTT and clonogenic assays
+Cells were cultured and transfected as described in section "Downregulation of SRSF1 and expression analysis."
+Six hours after transfection, cells were trypsinized and
+seeded in 96-well plates at 1,500 cells/well for MTT assays.
+Thiazolyl Blue Tetrazolium Bromide (MTT; Sigma) was
+added at 0, 24, 48, 72, 96, and 120 hours, at a ﬁnal concentration of 0.5 mg/mL. After 4 hours of incubation, 100 mL
+of solubilization solution (10% sodium dodecyl sulfate, 50%
+N,N-dimethylformamide, pH 4.7) was added. Absorbance
+was measured at 540 nm using 690 nm as a reference. For
+clonogenic assays, 6 hours after transfection, cells were
+trypsinized and seeded in 6-well plates at 300 cells/well.
+Culture medium was replaced after 1 week of incubation and
+removed after 2 weeks. Clones were ﬁxed with 1 mL of
+formaldehyde/well for 30 minutes, dyed with few drops
+of crystal violet for 10 minutes, and counted.
+
+www.aacrjournals.org
+
+Cell-cycle and apoptosis analyses
+Cells were cultured and transfected as described in section
+"Downregulation of SRSF1 and expression analysis," and the
+medium was replaced after 6 hours. At the indicated times,
+suspended and attached cells were harvested. For apoptosis
+analysis, cells were washed and stained with 10 mg/mL of
+propidium iodide (Sigma) and 5 mL of Annexin V (BD Biosciences). For cell-cycle analysis, cells were ﬁxed with 70%
+ethanol for at least 1 hour at 4 C and treated with 0.2 mg/mL
+RNase A (Sigma) for 1 hour at 37 C. Cells were then stained with
+10 mg/mL of propidium iodide (Sigma). All samples were
+analyzed on a FACSCalibur Flow cytometer (Becton Dickinson).
+Percentages of cells in sub-G0–G1, G0–G1, S, and G2–M, for cellcycle analysis, or in quadrants, for apoptosis analysis, were
+determined with FlowJo 9.3 software (Tree Star).
+Enrichment analyses
+The DAVID Functional Annotation Clustering application was used to create clusters in accordance with annotations from several databases (28). The DAVID Functional
+
+Cancer Res; 74(4) February 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+1107
+
+Published OnlineFirst December 26, 2013; DOI: 10.1158/0008-5472.CAN-13-1481
+
+de Miguel et al.
+
+Annotation tool was run to obtain P values for enriched
+annotation terms. Ingenuity Pathway Analysis from Ingenuity
+Systems (http://www.ingenuity.com/products/ipa) was used
+to perform enrichment analyses of networks and functions.
+Whole genome databases of the respective tools were used as
+a reference for the analyses.
+Statistical analyses
+The statistical analysis for the selection of signiﬁcant alternative splicing events is detailed in the description of the
+ExonPointer algorithm (Supplementary Methods). Differences
+in the expression of splice variants in cell lines were assessed by
+the Student t test. Ratios of expression in primary tumors and
+normal tissues were tested for normality with the Shapiro–
+Wilk test. The Wilcoxon signed rank test was used to determine
+the statistical signiﬁcance of the differences between these
+two groups. For MTT assays, the natural logarithm was calculated for each growth curve to obtain a straight line. Linear
+regression was performed for each condition and the slopes
+were compared with the Student t test. Clonogenic assays were
+analyzed with the Student t test. All tests were performed in
+STATA/IC 12.1 software (StataCorp).
+
+Results
+We developed the ExonPointer algorithm to identify
+genome-wide differential alternative splicing events in A549
+cells in which the levels of the oncogenic SRSF1 were downregulated with a speciﬁc siRNA. The efﬁciency of downregulation was assessed by real-time PCR (Supplementary Fig.
+S2A). The splicing pattern of caspase-9 (CASP9) was used as
+a positive control to conﬁrm the validity of our model.
+Caspase-9 has two splice variants that differ in four consecutive exons, proapoptotic caspase-9a, and anti-apoptotic
+caspase-9b. It has been reported that, in A549 cells, SRSF1
+regulates the inclusion (CASP9a) or exclusion (CASP9b) of
+this exon cassette (29). In accordance with the literature,
+downregulation of SRSF1 induced a marked increase of the
+CASP9b variant (Supplementary Fig. S2B).
+Microarray data were obtained from three independent
+experiments using two different platforms: Agilent custombuilt microarrays from Oryzon Genomics and Affymetrix GeneSplice arrays. The ExonPointer algorithm was used to process
+and analyze the results. The number of cassette events, after
+the application of the selection criteria, was 24,205 for Oryzon
+arrays and 18,583 for GeneSplice arrays. The total number of
+genes was 4,062 and 7,326 for Oryzon and GeneSplice
+arrays, respectively. Of these, 2,300 were common to both
+platforms. For each platform, events were ranked in accordance with their P values. For validation, we selected the top 20
+events ranked by ExonPointer in the two microarray platforms.
+Only one gene, PPIP5K2, was common to both shortlists. For
+each splicing event, a PCR was run with primers designed in the
+exons that ﬂank the exon of interest, and the ratio between the
+higher (exon inclusion) and lower band (exon exclusion) was
+calculated. Twelve of the 20 genes (60% validation rate) selected by ExonPointer from the Oryzon platform data showed
+differential alternative splicing (Supplementary Fig. S3 and
+Table S3). The other 8 genes showed differences in expression
+
+1108
+
+Cancer Res; 74(4) February 15, 2014
+
+or no observable changes (data not shown). Results were
+consistent in all genes, that is the validated events were found
+in all the triplicates, and, conversely, the events that were not
+validated did not appear in any of the samples. Among the
+validated genes, SRSF1 downregulation resulted in exon exclusion in 9 genes (NPRL3, PQBP1, DHPS, CHD3, MYOB1, RABL2B,
+TMPO, MATR3, and CXorf26) and exon inclusion in 3 genes
+(FN1, WNK1, and PP1P5K2). These changes were conﬁrmed
+using samples from two independent experiments with A549
+cells transfected under the same experimental conditions as
+those used in the microarray studies (data not shown).
+The same validation strategy was followed for the genes
+selected by ExonPointer from the GeneSplice platform data.
+Remarkably, 100% of the top 20 events were validated (Table 1
+and Fig. 2) and the results were fully consistent among triplicates. Exclusion was again the predominant effect of SRSF1
+downregulation, with 15 genes that showed an increase in exon
+exclusion (ATP11C, SSH1, ABCD4, FIP1L1, TFDP1, IQCB1,
+MPV17L, NAGK, RAD51C, PARPBP, ASAP1, EWSR1, TUBD1,
+PRRC2C, and USP8), and only 5 genes that showed an increase
+in exon retention (MYCBP2, MORF4L2, PPIP5K2, MAPT, and
+SETD5). These changes were conﬁrmed using samples from the
+2 independent experiments (data not shown). To establish a
+reliable limit for the validity of the ranked list generated by
+ExonPointer using GeneSplice microarray data, we validated
+20 genes placed at lower positions in the list. We chose the
+genes listed at positions 96–100, 146–150, 196–200, and 246–
+250. We were able to validate 12 of these 20 genes (Supplementary Fig. S4). Exon exclusion was again the most frequent
+event caused by SRSF1 downregulation (11 of the 12 validated
+events). The top 250 events selected by ExonPointer were used
+to perform an enrichment analysis of the cellular networks and
+functions affected by the downregulation of SRSF1 in A549
+cells. In the DAVID Functional Annotation Chart, the 2 most
+common and enriched annotations were "alternative splicing"
+and "splice variant" (Fig. 3). Within the top annotations, "RNA
+binding," "mRNA processing," "Nucleotide binding," and "RNA
+recognition motives" were present. These results indicated that
+SRSF1 regulates splicing in pathways that are intrinsically
+implicated in RNA metabolism. "Phosphoprotein" was also on
+the top of the enriched annotations. The ingenuity analysis of
+the differentially spliced genes regulated by SRSF1 built a total
+of 11 networks. The ﬁrst contained 22 genes and included the
+following annotations: "Cell Morphology, Developmental Disorder, and Hereditary Disorder" (Supplementary Fig. S5). The
+next two networks contained 23 and 21 genes highly involved in
+tumorigenesis and cancer development. The annotations
+included in these two networks were: "Cell Cycle, Cellular
+Assembly, and Organization and Cellular Movement" for the
+second network (Supplementary Fig. S6); and "Organismal
+Development, Cancer, Cell Death, and Survival" for the third
+network (Supplementary Fig. S7). Many genes involved in these
+networks have functions related to RNA metabolism (Table 2).
+Functional annotations related to infection were also at the top
+of the rank, although its biologic relevance needs to be
+established.
+We further assessed the reliability of the list generated from
+the GeneSplice data by searching for events described in the
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst December 26, 2013; DOI: 10.1158/0008-5472.CAN-13-1481
+
+Identiﬁcation of SRSF1-Regulated Splicing Events
+
+Table 1. List of the top 20 ranked genes selected by ExonPointer from the expression data obtained using
+GeneSplice arrays
+Validated
+Rank
+
+Gene
+
+P value
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+
+MYCBP2
+ATP11C
+SSH1
+ABCD4
+FIP1L1
+TFDP1
+MORF4L2
+PPIP5K2
+IQCB1
+MPV17L
+NAGK
+RAD51C
+MAPT
+PARPBP
+ASAP1
+EWSR1
+TUBD1
+SETD5
+PRRC2C
+USP8
+
+1.78e91
+4.78e87
+2.10e82
+9.01e79
+9.35e73
+7.90e72
+1.07e71
+1.73e71
+2.70e70
+3.20e70
+1.38e69
+2.56e69
+1.55e66
+1.40e65
+1.11e60
+5.74e60
+1.48e59
+1.48e58
+6.32e58
+1.40e55
+
+Exon
+
+Ensembl
+transcript ID
+
+57
+20
+11
+8
+2
+10
+3
+24
+12
+2
+3
+4
+8
+5
+2
+9
+4
+4
+34
+12
+
+201
+007
+001
+001
+005
+202
+006
+201
+001
+002
+201
+001
+201
+201
+002
+002
+201
+020
+201
+003
+
+literature as targets of SRSF1. We ﬁrst analyzed the genes
+reported by Karni and colleagues in their seminal paper
+describing the oncogenic potential of SRSF1 (14). Interestingly,
+even though the cell models were different (A549 vs. IMR90 and
+HeLa cells), most of the events described in their study were
+correctly identiﬁed by ExonPointer in our model (Supplementary Table S4). Other genes described in the literature as targets
+of SRSF1 were also detected in our analysis: MAPT, P ¼
+1.55e66 (30); CD44, P ¼ 2.04e22 (31); EPB41, P ¼ 2.22e22
+(32); SRSF3, P ¼ 1.91e21 (33); CASP9, P ¼ 4.79e21 (29);
+BCL2L1, P ¼ 5.03e03 (34); MCL1, P ¼ 1.13e17 (34); and FN1,
+P ¼ 3.32e15 (35). These data reveal the notable capacity of
+our procedure to identify alternative splicing events regulated
+by SRSF1.
+To conﬁrm the relevance of the information obtained from
+lung adenocarcinoma A549 cells, we validated the results in
+four additional lung cancer cell lines: two adenocarcinomas
+(HCC827 and H2087) and two squamous cell lung carcinomas
+(HCC95 and LUDLU-1). Results of the validation after SRSF1
+downregulation are shown in Table 1. Most of the genes were
+validated in both histologic subtypes, although, as expected,
+validation rates were higher in adenocarcinoma cell lines (95%
+and 80%) than in squamous cell lines (75% and 70%).
+Human cell lines retain many properties of the cells of origin,
+but they also show clear differences and are not fully representative of the in vivo tumors (36). Therefore, we evaluated the
+clinical relevance of our ﬁndings by determining the presence
+of the identiﬁed splicing events in a cohort of primary lung
+tumors and their corresponding normal lung tissues. After
+
+www.aacrjournals.org
+
+Event
+Inclusion
+Exclusion
+Exclusion
+Exclusion
+Exclusion
+Exclusion
+Inclusion
+Inclusion
+Exclusion
+Exclusion
+Exclusion
+Exclusion
+Inclusion
+Exclusion
+Exclusion
+Exclusion
+Exclusion
+Inclusion
+Exclusion
+Exclusion
+
+A549
+
+HCC827
+
+H2087
+
+HCC95
+
+LUDLU-1
+
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+No
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+
+Yes
+No
+Yes
+Yes
+Yes
+Yes
+No
+Yes
+Yes
+Yes
+Yes
+No
+No
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+
+Yes
+No
+Yes
+Yes
+Yes
+Yes
+Yes
+No
+Yes
+No
+Yes
+No
+Yes
+Yes
+Yes
+Yes
+Yes
+No
+Yes
+Yes
+
+Yes
+No
+Yes
+Yes
+Yes
+Yes
+Yes
+Yes
+No
+No
+No
+Yes
+No
+Yes
+Yes
+Yes
+Yes
+No
+Yes
+Yes
+
+conﬁrming the overexpression of SRSF1 in these tumors (Fig.
+4A), we found a signiﬁcant deregulation in the splicing of four
+genes: ATP11C, IQCB1, TUBD1, and PRRC2C (Fig. 4B–E).
+Finally, we analyzed the role of one of these new splicing
+events on the proliferative capacity of lung cancer cells. The
+selected event was a cassette exon in PRRC2C. Based on the
+ExonPointer report and the validation experiments, SRSF1
+downregulation resulted in a signiﬁcant increase in exon
+skipping. This result was further validated by PCR and realtime PCR in samples from both A549 cells (Fig. 5A and B) and
+an extended cohort of human primary tumors (Fig. 4F).
+Sequencing of the variants revealed that the alternative exon
+contains 53 nucleotides and is located between exons 33
+and 34. The presence of this exon results in a frameshift that
+introduces a unique sequence of 41 amino acids in the Cterminal domain of the protein (Fig. 5C). Hereafter, the variant
+containing the alternative exon will be referred as PRRC2C-L
+(long) and the variant without this exon as PRRC2C-S (short).
+To test the functional signiﬁcance of each variant on lung
+cancer growth, we knocked down PRRC2C-L and PRRC2C-S in
+A549 cells using speciﬁc siRNAs. Cell proliferation was
+decreased after downregulation of the two spliced isoforms.
+However, the effect of PRRC2C-L downregulation was significantly more pronounced (Fig. 5D). The differences were more
+noticeable in clonogenic assays. Downregulation of PRRC2C-L
+signiﬁcantly inhibited the formation of clones, whereas downregulation of PRRC2C-S had no effect (Fig. 5E). Cell-cycle
+analysis, evaluated by ﬂow cytometry, showed an accumulation of cells in G2–M after the speciﬁc downregulation of
+
+Cancer Res; 74(4) February 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+1109
+
+Published OnlineFirst December 26, 2013; DOI: 10.1158/0008-5472.CAN-13-1481
+
+de Miguel et al.
+
+Figure 2. Validation of differential alternative splicing events from the top 20 genes selected by the ExonPointer algorithm using microarray data from the
+GeneSplice platform. Densitometry values of the isoform ratios are shown as mean  SEM from three independent experiments. A, genes undergoing
+exon exclusion after SRSF1 downregulation. In the case of RAD51C, the absence of the lower band under one condition precluded the statistical analysis. B,
+genes undergoing exon inclusion after SRSF1 downregulation.  , P < 0.05;   , P < 0.01;    , P < 0.001.
+
+PRRC2C-L (Fig. 5F). An increase in the apoptotic sub-G0–G1
+peak was also detected (Fig. 5F). This increase in the rate of
+apoptosis was conﬁrmed using Annexin V (Fig. 5G). Comparable results were obtained with lung adenocarcinoma
+HCC827 and H2087 cells (Supplementary Fig. S8A–S8F). In
+lung squamous carcinoma HCC95 cells, downregulation of
+PRRC2C resulted in a reduction of in vitro tumor growth,
+mostly detected in clonogenic assays, although no differences
+were observed between the 2 splice variants (Supplementary
+
+1110
+
+Cancer Res; 74(4) February 15, 2014
+
+Fig. S8G and S8H). No differences were observed in lung
+squamous carcinoma LUDLU-1 cells (data not shown). Taken
+together, these data suggest that the splicing of PRRC2C is
+involved in the oncogenic activity of SRSF1.
+
+Discussion
+We have developed the ExonPointer algorithm to identify
+differentially spliced genes in data obtained from genome-wide
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst December 26, 2013; DOI: 10.1158/0008-5472.CAN-13-1481
+
+Identiﬁcation of SRSF1-Regulated Splicing Events
+
+Figure 3. DAVID Functional
+Annotation Chart derived from the
+analysis of differential alternative
+splicing events after SRSF1
+downregulation. Annotations are
+sorted by signiﬁcance. A, each
+column depicts log10 of P values
+for the corresponding annotation.
+B, number of analyzed genes
+present in each annotation. The
+database for each annotation is
+shown in parenthesis: SP,
+SwissProt; UP, UniProt; GO,
+Gene Ontology; SM, SMART; IP,
+InterPro.
+
+exon-junction microarray technologies. We applied this algorithm to analyze differential alternative cassette events regulated by SRSF1 in the context of lung cancer. The experimental
+validation rates using data from both Oryzon (Agilent) and
+GeneSplice (Affymetrix) arrays demonstrated the efﬁcacy of
+ExonPointer, although GeneSplice performed noticeably better. Agilent probes are longer and more sensitive than Affymetrix probes (37). However, the number of probes per array, and
+consequently the number of probes used to interrogate each
+splicing event, was considerably smaller in the Oryzon arrays
+than in the GeneSplice arrays (40,000 vs. 6,000,000, respectively). This characteristic counterbalances the drawback of
+shorter and less-speciﬁc probes. During the implementation
+of ExonPointer we also found that the use of junction probes
+(particularly those that skip the exon) was fundamental for the
+success of the algorithm. Other aspects of ExonPointer deserve
+to be mentioned. The main source of false positives was weakly
+expressed sequences (i.e., probes with low signal) and the
+ﬁltering of these probes drastically improved the results. The
+combination of P values of several probes (as opposed to
+the combination of signals of the probes) was proven to be
+an effective approach to the quantiﬁcation of splicing events.
+The algorithm exploits the redundancy of the junctions, and
+effectively combines them with the exon probes. ExonPointer
+is an extension of a linear model and, therefore, can be applied
+to any experiment where a linear model holds (most of the
+present algorithms are focused on case–control studies).
+Finally, the characteristics of ExonPointer allow for a straight-
+
+www.aacrjournals.org
+
+forward implementation to other microarray platforms, provided that they contain exon and junction probes (e.g., the
+GeneChip Human Transcriptome 2.0 array, recently launched
+by Affymetrix).
+RNA sequencing (RNA-seq) is an alternative genome-wide
+approach used to characterize alternative splicing. The
+RNA-seq technology is able to generate millions of reads
+that can be mapped to the whole genome using speciﬁc
+RNA aligners (38). This process requires a laborious tuning
+of numerous parameters involved in each of the steps.
+Using this approach, approximately 300 million reads would
+be required to accurately quantify 90% of the transcriptome
+in a single sample (39). With the decrease in cost and the
+improvement in computing resources, read length and algorithms, RNA-seq will become a major player in the identiﬁcation of alternative splicing events, but, at present, storage
+and computational requirements can be unaffordable if
+the number of samples is high. Alternatively, if the focus
+is on the detection of annotated splicing events in a reliable
+and cost effective manner, a microarray platform with an
+adequate design is a very viable option (16). Despite the
+limitations of microarrays (e.g., the results are tied to the
+probes that are included in the array design, based on
+the existing annotations of gene structures), we have demonstrated that this technology performs well, requires only
+modest computing power and is simple to interpret. In less
+than 1 hour of analysis, ExonPointer obtained a remarkably
+reliable list of differential splicing events.
+
+Cancer Res; 74(4) February 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+1111
+
+Published OnlineFirst December 26, 2013; DOI: 10.1158/0008-5472.CAN-13-1481
+
+de Miguel et al.
+
+Table 2. Ingenuity function enrichment analysis
+Rank
+
+Function annotation
+
+Category
+
+P value
+
+No. genesa
+
+1
+
+Accumulation of RNA
+
+1.16e07
+
+5/16
+
+2
+
+Infection of embryonic cell lines
+
+1.01e04
+
+12/325
+
+3
+
+Infection of epithelial cell lines
+
+1.01e04
+
+12/325
+
+4
+
+Infection of kidney cell lines
+
+1.42e04
+
+12/357
+
+5
+
+Accumulation of mRNA
+
+5.94e04
+
+2/5
+
+6
+7
+
+Processing of RNA
+Tetramerization of protein
+
+8.27e04
+8.86e04
+
+10/310
+5/78
+
+8
+9
+
+Formation of cervical cancer cell lines
+Formation of nuclear pores
+
+9.84e04
+9.84e04
+
+2/6
+2/5
+
+10
+
+Transport of axons
+
+9.84e04
+
+2/6
+
+11
+
+Delay in initiation of prometaphase
+
+Molecular transport
+RNA trafﬁcking
+Infectious disease
+Organismal injury and abnormalities
+Dermatological diseases and conditions
+Infectious disease
+Infectious disease
+Renal and urological disease
+Molecular transport
+RNA trafﬁcking
+RNA Posttranscriptional modiﬁcation
+Posttranslational modiﬁcation
+Protein synthesis
+Cellular growth and proliferation
+Cellular assembly and organization
+DNA replication, recombination, and repair
+Cellular assembly and organization
+Cellular movement
+Nervous system development and function
+Cell cycle
+
+1.47e03
+
+2/6
+
+a
+
+Number of genes in the list that belong to the functional annotation/total number of genes in the functional annotation.
+
+Figure 4. Differential alternative splicing events in a cohort of primary lung
+tumors and their corresponding normal lung tissues (n ¼ 6). A, SRSF1
+expression measured by real-time PCR using IPO8 as housekeeping
+gene. B–E, PCR validation of differential alternative splicing events in
+ATP11C, IQBC1, TUBD1, and PRRC2C, respectively. The ratio of the
+densitometry values is shown. F, ratios of PRRC2C-L/PRRC2C-S
+expression, measured by real-time PCR, in an extended cohort of
+patients (n ¼ 16).  , P < 0.05.
+
+1112
+
+Cancer Res; 74(4) February 15, 2014
+
+The use of ExonPointer allowed us to study the alterations in
+cassette exons caused by the downregulation of SRSF1 in lung
+cancer cells. Upregulation of SRSF1 is frequent in cancer and
+contributes to the oncogenic potential of H-Ras and Myc
+(14, 40). Overexpression of SRSF1 in human non–small cell
+lung cancers leads to a more invasive phenotype (15, 41).
+Through the control of caspase-9 alternative splicing, SRSF1
+also regulates the sensitivity of lung cancer cells to chemotherapy (42). The serine/arginine-rich proteins are best known
+for their ability to promote exon inclusion (43). In accordance
+with this observation, our results show that SRSF1 mainly
+functions as a splicing repressor in A549 cells. This is also
+consistent with the exon-skipping phenotypes of disease-associated mutations that affect the SRSF1-speciﬁc splicing motifs
+(44). The splicing analysis described here also provides new
+information on genes and functions regulated by SRSF1, which
+helps to understand the transforming capacity of SRSF1. In our
+study we identiﬁed a substantial number of splicing events in
+genes related to RNA metabolism. This supports the data
+reported by Sanford and colleagues, which showed an enrichment for genes that encode RNA binding proteins within a
+group of alternative exons targeted by SRSF1 (45). In agreement with our functional analysis, the authors also found
+enrichment for genes associated with biologic processes such
+as cell division, apoptosis, and proliferation. To our knowledge,
+the implication of SRSF1 in the regulation of alternative
+splicing in genes related to developmental and hereditary
+disorders is a novel observation. The association with functional annotations related to phosphoproteins and infection
+also merit further attention.
+In support of the validity of our approach, the ExonPointer
+algorithm found statistically signiﬁcant differences in many
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst December 26, 2013; DOI: 10.1158/0008-5472.CAN-13-1481
+
+Identiﬁcation of SRSF1-Regulated Splicing Events
+
+Figure 5. PRRC2C splice variants in A549 lung cancer cells. A, validation of the modiﬁed PRRC2C splicing pattern after SRSF1 downregulation. PRRC2C-L
+stands for PRRC2C-long and PRRC2C-S for PRRC2C-short. The analysis was performed by PCR with the same RNA samples used for the microarray
+analysis. The densitometry value of each variant was standardized with GAPDH and is shown as mean  SEM. B, validation of the splicing change using a set
+of independent samples and measured by real-time PCR. Mean  SEM of triplicates is shown. C, nucleotide sequence of the alternative exon and C-terminal
+protein sequences of the 2 variants. The presence of the alternative exon results in a frameshift that introduces a new sequence of 41 amino acids
+(underlined). D, MTT assay of A549 cells treated with scramble siRNA, PRRC2C-L siRNA, or PRRC2C-S siRNA. Absorbance values were standardized to time
+0 to make all curves comparable. Data points in the left panel represent mean values from four independent experiments. Natural logarithms of the values
+were used to statistically compare growth slopes (right). Mean  SEM of triplicates is shown. E, clonogenic assay. Mean  SEM of triplicates and
+representative images are shown. F, cell-cycle analysis after 48 hours from transfection. Percentages of cells in each phase (sub-G0–G1, G0–G1, S, and G2–M)
+are indicated. One representative experiment is shown from three independent repetitions. G, analysis of apoptosis after 48 hours from transfection. One
+representative experiment is shown from three independent repetitions. n.s., no signiﬁcant;  , P < 0.05;   , P < 0.01;    , P < 0.001.
+
+genes previously reported to be regulated by SRSF1 (14, 29–35).
+Nevertheless, most of the splicing events that we found were
+novel. Moreover, the analysis allowed us to identify 4 genes,
+ATP11C, IQCB1, TUBD1, and PRRC2C, with a signiﬁcantly
+different pattern of splicing in primary non–small cell lung
+tumors. The association of these molecules with lung cancer
+had not been previously reported, although, in the case of
+PRRC2C, there was some information suggesting its role in
+cancer. PRRC2C is ampliﬁed and overexpressed in bladder
+
+www.aacrjournals.org
+
+cancer (46), and it has been related to proliferation and cellcycle regulation through an interaction with histone H4 transcription factor (47). We have now been able to identify a new
+splice variant of PRRC2C, which is regulated by SRSF1 and is
+overexpressed in primary lung tumors. We have also shown
+that PRRC2C is able to regulate lung cancer growth in vitro.
+Interestingly, in lung adenocarcinoma cells this activity is
+mostly restricted to the splice variant overexpressed in primary
+lung tumors. The SRSF1 protein has been reported to modulate
+
+Cancer Res; 74(4) February 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+1113
+
+Published OnlineFirst December 26, 2013; DOI: 10.1158/0008-5472.CAN-13-1481
+
+de Miguel et al.
+
+p53 by interfering with its murine double minute 2 (MDM2)dependent proteasomal degradation (13), and there is evidence
+for an interaction between PRRC2C and MDM2 (48). The role
+of the PRRC2C splice variants in the regulation of p53 by
+MDM2 merits further investigation.
+In conclusion, exon–junction microarrays, together with the
+appropriate algorithm, provide a reliable analytical tool for
+genome-wide examination of differential alternative splicing in
+a time and cost-effective manner. This technology has allowed
+us to identify new splicing events regulated by the oncogenic
+splicing factor SRSF1, and some biologic pathways in which
+this factor may have a signiﬁcant role. The use of this technology in other experimental and biologic conditions would
+provide valuable information on the implication of alternative
+splicing in normal and pathologic human biology.
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+Authors' Contributions
+Conception and design: F.J. de Miguel, R.D. Sharma, L.M. Montuenga, A. Rubio,
+R. Pio
+Development of methodology: F.J. de Miguel, R.D. Sharma, L.M. Montuenga,
+A. Rubio, R. Pio
+
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): F.J. de Miguel, L.M. Montuenga
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): F.J. de Miguel, R.D. Sharma, L.M. Montuenga,
+A. Rubio, R. Pio
+Writing, review, and/or revision of the manuscript: F.J. de Miguel,
+M.J. Pajares, L.M. Montuenga, A. Rubio, R. Pio
+Administrative, technical, or material support (i.e., reporting or organizing data, constructing databases): F.J. de Miguel, R.D. Sharma, A. Rubio
+Study supervision: L.M. Montuenga, A. Rubio, R. Pio
+
+Acknowledgments
+The authors thank A. Lavin and C. Sainz for technical support, and Dr. L. Ortiz
+for performing the Affymetrix array hybridizations.
+
+Grant Support
+This work has been supported by "UTE project CIMA," the Spanish
+Government (ISCIII-RTICC RD12/0036/0040, PI10/00166, and PI1100618),
+and the European Community's Seventh Framework Programme
+(HEALTH-F2-2010-258677-CURELUNG). F.J. de Miguel is supported by a
+predoctoral fellowship from the Instituto de Salud Carlos III and Ministerio
+de Economía y Competitividad.
+The costs of publication of this article were defrayed in part by the
+payment of page charges. This article must therefore be hereby marked
+advertisement in accordance with 18 U.S.C. Section 1734 solely to indicate this
+fact.
+Received May 22, 2013; revised December 4, 2013; accepted December 9, 2013;
+published OnlineFirst December 26, 2013.
+
+References
+1.
+
+2.
+3.
+
+4.
+
+5.
+
+6.
+7.
+
+8.
+9.
+
+10.
+11.
+12.
+
+13.
+
+14.
+
+1114
+
+Pan Q, Shai O, Lee LJ, Frey BJ, Blencowe BJ. Deep surveying of
+alternative splicing complexity in the human transcriptome by highthroughput sequencing. Nat Genet 2008;40:1413–5.
+Li Q, Lee JA, Black DL. Neuronal regulation of alternative pre-mRNA
+splicing. Nat Rev Neurosci 2007;8:819–31.
+Sugnet CW, Kent WJ, Ares M Jr., Haussler D. Transcriptome and
+genome conservation of alternative splicing events in humans and
+mice. Pac Symp Biocomput 2004:66–77.
+Stamm S, Zhu J, Nakai K, Stoilov P, Stoss O, Zhang MQ. An alternative-exon database and its statistical analysis. DNA Cell Biol 2000;
+19:739–56.
+Pajares MJ, Ezponda T, Catena R, Calvo A, Pio R, Montuenga LM.
+Alternative splicing: an emerging topic in molecular and clinical oncology. Lancet Oncol 2007;8:349–57.
+Padgett RA. New connections between splicing and human disease.
+Trends Genet 2012;28:147–54.
+Kornblihtt AR, Schor IE, Allo M, Dujardin G, Petrillo E, Munoz MJ.
+Alternative splicing: a pivotal step between eukaryotic transcription
+and translation. Nat Rev Mol Cell Biol 2013;14:153–65.
+Bonnal S, Vigevani L, Valcarcel J. The spliceosome as a target of novel
+antitumour drugs. Nat Rev Drug Discov 2012;11:847–59.
+Zerbe LK, Pino I, Pio R, Cosper PF, Dwyer-Nield LD, Meyer AM, et al.
+Relative amounts of antagonistic splicing factors, hnRNP A1 and ASF/
+SF2, change during neoplastic lung growth: implications for premRNA processing. Mol Carcinog 2004;41:187–96.
+Long JC, Caceres JF. The SR protein family of splicing factors: master
+regulators of gene expression. Biochem J 2009;417:15–27.
+Graveley BR. Sorting out the complexity of SR protein functions. RNA
+2000;6:1197–211.
+Zhong XY, Wang P, Han J, Rosenfeld MG, Fu XD. SR proteins in vertical
+integration of gene expression from transcription to RNA processing to
+translation. Mol Cell 2009;35:1–10.
+Fregoso OI, Das S, Akerman M, Krainer AR. Splicing-factor oncoprotein SRSF1 stabilizes p53 via RPL5 and induces cellular senescence.
+Mol Cell 2013;12:1477–9.
+Karni R, de Stanchina E, Lowe SW, Sinha R, Mu D, Krainer AR. The
+gene encoding the splicing factor SF2/ASF is a proto-oncogene. Nat
+Struct Mol Biol 2007;14:185–93.
+
+Cancer Res; 74(4) February 15, 2014
+
+15. Ezponda T, Pajares MJ, Agorreta J, Echeveste JI, Lopez-Picazo JM,
+Torre W, et al. The oncoprotein SF2/ASF promotes non-small cell lung
+cancer survival by enhancing survivin expression. Clin Cancer Res
+2010;16:4113–25.
+16. Hallegger M, Llorian M, Smith CWJ. Alternative splicing: global
+insights. FEBS J 2010;277:856–66.
+17. Johnson JM, Castle J, Garrett-Engele P, Kan Z, Loerch PM, Armour
+CD, et al. Genome-wide survey of human alternative pre-mRNA
+splicing with exon junction microarrays. Science 2003;302:2141–4.
+18. Lapuk A, Marr H, Jakkula L, Pedro H, Bhattacharya S, Purdom E, et al.
+Exon-level microarray analyses identify alternative splicing programs
+in breast cancer. Mol Cancer Res 2010;8:961.
+19. Ip JY, Tong A, Pan Q, Topp JD, Blencowe BJ, Lynch KW. Global
+analysis of alternative splicing during T-cell activation. RNA 2007;13:
+563–72.
+20. Saltzman AL, Kim YK, Pan Q, Fagnani MM, Maquat LE, Blencowe BJ.
+Regulation of multiple core spliceosomal proteins by alternative splicing-coupled nonsense-mediated mRNA decay. Mol Cell Biol 2008;
+28:4320–30.
+21. Castle JC, Zhang C, Shah JK, Kulkarni AV, Kalsotra A, Cooper TA,
+et al. Expression of 24,426 human alternative splicing events and
+predicted cis regulation in 48 tissues and cell lines. Nat Genet 2008;
+40:1416–25.
+22. Seok J, Xu W, Gao H, Davis RW, Xiao W. JETTA: junction and exon
+toolkits for transcriptome analysis. Bioinformatics 2012;28:1274–5.
+23. Shen S, Warzecha CC, Carstens RP, Xing Y. MADSþ: discovery of
+differential splicing events from Affymetrix exon junction array data.
+Bioinformatics 2010;26:268–9.
+24. Kechris K, Yang YH, Yeh RF. Prediction of alternatively skipped exons
+and splicing enhancers from exon junction arrays. BMC Genomics
+2008;9:551.
+25. Anton MA, Gorostiaga D, Guruceaga E, Segura V, Carmona-Saez P,
+Pascual-Montano A, et al. SPACE: an algorithm to predict and quantify
+alternatively spliced isoforms using microarrays. Genome Biol 2008;9:
+R46.
+26. Valles I, Pajares MJ, Segura V, Guruceaga E, Gomez-Roman J, Blanco
+D, et al. Identiﬁcation of novel deregulated RNA metabolism-related
+genes in non-small cell lung cancer. PLoS One 2012;7:e42086.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst December 26, 2013; DOI: 10.1158/0008-5472.CAN-13-1481
+
+Identiﬁcation of SRSF1-Regulated Splicing Events
+
+27. Pio R, Blanco D, Pajares MJ, Aibar E, Durany O, Ezponda T, et al.
+Development of a novel splice array platform and its application in the
+identiﬁcation of alternative splice variants in lung cancer. BMC Genomics 2010;11:352.
+28. Huang da W, Sherman BT, Lempicki RA. Systematic and integrative
+analysis of large gene lists using DAVID bioinformatics resources. Nat
+Protoc 2009;4:44–57.
+29. Massiello A, Chalfant CE. SRp30a (ASF/SF2) regulates the alternative
+splicing of caspase-9 pre-mRNA and is required for ceramide-responsiveness. J Lipid Res 2006;47:892–7.
+30. Kondo S, Yamamoto N, Murakami T, Okumura M, Mayeda A, Imaizumi
+K. Tra2 b, SF2/ASF and SRp30c modulate the function of an exonic
+splicing enhancer in exon 10 of tau pre-mRNA. Genes Cells 2004;
+9:121–30.
+31. Galiana-Arnoux D, Lejeune F, Gesnel MC, Stevenin J, Breathnach R,
+Del Gatto-Konczak F. The CD44 alternative v9 exon contains a splicing
+enhancer responsive to the SR proteins 9G8, ASF/SF2, and SRp20.
+J Biol Chem 2003;278:32943–53.
+32. Yang G, Huang SC, Wu JY, Benz EJ Jr. An erythroid differentiationspeciﬁc splicing switch in protein 4.1R mediated by the interaction of
+SF2/ASF with an exonic splicing enhancer. Blood 2005;105:2146–53.
+33. Jumaa H, Nielsen PJ. The splicing factor SRp20 modiﬁes splicing of its
+own mRNA and ASF/SF2 antagonizes this regulation. EMBO J 1997;
+16:5077–85.
+34. Moore MJ, Wang Q, Kennedy CJ, Silver PA. An alternative splicing
+network links cell-cycle control to apoptosis. Cell 2010;142:625–36.
+35. Lopez-Mejia IC, De Toledo M, Della Seta F, Fafet P, Rebouissou C,
+Deleuze V, et al. Tissue-speciﬁc and SRSF1-dependent splicing of
+ﬁbronectin, a matrix protein that controls host cell invasion. Mol Biol
+Cell 2013;24:3164–76.
+36. van Staveren WC, Solis DY, Hebrant A, Detours V, Dumont JE,
+Maenhaut C. Human cancer cell lines: experimental models for cancer
+cells in situ? For cancer stem cells? Biochim Biophys Acta 2009;
+1795:92–103.
+37. Li J, Spletter ML, Johnson JA. Dissecting tBHQ induced ARE-driven
+gene expression through long and short oligonucleotide arrays. Physiol Genom 2005;21:43–58.
+38. Trapnell C, Williams BA, Pertea G, Mortazavi A, Kwan G, van Baren MJ,
+et al. Transcript assembly and quantiﬁcation by RNA-Seq reveals
+
+www.aacrjournals.org
+
+39.
+
+40.
+
+41.
+
+42.
+
+43.
+
+44.
+
+45.
+
+46.
+
+47.
+
+48.
+
+unannotated transcripts and isoform switching during cell differentiation. Nat Biotechnol 2010;28:511–5.
+Blencowe BJ, Ahmad S, Lee LJ. Current-generation high-throughput
+sequencing: deepening insights into mammalian transcriptomes.
+Genes Dev 2009;23:1379–86.
+Das S, Anczukow O, Akerman M, Krainer AR. Oncogenic splicing
+factor SRSF1 is a critical transcriptional target of Myc. Cell Rep 2012;
+1:110–7.
+Gout S, Brambilla E, Boudria A, Drissi R, Lantuejoul S, Gazzeri S, et al.
+Abnormal expression of the pre-mRNA splicing regulators SRSF1,
+SRSF2, SRPK1 and SRPK2 in non–small cell lung carcinoma. PLoS
+One 2012;7:e46539.
+Shultz JC, Goehe RW, Murudkar CS, Wijesinghe DS, Mayton EK,
+Massiello A, et al. SRSF1 regulates the alternative splicing of caspase
+9 via a novel intronic splicing enhancer affecting the chemotherapeutic
+sensitivity of non-small cell lung cancer cells. Mol Cancer Res 2011;
+9:889–900.
+Ibrahim EC, Schaal TD, Hertel KJ, Reed R, Maniatis T. Serine/argininerich protein-dependent suppression of exon skipping by exonic splicing enhancers. Proc Natl Acad Sci U S A 2005;102:5002–7.
+Smith PJ, Zhang C, Wang J, Chew SL, Zhang MQ, Krainer AR. An
+increased speciﬁcity score matrix for the prediction of SF2/ASFspeciﬁc exonic splicing enhancers. Hum Mol Genet 2006;15:2490–
+508.
+Sanford JR, Coutinho P, Hackett JA, Wang X, Ranahan W, Caceres JF.
+Identiﬁcation of nuclear and cytoplasmic mRNA targets for the shuttling protein SF2/ASF. PLoS One 2008;3:e3369.
+Huang WC, Taylor S, Nguyen TB, Tomaszewski JE, Libertino JA,
+Malkowicz SB, et al. KIAA1096, a gene on chromosome 1q, is
+ampliﬁed and overexpressed in bladder cancer. DNA Cell Biol 2002;
+21:707–15.
+Miele A, Medina R, van Wijnen AJ, Stein GS, Stein JL. The interactome
+of the histone gene regulatory factor HiNF-P suggests novel cell cycle
+related roles in transcriptional control and RNA processing. J Cell
+Biochem 2007;102:136–48.
+Miyamoto-Sato E, Fujimori S, Ishizaka M, Hirai N, Masuoka K, Saito R,
+et al. A comprehensive resource of interacting protein regions for
+reﬁning human transcription factor networks. PLoS One 2010;5:
+e9289.
+
+Cancer Res; 74(4) February 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+1115
+
+Published OnlineFirst December 26, 2013; DOI: 10.1158/0008-5472.CAN-13-1481
+
+Identification of Alternative Splicing Events Regulated by the
+Oncogenic Factor SRSF1 in Lung Cancer
+Fernando J. de Miguel, Ravi D. Sharma, María J. Pajares, et al.
+Cancer Res 2014;74:1105-1115. Published OnlineFirst December 26, 2013.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-13-1481
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2013/12/30/0008-5472.CAN-13-1481.DC1
+
+This article cites 47 articles, 15 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/74/4/1105.full#ref-list-1
+This article has been cited by 1 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/74/4/1105.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2014 American Association for Cancer Research.
+
+

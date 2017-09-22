@@ -1,0 +1,1541 @@
+Published OnlineFirst May 22, 2014; DOI: 10.1158/0008-5472.CAN-13-3162
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+Mechanisms of Resistance to Intermittent Androgen
+Deprivation in Patients with Prostate Cancer Identiﬁed by a
+Novel Computational Method
+Jason D. Morken1,2, Aaron Packer1, Rebecca A. Everett1, John D. Nagy1,3, and Yang Kuang1
+
+Abstract
+For progressive prostate cancer, intermittent androgen deprivation (IAD) is one of the most common and
+effective treatments. Although this treatment is usually initially effective at regressing tumors, most patients
+eventually develop castration-resistant prostate cancer (CRPC), for which there is no effective treatment
+and is generally fatal. Although several biologic mechanisms leading to CRPC development and their relative
+frequencies have been identiﬁed, it is difﬁcult to determine which mechanisms of resistance are developing
+in a given patient. Personalized therapy that identiﬁes and targets speciﬁc mechanisms of resistance
+developing in individual patients is likely one of the most promising methods of future cancer therapy.
+Prostate-speciﬁc antigen (PSA) is a biomarker for monitoring tumor progression. We incorporated a cell
+death rate (CDR) function into a previous dynamical PSA model that was highly accurate at ﬁtting clinical
+PSA data for 7 patients. The mechanism of action of IAD is largely induction of apoptosis, and each
+mechanism of resistance varies in its CDR dynamics. Thus, we analyze the CDR levels and their timedependent oscillations to identify mechanisms of resistance to IAD developing in individual patients. Cancer
+Res; 74(14); 3673–83. 2014 AACR.
+
+Introduction
+Major Findings
+Here, we introduce a novel computational method called
+cell death rate (CDR) analysis that uses a mathematical
+model validated by clinical data to identify the major
+mechanism of treatment resistance developing in a given
+patient. Although CDR analysis may be applicable to other
+cancers, we use it here to predictively diagnose the major
+mechanism of castration resistance developing in individual patients with prostate cancer after a period of IAD.
+Our results are consistent with biologic literature, and
+this mathematical method using CDR analysis may significantly improve personalized treatment of CRPC and other
+cancers.
+
+Authors' Afﬁliations: 1School of Mathematical and Statistical Sciences;
+2
+Department of Chemistry and Biochemistry, Arizona State University,
+Tempe; and 3Department of Biology, Scottsdale Community College,
+Scottsdale, Arizona
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+Corresponding Author: Jason D. Morken, Arizona State University,
+School of Mathematical and Statistical Sciences, P.O. Box 871804, Tempe,
+AZ 85287-1804. Phone: 480-809-9187; Fax: 480-965-5569; E-mail:
+jmorken@asu.edu
+doi: 10.1158/0008-5472.CAN-13-3162
+2014 American Association for Cancer Research.
+
+Prostate cancer and treatment
+In this work, we limit our attention to prostatic adenocarcinomas of non-neuroendocrine origin as this entity has
+by far the greatest clinical signiﬁcance of all prostate tumors.
+Healthy prostatic epithelial cells and most malignant prostatic epithelial cells exhibit some degree of dependence on
+androgens, including testosterone and dihydrotestosterone
+(DHT), for proliferation and survival (1–5). The contribution
+androgens provide to cell proliferation and survival is mediated by the androgen receptor (AR) axis. It is well known
+that AR signaling regulates expression of genes involved in
+proliferation and survival and is generally accepted to be the
+primary driver of tumor progression in adenocarcinomas
+(1, 2, 4–7). AR signaling inhibition, therefore, regresses
+tumors (2, 4, 8, 9).
+The most common and effective treatment for progressive
+prostate cancer is androgen-deprivation therapy (5, 6). The
+mechanism of action of this therapy is largely induction of
+apoptosis, contingent on prostate cancer cells being dependent on androgens, via the AR axis, for survival (2–5). Androgen deprivation can be accomplished by surgical castration
+(orchiectomy) or chemical castration (with drugs). The latter
+method is commonly carried out by "total androgen blockade," which combines luteinizing hormone-releasing hormone (LHRH) analogues and antiandrogens (10). Chemical
+castration is almost universally effective at regressing tumors
+initially; however, almost all patients eventually develop resistance to treatment and advance to a more aggressive stage, for
+which there is no effective treatment (5, 6, 10, 11). This
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+3673
+
+Published OnlineFirst May 22, 2014; DOI: 10.1158/0008-5472.CAN-13-3162
+
+Morken et al.
+
+Quick Guide to Equations and Assumptions
+This study builds off of the previous work by Jackson, Ideta and colleagues, and especially Portz and colleagues. As these authors
+did, we model two populations of prostate cancer cells within a single patient. One population has a castration-sensitive (CS)
+phenotype and the other is castration resistant (CR). For simplicity, we will refer to these different populations as "strains." The
+sizes of each strain at time t are represented by X1(t) and X2(t). Dynamics of these populations are modeled by the following system
+of ordinary differential equations:
+
+
+dX1
+q1
+X1  D1 ðQ1 ÞX1  l1 ðQ1 ÞX1 þ l2 ðQ2 ÞX2 ;
+¼ mm 1 
+ðAÞ
+|ﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄ}
+|ﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄ}
+|ﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄ}
+dt
+Q1
+|{z}
+|ﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ
+ﬄ} Cell death CS to CR Switch CR to CS Switch
+CS
+
+Proliferation
+
+
+
+dX2
+q2
+X2  D2 ðQ2 ÞX2  l2 ðQ2 ÞX2 þ l1 ðQ1 ÞX1 ;
+¼ mm 1 
+|ﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄ}
+|ﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄ}
+|ﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄ}
+dt
+Q2
+|{z}
+|ﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ
+ﬄ} Cell death CR to CS Switch CS to CR Switch
+CR
+
+ðBÞ
+
+Proliferation
+
+where Xi ðtÞ represents the size of the ith strain at time t. (See Table 1 for a comprehensive list of parameter interpretations and
+values.) Cell population dynamics are driven by intracellular concentration, or cell quota, of bound androgen receptors (AR),
+which we denote Qi ðtÞ. Here, i 2 f1; 2g refers to the strain identity. Androgen is viewed as an ecologic resource on which both
+proliferation and cell mortality depend. As did Portz and colleagues, we represent androgen-dependent proliferation using an
+established formalism from mathematical ecology called the Droop model. In this context, the Droop form for per capita
+
+
+proliferation rate of strain i becomes mm 1  Qqi , where positive constants mm and qi represent maximum proliferation rate and
+i
+
+minimum cell quota required for proliferation, respectively. Because strains 1 and 2 are CS and CR, respectively, and because CR
+cells are less dependent on androgens and can proliferate at aberrantly low levels of serum androgen, we assume that q2 < q1 .
+Portz and colleagues assume a constant per capita mortality rate for both strains. However, androgen-deprivation therapy
+works not only by inhibiting growth and proliferation, but also by inducing apoptosis in prostate cancer cells. To capture this
+reality, we represent per capita mortality in the ith strain as the following CDR function:
+Ra
+Di ðQi Þ ¼ di a i a þ di :
+|{z}
+|ﬄﬄ{zﬄﬄ}
+Q i þ Ri
+|ﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄ} AI Death
+CDR
+
+ðCÞ
+
+AD Apotosis
+
+The ﬁrst term on the right-hand side expresses androgen-dependent apoptosis, where positive constants Ri and a are shape
+parameters playing similar roles to the half-saturation constant and Hill coefﬁcients in Hill functions; together they describe how
+sensitively apoptosis responds to changes in cell quota. Positive constants di are the maximal apoptosis rates induced by complete
+absence of bound ARs. Finally, positive constants di represent androgen-independent cell mortality.
+The switching rates between cell phenotypes are represented by:
+Kn
+l1 ðQ1 Þ ¼ c1 n 1 n ;
+Q 1 þ K1
+|ﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ
+ﬄ}
+
+ðDÞ
+
+CS to CR
+
+Qn
+l2 ðQ2 Þ ¼ c2 n 2 n :
+Q 2 þ K2
+|ﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ}
+
+ðEÞ
+
+CR to CS
+
+Shape parameters K1, K2, and n determine the sensitivity of the switch rates to variations in cell quota, and parameters c1 and c2
+are maximal switch rates when cell quota approaches 0 or inﬁnity, respectively. All are positive constants.
+The cell quota, Qi(t), is modeled by:
+dQi
+qm  Qi A
+¼ nm
+ mm ðQi  qi Þ  bQi
+:
+|{z}
+dt
+qm  qi A þ nh |ﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄ}
+|{z}
+|ﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ
+ﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ} Growth dilution Degredation
+
+Cell quota
+
+ðFÞ
+
+Androgen-AR binding
+
+Here, we interpret the meaning of Q(t) slightly differently than did Portz and colleagues. Because Qi(t) is the (average) bound AR
+concentration in the ith strain and ARs are intracellular, we view the ﬁrst term in the cell quota equation as including two
+processes: androgen–AR binding inside the cell and cellular regulation of AR concentration. With this interpretation, A(t) is the
+
+3674
+
+Cancer Res; 74(14) July 15, 2014
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst May 22, 2014; DOI: 10.1158/0008-5472.CAN-13-3162
+
+Identifying CRPC Mechanisms in Individual Patients
+
+concentration of intraprostatic androgen, which essentially freely diffuses between interstitial and cytosolic compartments, and is
+interpolated using the same method as Portz and colleagues. Androgen–AR binding is assumed to be a Michaelis–Menten process
+with rate Vmax A=ðkv þAÞ, where kv is the half-saturation constant and Vmax ¼ vm ðqm  Qi Þ=ðqm  qi Þ. Positive constant vm is the
+product formation rate (rate at which enzyme–substrate complexes dissociate to release product in the classic Michaelis–Menten
+formulation), whereas the quotient ðqm  Qi Þ=ðqm  qi Þ, in which qm is the maximum cell quota, is the total (bound and unbound)
+AR concentration regulated such that Qi > qi for all i and t; therefore, the proliferation terms in Equations A and B cannot become
+negative. Intracellular androgen degrades at the rate b, and the term mm ðQi  qi Þ accounts for growth dilution.
+Serum prostate-speciﬁc antigen (PSA) is assumed to be produced by each strain at a constant baseline rate, s 0 (invariant across
+phenotype), plus an androgen-dependent rate governed by a Hill function with Hill parameter m (also invariant across phenotype),
+shape parameter ri and maximal PSA production rate s i, with the latter two being phenotype speciﬁc. Serum PSA degrades at a
+constant per capita rate, e. These assumptions lead to the following model of serum PSA dynamics:
+dP
+¼
+dt
+|{z}
+PSA
+
+Qm
+Qm
+s 0 ðX1 þ X2 Þ þ s 1 X1 m 1 m þ s 2 X2 m 2 m  |{z}
+"P
+:
+|ﬄﬄﬄﬄﬄﬄﬄ
+ﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄ}
+Q1 þ r1
+Q2 þ r2
+|ﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ} Degredation
+Baseline production
+Androgen-dependent production
+
+ðGÞ
+
+Because PSA is only produced in epithelial cells, our model only considers epithelial cells and, thus, we only model carcinomas. The
+full model comprises Equations A and B, as well as F and G.
+Because IAD induces cell death only during on-treatment periods, CDRs oscillate in populations that depend on androgens for
+survival. The CDR oscillation amplitude (the difference between global maximum and global minimum CDR values throughout the
+entire period of intermittent treatment) reﬂects the degree of this dependence. Because each mechanism varies in its dependence
+on androgens for survival, the major mechanism of treatment resistance is identiﬁed primarily by the amplitude of CDR oscillation,
+Fi, which we deﬁne as:
+Fi ¼ maxfDi ðQi Þg  minfDi ðQi Þg
+a
+a
+Ria ðQi;max
+ Qi;min
+Þ
+;
+ðHÞ
+¼ di a
+a
+a
+a
+ðQi;max þ Ri ÞðQi;min þ Ri Þ
+where Qi;min ¼ minfQi ðtÞg and Qi;max ¼ maxfQi ðtÞg. (see the Supplementary Material for a detailed derivation of Equation H.)
+
+advanced stage has traditionally been referred to as androgenindependent prostate cancer, the rationale for this terminology being that if prostate cancer cells have no androgen
+access, but continue to survive and proliferate, then they
+must have bypassed the need for androgens. However,
+although chemical castration depletes blood serum testosterone levels by >90%, intraprostatic androgen concentrations
+remain at 20% to 50% (2, 4, 5, 12). These residual intratumoral
+androgen sources allow prostate cancer cells to survive
+because these cells are still dependent on androgens for
+survival (5). The recent clinical efﬁcacy of abiraterone (which
+inhibits intraprostatic androgen synthesis) and enzalutamide
+(a second-generation AR antagonist), has further conﬁrmed
+that these cells are not androgen independent (5, 13, 14).
+Therefore, this stage of cancer is now generally referred to as
+castration-resistant prostate cancer (CRPC; refs. 2, 4, 5, 12, 15).
+Because continuous androgen deprivation (CAD) provides a
+prolonged stimulus selecting for castration-resistant clones,
+intermittent androgen deprivation (IAD) was proposed to
+delay the onset of CRPC (10). Although this basis for IAD
+remains controversial (16), IAD is cheaper and minimizes side
+effects relative to CAD (10). For detailed clinical examples of
+the IAD protocol, see refs. 9, 17, 18.
+The gene coding for prostate-speciﬁc antigen (PSA) is
+exclusively activated by AR signaling in prostatic epithelial
+cells (1, 6). PSA is secreted by these cells into the blood serum
+
+www.aacrjournals.org
+
+(1). Because AR signaling is considered the primary driver of
+tumor progression, before and after androgen-deprivation
+failure, PSA is a commonly used predictive biomarker for
+monitoring androgen-deprivation efﬁcacy (1, 9). Increasing
+PSA levels are characteristic of tumor progression, whereas
+decreasing PSA levels are characteristic of tumor regression.
+For IAD, patients are usually put on treatment until their PSA
+levels fall below some threshold value, usually <4 ng/mL, and
+taken off-treatment until PSA rises above some threshold level,
+usually >10 ng/mL (10).
+Several mathematical models have been developed with the
+goal of ﬁtting model output to clinical PSA data throughout the
+course of IAD (19–23). Here, we address how a mechanistic
+model of prostate cancer that takes an individual patient's
+serum androgen data as input, and uses data ﬁtting to clinical
+PSA data to estimate parameters, might be used to inform
+clinicians of the inherent mechanism(s) of treatment resistance in individual patients.
+Major mechanisms of treatment resistance
+Although most prostate cancer cells exhibit some degree of
+dependence on androgens for survival, as tumors continue to
+advance to a more progressive state, the degree of dependence
+tends to decrease. Several pathways to CRPC development
+have been identiﬁed with varying degrees of androgen dependence (see ref. 1 for detailed review of these mechanisms).
+
+Cancer Res; 74(14) July 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+3675
+
+Published OnlineFirst May 22, 2014; DOI: 10.1158/0008-5472.CAN-13-3162
+
+Morken et al.
+
+Table 1. Static parameter values, free parameter ranges, and parameter interpretations
+Name
+mm
+q1
+q2
+s1
+s2
+s0
+d1
+d2
+R1
+R2
+d1
+d2
+a
+c1
+c2
+K1
+K2
+n
+qm
+vm
+vh
+b
+r1
+r2
+m
+e
+
+Description
+
+Value
+
+Maximum proliferation rate
+Minimum CS cell quota
+Minimum CR cell quota
+CS PSA production rate
+CR PSA production rate
+Baseline PSA production rate
+Maximum CS androgen-dependent apoptosis rate
+Maximum CR androgen-dependent apoptosis rate
+CS androgen-dependent apoptosis half-saturation level
+CR androgen-dependent apoptosis half-saturation level
+CS androgen-independent mortality rate
+CR androgen-independent mortality rate
+Androgen-dependent apoptosis rate shape parameter
+Maximum CS to CR switching rate
+Maximum CR to CS switching rate
+CS to CR switching half-saturation level
+CR to CS switching half-saturation level
+Switching rate shape parameter
+Maximum cell quota
+Maximum uptake rate
+Uptake rate half-saturation level
+Intracellular androgen degradation rate
+CS PSA production half-saturation level
+CR PSA production half-saturation level
+PSA production function exponent
+PSA clearance rate
+
+Ref.
+1
+
+0.020–0.040 day
+0.180–0.320 nmol/L
+0.100–0.210 nmol/L
+0.000–0.290 ag/mL/cell/d
+0.015–0.350 ag/mL/cell/d
+0.003–0.035 ag/mL/cell/d
+0.002–0.030 day1
+0.000–0.006 day1
+0.500–2.040 nmol/L
+1.130–3.500 nmol/L
+0.000–0.013 day1
+0.010–0.016 day1
+3
+0.00015 day1
+0.0001 day1
+0.8 nmol/L
+1.7 nmol/L
+3
+5 nmol/L
+0.27 (nmol/L)/d
+4 nmol/L
+0.09 day1
+1.3 nmol/L
+1.1 nmol/L
+3
+0.08 day1
+
+40
+19
+19
+
+a
+a
+a
+a
+a
+a
+a
+
+19, 23
+19
+19
+19
+19
+
+19
+19, 23
+19
+19
+19, 23
+
+NOTE: "Mutation" parameters in Portz and colleagues (19) are called "switching" parameters here to reﬂect the new interpretation of
+li—adaptation and accommodation. Xi are in units of 109 cells.
+a
+These parameter ranges were set such that minfDi ðQi Þg  0:0076 and maxfDi ðQi Þg  0:06 (see ref. 40).
+
+Later, we attempt to quantify this variation in dependence and
+use it to identify which mechanism is developing in individual
+patients. Clinical identiﬁcation of these mechanisms in individual tumors still suffers from a lack of maturity because
+CRPC tissue is difﬁcult to obtain and study (11). Hence,
+mathematical models may be a potentially powerful clinical
+tool for analyzing mechanisms of CRPC development. Here, we
+highlight mechanisms that lead to CRPC, which we propose
+can be identiﬁed through our model.
+The hypersensitivity pathway. Cells using this as their
+major mechanism have a lower androgen threshold for proliferation and survival but remain completely dependent on
+androgens. We consider three speciﬁc pathways to hypersensitivity: ampliﬁcation and overexpression of AR, increased AR
+stability, and increased local androgen production. Overexpression of AR is characteristic of most CRPC cases (7, 15, 24). It
+has been demonstrated that overexpression of wild-type AR is
+adequate to fully transform a CS tumor into a CR tumor (24).
+AR ampliﬁcation is one of the most common genetic aberrations to occur in CRPC (15). It has been suggested that 80% of
+CRPC cases exhibit elevated AR gene copy number whereas
+30% exhibit high-level ampliﬁcation (15). It has also been
+
+3676
+
+Cancer Res; 74(14) July 15, 2014
+
+suggested that increased AR stability may be a mechanism
+leading to CRPC (1). Increased local androgen production can
+result from constitutive activation of 5a-reductase, which
+converts testosterone to DHT in prostate cells. For example,
+the V89L mutation in the gene coding for 5a-reductase leads to
+an increase in its activity (1). Furthermore, some CRPC cells
+may be able to synthesize the androgens themselves from
+cholesterol or other androgenic precursors (1, 5, 6).
+The promiscuous receptor pathway. Promiscuous ARs
+generally arise from missense mutations in the ligand-binding
+domain that decrease the speciﬁcity of the AR for a particular
+ligand. These mutations broaden the group of ligands that
+activate the AR, such that the AR obtains the ability to bind to
+and be activated by other nonandrogen agonists in addition to
+androgens (1, 4). Potential nonandrogen agonists include
+estrogen, progesterone, cortisol, antiandrogens, or adrenal
+androgens such as DHEA (4). For example, the most common
+promiscuous AR mutation is T877A, which is endogenously
+expressed in androgen-sensitive LNCaP cell lines in which it
+was ﬁrst discovered (4, 12). Taplin and colleagues found the
+T877A mutation to be present in 30% of prostate cancer bone
+metastases (25). The T877A-mutant AR still binds to, and is,
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst May 22, 2014; DOI: 10.1158/0008-5472.CAN-13-3162
+
+Identifying CRPC Mechanisms in Individual Patients
+
+thus, activated by, testosterone and DHT. However, alanine
+replaces the threonine residue at position 877 and allows
+ligands other than testosterone and DHT to also ﬁt in the
+binding pocket and activate the receptor (12). Promiscuous
+ARs with complete loss of responsiveness to androgens are
+extremely rare (4). Although mutations have been identiﬁed
+that reduce afﬁnity for DHT relative to the wild-type AR, nearly
+all identiﬁed promiscuous ARs are still activated by DHT (4).
+We, therefore, assume that all CR cells with promiscuous ARs
+retain responsiveness to androgens; however, they are less
+dependent on these androgens than cells with hypersensitivity.
+The outlaw receptor pathway. Outlaw receptors are steroid hormone receptors that are activated by ligand-independent mechanisms. No mutations in the AR gene coding region
+have been identiﬁed such that the AR is activated by ligandindependent mechanisms (1). Rather, this pathway apparently
+involves the wild-type receptor or AR splice variants, because
+the AR gene sequence is not changed, and may still exhibit
+responsiveness to androgens. There have been several AR
+splice variants identiﬁed such that the ligand-binding domain
+is absent and these ARs remain ligand independently constitutively active (6, 26). However, exclusive expression of AR
+splice variants is very rare. The vast majority of cells expressing
+AR splice variants also express wild-type AR (7). Therefore,
+most tumors developing resistance through outlaw AR splice
+variant expression should still exhibit responsiveness to androgens while maintaining active AR signaling in the absence of
+androgens. It has been shown the wild-type AR can be activated
+by growth factors, receptor tyrosine kinases, MAPK, AKT, and
+other activators in a ligand-independent fashion (1). If no
+ligands are available other than androgens in a cell with
+promiscuous ARs, the cell then depends on androgens. If no
+ligands are available in a cell with outlaw AR, AR signaling
+remains active. Thus, this pathway is less dependent on
+androgens than the promiscuous receptor pathway because
+it is completely ligand independent.
+The bypass pathway. This mechanism results from constitutive activation of pathways that directly inhibit apoptosis
+in the absence of androgens (1). One mechanism may be the
+upregulation of BCL2, BCLX, or MCL1, genes known to directly
+inhibit apoptosis (1, 4, 10). Prostatic secretory epithelial cells
+normally do not produce BCL2, but many CRPC cells do (1, 10).
+However, besides prostatic sarcomas and neuroendocrine
+carcinomas, which our model does not consider, the complete
+bypass of AR signaling does not provide a selective advantage
+(4, 6). This pathway is the least dependent on androgens for
+survival.
+
+Materials and Methods
+Formulation of the mathematical model
+We extend the prostate cancer IAD treatment model by
+Portz and colleagues (19) who consider tumors as two cell
+populations: cells that are castration sensitive (CS) and those
+that are castration resistant (CR). The mathematical model
+portrayed in the Quick Guide describes two populations of
+luminal secretory epithelial cells that secrete PSA (1). The CR
+population accounts for prostate cancer cells that have
+
+www.aacrjournals.org
+
+acquired at least one mechanism of treatment resistance. The
+static parameter values, free parameter value ranges, and their
+interpretations are listed in Table 1. Detailed model formulation and explanations can be found in (19) and are summarized
+in the Quick Guide above. What follows is a narrative summary
+of the equations and assumptions.
+Here, we follow Portz and colleagues in assuming that
+proliferation of prostate carcinoma cells is more-or-less androgen dependent, this dependence can vary among cells in a
+given tumor, and cells can switch reversibly between CS and CR
+states. Our major extension of the Portz and colleagues' model
+is the addition of an androgen-dependent cell-death rate (CDR)
+function, Di ðQi Þ (Equation C). We retain the Droop formalism
+(27), adapted from chemostat and ecologic models, to govern
+androgen-dependent proliferation, as well as the forms used
+by Portz and colleagues for androgen-dependent switching
+between CS and CR states—i.e., l1 and l2 (Equations A, B, D,
+and E).
+In this model, androgen enters cells in which it can bind to
+and dissociate from ARs in the intracellular compartment.
+Androgen may also be metabolized or transported out of the
+system. The dynamics of these processes are governed by the
+cell quota (Equation F). Bound ARs alter cell proliferation,
+death and state-switching rates. In general, proliferation rates
+increase and mortality rates decrease with increasing concentration of bound ARs. The total AR concentration, both bound
+and unbound, is regulated in the cell quota equation such that
+the proliferation terms in Equations A and B can never become
+negative. In low androgen environments, state switching by
+prostate cells is biased in favor of the CR state. This bias is
+reversed in high androgen environments. Both cell strains
+secrete PSA to the serum at the same basic rate. However,
+strains may vary in how their PSA secretion rate depends on
+bound AR (see equation G).
+It is an open question whether castration resistance evolves
+from selection acting on a small population of CR cells that
+exist in the tumor before treatment (the selection hypothesis),
+or whether CR strains arise during treatment (the adaptation
+hypothesis), or both (28, 29, 30). The role accommodative
+changes play is also not well understood. Here, by accommodative changes, we mean reversible changes in cell behavior
+not associated with any genetic or genomic alterations—that
+is, plasticity in the cells' behavioral repertoire available to
+accommodate ﬂuctuations in their environment. The possibility of accommodative switching between relative CS and CR
+states in a single clonal lineage was initially investigated in a
+model by Hirata and colleagues (20, 21). Portz and colleagues
+(19) assumed reversible switching between CS and CR states at
+rates l1 and l2, which both depend on the bound AR cell quota
+(see Equations A, B, D, and E). Although Portz and colleagues
+interpreted these as forward and backward mutations between
+CS and CR states, the form is much more general. Any
+mechanism of castration resistance, including mutation in
+coding and control regions of a variety of genes and epigenetic
+changes, can be accommodated by the model's form. Regardless of which process the mathematics truly reﬂects, the
+incorporation of this switch resulted in Portz and colleagues'
+model ﬁtting data much more accurately than previous models
+
+Cancer Res; 74(14) July 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+3677
+
+Published OnlineFirst May 22, 2014; DOI: 10.1158/0008-5472.CAN-13-3162
+
+Morken et al.
+
+Table 2. Criteria for predictive diagnosis by CDR analysis
+
+Not exceedingly low
+maxfD2 ðQ2 Þg  L
+Exceedingly low
+maxfD2 ðQ2 Þg < L
+
+Constant or relatively
+constant 0  F2  T0
+
+Slight oscillation
+T 0 < F2  T 1
+
+High oscillation
+T1 < F2
+
+Outlaw receptor
+pathway
+Bypass pathway
+
+Promiscuous receptor
+pathway
+No mechanism
+
+Hypersensitivity
+pathway
+No mechanism
+
+NOTE: The major mechanism of treatment resistance inherent in a given patient after a period of IAD is identiﬁed on the basis of
+F2 (the amplitude of CR CDR oscillation), maxfD2 ðQ2 Þg (the maximum CR CDR), and their relationships with three threshold values set
+as L ¼ 0:013 day1 , T0 ¼ 0:0003 day1 , and T1 ¼ 0:0013 day1 . See Simulations and diagnosis for criteria elucidation. We propose no
+mechanism for exceedingly low and oscillating CDRs.
+
+from which it was derived. However, we interpret the switch
+as incorporating both adaptation and accommodation to
+cover all possible switching mechanisms. The adaptation
+label is supported by the fact that AR point mutations are
+rarely found in primary prostate cancer but are found in
+approximately 20% of CRPCs (11). Furthermore, one study
+showed that only two of 205 untreated prostate cancer cases
+had detectable AR ampliﬁcation (31), and another study
+showed that 38% to 63% of metastatic CRPC cases exhibited
+high-level AR ampliﬁcation (32, 33). This evidence strongly
+suggests that an oscillating androgen environment creates
+selective pressure inducing an adaptive switch. Although
+this evidence only shows evolution toward CRPC, it is
+possible that CR tumors could evolve back to CS if selective
+pressures change (e.g., androgen is reintroduced); although
+this return to castration sensitivity would be unlikely to be
+due to direct back mutation, we recognize that the phenotype can be regenerated by novel alterations of coding or
+control sequences to a variety of genes in a given resistance
+pathway. It is necessary to include accommodation into the
+interpretation because epigenetic modiﬁcations, which can
+lead to phenotypic switching, take place at a much higher
+rate than genetic modiﬁcations (34) and several epigenetic
+aberrations play a role in prostate cancer that can facilitate
+the phenotypic switch represented by l1 and l2 (35).
+CDR analysis
+The CDR analysis method we propose here consists of
+analyzing the CDR levels and oscillations in response to
+intermittent treatment to determine which molecular basis
+is conferring treatment resistance in a given patient. The
+rationale behind CDR analysis is as follows:
+1. The mechanism of action of IAD is largely induction of
+apoptosis, because all CS cells and most CR cells exhibit
+some degree of dependence on androgens for survival.
+2. Because the treatment is intermittent, CDRs increase
+during on-treatment and decrease during off-treatment
+giving rise to CDR oscillations.
+3. The amplitude of CDR oscillation in a given population
+reﬂects the degree to which that population depends on
+androgens for survival.
+
+3678
+
+Cancer Res; 74(14) July 15, 2014
+
+4. Each mechanism of treatment resistance varies in its
+dependence on androgens for survival.
+5. In addition, CDR levels tell us whether or not there is a
+constitutively active antiapoptotic pathway inherent in
+the population (i.e., the bypass pathway). An exceedingly
+low CDR indicates there is.
+6. We identify which major mechanism of treatment
+resistance is developing by analyzing the CDR levels and
+oscillations.
+Data
+The data from Akakura and colleagues were obtained from
+seven patients with progressive prostate cancer undergoing
+IAD by total androgen blockade (9). Serum PSA and testosterone were assayed monthly to monitor therapy. Treatment
+was initiated and subsequently interrupted after serum PSA
+had been suppressed to adequately low levels for roughly six
+months. When PSA recovered past 15 to 20 ng/mL, treatment
+was reinitiated for a new cycle.
+Treatment induced rapid decreases in serum testosterone,
+with levels reaching approximately 0.5 to 1.0 nmol/L after
+about one or two months. These low levels were sustained until
+interruption of treatment, after which testosterone recovered
+relatively quickly, with some variation depending on the
+patient. The coupling of these changes to those of PSA varied
+across not only patients but also cycles of individual patients.
+Akakura and his colleagues suggested that these dynamics
+were due both to changes in androgen sensitivity and to the
+"dual effect" of androgen on PSA; namely, the cellular level (PSA
+synthesis and secretion) and the population level (proliferation
+and apoptosis; ref. 9). The model captures these effects via the
+dependence of Q(t) (Equation F) on the serum androgen
+concentration A(t). CDR analysis quantiﬁes this behavior
+across cycles and patients in a way that is both simple and
+biologically meaningful.
+For each patient, CDR values were calculated by ﬁtting the
+model to the PSA data. To implement the serum androgen
+function, A(t), testosterone data were interpolated using the
+same approach found in Portz and colleagues (19). The Nelder–
+Mead simplex algorithm (36) was then used to minimize the
+mean-square error (MSE) of the PSA data with the model
+solution P(t) by varying the parameters mm, s 0, qi, s i, di, Ri, and
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst May 22, 2014; DOI: 10.1158/0008-5472.CAN-13-3162
+
+Identifying CRPC Mechanisms in Individual Patients
+
+A
+
+B
+
+PSA
+
+25
+
+Serum T data
+
+25
+
+PSA data
+
+Interpolation
+
+CS
+
+20
+
+20
+
+CR
+
+Figure 1. A–D, serum-PSA
+(ng/mL), serum-testosterone
+1
+(nmol/L), CDR (day ), and
+1
+proliferation-rate (day ) plots for
+patient 1, respectively. A, also
+displays CS and CR population
+dynamics. The x-axis is time in
+days.
+
+15
+
+15
+
+10
+
+10
+
+5
+
+5
+
+0
+
+0
+0
+
+500
+
+1,000
+
+C
+
+0
+
+500
+
+1,000
+
+D
+
+0.025
+CS CDR
+
+CS proliferation rate
+
+CR CDR
+
+CR proliferation rate
+
+0.03
+
+0.02
+
+0.02
+
+0.01
+0.015
+0
+0
+
+500
+
+di, i ¼ 1; 2. The remaining model parameters were held ﬁxed
+across patients (see Table 1 for ranges and values).
+Simulations and diagnosis
+To identify the major mechanism of resistance for each
+patient, we establish criteria based on Fi, the total CDR
+oscillation amplitude deﬁned in Equation H. Because the
+amplitude of CDR oscillation reﬂects the degree to which a
+population depends on androgens for survival, and because
+each mechanism varies in its degree of dependence on androgens for survival, we propose that there exist threshold CDR
+oscillation amplitudes that distinguish one mechanism from
+another. Speciﬁcally, we deﬁne two threshold values, T0 and T1.
+For 0 < Fi  T0 , the CDR is said to be relatively constant and
+the population is, thus, relatively independent of androgens for
+survival. For Fi ¼ 0, which occurs when di ¼ 0 or Ri ¼ 0
+(Qai;max and Qai;min are never equal), the CDR is constant and the
+population is completely independent of androgens for survival. For T0 < Fi  T1 , the CDR is said to slightly oscillate with
+respect to oscillation in androgen concentration and the
+population, thus, retains some dependence on androgens for
+survival. For T1 < Fi , we say that there is relatively high oscillation in the CDR with respect to oscillation in androgen
+concentration and the population is, thus, completely dependent on androgens for survival. We also deﬁne a threshold L
+such that for maxfDi ðQi Þg < L, the CDR is said to be exceed-
+
+www.aacrjournals.org
+
+1,000
+
+0
+
+500
+
+1,000
+
+ingly low. An exceedingly low CDR would be characteristic of a
+constitutively active antiapoptotic pathway such that apoptosis is directly inhibited in the population, i.e., the bypass
+pathway.
+As a novel approach for computational molecular diagnosis,
+our threshold values for T0 , T1 , and L are estimates based on
+existing hypotheses and data relevant to this work. Model
+parameters were constrained to biologically relevant ranges
+when applicable. When estimating these values, we considered
+consistency with patient-speciﬁc clinical observations and with
+the relative frequency of each mechanism reported in the
+literature. The threshold values were estimated to be
+L ¼ 0:013 day1 , T0 ¼ 0:0003 day1 , and T1 ¼ 0:0013 day1 .
+Mutations in the AR gene that confer hypersensitivity are the
+most frequent mutations found in CRPC and there is strong
+evidence that AR overexpression is the main mechanism of
+CRPC development (15). Therefore, these threshold values
+were estimated such that 4 of 7 patients would be diagnosed
+with hypersensitivity. Thus, T1 was estimated to be slightly
+below the CDR oscillation amplitude value of patient 7,
+F2 ¼ 0:0014 day1 . Because patient 4 was the only patient
+proposed to have early onset of CRPC and had an exceedingly low CDR relative to others, L was estimated to be
+slightly above maxfD2 ðQ2 Þg ¼ 0:0110 day1 , the maximum CDR of patient 4. T0 was estimated to be slightly
+above the CDR oscillation amplitude value of patient 2,
+
+Cancer Res; 74(14) July 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+3679
+
+Published OnlineFirst May 22, 2014; DOI: 10.1158/0008-5472.CAN-13-3162
+
+Morken et al.
+
+A
+
+B
+
+80
+60
+50
+
+60
+
+40
+40
+
+30
+20
+
+20
+10
+0
+
+0
+0
+
+200
+
+400
+
+600
+
+800
+
+C
+
+0
+
+500
+
+1,000
+
+D
+40
+
+30
+
+PSA
+PSA data
+30
+
+Figure 2. A–F, serum-PSA plots
+(ng/mL) and CS and CR population
+dynamics for patients 2 to 7,
+respectively. The x-axis is time in
+days. D, scaled for easier viewing;
+the ﬁrst PSA datum is 113 ng/mL.
+
+CS
+
+20
+
+CR
+20
+
+10
+10
+
+0
+
+0
+0
+
+500
+
+0
+
+1,000
+
+E
+
+200
+
+400
+
+600
+
+F
+12
+
+50
+10
+40
+8
+30
+
+6
+
+20
+
+4
+
+10
+
+2
+0
+
+0
+0
+
+200
+
+400
+
+600
+
+0
+
+F2 ¼ 0:0001 day1 , because patient 2 exhibited a more
+aggressive treatment resistance compared with others.
+Although a given patient may develop CRPC due to a
+combination of mechanisms, we assume that it is primarily
+due to one major mechanism. If more than one mechanism is
+inherent in the population, the one that is the least dependent
+on androgens for survival is the major mechanism. Because
+the hypersensitivity pathway maintains the strongest dependence on androgens, we propose that patients developing
+
+3680
+
+Cancer Res; 74(14) July 15, 2014
+
+500
+
+1,000
+
+resistance primarily through this pathway should exhibit a
+high oscillation amplitude F2 with a maximum CDR that is not
+exceedingly low; i.e., T1 < F2 and maxfD2 ðQ2 Þg  L. The
+promiscuous receptor pathway, which is less dependent on
+androgens than the hypersensitivity pathway, should exhibit a
+smaller oscillation amplitude F2 while maintaining a maximum CDR that is not exceedingly low; i.e., T0 < F2  T1 and
+maxfD2 ðQ2 Þg  L. We propose that the outlaw receptor
+pathway is less dependent on androgens than the promiscuous
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst May 22, 2014; DOI: 10.1158/0008-5472.CAN-13-3162
+
+Identifying CRPC Mechanisms in Individual Patients
+
+Table 3. Predictive diagnosis for each of 7 patients
+
+Patient 1
+Patient 2
+Patient 3
+Patient 4
+Patient 5
+Patient 6
+Patient 7
+
+F1 (day1)
+
+F2 (day1)
+
+max{D2(Q2)}(day1)
+
+Diagnosis
+
+0.0068 > T1
+0.0128 > T1
+0.0049 > T1
+T0 < 0.0011 < T1
+0.0080 > T1
+0.0036 > T1
+0.0074 > T1
+
+0.0020 > T1
+0 < 0.0001 < T0
+0.0015 > T1
+0 < 0.0002 < T0
+0.0035 > T1
+T0 < 0.0008 < T1
+0.0014 > T1
+
+0.0184 >
+0.0166 >
+0.0150 >
+0.0110 <
+0.0193 >
+0.0169 >
+0.0194 >
+
+Hypersensitivity
+Outlaw receptor
+Hypersensitivity
+Bypass
+Hypersensitivity
+Promiscuous receptor
+Hypersensitivity
+
+L
+L
+L
+L
+L
+L
+L
+
+NOTE: These diagnoses were carried out using criteria for predictive diagnosis by CDR analysis outlined in Table 2 on the basis of
+F2 (the amplitude of CR CDR oscillation), maxfD2 ðQ2 Þg (the maximum CR CDR), and threshold values L ¼ 0:013 day1 ,
+T0 ¼ 0:0003 day1 , and T1 ¼ 0:0013 day1 .
+
+receptor pathway because it is completely ligand independent
+and, therefore, exhibits an oscillation amplitude that is zero or
+relatively constant and the maximum CDR should remain not
+exceedingly low; i.e., 0  F2  T0 and maxfD2 ðQ2 Þg  L.
+The bypass pathway exhibits an exceedingly low CDR and is
+completely androgen independent for survival and, thus, oscillates minimally; i.e., 0  F2  T0 and maxfD2 ðQ2 Þg < L. We
+propose no mechanism for exceedingly low and oscillating
+CDRs as they are biologically unlikely to exist because the
+apoptotic program would be directly shut down. These criteria
+are outlined in Table 2.
+
+Results and Discussion
+For each patient, we computed the amplitudes of CDR
+oscillation Fi given in Equation H and the maximum CDRs
+for CDR analysis. We then diagnosed each patient using the
+outlined criteria (see Table 2). Figure 1 shows the PSA, cell
+quota, CDR, and proliferation-rate plots for patient 1. Figure 2
+shows the PSA plots for patients 2 to 7. Figure 3 shows the CDR
+plots for patients 2 to 7. The proliferation-rate and cell-quota
+plots for patients 2 to 7 are found in the Supplementary
+Material, as are the MSE values of the ﬁtted model solutions
+and PSA data. Table 3 contains the predictive diagnosis for
+each patient based on our criteria for CDR analysis. As
+expected, none of the patients have cell populations with
+exceedingly low and oscillating CDRs.
+As expected, our results suggest that most CR populations
+retain at least some degree of dependence on androgens for
+survival. Patient 4 is the only patient whose PSA level never
+dropped below 4 ng/mL within the ﬁrst 8 months of treatment (see Fig. 2). Akakura and colleagues (9) concluded that
+IAD is likely ineffective for patients whose PSA levels do not
+fall below this stable level within the ﬁrst 8 months of
+treatment. They suggest that failure for PSA levels to normalize within this time period is a sign of early onset of
+CRPC (9). Our results show that patient 4 is the only patient
+that did not have a highly oscillating CS CDR, meaning that
+the CS population for patient 4 was not fully dependent on
+androgens for survival, consistent with the notion of early
+onset of CRPC. Patients whose CS CDR oscillations are
+
+www.aacrjournals.org
+
+inside the range of T1, or F1 < T1 , may, thus, be developing
+early onset of CRPC. Furthermore, patient 4 was diagnosed
+with the most aggressive and least androgen-dependent
+pathway according to our criteria, which is also consistent
+with early onset of CRPC.
+In future studies, it will be important to assess how much
+data are required for CDR analysis. In this study, diagnoses
+were based on the entire datasets from the clinical trial, which
+varied from 1.5 to 3.5 cycles per patient. At this stage of its
+development, we believe at least one full cycle of treatment is
+needed. This includes data from start until shortly after the
+second on-treatment has begun and PSA has regressed to
+physiologic range. Ideally, physicians will continually test
+patients' levels and update their diagnosis proﬁle with subsequent targeted treatment.
+Although the threshold values L, T0, and T1 remain to be
+validated clinically, even once these values are empirically
+determined it is possible that they will still be subject to
+variation among datasets, and among patients. As with most
+models used for clinical prediction, it is likely to require
+repeated updating and validation with new datasets (37).
+Furthermore, we expect such updates not only to involve these
+thresholds, but also to include modiﬁcations to the model
+itself. We recognize this study as one that is preliminary but
+that establishes the principles of CDR analysis—a novel
+computational method for molecular diagnosis—on which
+others may build.
+Although we demonstrated how CDR analysis works using
+CRPC development as an example, this methodology may be
+applied to other types of cancer. In particular, other steroid
+hormone–driven malignancies, such as estrogen receptor–
+positive (ERþ) breast cancers, share many similarities in
+terms of their progression. For example, certain ERþ breast
+cancers can be treated intermittently with LHRH analogues
+to suppress serum estrogen levels in combination with
+antiestrogens that directly inhibit ER signaling (38, 39),
+which is similar to the combination of LHRH analogues and
+antiandrogens in the total androgen blockade used for
+prostate cancer IAD.
+Personalized therapy on the basis of identifying and targeting speciﬁc mechanisms of treatment resistance developing in
+
+Cancer Res; 74(14) July 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+3681
+
+Published OnlineFirst May 22, 2014; DOI: 10.1158/0008-5472.CAN-13-3162
+
+Morken et al.
+
+A
+
+B
+
+CS CDR
+
+0.018
+
+0.025
+
+CR CDR
+0.016
+0.02
+0.014
+0.015
+0.012
+
+0.01
+
+0
+
+200
+
+400
+
+600
+
+0.01
+
+800
+
+C
+
+0
+
+500
+
+1,000
+
+D
+0.03
+
+0.016
+0.025
+1
+
+0.014
+
+Figure 3. A–F, CDR plots (day ) for
+patients 2 to 7, respectively. The xaxis is time in days.
+
+0.02
+0.012
+
+0.01
+
+0
+
+500
+
+1,000
+
+E
+
+0.015
+
+0
+
+200
+
+400
+
+600
+
+F
+0.022
+
+0.018
+0.02
+0.017
+0.018
+
+0.016
+0.015
+
+0.016
+
+0.014
+
+0.014
+0.012
+
+0.013
+0
+
+200
+
+400
+
+600
+
+0
+
+individual patients is likely one of the most promising methods
+of future cancer therapy. CDR analysis is a method for identifying the mechanism, which physicians can then conceivably
+target, thus reestablishing treatment sensitivity in these
+patients. Sequential identiﬁcation and targeting of resistance
+mechanisms may potentially control or eradicate cancers.
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+500
+
+1,000
+
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): Y. Kuang
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): J.D. Morken, A. Packer, R.A. Everett, J.D. Nagy,
+Y. Kuang
+Writing, review, and/or revision of the manuscript: J.D. Morken, A. Packer,
+R.A. Everett, J.D. Nagy, Y. Kuang
+Administrative, technical, or material support (i.e., reporting or organizing data, constructing databases): A. Packer
+Study supervision: J.D. Nagy
+The costs of publication of this article were defrayed in part by the payment of
+page charges. This article must therefore be hereby marked advertisement in
+accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+
+Authors' Contributions
+Conception and design: J.D. Morken, A. Packer, R.A. Everett, Y. Kuang
+Development of methodology: J.D. Morken, A. Packer, R.A. Everett, Y. Kuang
+
+3682
+
+Cancer Res; 74(14) July 15, 2014
+
+Received November 5, 2013; revised April 9, 2014; accepted April 24, 2014;
+published OnlineFirst May 22, 2014.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+Published OnlineFirst May 22, 2014; DOI: 10.1158/0008-5472.CAN-13-3162
+
+Identifying CRPC Mechanisms in Individual Patients
+
+References
+1.
+2.
+
+3.
+
+4.
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+11.
+
+12.
+13.
+
+14.
+
+15.
+
+16.
+
+17.
+
+18.
+
+19.
+
+Feldman BJ, Feldman D. The development of androgen-independent
+prostate cancer. Nature 2001;1:34–45.
+Scher HI, Buchanan G, Gerald W, Butler LM, Tilley WD. Targeting the
+androgen receptor: improving outcomes for castration-resistant prostate cancer. Endocr Relat Cancer 2004;11:459–76.
+Denmeade SR, Lin XS, Isaacs JT. Role of programmed (apoptotic) cell
+death during the progression and therapy for prostate cancer. Prostate
+1996;28:251–65.
+Heinlein CA, Chang C. Androgen receptor in prostate cancer. Endocr
+Rev 2004;25:276–308.
+Mitsiades N. A road map to comprehensive androgen receptor axis
+targeting for castration-resistant prostate cancer. Cancer Res 2013;
+73:4599–605.
+Nelson PS. Molecular states underlying androgen receptor activation:
+a framework for therapeutics targeting androgen signaling in prostate
+cancer. J Clin Oncol 2012;30:644–6.
+Sun S, Sprenger CCT, Vessella RL, Haugk K, Soriano K, Mostaghel EA,
+et al. Castration resistance in human prostate cancer is conferred by a
+frequently occurring androgen receptor splice variant. Journal Clin
+Invest 2010;120:2715–30.
+Holzbeierlein J, Lal P, LaTulippe E, Smith A, Satagopan J, Zhang L,
+et al. Gene expression analysis of human prostate carcinoma
+during hormonal therapy identiﬁes androgen-responsive genes
+and mechanisms of therapy resistance. Am J Pathol 2004;164:
+217–27.
+Akakura K, Bruchovsky N, Goldenberg SL, Rennie PS, Buckley AR,
+Sullivan LD. Effects of intermittent androgen suppression on androgen-dependent tumors. Apoptosis and serum prostate-speciﬁc antigen. Cancer 1993;71:2782–90.
+Rashid MH, Chaudhary UB. Intermittent androgen deprivation therapy
+for prostate cancer. Oncologist 2004;9:295–301.
+Huang J, Wang JK, Sun Y. Molecular pathology of prostate cancer
+revealed by next-generation sequencing: opportunities for genomebased personalized therapy. Curr Opin Urol 2013;23:189–93.
+Brooke GN, Bevan CL. The role of androgen receptor mutations in
+prostate cancer progression. Curr Genomics 2009;10:18–25.
+de Bono JS, Logothetis CJ, Molina A, Fizazi K, North S, Chu L, et al.
+Abiraterone and increased survival in metastatic prostate cancer. N
+Engl J Med 2011;364:1995–2005.
+Scher HI, Fizazi K, Saad F, Taplin ME, Sternberg CN, Miller K, et al.
+Increased survival with enzalutamide in prostate cancer after chemotherapy. N Engl J Med 2012;367:1187–97.
+Waltering KK, Urbanucci A, Visakorpi T. Androgen receptor (AR)
+aberrations in castration-resistant prostate cancer. Mol Cell Endocrinol 2012;360:38–43.
+Hussain M, Tangen CM, Berry DL, Higano CS, Crawford ED, Liu G,
+et al. Intermittent versus continuous androgen deprivation in prostate
+cancer. N Engl J Med 2013;368:1312–25.
+Prapotnich D, Cathelineau X, Rozet F, Barret E, Mombet A, Cathala N,
+et al. A 16-year clinical experience with intermittent androgen deprivation for prostate cancer: oncological results. World J Urol 2009;27:
+627–35.
+Bruchovsky N, Klotz L, Crook J, Phillips N, Abersbach J, Goldenberg
+SL. Quality of life, morbidity, and mortality results of a prospective
+phase II study of intermittent androgen suppression for men with
+evidence of prostate-speciﬁc antigen relapse after radiation therapy
+for locally advanced prostate cancer. Clin Genitourin Cancer 2008;6:
+46–52.
+Portz T, Kuang Y, Nagy JD. A clinical validated mathematical model of
+prostate cancer growth under intermittent androgen suppression
+therapy. AIP Adv 2012;2:011002.
+
+www.aacrjournals.org
+
+20. Hirata Y, Bruchovsky N, Aihara K. Development of a mathematical
+model that predicts the outcome of hormone therapy for prostate
+cancer. J Theor Biol 2010;264:517–27.
+21. Hirata Y, Akakura K, Higano CS, Bruchovsky N, Aihara K. Quantitative
+mathematical modeling of PSA dynamics of prostate cancer patients
+treated with intermittent androgen suppression. J Mol Cell Biol 2012;
+4:127–32.
+22. Jackson TL. A mathematical investigation of the multiple pathways to
+recurrent prostate cancer: comparison with experimental data. Neoplasia 2004;6:697–704.
+23. Ideta AM, Tanaka G, Takeuchi T, Aihara K. A mathematical model of
+intermittent androgen suppression for prostate cancer. J Nonlinear Sci
+2008;18:593–614.
+24. Chen CD, Welsbie DS, Tran C, Baek SH, Chen R, Vessella R, et al.
+Molecular determinants of resistance to antiandrogen therapy. Nat
+Med 2004;10:33–9.
+25. Taplin M, Bubley GJ, Shuster TD, Frantz ME, Spooner AE, Ogata GK,
+et al. Mutation of the androgen-receptor gene in metastatic androgenindependent prostate cancer. N Engl J Med 1995;332:1394–8.
+26. Dehm SM, Tindall DJ. Alternatively spliced androgen receptor variants.
+Endocr Relat Cancer 2011;18:R183-R196.
+27. Droop MR. Some thoughts on nutrient limitation in algae. J Phycol
+1973;9:264–72.
+28. Dawson NA. Intermittent androgen deprivation. Curr Oncol Rep
+2000;2:409–16.
+29. Ahmed M, Li LC. Adaptation and clonal selection of castration-resistant prostate cancer: current perspective. Int J Urol 2013;20:362–71.
+30. Zong Y, Goldstein AS. Adaptation or selection—mechanisms of castration-resistant prostate cancer. Nat Rev Urol 2013;10:90–8.
+31. Bubendorf L, Kononen J, Koivisto P, Schraml P, Moch H, Gasser TC,
+et al. Survey of gene ampliﬁcations during prostate cancer progression
+by high-throughput ﬂuorescence in situ hybridization on tissue microarrays. Cancer Res 1999;59:803–6.
+32. Attard G, Swennenhuis JF, Olmos D, Reid AHM, Vickers E, A'Hern R,
+et al. Characterization of ERG, AR, and PTEN gene status in circulating
+tumor cells from patients with castration-resistant prostate cancer.
+Cancer Res 2009;69:2912–8.
+33. Leversha MA, Han J, Asgari Z, Danila DC, Lin O, Gonzalez-Espinoza R,
+et al. Fluorescence in situ hybridization analysis of circulating tumor
+cells in metastatic prostate cancer. Clin Cancer Res 2009;15:2091–7.
+34. Greaves M, Maley CC. Clonal evolution in cancer. Nature 2012;481:
+306–13.
+35. Albany C, Alva AS, Aparicio AM, Singal R, Yellapragada S, Sonpavde
+G, et al. Epigenetics in prostate cancer. Prostate Cancer 2011;21:1–12.
+36. Lagarias JC, Reeds JA, Wright MH, Wright PE. Convergence properties of the Nelder–Mead simplex method in low dimensions. SIAM J
+Optim 1998;9:112–47.
+37. Toll DB, Janssen KJM, Vergouwe Y, Moons KGM. Validation, updating
+and impact of clinical prediction rules: a review. J Clin Epidemiol
+2008;61:1085–94.
+38. Goel S, Sharma R, Hamilton A, Beith J. LHRH agonists for adjuvant
+therapy of early breast cancer in premenopausal women. Cochrane
+Database Syst Rev 2009;7:CD004562.
+39. Wilcken N, Stockler M. Use of luteinising-hormone-releasing hormone
+agonists as adjuvant treatment in premenopausal patients with hormone receptor-positive breast cancer: a meta-analysis of individual
+patient data from randomised adjuvant trials. Commentary Lancet
+2007;369:1711–23.
+40. Berges RR, Vukanovic J, Epstein JI, CarMichel M, Cisek L, Johnson
+DE, et al. Implication of cell kinetic changes during the progression of
+human prostatic cancer. Clin Cancer Res 1995;1:473–80.
+
+Cancer Res; 74(14) July 15, 2014
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+3683
+
+Published OnlineFirst May 22, 2014; DOI: 10.1158/0008-5472.CAN-13-3162
+
+Mechanisms of Resistance to Intermittent Androgen Deprivation in
+Patients with Prostate Cancer Identified by a Novel Computational
+Method
+Jason D. Morken, Aaron Packer, Rebecca A. Everett, et al.
+Cancer Res 2014;74:3673-3683. Published OnlineFirst May 22, 2014.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-13-3162
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2014/06/03/0008-5472.CAN-13-3162.DC1
+
+This article cites 40 articles, 9 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/74/14/3673.full#ref-list-1
+This article has been cited by 4 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/74/14/3673.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2014 American Association for Cancer Research.
+
+

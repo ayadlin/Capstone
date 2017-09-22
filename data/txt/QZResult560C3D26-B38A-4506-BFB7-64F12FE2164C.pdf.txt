@@ -1,0 +1,970 @@
+Published OnlineFirst July 28, 2009; DOI: 10.1158/0008-5472.CAN-09-0777
+
+Systems Biology and Emerging Technologies
+
+Systems Biology Reveals New Strategies for Personalizing
+Cancer Medicine and Confirms the Role of PTEN in
+Resistance to Trastuzumab
+1
+
+2
+
+2
+
+2
+
+2
+
+1
+
+Dana Faratian, Alexey Goltsov, Galina Lebedeva, Anatoly Sorokin, Stuart Moodie, Peter Mullen,
+1
+1
+1
+2,3
+1
+Charlene Kay, In Hwa Um, Simon Langdon, Igor Goryanin, and David J. Harrison
+1
+Edinburgh Breakthrough Research Unit and Division of Pathology, 2Centre for Systems Biology at Edinburgh, and 3School of Informatics,
+Informatics Forum, University of Edinburgh, Edinburgh, Scotland, United Kingdom
+
+Abstract
+Resistance to targeted cancer therapies such as trastuzumab is
+a frequent clinical problem not solely because of insufficient
+expression of HER2 receptor but also because of the
+overriding activation states of cell signaling pathways. Systems
+biology approaches lend themselves to rapid in silico testing of
+factors, which may confer resistance to targeted therapies.
+In this study, we aimed to develop a new kinetic model that
+could be interrogated to predict resistance to receptor
+tyrosine kinase (RTK) inhibitor therapies and directly test
+predictions in vitro and in clinical samples. The new
+mathematical model included RTK inhibitor antibody binding, HER2/HER3 dimerization and inhibition, AKT/mitogenactivated protein kinase cross-talk, and the regulatory
+properties of PTEN. The model was parameterized using
+quantitative phosphoprotein expression data from cancer
+cell lines using reverse-phase protein microarrays. Quantitative PTEN protein expression was found to be the key
+determinant of resistance to anti-HER2 therapy in silico,
+which was predictive of unseen experiments in vitro using the
+PTEN inhibitor bp(V). When measured in cancer cell lines,
+PTEN expression predicts sensitivity to anti-HER2 therapy;
+furthermore, this quantitative measurement is more predictive of response (relative risk, 3.0; 95% confidence interval,
+1.6–5.5; P < 0.0001) than other pathway components taken in
+isolation and when tested by multivariate analysis in a cohort
+of 122 breast cancers treated with trastuzumab. For the first
+time, a systems biology approach has successfully been used
+to stratify patients for personalized therapy in cancer and is
+further compelling evidence that PTEN, appropriately measured in the clinical setting, refines clinical decision making
+in patients treated with anti-HER2 therapies. [Cancer Res
+2009;69(16):6713–20]
+
+Introduction
+HER2-targeting receptor tyrosine kinase (RTK) inhibitors, such
+as trastuzumab and pertuzumab, show clinical efficacy in breast
+and ovarian cancer but measurement of HER2 protein expression
+
+Note: Supplementary data for this article are available at Cancer Research Online
+(http://cancerres.aacrjournals.org/).
+D. Faratian and A. Goltsov contributed equally to this work.
+Requests for reprints: Dana Faratian, Edinburgh Breakthrough Research Unit and
+Division of Pathology, University of Edinburgh, Crewe Road South, Edinburgh EH4
+2XR, Scotland, United Kingdom. Phone: 44-131-537-1763; Fax: 44-131-537-3159; E-mail:
+d.faratian@ed.ac.uk.
+I2009 American Association for Cancer Research.
+doi:10.1158/0008-5472.CAN-09-0777
+
+www.aacrjournals.org
+
+or gene amplification status is a poor predictor of response with a
+very low positive predictive value (1, 2). The documented actual
+benefit of adjuvant trastuzumab combined with chemotherapy
+versus chemotherapy alone in terms of overall survival is only
+modest [96% versus 95%, respectively, at 1 year (1) and 91% versus
+87%, respectively, at 4 years (2)]. A large proportion of patients
+therefore unnecessarily receive ineffective and expensive treatments with toxic side effects, and there is a need to be able to
+identify markers that can be used to predict therapeutic response
+and readily applied to the clinic. Activating mutations in the
+oncogene PIK3CA and inactivation of the tumor suppressor gene
+PTEN are known to regulate phosphatidylinositol 3-kinase (PI3K)
+signaling and cell proliferation and survival pathways, and
+empirically, these have been shown to play a role in resistance to
+anti-HER2 therapies in breast cancer (3, 4). However, the evidence
+supporting the role of PI3K pathway activation in RTK inhibitor
+resistance has only been tested in very small cohorts of patients
+retrospectively (n = 55 and n = 47, respectively; refs. 3, 4). Further
+evidence is required to support the use of PI3K pathway
+biomarkers in the clinic supported by robust preclinical and
+clinical evidence.
+Kinetic (or dynamic) computational models offer the opportunity to cheaply and efficiently test the efficacy of targeted therapies
+in silico (i.e., computationally) as part of the preclinical testing
+process (5). However, this methodology is still perceived as esoteric
+and not clinically applicable because there are very few successful
+examples of when such modeling has changed practice (6). One
+notable exception is modeling of ion channels in the heart, which
+has helped explain the previously ill-defined action of the drug
+ranolazine (7, 8). These modeling data were subsequently used
+within a Food and Drug Administration submission as supportive
+evidence for mode of action (9).4 In oncology, systems biology has
+not yet made the same effect, but the use of therapies targeted
+against the products of cellular oncogenes in signaling pathways
+lends itself to this approach because these pathways can readily be
+modeled using ordinary differential equations (5). To date,
+canonical pathways such as the epidermal growth factor receptor
+pathway have only been modeled to explain and predict
+physiologic phenomena (10–16). However, such models have not
+been so helpful for understanding therapeutic interventions
+because they frequently fail to include important oncogene and
+tumor suppressor nodes, which are fundamental to carcinogenesis
+and proven resistance proteins [such as HER2, PTEN, and SRC in
+PI3K and mitogen-activated protein kinase (MAPK) signaling
+models].
+4
+http://www.fda.gov/NewsEvents/Newsroom/PressAnnouncements/2006/
+ucm108587.htm
+
+6713
+
+Cancer Res 2009; 69: (16). August 15, 2009
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst July 28, 2009; DOI: 10.1158/0008-5472.CAN-09-0777
+Cancer Research
+
+The aim of this study was to address these deficiencies in current
+models by (a) developing a new kinetic model that could be
+interrogated to predict resistance to RTK inhibitor therapies and
+(b) directly test predictions in vitro and in clinical samples.
+
+Materials and Methods
+Computational modeling. A kinetic model of heregulin-induced HER2/
+3 signaling through MAPK and PI3K pathways was developed based on the
+model proposed by Kholodenko and colleagues (13). The whole kinetic
+model contains 56 ordinary differentials equations (ODE; S1.1-S1.56)
+describing the change of the concentrations of 56 biological entities
+(proteins, receptors, and lipid second messengers) involved in MAPK and
+PI3K signaling (see Supplementary Table S1). A detailed modeling
+methodology and description of the model design is given in S1 and S2
+(Supplementary Data—modeling methods and description of mathematical
+model). The abbreviations used in the text and ODEs are given in
+Supplementary Table S1. All network schemes were designed using the
+Edinburgh Pathway Editor (17). The computer model construction, fitting,
+and analysis were implemented using the DBsolve package for kinetic modeling
+(18) and SimBiology modeling software (MATLAB, The MathWorks, Inc.). The
+SBML file of the model is given in ‘‘Supplementary Data—SBML model.xml.’’ The
+model parameterization procedure permitted us to describe satisfactorily
+experiments of activation in the different branches of the extracellular signalregulated kinase (ERK)/AKT signaling network (see Supplementary Fig. S1) and
+determine a set of kinetic parameters of the model (see Supplementary Tables S2
+and S3).
+Cell culture and collection of lysates. PE04 and BT474 cells were
+grown as monolayer cultures in DMEM supplemented with 10% heatinactivated FCS and penicillin/streptomycin (100 IU/mL) in a humidified
+atmosphere of 5% CO2 at 37jC. Time course experiments were set up by
+plating cells into 10-cm ø Petri dishes and leaving for 48 h. Cells were then
+briefly washed in PBS before transferring to phenol red–free DMEM
+containing 5% double charcoal-stripped serum supplemented with
+penicillin/streptomycin (100 IU/mL) and glutamine (0.3 mg/mL) for a
+further 48 h before treatment. Paired lysates were prepared by first treating
+relevant dishes with pertuzumab (100 nmol/L) F bpV(pic) (50 nmol)
+immediately followed by the addition of heregulin-h (1 nmol/L). Samples
+were collected at time points of 1, 2, 5, 10, 30, 45, or 60 min; washed in PBS;
+and immediately lysed in ice-cold isotonic lysis buffer [50 mmol/L Tris-HCl
+(pH 7.5), 5 mmol/L EGTA (pH 8.5), 150 mmol/L NaCl, 1% Triton X-100]
+supplemented with aprotinin (10 Ag/mL) and a protease inhibitor cocktail
+(Roche). Lysates were centrifuged for 6 min at 13,000  g and protein
+concentrations of supernatants were subsequently determined using the
+bicinchoninic acid assay (Sigma). All cell culture and time course experiments
+were performed at least three times, and representative reverse-phase protein
+array (RPPA) and Western blot curves were used for the model fitting
+procedure described above and to validate model predictions.
+Western blotting. Protein lysates were electrophoretically resolved on
+either 10% or 12% SDS-PAGE and transferred overnight onto Immobilon-P
+membranes (Millipore). After transfer, membranes were blocked with 1%
+blocking agent (Roche) in TBS before probing overnight at 4jC with the
+appropriate primary antibody made up in 0.5% blocking agent. Primary
+antibodies used for Western blotting were as follows: anti–phospho-AKT
+(pAKT; Ser473; Cell Signaling Technology) at 1:1,000, anti-AKT (Cell Signaling
+Technology) at 1:1,000, anti–phospho-p44/42 MAPK (Thr202/Tyr204; Cell
+Signaling Technology) at 1:1,000, anti-p44/42 MAPK (Thr202/Tyr204; Cell
+Signaling Technology) at 1:1,000, anti-HER1 (Cell Signaling Technology) at
+1:1,000, anti-HER2 (Cell Signaling Technology) at 1:1,000, anti–phosphoHER2 (Tyr877; Cell Signaling Technology) at 1:1,000, anti-HER3 (Cell
+Signaling Technology) at 1:1,000, anti–phospho-HER3 (Tyr1289; Cell Signaling
+Technology) at 1:1,000, anti-HER4 (Cell Signaling Technology) at 1:1,000,
+anti-PI3K (Cell Signaling Technology) at 1:1,000, anti-PTEN (Cell Signaling
+Technology) at 1:1,000, and anti–phospho-PTEN (Ser380/Thr382/383; Cell
+Signaling Technology) at 1:1,000. Immunoreactive bands were detected
+using enhanced chemiluminescent (ECL) reagents (Roche) and Hyperfilm
+
+Cancer Res 2009; 69: (16). August 15, 2009
+
+ECL film (GE Healthcare). Bands were scanned using an Epson Perfection
+4990 scanner and Integrated Optical Density absorbance values were
+obtained by densitometric analysis using Labworks gel analysis software
+(UVP Life Sciences).
+Reverse-phase protein arrays. Denatured and reduced protein lysates
+were spotted onto nitrocellulose-coated glass slides (Eurogentec), as
+previously described (19). Three replicates were spotted per sample in
+eight 2-fold dilutions. Slides were hydrated in Whatman wash buffer for
+5 min and Li-Cor blocking buffer for 1 h (LI-COR Biosciences) and then
+incubated with primary antibodies overnight at 4jC. The following day,
+slides were washed in PBS/T at room temperature for 5 min (thrice) before
+incubating with far-red fluorescently labeled secondary antibodies diluted
+in Li-Cor Odyssey Blocking Buffer (1 AL/2 mL) at room temperature for
+45 min with gentle shaking. Slides were then washed in excess PBS/T
+(thrice)/PBS (thrice) and allowed to air dry before reading on a Li-Cor
+Odyssey scanner at 680 and 780 nm, and images were exported as TIFF files
+for further analysis. Slides were stained using the above primary antibodies
+(matched total and phosphoproteins duplexed on each slide).
+RPPA analysis was performed using MicroVigene RPPA analysis module
+(VigeneTech). Spots were quantified by accurate single segmentation, with
+actual spot signal boundaries determined by the image analysis algorithm.
+Each spot intensity was quantified by measuring the total pixel intensity of
+the area of each spot (volume of spot signal pixels), with background
+subtraction of 2 pixels around each individual spot. The mean of the
+replicates was used for normalization and curve fitting. Curve fitting was
+performed using five-parameter logistical nonlinear regression using a joint
+estimation approach (‘‘supercurve method’’). The quantification y0
+(intensity of curve) or rsu (relative concentration value) of sample dilution
+curves was normalized by corresponding total protein.
+PIK3CA mutation analysis and copy number quantification. PIK3CA
+mutation analysis was performed using the ARMS/Scorpions multiplexed
+PCR assay as previously described (20) to detect the four most common
+mutations in PIK3CA [H1047L, H1047R (exon 20), E545K, and E542K (exon
+9)]. PIK3CA copy number quantification was performed with primers for
+PIK3CA and the glucokinase (GCK) gene as the reference gene as previously
+described (21). Quantitative PCR was performed on the Rotor-Gene 6000
+real-time detection system (Corbett Life Sciences) in 15 AL reaction volumes
+containing 2 Power SYBR Green PCR Master Mix (Applied Biosystems)
+and 1 Amol/L forward and reverse primers. PCR conditions were 10 min at
+95jC followed by 40 cycles consisting of 10 s at 95jC, 15 s at 60jC, and 20 s
+at 72jC. DC t was calculated as GCK C t
+PIK3CA C t and DC t > 3 was
+defined as amplified.
+Samples and tissue microarray construction. The population
+characteristics of the trastuzumab-treated cohort are summarized in Table 1.
+HER2 gene amplification status was confirmed by fluorescence in situ
+hybridization (DAKO HER2 FISH PharmDx, Ely). The study was approved by
+the Lothian Research Ethics Committee (08/S1101/41). Following H&E
+sectioning of representative tumor blocks, tumor areas were marked for
+tissue microarray (TMA) construction and 0.6 mm2 cores were placed into
+three separate TMA replicates for each sample, as previously described (22).
+Immunofluorescence. Immunofluorescence for PTEN was performed
+using methods previously described (23). Briefly, 3-Am TMA slides were
+deparaffinized and antigen retrieved by pressure cooking in 0.15 mmol/L
+sodium citrate buffer at pH 6. Endogenous peroxidases were blocked with
+2.5% hydrogen peroxide for 15 min and nonspecific binding was blocked
+with serum-free protein block for 15 min. Slides were then incubated with
+primary antibodies diluted in 0.025% PBST for 1 h at room temperature
+[AE1/AE3 mouse monoclonal cytokeratin antibody, rabbit polyclonal to
+PTEN (Cell Signaling) diluted 1:100 and 1:25, respectively]. After washing in
+0.025% PBST, sections were incubated for 1 h at room temperature with
+secondary antibodies, which included an Alexa Fluor 488–conjugated goat
+anti-mouse antibody diluted 1:100 in 0.1 mol/L TBS and prediluted goat
+anti-rabbit antibody conjugated to a horseradish peroxidase–decorated
+dextran polymer backbone (EnVision, Dako). Slides were then incubated for
+10 min with Cy5-tyramide, which is activated by horseradish peroxidase, to
+visualize HER2 expression. 4¶,6-Diamidino-2-phenylindole (DAPI; Molecular
+Probes) was used to stain the nuclear compartment.
+
+6714
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst July 28, 2009; DOI: 10.1158/0008-5472.CAN-09-0777
+Cancer Systems Biology for Personalizing Cancer Medicine
+
+Table 1. Clinicopathologic characteristics of patients treated with trastuzumab and association with survival (log-rank test)
+Cohort variable
+Age (y)
+<50
+>50
+NK
+Prognostic index
+<3.4
+3.4–5.4
+>5.4
+NK
+Grade
+1
+2
+3
+NK
+Tumor stage
+I
+II
+III
+IV
+NK
+Node stage at diagnosis
+Negative
+Positive
+NK
+ER status
+>3
+V3
+NK
+HER2 status
+Positive
+Negative
+NK
+Chemotherapy
+Anthracycline containing
+Taxane containing
+NK
+
+n
+
+Percentage
+
+49
+73
+0
+
+40.1
+59.9
+0
+
+2
+47
+62
+11
+
+1.6
+38.5
+50.8
+9.0
+
+1
+19
+99
+2
+
+0.8
+15.6
+81.1
+1.6
+
+35
+64
+12
+3
+8
+
+28.7
+52.5
+9.8
+2.5
+6.6
+
+26
+87
+9
+
+21.3
+71.3
+7.4
+
+72
+41
+9
+
+59.0
+33.6
+7.3
+
+90
+32
+0
+
+73.7
+26.3
+0
+
+66
+53
+3
+
+54.1
+43.4
+2.5
+
+0.46
+
+0.22
+
+0.80
+
+0.024
+
+0.20
+
+0.038
+
+0.38
+
+<0.0001
+
+AQUA automated image analysis. A detailed description of the AQUA
+methodology is available elsewhere (23). Pan-cytokeratin antibody was used to
+identify infiltrating tumor cells and normal epithelial cells, DAPI counterstain to
+identify nuclei, and Cy5-tyramide detection for target (PTEN) for compartmentalized (tissue and subcellular) analysis of tissue sections. Monochromatic
+images of each TMA core were captured at 20 objective using an Olympus
+AX-51 epifluorescence microscope, and high-resolution digital images were
+analyzed by the AQUAnalysis software. Briefly, a binary epithelial mask was
+created from the cytokeratin image of each TMA core. If the epithelium
+comprised <5% of total core area, the core was excluded from analysis.
+Similar binary masks were created for cytoplasmic and nuclear compartments
+based on DAPI staining of nuclei. PTEN expression was quantified by
+calculating the Cy5 fluorescent signal intensity on a scale of 0 to 255 within each
+image pixel, and the AQUA score was generated by dividing the sum of Cy5
+signal within the epithelial mask by the area of the cytoplasmic compartment.
+Statistical analysis methods. AQUA scores were averaged from replicate
+cores. To reduce type I error that can result from using the minimum P value
+method for determining the cutpoint value for PTEN expression in KaplanMeier analysis (24), we used X-Tile, which allows determination of an optimal
+cutpoint while correcting for the use of minimum P statistics (25). Two
+methods of statistical correction for the use of minimal P approach were
+used: the first calculation of a Monte-Carlo P value and, for the second, the
+
+www.aacrjournals.org
+
+Log-rank P
+
+Miller-Siegmund minimal P correction (24). Overall survival was subsequently assessed by Kaplan-Meier analysis with log rank for determining statistical
+significance. Relative risk was assessed by the univariate and multivariate Cox
+proportional hazards model. Comparison of differences in means in vitro was
+performed using the Student’s t test. All calculations and analyses were two
+tailed where appropriate and done with SPSS 14.0 for Windows (SPSS, Inc.).
+
+Results
+Development of a mathematical model to predict responses
+to RTK inhibitors. To systematically assess resistance factors to
+anti-RTK therapy in cancer biopsies, we developed a kinetic
+mathematical model of MAPK/PI3K signaling and used it to predict
+consequences of anti-HER2 monoclonal antibody therapeutic intervention (a full kinetic mathematical model description is given in
+Supplementary Data—modeling methods and mathematical model
+description). We developed it to describe HER2 inhibitor antibody/
+receptor binding, HER2/HER3 dimerization and inhibition, AKT/MAPK
+cross-talk, and the kinetic and regulatory properties of PTEN (Fig. 1;
+Supplementary Figs. S2–S4 and S10). The design of our model
+was also based on modeling studies of the HER signaling network
+
+6715
+
+Cancer Res 2009; 69: (16). August 15, 2009
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst July 28, 2009; DOI: 10.1158/0008-5472.CAN-09-0777
+Cancer Research
+
+Figure 1. Network schema of MAPK and PI3K signaling. Schematic representation of mathematical model used to interrogate sensitivity and resistance factors to RTK
+inhibitors. Abbreviations used within the scheme are shown in Supplementary Table S1.
+
+(13, 26–28). The inclusion of the tumor suppressor protein PTEN was
+deemed particularly important because it is a key negative regulator
+of the PI3K signaling pathway (29), and it has been implicated as a
+resistance mechanism to trastuzumab in breast cancer (3, 4);
+
+Cancer Res 2009; 69: (16). August 15, 2009
+
+however, the effect of quantitative decreases in protein expression,
+which is more commonly seen than mutation or epigenetic regulation,
+is unknown. The new model, including a PTEN subsystem, explicitly
+describes the competition between the lipid and protein phosphatase
+
+6716
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst July 28, 2009; DOI: 10.1158/0008-5472.CAN-09-0777
+Cancer Systems Biology for Personalizing Cancer Medicine
+
+activities of PTEN, autodephosphorylation, and the balance and
+interchange between the active (PTEN) and inactive (pPTEN) forms
+of the protein using experimentally derived kinetic parameters
+(Fig. 1; Supplementary Fig. S10; ref. 30). The kinetic model (Fig. 1 and
+submodels shown in Supplementary Data) was then fit to highresolution in vitro dynamic phosphoprotein expression generated
+from RPPAs and normalized to total protein expression (Fig. 2A) as
+well as supportive Western blot data (Supplementary Figs. S1, S12,
+and S13). Time course data were generated from PE04 ovarian cancer
+cell lines stimulated with heregulin-h in the presence or absence of
+the HER2 dimerization inhibitor pertuzumab (Fig. 2A; Supplementary Fig. S12) to derive kinetic parameters, as described in
+Supplementary Data—modeling methods and description of mathematical model. Additional time course profiles of BT474 breast
+cancer cell lines were studied, but not used for parameterization of
+the mathematical model, to establish qualitative similarities
+between cell lines and the generality of the approach. Additional
+model validation was provided by heregulin dose-response experi-
+
+ments (Supplementary Fig. S13). The model satisfactorily reproduced the response kinetics of heterodimerization of HER2/HER3,
+phospho-ERK (pERK), and pAKT activation stimulated by heregulinh and the inhibitory effect of pertuzumab (Supplementary Fig. S1).
+A dominant signaling effect through PI3K with sustained steadystate changes in PI3K signaling in response to heregulin-h after 1
+hour in multiple cell lines was observed (Fig. 2A).
+The balance of the enzyme activities in the PI3K/PTEN cycle
+dictates sensitivity and resistance to RTK inhibitor therapy. To
+predict which pathway components most influence therapeutic
+resistance to anti-HER2 therapy, we used the kinetic model to
+interrogate which parameters most influenced downstream
+pathway activation in response to endogenous ligand stimulation
+and inhibition with dimerization inhibitors. Computational analysis of the model showed that HER2 receptor levels, total PTEN
+levels, and activation of PI3K by mutation led to dimerization
+inhibitor resistance measured by sustained AKT phosphorylation
+after treatment with the dimerization inhibitor pertuzumab
+
+Figure 2. Computational model validation and predictions. A, time course plots of PE04 ovarian carcinoma cell line experimental data used to parameterize the
+computational model. Data were generated from RPPA (phosphoprotein normalized by total protein) and are representative of at least three replicate experiments. Blue,
+heregulin-h; red, heregulin + pertuzumab. Bars, 95% confidence intervals of technical replicates. B, the theoretical dependence of therapeutic resistance R80 on the
+ratio g of PTEN and PI3K* (g = PTEN/PI3K*; see Supplementary Data—modeling methods and description of mathematical model S3 for details). The index of
+therapeutic resistance (R) was defined as follows: R80 = pAKT80/pAKT0, where pAKT80 is the value of pAKT signal when 80% of receptors are inhibited by the
+drug and pAKT0 is the pAKT signal in the absence of RTK inhibitors. Thus, R reflects the nonresponsiveness (or resistance) of the pAKT signal to the inhibition of
+receptors by RTK inhibitors. When R80 = 1, the resistance is the highest, meaning that 80% inhibition of RTK causes no inhibition of pAKT signal. High resistance is
+observed on decreasing g three to five times in relation to go set in the model. C, predicted effect of PTEN loss on pAKT kinetics (left ) F pertuzumab and resulting
+experimental data (right ). D, comparison of computational predictions and unseen experiments of steady-state levels of pAKT at 30 min. Kinetic and steady-state
+profiles of pAKT by inhibition of PTEN function with bpV(pic) closely match computational simulations.
+
+www.aacrjournals.org
+
+6717
+
+Cancer Res 2009; 69: (16). August 15, 2009
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst July 28, 2009; DOI: 10.1158/0008-5472.CAN-09-0777
+Cancer Research
+
+Figure 3. Quantitative PTEN protein expression is associated with pertuzumab sensitivity in vitro and trastuzumab resistance in vivo. A, relative sensitivity of 13
+ovarian carcinoma cell lines to the HER2 dimerization inhibitor pertuzumab was determined by growth assay [sulforhodamine B (SRB) assay], and expression of
+PTEN and other MAPK and PI3K pathway components was assessed by semiquantitative Western blotting. B, left, AQUA fluorescent analysis of PTEN expression in a
+TMA core, showing mainly cytoplasmic localization of PTEN (red) and masking of tumor areas for quantification by cytokeratin (green ); middle, calculation of optimal
+cutpoint for PTEN expression. X-tile calculates all possible combinations of results for different cutpoints (top ) and corresponding relative risks (bottom). Cutpoint
+is selected on the best-corrected Monte-Carlo P value. Right, Kaplan-Meier survival curves for patients treated with trastuzumab for low (blue ) and high (red)
+protein expression of PTEN. Overall survival is calculated from time of initial diagnosis to date of death.
+
+(Supplementary Fig. S15); however, because the activation of PI3K
+required to induce resistance was supraphysiologic (10 required
+to induce resistance in simulations versus 2 activation by
+mutation as seen in vitro; ref. 31), and patients are always selected
+based on high HER2 expression for RTK inhibitor therapy, we
+focused on PTEN as potential resistance mechanisms to offer a
+quantitative explanation for therapeutic resistance observed in vivo
+(3). PTEN exists in a signaling cycle with PI3K such that the balance between the activities of PTEN and PI3K enzymes, PTEN:activated PI3K (integrated resistance factor g; Fig. 2B; Supplementary
+Data—modeling methods and description of model S3), dictates
+the sensitivity of AKT activation to ligand stimulation or inhibition.
+High g results in effective inhibition of AKT activation in response
+to pertuzumab, whereas low g predicts sustained AKT activation
+and insensitivity to pertuzumab (Fig. 2B). Thus, we found that
+the resistance to inhibition is strongly g dependent. At low g, the
+system amplifies small signals from membrane receptors and
+becomes insensitive to receptor inhibition. In Fig. 2B, this regimen
+corresponds to high values of the therapeutic resistance index
+
+Cancer Res 2009; 69: (16). August 15, 2009
+
+R80(g). In the range of go (corresponding to the computational
+results in Fig. 2A), signal transduction through PI3K/PTEN cycle is
+sensitive to inhibition by pertuzumab (pAKT signal can be inhibited
+by 30–70%). Further increase in g (>10 times higher than go) leads
+to strong inhibition of pAKT signals due to significant weakening of the signal transduction through the PTEN/PI3K cycle
+(see Supplementary Data—modeling methods and description
+S3). Our results are in a good agreement with ultrasensitive
+and signal-transducing regimens of signaling cascades described earlier for covalent modification (32, 33) and kinasephosphatase cycles (34).
+Computational simulations are predictive of unseen experiments of therapeutic resistance caused by resistance factor ;.
+We tested the effect of changing the PTEN:PI3K ratio by stimulating with heregulin-h after pretreating PE04 cell lines with
+bpV(pic), a potent and specific inhibitor of PTEN, which acts by
+binding to the active phosphatase CX5R motif (35, 36). The model
+was entirely predictive of these unseen in vitro experiments, with
+dynamics (compared by curve comparison and integration of
+
+6718
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst July 28, 2009; DOI: 10.1158/0008-5472.CAN-09-0777
+Cancer Systems Biology for Personalizing Cancer Medicine
+
+kinetic profiles) and steady-state levels of pAKT activation
+matching computational simulations and abrogating inhibition of
+pAKT with pertuzumab (Fig. 2C). Likewise, increasing the ratio of
+PTEN:activated PI3K with the PI3K inhibitor LY294002 resulted in
+dose-dependent inhibition of pAKT, but not pERK, in PE04 cells
+(Supplementary Fig. S14). This is also in agreement with our
+theoretical results (see Supplementary Data—modeling methods
+and description S3). Therefore, the model suggests that resistance
+to RTK inhibitors is dependent on the quantitative balance of both
+the protein expression of PTEN (which is common in breast cancer;
+ref. 37) and PI3K activating mutations, which are commonly amplified and mutated in many breast and ovarian cancers (38, 39).
+The resistance factor ; dictates resistance to pertuzumab in
+cellular models in vitro. Further validation of the capacity of
+measurement of PTEN:activated PI3K ratio to predict therapeutic
+response was sought from cellular models of therapeutic sensitivity
+and resistance. We measured total PTEN, PI3K mutation status of
+the four most common mutations in the PIK3CA gene (H1047L and
+H1047R in exon 20 and E545K and E542K in exon 9, representing
+f90% of PIK3CA mutations), and PI3K amplification status in a
+panel of 13 ovarian carcinoma cell lines to investigate the
+association of PTEN:activated PI3K with response to pertuzumab
+(Fig. 3A). Total PTEN protein expression levels were strongly
+negatively correlated with both pAKT and percentage growth
+inhibition with pertuzumab (Pearson’s correlation coefficient = 0.68
+and 0.74, respectively; Table 2). Two of the cell lines, SKOV3 and
+OAW42, showed activating mutations in PI3K, but none of the cell
+lines harbored PIK3CA amplifications. Activation by mutation was
+assumed to increase the activity of PI3K 2-fold (31), and calculation
+of PTEN:activated PI3K resulted in small increases in correlation
+coefficients with pAKT and growth to 0.73 and 0.76, respectively,
+suggesting that PTEN expression is the dominant factor in sensitivity to HER2 dimerization inhibition, consistent with recent
+reports (40), and the relatively weak effect of 2 activity of PI3K on
+resistance seen in simulations. However, measurement of HER1,
+HER2, HER3, pAKT, or pERK was not highly correlated with sensitivity to pertuzumab (Table 2).
+The quantitative expression of PTEN is associated to trastuzumab resistance in the clinic. Because both computational and
+cellular modeling strongly suggest that quantitative PTEN protein
+
+Table 2. Pearson’s correlation coefficients of association
+of protein expression of pathway components and
+resistance factor g with pAKT and growth (SRB assay)
+pAKT
+PTEN
+PTEN:PI3K
+AKT
+pAKT
+ERK
+pERK
+HER1
+HER2
+HER3
+
+0.68
+0.74
+0.29
+1
+0.24
+0.19
+0.04
+0.20
+0.22
+
+Growth inhibition
+0.74
+0.76
+0.05
+0.55
+0.54
+0.14
+0.37
+0.20
+0.43
+
+NOTE: Sensitivity to pertuzumab is closely correlated with PTEN
+expression and g but not with other pathway members.
+
+www.aacrjournals.org
+
+expression most influences ultimate cellular response to HER2
+inhibition, we quantified expression of PTEN in 122 trastuzumabtreated primary breast tumors using the AQUA quantitative image
+analysis system (Fig. 3B; Table 1) on primary breast tumors arrayed
+on TMAs. Increasing PTEN expression was proportional to
+decreased relative risk of death when treated with trastuzumab
+(Fig. 3B, middle), mirroring the effect on the therapeutic resistance
+index R80(g) by changes in g. A rigorously defined cutpoint for PTEN
+expression (see Materials and Methods) resulted in a mean reduction
+in overall survival of 21.6 months in PTENlow versus PTENhigh patients (uncorrected P = 0.0003, Miller-Siegmund P = 0.0099, MonteCarlo P = 0.01; Fig. 3B), equivalent to a 3.0 times increase in relative
+risk of dying from breast cancer after treatment with trastuzumab
+in PTENlow cases (relative risk, 3.0; 95% confidence interval, 1.6-5.5;
+P < 0.0001). In univariate analysis, tumor size, ER status, chemotherapy regimen, and PTEN expression levels were all associated
+with significant survival differences (P < 0.05, log-rank test; Table 1),
+but PTEN remained the only significant predictor of survival in
+multivariate analysis (P = 0.01, Cox logistic regression) and corresponds well to the parameter g when PI3K expression level assumed
+to be constant. HER2 expression and PIK3CA mutation status [mutations found in 26 of 119 (21.8%) available samples] were not
+predictive of survival.
+
+Discussion
+Our data have shown the successful application of kinetic
+modeling of the PI3K and MAPK signaling pathways in the selection
+of resistance factors to RTK inhibitors. We have shown that PTEN is
+the dominant resistance factor to RTK inhibition. As far as we are
+aware, this is not only the largest series of breast cancers treated with
+trastuzumab to be analyzed for PTEN to date but also the first to
+show strong association of the level of PTEN expression with overall
+survival rather than simply time to progression (3). Our data strongly
+suggest that PI3K inhibition in PTEN-low tumors should be
+combined with RTK inhibitors, as recently shown for lapatinib
+in vitro (41). Similar to quantitative estrogen receptor positivity in
+breast cancer (42), our data show that approximately a quarter of
+HER2+ patients may be spared ineffective, and potentially toxic,
+treatment if stratified by PTEN expression.
+The PI3K pathway mediates key hallmarks of cancer, such as
+growth, proliferation, survival, motility, and angiogenesis (43). PI3K
+phosphorylates the lipid second messenger PI, which recruits AKT
+and PDK1 to the cell membrane. PTEN is a key negative regulator of
+the PI3K signaling pathway (29). PTEN mutations are responsible for
+the hereditary disease Cowden disease, partial loss-of-function
+mutations and loss of heterozygosity are common in the majority of
+cancers, and loss of expression by techniques such as immunohistochemistry or Western blotting is frequently seen. Although recent
+reports have suggested that PIK3CA mutations are important on a
+PTEN mutant background (44), and PTEN expression may cooperate
+with PIK3CA mutations in breast cancer and mediating trastuzumab
+resistance (3, 40), our data show that PTEN exerts dominant control
+in downstream pathway activation and resistance to RTK inhibitors.
+PIK3CA mutations exert a relatively small influence on PTEN:PI3K
+signaling cycle and resistance and would have to have a 5- to 10-fold
+increase in enzymatic activity to mediate resistance, which may
+explain the lack of effect of PIK3CA mutation on trastuzumab
+resistance seen herein. Previous reports implicating PIK3CA
+mutations in HER2 inhibitor resistance have only been in vitro or
+are very small cohorts of patients (3, 4). Other RTK inhibitors, such as
+
+6719
+
+Cancer Res 2009; 69: (16). August 15, 2009
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst July 28, 2009; DOI: 10.1158/0008-5472.CAN-09-0777
+Cancer Research
+
+pertuzumab, have also been shown to inhibit PI3K pathway
+activation (45, 46), suggesting that constitutive activation of this
+pathway through PTEN down-regulation may also contribute to
+pertuzumab resistance in vitro and in vivo. Given the quantitative
+nature of these phenomena, a mathematical description and systems
+analysis of the PI3K pathway has been useful for understanding
+therapeutic responses and allows better selection of patients
+expected to respond to RTK inhibitors.
+In this study, we have successfully shown how a systems biology
+approach can generate hypotheses that can be tested experimentally
+in preclinical models and which can then be applied to clinical
+evaluation. Predictions from this model are consistent with known
+findings, have been extended within this study, and add weight to the
+use of PTEN as a biomarker for stratifying patients for HER2 inhibitor
+or combinatorial therapy, particularly a RTK inhibitor and PI3K
+inhibitor in cancers with low g. This model provides a foundation for
+further development and inclusion of more variables that may affect
+RTK inhibitor response. Network topology, kinetics, and quantities of
+
+molecules dictate cellular and ultimately clinical outcome. Systems
+biology approaches, particularly deterministic kinetic models based
+on experimental data, offer a new approach for integrating molecular
+pathology and computational modeling to more rationally interrogate
+cancer pathways and predict responses to therapy.
+
+Disclosure of Potential Conflicts of Interest
+No potential conflicts of interest were disclosed.
+
+Acknowledgments
+Received 2/28/09; revised 5/11/09; accepted 5/29/09; published OnlineFirst 7/28/09.
+Grant support: Breakthrough Breast Cancer, Breast Cancer Campaign, Scottish
+Funding Council (Strategic Research Development Grant), and Biotechnology and
+Biological Sciences Research Council. Molecular pathology on tissue was supported by
+the Edinburgh CRUK Experimental Cancer Medicine Centre.
+We thank A. Larionov for technical assistance, G. Kerr for help with statistics, and
+Minzi Ruan for help with MicroVigene RPPA analysis.
+
+1. Piccart-Gebhart MJ, Procter M, Leyland-Jones B, et al.
+Trastuzumab after adjuvant chemotherapy in HER2positive breast cancer. N Engl J Med 2005;353:1659–72.
+2. Romond EH, Perez EA, Bryant J, et al. Trastuzumab
+plus adjuvant chemotherapy for operable HER2-positive
+breast cancer. N Engl J Med 2005;353:1673–84.
+3. Berns K, Horlings HM, Hennessy BT, et al. A functional
+genetic approach identifies the PI3K pathway as a major
+determinant of trastuzumab resistance in breast cancer.
+Cancer Cell 2007;12:395–402.
+4. Nagata Y, Lan KH, Zhou X, et al. PTEN activation
+contributes to tumor inhibition by trastuzumab, and
+loss of PTEN predicts trastuzumab resistance in
+patients. Cancer Cell 2004;6:117–27.
+5. Faratian D, Moodie SL, Harrison DJ, Goryanin I.
+Dynamic computational modeling in the search for
+better breast cancer drug therapy. Pharmacogenomics
+2007;8:1757–61.
+6. Henney A, Superti-Furga G. A network solution.
+Nature 2008;455:730–1.
+7. Belardinelli L, Shryock JC, Fraser H. Inhibition of the
+late sodium current as a potential cardioprotective
+principle: effects of the late sodium current inhibitor
+ranolazine. Heart 2006;92 Suppl 4:iv6–14.
+8. Noble D, Noble PJ. Late sodium current in the
+pathophysiology of cardiovascular disease: consequences
+of sodium-calcium overload. Heart 2006;92 Suppl 4:iv1–5.
+9. Cho CR, Labow M, Reinhardt M, van Oostrum J,
+Peitsch MC. The application of systems biology to drug
+discovery. Curr Opin Chem Biol 2006;10:294–302.
+10. Fuss H, Dubitzky W, Downes CS, Kurth MJ.
+Mathematical models of cell cycle regulation. Brief
+Bioinform 2005;6:163–77.
+11. Hatakeyama M, Kimura S, Naka T, et al. A
+computational model on the modulation of mitogenactivated protein kinase (MAPK) and Akt pathways in
+heregulin-induced ErbB signalling. Biochem J 2003;373:
+451–63.
+12. Hendriks BS, Cook J, Burke JM, et al. Computational
+modelling of ErbB family phosphorylation dynamics in
+response to transforming growth factor a and heregulin
+indicates spatial compartmentation of phosphatase
+activity. Syst Biol Stevenage 2006;153:22–33.
+13. Kholodenko BN, Demin OV, Moehren G, Hoek JB.
+Quantification of short term signaling by the epidermal growth factor receptor. J Biol Chem 1999;274:
+30169–81.
+14. Markevich NI, Hoek JB, Kholodenko BN. Signaling
+switches and bistability arising from multisite phosphorylation in protein kinase cascades. J Cell Biol 2004;
+164:353–9.
+15. Shankaran H, Wiley HS, Resat H. Modeling the effects
+
+of HER/ErbB1-3 coexpression on receptor dimerization
+and biological response. Biophys J 2006;90:3993–4009.
+16. Steuer R. Computational approaches to the topology,
+stability and dynamics of metabolic networks. Phytochemistry 2007;68:2139–51.
+17. Sorokin A, Paliy K, Selkov A, et al. The Pathway
+Editor: a tool for managing complex biological networks. IBM J Res Dev Sys Biol 2006;50:561–75.
+18. Goryanin I, Hodgman TC, Selkov E. Mathematical
+simulation and analysis of cellular metabolism and
+regulation. Bioinformatics 1999;15:749–58.
+19. Spurrier B, Ramalingam S, Nishizuka S. Reversephase protein lysate microarrays for cell signaling
+analysis. Nat Protoc 2008;3:1796–808.
+20. Board RE, Thelwell NJ, Ravetto PF, et al. Multiplexed
+assays for detection of mutations in PIK3CA. Clin Chem
+2008;54:757–60.
+21. Miyake T, Yoshino K, Enomoto T, et al. PIK3CA gene
+mutations and amplifications in uterine cancers, identified by methods that avoid confounding by PIK3CA
+pseudogene sequences. Cancer Lett 2008;261:120–6.
+22. Kononen J, Bubendorf L, Kallioniemi A, et al. Tissue
+microarrays for high-throughput molecular profiling of
+tumor specimens. Nat Med 1998;4:844–7.
+23. Camp RL, Chung GG, Rimm DL. Automated subcellular localization and quantification of protein expression
+in tissue microarrays. Nat Med 2002;8:1323–7.
+24. Altman DG, Lausen B, Sauerbrei W, Schumacher M.
+Dangers of using ‘‘optimal’’ cutpoints in the evaluation
+of prognostic factors. J Natl Cancer Inst 1994;86:
+829–35.
+25. Camp RL, Dolled-Filhart M, Rimm DL. X-tile: a new
+bio-informatics tool for biomarker assessment and
+outcome-based cut-point optimization. Clin Cancer Res
+2004;10:7252–9.
+26. Birtwistle MR, Hatakeyama M, Yumoto N, et al.
+Ligand-dependent responses of the ErbB signaling
+network: experimental and modeling analyses. Mol Syst
+Biol 2007;3:144.
+27. Moehren G, Markevich N, Demin O, et al. Temperature dependence of the epidermal growth factor
+receptor signaling network can be accounted for by a
+kinetic model. Biochemistry 2002;41:306–20.
+28. Schoeberl B, Eichler-Jonsson C, Gilles ED, Muller G.
+Computational modeling of the dynamics of the MAP
+kinase cascade activated by surface and internalized
+EGF receptors. Nat Biotechnol 2002;20:370–5.
+29. Leslie NR, Downes CP. PTEN function: how normal
+cells control it and tumour cells lose it. Biochem J 2004;
+382:1–11.
+30. McConnachie G, Pass I, Walker SM, Downes CP.
+Interfacial kinetic analysis of the tumour suppressor
+phosphatase, PTEN: evidence for activation by anionic
+phospholipids. Biochem J 2003;371:947–55.
+
+Cancer Res 2009; 69: (16). August 15, 2009
+
+6720
+
+References
+
+31. Carson JD, Van Aller G, Lehr R, et al. Effects of oncogenic
+p110a subunit mutations on the lipid kinase activity of
+phosphoinositide 3-kinase. Biochem J 2008;409:519–24.
+32. Goldbeter A, Koshland DE, Jr. An amplified sensitivity arising from covalent modification in biological
+systems. Proc Natl Acad Sci U S A 1981;78:6840–4.
+33. Stadtman ER, Chock PB. Superiority of interconvertible enzyme cascades in metabolic regulation: analysis
+of monocyclic systems. Proc Natl Acad Sci U S A 1977;
+74:2761–5.
+34. Gomez-Uribe C, Verghese GC, Mirny LA. Operating
+regimes of signaling cycles: statics, dynamics, and noise
+filtering. PLoS Comput Biol 2007;3:e246.
+35. Schmid AC, Byrne RD, Vilar R, Woscholski R.
+Bisperoxovanadium compounds are potent PTEN inhibitors. FEBS Lett 2004;566:35–8.
+36. Posner BI, Faure R, Burgess JW, et al. Peroxovanadium
+compounds. A new class of potent phosphotyrosine
+phosphatase inhibitors which are insulin mimetics. J Biol
+Chem 1994;269:4596–604.
+37. Wood LD, Parsons DW, Jones S, et al. The genomic
+landscapes of human breast and colorectal cancers.
+Science 2007;318:1108–13.
+38. Shayesteh L, Lu Y, Kuo WL, et al. PIK3CA is implicated as
+an oncogene in ovarian cancer. Nat Genet 1999;21:99–102.
+39. Levine DA, Bogomolniy F, Yee CJ, et al. Frequent
+mutation of the PIK3CA gene in ovarian and breast
+cancers. Clin Cancer Res 2005;11:2875–8.
+40. Stemke-Hale K, Gonzalez-Angulo AM, Lluch A, et al. An
+integrative genomic and proteomic analysis of PIK3CA,
+PTEN, and AKT mutations in breast cancer. Cancer Res 2008;
+68:6084–91.
+41. Eichhorn PJ, Gili M, Scaltriti M, et al. Phosphatidylinositol 3-kinase hyperactivation results in lapatinib
+resistance that is reversed by the mTOR/phosphatidylinositol 3-kinase inhibitor NVP-BEZ235. Cancer Res
+2008;68:9221–30.
+42. Hartwell L, Mankoff D, Paulovich A, Ramsey S,
+Swisher E. Cancer biomarkers: a systems approach. Nat
+Biotechnol 2006;24:905–8.
+43. Hennessy BT, Smith DL, Ram PT, Lu Y, Mills GB.
+Exploiting the PI3K/AKT pathway for cancer drug
+discovery. Nat Rev Drug Discov 2005;4:988–1004.
+44. Jia S, Liu Z, Zhang S, et al. Essential roles of PI(3)Kp110h in cell growth, metabolism and tumorigenesis.
+Nature 2008;454:776–9.
+45. Agus DB, Gordon MS, Taylor C, et al. Phase I clinical
+study of pertuzumab, a novel HER dimerization
+inhibitor, in patients with advanced cancer. J Clin Oncol
+2005;23:2534–43.
+46. Mullen P, Cameron DA, Hasmann M, Smyth JF,
+Langdon SP. Sensitivity to pertuzumab (2C4) in ovarian
+cancer models: cross-talk with estrogen receptor
+signaling. Mol Cancer Ther 2007;6:93–100.
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst July 28, 2009; DOI: 10.1158/0008-5472.CAN-09-0777
+
+Systems Biology Reveals New Strategies for Personalizing
+Cancer Medicine and Confirms the Role of PTEN in
+Resistance to Trastuzumab
+Dana Faratian, Alexey Goltsov, Galina Lebedeva, et al.
+Cancer Res 2009;69:6713-6720. Published OnlineFirst July 28, 2009.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-09-0777
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2009/07/24/0008-5472.CAN-09-0777.DC1
+
+This article cites 46 articles, 15 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/69/16/6713.full#ref-list-1
+This article has been cited by 12 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/69/16/6713.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications
+Department at pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications
+Department at permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 6, 2017. © 2009 American Association for Cancer
+Research.
+
+

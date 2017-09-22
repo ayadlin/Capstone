@@ -1,0 +1,2427 @@
+www.impactjournals.com/oncotarget/
+
+Oncotarget, 2017, Vol. 8, (No. 3), pp: 5160-5178
+Research Paper
+
+High throughput estimation of functional cell activities reveals
+disease mechanisms and predicts relevant clinical outcomes
+Marta R. Hidalgo1, Cankut Cubuk1, Alicia Amadoz1,2, Francisco Salavert1,3, José
+Carbonell-Caballero1, Joaquin Dopazo1,2,3
+1
+
+Computational Genomics Department, Centro de Investigación Príncipe Felipe (CIPF), Valencia, 46012, Spain
+
+2
+
+Functional Genomics Node (INB-ELIXIR-es), Valencia, 46012, Spain
+
+3
+
+Bioinformatics in Rare Diseases (BiER), Centro de Investigación Biomédica en Red de Enfermedades Raras (CIBERER),
+Valencia, 46012, Spain
+
+Correspondence to: Joaquín Dopazo, email: jdopazo@cipf.es
+Keywords: signaling pathway, disease mechanism, prognostic, survival, biomarker
+Received: September 01, 2016     Accepted: November 21, 2016     Published: December 22, 2016
+
+ABSTRACT
+Understanding the aspects of the cell functionality that account for disease
+or drug action mechanisms is a main challenge for precision medicine. Here we
+propose a new method that models cell signaling using biological knowledge
+on signal transduction. The method recodes individual gene expression values
+(and/or gene mutations) into accurate measurements of changes in the activity
+of signaling circuits, which ultimately constitute high-throughput estimations of
+cell functionalities caused by gene activity within the pathway. Moreover, such
+estimations can be obtained either at cohort-level, in case/control comparisons, or
+personalized for individual patients. The accuracy of the method is demonstrated
+in an extensive analysis involving 5640 patients from 12 different cancer types.
+Circuit activity measurements not only have a high diagnostic value but also can be
+related to relevant disease outcomes such as survival, and can be used to assess
+therapeutic interventions.
+
+pathways should provide a more informative insight
+of cellular function. Actually, the recent demonstration
+that the inferred activity of the c-Jun N-terminal kinase
+pathway, shows significantly higher association to
+neuroblastoma patients’ mortality than the activity of
+their constituent genes (including MICN, the conventional
+neuroblastoma biomarker) [2] constitutes an elegant
+confirmation of this concept. In a similar example
+drug sensitivity is shown to be better predicted using
+probabilistic signaling pathway models than directly using
+gene activity values [3].
+However, conventional methods for pathway
+analysis, even the most sophisticated ones based on
+pathway topology, can only detect the existence of a
+significant level of gene activity within the pathway [4].
+However, these methods ignore the obvious fact that many
+pathways are multifunctional and often trigger opposite
+functions (e.g. depending the receptor and the effector
+proteins involved in the transduction of the signal, the
+apoptosis pathway may trigger survival or cell death).
+Moreover, whether the level of gene activity detected by
+
+INTRODUCTION
+Despite most phenotypic traits (including disease
+and drug response) are multi-genic, the vast majority of
+biomarkers in use are based on unique gene alterations
+(expression changes, mutations, etc.) Obviously, the
+determination of the status of a single gene is technically
+easier than multiple gene measurements. However,
+regardless of their extensive clinical utility, single gene
+biomarkers frequently lack any mechanistic link to the
+fundamental cellular processes responsible for disease
+progression or therapeutic response. Such processes are
+better understood as pathological alterations in the normal
+operation of functional modules caused by different
+combinations of gene perturbations (mutations or gene
+expression changes) rather than by alterations of a unique
+gene [1].
+Of particular interest are signaling pathways, a
+type of functional module known to play a key role in
+cancer origin and progression, as well as in other diseases.
+Consequently, analysis of the activity of signaling
+www.impactjournals.com/oncotarget
+
+5160
+
+Oncotarget
+
+conventional methods actually triggers cell functionalities
+or not and, if so, what genes are the ultimate responsible
+for the resulting cell activity is something that must be
+determined a posteriori, usually by heuristic methods.
+Thus, pathway activity analysis (PAA) emerges as an
+alternative way of defining a new class of mechanistic
+biomarkers, whose activity is related to the molecular
+mechanisms that account for disease progression or drug
+response. However, capturing the aspects of the activity of
+the pathway that are really related to cell functionality is
+not trivial. This requires of an appropriate description of
+the elementary sub-pathways and an adequate computation
+of the individual contributions of gene activities to
+the actual activity of the sub-pathway. Different ways
+of computing activity scores for diverse sub-pathway
+definitions using gene expression values [5–8], or even
+gene mutations [9], have been proposed (See Table 1).
+However, in most of them sub-pathway definition is either
+disconnected, or only collaterally related, to the functional
+consequences of pathway activity (See Table 1).
+Here we propose a new method to estimate the
+activity within a pathway that uses biological knowledge
+on cell signaling to recode individual gene expression
+values (and/or gene mutations) into measurements that
+ultimately account for cell functionalities caused by the
+activity of the pathway. Specifically, we estimate the level
+of activity of stimulus-response sub-pathways (signaling
+circuits thereinafter) within signaling pathways, which
+ultimately trigger cell responses (e.g. proliferation,
+cell death, etc.) The activity values of these canonical
+circuits connected to the activation/deactivation of cell
+functionalities can be considered multigenic mechanistic
+biomarkers that can easily be related to phenotypes and
+provide direct clues to understand disease mechanisms
+and drug mechanisms of action (MoA). Therefore, we
+designate this method as canonical circuit activity analysis
+(CCAA).
+
+Estimation of the specificity of the CCAA
+method
+
+RESULTS
+
+Comparison to other available PAA methods
+
+In order to estimate the false positive rate, we
+generated different sets of indistinguishable samples
+that were randomly divided into two groups which were
+compared to try to find differentially activated circuits.
+Given that the compared groups are composed of the
+same type of individuals, any significant difference in
+sub-pathway activity found in the comparisons would
+be considered a false positive of the method. Real and
+simulated samples were used for this purpose (see
+Methods) and the ratio of false positives was always very
+low, far below the conventional alpha value of 0.05 (see
+Figure S2).
+
+Estimation of the sensitivity of the CCAA
+method
+In order to obtain an estimation the true positive rate
+of the CCAA method, we compared cancer samples versus
+the corresponding healthy tissue in a series of contrasts
+with different sizes (N=50,100,200 and 400 samples; see
+Methods) from which we expect differences in cancerassociated pathways. Two different cancer types, KIRC
+and BRCA, were used to avoid biases derived from
+using only a specific type of cancer. We have used two
+definitions of cancer associated pathways, one of them
+taken from KEGG (composed of 14 pathways belonging to
+the Cancer pathways category, see Table 3), and the other
+one that contains 49 pathways curated by experts (Table
+4). Figure S3 shows how, except in the case of very small
+datasets in which the statistical power of the method for
+detecting significant differences is limited, the proposed
+CCAA methodology clearly identifies significant changes
+for both cancers in the two cancer pathway definitions
+used.
+
+The performance of our method was compared to
+other PAA methods that provide different definitions of
+sub-pathways and distinct algorithms to calculate a score
+for them. From the list in (Table 1) we used eight methods
+that satisfy two basic conditions: they can be applied to
+RNA-seq data and there is software available for running
+them. These are: DEAP [12], subSPIA [13], using their
+own software, and topologyGSA [14], DEGraph [6],
+clipper [5], TAPPA [15], PRS [16], PWEA [17], using
+the implementation available in the topaseq package [18].
+Figure 1 represents the true positive and true negative
+ratios obtained for any of the methods compared (See
+Methods). While most of the pathway activity definitions
+are reasonably specific, with true negative ratios over
+95% (except clipper, topologyGSA and PWEA, probably
+because they define sub-pathways unconnected with
+
+Data pre-processing
+RNA-seq counts for 12 cancer types listed in Table
+2 were downloaded from The Cancer Genome Atlas
+(TCGA) data portal (https://tcga-data.nci.nih.gov/tcga/). In
+order to detect possible batch effects, principal component
+analysis (PCA) were calculated. The samples were plotted
+in the PCA representation by sequencing center, plate,
+cancer type and project. Only a clear batch effect by
+sequencing center and cancer was found (Figure S1A to
+S1E, upper panel), that was corrected by the application
+of the COMBAT [10] method (Figure S1F to S1J, lower
+panels). Then, the 538 samples of the Kidney renal clear
+cell carcinoma (KIRC) dataset were further normalized
+using TMM [11] to account for RNA composition bias.
+Normalized data were used as input for the CCAA method.
+www.impactjournals.com/oncotarget
+
+5161
+
+Oncotarget
+
+Table 1: List of methods for Pathway Analysis
+Method
+
+MinePath[52]
+
+Qin et al.[53]
+
+Date
+
+2015
+
+2015
+
+Code
+
+Input
+
+KEGG pathways
+
+Subpath
+identification
+
+MA
+
+NA
+
+12 cancer-related
+KEGG pathways
+
+signal
+quantification
+
+Mutations
+CNVs
+Cancer
+drugs
+
+signal
+quantification
+
+MA
+RNAseq
+(via
+SPIA in
+ToPASeq)
+
+2015
+
+R code
+
+Pathome[54]
+
+2014
+
+NA
+
+Pepe et al.[55]
+
+2014
+
+R code
+
+ToPaSeq[18]
+
+2014
+
+R package
+
+CliPPER[5]
+
+Entity modelled
+
+Web application
+http://minepath.
+org/
+
+subSPIA[13]
+
+DEAP[12]
+
+Pathway
+modelled
+
+KEGG pathways
+
+signal
+quantification
+subpath
+KEGG pathways
+identification
+integrates other
+methods:
+TopologyGSA
+graphite gene-gene
+DEGraph
+networks
+Clipper
+user's pathways
+SPIA
+TAPPA
+PRS
+PWEA
+KEGG pathways
+
+2013
+
+python code
+
+user defined
+pathway structure
+
+signal
+quantification
+
+2013
+
+R package
+ToPASeq R
+package
+
+graphite gene-gene
+networks
+cliques
+user's pathways
+(via ToPASeq)
+
+subpath
+identification
+
+GraphiteWeb[56]
+
+Web application:
+KEGG pathways
+http://graphiteweb.
+2013
+Reactome
+bio.unipd.it/R
+pathways
+package
+
+TEAK[57]
+
+2013
+
+Code @ Google
+(Windows and
+Mac)
+
+KEGG
+pathways
+
+integrates other
+methods:
+Hypergeometric
+test
+Global Test
+GSEA
+SPIA
+CliPPER
+metabolismorientedsubpathway
+identification
+
+Output
+
+Comparison Loops
+
+p-value per
+pathway
+p-value per
+subpathway
+Two
+binary value per conditions
+sample
+graphical
+visualization
+Pathway
+activity
+
+Personalized
+
+p-value of DE
+per subpathway
+p-value of PF
+Two
+per subpathway conditions
+global p-value
+(DE+PF)
+MA
+p-value per
+Two
+RNAseq subpathway
+conditions
+p-value per
+Two
+MA
+subpathway
+conditions
+
+MA
+Depends on the
+Two
+RNAseq
+method
+conditions
+
+Score and
+p-value per
+MA
+pathway
+Two
+RNAseq subgraph with conditions
+the maximum
+absolute score
+p-value at
+pathway level
+Most affected
+MA
+subgraph per
+Two
+RNAseq
+pathway
+conditions
+Gene-level
+statistics for DE
+of genes
+Significant
+pathways
+Visualization
+of the pathways
+MA
+with nodes
+Two
+RNAseq
+coloured
+conditions
+according
+to their
+contribution to
+the analysis
+MA
+
+Ranked
+subpathways
+
+Two
+conditions
+
+NA
+
+yes
+
+no
+
+NA
+NA
+
+Depends
+on the
+method
+
+yes
+
+no
+
+no
+
+no
+
+ (Continued )
+www.impactjournals.com/oncotarget
+
+5162
+
+Oncotarget
+
+Method
+
+PRS[16]
+
+Date
+
+2012
+
+Code
+ToPASeq R
+package
+
+Pathway
+modelled
+graphite genegene networks
+(ToPASeq)
+user's pathways
+(via ToPASeq)
+subgraphs of
+a large graph
+(branch-andbound-like
+approach)
+graphite genegene networks
+(ToPASeq)
+user's pathways
+(via ToPASeq)
+
+Entity modelled
+
+Input
+
+pathway
+identification
+
+yes
+
+subpath
+identification
+
+p-value of DE
+per subpathway
+p-value per
+MA
+Two
+pathway
+RNAseq
+conditions
+Gene-level
+statistics for DE
+of genes
+
+no
+
+2012
+
+R
+packageToPASeq
+R package
+
+Rivera et al.[58]
+
+2012
+
+NA
+
+NetPathpathways
+
+subpath
+identification
+
+MA
+
+Chen et al.[59]
+
+2011
+
+NA
+
+KEGG pathways
+
+subpath
+identification
+
+MA
+
+PWEA[17]
+
+2010
+
+TopologyGSA[14]
+
+2010
+
+DEGAS[60]
+
+2010
+
+TAPPA[15]
+
+2007
+
+Comparison Loops
+
+p-value per
+pathway
+MA
+Two
+gene-level
+RNAseq
+conditions
+statistics for DE
+of genes
+
+DEGraph[6]
+
+Complete
+pathways (KEGG)
+graphite geneToPASeq R
+gene networks
+package
+(ToPASeq)
+user's pathways
+(via ToPASeq)
+Complete
+pathways (KEGG)
+Cliques
+ToPASeq R
+graphite genepackage
+gene networks
+(ToPASeq)
+user's pathways
+(via ToPASeq)
+KEGG pathways
+Java (Windows)
+PPIs network
+graphite genegene networks
+ToPASeq R
+(ToPASeq)
+package
+user's pathways
+(via ToPASeq)
+
+Output
+
+p-value of
+most perturbed
+subpathway
+p-value per
+subpathway
+p-value of key
+genes
+
+Two
+conditions
+
+NA
+
+Two
+conditions
+
+NA
+
+pathway
+identification
+
+p-value of DE
+per pathway
+MA
+Two
+Gene-level
+RNAseq
+conditions
+statistics for DE
+of genes
+
+no
+
+subpath
+identification
+
+p-value of DE
+per pathway
+MA
+Two
+Gene-level
+RNAseq
+conditions
+statistics for DE
+of genes
+
+no
+
+novel subpath
+identification
+pathway
+identification
+
+A subpathway
+Two
+per pathway
+conditions
+p-value of DE
+per pathway
+MA
+Two
+Gene-level
+RNASeq
+conditions
+statistics for DE
+of genes
+MA
+
+NA
+
+no
+
+The first column (Method) contains the name or acronym of the method, if exists, otherwise, we refer to it as the fires author of
+the publication. The second column (Date) contains the publication date. The third column (code) informs on the availability of
+the code to run the method. The fourth column (Pathway modelled) indicates the pathway definition used in the method. The fifth
+column (Entity modelled) is the entity, within the pathway, used in the method (“subpath identification” methods obtain candidate
+sub-pathways usually by differential expression of its constituent genes, “signal quantification” methods provide, in addition, a
+quantification of the activation status of the sub-pathway). The sixth column (input) indicates the data type that inputs the method
+(MA: Expression Microarray; CNV: copy number variation; NA: not available). The seventh column (output) describes the results
+provided by the method. Some provide only a score (p-value, DE: differential expression matrix; PF: perturbation factor) for the
+whole pathway and other also provide scores for sub-pathways, that can be defined within the pathways in many different ways.
+The eight column (Comparison) indicates the type of comparison the method can deal with. It can be either a conventional two
+conditions (typically case/control) comparison or it can allow obtaining personalized results per individual. And the ninth column
+(Loops) indicates whether the method can handle loop structures in the topology of the sub-pathway analysed or not.
+
+www.impactjournals.com/oncotarget
+
+5163
+
+Oncotarget
+
+Table 2: Cancers used in this study with the number of samples sequenced of both tumour biopsy and normal
+adjacent tissue
+TCGA
+Identifier
+BLCA
+BRCA
+COAD
+HNSC
+KIRC
+KIRP
+LIHC
+LUAD
+LUSC
+PRAD
+THCA
+UCEC
+
+Cancer
+
+Primary tumor
+
+Normal adjacent
+tissue
+
+Ref.
+
+Bladder Urothelial Carcinoma
+Breast invasive carcinoma
+Colon adenocarcinoma
+Head and Neck squamous cell
+carcinoma
+Kidney renal clear cell carcinoma
+Kidney renal papillary cell
+carcinoma
+Liver hepatocellular carcinoma
+Lung adenocarcinoma
+Lung squamous cell carcinoma
+Prostate adenocarcinoma
+Thyroid carcinoma
+Uterine Corpus Endometrial
+Carcinoma
+
+301
+1057
+451
+
+17
+113
+41
+
+[29]
+[30]
+[31]
+
+480
+
+42
+
+[32]
+
+526
+
+72
+
+[19]
+
+222
+
+32
+
+[33]
+
+294
+486
+428
+379
+500
+
+48
+55
+45
+52
+58
+
+[34]
+[35]
+[36]
+[37]
+
+516
+
+23
+
+[38]
+
+Table 3: KEGG cancer pathways
+KEGG identifier
+hsa04010
+hsa04310
+hsa04350
+hsa04370
+hsa04630
+hsa04024
+hsa04151
+hsa04150
+hsa04110
+hsa04210
+hsa04115
+hsa04510
+hsa04520
+hsa03320
+
+Name
+MAPK signaling pathway
+Wnt signaling pathway
+TGF-beta signaling pathway
+VEGF signaling pathway
+Jak-STAT signaling pathway
+cAMP signaling pathway
+PI3K-Akt signaling pathway
+mTOR signaling pathway
+Cell cycle
+Apoptosis
+p53 signaling pathway
+Focal adhesion
+Adherens junction
+PPAR signaling pathway
+
+cell functionality), the sensitivity is generally low (in
+most cases below 50%). When the curated list of cancer
+pathways (see Table 4) is used, the performance of some
+methods improves but still, the sensibility is in general low
+(clearly below 75%, see Figure S4).
+From the technical standpoint, the CCAA method
+can handle loops in the pathway topology, a feature absent
+in most PAA methods (see Table 1) allowing a more
+comprehensive description of the circuit activity.
+These results demonstrates that all the PAA methods
+analyzed, except ours, are not properly capturing the
+biological signal and consequently failed to detect cancer
+www.impactjournals.com/oncotarget
+
+pathway activities when cancer and normal tissues were
+compared, across twelve different cancer types.
+
+A case example with kidney renal clear cell
+carcinoma
+To demonstrate the utility of this approach in defining
+the activity of canonical signaling circuits as highly
+reliable mechanistic biomarkers that, in addition, account
+for important disease outcomes such as survival, kidney
+renal clear cell carcinoma (KIRC) [19] data was used. In
+addition, survival data available on patients were used to
+5164
+
+Oncotarget
+
+Table 4: Curated cancer pathways
+KEGG identifier
+
+Name
+
+hsa04014
+
+Ras signaling pathway
+
+hsa04015
+
+Rap1 signaling pathway
+
+hsa04010
+
+MAPK signaling pathway
+
+hsa04012
+
+ErbB signaling pathway
+
+hsa04310
+
+Wnt signaling pathway
+
+hsa04330
+
+Notch signaling pathway
+
+hsa04340
+
+Hedgehog signaling pathway
+
+hsa04350
+
+TGF-beta signaling pathway
+
+hsa04390
+
+Hippo signaling pathway
+
+hsa04370
+
+VEGF signaling pathway
+
+hsa04630
+
+Jak-STAT signaling pathway
+
+hsa04064
+
+NF-kappa B signaling pathway
+
+hsa04668
+
+TNF signaling pathway
+
+hsa04066
+
+HIF-1 signaling pathway
+
+hsa04068
+
+FoxO signaling pathway
+
+hsa04020
+
+Calcium signaling pathway
+
+hsa04024
+
+cAMP signaling pathway
+
+hsa04022
+
+cGMP-PKG signaling pathway
+
+hsa04151
+
+PI3K-Akt signaling pathway
+
+hsa04152
+
+AMPK signaling pathway
+
+hsa04150
+
+mTOR signaling pathway
+
+hsa04110
+
+Cell cycle
+
+hsa04114
+
+Oocyte meiosis
+
+hsa04210
+
+Apoptosis
+
+hsa04115
+
+p53 signaling pathway
+
+hsa04510
+
+Focal adhesion
+
+hsa04520
+
+Adherens junction
+
+hsa04530
+
+Tight junction
+
+hsa04540
+
+Gap junction
+
+hsa04611
+
+Platelet activation
+
+hsa04620
+
+Toll-like receptor signaling pathway
+
+hsa04621
+
+NOD-like receptor signaling pathway
+
+hsa04650
+
+Natural killer cell mediated cytotoxicity
+
+hsa04660
+
+T cell receptor signaling pathway
+
+hsa04662
+
+B cell receptor signaling pathway
+
+hsa04670
+
+Leukocyte transendothelial migration
+
+hsa04062
+
+Chemokine signaling pathway
+ (Continued )
+
+www.impactjournals.com/oncotarget
+
+5165
+
+Oncotarget
+
+KEGG identifier
+
+Name
+
+hsa04910
+
+Insulin signaling pathway
+
+hsa04920
+
+Adipocytokine signaling pathway
+
+hsa03320
+
+PPAR signaling pathway
+
+hsa04912
+
+GnRH signaling pathway
+
+hsa04915
+
+Estrogen signaling pathway
+
+hsa04914
+
+Progesterone-mediated oocyte maturation
+
+hsa04919
+
+Thyroid hormone signaling pathway
+
+hsa04916
+
+Melanogenesis
+
+hsa05200
+
+Pathways in cancer
+
+hsa05231
+
+Choline metabolism in cancer
+
+hsa05202
+
+Transcriptional misregulation in cancer
+
+hsa05205
+
+Proteoglycans in cancer
+
+demonstrate that the activity of many of the selected circuits
+is significantly related to the prognostic of the disease.
+Firstly, 526 cancer samples were compared against the
+72 available controls of normal kidney tissue adjacent to the
+primary tumors (See Table 2). The comparison was made at
+the level of canonical circuits (see Methods), effector circuits
+and functions (using both Uniprot and GO annotations). As
+expectable, given the large number of differentially expressed
+genes between the cancer and the healthy tissue [19], a large
+number of signaling circuits present a significant differential
+activation between the compared conditions (4966 with
+a FDR-adjusted p-value < 0.01; See Table S1). Focusing
+on effector circuits, this signaling interplay is reduced to
+870 significant changes in the intensity of signal reception
+(with a FDR-adjusted p-value < 0.01; See Table S2). These
+effector nodes significantly trigger 71 cell functionalities
+(according to Uniprot general definitions, see Table S3,
+which summarize 320 more detailed cell functionalities
+according to GO definitions, see Table S4; both with a FDRadjusted p-value < 0.01). Figure 2 summarizes the different
+functions dysregulated by circuits in different KEGG cancer
+pathways (see Table 3) and the corresponding impact on
+patient’s survival. Figure S5 expands this summary to the
+set of curated cancer pathways listed in Table 4. Although
+some functionalities are quite general descriptions of cellular
+biological processes and others can be consequences of the
+extreme deregulation process occurring in cancer cells,
+a considerable number of them can be clearly linked to
+tumorigenic processes and can easily be mapped to cancer
+hallmarks [20].
+
+effector circuits, and functions listed in Tables S1, S2,
+S3 and S4) was carried out. This analysis provides an
+independent validation of the involvement of several cell
+functionalities, as well as several signaling circuits that
+trigger them, in cancer pathogenesis.
+Survival analysis discovered a total of 310 effector
+circuits whose dysregulation is significantly associated to
+good or poor cancer prognostic (Table S5). These circuits
+trigger a total of 31 general cell functionalities, according
+to Uniprot definitions (Table S6) that can be expanded to
+108 more detailed GO definitions (Table S7), which are
+significantly related to patient’s survival.
+The main cancer hallmark is sustained proliferation
+[20]. A clear example of effector circuit related to this
+hallmark is the CCNA2, from the AMPK signaling
+pathway, whose high levels of activity are significantly
+associated to bad prognostic in the patients in which
+triggers the Cell division function (Figure S6A). Actually,
+there is a significant increase in the activity of the CCNA2
+effector circuit as cancer stage progresses (Figure S6C).
+In fact, dysregulated genes were recently identified in this
+sub-pathway that might be potential biological markers
+and processes for treatment and etiology mechanism
+in KIRC [21]. Another similar example is the effector
+circuit ending in node CDK2, CCNE1 from the p53
+signaling pathway, and triggering the Cell cycle function,
+whose increased activity is significantly associated to
+bad prognostic in KIRC patients (Figure S7A and S7B).
+In addition, there is a significant increase in the activity
+of the CDK2, CCNE1 effector circuit as cancer stage
+progresses (Figure S7C). Recently, CDK2, CCNE1 genes
+were described as cancer prognostic factors [22]. When
+the association is carried out at the function level, there
+are two Uniprot functions (Table S6) representative of
+sustained proliferation hallmark: Mitosis (FDR-adjusted
+p-value 1.7x10-12) and DNA replication (FDR-adjusted
+
+Circuits that trigger cancer hallmarks determine
+patient survival
+Since survival data was among the clinical
+information available survival analysis of the significant
+www.impactjournals.com/oncotarget
+
+5166
+
+Oncotarget
+
+Figure 1: Comparison of performances of the different methods for defining pathways and calculating its activity.
+
+CCAA is compared to DEAP [12], subSPIA [13], using their own software, and topologyGSA [14], DEGraph [6], clipper [5], TAPPA [15],
+PRS [16], PWEA [17], using the implementation available in the topaseq package [18]. The true positive rate has been estimated averaging
+the proportion of significant cancer KEGG pathways (Table 3) across the 12 cancers analyzed and is represented in the Y axis. Vertical
+bars in each point represent 1 SD of the true positive rate for the corresponding method. The false positive rate was estimated from 100
+comparisons of groups (N=25) of identical individuals, randomly sampled from each cancer. The results obtained in the 12 cancers are used
+to obtain a mean value and an error. The X axis represents 1- the false positive rate. Horizontal bars represent in each point represent 1 SD
+of the false positive rate for the corresponding method.
+
+Figure 2: Circos plot that summarises the relationships between effectors within pathways and the functions triggered
+by them. Only cancer KEGG pathways (Table 3) related to functions significantly related to survival are represented here. On the right
+side appear the effector circuits grouped according to the pathway they belong to. There is a histogram per pathway that represents the
+proportion of effector pathways upregulated (red), downregulated (blue) and dysregulated in both directions (yellow). On the left side of
+the circo appear the functions triggered by the effector circuits divided into those which are significant when are up-regulated (red), when
+are down-regulated (blue) or when both situations occur (yellow). For each function there is a band that indicates the prognostic of its
+deregulation, which can be good (green) or bad (grey).
+www.impactjournals.com/oncotarget
+
+5167
+
+Oncotarget
+
+this particular cancer can be easily traced back. DNA
+replication is an example of function that can easily be
+mapped to the sustained proliferative signaling cancer
+hallmark [20]. The increase in the activity of this function
+is significantly related with poor prognostic (FDR-adjusted
+p-value=5.94x10-8). Three effector circuits belonging to
+the Cell cycle and the p53 pathways (See Figure 3 and
+Table S6) are the ultimate responsible for the activation
+of this function. Moreover, it has been described that
+dysregulation of different genes within the same pathway
+may have a similar impact on downstream pathway
+function [25, 26]. Figure 4 demonstrates how the CCAA
+method can detect the same functional consequence
+(activation of DNA replication) caused by distinct, nonrecurrent, differential gene expression patterns in two
+different cancers (BRCA and KIRC). The detection of the
+specific circuits and the particular gene activities involved
+in the tumorigenesis process has enormous therapeutic
+implications.
+
+p-value=5.9x10-8), whose upregulation is significantly
+associated to bad prognostic (See Figures S7A and S7B).
+Another cancer hallmark is the activation of
+metastasis and invasion, favored when the Uniprot
+function Cell adhesion decreases. Figure S7C depicts a
+clear association between the downregulation of Cell
+adhesion and the poorer prognostic in patients (FDRadjusted p-value=4.4x10-5).
+The third classical cancer hallmark in solid tumors
+is the induction of angiogenesis. Angiogenesis appears as
+significantly associated to survival in both Uniprot and
+GO annotations (Tables S6 and S7). Figure S8D depicts
+a significant relationship between the upregulation of
+Positive regulation of angiogenesis and higher patient’s
+mortality (FDR-adjusted p-value=2.9x10-2). Actually, the
+downregulation of the opposite term, Negative regulation
+of angiogenesis, is also associated to bad prognostic, as
+expected, although with marginal significance (FDRadjusted p-value=0.055).
+Finally, the CCAA method also detects the wellknown Warburg effect, the observed increased uptake and
+utilization of glucose, documented in many human tumor
+types [20, 23]. Our functional analysis clearly predicts
+a bad prognostic for reduced gluconeogenesis (FDRadjusted p-value = 8.96x10-6, see Table S6). Actually, it
+has recently been suggested a novel mechanism of cancer
+cell death by increasing the gluconeogenesis pathway
+activity via mTOR inhibitors [24].
+In addition, the CCAA method detects several
+terms whose perturbed activity seem a consequence of
+the dedifferentiation process that occur in kidney cancer
+cells, such as the down-activation of Sodium/potassium
+transport (FDR-adjusted p-value=2.95x10-9), Sodium
+transport (FDR-adjusted p-value=8.96x10-6) and, the
+general term Transport (FDR-adjusted p-value= 6.52x10-5)
+(see Table S6).
+Moreover, in some specific circuits triggering
+cancer hallmarks the association of the activity of the
+circuit to the mortality of the patient resulted to be
+higher than the individual association of any of the
+genes that form the circuit. Table 5 lists some circuits
+along with the general functional categories clearly
+related to proliferation (DNA replication and Cell
+division), metastasis (Cell adhesion) and Warburg effect
+(Gluconeogenesis and Lipid metabolism). Our results
+show that the initial observation made for the c-Jun
+N-terminal kinase pathway as a superior predictor of
+prognostic in neuroblastoma [2] can be generalized to
+other circuits that trigger cell functionalities related to
+cancer hallmarks.
+
+DISCUSSION
+Models of pathway activity bridge the gap
+between conventional approaches based on single-gene
+biomarkers, or functional enrichment methods, and more
+realistic, model-based approaches. Models use biological
+knowledge available on relevant biological modules (such
+as signaling pathways) to explain how their perturbations
+ultimately cause diseases or responses to treatments.
+Therefore, such perturbations (initially gene expression
+changes) can be related to disease mechanisms or drug
+MoAs [27, 28].
+A unique feature of the CCAA method is that, if
+the analysis is made at the level of cell functionality, the
+changes in the activity detected can be traced back to the
+circuits in order to discover which ones are triggering the
+action and what genes are the ultimate causative agents of
+such functional activity changes. Therefore, the resulting
+models can be used to suggest and predict the effect of
+interventions (KOs, drugs or over-expressions) on specific
+genes in the circuits so as to find suitable clinical targets,
+predict side effects, speculate off-target activities, etc.
+Depending on the scenario studied, such interventions can
+be more general or more personalized.
+Another relevant feature missing in the rest of
+PAA methods (Table 1) is the possibility of obtaining
+individual values of circuit, effector or function activities
+for each sample. This opens the door to obtaining patientspecific personalized functional profiles connected to the
+corresponding signaling circuits.
+Since clinical data are available at the TCGA
+repository, we were able to find significant associations of
+specific pathway activities to patient survival, proving thus
+the validity of PAA methodology to capture cell processes
+involved in disease outcome.
+
+Cancer progression driven by specific circuits
+instead of specific genes
+An additional advantage of using CCAA is
+that the signaling circuits that trigger the functions in
+www.impactjournals.com/oncotarget
+
+5168
+
+Oncotarget
+
+Table 5: Circuits which are most significantly associated to survival than their constituent genes
+Circuit
+Status
+
+Adjusted
+p-value
+
+Gene
+
+Gene
+Status
+
+Adjusted
+p-value
+
+General
+functional
+category
+
+Cell cycle: CDC45
+MCM7 MCM6
+MCM5 MCM4
+MCM3 MCM2
+
+UP
+
+6.08E-11
+
+CDC7
+
+UP
+
+1.68E-07
+
+DNA replication
+
+UP
+
+5.94E-08
+
+Cell cycle: ORC3
+ORC5 ORC4 ORC2
+ORC1 ORC6
+MCM7 MCM6
+MCM5 MCM4
+MCM3 MCM2
+
+UP
+
+1.26E-09
+
+CDC7
+
+UP
+
+1.68E-07
+
+DNA replication
+
+UP
+
+5.94E-08
+
+Glucagon signaling
+pathway: G6PC
+
+DOWN
+
+6.57E-06 PPARGC1A DOWN
+
+1.97E-05
+
+Gluconeogenesis
+
+DOWN
+
+8.96E-06
+
+Glucagon signaling
+pathway: PCK1
+
+DOWN
+
+4.31E-07 PPARGC1A DOWN
+
+1.97E-05
+
+Gluconeogenesis
+
+DOWN
+
+8.96E-06
+
+PPAR signaling
+pathway: PCK1
+
+DOWN
+
+3.75E-05
+
+PCK1
+
+6.39E-05
+
+Gluconeogenesis
+
+DOWN
+
+8.96E-06
+
+PPAR signaling
+pathway: LPL
+
+DOWN
+
+0.00095506
+
+LPL
+
+DOWN 0.00509595 Lipid metabolism DOWN
+
+1.59E-05
+
+PPAR signaling
+pathway: CYP7A1
+
+UP
+
+0.00209578
+
+RXRA
+
+DOWN 0.00577708 Lipid metabolism DOWN
+
+1.59E-05
+
+Leukocyte
+transendothelial
+migration: CDH5
+
+DOWN
+
+4.81E-05
+
+CDH5
+
+DOWN
+
+Adherens junction:
+CTNNA1 CTNNB1
+
+DOWN
+
+3.91E-05
+
+CTNNA1
+
+PPAR signaling
+pathway: CD36
+
+DOWN
+
+5.46E-05
+
+Proteoglycans in
+cancer: ITGAV*
+
+DOWN
+
+4.81E-05
+
+Leukocyte
+transendothelial
+migration:
+PECAM1
+
+DOWN
+
+Adherens junction:
+CDH1*
+AMPK signaling
+pathway: CCNA2
+
+Circuit
+
+Tight junction:
+PARD6A MPP5
+
+DOWN
+
+Cell adhesion
+
+DOWN
+
+4.46E-05
+
+DOWN 0.00016432
+
+Cell adhesion
+
+DOWN
+
+4.46E-05
+
+CD36
+
+DOWN 0.00030595
+
+Cell adhesion
+
+DOWN
+
+4.46E-05
+
+ITGAV
+
+DOWN 0.0006759
+
+Cell adhesion
+
+DOWN
+
+4.46E-05
+
+0.00063309 PECAM1
+
+DOWN 0.0009573
+
+Cell adhesion
+
+DOWN
+
+4.46E-05
+
+DOWN
+
+0.00637905
+
+CDH1
+
+DOWN 0.0078199
+
+Cell adhesion
+
+DOWN
+
+4.46E-05
+
+UP
+
+1.04E-12
+
+STRADA
+
+Cell division
+
+DOWN 0.00152171
+
+DOWN
+
+1.45E-05
+
+CDC42
+
+Cell division
+
+DOWN 0.00152171
+
+UP
+
+6.14E-05
+
+Function Adjusted
+Status
+p-value
+
+1.34E-07
+
+DOWN 0.00011452
+
+The circuits are defined as the pathway to which it belongs to and the final effector node that triggers the function. The
+status for circuits, genes and functions are UP or DOWN depending on the respective increase or decrease of their activities
+when the cancer is compared to the normal tissue. The gene column contains the gene with the best association to survival
+(lower adjusted p-value) among all the genes in the corresponding circuit.
+www.impactjournals.com/oncotarget
+
+5169
+
+Oncotarget
+
+Figure 3: Increase of DNA replication activity is related to bad prognostic. Effector nodes in two pathways trigger DNA
+replication in KIRC, as detected by the Hipathia program (http://hipathia.babelomics.org). Genes in red represent genes upregulated in
+the cancer with respect to the corresponding normal tissue; genes in blue represent downregulated genes and genes with no color were not
+differentially expressed. A. Cell Cycle signaling pathway with three effector circuits highlighted, one of them ending in the node containing
+proteins CDC6, ORC3, ORC5, ORC4, ORC2, ORC1 and ORC6, the second one ending in node with proteins CDC45, MCM7, MCM6,
+MCM5, MCM4, MCM3 and MCM2 and the last one ending in node with proteins ORC3, ORC5, ORC4, ORC2, ORC1, ORC6, MCM7,
+MCM6, MCM5, MCM4, MCM3 and MCM2. B. p53 signaling pathway with the effector circuit ending in protein RRM2B highlighted. C.
+Survival Kaplan-Meier (K-M) curves obtained for Uniprot function DNA replication.
+
+Figure 4: DNA replication is triggered by the same circuits in KIRC and BRCA, but using a different pattern of gene
+activation. The Hipathia program (http://hipathia.babelomics.org) detected a total of four effector circuits in two pathways, Cell Cycle and
+
+P53 signaling, that are used by both cancers to trigger DNA replication. Arrows in red represent activated circuits. Genes in red represent
+genes upregulated in the cancer with respect to the corresponding normal tissue; genes in blue represent downregulated genes and genes
+with no color were not differentially expressed. Squares at the end of the circuit represent the cell functions triggered by the circuits. A. Cell
+Cycle signaling pathway in KIRC with three effector circuits activated (highlighted), one of them ending in the node containing proteins
+CDC6, ORC3, ORC5, ORC4, ORC2, ORC1 and ORC6, the second one ending in node with proteins CDC45, MCM7, MCM6, MCM5,
+MCM4, MCM3 and MCM2 and the last one ending in node with proteins ORC3, ORC5, ORC4, ORC2, ORC1, ORC6, MCM7, MCM6,
+MCM5, MCM4, MCM3 and MCM2. B. P53 signaling pathway in BRCA with the effector circuit ending in protein RRM2B highlighted. C.
+Cell Cycle pathway in BRCA with the same effector circuits activated that in KIRC, but using a different set of gene activations. D. P53
+signaling pathway in BRCA with the same effector circuit activated that in KIRC, but using a different set of gene activations.
+www.impactjournals.com/oncotarget
+
+5170
+
+Oncotarget
+
+Finally, it is worth mentioning that the integration
+of information on protein functionality in the model,
+if it is available, is straightforward. (See Methods for
+details). Other omic data (methylomics data, Copy
+Number Variation, etc.) could also be easily introduced
+in the model providing they could be coded as proxies of
+presence and/or integrity of the protein.
+
+follows the proportion of RNA production between the
+samples. The resulting normalized values were entered to
+the pathway activity analysis method.
+
+Modelling framework
+Modelling of pathway activity requires initially of
+a formal description of the relationships between proteins
+within the pathway, which can be taken from different
+pathway repositories. Here KEGG pathways [39] are
+used, but any other repository could be used instead,
+as Reactome [40] or others. It also requires of a way to
+estimate the activation status of each protein, which
+accounts for the intensity of signal they can transmit along
+the pathway.
+A total of 60 KEGG pathways (see Table 6),
+which include the main KEGG categories related
+to signaling, such as: signal transduction pathways,
+Signaling molecules and interaction pathways, Cell
+growth and death, Cell Communication, endocrine
+system and immune system, as well as some other
+related pathways are used in this modelling framework.
+This selection of pathways includes a total of 2212
+gene products that participate in 3379 nodes. It must
+be noted that any gene product can participate in more
+than one node (even in different pathways) and a node
+can contain more than one gene product. Pathways are
+directed networks in which nodes (composed by one or
+more proteins) relate to each other by edges. Only two
+different kinds of relation between nodes are considered:
+activations and inhibitions. In KEGG pathways, edges
+define different types of protein interactions that include
+phosphorilations,
+ubiquitinations,
+glycosilations,
+etc., but they include a label indicating if they act as
+activations or inhibitions.
+In order to transmit the signal along the pathway,
+a protein needs: first, to be present and functional, and
+second, to be activated by other protein. Preferably,
+the activity of the proteins should be inferred from
+(phospho) proteomic and chemoproteomic experiments
+[41], however, the production of these types of data still
+results relatively complex [42]. Instead, an extensively
+used approach is taking the presence of the mRNA
+corresponding to the protein as a proxy for the presence
+of the protein [5-8, 42, 43]. Therefore, the presence of
+the mRNAs corresponding to the proteins present in the
+pathway is quantified as a normalized value between
+0 and 1. Second, a value of signal intensity transmitted
+through a protein is computed, taking into account the
+level of expression of the corresponding mRNA and the
+intensity of the signal arriving to it. The net value of signal
+transmitted across the pathway corresponds to the signal
+values transmitted by the last proteins of the pathway
+that ultimately trigger the cell functions activated by the
+pathway.
+
+MATERIALS AND METHODS
+Data source and processing
+We used 12 cancer types from The Cancer
+Genome Atlas (TCGA) data portal (https://tcga-data.
+nci.nih.gov/tcga/) in which RNA-seq counts for
+healthy control samples were available in addition to
+the cancer samples: Bladder Urothelial Carcinoma
+(BLCA) [29], Breast invasive carcinoma (BRCA) [30],
+Colon adenocarcinoma (COAD) [31], Head and Neck
+squamous cell carcinoma (HNSC) [32], Kidney renal
+clear cell carcinoma (KIRC) [19], Kidney renal papillary
+cell carcinoma (KIRP) [33], Liver hepatocellular
+carcinoma (LIHC), Lung adenocarcinoma (LUAD) [34],
+Lung squamous cell carcinoma (LUSC) [35], Prostate
+adenocarcinoma (PRAD) [36], Thyroid carcinoma
+(THCA) [37] and Uterine Corpus Endometrial
+Carcinoma (UCEC) [38] (Table 2).
+Since TCGA cancer data has different origins
+and underwent different management processes, nonbiological experimental variations (batch effect) associated
+to Genome Characterization Center (GCC) and plate ID
+must be removed from the RNA-seq data. The COMBAT
+method [10] was used for this purpose. This method
+estimates the location and scale model parameters that
+represent batch effects and shrink them towards the overall
+mean of the batch effect estimates. Then, these estimates
+are used to adjust the data for batch effects. Then, we
+applied the trimmed mean of M-values normalization
+method (TMM) method [11] for data normalization.
+TMM is a very efficient normalization method that
+corrects a well-known artifact derived from the RNA-Seq
+technology: the RNA-composition bias. When comparing
+two different samples, the number of read counts of an
+equally expressed gene may vary depending on the level
+of expression of the other genes due to the fact that the
+library depth is fixed. The read counts of a gene represent
+the proportion of the gene with respect to the total RNA
+production of the sample, but this proportion is not a
+quantitative number which can be compared if the total
+RNA production is different between samples. TMM
+normalization estimates the ratio of RNA production
+between samples with a weighted trimmed mean of the log
+expression ratios (trimmed mean of M values or TMM).
+Then it uses this estimation to modify the observed library
+size of a sample to a comparable library size which
+
+www.impactjournals.com/oncotarget
+
+5171
+
+Oncotarget
+
+Table 6: KEGG pathways modeled in this study
+KEGG identifier
+hsa04014
+hsa04015
+hsa04010
+hsa04012
+hsa04310
+hsa04330
+hsa04340
+hsa04350
+hsa04390
+hsa04370
+hsa04630
+hsa04064
+hsa04668
+hsa04066
+hsa04068
+hsa04020
+hsa04071
+hsa04024
+hsa04022
+hsa04151
+hsa04152
+hsa04150
+hsa04110
+hsa04114
+hsa04210
+hsa04115
+hsa04510
+hsa04520
+hsa04530
+hsa04540
+hsa04611
+hsa04620
+hsa04621
+hsa04622
+hsa04650
+hsa04660
+hsa04662
+hsa04664
+hsa04666
+hsa04670
+hsa04062
+hsa04910
+hsa04922
+hsa04920
+hsa03320
+hsa04912
+
+Name
+Ras signaling pathway
+Rap1 signaling pathway
+MAPK signaling pathway
+ErbB signaling pathway
+Wnt signaling pathway
+Notch signaling pathway
+Hedgehog signaling pathway
+TGF-beta signaling pathway
+Hippo signaling pathway
+VEGF signaling pathway
+Jak-STAT signaling pathway
+NF-kappa B signaling pathway
+TNF signaling pathway
+HIF-1 signaling pathway
+FoxO signaling pathway
+Calcium signaling pathway
+Sphingolipid signaling pathway
+cAMP signaling pathway
+cGMP-PKG signaling pathway
+PI3K-Akt signaling pathway
+AMPK signaling pathway
+mTOR signaling pathway
+Cell cycle
+Oocyte meiosis
+Apoptosis
+p53 signaling pathway
+Focal adhesion
+Adherens junction
+Tight junction
+Gap junction
+Platelet activation
+Toll-like receptor signaling pathway
+NOD-like receptor signaling pathway
+RIG-I-like receptor signaling pathway
+Natural killer cell mediated cytotoxicity
+T cell receptor signaling pathway
+B cell receptor signaling pathway
+Fc epsilon RI signaling pathway
+Fc gamma R-mediated phagocytosis
+Leukocyte transendothelial migration
+Chemokine signaling pathway
+Insulin signaling pathway
+Glucagon signaling pathway
+Adipocytokine signaling pathway
+PPAR signaling pathway
+GnRH signaling pathway
+ (Continued )
+
+www.impactjournals.com/oncotarget
+
+5172
+
+Oncotarget
+
+KEGG identifier
+hsa04915
+hsa04914
+hsa04921
+hsa04919
+hsa04916
+hsa04261
+hsa04270
+hsa04722
+hsa05200
+hsa05231
+hsa05202
+hsa05205
+hsa04971
+hsa05160
+
+Name
+Estrogen signaling pathway
+Progesterone-mediated oocyte maturation
+Oxytocin signaling pathway
+Thyroid hormone signaling pathway
+Melanogenesis
+Adrenergic signaling in cardiomyocytes
+Vascular smooth muscle contraction
+Neurotrophin signaling pathway
+Pathways in cancer
+Choline metabolism in cancer
+Transcriptional misregulation in cancer
+Proteoglycans in cancer
+Gastric acid secretion
+Hepatitis C
+
+Decomposing pathways into circuits
+
+limiting component of the complex), is taken as the node
+activity value.
+Once the node activity values have been estimated,
+the computation of the signal intensity across the different
+circuits of the pathways is performed by means of an
+iterative algorithm beginning in the input nodes of each
+circuit. In order to initialize the circuit signal we assume
+an incoming signal value of 1 in the input nodes of any
+circuit. Then, for each node n of the network, the signal
+value is propagated along the nodes according to the
+following recursive rule:
+
+Pathways are represented by directed graphs,
+which connect input (receptor) nodes to output (effector)
+nodes. The signal arrives to an initial input node and is
+transmitted along the pathway following the direction of
+the interactions until it reaches an output node that triggers
+an action within the cell. Thus, from different input nodes
+the signal may follow different routes along the pathway
+to reach different output nodes. Within this modelling
+context, a canonical circuit is defined as any possible route
+the signal can traverse to be transmitted from a particular
+input to a specific output node (see Figure 5, left).
+Output nodes at the end of canonical are the ultimate
+responsible to carry out the action the signal is intended to
+trigger in the cell. Then, from a functional viewpoint, an
+effector circuit can be defined as a higher-level signaling
+entity composed by the collection of all the canonical
+circuits ending in an unique output (effector) node (see
+Figure 5, center). When applied to effector circuits, the
+method returns the joint intensity of the signal arriving to
+the corresponding effector node.
+A total of 6101 canonical circuits and 1038 effector
+circuits can be defined in the 60 pathways modelled.
+
+Sn = υn
+
+sa A
+
+) ∏ (1 − s )
+si I
+
+i
+
+(1)
+
+ 
+Where Sn is the signal intensity for the current node
+n, vn is its normalized value, A is the total number of
+activation signals (sa), arriving to the current node from
+activation edges, I is the total number of inhibitory signals
+(si) arriving to the node from inhibition edges.
+The algorithm to compute the transmission of the
+signal along the network is a recursive method based on
+the Dijkstra algorithm [45]. Each time the signal value
+across a node is updated in a recursion and the difference
+with the previous value is greater than a threshold, all the
+nodes to which an edge arrives from the current updated
+node are marked to be updated. The recursion continues
+until the update in the values is below the threshold. The
+advantage if using an iterative method is that the signal
+becomes steady even in cases of loops in the pathway
+topology, allowing a more precise estimation of circuit
+activities. Many PAA methods simply cannot handle with
+loops and artificially disconnect them or even remove
+them from the calculations [5, 6, 8, 13-15, 17]. Figure
+6 represents the computation of the intensity of signal
+transmission across a node, and exemplifies in a simple
+scenario how the signal is transmitted across a circuit.
+
+Computing the circuit activity
+The methodology proposed uses gene expression
+values as proxies of protein presence values, and
+consequently of potential protein activation values
+[5-8, 42-44]. The inferred protein activity values are
+then transformed into node activity values using the
+information on node composition taken from KEGG.
+KEGG defines two types of nodes: plain nodes, which
+may contain one or more proteins, whose value is
+summarized as the percentile 90 of the values of the
+proteins contained in it, and complex nodes, for which
+the minimum value of the proteins contained (the
+www.impactjournals.com/oncotarget
+
+(
+
+1 − ∏ 1 − sa
+
+5173
+
+Oncotarget
+
+Figure 5: Schema that illustrates the relationship between circuits, effector circuits and functions. Left: signaling circuits,
+
+which are canonical sub-pathways that transmit signals from a unique receptor to a unique effector node. Center: effector circuits that
+represent the combined activity of all the signals that converge into a unique effector node. Right: functional activity that represents the
+combined effect of the signal received by all the effectors that trigger a particular cell function.
+
+Figure 6: Schematic representation of the signal propagation algorithm used. Upper part: the three types of activity
+
+transmitted: left) the combination of two activations, center) the combination of an activation and an inhibition and right) the combination
+of two inhibitions. Central part: the normalized values of gene expression are assigned to the corresponding nodes in the circuits. Lower
+part: the signal starts with a value of 1 in the receptor node A and is propagated by multiplying the weights assigned to each node in the
+central part following the rules depicted in the upper part.
+www.impactjournals.com/oncotarget
+
+5174
+
+Oncotarget
+
+Effector circuits and functional analysis
+
+for these gene in all the samples. Then, N individuals were
+generated by simulating the gene expression values for
+each gene g as random numbers sampled from a normal
+distribution N(μg,σ2g); iii) N individuals were generated
+by simulating their gene expression values as random
+numbers from a normal distribution N(0.5, 0.05) as above.
+Since the individuals involved in the comparison
+were taken either from the same type of samples or were
+generated in the same way, any differential activation
+found can be considered a false positive. The comparisons
+were carried out for both, circuits and effector proteins.
+
+Effector nodes at the end of the circuits trigger
+specific functions in the cell. These functions are defined
+here based on the annotations of the proteins contained
+in the effector node. Gene Ontology [46] (GO) terms
+corresponding to the biological process ontology
+(February 16, 2016 release) and molecular function
+keywords of Uniprot [47] (release of September 21, 2015)
+are used.
+The signal intensity received by the effector node
+can be propagated to the functions triggered by them
+following the same rationale of signal propagation along
+the circuits. Figure 5 illustrates how effector circuits
+are composed by different canonical circuits and how
+functions can be triggered by several effector circuits.
+
+Sensitivity of the Canonical Circuit Activity
+Analysis (CCAA) method
+To estimate the true positive rate, we tested a
+scenario in which biological differences are expected.
+For this purpose, we used the two 2 cancers in Table 2
+with more individuals, BRCA [30] and KIRC [19]. For
+each of the two cancers we generated 100 datasets of
+N=50,100,200 and 400 samples by sampling randomly
+both the normal and tumor samples in such a way that
+the normal/tumor proportion remained the same as in
+the original dataset (Table 2). Specifically, for BRCA
+(with 113 normal tissue and 1057 tumor), N= 50, 100,
+200 and 400 correspond to normal/tumor proportions of
+5/45, 10/90, 19/181 and 39/361, respectively. In the case
+of KIRC (with 68 normal and 470 tumor) the respective
+proportions were 6/44, 13/87, 25/175 and 51/349. In
+total, we generated 2x100x4 = 800 datasets. CCAA was
+calculated at the level of signaling circuits and effector
+circuits for both datasets. The true positive rate was
+estimated as the number of cancer pathways containing
+one or more differentially activated circuits divided by the
+total number of cancer pathways. Although a gold standard
+is always difficult in this type of scenario, we can expect
+changes in the 14 cancer pathways, as defined in KEGG
+(Cancer pathways category, see Table 3). Additionally,
+we produced an extended table of 49 cancer pathways
+curated by expert collaborators from the Valencia Institute
+of Oncology (IVO) (Table 4).
+
+Straightforward integration of transcriptomic
+and genomic data
+Finally, the integration of genomic and
+transcriptomic data in the proposed modeling framework
+of signaling pathways is straightforward. In order to
+transmit the signal a protein needs to be present (gene
+expressed) and to be functional (harboring no impairing
+mutations). Genomic data can be integrated with
+transcriptomic data to infer combined gene activity and
+integrity (and consequently potential functionality). In
+the simplest approach [9] the normalized expression
+value of genes harboring mutations is multiplied by 0 if
+the pathogenicity (e.g. SIFT [48], PolyPhen [49]) and
+conservation indexes (e.g. phastCons [50]) are beyond a
+given threshold (taking into account the inheritance mode),
+or if the consequence type of the mutation (stop gain, stop
+loss, and splicing disrupting) is deleterious per se, because
+it is considered to produce a non-functional protein. The
+HiPathia program enables the analysis of mutations
+found in standard variant files (VCF) from whole exome/
+genome sequencing experiments in combination with gene
+expression values.
+
+Specificity of the method of canonical circuit
+activity analysis (CCAA)
+
+Comparison with other available methods for
+defining and scoring pathway activity
+
+To estimate the false positive rate, different groups
+of N identical individuals were generated and further
+divided into two datasets that were compared to each
+other for finding differentially activated circuits. This
+comparison was repeated 2000 times for different data
+sizes (N = 20, 50, 100, 200 and 400 individuals) in three
+different scenarios: i) N individuals were randomly
+sampled among KIRC patients; ii) For each gene g, an
+empirical distribution of gene expression values was
+derived from the patients of the KIRC dataset. Specifically,
+the mean μg and variance σ2g was inferred for each gene g
+taking into account the gene expression values measured
+www.impactjournals.com/oncotarget
+
+We compared the reliability of the CCAA method
+proposed here to other proposals for defining subpathways and for calculating an activity score for them.
+Among the methods listed in Table 1 only nine could be
+applied to RNA-seq data and have software available for
+running them. These are: DEAP [12], subSPIA [13], using
+their own software, and topologyGSA [14], DEGraph
+[6], clipper [5], TAPPA [15], PRS [16], PWEA [17],
+implemented in the topaseq package [18]. The relative
+performance of the methods compared was derived from
+the estimation of their ratios of false positives and false
+5175
+
+Oncotarget
+
+negatives in a similar way than above. In order to estimate
+the false positives rate 12 cancer datasets (Table 2) were
+used. For each cancer, 50 patients were randomly sampled
+100 times. Any sampled set is divided into two equally
+sized subsets that are subsequently compared. Then, the
+100 values obtained for each cancer are used to determine
+a mean value and a SD for the false positives ratio. The
+same 12 cancers (Table 2) were used to estimate the
+true positive rates. For each cancer versus normal tissue
+comparison the number of significant cancer pathways
+was calculated and divided by the total number of cancer
+pathways. The ratios were calculated for both the 14
+cancer pathways as defined in KEGG (Cancer pathways
+category, see Table 3) and the extended list of 49 curated
+cancer pathways (Table 4).
+
+from the ISCIII, both co-funded with European Regional
+Development Funds (ERDF); PROMETEOII/2014/025
+from the Generalitat Valenciana (GVA-FEDER);
+Fundació la Marató TV3 (ref. 20133134); and EU H2020INFRADEV-1-2015-1 ELIXIR-EXCELERATE (ref.
+676559) and EU FP7-People ITN Marie Curie Project (ref
+316861).
+
+REFERENCES
+1.	 Oti M, Brunner HG. The modular nature of genetic diseases.
+Clin Genet. 2007; 71:1-11.
+2.	 Fey D, Halasz M, Dreidax D, Kennedy SP, Hastings JF,
+Rauch N, Munoz AG, Pilkington R, Fischer M, Westermann
+F, Kolch W, Kholodenko BN, Croucher DR. Signaling
+pathway models as biomarkers: Patient-specific simulations
+of JNK activity predict the survival of neuroblastoma
+patients. Sci Signal. 2015; 8:ra130.
+
+Survival in cancer
+The KIRC TCGA samples contain survival
+information among the clinical data available. These can
+be used to check whether the circuit or function activities
+estimated for each patient have a relationship with survival
+or not. Kaplan-Meier (K-M) curves [51] were estimated
+using the function survdiff from the survival R package
+(https://cran.r-project.org/web/packages/survival/) for
+each signaling circuit, each effector circuit and each
+cell function (either Uniprot or GO definitions) with
+a significant difference of activity when cancers were
+compared to the corresponding controls. Specifically,
+the 10% of individuals presenting the highest (or lowest)
+activity were compared to the rest of them.
+
+3.	 Amadoz A, Sebastian-Leon P, Vidal E, Salavert F, Dopazo
+J. Using activation status of signaling pathways as
+mechanism-based biomarkers to predict drug sensitivity.
+Scientific reports. 2015; 5:18494.
+4.	 Jaakkola MK, Elo LL. Empirical comparison of structurebased pathway methods. Briefings in bioinformatics. 2016;
+17:336-345.
+5.	 Martini P, Sales G, Massa MS, Chiogna M, Romualdi
+C. Along signal paths: an empirical gene set approach
+exploiting pathway topology. Nucleic Acids Res. 2013;
+41:e19.
+6.	 Jacob L, Neuvial P, Dudoit S. More power via graphstructured tests for differential expression of gene networks.
+Ann Appl Stat. 2012; 6:561-600.
+
+Availability of data and materials
+
+7.	 Sebastian-Leon P, Carbonell J, Salavert F, Sanchez R,
+Medina I, Dopazo J. Inferring the functional effect of gene
+expression changes in signaling pathways. Nucleic Acids
+Res. 2013; 41:W213-217.
+
+A user-friendly web server that runs the code for
+carrying out the CCAA method is freely available at http://
+hipathia.babelomics.org.
+The R code implementing the method is available at
+https://github.com/babelomics/hipathia.
+
+8.	 Sebastian-Leon P, Vidal E, Minguez P, Conesa A, Tarazona
+S, Amadoz A, Armero C, Salavert F, Vidal-Puig A,
+Montaner D, Dopazo J. Understanding disease mechanisms
+with models of signaling pathway activities. BMC Syst
+Biol. 2014; 8:121.
+
+CONFLICTS OF INTEREST
+The authors declare that they have no conflicts of
+interest
+
+9.	 Hernansaiz-Ballesteros RD, Salavert F, Sebastian-Leon P,
+Aleman A, Medina I, Dopazo J. Assessing the impact of
+mutations found in next generation sequencing data over
+human signaling pathways. Nucleic Acids Res. 2015;
+43:W270-275.
+
+ACKNOWLEDGMENTS
+We are very indebted to Drs. José Costa, from the
+Yale University School of Medicine, and Jose Antonio
+Lopez Guerrero, from the Valencian Institute of Oncology
+(IVO), for their valuable comments and help in the
+biological interpretation of the results found.
+This work is supported by grants BIO201457291-R from the Spanish Ministry of Economy
+and Competitiveness and “Plataforma de Recursos
+Biomoleculares y Bioinformáticos” PT13/0001/0007
+www.impactjournals.com/oncotarget
+
+10.	 Johnson WE, Li C, Rabinovic A. Adjusting batch effects in
+microarray expression data using empirical Bayes methods.
+Biostatistics. 2007; 8:118-127.
+11.	 Robinson MD, Oshlack A. A scaling normalization method
+for differential expression analysis of RNA-seq data.
+Genome Biol. 2010; 11:R25.
+12.	 Haynes WA, Higdon R, Stanberry L, Collins D, Kolker
+E. Differential expression analysis for pathways. PLoS
+Comput Biol. 2013; 9:e1002967.
+5176
+
+Oncotarget
+
+13.	 Li X, Shen L, Shang X, Liu W. Subpathway Analysis
+based on Signaling-Pathway Impact Analysis of Signaling
+Pathway. PLoS ONE. 2015; 10:e0132813.
+
+30.	 The Cancer Genome Atlas Network. Comprehensive
+molecular portraits of human breast tumours. Nature. 2012;
+490:61-70.
+
+14.	 Massa MS, Chiogna M, Romualdi C. Gene set analysis
+exploiting the topology of a pathway. BMC Syst Biol. 2010;
+4:121.
+
+31.	 The Cancer Genome Atlas Research Network. Comprehensive
+molecular characterization of human colon and rectal
+cancer. Nature. 2012; 487:330-337.
+
+15.	 Gao S, Wang X. TAPPA: topological analysis of
+pathway phenotype association. Bioinformatics. 2007;
+23:3100-3102.
+
+32.	 The Cancer Genome Atlas Network. Comprehensive
+genomic characterization of head and neck squamous cell
+carcinomas. Nature. 2015; 517:576-582.
+
+16.	 Ibrahim MA, Jassim S, Cawthorne MA, Langlands K. A
+topology-based score for pathway enrichment. J Comput
+Biol. 2012; 19:563-573.
+
+33.	 Linehan WM, Spellman PT, Ricketts CJ, Creighton CJ,
+Fei SS, Davis C, Wheeler DA, Murray BA, Schmidt L,
+Vocke CD, Peto M, Al Mamun AA, Shinbrot E, Sethi A,
+Brooks S, Rathmell WK, et al. Comprehensive Molecular
+Characterization of Papillary Renal-Cell Carcinoma. N Engl
+J Med. 2016; 374:135-145.
+
+17.	 Hung JH, Whitfield TW, Yang TH, Hu Z, Weng Z, DeLisi
+C. Identification of functional modules that correlate with
+phenotypic difference: the influence of network topology.
+Genome Biol. 2010; 11:R23.
+
+34.	 The Cancer Genome Atlas Research Network. Comprehensive
+molecular profiling of lung adenocarcinoma. Nature. 2014;
+511:543-550.
+
+18.	 Ihnatova I, Budinska E. ToPASeq: an R package for
+topology-based pathway analysis of microarray and RNASeq data. BMC Bioinformatics. 2015; 16:350.
+
+35.	 The Cancer Genome Atlas Research Network. Comprehensive
+genomic characterization of squamous cell lung cancers.
+Nature. 2012; 489:519-525.
+
+19.	 The Cancer Genome Atlas Research Network. Comprehensive
+molecular characterization of clear cell renal cell carcinoma.
+Nature. 2013; 499:43-49.
+
+36.	 The Cancer Genome Atlas Network. The Molecular
+Taxonomy of Primary Prostate Cancer. Cell. 2015;
+163:1011-1025.
+
+20.	 Hanahan D, Weinberg RA. Hallmarks of cancer: the next
+generation. Cell. 2011; 144:646-674.
+
+37.	 The Cancer Genome Atlas Research Network. Integrated
+genomic characterization of papillary thyroid carcinoma.
+Cell. 2014; 159:676-690.
+
+21.	 Wang SM, Sun ZQ, Li HY, Wang J, Liu QY. Temporal
+Identification of Dysregulated Genes and Pathways in Clear
+Cell Renal Cell Carcinoma Based on Systematic Tracking
+of Disrupted Modules. Computational and mathematical
+methods in medicine. 2015; 2015:313740.
+
+38.	 Kandoth C, Schultz N, Cherniack AD, Akbani R, Liu Y,
+Shen H, Robertson AG, Pashtan I, Shen R, Benz CC, Yau
+C, Laird PW, Ding L, Zhang W, Mills GB, Kucherlapati
+R, et al. Integrated genomic characterization of endometrial
+carcinoma. Nature. 2013; 497:67-73.
+
+22.	 Bonelli P, Tuccillo FM, Borrelli A, Schiattarella A,
+Buonaguro FM. CDK/CCN and CDKI alterations for cancer
+prognosis and therapeutic predictivity. BioMed research
+international. 2014; 2014.
+
+39.	 Kanehisa M, Goto S, Sato Y, Kawashima M, Furumichi M,
+Tanabe M. Data, information, knowledge and principle:
+back to metabolism in KEGG. Nucleic Acids Res. 2014;
+42:D199-205.
+
+23.	 Hsu PP, Sabatini DM. Cancer cell metabolism: Warburg and
+beyond. Cell. 2008; 134:703-707.
+24.	 Khan MW, Chakrabarti P. Gluconeogenesis combats cancer:
+opening new doors in cancer biology. Cell death & disease.
+2015; 6:e1872.
+
+40.	 Croft D, Mundo AF, Haw R, Milacic M, Weiser J, Wu G,
+Caudy M, Garapati P, Gillespie M, Kamdar MR, Jassal B,
+Jupe S, Matthews L, May B, Palatnik S, Rothfels K, et al.
+The Reactome pathway knowledgebase. Nucleic Acids Res.
+2014; 42:D472-477.
+
+25.	 Yarden Y, Sliwkowski MX. Untangling the ErbB signalling
+network. Nature reviews Molecular cell biology. 2001;
+2:127-137.
+
+41.	 Li J, Rix U, Fang B, Bai Y, Edwards A, Colinge J,
+Bennett KL, Gao J, Song L, Eschrich S, Superti-Furga G,
+Koomen J, Haura EB. A chemical and phosphoproteomic
+characterization of dasatinib action in lung cancer. Nat
+Chem Biol. 2010; 6:291-299.
+
+26.	 Wood LD, Parsons DW, Jones S, Lin J, Sjöblom T, Leary
+RJ, Shen D, Boca SM, Barber T, Ptak J. The genomic
+landscapes of human breast and colorectal cancers. Science.
+2007; 318:1108-1113.
+27.	 Dopazo J. Genomics and transcriptomics in drug discovery.
+Drug Discov Today. 2014; 19:126-132.
+
+42.	 Mitsos A, Melas IN, Siminelakis P, Chairakaki AD, SaezRodriguez J, Alexopoulos LG. Identifying drug effects via
+pathway alterations using an integer linear programming
+optimization formulation on phosphoproteomic data. PLoS
+Comput Biol. 2009; 5:e1000591.
+
+28.	 Fryburg DA, Song DH, Laifenfeld D and de Graaf D.
+Systems diagnostics: anticipating the next generation of
+diagnostic tests based on mechanistic insight into disease.
+Drug Discov Today. 2014; 19:108-112.
+
+43.	 Efroni S, Schaefer CF, Buetow KH. Identification of key
+processes underlying cancer phenotypes using biologic
+pathway analysis. PLoS ONE. 2007; 2:e425.
+
+29.	 The Cancer Genome Atlas Research Network. Comprehensive
+molecular characterization of urothelial bladder carcinoma.
+Nature. 2014; 507:315-322.
+www.impactjournals.com/oncotarget
+
+5177
+
+Oncotarget
+
+44.	 Pihur V, Datta S, Datta S. Reconstruction of genetic
+association networks from microarray data: a partial least
+squares approach. Bioinformatics. 2008; 24:561-568.
+
+53.	 Qin Y, Chen M, Wang H, Zheng X. A network flow-based
+method to predict anticancer drug sensitivity. PLoS ONE.
+2015; 10:e0127380.
+
+45.	 Dijkstra E. A note on two problems in connexion with
+graphs. Numerische Mathematik. 1959; 1:269-271.
+
+54.	 Nam S, Chang HR, Kim KT, Kook MC, Hong D, Kwon
+CH, Jung HR, Park HS, Powis G, Liang H, Park T, Kim
+YH. PATHOME: an algorithm for accurately detecting
+differentially expressed subpathways. Oncogene. 2014;
+33:4941-4951.
+
+46.	 Ashburner M, Ball CA, Blake JA, Botstein D, Butler H,
+Cherry JM, Davis AP, Dolinski K, Dwight SS, Eppig JT,
+Harris MA, Hill DP, Issel-Tarver L, Kasarskis A, Lewis S,
+Matese JC, et al. Gene ontology: tool for the unification of
+biology. The Gene Ontology Consortium. Nat Genet. 2000;
+25:25-29.
+
+55.	 Pepe D, Grassi M. Investigating perturbed pathway modules
+from gene expression data via structural equation models.
+BMC Bioinformatics. 2014; 15:132.
+
+47.	 UniProt_Consortium. UniProt: a hub for protein
+information. Nucleic Acids Res. 2015; 43:D204-212.
+
+56.	 Sales G, Calura E, Martini P, Romualdi C. Graphite Web:
+Web tool for gene set analysis exploiting pathway topology.
+Nucleic Acids Res. 2013; 41:W89-97.
+
+48.	 Kumar P, Henikoff S, Ng PC. Predicting the effects of
+coding non-synonymous variants on protein function using
+the SIFT algorithm. Nat Protoc. 2009; 4:1073-1081.
+
+57.	 Judeh T, Johnson C, Kumar A, Zhu D. TEAK: topology
+enrichment analysis framework for detecting activated
+biological subpathways. Nucleic Acids Res. 2013;
+41:1425-1437.
+
+49.	 Ramensky V, Bork P, Sunyaev S. Human non-synonymous
+SNPs: server and survey. Nucleic Acids Res. 2002;
+30:3894-3900.
+
+58.	 Rivera CG, Tyler BM, Murali TM. Sensitive detection of
+pathway perturbations in cancers. BMC Bioinformatics.
+2012; 13:S9.
+
+50.	 Siepel A, Bejerano G, Pedersen JS, Hinrichs AS, Hou M,
+Rosenbloom K, Clawson H, Spieth J, Hillier LW, Richards
+S, Weinstock GM, Wilson RK, Gibbs RA, Kent WJ, Miller
+W, Haussler D. Evolutionarily conserved elements in
+vertebrate, insect, worm, and yeast genomes. Genome Res.
+2005; 15:1034-1050.
+
+59.	 Chen X, Xu J, Huang B, Li J, Wu X, Ma L, Jia X, Bian
+X, Tan F, Liu L, Chen S, Li X. A sub-pathway-based
+approach for identifying drug response principal network.
+Bioinformatics. 2011; 27:649-654.
+
+51.	 Kaplan E, Meier P. Nonparametric estimation from
+incomplete observations. Journal of the American Statistical
+Association. 1958; 53:457-481.
+
+60.	 Ulitsky I, Krishnamurthy A, Karp RM, Shamir R. DEGAS:
+de novo discovery of dysregulated pathways in human
+diseases. PLoS ONE. 2010; 5:e13367.
+
+52.	 Koumakis L, Potamias G, Tsiknakis M, Zervakis M,
+Moustakis V. Integrating Microarray Data and GRNs.
+Methods Mol Biol. 2015.
+
+www.impactjournals.com/oncotarget
+
+5178
+
+Oncotarget
+
+

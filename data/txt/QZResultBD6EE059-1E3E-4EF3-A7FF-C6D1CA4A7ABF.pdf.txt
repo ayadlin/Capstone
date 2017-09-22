@@ -1,0 +1,1297 @@
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+Impact of Metabolic Heterogeneity on Tumor
+Growth, Invasion, and Treatment Outcomes
+Mark Robertson-Tessi1, Robert J. Gillies2, Robert A. Gatenby1,2, and
+Alexander R.A. Anderson1
+
+Abstract
+Histopathologic knowledge that extensive heterogeneity exists
+between and within tumors has been conﬁrmed and deepened
+recently by molecular studies. However, the impact of tumor
+heterogeneity on prognosis and treatment remains as poorly
+understood as ever. Using a hybrid multiscale mathematical model
+of tumor growth in vascularized tissue, we investigated the selection pressures exerted by spatial and temporal variations in tumor
+microenvironment and the resulting phenotypic adaptations. A key
+component of this model is normal and tumor metabolism and its
+interaction with microenvironmental factors. The metabolic phenotype of tumor cells is plastic, and microenvironmental selection
+leads to increased tumor glycolysis and decreased pH. Once this
+phenotype emerges, the tumor dramatically changes its behavior
+due to acid-mediated invasion, an effect that depends on both
+variations in the tumor cell phenotypes and their spatial distribution within the tumor. In early stages of growth, tumors are
+
+Major Findings
+Cancers commonly have altered metabolism, which involves
+excessive glucose consumption and acid production. This leads
+to acidiﬁcation of the microenvironment that surrounds
+tumors. Because cancer cells are better adapted to acidic conditions than normal cells, they can damage and invade normal
+tissue. Acquisition of this invasive phenotype is complex and
+requires persistent evolutionary selection. Heterogeneity of
+metabolic phenotypes has an impact on tumor behavior. In
+this article, we implement a cell-based mathematical model to
+investigate this heterogeneity and how it is modiﬁed as result of
+therapy. The model includes metabolic interrelationships that
+inﬂuence both tumor and normal cell fate and the microenvironment. The model recapitulates normal tissue homeostasis,
+tumor growth, evolution of invasive phenotypes, and response
+to therapy, with many of the predictions directly validated with
+in vivo experimental results. Spatial, temporal, and phenotypic
+heterogeneity have a signiﬁcant impact on the behavior of the
+tumor, suggesting new methods for studying tumor growth.
+
+1
+
+Department of Integrated Mathematical Oncology, H. Lee Mofﬁtt
+Cancer Center and Research Institute, Tampa, Florida. 2Department
+of Cancer Imaging and Metabolism, H. Lee Mofﬁtt Cancer Center and
+Research Institute, Tampa, Florida.
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+
+stratiﬁed, with the most aggressive cells developing within the
+interior of the tumor. These cells then grow to the edge of the tumor
+and invade into the normal tissue using acidosis. Simulations
+suggest that diffusible cytotoxic treatments, such as chemotherapy,
+may increase the metabolic aggressiveness of a tumor due to drugmediated selection. Chemotherapy removes the metabolic stratiﬁcation of the tumor and allows more aggressive cells to grow
+toward blood vessels and normal tissue. Antiangiogenic therapy
+also selects for aggressive phenotypes due to degradation of the
+tumor microenvironment, ultimately resulting in a more invasive
+tumor. In contrast, pH buffer therapy slows down the development
+of aggressive tumors, but only if administered when the tumor is
+still stratiﬁed. Overall, ﬁndings from this model highlight the risks
+of cytotoxic and antiangiogenic treatments in the context of tumor
+heterogeneity resulting from a selection for more aggressive behaviors. Cancer Res; 75(8); 1567–79. 2015 AACR.
+
+Introduction
+Tumor heterogeneity at the genetic scale has been known for
+decades and until recently was largely viewed as a whole tumor
+metric. Historically, molecular techniques average genomic signals from large numbers of cells from single biopsies, thus
+smoothing and potentially hiding underlying variations. These
+average signatures have dominated the molecular era of cancer
+investigation and have driven biomarker development. However,
+a potential issue was recently highlighted by Gerlinger and colleagues (9), who showed that multiple biopsies from the same
+tumor display distinct genetic proﬁles and yet are phenotypically
+similar. This genotypic divergence and phenotypic convergence
+has previously been hinted at theoretically (10) and may be a
+predictable evolutionary consequence of the tumor ecosystem
+(11, 12). The intricate dialogue between tumor cells and environment selects for clones that are best adapted phenotypically to
+survive, regardless of speciﬁc mutations that may facilitate tumor
+progression. Furthermore, this environment is temporally and
+spatially heterogeneous largely due to variations in blood ﬂow,
+resulting in local ﬂuctuations of nutrients, growth factors, and
+other cellular populations (e.g., normal cells, stromal cells, and
+immune cells). These dynamics occurring within the cancer
+Corresponding Author: Mark Robertson-Tessi, H. Lee Mofﬁtt Cancer
+Center and Research Institute, 12901 Magnolia Drive, SRB 24000E, Tampa, FL
+33612. Phone: 813-745-6818; Fax: 813-745-6497; E-mail:
+mark.robertsontessi@mofﬁtt.org
+doi: 10.1158/0008-5472.CAN-14-1428
+2015 American Association for Cancer Research.
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+1567
+
+Robertson-Tessi et al.
+
+Quick Guide to Model and Major Assumptions
+Diffusible molecules
+For a molecule that diffuses across a domain x, the concentration C(x) is described by
+qC
+¼ Dr2 C þ f ðC; pÞ;
+qt
+
+ðAÞ
+
+with diffusion constant D. Function f describes the production and consumption of the molecule depending on the
+concentrations of all extracellular molecules (C(x)) and parameters (p(x)) speciﬁc to the cell at position x. The three diffusible
+variables in the model are oxygen (O), glucose (G), and extracellular pH via production of protons (H).
+
+Cellular metabolism
+Cells primarily produce energy (ATP) from glucose, using either an efﬁcient aerobic pathway that requires oxygen or using
+glycolysis, an inefﬁcient anaerobic pathway. The model assumes that cells have a target level of ATP demand and that they meet this
+by using the aerobic pathway as much as possible. If oxygen levels are insufﬁcient to support this level of ATP, then the difference is
+made up by increasing ﬂux through the glycolytic pathway (i.e., the Pasteur effect).
+Oxygen consumption fO is determined by oxygen concentration using Michaelis–Menten kinetics with a half-maximum of kO,
+fO ¼ VO
+
+O
+:
+O þ kO
+
+ðBÞ
+
+Glucose consumption is driven by the need to meet normal ATP demand, modiﬁed by a Michaelis–Menten term with a halfmaximum of kG, given by
+
+
+pG Ao 27fO
+G
+þ
+:
+ðCÞ
+fG ¼ 
+2
+10 G þ kG
+The coefﬁcient pG is a multiplier representing the altered glucose metabolism seen in many tumor cells (i.e., the Warburg effect).
+Normal cells have pG ¼ 1. For tumor cells, pG is variable, representing a continuum of metabolic phenotypes. For pG > 1, the
+tumor will consume more glucose than needed to meet normal ATP demand. This phenotype can be viewed as either a cell
+possessing constitutively activated glucose consumption or the cell may be forced to increase consumption due to increased
+ATP demand from other abnormally activated cellular processes such as ion pumps. The actual ATP production rate for the cell
+is determined from nutrient consumption rates, given by
+
+
+27fO
+fA ¼  2fG þ
+:
+ðDÞ
+5
+Proton production is linked to the amount of glycolysis that does not feed the aerobic pathway, given by
+
+
+29ðpG VO þ fO Þ
+;
+fH ¼ kH
+5
+
+ðEÞ
+
+where parameter kH accounts for proton buffering.
+The functions fO, fG, and fH are used for the corresponding reaction-diffusion functions f in Eq. A. The ATP production rate (fA)
+determines cell behavior.
+
+Hybrid cellular automaton
+The metabolic program above is implemented into each cell of hybrid cellular automaton (HCA) model, simulated on a square
+lattice. One cell type is permitted per grid point, either a normal cell, tumor cell, necrotic cell, or blood vessel. For each time step dt,
+homeostatic cell death is calculated by selecting at random a fraction pD of the cells and removing them from the grid, leaving empty
+space. Remaining cells are put through a decision process (Fig. 1) based on the metabolic state of each cell and the nutrient
+concentrations at that point. Between each step of the HCA, the reaction-diffusion partial differential Eq. A is solved over the domain
+of the HCA. The time scale of the HCA is on the order of hours or days, while the metabolic and diffusive processes operate on the
+order of seconds and minutes. Therefore, these can be simulated sequentially. Cells that have enough ATP production to meet the
+threshold of proliferation (Aq) will advance their cell cycle faster with higher ATP production rates (see the Supplementary Data for
+details). This cell-cycle stretching as a function of microenvironment has been recently observed experimentally (1). Cells that have
+completed the cell cycle will proliferate if there is adjacent space. The cycle is not advanced if the cell is quiescent due to lowered ATP
+production. Cells with production less than the death threshold (Ad) are removed. Nutrient-based cell-cycle mechanisms have been
+
+1568 Cancer Res; 75(8) April 15, 2015
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Impact of Heterogeneity on Tumor Growth and Treatment
+
+modeled in various ways in agent-based models (2, 3). The present work does not include cell migration or mechanical effects. We
+have implemented the model in 2D, in part, because the primary experimental system used by our group to test and validate the
+predictions of our model is a dorsal wound chamber, which is a quasi-2D in vivo system (4).
+Phenotype variation and selection
+Tumor cells in the model have two continuously variable, heritable traits: excess glucose consumption, pG from Eq. C; and
+resistance to low extracellular pH in the microenvironment (5), bT. These traits are passed from a parent tumor cell to its two
+daughter cells with some small variation, chosen at random from an interval equally weighted in both directions to avoid biased
+drift. The model is agnostic with respect to speciﬁc biologic mechanisms that underlie this drift, which could include gradual
+accumulation of mutations, regulation of gene transcription by epigenetics or aneuploidy, or changes in the number or structure of
+organelles, for example. The evolution of these phenotypes in time and space is an important consideration of this work.
+Angiogenesis and vascular degradation
+A point-source vasculature is used to simulate parallel blood vessels passing perpendicularly through the two-dimensional tissue
+slice. The primary function of the vasculature in this model is to spatiotemporally deliver nutrients and remove waste products. The
+ﬁeld of vessels is seeded using a circle-packing algorithm based on vessel densities in vivo. This initial distribution can be altered by
+the creation of new vessels through angiogenesis or by vessel degradation. To model angiogenesis, if an area of the simulation
+domain develops hypoxia, new vessels are added to the region until there is enough oxygen to remove the hypoxic state. Multiple
+mechanisms have been proposed for vessel loss in a tumor, including collapse due to mechanical stress (6), loss of ﬂow due to
+upstream remodeling (7), and leaky vessels (8). Here, vessels are degraded over time due to surrounding tumor growth until they are
+lost (see the Supplementary Data).
+Administration of therapy
+pH buffer therapy is approximated by increasing both the baseline pH in the blood (pHo) by 0.2 U of pH and the diffusion
+constant of the protons DH (increased by a factor of 3) during therapy, causing increased removal of protons. Chemotherapy is
+pulsed through the vasculature, diffusing through the tissue subject to Eq. A. Cell death depends on the concentration of the drug at
+the cell position (see the Supplementary Data). The schedule is ﬁve pulses, 2 weeks apart. Antiangiogenic therapy is simulated by
+preventing new blood vessels from forming during therapy.
+Interaction network
+A summary of the model interactions is shown in Fig. 2A. Fig. 2B shows the two-dimensional tumor phenotype map used in the
+simulations. For clarity, axes are not labeled in subsequent ﬁgures, but have the same range as shown here. Parameters for the model
+are shown in Table 1.
+
+ecosystem are almost impossible to dissect via experimentation
+alone.
+A major open question in biology is how to connect genotype with phenotype. In many genetic diseases, a defect within a
+single gene manifests through observable changes that usually
+allows conﬁdent diagnosis of the speciﬁc mutation based on
+the phenotypic manifestations. In contrast, cancer cells frequently harbor thousands of mutations so that the connection
+to phenotype is less clear. Although we understand that the
+genotype to phenotype mapping is critical for integration of
+genetic information with a more functional understanding of
+the phenotypic behavior that it may facilitate, the practical
+reality is that it is very difﬁcult to quantify phenotypes and far
+easier to measure genotypes. Genetic heterogeneity within a
+tumor continues to be of great interest to the cancer community, with the advent of new tools to measure fewer cells in
+more detail, a serious effort is being put into quantifying this
+heterogeneity and understanding how it evolves as the tumor
+progresses and how it relates to overall outcome (13–15).
+However, we are far from understanding how the microenvironment modulates this heterogeneity and drives the overall
+phenotypic behavior of the tumor cell population. We strongly
+believe that only through the integration of mathematical and
+
+www.aacrjournals.org
+
+computational models with careful experimentation can we
+hope to bridge the gene-centric and microenvironment-centric
+views of cancer progression. Here, we focus on the phenotypic
+scale, as it allows us to circumvent much of the complexity
+observed at molecular scales and instead examine the functional outcome of mutation (be it genetic or epigenetic).
+Speciﬁcally, we consider the metabolic phenotype, in part,
+because tumors are known to be metabolically very different
+from their normal tissue counterparts and, in part, because we
+believe metabolism contributes signiﬁcantly to tumor
+progression.
+Mathematical models of cancer progression have examined
+avascular growth (3, 16, 17), angiogenesis (18, 19), vascular
+growth (20, 21), invasion (22, 23), and metastasis (24, 25);
+also see these reviews (17, 25–27). Tumor metabolism, speciﬁcally glycolytic metabolism and its development has also
+been extensively studied (2, 28). However, almost all of these
+models (with a few exceptions) ignore normal tissue and
+assume the tumor grows in a ﬁeld of nutrients or extracellular
+matrix. Fewer models explicitly consider phenotypic heterogeneity (22, 29) and those that do again ignore normal
+tissue. Our central focus here is to examine the interplay
+between cellular metabolism and the microenvironment
+
+Cancer Res; 75(8) April 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+1569
+
+Robertson-Tessi et al.
+
+(including normal cells), and how this leads to phenotypic
+heterogeneity within the tumor cell population. Understanding how this phenotypic heterogeneity develops through space
+and time (30) will allow us to better understand progression,
+treatment failure, and crucially lay the groundwork for novel
+therapies.
+In our evolutionary model, tumors emerge from tightly regulated ﬁelds of cells in a largely normal tissue. At its simplest,
+homeostatic regulation of normal tissue ensures that cell death is
+balanced by birth. This homeostasis is not static but dynamic and
+remarkably robust to physical and chemical perturbation, for
+example, wounding. Cancer cells both overcome and exploit
+these homeostatic mechanisms as they evolve strategies to maximize their proliferation (31).
+We have previously examined metabolism (2, 28, 29) as a
+driver of tumor progression through the glycolytic pathway
+and associated acidosis. Extracellular pH (pHe) is a potential
+treatment target, and we have recently published a series of
+experiments that validate this view (4, 32, 33). Our intention
+here is to examine this work in light of the lens of metabolic
+and microenvironmental heterogeneity by reproducing observation and suggesting novel interpretation and treatment
+strategies. The focus of the work is on acid-mediated invasion,
+wherein tumor cells that have abnormally high glycolytic
+capacity acidify the local environment, causing the surrounding tissue to degrade and allow for tumor growth.
+
+Materials and Methods
+To investigate the effect of metabolism and the microenvironment on tumor growth and phenotype selection, a hybrid
+cellular automaton (HCA) in two dimensions is used to model
+cellular processes such as cell proliferation, death, and vascular
+remodeling. Metabolic activity of individual cells is calculated
+by solving a set of algebraic equations. The diffusion of molecules is calculated by solving a system of partial differential
+equations over the domain of simulation. The components of
+
+Figure 1.
+HCA decision process for each cell, with diamonds representing decisions,
+green arrows meaning the condition is satisﬁed, and red meaning the
+condition is not met. Therapies are shown in yellow.
+
+the model are described in the Quick Guide to Model and
+Major Assumptions. Additional derivations and supporting
+algorithms of the model equations are given in the Supplementary Data.
+
+Results
+Tumors acquire acid resistance followed by glycolytic capacity
+In the absence of tumor cells, the dynamic equilibrium of the
+model is a homeostatic normal tissue with vasculature. The
+
+Figure 2.
+A, model interaction network for diffusible molecules (yellow), vasculature (light gray), normal tissue (dark gray), and variable tumor phenotypes (colors).
+Red lines show negative or inhibitory interactions and green lines show positive or productive interactions. B, a ﬂow map of tumor phenotype space.
+The horizontal axis is the constitutively activated log-glycolytic capacity (log pG), and vertical axis is the change in acid resistance (DbT) from normal, with
+higher resistance to acidic conditions being higher on the plot. The normal metabolic phenotype is at the origin (magenta circle), while the arrows
+represent two possible routes to reach the aggressive state of high glycolysis and high acid resistance, as discussed in "Tumors acquire acid resistance
+followed by glycolytic capacity." The white line shows the equal maximal variation, such that a cell acquiring maximal positive changes in glycolytic capacity
+and acid resistance on each division would move along this line in phenotype space.
+
+1570 Cancer Res; 75(8) April 15, 2015
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Impact of Heterogeneity on Tumor Growth and Treatment
+
+Table 1. Parameter values
+Param.
+Value
+20
+dx
+pD
+0.005
+pd
+0.7
+5  104
+pn
+DO
+1,820
+500
+DG
+DH
+1,080
+100
+DC
+Oo
+0.056
+Go
+5
+7.4
+pHo
+0.012
+VO
+kO
+0.005
+0.04
+kG
+kH
+2.5  104
+bN
+6.65
+6.1
+bT,min
+pG,max
+50
+0.001
+DH
+0.05
+DG
+Ad
+0.3
+Aq
+0.8
+t min
+0.8
+80
+s min
+158
+s mean
+zO
+[8,20]  104
+20
+nmean
+pang
+0.3
+Co
+1
+0.25
+Cd
+
+Unit
+mm
+1/day
+1/day
+1/day
+mm2/s
+mm2/s
+mm2/s
+mm2/s
+mmol/L
+mmol/L
+pH
+mmol/L/s
+mmol/L
+mmol/L
+—
+pH
+pH
+—
+—
+—
+—
+—
+Day
+mm
+mm
+mmol/L
+—
+—
+—
+—
+
+normal cells turnover, maintaining a cellular density that is
+determined by the choice of parameters for the proliferation
+algorithm. This homeostasis plays an important role in the
+model, competing with tumor cells for available space at the
+tumor edge. To illustrate the homeostatic properties of the
+normal tissue, two examples are shown in the Supplementary
+Data.
+There are two modes of tumor growth, depending on the
+activity of the normal tissue surrounding the tumor. The ﬁrst
+is homeostatic-limited growth, where tumor growth is limited
+by the surrounding normal cells. Because the tumor can
+only grow into space relinquished by the normal cells at the
+tumor–normal interface, the growth rate is correlated with
+the normal tissue homeostatic death rate. Tissue that has a
+faster turnover rate relinquishes more empty space per unit of
+time, and therefore allows for faster tumor growth (see the
+Supplementary Data). The second mode of growth is invasive
+growth. This occurs when the tumor mass causes surrounding
+normal cells to die at a rate faster than the homeostatic death
+rate. This results in rapid availability of free space and subsequent tumor growth. There are two possible causes for induced
+cell death in the present model: nutrient deprivation and
+acidosis.
+Figure 3A–H shows a sequence of images taken from a representative simulation of tumor growth. In Fig. 3A and B, the
+average tumor phenotype is still relatively normal. A slight shift
+toward acquired acid resistance is due to intermittent hypoxia
+caused by blood vessel degradation followed by angiogenesis
+within the center of the tumor. Each short period of hypoxiainduced acidosis causes a slight selection pressure toward acidresistant cells.
+
+www.aacrjournals.org
+
+Description
+Diameter of CA grid point
+Normal tissue death rate
+Death prob. in poor conditions
+Necrotic turnover rate
+Diffusion rate of O2
+Diffusion rate of glucose
+Diffusion rate of protons
+Diffusion rate of chemo
+O2 concentration in blood
+Glucose concentration in blood
+pH of blood
+Max. O2 consumption
+Half-max O2 concentration
+Half-max glucose concentration
+Proton buffering coefﬁcient
+Normal acid resistance
+Maximal acid resistance
+Maximal glycolytic phenotype
+Pheno. variation rate (acid res.)
+Pheno. variation rate (glycolysis)
+ATP threshold for death
+ATP threshold for quiescence
+Min. cell cycle time
+Min. vessel spacing
+Mean vessel spacing
+Hypoxic angiogenesis zone
+Vessel stability
+Angiogenesis rate
+Chemo concentration in blood
+Min chemo conc. half-max
+
+Reference
+Model speciﬁc
+(42)
+Model speciﬁc
+Model speciﬁc
+(43)
+(44)
+(40)
+Model speciﬁc
+(45)
+(46)
+Physiologic pH
+(45)
+(47)
+(47)
+(40)
+(48)
+(47)
+(49)
+Model speciﬁc
+Model speciﬁc
+Model speciﬁc
+Model speciﬁc
+(47)
+(50)
+(50)
+Model speciﬁc
+Model speciﬁc
+Model speciﬁc
+Model speciﬁc
+Model speciﬁc
+
+In Fig. 3C and D, a sustained hypoxic central area leads to
+increased reliance on glycolysis by the tumor cells growing
+there. Because cells must develop resistance to increasing acidosis or perish, the central part of the tumor is acid-resistant
+(blue). This resistant population is surrounded by a metabolically normal population of tumor cells (green). Because they
+are near to stable vasculature in the normal tissue, this surrounding buffer of metabolically benign cells exists because
+there is little selection pressure to acquire acid resistance on the
+tumor edge.
+Figure 3E and F shows the development of necrosis in the
+center of the tumor, and a few small pockets of glycolytic cells
+(magenta). The increased glycolysis in these cells causes a
+further decrease in pHe, but the cells are not in sufﬁcient
+number nor adjacent to acid-sensitive cells to allow for acidmediated invasion to occur. There continues to be a buffer of
+tumor cells (green) between the aggressive phenotype and the
+acid-susceptible normal tissue.
+Figure 3G and H shows the tumor growing invasively via
+acid-mediated invasion. The acidosis produced by glycolytic
+cells affects the surrounding normal tissue. Several lobes of very
+aggressive glycolytic and acid-resistant cells have punctured
+through the edges of the tumor, growing into the space left
+open by normal tissue destroyed by acidosis. A thin zone of
+black empty space between the tumor and normal tissue is
+evident at the edge of the largest lobe on the lower right, a
+phenomenon seen in histologic samples by Gatenby and colleagues (28).
+This representative simulation offers several insights into the
+development of acid-mediated invasion. The growth curve for
+the simulation is shown in Fig. 3I. The initial tumor growth has
+
+Cancer Res; 75(8) April 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+1571
+
+Robertson-Tessi et al.
+
+Figure 3.
+A–H, representative simulation of
+tumor growth with time points (in
+days): A and B ¼ 1,270; C and D ¼
+1,392; E and F ¼ 1,610; and G and
+H ¼ 1,912. Scale bar, 400 mm. Video is
+available on the Supplementary Video
+S1. Left, the 2D HCA model output with
+vasculature (white), empty space
+(black), necrosis (dark gray), normal
+tissue (medium gray), and tumor cells
+labeled with colors corresponding
+with the cell position on the
+phenotype ﬂow diagram of the right
+column. Right, distribution of tumor
+cells along two phenotype axes, as
+described in Fig. 2, with starting
+(yellow) and median (cyan) tumor
+phenotype. I, growth curve for the
+simulation. J, radial pHe and tumor
+growth from a murine dorsal window
+chamber (4). The pH at the tumor
+edge was measured at multiples of
+22.5 and compared with the tumor
+growth at the same angular positions
+over 10 days. K, radial pHe and tumor
+growth from the simulation by
+sampling the pH around the tumor
+edge and measuring the radial
+growth rate.
+
+a shallow slope, representing homeostatic-limited growth.
+From t ¼ 0 to 1,200 days, the average growth rate is about
+0.2 mm per year. Here, the tumor takes advantage of space
+relinquished by normal cells during homeostatic turnover. The
+growth rate is correspondingly slow. Eventually, the tumor
+becomes invasive via self-produced acidosis and from t ¼
+1,800 to t ¼ 1,920 days, the average growth rate is about 6
+mm per year, a 30-fold change over the homeostatic-limited
+growth rate. Interestingly, there is no jump in phenotype that
+causes this sudden change in behavior. Unlike a genetic mutation model, where one could point to the acquisition of a key
+mutation shortly before a large behavioral change, this model
+only permits slow phenotype variation. Indeed, comparing the
+phenotype ﬂow plots before and after invasive growth (third
+and fourth rows) shows only a slight shift in average phenotype. To understand this change in behavior, it is important to
+consider not only the speciﬁc phenotypes present, but also
+where they arise spatially and how they develop dynamically.
+Besides acquiring the invasive phenotype, three other key
+factors play a role in the development of acid-mediated
+invasion.
+First, the cells must reach a critical mass of acid-producing cells.
+A single glycolytic, acid-resistant cell cannot sufﬁciently change
+the local pHe to cause lethal acidosis to surrounding cells. Because
+the model assumes that phenotypes are passed on to daughter
+
+1572 Cancer Res; 75(8) April 15, 2015
+
+cells with some small random change, reaching critical mass is
+primarily a function of proliferating enough to create a group of
+similarly aggressive cells in the local microenvironment that can
+then have sufﬁcient proton production, as a group, to signiﬁcantly
+affect the pHe of the surrounding tissue.
+The second key development is that the invasive cells must be
+near to cells that are relatively acid-sensitive if invasion is to occur.
+If a highly glycolytic group of cells develops but is surrounded by
+acid-resistant, low-glycolytic cells, then the lowered pHe that is
+caused by the glycolytic cells will have little effect on the surrounding cells and invasion will not occur. Therefore, the importance of the spatial buffer of relatively normal tumor cells on the
+edge of the tumor becomes clear. Unless the aggressive cells can
+invade through this protective barrier en masse, the acid-invasive
+phenotype will be contained interior to the tumor edge. To state it
+another way, the diffusion gradient of acidosis produced by a
+group of glycolytic cells must overcome the spatially structured
+phenotype gradient that exists toward the edge of the tumor.
+Finally, the presence of nearby blood vessels can contribute to
+decreased acidosis. A group of aggressive tumor cells that grows
+into a well vascularized region will be slowed by the increased
+buffering capacity of the vasculature. Invasion will only occur if
+the low pHe produced by the mass of cells locally overcomes the
+ability of the vasculature to remove the acidosis through
+buffering.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Impact of Heterogeneity on Tumor Growth and Treatment
+
+The pathway to becoming a metabolically aggressive cell is
+not a linear march through phenotype space. The diagonal line
+on the phenotype plots of Fig. 3B, D, F, and H shows the
+direction of equal, maximal phenotypic variation. However,
+simulations show that the cells reaching the most aggressive
+phenotype tend to follow a nonlinear path similar to the black
+arrow shown in Fig. 2B. This path shows that acid resistance is
+selected ﬁrst, after which high-glycolytic capacity develops. This
+observation is the opposite of the hypothesis that cells ﬁrst
+acquire a glycolytic phenotype followed by acquisition of acid
+resistance (2), represented by the gray arrow of Fig. 2B. The
+reason for the order of selection in the present model is that low
+pHe naturally develops as a result of decreased or intermittent
+vascular density in the center of a growing tumor. Increased
+acid resistance is therefore a valuable trait to acquire early in the
+development of the tumor if vascular delivery is inconsistent or
+reduced. Although increased glycolysis speeds up the cell cycle,
+this phenotype change has little advantage during homeostatic
+growth, because available space is freed on a time scale that is
+much longer than the cell-cycle time. Furthermore, unless
+critical mass is reached, acid-mediated invasion by an individual glycolytic cell is not possible.
+Interestingly, because of the spatial structure of hypoxia and
+cell turnover, the most aggressive cells tend to develop in
+interior regions of the tumor where nutrient conditions are
+poor, selection pressures are great, and proliferation is more
+frequent because of cell death. However, to become invasive,
+these aggressive cells must come in contact with normal tissue,
+where the excess proton production can cause cell death. The
+ability of a mass of aggressive cells to penetrate the surrounding
+layer of less aggressive tumor cells depends, in part, on how
+acid-resistant the buffering cells are. If the phenotype gradient
+is steep, then the aggressive cells are more likely to invade and
+reach the normal tissue than if the intervening cells are already
+acid-resistant. Clearly, vascular density is an important aspect
+of the progression of the tumor phenotypes in both space and
+time. Further exploration of the effect of vascular density is
+presented in the Supplementary Data.
+The acid-mediated invasion seen in the model has been
+observed experimentally in a murine window-chamber model
+(4). In that experiment, a droplet of tumor cells was cultured
+and implanted into a dorsal wound chamber. The pHe and
+tumor growth rates were measured radially, and the direction of
+maximal growth was correlated with the direction of low pHe,
+as seen in Fig. 3J. A similar correspondence between pHe at the
+tumor edge and radial growth was observed in the model, as
+seen in Fig. 3K.
+This representative simulation is produced consistently by the
+model with the same parameters. Additional repeats of the
+simulation are shown in the Supplementary Data, including
+further exploration of the impact of normal cell turnover rate
+and normal cell density. Simulations were also performed with
+larger CA domains (up to 1 cm) to explore slower rates of
+phenotypic drift (see the Supplementary Data). Although the
+tumor takes more time to become invasive with a slow phenotypic
+drift rate, the qualitative nature of the evolution through phenotype space is the same as for simulations run in a smaller domain
+with faster evolution as described above. Because large domains
+become computationally expensive, we limit our present results
+and analysis to the CA domains of approximately 3 to 5 mm per
+side.
+
+www.aacrjournals.org
+
+Effect of treatments on tumor growth and selection
+Early application pH buffering therapy can signiﬁcantly delay onset
+of tumor invasion. Recent experimental results from our group
+have shown that application of systemic pH buffers to mice can
+prevent or slow down tumor development and metastatic
+growth (32). In a murine TRAMP model of spontaneous tumor
+growth, sodium bicarbonate has a preventative effect on tumor
+formation in these mice, but only if it is administered before a
+certain age (33).
+A generic pH buffering therapy has been simulated using the
+model (see the Supplementary Data for discussion of the
+assumptions for implementation). To compare the simulation
+with the murine buffer study (33), an untreated control simulation is compared with same simulation treated at different
+time points (trel days). Figure 4 compares the untreated control
+with two buffer-treated simulations. The tumor that is treated
+earlier (Fig. 4B, E, H, and K, middle) shows a signiﬁcant delay
+in growth and acquisition of an invasive tumor phenotype
+compared with the untreated control (Fig. 4A, D, G, and L, left).
+On the other hand, the tumor treated at a later time point
+(Figure 4C, F, I, and L, right) is only partly affected by the
+buffer. There is some slowing of the growth, but the invasive
+phenotype persists and the tumor growth rate is comparable
+with the untreated case. Supplementary Fig. S11 shows the
+growth of the untreated tumor (black plot) and three different
+starting times for buffer therapy. The earlier the treatment is
+administered, the more delay of growth is observed.
+These results suggest a possible mechanism for the preventative effect of early buffer treatment seen in the TRAMP model.
+If the therapy is administered before the protective layer of
+metabolically benign cells being breached (i.e., acid-mediated
+invasion has commenced), then the therapy can prevent the
+aggressive cells from reaching this invasive state for long periods. If the invasive state is already reached, however, the
+therapy has only a minimal effect. To test this hypothesis, we
+suggest that tumors from early and late treated mice be examined for metabolic signatures and phenotypic structure that
+could indicate the presence of acid-mediated invasion. The
+model also suggests that buffer therapy may be of limited use
+to patients with a primary tumor that is already glycolytic and
+exploiting acid-mediated invasion. However, buffer therapy
+may still be beneﬁcial to these patients because micrometastases that have yet to develop an invasive phenotype may be
+prevented by this systemic therapy. Even if the metastatic seed
+was highly glycolytic, if the micr-metastasis has not reached the
+critical mass needed to induce acid-mediated invasion, then the
+buffer therapy will further delay the acquisition of that invasive
+state by effectively raising the necessary threshold of critical
+mass. These results are also consistent with the TRAMP mouse
+experiments where late-treated mice, in contrast to untreated
+mice, did not develop metastasis (4).
+Antiangiogenic therapy can promote the development of metabolically aggressive phenotypes. Antiangiogenic therapy was developed on the premise that if a tumor is starved of nutrients, the
+tumor will grow slower, become quiescent, and perhaps die
+away. Although this seems like a straightforward response
+to decreased nutrient availability, this nutrient-deprivation
+theory does not take into account the effect of waste products
+produced as a result of worsened metabolic conditions
+within a tumor. Speciﬁcally, reduction of perfusion with
+
+Cancer Res; 75(8) April 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+1573
+
+Robertson-Tessi et al.
+
+Figure 4.
+Comparison of three pH buffering
+simulations with identical initial
+conditions at two different time
+points. The left column is an untreated
+simulation; the central column is
+continuously treated with sodium
+bicarbonate starting at trel ¼ 0 days;
+the right column starts treatment at trel
+¼ 75 days. The top panels (A–F) show
+the state of the three simulations at trel
+¼ 78 days, that is, shortly after the
+tumor in the right column has started
+the buffer therapy. The bottom set of
+panels (G–L) shows the state of the
+tumors at trel ¼ 142 days. Scale bar,
+400 mm. Video is available on the
+Supplementary Video S2.
+
+antiangiogenic therapy will cause pockets of hypoxia, which,
+in turn, will lead to increased glycolysis in all cells and
+increased acidosis. The result of this sequence of events is that
+cells that may have previously developed acid resistance due to
+an avascular tumor growth phase may suddenly be at an
+advantage when vascular density is decreased. The selection
+pressure due to therapy could have the effect of speeding up
+the development of the most aggressive subset of tumor cells
+at the time of treatment.
+To illustrate this, we compare a simulation without any
+therapy with one in which antiangiogenesis was started at a
+given time step. For simplicity, we assume that antiangiogenic
+therapy simply turns off the angiogenic aspect of the model:
+after the initiation of therapy, no new blood vessels are created.
+
+1574 Cancer Res; 75(8) April 15, 2015
+
+Existing blood vessels remain, and vessel degradation by the
+growing tumor continues. As expected, this leads to decreased
+vessel density within the tumor, so that nutrients will primarily
+diffuse from the surrounding vasculature within the normal
+tissue.
+Figure 5 shows the comparison between treated and untreated
+cases for a representative simulation. The effect of the therapy is
+to greatly increase the selection pressure for acid-resistant cells
+and speed evolution by increased cellular turnover. This pressure drives the phenotype of the tumor cells toward a more
+aggressive state, and therefore acid-mediated invasion occurs
+much sooner than in the untreated simulation. The addition of
+therapy in this case is clearly a worse outcome than allowing the
+tumor to progress without therapeutic intervention. This result
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Impact of Heterogeneity on Tumor Growth and Treatment
+
+Figure 5.
+Comparison of untreated and antiangiogenic therapy simulations with
+identical initial conditions at two different time points. The left column is
+untreated; the right column has antiangiogenic treatment at trel ¼ 0 days. The
+top panels (A–D) show the state at trel ¼ 141 days, that is, 141 days after the
+start of therapy in the right. The bottom set of panels (E–H) is at trel ¼ 285
+days. Scale bar, 400 mm. Video is available on the Supplementary Video S3.
+
+suggests a possible explanation for the historical failure of
+many antiangiogenic therapies (34), including the recent withdrawals of antiangiogenic therapies for both glioblastoma (35)
+and breast cancer (36). It is of interest to note that shortly after
+therapy is applied, the number of tumor cells decreases, as cells
+that are far from the remaining blood vessels will be starved of
+nutrients. However, as the remaining cells adapt to the new
+environment, the tumor will grow back and become invasive
+sooner than the control.
+
+www.aacrjournals.org
+
+The efﬁcacy of cytotoxic therapy is dependent on spatial and phenotypic heterogeneity. The diffusible nature of therapies, such as
+chemotherapy, has implications for the spatial distribution of
+the drug, and therefore selection pressures on the tumor will
+vary depending on the position of a cell relative to nearby
+blood vessels. In principle, the most aggressive tumor cells
+tend to develop far from blood vessels. At the same time, these
+distal positions will be the hardest locations for the drug to
+reach by diffusion. These observations suggest that a cytotoxic
+agent may cause spatially variable selection, an effect that can
+cause enhanced development of aggressive cells in certain
+circumstances.
+To test this prediction, we administered a diffusible cytotoxic
+drug into the model (see the Supplementary Data for additional discussion of assumptions). Figure 6G shows the tumor
+size over time for three representative simulations. The solid
+black line is an untreated tumor. The dashed line is the result of
+starting the cytotoxic drug regimen at a relative time of t ¼ 0,
+and the dotted line is the result of starting the regimen at t ¼
+105. For the earlier treated case, the result is a signiﬁcant
+decrease in the growth rate of the tumor, while the opposite
+is true for the later treated case: the tumor has grown faster than
+our untreated control.
+To understand the reason for this difference, key time points
+from the simulation are shown in Fig. 6A–F. For the case of the
+early treatment, the therapy has decreased the size of the tumor
+and essentially set back the time course of growth. Furthermore,
+a subtle restructuring of the spatial heterogeneity of cell phenotypes has limited the ability of aggressive cells near the center
+to invade. However, in the later treated case, the therapy has
+allowed preexisting aggressive cells in the center of the tumor to
+emerge and become active much sooner than in the other
+simulations. In the analysis of the untreated growth in "Tumors
+acquire acid resistance followed by glycolytic capacity", it was
+noted that the metabolically benign cells (green) near the
+tumor boundary acted as a containment mechanism to prevent
+the more aggressive cells in the interior of the tumor from
+initiating acid-mediated invasion. In the case of the late administration of chemotherapy, the spatial diffusion of the cytotoxic
+agent has stripped away this relatively benign protective layer of
+cells. The aggressive cells situated near the center of the tumor
+beneﬁt from several advantages under this type of therapy. First,
+they are further from active blood vessels, and therefore the
+concentration of drug is decreased because of diffusion distances and consumption by cells closer to the vasculature.
+Second, limited space and nutrients near the center limits the
+division rate of these cells, and this also allows them to escape
+the effects of a drug that targets proliferation. Finally, once the
+outer layers of cells are stripped away by the drug, these
+aggressive cells ﬁnd themselves in a perfect environment to
+initiate acid-mediated invasion, because they can quickly reach
+critical mass through rapid proliferation posttherapy and then
+directly interface with normal tissue cells. This combination
+causes the tumor phenotype to quickly transform into the acidmediated invasion type.
+
+Discussion
+The behavior of a cancer as a whole is the relevant clinical metric
+that informs prognosis and therapy decisions. The actions of a
+single malignant cell are only relevant if they lead to an aggressive
+
+Cancer Res; 75(8) April 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+1575
+
+Robertson-Tessi et al.
+
+Figure 6.
+A–F, comparison of untreated and chemotherapy simulations with identical initial conditions at two different time points. The left column is an untreated
+simulation; the central column was pulsed with cytotoxic therapy starting at trel ¼ 0; the right column starts the identical treatment at trel ¼ 105. The
+top panels (A–C) show the state of the three simulations at trel ¼ 264, that is, shortly after the tumor in the right column has ﬁnished the therapy. The bottom
+set of panels (D–F) shows the state of the tumors at trel ¼ 380. Scale bar, 400 mm. Video is available on the Supplementary Video S4. G, growth curves for
+untreated (solid), early (dashed), and late (dotted) chemotherapy from A–F. Tumor size on the vertical axis is the diameter in microns.
+
+cancer, and this can only happen in the context of the collective
+behavior of tumor cells, normal tissue, and surrounding microenvironment. Genetic, epigenetic, signaling, phenotypic, temporal, and spatial heterogeneity all play a role in shaping the
+dynamics of the complex system that drives tumor growth.
+Therefore, tumor prognosis and response to therapy can only
+truly be understood if we consider their impact of these heterogeneity mechanisms as a spatially and temporally distributed
+system.
+The results presented here attempt to elucidate how metabolic heterogeneity affects tumor progression and treatment
+outcome. First, development of localized hypoxia due to vascular instability leads to the selection of acid-resistant tumor
+cells, which is then followed by acquisition of the glycolytic
+phenotype. This nonlinear trajectory through phenotype space
+is most clear in situations of prolonged hypoxia, in which the
+metabolic response of normal tissue is the Pasteur effect with
+subsequent acidiﬁcation of the microenvironment. Extrapolating to in vivo situations, the case of prolonged hypoxia might be
+representative of ductal carcinomas, where angiogenesis is not
+possible in the initial stages of tumor growth due to the barrier
+of the basement membrane. On the other hand, a metastasis
+that immediately coopts and disrupts the normal vasculature of
+a tissue may follow the proﬁle of intermittent hypoxia. In both
+cases, however, the model predicts the same pathway through
+phenotype space.
+Although the present work do not impose any costs on the
+different phenotypes, we have run simulations where we
+imposed a simple linear cost to the acquisition of acid resistance (results not shown). In this version of the model, tumors
+cells that increased their acid resistance had proportionally
+slower cell cycles. Various settings of the slope of this cost
+function had little impact on the overall evolutionary dynamic.
+The trajectory through phenotype space was conserved, and the
+cost only served to slow down the evolutionary pace. We
+hypothesize that this is because the competition between cells
+
+1576 Cancer Res; 75(8) April 15, 2015
+
+in hypoxic areas depends much more on the acquisition of acid
+resistance rather than the ability to proliferate quickly, because
+the selection pressure is high while the turnover rate is relatively
+low. A full exploration of evolutionary costs is beyond the
+scope of the present work.
+The simulations of treatments in the model offer some
+insights as to why these therapies may fail in some cases and
+be more successful in others. In aggregate, all of the results
+presented here argue for treatments that are aimed at maintaining the protective layer of less aggressive cells rather than
+eradicating them. Therapies that buffer the pHe appear to be
+preventative rather than regressive. Indeed, there is no clear
+mechanism by which increasing extracellular pH should lead to
+cytotoxicity of tumor cells. Rather, the buffer changes the
+microenvironment so that the acid-meditated invasion phenotype cannot use its acid production against susceptible neighbors. However, the model suggests that there are limits to this
+preventative action that depend on both buffer dose and the
+mix of phenotypes in the tumor. A more detailed exploration of
+the interactions between the phenotypes of the tumor cells and
+the amount of buffering could perhaps deﬁne a quantiﬁable
+relationship between dose and growth delay, but this is beyond
+the scope of this work.
+The results suggest that the effectiveness of cytotoxic therapies is strongly inﬂuenced by spatial heterogeneity of
+both the drug diffusion and the tumor structure. This may
+result in selective intratumoral lethality in which the drug kills
+less aggressive cells positioned adjacent to blood vessels but
+not the more malignant populations distant from blood
+vessels, therefore selecting for more resistant populations and
+removing a potential barrier to their proliferation by eliminating the perivascular cells. Alternative strategies to optimize
+the delivery of both dose and schedule to prevent the outgrowth of more aggressive clones posttherapy will be the
+subject of future work with the model, including drug
+combinations.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Impact of Heterogeneity on Tumor Growth and Treatment
+
+The model examined tumors grown from benign single cells. In
+the case of metastatic disease, the seeding cell may be of any
+phenotype present in the primary tumor. Bernards and Weinberg
+(37) have proposed that metastases arise early in the development
+of the primary and continue through the life of the tumor. This
+suggests that early disseminated cells will potentially be less
+aggressive, but will have more time to establish themselves in
+the metastatic niche. More aggressive cells, while arising later in
+the evolution of the primary, may reach invasiveness faster due to
+their phenotypic advantage. Future work will explore the trade-off
+between early but phenotypically benign metastases versus late,
+aggressive metastases.
+All models incorporate limiting assumptions. We have developed the model in two dimensions, representing a slice
+through a tissue. Although three-dimensional modeling has
+been useful for exploring the speciﬁcs of tumor morphology
+and blood vessel remodeling, our interest here is in the evolution of tumor phenotypic heterogeneity as a function of
+environmental selection. We expect that there would be little
+advantage to implementing the model in 3D with respect to the
+insights provided on acquisition of heterogeneity. However,
+the principles of the model can be directly extended into three
+dimensions in the future.
+The present work uses a lattice-based approach without
+mechanical deformation. Tumor cells are limited to grow only
+when there is space available in the lattice. Cells are not
+displaced volumetrically, as may be the case in a real tumor.
+This assumption imposes a strict limit on the growth of a
+tumor, whereas a deformable tissue may permit tumor growth
+through normal tissue even if available adjacent space is absent,
+thereby escaping the encapsulation and corresponding homeostatic growth phase. To investigate these effects, however,
+would require a signiﬁcantly more complex model with
+mechanical forces and off-lattice modeling, and therefore is
+beyond the scope of the present work.
+We have only considered acid-mediated invasion, and other
+forms of invasion such as MMP secretion and EMT transition
+are also important. The model can be extended to examine the
+effects of phenotypic changes on these additional axes in the
+future. Furthermore, cell migration without proliferation was
+not considered, and the effect of migration on spatial heterogeneity is likely to play a role in how the tumor develops. There
+have been previous models in relation to metabolism that
+incorporate these effects (22, 38, 39). However, the effects of
+acid-mediated invasion rely on critical mass, and dispersion of
+individual cells through the normal tissue due to migratory
+elements may not necessarily lead to faster development of the
+invasive phenotype. Clearly, one logical next step is to examine
+the inﬂuence of cell migration on the properties that lead to
+acid-mediated invasion. Escaping cells might be more likely to
+penetrate the protective shell of relatively benign tumor cells
+seen in the present work, but migration may also mean more
+cellular dispersion, which would spatially dilute the acid-production rate of a group of aggressive cells, limiting the effectiveness of acid-mediated invasion. Indeed, migration may be
+less important when trying to establish a niche, but more
+important in reaching that niche in the ﬁrst place, such as with
+micrometastases.
+In this work, we chose a point-source vasculature model. This
+is representative of a ﬁeld of parallel blood vessels passing
+perpendicular to the two-dimensional tissue slice and is a
+
+www.aacrjournals.org
+
+simpliﬁcation that has been considered before (40). There is
+a signiﬁcant amount of literature devoted to modeling angiogenesis and nutrient delivery (18, 19, 41). However, including
+these complex mechanisms are beyond the scope of this work.
+We opted for a simply deﬁned vascular system that would
+deliver temporally and spatially heterogeneous nutrient and
+waste gradients with a minimal number of parameters. A
+dynamic point-source vasculature serves as a good surrogate
+for a more complicated model that would accomplish the same
+goal. Indeed, much of the behavior seen in this model is
+sensitive to localized nutrient gradients, and it is unlikely that
+a complex vasculature would produce gradient structures on a
+local level that are signiﬁcantly different from a point-source
+system.
+For the present work, we conﬁned the phenotypic variation to
+small unbiased changes occurring only at the time of division.
+Other methods of phenotypic variation can easily be implemented in the model in the future. For example, major mutations to
+key metabolic genes could be modeled by adding rare but large
+jumps in these parameters. Cells could also be allowed to alter
+their phenotype independently of proliferation.
+In summary, we have developed a hybrid multiscale model
+of tumor growth within a normal, homeostatic tissue, and
+demonstrated the mechanisms by which phenotypic, temporal,
+and spatial heterogeneity affect growth of a tumor and the
+outcomes of treatments. The model predictions are consistent
+with clinical and experimental observations and provide
+insight into the mechanisms that result in treatment failure.
+This work highlights the importance of the phenotypic heterogeneity of tumor cells and how this heterogeneity varies in time
+and space. A key prediction of our model is that early stages of
+tumor development (either primary or metastatic) maintain a
+phenotypically spatially structured population, where less
+aggressive clones spatially suppress more aggressive counterparts. Importantly, we demonstrate that standard treatment
+modalities may selectively destroy this structured population
+and facilitate subsequent progression. Controlling tumor progression by maintaining rather than destroying this suppressive
+tumor layer appears to be more effective that conventional
+high-dose density therapy that aims to kill the maximum
+possible number of tumor cells.
+
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+Authors' Contributions
+Conception and design: M. Robertson-Tessi, R.J. Gillies, R.A. Gatenby, A.R.A.
+Anderson
+Development of methodology: M. Robertson-Tessi, A.R.A. Anderson
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): M. Robertson-Tessi, R.J. Gillies
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): M. Robertson-Tessi, A.R.A. Anderson
+Writing, review, and/or revision of the manuscript: M. Robertson-Tessi, R.J.
+Gillies, R.A. Gatenby, A.R.A. Anderson
+Administrative, technical, or material support (i.e., reporting or organizing
+data, constructing databases): R.J. Gillies, A.R.A. Anderson
+Study supervision: A.R.A. Anderson
+
+Acknowledgments
+The authors thank Veronica Estrella for providing the mouse data.
+
+Cancer Res; 75(8) April 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+1577
+
+Robertson-Tessi et al.
+
+Grant Support
+This work was sponsored in part by the Mofﬁtt Cancer Center PSOC, NIH/
+NCI U54CA143970. This work was supported in part by the Cancer Center
+Support Grant (P30-CA076292) from the National Cancer Institute.
+The costs of publication of this article were defrayed in part by the
+payment of page charges. This article must therefore be hereby marked
+
+advertisement in accordance with 18 U.S.C. Section 1734 solely to indicate
+this fact.
+
+Received September 10, 2014; revised December 17, 2014; accepted January
+28, 2015; published online April 15, 2015.
+
+References
+1. Dowling MR, Kan A, Heinzel S, Zhou JH, Marchingo JM, Wellard CJ, et al.
+Stretched cell cycle model for proliferating lymphocytes. Proc Natl Acad Sci
+U S A 2014;111:6377–82.
+2. Smallbone K, Gatenby R, Gillies R, Maini P, Gavaghan D. Metabolic
+changes during carcinogenesis: potential impact on invasiveness. J Theor
+Biol 2007;244:703–13.
+3. Macklin P, Edgerton ME, Thompson AM, Cristini V. Patient-calibrated
+agent-based modelling of ductal carcinoma in situ (DCIS): from microscopic measurements to macroscopic predictions of clinical progression. J
+Theor Biol 2012;301:122–40.
+4. Estrella V, Chen T, Lloyd M, Wojtkowiak J, Cornnell HH, Ibrahim-Hashim
+A, et al. Acidity generated by the tumor microenvironment drives local
+invasion. Cancer Res 2013;73:1524–35.
+5. Wojtkowiak JW, Rothberg JM, Kumar V, Schramm KJ, Haller E, Proemsey
+JB, et al. Chronic autophagy is a cellular adaptation to tumor acidic pH
+microenvironments. Cancer Res 2012;72:3938–47.
+6. Araujo R, McElwain D. The role of mechanical host–tumour interactions in
+the collapse of tumour blood vessels and tumour growth dynamics. J Theor
+Biol 2006;238:817–27.
+7. Patan S, Munn L, Jain R. Intussusceptive microvascular growth in a human
+colon adenocarcinoma xenograft: a novel mechanism of tumor angiogenesis. Microvasc Res 1996;51:260–72.
+8. Jain R. Normalization of tumor vasculature: an emerging concept in
+antiangiogenic therapy. Science 2005;307:58–62.
+9. Gerlinger M, Rowan AJ, Horswell S, Larkin J, Endesfelder D, Gronroos E,
+et al. Intratumor heterogeneity and branched evolution revealed by multiregion sequencing. New Engl J Med 2012;366:883–92.
+10. Gerlee P, Anderson AR. Modelling evolutionary cell behaviour using neural
+networks: application to tumour growth. Biosystems 2009;95:166–74.
+11. Pienta KJ, McGregor N, Axelrod R, Axelrod DE. Ecological therapy for
+cancer: deﬁning tumors using an ecosystem paradigm suggests new opportunities for novel cancer treatments. Transl Oncol 2008;1:158.
+12. Basanta D, Anderson ARA. Exploiting ecological principles to better understand cancer progression and treatment. Interface Focus 2013;3:200020.
+13. Greaves M, Maley CC. Clonal evolution in cancer. Nature 2012;481:306–13.
+14. Lawrence MS, Stojanov P, Polak P, Kryukov GV, Cibulskis K, Sivachenko A,
+et al. Mutational heterogeneity in cancer and the search for new cancerassociated genes. Nature 2013;499:214–8.
+15. Sottoriva A, Spiteri I, Piccirillo SG, Touloumis A, Collins VP, Marioni JC,
+et al. Intratumor heterogeneity in human glioblastoma reﬂects cancer
+evolutionary dynamics. Proc Natl Acad Sci U S A 2013;110:4009–14.
+16. Ward J, King J. Mathematical modelling of avascular-tumour growth II:
+modelling growth saturation. Math Med Biol 1999;16:171–211.
+17. Roose T, Chapman S, Maini P. Mathematical models of avascular tumor
+growth. SIAM Rev 2007;49:179–208.
+18. Anderson A, Chaplain M. Continuous and discrete mathematical models
+of tumor-induced angiogenesis. Bull Math Biol 1998;60:857–99.
+19. Bauer AL, Jackson TL, Jiang Y. A cell-based model exhibiting branching and
+anastomosis during tumor-induced angiogenesis. Biophys J 2007;92:
+3105–21.
+20. Macklin P, Lowengrub JS. A new ghost cell/level set method for moving
+boundary problems: application to tumor growth. J Sci Comput 2008;35:
+266–99.
+21. Perfahl H, Byrne HM, Chen T, Estrella V, Alarc
+on T, Lapin A, et al. Multiscale
+modelling of vascular tumour growth in 3D: the roles of domain size and
+boundary conditions. PLoS ONE 2011;6:e14790.
+22. Anderson A. A hybrid mathematical model of solid tumour invasion: the
+importance of cell adhesion. Math Med Biol 2005;22:163.
+23. Frieboes HB, Zheng X, Sun C-H, Tromberg B, Gatenby R, Cristini V. An
+integrated computational/experimental model of tumor invasion. Cancer
+Res 2006;66:1597–604.
+
+1578 Cancer Res; 75(8) April 15, 2015
+
+24. Newton PK, Mason J, Bethel K, Bazhenova L, Nieva J, Norton L, et al.
+Spreaders and sponges deﬁne metastasis in lung cancer: a Markov chain
+Monte Carlo mathematical model. Cancer Res 2013;73:2760–9.
+25. Scott JG, Gerlee P, Basanta D, Fletcher AG, Maini PK, Anderson AR.
+Mathematical Modeling of the Metastatic Process, in Experimental Metastasis: Modeling and Analysis, ed. A. Malek (2013) Springer: New York,
+Chapter 9, 189–208.
+26. Byrne H, Alarcon T, Owen M, Webb S, Maini P. Modelling aspects of cancer
+dynamics: a review. Philos Trans R Soc A Math Phys Eng Sci 2006;364:
+1563–78.
+27. Rejniak KA, Anderson AR. Hybrid models of tumor growth. Wiley Interdiscip Rev Syst Biol Med 2011;3:115–25.
+28. Gatenby R, Gawlinski E, Gmitro A, Kaylor B, Gillies R. Acid-mediated
+tumor invasion: a multidisciplinary study. Cancer Res 2006;66:5216.
+29. Gerlee P, Anderson AR. A hybrid cellular automaton model of clonal
+evolution in cancer: the emergence of the glycolytic phenotype. J Theor Biol
+2008;250:705–22.
+30. Swanton C. Intratumor heterogeneity: evolution through space and time.
+Cancer Res 2012;72:4875–82.
+31. Anderson A, Basanta D, Gerlee P, Rejniak KA. Evolution, regulation, and
+disruption of homeostasis, and its role in carcinogenesis. Multiscale Cancer
+Model 2011;1–30.
+32. Robey IF, Baggett BK, Kirkpatrick ND, Roe DJ, Dosescu J, Sloane BF, et al.
+Bicarbonate increases tumor pH and inhibits spontaneous metastases.
+Cancer Res 2009;69:2260–8.
+33. Ibrahim-Hashim A, Cornnell HH, Abrahams D, Lloyd M, Bui M, Gillies RJ,
+et al. Systemic buffers inhibit carcinogenesis in TRAMP mice. J Urol
+2012;188:624–31.
+34. Rapisarda A, Melillo G. Overcoming disappointing results with antiangiogenic therapy by targeting hypoxia. Nat Rev Clin Oncol 2012;9:378–90.
+35. DiGiulio S. ASCO13: what building bridges means for oncology. Oncol
+Times 2013;35:10–4.
+36. Montero AJ, Escobar M, Lopes G, Gl€
+uck S, Vogel C. Bevacizumab in the
+treatment of metastatic breast cancer: friend or foe? Curr Oncol Rep
+2012;14:1–11.
+37. Bernards R, Weinberg RA. Metastasis genes: a progression puzzle. Nature
+2002;418:823.
+38. Basanta D, Simon M, Hatzikirou H, Deutsch A. Evolutionary game theory
+elucidates the role of glycolysis in glioma progression and invasion. Cell
+Prolif 2008;41:980–7.
+39. Aktipis CA, Maley CC, Pepper JW. Dispersal evolution in neoplasms: the
+role of disregulated metabolism in the evolution of cell motility. Cancer
+Prev Res 2012;5:266–75.
+40. Patel A, Gawlinski E, Lemieux S, Gatenby R. A cellular automaton model of
+early tumor growth and invasion: the effects of native tissue vascularity and
+increased anaerobic tumor metabolism. J Theor Biol 2001;213:315–31.
+41. Secomb TW, Alberding JP, Hsu R, Dewhirst MW, Pries AR. Angiogenesis: an
+adaptive dynamic biological patterning problem. PLoS Comput Biol
+2013;9:e1002983.
+42. Misell LM, Hwang ES, Au A, Esserman L, Hellerstein MK. Development of a
+novel method for measuring in vivo breast epithelial cell proliferation in
+humans. Breast Cancer Res Treat 2005;89:257–64.
+43. Nichols M, Foster T. Oxygen diffusion and reaction kinetics in the photodynamic therapy of multicell tumour spheroids. Phys Med Biol 1994;
+39:2161–81.
+44. Groebe K, Erz S, Mueller-Klieser W. Glucose diffusion coefﬁcients determined from concentration proﬁles in EMT6 tumor spheroids incubated in
+radioactively labeled L-glucose. Adv Exp Med Biol 1994;361:619.
+45. Vaupel P, Kallinowski F, Okunieff P. Blood ﬂow, oxygen and nutrient
+supply, and metabolic microenvironment of human tumors: a review.
+Cancer Res 1989;49:6449–65.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+Impact of Heterogeneity on Tumor Growth and Treatment
+
+46. Zierler K. Whole body glucose metabolism. Am J Physiol-Endocrinol
+Metabol 1999;276:E409–E426.
+47. Casciari J, Sotirchos S, Sutherland R. Variations in tumor cell growth rates
+and metabolism with oxygen concentration, glucose concentration, and
+extracellular pH. J Cell Physiol 1992;151:386–94.
+48. Park H, Lyons J, Ohtsubo T, Song C. Acidic environment causes apoptosis
+by increasing caspase activity. Br J Cancer 1999;80:1892.
+
+www.aacrjournals.org
+
+49. Kallinowski F, Vaupel P, Runkel S, Berg G, Fortmeyer H, Baessler K, et al.
+Glucose uptake, lactate release, ketone body turnover, metabolic micromilieu, and pH distributions in human breast cancer xenografts in nude
+rats. Cancer Res 1988;48(24 Pt 1):7264–72.
+50. Dewhirst MW, Tso C, Oliver R, Gustafson CS, Secomb TW, Gross JF.
+Morphologic and hemodynamic comparison of tumor and healing normal
+tissue microvasculature. Int J Radiat Oncol Biol Phys 1989;17:91–9.
+
+Cancer Res; 75(8) April 15, 2015
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+1579
+
+Impact of Metabolic Heterogeneity on Tumor Growth, Invasion, and
+Treatment Outcomes
+Mark Robertson-Tessi, Robert J. Gillies, Robert A. Gatenby, et al.
+Cancer Res 2015;75:1567-1579.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+http://cancerres.aacrjournals.org/content/75/8/1567
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2015/04/17/75.8.1567.DC1
+
+This article cites 48 articles, 13 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/75/8/1567.full#ref-list-1
+This article has been cited by 5 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/75/8/1567.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 1, 2017. © 2015 American Association for Cancer Research.
+
+

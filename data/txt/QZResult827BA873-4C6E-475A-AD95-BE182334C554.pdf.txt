@@ -1,0 +1,2212 @@
+www.impactjournals.com/oncotarget/
+
+Oncotarget, 2017, Vol. 8, (No. 29), pp: 48075-48085
+Research Paper
+
+Identifying drug-pathway association pairs based on L1L2,1integrative penalized matrix decomposition
+Dong-Qin Wang1, Ying-Lian Gao2, Jin-Xing Liu1, Chun-Hou Zheng1 and XiangZhen Kong1
+1
+
+School of Information Science and Engineering, Qufu Normal University, Rizhao, China
+
+2
+
+Library of Qufu Normal University, Qufu Normal University, Rizhao, China
+
+Correspondence to: Jin-Xing Liu, email: sdcavell@126.com
+Chun-Hou Zheng, email: zhengch99@126.com
+Keywords: L2,1-norm, L1-norm, integrative penalized matrix decomposition, paired drug-pathway associations, drug discovery
+Received: January 23, 2017     Accepted: May 01, 2017     Published: May 29, 2017
+
+Copyright: Wang et al. This is an open-access article distributed under the terms of the Creative Commons Attribution License 3.0
+(CC BY 3.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source
+are credited.
+
+ABSTRACT
+The traditional methods of drug discovery follow the “one drug-one target”
+approach, which ignores the cellular and physiological environment of the action
+mechanism of drugs. However, pathway-based drug discovery methods can overcome
+this limitation. This kind of method, such as the Integrative Penalized Matrix
+Decomposition (iPaD) method, identifies the drug-pathway associations by taking
+the lasso-type penalty on the regularization term. Moreover, instead of imposing
+the L1-norm regularization, the L2,1-Integrative Penalized Matrix Decomposition (L2,1iPaD) method imposes the L2,1-norm penalty on the regularization term. In this paper,
+based on the iPaD and L2,1-iPaD methods, we propose a novel method named L1L2,1iPaD (L1L2,1-Integrative Penalized Matrix Decomposition), which takes the sum of
+the L1-norm and L2,1-norm penalties on the regularization term. Besides, we perform
+permutation test to assess the significance of the identified drug-pathway association
+pairs and compute the P-values. Compared with the existing methods, our method
+can identify more drug-pathway association pairs which have been validated in the
+CancerResource database. In order to identify drug-pathway associations which
+are not validated in the CancerResource database, we retrieve published papers to
+prove these associations. The results on two real datasets prove that our method can
+achieve better enrichment for identified association pairs than the iPaD and L2,1-iPaD
+methods.
+
+genes and the systemic nature of human diseases. In
+general, pathways are defined as the interaction of multiple
+genes, that is, pathways can be regarded as the target of
+drugs [3, 4]. Abnormal biological pathways can provide
+views for the aberrant imbalance underlying diseases and
+find targets for complex diseases intervention [5].
+Compared with the “one drug-one target” methods,
+the systematic biology approach takes the drug effects
+into the global physiological environment account [6].
+These existing computational methods for identifying
+drug targets include the Gene Set Enrichment Analysis
+(GSEA) method [7], the FacPad method [2], the iFad
+method [5] and the iPaD method [8], etc. The GSEA
+
+INTRODUCTION
+With the rapid development of data generated from
+genetic analyses and functional genomics, identifying
+drug targets has become more and more feasible [1].
+The modern drug discovery has found thousands of drug
+targets and the clinical testing agents. These agents can
+produce curative effects via regulating different targets
+in various biological and related diseases of pathways.
+Traditional drug discovery methods follow the “one drugone target” line. But many complex diseases are related to
+dysfunction of multiple pathways rather than individual
+genes [2]. These methods ignore the relationship among
+www.impactjournals.com/oncotarget
+
+48075
+
+Oncotarget
+
+method has several disadvantages. Firstly, for every paired
+drug-pathway association, calculation must be done once
+at every turn. Secondly, the genes which belong to the
+same pathway will have the common weights, therefore,
+when a subblock of genes serve as the critical interaction
+groups for a specific drug. In summary, the GSEA method
+is time-consuming and inaccurate. The FacPad method
+has been proposed to identify drug-pathway association
+pairs, and it develops a sparse Bayesian factor analysis
+model to deal with treatment response data that are derived
+from microarray platforms [2]. And the iFad method is
+also a sparse Bayesian factor model, which is proposed to
+infer the drug-pathway association using gene expression
+and drug sensitivity data. In literature [5], the authors
+apply this method on the NCI-60 data set. The gene
+expression and drug sensitivity data are downloaded from
+the CellMiner database [9] (http://discover.nci.nih.gov/
+cellminer). The iFad method is effective in identifying
+paired drug-pathway associations. Since this method uses
+the Markov Chain Monte Carlo (MCMC) [10] to perform
+statistical inferences, it is computationally expensive.
+Also it has many turning parameters which should be
+specified by users. In order to improve the algorithm
+speed and performance, a method named iPaD (integrative
+Penalized Matrix Decomposition) is proposed by Li et
+al.[8] to identify paired drug-pathway associations. The
+iPaD method applies the integrative penalized matrix
+decomposition method to analyze the gene expression
+data and the drug sensitivity data. The scalable bi-convex
+optimization algorithm is used to solve the objective
+function. Since the L1-norm penalty can produce sparsity,
+the L1-norm regularization item is added on the drugpathway association matrix. By applying the iPaD
+method on the NCI-60 and Cancer Cell Line Encyclopedia
+(CCLE) datasets, Li et al. [8] prove that the iPaD method
+performs better than the iFad method in computational
+efficiency and identifying drug-pathway association
+pairs. Since the L2,1-norm regularization can penalize
+each row of the matrix as a whole and can enhance
+the sparsity among the rows [11], based on this theory,
+a method named L2,1-iPaD (L2,1-integrative Penalized
+Matrix Decomposition) is proposed to identify paired
+drug-pathway associations [12]. The L1-norm penalization
+can produce scattered and unstructured sparsity matrix,
+yet L2,1-norm penalization can produce structured row
+sparsity matrix [11]. Moreover, the sum of the L1-norm
+and L2,1-norm penalization can produce row structure
+with intra-row sparsity. In this paper, for the purpose of
+enhancing the sparsity of the drug-pathway association
+matrix and improving the performance of the method, we
+use the sum of the L1-norm regularization and L2,1-norm
+regularization instead of the L1-norm regularization. In this
+article, a novel method named “L1 L2,1-iPaD” is proposed
+to identify paired drug-pathway associations. Our method
+has the following advantages. Firstly, for the first time, we
+propose the L1 L2,1-iPaD method by replacing the L1-norm
+www.impactjournals.com/oncotarget
+
+regularization with the sum of the L1-norm regularization
+and L2,1-norm regularization. Secondly, the L1 L2,1-iPaD
+method can be used to analyze gene expression and drug
+sensitivity data. Thirdly, it gives an effective method to
+identify drug-pathway association pairs. Experimental
+results in two real datasets prove that the L1 L2,1-iPaD
+method is effective.
+The remainder of this paper is organized as follows.
+Firstly, we will introduce two real datasets, give out
+the experimental results and show the comparison of
+our method with the state-of-art methods. Then we will
+provide discussion of this article and outline the future
+works. And thirdly, we will introduce the notations and
+definitions in this paper. Finally, we will describe the
+related works and methodology of the L1 L2,1-iPaD.
+
+THE INTRODUCTION FOR DATASETS
+CCLE data set
+The CCLE data set is downloaded from the CCLE
+project, which is a competitive resource to implement
+a detailed genetic characterization for a large panel
+of human cancer cell lines. The CCLE project (http://
+software.broadinstitute.org/software/cprg/?q=node/11) can
+provide public access analysis, visualization of DNA copy
+number, mutation data, mRNA expression, and so on, for
+about 1046 cancer cell lines. The CCLE data set consists
+of 480 cell lines with drug sensitivity data for 22 drugs
+and transcription data for 1802 genes covering 58 KEGG
+pathways. In fact, the CCLE data set in the CCLE project
+contains 18988 genes and 24 chemical drugs. The detailed
+data processing can be found in [8]. The drug sensitivities
+are measured by area over the dose-response curve
+(‘activity area’). EC 50 , IC50 and maximum activity area
+(‘ Amax ’) can also measure drug sensitivities. But activity
+area has two advantages. Firstly, it has less missing values.
+Secondly, it can both reflect drug potency and efficacy.
+But EC 50 and IC50 can only reflect drug potency, and Amax
+can only reflect its efficacy. In this paper, the density of
+the gene-pathway association prior knowledge matrix
+H (1) is 3.95%. And for the drug-pathway association prior
+2
+knowledge matrix H ( ) , we set it to zero.
+
+NCI-60 data set
+The NCI-60 data set contains 57 cell lines with
+gene expression data for 1863 genes covering 58 KEGG
+[13] pathways and drug sensitivity data for 101 drugs.
+The NCI-60 data set is from the NCI-60 project, which
+provides various type of ‘Omics’ features of 60 cell lines
+with 9 different cancer types. The gene expression data
+and the drug sensitivity profiles are downloaded from the
+CellMiner database [9]. The detailed data processing can
+be found in [5]. The drug sensitivity data are obtained by
+GI 50 values, those values can reflect the potency of drugs.
+48076
+
+Oncotarget
+
+the authors in [16] suggest that cotreatment with LBH589
+and 17-AAGcan induce more apoptosis of IM-resistant
+primary CML-BC and acute myeloidleukemia cells than
+treatments with either agent alone. And in this paper, our
+new method also can find that 17-AAG is associated with
+the Chronic myeloid leukemia pathway. Moreover, the
+drug-pathway pairs corresponding to nonzero elements
+in the matrix B( 2) are selected as the identified drugpathway association pairs. In this experiment, our method
+identifies 413 drug-pathway pairs that have p-value no
+more than 0.05, and 70 drug-pathway pairs are validated
+in the CancerResource database. The L 2,1-iPaD method
+identifies 368 drug-pathway pairs that have p-value no
+more than 0.05, and 66 drug-pathway pairs are validated
+in the CancerResource database. However, iPaD identifies
+88 drug-pathway pairs that have p-value no more than
+0.05, and only 25 drug-pathway pairs are validated in the
+CancerResource database. When we set the P-value cutoff
+as 0.005, 51 drug-pathway association pairs are identified
+by the iPaD method, with 16 association pairs validated
+in the CancerResource database. But for our method and
+the L 2,1-iPaD method, 53 drug-pathway association pairs
+are identified, with 16 association pairs validated in the
+CancerResource database. In addition, in [8], we can
+easily find that the results of iFad and GSEA methods are
+poorer than the iPaD method, so in this paper, we does not
+compare our method with the iFad and GSEA methods.
+Then we compute the identification and verification
+rates of drug-pathway association pairs on the CCLE
+data set. Specifically, we make the ratio of number of
+identification (or verification) and total number of drugpathway pairs as the identification (or verification) rate.
+The identification and verification rates of drug-pathway
+association pairs on the CCLE data set for the L1 L2,1-iPaD,
+L2,1-iPaD and iPaD methods can be found in Table 2
+and Table 3. It is obvious that our method can identify
+more drug-pathway association pairs than other existing
+methods.
+
+The GI 50 is defined as the needed concentration for 50%
+of maximum cell growth inhibition. The drug sensitivity
+data values are equal to the log10 ( GI 50 ) . Higher values
+mean higher drug sensitivity of the cell lines. Besides, the
+density of the gene-pathway association prior knowledge
+matrix H (1) is 3.95%. And the density of the drug-pathway
+association prior knowledge matrix H ( 2) is 0.51%.
+
+RESULTS
+In this Section, we evaluate the performance of our
+proposed L1 L2,1-iPaD method by applying to the CCLE
+and NCI-60 datasets. To show the effectiveness of our
+proposed method, we also compare our method with the
+iPaD and L2,1-iPaD methods in this Section.
+
+The results on the CCLE data set
+In this experiment, we first use the five-fold crossvalidation to obtain the optimal λ1 and λ2 values, and
+then obtain the sparse drug-pathway association matrix
+B( 2) corresponding to the optimal parameter values.
+Similar to the iPaD and L2,1-iPaD methods, our method
+also can assess the relative importance of the coefficients
+in the drug-pathway association matrix B( 2) via solving
+the L1 L2,1-problem for a decreasing λ sequence. For
+each λ value, we record the order of the coefficients
+in which they become nonzero. In general, the more
+important coefficients ought to become nonzero earlier
+than the less important coefficients. However, this
+procedure cannot be used to assess the significance of
+the coefficients. Therefore, we perform permutation test
+to assess the significance of the coefficients in the drugpathway association matrix B( 2). In this paper, we run
+2000 permutations to obtain the P-values. The P-values
+of our method, the L2,1-iPaD and iPaD methods on the
+CCLE data set are listed in Table 1, in which the superior
+results are shown in bold type. In this paper, the known
+drug-pathway associations are served as the validated
+information. In Table 1, the drug named Nutlin-3 is
+related with the Chronic myeloid leukemia pathway. A
+published paper suggests that Nutlin-3 can up-regulate
+the expression of Notch1 in both lymphoid and myeloid
+leukemic cells for a part of the negative feedback
+antiapoptotic mechanism [14]. Besides, the authors in
+[15] confirm that IAP inhibition using a small synthetic
+inhibitor (LBW-242) increases the sensitivity of CML
+cells to TKI. This drug-pathway association pair is not
+validated in the CancerResource, but our method can find
+their associations. And in Table 1, only 5 drug-pathway
+association pairs are validated in the CancerResource.
+For the rest 10 drug-pathway associations which are not
+validated in the CancerResource, we retrieve published
+papers to prove their associations. Only one association
+pair is not found from published papers. Besides, similarly,
+www.impactjournals.com/oncotarget
+
+The results on the NCI-60 data set
+Similar to the L2,1-iPaD and iPaD methods, we also
+apply our method to the NCI-60 data set. For the NCI60 data set, we also run 2000 permutation to evaluate
+the significance of the coefficients in the drug-pathway
+association matrix B( 2). The P-values of our method,
+the L2,1-iPaD and iPaD methods on the NCI-60 data set
+are listed in Table 4. The authors in [17] prove that the
+mechanism of action of the EA derivatives prepared
+in this study is more complex than the inhibition of
+glutathione S-transferase p ascribed as unique effect
+to EA and might help to overcome tumor resistances.
+And in Table 4, Melphalan is associated with T cell
+receptor signaling pathway. A study published in 2003
+suggests that Melphalan can control the expression of
+T cell receptor signaling pathway [18]. In Table 4, only
+48077
+
+Oncotarget
+
+Table 1: The top 15 identified drug-pathway associations on CCLE data set by L1 L2,1 -iPaD, L2,1-iPaD and iPaD
+methods
+Drug 
+
+L1 L2,1 -iPaD
+
+Pathway 
+
+L2,1 -iPaD
+
+iPaD
+
+Validated
+ 
+
+P-value
+
+Nutlin-3
+
+Chronic myeloid
+leukemia
+
+0
+
+1.74E-43
+
+1.09E-17
+
+CR
+
+PD-0332991
+
+Chronic myeloid
+leukemia
+
+0
+
+6.93E-41
+
+3.16E-13
+
+CR
+
+LBW242
+
+Chronic myeloid
+leukemia
+
+1.51E-45
+
+2.80E-44
+
+8.08E-17
+
+[28]
+
+17-AAG
+
+Chronic myeloid
+leukemia
+
+5.52E-45
+
+9.46E-43
+
+3.41E-16
+
+[16]
+
+L-685458
+
+Chronic myeloid
+leukemia
+
+6.81E-44
+
+4.33E-43
+
+3.32E-19
+
+[29]
+
+AZD0530
+
+Colorectal cancer
+
+1.46E-43
+
+1.62E-41
+
+8.81E-13
+
+[30]
+
+PHA-665752
+
+Chronic myeloid
+leukemia
+
+1.03E-41
+
+1.09E-40
+
+3.41E-16
+
+[31]
+
+Paclitaxel
+
+Chronic myeloid
+leukemia
+
+2.11E-40
+
+2.14E-38
+
+4.58E-12
+
+[32]
+
+AZD0530
+
+Chronic myeloid
+leukemia
+
+5.86E-40
+
+7.12E-38
+
+4.76E-18
+
+CR
+
+Thyroid cancer
+
+1.25E-28
+
+3.59E-12
+
+2.57E-05
+
+[33]
+
+ZD-6474
+
+Chronic myeloid
+leukemia
+
+1.52E-22
+
+1.62E-21
+
+2.36E-10
+
+[34]
+
+RAF265
+
+ECM-receptor interaction
+
+2.19E-17
+
+1.26E-15
+
+2.32E-04
+
+Unfound
+
+AZD0530
+
+ErbB signaling pathway
+
+1.13E-16
+
+4.41E-16
+
+5.10E-06
+
+CR
+
+Erlotinib
+
+Chronic myeloid
+leukemia
+
+3.71E-15
+
+5.69E-15
+
+2.34E-08
+
+[35]
+
+4.00E-14
+
+1.23E-13
+
+1.80E-05
+
+CR
+
+PD-0325901
+
+Nilotinib
+
+ErbB signaling pathway
+
+Table 2: The identification and verification rates on CCLE data set with P-value<0.005
+Number of
+identification
+
+Number of
+verification
+
+Verification rate
+
+Identification
+rate
+
+L1L2,1-iPaD
+
+53
+
+16
+
+0.0125
+
+0.0415
+
+L2,1-iPaD
+
+53
+
+16
+
+0.0125
+
+0.0415
+
+iPaD
+
+51
+
+16
+
+0.0125
+
+0.0399
+
+Method
+
+Table 3: The identification and verification rates on CCLE data set with P-value<0.05
+Number of
+identification
+
+Number of
+verification
+
+Verification rate
+
+Identification
+rate
+
+L1L2,1-iPaD
+
+413
+
+70
+
+0.0549
+
+0.3237
+
+L2,1-iPaD
+
+368
+
+66
+
+0.0517
+
+0.2884
+
+iPaD
+
+88
+
+25
+
+0.0196
+
+0.0689
+
+Method
+
+www.impactjournals.com/oncotarget
+
+48078
+
+Oncotarget
+
+Table 4: The top 15 identified drug-pathway associations on NCI-60 data set by L1 L2,1 -iPaD, L2,1 -iPaD and iPaD
+methods
+Drug 
+
+Pathway 
+
+L1 L2,1 -iPaD
+
+L2,1 -iPaD
+
+iPaD
+
+P-value
+
+Validated 
+
+Neuroactive
+ligand-receptor
+interation
+
+0
+
+0
+
+NAN
+
+[36]
+
+T cell receptor
+signaling pathway
+
+1.78E-17
+
+4.12E-16
+
+4.65E-10
+
+Unfound
+
+Tiazofurin
+
+Cell cycle
+
+7.70E-12
+
+8.19E-11
+
+7.54E-07
+
+CR
+
+Selenazofurin
+
+Cell cycle
+
+8.27E-11
+
+1.75E-10
+
+2.78E-07
+
+CR
+
+Mycophenolic acid
+
+Cell cycle
+
+9.02E-11
+
+2.61E-10
+
+2.52E-06
+
+[19]
+
+Lucanthone
+
+Tight junction
+
+2.06E-08
+
+9.97E-09
+
+4.31E-06
+
+CR
+
+Primaquine
+
+Neuroactive
+ligand-receptor
+interation
+
+4.46E-08
+
+1.14E-06
+
+2.69E-04
+
+[37]
+
+Glutathione
+metabolism
+
+1.17E-07
+
+2.29E-02
+
+6.36E-03
+
+CR
+
+Primary
+immunodeficiency
+
+6.55E-07
+
+1.30E-06
+
+1.16E-04
+
+[38]
+
+Diallyl disulfide
+
+Acute myeloid
+leukemia
+
+8.76E-07
+
+8.13E-06
+
+8.41E-05
+
+[39]
+
+Bleomycin
+
+Focal adhesion
+
+1.46E-06
+
+1.17E-05
+
+4.56E-04
+
+[40]
+
+Gap junction
+
+1.46E-06
+
+7.89E-06
+
+1.87E-04
+
+[41]
+
+Melphalan
+
+T cell receptor
+signaling pathway
+
+3.76E-06
+
+2.64E-05
+
+6.16E-04
+
+CR
+
+Lomustine
+
+Tight junction
+
+6.74E-06
+
+1.06E-05
+
+2.64E-04
+
+CR
+
+Vitamin K3
+
+Metabolism of
+xenobiotics by
+cytochrome P450
+
+9.98E-06
+
+2.22E-05
+
+2.71E-04
+
+[42]
+
+Hydroxyurea
+Rebeccamycin
+
+Ethacrynic acid
+Aminoglutethimide
+
+Geldanamycin
+
+6 drug-pathway association pairs are validated in the
+CancerResource. For the rest 9 drug-pathway associations
+which are not validated in the CancerResource, we
+retrieve published papers to prove their associations.
+Only one pair associations are not found from published
+papers. So, our method can also identify associations,
+which are not validated in CancerResource, in the NCI60 data set between drugs and pathways. For example,
+a paper studied in 2000 writes that an in vitro study the
+effects of MPA (Mycophenolic acid) on human peripheral
+blood lymphocyte activation markers and on cell cycle
+characteristics are investigated [19]. Moreover, the drugpathway pairs corresponding to nonzero elements in the
+matrix B( 2) are selected as the identified drug-pathway
+association pairs. In this experiment, our method identifies
+593 drug-pathway pairs that have p-value no more than
+www.impactjournals.com/oncotarget
+
+0.05, and 163 drug-pathway pairs are validated in the
+CancerResource database. The L 2,1-iPaD method identifies
+562 drug-pathway pairs that have p-value no more than
+0.05, and 163 drug-pathway pairs are validated in the
+CancerResource database. However, iPaD identifies 247
+drug-pathway pairs that have p-value no more than 0.05,
+and only 74 drug-pathway pairs are validated in the
+CancerResource database. And when we set the P-value
+cutoff as 0.005, the results of our method is similar to the
+L 2,1-iPaD method, but the number of identification and
+verification are higher than the iPaD method. Similar to
+the CCLE data set, we also compute the identification and
+verification rates of drug-pathway association pairs on the
+NCI-60 data set. The identification and verification rates of
+drug-pathway association pairs on the NCI-60 data set for
+the L1 L2,1-iPaD, L2,1-iPaD and iPaD methods can be found
+in Table 5 and Table 6.
+48079
+
+Oncotarget
+
+Table 5: The identification and verification rates on NCI-60 data set with P-value<0.05
+Number of
+identification
+
+Number of
+verification
+
+Verification rate
+
+Identification
+rate
+
+L1L2,1-iPaD
+
+593
+
+163
+
+0.0278
+
+0.1012
+
+L2,1-iPaD
+
+562
+
+163
+
+0.0278
+
+0.0959
+
+iPaD
+
+247
+
+74
+
+0.0126
+
+0.0422
+
+Method
+
+Table 6: The identification and verification rates on NCI-60 data set with P-value<0.005
+Number of
+identification
+
+Number of
+verification
+
+Verification rate
+
+Identification
+rate
+
+L1L2,1-iPaD
+
+89
+
+34
+
+0.0058
+
+0.0152
+
+L2,1-iPaD
+
+89
+
+33
+
+0.0056
+
+0.0152
+
+iPaD
+
+72
+
+26
+
+0.0044
+
+0.0122
+
+Method
+
+DISCUSSION
+
+For the matrix M ∈ R d ×n, the L1-norm of a matrix was
+first presented in [20], whose definition can be written as
+
+Identifying drug-targets is a momentous issue for the
+bioinformatics and a crucial step for the drug discovery. In
+this paper, we proposed a novel method named “L1 L2,1-iPaD”
+to identify the paired drug-pathway associations, and used it
+to jointly analyze the gene expression and drug sensitivity
+data. In addition, for the L1 L2,1-iPaD method, two parameters
+need to adjust. So, we use five-fold cross-validation to
+choose the optimal parameters. Besides, we perform
+permutation test to assess the significance of the identified
+drug-pathway association pairs. In order to evaluate the
+performance of our method, we apply it to two real datasets,
+including the CCLE and NCI-60 datasets. Moreover, we
+compare our method with the iPaD and L2,1-iPaD methods.
+The experimental results demonstrate that our method is
+superior to the iPaD and L2,1-iPaD methods. Our method
+can identify more drug-pathway association pairs which
+are validated in the CancerResource database than other
+methods. Besides, for the rest drug-pathway associations
+which are not validated in the CancerResource database, we
+retrieve published papers to prove their associations.
+With the development of the high-throughput
+technology, more and more genomic data sets are
+generated from various fields. At present, one of our
+central task is to develop the feasible and efficient method
+to analyze them. Our method is one of the useful ways
+for identifying drug-pathway association pairs. In the
+future, we will develop more efficient and robust methods
+to jointly analyze high dimensional data and to solve the
+computational challenges.
+
+	
+M 1 = ∑ i =1 ∑ j =1 mi , j .(1)
+The Frobenius norm of the matrix M can be defined as
+d
+
+	
+
+F
+
+=
+
+∑ ∑
+d
+
+n
+
+i =1
+
+j =1
+
+mi2, j =
+
+∑
+
+2
+
+d
+
+m i .(2)
+
+i =1
+
+2
+
+And the L2,1-norm of a matrix was first introduced in
+[21]. Until now, the L2,1-norm has been used in many
+fields, such as the feature extraction [22] and the image
+processing [23, 24] etc. The L2,1-norm of the matrix M
+is defined as
+	
+
+M
+
+= ∑ i =1
+d
+
+2 ,1
+
+∑
+
+n
+j =1
+
+mi2, j = ∑ i =1 m i .(3)
+d
+
+2
+
+The Lr , p -norm of the matrix M can be written as follows
+[16]:
+M
+
+r, p
+
+ d
+=  ∑ i =1
+
+
+(
+
+∑ j =1 mi, j
+n
+
+)
+
+p r
+
+1 p
+
+
+
+
+
+=
+
+(∑
+
+d
+i =1
+
+mi
+
+)
+
+p 1 p
+r
+
+.(4)
+
+RELATED WORKS
+iPaD method
+(1)
+
+( 2)
+
+Let Y (1) ∈ R N ×G and Y ( 2) ∈ R N ×G denote drug
+sensitivity data and transcription data matrices, respectively.
+N is the number of the samples (usually cell lines). G (1)
+and G ( 2) are the number of genes and number of drugs,
+respectively. Besides, X ∈ R N × K denotes a pathway activity
+matrix, that is, it indicates the activity level of K pathways
+in the N samples. For the traditional iPaD method [8],
+the authors decompose the matrix Y (1) into the matrices X
+and B(1), and the matrix Y ( 2) into the matrices X and B( 2).
+Therefore, the model can be introduced as follows:
+Y (1) =XB(1) +E(1)
+	
+
+(5)
+2
+2
+2
+Y ( ) =XB( ) +E( ) ,
+
+NOTATIONS AND DEFINITIONS
+In this Section, we summarize the definition of
+norms, which will be used in the methods. Given a matrix
+M = ( mi , j ) , m i denotes the i-th row of the matrix M.
+www.impactjournals.com/oncotarget
+
+M
+
+n
+
+48080
+
+Oncotarget
+
+METHODOLOGY
+
+where E(1) and E( 2) are the error matrices. B(1) and B( 2)
+denote the gene-pathway association and drug-pathway
+association matrices, respectively. In general, the model
+(5) can be formulated as follows:
+min
+Y (1) − XB(1)
+(1) ( 2 )
+
+	
+
+X,B ,B
+
+2
+F
+
++ Y ( 2) − XB( 2)
+
+2
+F
+
+Since the gene-pathway association information
+is available and complete, the central interest lies in
+the inference of the matrix B( 2), that is, the paired drugpathway associations. We further consider enhancing
+the sparsity of the matrix B( 2). Thus, we add the L1-norm
+regularization to impose the penalty among all elements in
+the matrix B( 2) and propose our new L1 L2,1-iPaD method.
+The objective function of the L1 L2,1-iPaD method is defined
+as follows:
+
+,(6)
+
+where ⋅ F denotes the Frobenius norm.
+For the Eq.(6), the optimization model of iPaD
+method [8] is defined as follows:
+2
+
+min
+Y (1) − XB(1)
+(1) ( 2 )
+
+F
+
+X,B ,B
+
+	
+
+subject to
+
+∑X
+i
+
+2
+i, j
+
+2
+
++ Y ( 2) − XB( 2)
+
+F
+
++ λ B( 2)
+
+1
+
+min
+
+(7)
+
+≤ 1, ∀j = 1, , K ,
+
+	
+
+1
+2
+X ,B( ) ,B( )
+
+Y (1) − XB(1)
+
+subject to
+
+1
+
+1
+K ×G ( )
+
+	
+
+min
+
+1
+2
+X , B( ) , B( )
+
+	
+
+Y − XB
+
+subject to
+
+∑X
+i
+
+F
+2
+i, j
+
++ Y
+
+− XB
+
+2
+F
+
+≤ 1, ∀j = 1, , K ;
+
++λ B
+
+2 ,1
+
+	
+
+2 ,1
+
+(9)
+
+2
+
+min Y − XB
+X
+
+subject to
+
+F
+
+∑X
+
+2
+i, j
+
+≤ 1, ∀j = 1, , K ,
+
+(10)
+
+Y − XB
+
+2
+F
+
+(11)
+T
+= Tr ( Y − XB ) ( Y − XB )  .
+
+
+
+By computing the derivative of Eq.(11), we can obtain
+∂ Y − XB
+	
+
+∂X
+
+2
+F
+
+= − 2 ( Y − XB ) BT
+
+( 2)
+
+(12)
+
+= 2 ( XBB − YB ) .
+T
+
+T
+
+So that X can be updated by
+
+2 ,1
+
+X k +1 = X k − 2 µ ( XBBT − YBT ) , k = 0,1, 2,.(13)
+	
+Here, μ is the iteration step size. At every iteration, we
+check whether X k +1 is located in the feasible fields
+X : ∑ i Xi2, j ≤ 1, ∀j = 1, , K . If X k +1 satisfies this
+condition, we perform next step, otherwise, we make
+
+ (8)
+
+{
+
+denotes the L2,1-norm of the matrixB( 2).
+
+www.impactjournals.com/oncotarget
+
+1
+
+where Y =  Y (1) , Y ( 2)  and B = B(1) , B( 2)  . The iPaD
+method [8] used the traditional gradient descent method
+to optimize X. Here, we also apply the gradient descent
+method to solve this problem. The objective function of
+Eq.(10) can be written as follows:
+
+1
+1
+B(i , )j = 0, ∀ ( i, j ) : H (i , )j = 0,
+
+where B( 2)
+
++ λ1 B( 2) + λ2 B( 2)
+
+∑ Xi2, j ≤ 1, ∀j = 1, , K ,
+
+i
+
+Since the L2,1-norm penalty can produce rows
+sparsity [25], another effective method named L2,1-iPaD is
+proposed to identify the novel drug-pathway association
+pairs [12]. In this paper, the L2,1-norm regularization
+is used to replace the L1-norm regularization to enforce
+sparse constraint on rows. And it modifies the optimization
+problem (7) as follows:
+( 2)
+
+F
+
+Optimizing X
+
+L2,1-iPaD method
+
+( 2)
+
+2
+
+where λ1 and λ2 are two adjustable parameters, which
+can increase or decrease the sparsity of the matrix B( 2). In
+general, the bigger the λ1 and λ2 are, the more sparse the
+2
+matrix B( ) is. Optimization problem (9) is convex. That
+1
+2
+is, when we fix B( ) and B( ), optimizing X is a convex
+1
+2
+problem, and when we fix X, optimizing B( ) and B( ) are
+both convex optimization subproblems. Since it is difficult
+to directly obtain the solution, an effective method is
+proposed to solve the optimization problem in Eq.(9).
+
+prior knowledge matrix H (1) ∈ {0,1}
+is an indicating
+matrix, that is, the matrix H (1) is used to indicate elements
+1
+in the matrix B(1) . If H i(, j) = 1, it indicates that the j-th gene
+1
+is associated with i-th pathway. However, if H i(, j) = 0 , it
+indicates that the j-th gene is not associated with the i
+-th pathway. The authors in [8] assume that the known
+gene-pathway associations are complete, so, they pay
+attention to discover the novel drug-pathway associations.
+Therefore, the second constraint condition is used to
+incorporate known gene-pathway associations. Besides,
+the first constraint condition is used to guarantee that the
+model is identical.
+
+2
+
++ Y ( 2) − XB( 2)
+
+B(i1, )j = 0, ∀ ( i, j ) : H (i1, )j = 0,
+
+where B( 2) is the L1-norm of the matrix B( 2). λ is a
+1
+crucial parameter and used to adjust the sparsity of the
+matrix B( 2). In general, the bigger the value of λ is, the
+more sparse the matrix B( 2) is. Since a drug is usually
+related to a few pathways, the matrix B( 2) may be sparse.
+Because the L1-norm can produce sparsity, the authors in
+[8] add the L1-norm constraint on the matrix B( 2). And, the
+
+(1)
+
+F
+
+i
+
+1
+B(i , )j = 0, ∀ ( i, j ) : H (i , )j = 0,
+
+(1)
+
+2
+
+48081
+
+}
+
+Oncotarget
+
+For the part of B( 2) being indicated by H ( 2) , the
+problem is written as follows:
+
+X k +1 = X k +1 X k +1 . The Nesterov’s method [26] can
+achieve a convergence rate becoming 1 t 2 (The original
+convergence rate is 1 t). So, when we update X, we also
+apply this method to quicken the convergence speed.
+
+	
+
+2
+F
+
+B
+
+subject to Bi , j = 0, ∀ ( i, j ) : H i , j
+(1)
+
+(1)
+
+For q ∈ {1, 2, , G (1) } ,
+(1)
+:, q
+
+(1)
+
+Y − X:, H (1) B H (1) , q
+min
+(1)
+B:,q
+
+:,q
+
+:,q
+
+2
+F
+
+
+,
+
+(15)
+
+}
+
+min
+Y:,(q ) − XB:,( q)
+( 2)
+2
+
+2
+
+B:,q
+
+2
+
+)(
+
+)
+
+T
+
+((
+
+ + λ Tr B( 2)
+2
+
+
+)
+
+T
+
+)
+
+IB( 2) ,
+
+(19)
+
+( )
+∂ J ( B( ) )
+= − 2 X Y ( ) +2 X X+λ I B( )
+2
+
+1
+
+(
+
+2
+
+T
+
+∂B( 2)
+
+T
+
+2
+
+)
+
+2
+
+(20)
+
+= 0.
+
+B( 2) = ( XT X+λ2 I ) XT Y ( 2) .(21)
+-1
+
+For the part of B( 2) being indicated by 1 − H ( 2) , we will
+provide a novel and available method to obtain the
+interesting drug-pathway association matrix B( 2). The
+optimization problem can be described as follows:
+	
+
+min
+Y ( 2) − XB( 2)
+( 2)
+B
+
+= min
+Y
+( 2)
+B
+
+( 2)
+
+2
+F
+
++λ1 B( 2) +λ2 B( 2)
+1
+
+− XD-1 2 D1 2 B(
+
+2)
+
+2
+F
+
+2 ,1
+
+( )
+
++λ1 Tr  B( 2)
+
+
+( )
+
+D B( 2)  +λ2 Tr  B( 2)
+
+
+
+T ~
+
+T
+
+D1 2 D1 2 B( 2)  ,
+
+
+(22)
+
+where D is a diagonal matrix with the i-th diagonal
+
+( )
+
+element as dii = 1 2 B( 2)
+
+~
+
+i
+
+, and D is also a diagonal
+2
+
+( )
+
+~
+
+2
+
+	
+
+2
+
++ λ1 B:,( q) + λ2 B:,( q)
+2
+
+2
+
+1
+
+2 ,1
+
+{
+
+(16)
+.
+
+the
+
++ λ1 B( 2)
+
+(1-H ( ) ),q
+2
+:, q
+
+prior
+
+1
+
+
++ λ2  B( 2) ( 2)
+1- H
+,q
+ ( :,q )
+
+2 ,1
+
+information
+
+
++ B(H2()2) ,q  .
+:, q
+2
+
+
+matrix
+
+B1
+
+2
+F
+
+~
+T
+T
++λ1 Tr ( B1 ) D-1 2 DD-1 2 B1  +λ2 Tr ( B1 ) B1  . (23)
+
+
+
+
+
+2
+F
+
+~
+T
+T
++λ1 Tr ( B1 ) D-1 2 DD-1 2 B1  +λ2 Tr ( B1 ) B1  . (24)
+
+
+
+
+
+And then we compute the derivative of J 2 ( B1 ), then set its
+result to zero, we have:
+	
+
+~
+∂ J 2 ( B1 ) 
+T
+T
+= 2 ( X1 ) X1 +λ2 I + λ1D-1 2 DD-1 2  B1 − 2 ( X1 ) Y( 2)
+∂B1
+
+
+
+
+
+(25)
+
+=0.
+
+So, we can obtain:
+
+(17)
+
+-1
+
+~
+
+
+2
+B1 =  X1T X1 +λ2 I + λ1D-1 2 D D-1 2   X1T Y ( ) .(26)
+
+
+Therefore, we finally compute B( 2) by optimizing B1, that
+is, B( 2) = D−1 2 B1. We sum up the L1 L2,1-iPaD method as the
+Algorithm 1. Besides, in this paper, we also use the softimpute algorithm to deal with the missing values problems
+in solving X. The detailed steps can be found from the
+iPaD [8] and L2,1-iPaD methods [12].
+
+	
+H (1) ,
+
+H (i ,2j) ∈ {0,1}
+is also a prior knowledge matrix, which
+can indicate drug-pathway association matrix B( 2). λ1 and
+λ2 are two regulable parameters which are used to control
+the sparsity of the paired drug-pathway association matrix
+B( 2).
+www.impactjournals.com/oncotarget
+
+min Y( 2) − X1B1
+
+J 2 ( B1 ) = Y( 2) − X1B1
+
+}
+
+2
+
+.
+
+The objective function is equal to the following equation:
+
+For q ∈ 1, 2,, G ( 2) ,
+2
+
+i, j
+
+In order to simplify the optimization problem (22),
+we set X1 =XD-1 2 and B1 =D1 2 B( 2). Then, the problem (22)
+can be equivalent to the following minimization problem:
+
+In order to use the prior knowledge on the drug-pathway
+associations (matrix H ( 2) ), we add the L2-norm on the
+matrix B( 2). Thus, the problem (16) can be rewritten as
+follows:
+
+2
+K ×G ( )
+
+2
+
+matrix with the i-th diagonal element as dii = 1 2 B( 2)
+
+{
+
+to
+
++λ2 B( 2)
+
+(
+
+	
+
+For q ∈ 1, 2, , G ( 2) ,
+
+Similar
+
+F
+
+Hence, we can obtain:
+
+For optimizing B( 2), we observe each column of the
+matrix B( 2) and decompose the original problem into G ( 2)
+sum of L1-norm and L2,1-norm minimization problems:
+
+B:, q
+
+2
+
+= Tr  Y( 2) − XB( 2) Y( 2) − XB( 2)
+
+
+	
+
+Optimizing B( 2)
+
+min
+Y:,(q2) − XB:,( 2q)
+( 2)
+
+( )
+
+J1 B( 2) = Y( 2) − XB( 2)
+
+( )
+
+where Y:,q is a vector with the elements corresponding
+to the q-th column of the matrix Y (1) , and X:, H (1) denotes
+:,q
+the sub-matrix of the matrix X, which is composed of the
+columns corresponding to the non-zero parts of the prior
+(1)
+knowledge matrix H:,q
+. And B(H1)(1) , q is a vector with the q-th
+:,q
+column vector of B(1) corresponding to the non-zero parts
+(1)
+of the prior knowledge matrix H:,q
+.
+
+	
+
+(18)
+
+2
+
+where I is a unit matrix with the size of K × K , and J1 ( ⋅)
+J1 B( 2) is an auxiliary function. Then we compute the
+derivative of J1 B( 2) and set its result to zero,
+
+(1)
+
+	
+
+F
+
+B
+
+	
+
+(14)
+= 0.
+
+Least squares method is a common optimization algorithm
+to solve the unconstrained optimization problems. In order
+to use the prior knowledge matrix H (1) to optimize B(1)
+, similar to [8], we also decompose the original problem
+into G (1) OLS (ordinary least squares) problems. That is,
+we optimize each column of B(1), separately. The problem
+(14) can be introduced as follows:
+	
+
+2
+
++λ2 B( 2) ,
+
+where we omit the symbol of the objective function. The
+objective function can be converted into the following
+equation:
+
+Optimizing B(1)
+min
+Y (1) − XB(1)
+(1)
+
+2
+
+min
+Y ( 2) − XB( 2)
+( 2)
+
+	
+
+48082
+
+Oncotarget
+
+Algorithm 1: The alternating updating algorithm for
+the L1 L2,1-iPaD method
+
+~ ( 2 )( t )
+
+where Bi , j denotes the t-th permutation estimated
+values of the matrix B( 2), and T is the total number of
+
+Data Input: Y (1) , Y ( 2) , H (1)
+Parameter: λ1 , λ2
+Output: B( 2)
+Initialization: set B
+Optimization:
+(1). Optimize X:
+
+(1)
+
+= H (1) and set B( 2) = 0 .
+
+X = arg min Y − XB
+s.t.∑ X
+i
+
+X
+
+2
+i, j
+
+∧ ( 2)
+
+permutations, Bi , j is the estimated values of the matrix
+B( 2) in the original data.
+
+ACKNOWLEDGMENTS
+This work was supported in part by the grants of
+the National Science Foundation of China, Nos. 61572284
+and 61502272.
+
+2
+F
+
+≤ 1, ∀j = 1, , K ,
+
+CONFLICTS OF INTEREST
+
+where Y =  Y (1) , Y ( 2)  and B = B(1) , B( 2)  .
+(2). Optimize B(1):
+(1)
+
+(1)
+
+B = arg min
+Y − XB
+(1)
+
+(1)
+
+B
+
+There is no conflicts of interest.
+
+2
+
+REFERENCES
+
+F
+
+s.t. Bi , j = 0, ∀ ( i, j ) : H i , j = 0.
+(1)
+
+(1)
+
+(3). Optimize B( 2):
+B( 2) = argmin Y ( 2) − XB( 2)
+2
+B( )
+
+2
+F
+
++λ1 B( 2) + λ2 B( 2)
+1
+
+2 ,1
+
+1.	 Yang Y, Dai C, Cai Z, Hou A, Cheng D, Wu G, Li J, Cui
+J, Xu D. The pathway analysis of micrornas regulated
+drug-resistant responses in HeLa cells. IEEE Trans
+Nanobioscience. 2016; 15:113-118.
+
+.
+
+(4). Repeat step (1), (2) and (3) until convergence.
+
+2.	 Ma H, Zhao H. FacPad: Bayesian sparse factor modeling
+for the inference of pathways responsive to drug treatment.
+Bioinformatics. 2012; 28:2662-2670.
+
+Parameter selection and significance test
+
+3.	 Hong Y, Chu Q, Ying HL, Lin T, Jin Z, Yu CY, Feng X,
+Zhe C, Feng Z, Yu ZC. Therapeutic target database update
+2016: enriched resource for bench to clinical drug target
+and targeted pathway information. Nucleic Acids Res. 2015;
+44:D1069-D1074.
+
+Compared with the iPaD and L2,1-iPaD methods, our
+new L1 L2,1-iPaD method has two adjustable parameters
+(λ1 and λ2), which can control the sparsity of the drugpathway association matrix B( 2). In this paper, We perform
+five-fold cross-validation to find the suitable parameters.
+In the five-fold cross-validation, we divide the matrix Y ( 2)
+into 5 folds. At each round of the cross-validation, we
+make each of the 5 folds as missing values, and the rest
+of 4 folds as training data. It is obvious that it is difficult
+to find the optimal parameters λ1 and λ2, simultaneously.
+Therefore, we solve the L1 L2,1-iPaD problem to produce a
+λ1 sequence by fixing λ2, and then we use five-fold crossvalidation to find an optimal parameter λ1. We treat the
+minimum residual sum of squares (RSS) corresponding
+to the λ1 value as the optimal value. Similarly, we find
+an optimal parameter λ2 by fixing λ1. Since our method
+is a sparse optimization algorithm, there are many zero
+coefficients in the matrix B( 2). We usually treat those
+nonzero coefficients as the identified core drug-pathway
+association pairs. After searching for the optimal
+parameters, we perform permutation test [27] to assess
+the significance of the coefficients. We first obtain the
+estimated value of the matrix B( 2), and then compute
+the P-value of the coefficient for the matrix B( 2), the
+computational formula is as follows:
+	
+
+Pi , j =
+
+∧ ( 2)
+1 T  ~ ( 2)(t )
+B
+≥
+B
+,
+i
+j
+i, j
+
+∑
+T t =1 
+
+www.impactjournals.com/oncotarget
+
+4.	 Chen X, Yan CC, Zhang X, Zhang X, Dai F, Yin J, Zhang
+Y. Drug-target interaction prediction: databases, web
+servers and computational models. Brief Bioinform. 2016;
+17:696-712.
+5.	 Ma H, Zhao H. iFad: an integrative factor analysis model
+for drug-pathway association inference. Bioinformatics.
+2012; 28:1911-1918.
+6.	 Ma H, Zhao H. Drug target inference through pathway
+analysis of genomics data. Adv Drug Deliv Rev. 2013;
+65:966-972.
+7.	 Subramanian A, Tamayo P, Mootha VK, Mukherjee S,
+Ebert BL, Gillette MA, Paulovich A, Pomeroy SL, Golub
+TR, Lander ES, Mesirov JP. Gene set enrichment analysis:
+a knowledge-based approach for interpreting genomewide expression profiles. Proc Natl Acad Sci U S A. 2005;
+102:15545-15550.
+8.	 Li C, Yang C, Hather G, Liu R, Zhao H. Efficient drugpathway association analysis via integrative penalized
+matrix decomposition. IEEE/ACM Trans Comput Biol
+Bioinform. 2016; 13:531-540.
+9.	 Shankavaram UT, Varma S, Kane D, Sunshine M, Chary
+KK, Reinhold WC, Pommier Y, Weinstein JN. CellMiner:
+
+
+,(27)
+
+
+48083
+
+Oncotarget
+
+a relational database and query tool for the NCI-60 cancer
+cell lines. BMC Genomics 2009; 10:324-331.
+
+22.	 Huang J, Nie F, Huang H, Ding C. Robust manifold
+nonnegative matrix factorization. ACM TKDD. 2014;
+8:1-21.
+
+10.	 Gasparini M. Markov chain monte carlo in practice.
+International Encyclopedia of the Social & Behavioral
+Sciences. 1997; 2:9236-9240.
+
+23.	 Wang H, Nie F, Huang H. Multi-view clustering and feature
+learning via structured sparsity. International Conference on
+Machine Learning, pp. 352-360.
+
+11.	 Liu JX, Wang D, Gao YL, Zheng CH, Shang JL, Liu
+F, Xu Y. A joint-L2,1 -norm-constraint-based semisupervised feature extraction for RNA-seq data analysis.
+Neurocomputing. 2016; 228:263-269.
+
+24.	 Zhou Z, Wang Y, Wu QM, Yang CN, Sun X. Effective
+and Efficient Global Context Verification for image copy
+detection. IEEE Trans Inf Forensic Secur. 2016; 12:48-63.
+
+12.	 Wang D, Zheng C, Gao Y, Liu J, Wu S, Shang J. L21-iPaD:
+an efficient method for drug-pathway association pairs
+inference. IEEE International Conference on Bioinformatics
+and Biomedicine (BIBM), 15-18 December 2016,
+Shenzhen, China, pp. 664-669.
+
+25.	 Nie F, Huang H, Cai X, Ding CH. Efficient and robust
+feature selection via joint ℓ2,1-norms minimization.
+Advances in neural information processing systems 23:
+Conference on Neural Information Processing Systems
+2010 Proceedings of A Meeting Held 6-9 December 2010,
+Vancouver, British Columbia, Canada, pp. 1813-1821.
+
+13.	 Kanehisa M, Goto S, Sato Y, Furumichi M, Tanabe
+M. KEGG for integration and interpretation of largescale molecular data sets. Nucleic Acids Res. 2012;
+40:D109-D114.
+
+26.	 Nesterov Y. A method of solving a convex programming
+problem with convergence rate O (1/k2). Soviet
+Mathematics Doklady; 1983. pp. 372-376.
+
+14.	 Secchiero P, Melloni E, Di IM, Tiribelli M, Rimondi
+E, Corallini F, Gattei V, Zauli G. Nutlin-3 up-regulates
+the expression of Notch1 in both myeloid and lymphoid
+leukemic cells, as part of a negative feedback antiapoptotic
+mechanism. Blood. 2009; 113:4300-4308.
+
+27.	 Oden A, Wedel H. Arguments for Fisher's permutation test.
+Ann Stat. 1975; 3:518-520.
+28.	 Weisberg E, Kung AL, Wright RD, Moreno D, Catley L,
+Ray A, Zawel L, Tran M, Cools J, Gilliland G. Potentiation
+of antileukemic therapies by Smac mimetic, LBW242:
+effects on mutant FLT3-expressing cells. Mol Cancer Ther.
+2007; 6:1951-1961.
+
+15.	 Airiau K, Mahon FX, Josselin M, Jeanneteau M, Turcq
+B, Belloc F. ABT-737 increases tyrosine kinase inhibitor–
+induced apoptosis in chronic myeloid leukemia cells
+through XIAP downregulation and sensitizes CD34+
+CD38− population to imatinib. Exp Hematol. 2012; 40:367378.e2.
+
+29.	 Netzer WJ, Dou F, Cai D, Veach D, Jean S, Li Y, Bornmann
+WG, Clarkson B, Xu H, Greengard P. Gleevec inhibits
+β-amyloid production but not Notch cleavage. Proc Natl
+Acad Sci U S A. 2003; 100:12444-12449.
+
+16.	 George P, Bali P, Annavarapu S, Scuto A, Fiskus W, Guo
+F, Sigua C, Sondarva G, Moscinski L, Atadja P, Bhalla K.
+Combination of the histone deacetylase inhibitor LBH589
+and the hsp90 inhibitor 17-AAG is highly active against
+human CML-BC cells and AML cells with activating
+mutation of FLT-3. Blood. 2005; 105:1768-1776.
+
+30.	 Eng C, Kopetz S, Morris J, Malik Z, Stewart D, Chang H,
+Ohinata A, Abbruzzese J, Gallick G. Phase II study of the
+novel oral Src-kinase inhibitor, AZD0530, in previously
+treated advanced colorectal cancer patients. Cancer Res.
+2008; 68.
+31.	 Smolen GA, Sordella R, Muir B, Mohapatra G, Barmettler
+A, Archibald H, Kim WJ, Okimoto RA, Bell DW, Sgroi
+DC. Amplification of MET may identify a subset of cancers
+with extreme sensitivity to the selective tyrosine kinase
+inhibitor PHA-665752. Proc Natl Acad Sci U S A. 2006;
+103:2316-2321.
+
+17.	 Mignani S, El Brahmi N, El Kazzouli S, Eloy L, Courilleau
+D, Caron J, Bousmina MM, Caminade AM, Cresteil T,
+Majoral JP. A novel class of ethacrynic acid derivatives as
+promising drug-like potent generation of anticancer agents
+with established mechanism of action. Eur J Med Chem.
+2016; 122:656-673.
+
+32.	 Kang CD, Yoo SD, Hwang BW, Kim KW, Kim DW, Kim
+CM, Kim SH, Chung BS. The inhibition of ERK/MAPK
+not the activation of JNK/SAPK is primarily required to
+induce apoptosis in chronic myelogenous leukemic K562
+cells. Leuk Res. 2000; 24:527-534.
+
+18.	 Aggarwal BB. Signalling pathways of the TNF superfamily:
+a double-edged sword. Nat Rev Immunol. 2003; 3:745-756.
+19.	 Heinschink A, Raab M, Daxecker H, Griesmacher A, Müller
+MM. In vitro effects of mycophenolic acid on cell cycle and
+activation of human lymphocytes. Clin Chim Acta. 2000;
+300:23-28.
+
+33.	 Ball DW, Jin N, Rosen DM, Dackiw A, Sidransky D, Xing
+M, Nelkin BD. Selective growth inhibition in BRAF mutant
+thyroid cancer by the mitogen-activated protein kinase
+kinase 1/2 inhibitor AZD6244. J Clin Endocrinol Metab.
+2007; 92:4712-4718.
+
+20.	 Tibshirani R. Regression shrinkage and selection via the
+Lasso. J R Stat Soc. 1996; 58:267-288.
+21.	 Ding C, Zhou D, He X, Zha H. R1-PCA: rotational invariant
+L1-norm principal component analysis for robust subspace
+factorization. Proceedings of the 23rd international
+conference on Machine learning: ACM, 25-29 June 2006,
+New York, USA. pp. 281-288
+www.impactjournals.com/oncotarget
+
+34.	 Jia H. (2009). ZD6474 inhibits Src kinase Leading to
+Anti-tumoral Effects In imatini-resistant cells. Zhongshan
+University (in Chinese).
+
+48084
+
+Oncotarget
+
+35.	 Li Z, Xu M, Xing S, Ho WT, Ishii T, Li Q, Fu X, Zhao
+ZJ. Erlotinib effectively inhibits JAK2V617F activity
+and polycythemia vera cell growth. J Biol Chem. 2007;
+282:3428-3432.
+
+39.	 Merhi F, Auger J, Rendu F, Bauvois B. Allium compounds,
+dipropyl and dimethyl thiosulfinates as antiproliferative and
+differentiating agents of human acute myeloid leukemia cell
+lines. Biologics. 2008; 2:885-895.
+
+36.	 Markasz L, Stuber G, Vanherberghen B, Flaberg E, Olah
+E, Carbone E, Eksborg S, Klein E, Skribek H, Szekely L.
+Effect of frequently used chemotherapeutic drugs on the
+cytotoxic activity of human natural killer cells. Mol Cancer
+Ther. 2007; 6:644-654.
+
+40.	 Kinoshita K, Aono Y, Azuma M, Kishi J, Takezaki A, Kishi
+M, Makino H, Okazaki H, Uehara H, Izumi K. Antifibrotic
+effects of focal adhesion kinase inhibitor in bleomycininduced pulmonary fibrosis in mice. Am J Respir Cell Mol
+Biol. 2013; 49:536-543.
+
+37.	 Tripathy S, Roy S. Redox sensing and signaling by malaria
+parasite in vertebrate host. J Basic Microbiol. 2015;
+55:1053-1063.
+
+41.	 Boengler K, Konietzka I, Buechert A, Heinen Y,
+Garciadorado D, Heusch G, Schulz R. Loss of ischemic
+preconditioning's cardioprotection in aged mouse hearts is
+associated with reduced gap junctional and mitochondrial
+levels of connexin 43. Am J Physiol Heart Circ Physiol.
+2007; 292:H1764-H1769.
+
+38.	 Fioredda F, Calvillo M, Bonanomi S, Coliva T, Tucci F,
+Farruggia P, Pillon M, Martire B, Ghilardi R, Ramenghi U.
+Congenital and acquired neutropenia consensus guidelines
+on diagnosis from the Neutropenia Committee of
+the Marrow Failure Syndrome Group of the AIEOP
+(Associazione Italiana Emato-Oncologia Pediatrica). Am J
+Hematol. 2011; 57:10-17.
+
+www.impactjournals.com/oncotarget
+
+42.	 Edson KZ, Prasad B, Unadkat JD, Suhara Y, Okano T,
+Guengerich FP, Rettie AE. Cytochrome P450-dependent
+catabolism of vitamin K: ω-hydroxylation catalyzed by
+human CYP4F2 and CYP4F11. Biochemistry. 2013;
+52:8276-8285.
+
+48085
+
+Oncotarget
+
+

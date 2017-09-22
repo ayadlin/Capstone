@@ -1,0 +1,1820 @@
+Published OnlineFirst March 1, 2011; DOI: 10.1158/0008-5472.CAN-10-2834
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+Mathematical Modeling Predicts Synergistic Antitumor
+Effects of Combining a Macrophage-Based, HypoxiaTargeted Gene Therapy with Chemotherapy
+Markus R. Owen1, I. Johanna Stamper1,5, Munitta Muthana2, Giles W. Richardson3,
+Jon Dobson4,6, Claire E. Lewis2, and Helen M. Byrne1
+
+Abstract
+Tumor hypoxia is associated with low rates of cell proliferation and poor drug delivery, limiting the efficacy of
+many conventional therapies such as chemotherapy. Because many macrophages accumulate in hypoxic regions
+of tumors, one way to target tumor cells in these regions could be to use genetically engineered macrophages
+that express therapeutic genes when exposed to hypoxia. Systemic delivery of such therapeutic macrophages
+may also be enhanced by preloading them with nanomagnets and applying a magnetic field to the tumor site.
+Here, we use a new mathematical model to compare the effects of conventional cyclophosphamide therapy with
+those induced when macrophages are used to deliver hypoxia-inducible cytochrome P450 to locally activate
+cyclophosphamide. Our mathematical model describes the spatiotemporal dynamics of vascular tumor growth
+and treats cells as distinct entities. Model simulations predict that combining conventional and macrophagebased therapies would be synergistic, producing greater antitumor effects than the additive effects of each form
+of therapy. We find that timing is crucial in this combined approach with efficacy being greatest when the
+macrophage-based, hypoxia-targeted therapy is administered shortly before or concurrently with chemotherapy.
+Last, we show that therapy with genetically engineered macrophages is markedly enhanced by using the
+magnetic approach described above, and that this enhancement depends mainly on the strength of the applied
+field, rather than its direction. This insight may be important in the treatment of nonsuperficial tumors, where
+generating a specific orientation of a magnetic field may prove difficult. In conclusion, we demonstrate that
+mathematical modeling can be used to design and maximize the efficacy of combined therapeutic approaches in
+cancer. Cancer Res; 71(8); 2826–37. 2011 AACR.
+
+Major Findings
+
+2826
+
+Introduction
+
+Mathematical modeling predicts maximal synergistic
+antitumor effects when macrophage-based, hypoxia-targeted therapy is administered shortly before or concurrently with conventional chemotherapy. Enhanced delivery
+of therapeutic macrophages preloaded with magnetic
+nanoparticles depends mainly on the strength of the
+applied magnetic field, rather than its direction. This
+may be important in the treatment of nonsuperficial
+tumors. where generating a specific orientation of a magnetic field may prove difficult.
+
+Hypoxic areas of tumors are notoriously hard to target with
+conventional drugs (due to their poor vascularization), yet
+treatment success often hinges upon the elimination of such
+areas because any remaining hypoxic tumor cells often secrete
+cytokines that cause the tumor to revascularize and regrow
+(1, 2). A possible anticancer strategy, outlined in Fig. 1, exploits
+the innate ability of macrophages, a type of immune cell, to
+accumulate within hypoxic tumor regions (3, 4). Tumor
+spheroid experiments in vitro have shown that, when macrophages are genetically modified to express a prodrug-activating enzyme (cytochrome P450) during hypoxia, tumor cell
+kill can be achieved (following conversion of the prodrug
+
+Authors' Affiliations: 1Centre for Mathematical Medicine and Biology,
+School of Mathematical Sciences, University of Nottingham, Nottingham;
+2
+Department of Infection & Immunity, University of Sheffield Medical
+School, Sheffield; 3School of Mathematics, University of Southampton,
+Southampton; and 4Institute for Science and Technology in Medicine,
+Keele University School of Medicine, Stoke-on-Trent, United Kingdom;
+5
+Department of Physics, University of Alabama at Birmingham, Birmingham, Alabama; and 6Department of Biomedical Engineering & Department
+of Materials Science and Engineering, University of Florida, Gainesville,
+Florida
+
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+Corresponding Author: Markus R. Owen, School of Mathematical
+Sciences, University of Nottingham, Nottingham NG7 2RD, UK. Phone:
+44 115-8467214; Fax: 44-115-9513837;
+E-mail: Markus.Owen@nottingham.ac.uk
+doi: 10.1158/0008-5472.CAN-10-2834
+2011 American Association for Cancer Research.
+
+Cancer Res; 71(8) April 15, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst March 1, 2011; DOI: 10.1158/0008-5472.CAN-10-2834
+Mathematical Modeling of Macrophage-Based Gene Therapy
+
+Quick Guide to Main Model Equations
+We represent the tissue as a regular 2-dimensional lattice (spacing Dx) with an embedded vascular network. Each site can
+contain a number of cells and has associated concentrations of oxygen, VEGF, prodrug, and drug (Fig. 1).
+
+Major Assumptions of the Model
+Cells
+Each normal and cancer cell has ordinary differential equation models for the cell cycle and p53-VEGF signaling.
+On completion of the cell cycle, if space is available, daughter cells are placed at the same or a neighboring site—otherwise
+the parent cell cycle restarts, and no daughter cell is produced. Cancer cells enter and leave quiescence according to the local
+oxygen concentration and die if quiescent for too long. Normal cell apoptosis occurs if p53 exceeds a threshold which is lower
+when the cell is surrounded by cancer cells (so that the tumor microenvironment is hostile to normal cells).
+All cell types move by a random walk, biased by the space available and gradients in VEGF. The probability of a cell moving
+from site x to y in time Dt is
+
+DDt ðNm  Nðy; tÞÞ 
+c
+Prðx; y; tÞ ¼ 2
+ðV ðy; tÞ  V ðx; tÞÞ
+for x „ y
+ðAÞ
+1þ
+2dx;y
+Nm
+2D
+where N(x,t) is the number of cells and V(x,t) is the VEGF concentration at site x. D is the maximum random motility, Nm is the
+carrying capacity for movement, c is the chemotactic sensitivity (c ¼ 0 for normal and cancer cells), and dx,y is the distance from
+x to y.
+Vasculature
+We prescribe the pressure at a set of inlets and outlets and compute the flow and pressure drop for each vessel segment (using
+the Poiseuille approximation) by imposing conservation of mass at each node. Vessel radii adapt to the wall shear stress,
+intravascular pressure, and flow (22, 29). We prescribe a hematocrit of 45% in vessels that sustain flow and zero otherwise.
+Segments with low flow are pruned if their wall shear stress remains below tcrit
+w for a period longer than Tprune.
+Angiogenesis: On each time-step Dt, the probability of an endothelial tip cell sprouting from a vessel at site x is
+Prsprout ðx; tÞ ¼ Dt
+
+max
+Psprout
+V ðx; tÞ
+
+ðBÞ
+
+Vsprout þ V ðx; tÞ
+
+where Vsprout is the VEGF concentration at which the probability is half-maximal (22). Prsprout(x,t) ¼ 0 if the number of cells at x
+tipcell
+
+exceeds the carrying capacity for sprouting, Em , or if a sprout has already emerged within an exclusion radius, Rex (because
+Delta–Notch signaling inhibits adjacent cells from sprouting). Tip cells perform random walks, biased by VEGF, according to
+Equation (A). When a tip cell moves, a stationary endothelial cell is left behind—thus sprout contiguity is maintained by
+endothelial cell proliferation (30). Anastomosis occurs when a tip cell moves to a site already occupied by a sprout or vessel,
+establishing flow in the new vessel. If anastomosis does not occur within Tprune of tip cell emergence, then the sprout dies.
+Diffusibles
+Equations for oxygen, VEGF, drug, and prodrug take the form:
+0 ¼ Du r2 U þ rv yu ðUblood  UÞ þ Su  du U
+
+ðCÞ
+
+where U(x,t) is the tissue concentration of interest, Ublood(x,t) is the concentration in the blood, Su(x,t) is the cell- and
+environment-dependent production/removal rate, and du is the linear decay rate. rv(x,t) is the vascular density and yu is the
+vascular permeability to U.
+Therapy
+Conventional: Active drug is present in the blood plasma due to conversion of cyclophosphamide in the liver. After boluses at
+times Tnq , plasma levels decay exponentially, so that the tissue drug concentration, Q(x,t), is governed by Equation (C), with Sq  0
+q
+q
+. Here, H(x,t) is the hematocrit in the vessel at x.
+and Qblood ðx; tÞ ¼ Qbolus ð1  Hðx;tÞÞekq cðtTn Þ for Tnq  t < Tnþ1
+Drug action: If Q(x,t) > Qcrit, any cell at site x intercalates active drug. Normal and cancer cells with drug intercalated die upon
+attempting cell division.
+Macrophages and magnetic field: On one time-step the probability of macrophage extravasation from a vessel at x is
+Prmac
+extra ðx; tÞ ¼ Dt2pRðx; tÞLðx; tÞMblood ðx; tÞ
+
+www.aacrjournals.org
+
+
+
+V ðx; tÞ
+am þ bm vmag  nðx; tÞ
+Av þ V ðx; tÞ
+
+ðDÞ
+
+Cancer Res; 71(8) April 15, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+2827
+
+Published OnlineFirst March 1, 2011; DOI: 10.1158/0008-5472.CAN-10-2834
+Owen et al.
+
+where R(x,t) is the radius of the vessel (if present) through x at time t, L(x,t) is the length of the vessel segment,
+Mblood ðx; tÞ ¼ kM ekmac ðtTmac Þ Hðx; tÞ=Hin is the macrophage level in the vessel following a single injection of macrophages
+(Hin is the reference inflow hematocrit), the extravasation rate increases with VEGF (31), and Av is the VEGF concentration at
+which it is half-maximal. In Equation (D), am represents the baseline extravasation rate and bm determines the increase due to
+magnetic
+effects,
+
+ vmag is the macrophage velocity due to the magnetic field, and the effect of the magnetic field is mediated by
+vmag  nðx; tÞ, the component of vmag that points into the vessel wall (32). Extravasation can only occur if the number of cells at
+mac
+x is less than Em
+. Tissue macrophages do not proliferate, have a normally distributed survival time (mean ¼ 90 days, SD ¼ 9
+days), and move chemotactically according to Equation (A) (33). This has no magnetic component because the magnetic force on
+macrophages in the tissue is negligible (see Supplementary Material).
+The prodrug and active drug concentrations, P(x,t) and Q(x,t), are governed by Equation (C), with
+p
+Pblood ðx; tÞ ¼ Pbolus ð1  Hðx; tÞÞekpc ðtTn Þ and Qblood(x,t) ¼ 0. Active drug is produced from prodrug via hypoxic macrophages
+expressing cytochrome P450:
+
+kpq Pðx; tÞ if a macrophage is at x and Cðx; tÞ< Chyp ;
+ðEÞ
+Sq ðx; tÞ ¼
+0
+otherwise:
+Prodrug conversion means that Sp(x,t) ¼ Sq(x,t).
+
+cyclophosphamide into its cytotoxic moiety by enzymeexpressing hypoxic macrophages; ref. 3). For the same kind
+of treatment to be successful in vivo, assuming i.v. injection of
+the prodrug and macrophages, a substantial number of
+macrophages would need to extravasate from the bloodstream and localize at the tumor mass. To increase delivery
+to the tumor site, we have devised a magnetic approach in
+which monocytes (macrophage precursor cells found in the
+bloodstream) are preloaded with magnetic nanoparticles by
+phagocytosis (5). In vivo experiments in mice have demon-
+
+strated the potential of this technique; systemic injection of
+such magnetic macrophages, in combination with application
+of an externally applied magnetic field near the tumor,
+increased 3-fold the number of macrophages accumulated
+within the tumor (5). However, such experiments have not yet
+been attempted using "therapeutically armed" macrophages
+(i.e., macrophages that express a therapeutic gene). Although
+these in vitro and in vivo experimental results are highly
+promising, a number of questions remain. For example, for
+the prodrug–enzyme pair used in the in vitro experiments (3),
+
+Figure 1. Outline of macrophage-based cancer therapy and mathematical model framework. Key interactions are shown, in particular that tissue oxygen
+depends on the vascular layer, that VEGF drives angiogenesis and macrophage migration, that drug kills tumor cells, and that hypoxic macrophages activate
+prodrug under hypoxia. In addition, extravasation of macrophages loaded with magnetic nanoparticles is enhanced most strongly in vessels that are
+perpendicular to the direction of action of a magnetic field.
+
+2828
+
+Cancer Res; 71(8) April 15, 2011
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst March 1, 2011; DOI: 10.1158/0008-5472.CAN-10-2834
+Mathematical Modeling of Macrophage-Based Gene Therapy
+
+it is not clear which cells are targeted. Previous mathematical
+modeling of tumor spheroids suggests that, whereas such
+engineered macrophages target active drug production to
+hypoxic regions, the dependence of tumor cell death on
+mitosis means that cell kill is predominantly outside the
+hypoxic layer (6). It remains of interest to determine how
+the in vitro model predictions will translate to vascular tumors
+in vivo. It is also important to determine the in vivo efficacy of
+macrophage-based gene therapy, to compare it to conventional therapies, to understand the possible synergistic benefits of combination therapy, and to assess the improvements
+in therapeutic outcomes that may be possible using the
+magnetic approach (5).
+There is a long history of using mathematical models to
+study the growth of solid tumors and their response to
+therapy (7–10). Compartmental models have been formulated as systems of ordinary differential equations (e.g., refs.
+11, 12). Alternatively, partial differential equation (PDE)
+models have been proposed to explain the spatial structure
+within avascular tumor spheroids (6, 13) and the variations
+in vessel density within vascular tumors (14). Approaches
+that consider individual cells include models for angiogenesis and drug delivery (15), and hybrid models that also
+include PDE descriptions of tumor growth (16). A common
+feature of these models is that individual cells are represented as point objects, whereas alternative approaches
+represent cells as deformable spheres (17), or as a set of
+sites on a lattice (18). In separate work, Alarc
+on and colleagues (19–22) proposed a multiscale model for vascular
+tumor growth that combines blood flow, angiogenesis, vascular remodeling, and multiple interacting cell populations.
+This framework is unique in its extensive coupling across
+scales, exemplified by the way that vascular remodeling
+influences, and is influenced by, the growth dynamics of
+the cell populations, which are themselves regulated by
+models for subcellular signaling pathways including an
+oxygen-regulated cell-cycle model (22).
+Existing multiscale models of tumor growth differ in their
+emphasis on subcellular processes, cell–cell interactions,
+cell movement, nutrient delivery, and biomechanics. Most
+such models do not yet address issues of cancer therapy.
+There are several compartmental models for cancer therapy,
+addressing, for example, the emergence of a rapidly proliferating subpopulation under the selection pressure
+imposed by therapy (23); modeling immunotherapy (24);
+endothelial cell-targeted anti-Bcl-2 therapy (25); and modeling treatment via an oncolytic virus (26). Spatially structured
+PDE models for therapy include a study of antiangiogenic
+gene therapy (27) and predictions of drug responses in
+breast cancer (28).
+In this article we extend the multiscale model of solid
+tumor growth (22) to account for conventional chemotherapy
+with cyclophosphamide, macrophage-based gene therapy,
+and enhanced delivery of therapeutically armed magnetic
+macrophages. Model simulations suggest that, compared with
+conventional chemotherapy, macrophage treatment may preferentially target tumor cells and leave a smaller remaining
+fraction of hypoxic tumor cells. We also observe that, for tumors
+
+www.aacrjournals.org
+
+growing in tissues with relatively isotropic vascular networks
+(i.e., with no dominant vessel orientation), enhanced macrophage extravasation depends predominantly on the strength of
+the applied field, rather than its direction. Finally, we show how
+combination therapies may act in a strongly synergistic manner, particularly when macrophage therapy is applied shortly
+before, or concurrent with, conventional therapy.
+
+Materials and Methods
+The main components of the multiscale model are
+described in detail in ref. 22. New features introduced in this
+paper include tissue macrophages (and the effect of magnetic
+nanoparticles on their extravasation), additional diffusible
+species (drug and prodrug), the effect that the active drug
+moiety has on proliferating cells, and the local conversion of
+prodrug to drug by hypoxic macrophages. Figure 1 illustrates
+the model framework, and the Quick Guide provides an
+overview of the key model components. Further model details
+and parameter values can be found in the Supplementary
+Material and in ref. 22.
+The model is formulated on a regular 2-dimensional lattice
+with an embedded vascular network. Each lattice site can
+contain a number of cells of different types and has associated
+concentrations of oxygen, VEGF, prodrug, and drug. Different
+submodels describe behavior at the subcellular, cellular, and
+macroscopic (diffusible and vascular) scales. The spatial scales
+of interest range from 10 mm (cells, vessel diameters) to 2 mm
+(tissue size), whereas the timescales vary from minutes (signaling, protein synthesis) to hours (cell proliferation and
+movement) and days/weeks (tumor doubling time, angiogenesis). Coupling between the different submodels is achieved in
+several ways. For example, local oxygen levels, which are
+determined at the macroscale, influence both cell-cycle progression and VEGF production at the subcellular level. Conversely, VEGF production modulates angiogenesis at the
+macroscale and this, in turn, controls oxygen delivery to
+the tissue. In particular, lack of oxygen stimulates VEGF
+expression, which promotes macrophage extravasation and
+angiogenesis. In the vascular layer, the vessel radii are updated
+using a structural adaptation law similar to that proposed by
+Pries and colleagues (29). We stress that the submodels we use
+illustrate how such a multiscale model can be assembled: the
+framework we present is general, with considerable scope for
+incorporating alternative submodels.
+A particular form of conventional chemotherapy is modeled
+by assuming that the prodrug cyclophosphamide is delivered
+systemically and is converted by the enzyme cytochrome P450,
+principally in the liver, to its active, cytotoxic moiety. Hence,
+for conventional chemotherapy we model the pharmacokinetics of the active moiety blood concentration by exponential
+decay following weekly boluses of cyclophosphamide. For
+macrophage-based gene therapy, we model macrophage
+extravasation and chemotactic migration to hypoxic regions
+in order to deliver hypoxia-inducible cytochrome P450 to
+hypoxic areas of tumors, hence localizing cyclophosphamide
+conversion to those regions. To model the enhanced delivery
+of macrophages loaded with magnetic nanoparticles, we
+
+Cancer Res; 71(8) April 15, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+2829
+
+Published OnlineFirst March 1, 2011; DOI: 10.1158/0008-5472.CAN-10-2834
+Owen et al.
+
+consider both the mean behavior and the degree of variation
+between simulations.
+We used our model to generate 10 simulations of a normal
+tissue, in a 2 mm  2 mm domain, with a reproducible
+characteristic vascular density (vascular surface area per unit
+volume, mean  SE ¼ 9.9  0.19 mm2/mm3). Implanting a
+small tumor into such a computational tissue leads to the
+spread of the tumor, which develops regions of hypoxia and
+stimulates angiogenesis, such that after 100 days the tissue has
+a higher vascular density (18.6  0.23 mm2/mm3), and a
+quiescent fraction of 8.2  0.74% (percentage of cancer cells
+that are quiescent). These values are consistent with published
+data (see Section D.1 of the Supplementary Material for further
+details of model validation). We then applied therapy to these
+simulated tumors, using conventional chemotherapy, macrophage-based gene therapy (with and without enhancement
+using magnetic nanoparticles), and various combinations.
+
+modify the extravasation rate accordingly [see Equation (D)
+and the Supplementary Material]. As magnetic nanoparticleloaded macrophages approach the high-field region, the z-axis
+component of the field gradient dominates so that the particles are generally pulled toward the magnetic field source.
+Once macrophages have extravasated, we do not include any
+magnetic component to their movement, because the magnetic force on macrophages in the tissue is negligible (see
+Supplementary Material).
+For each control and therapeutic scenario considered we
+performed multiple virtual tissue simulations (stochastic
+realizations). Because cell movements, angiogenic sprouting,
+and macrophage extravasation are probabilistic processes,
+on each time-step different simulations (generated by different initializations of a random number generator) can
+yield subtly different outcomes, which can lead to significant
+changes in long-term behavior. Thus, it is essential to
+
+A
+t = 21 days
+
+t = 23 days
+
+Cell divisions
+over days 21−23
+
+Mean drug
+over days 21−23
+
+Cells killed
+over days 21−23
+
+t = 28 days
+
+t = 30 days
+
+over days 28−30
+
+over days 28−30
+
+over days 28−30
+
+t = 42 days
+
+t = 44 days
+
+over days 42−44
+
+over days 42−44
+
+over days 42−44
+
+t = 84 days
+
+t = 86 days
+
+over days 84−86
+
+over days 84−86
+
+over days 84−86
+
+normal quiescent
+cancer
+
+B
+
+Flow, nL/min
+0
+
+Cell divisions / day
+
+0
+
+2830
+
+Mφ
+
+sprout
+
+0.2
+
+0.4
+
+0.6
+
+20 40
+
+Cell divisions / day
+0
+
+1
+
+Mean drug
+
+0
+
+Cancer Res; 71(8) April 15, 2011
+
+0.2
+
+0.4
+
+2
+
+Drug
+0
+
+0.2
+
+0.4
+
+Figure 2. Typical simulation
+showing how a tumor responds to
+conventional chemotherapy with
+cyclophosphamide, via weekly
+boluses (Qbolus ¼ 12) that start
+3 weeks after tumor implantation.
+A, the state of the simulated tissue
+before and 2 days after treatments
+at t ¼ 21, 28, 42, and 84 days, and
+the average rate of cell division,
+drug concentration, and rate of
+cell kill over each 2-day period. B,
+the rate of cell division, average
+drug concentration, and rate of
+cell kill over days 21 to 100.
+
+Cells killed / day
+0.6
+
+0
+
+1
+
+2
+
+Cells killed / day
+
+0.6
+
+0
+
+0.1
+
+0.2
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst March 1, 2011; DOI: 10.1158/0008-5472.CAN-10-2834
+Mathematical Modeling of Macrophage-Based Gene Therapy
+
+Results
+
+Figure 4A shows how the total numbers of normal and cancer
+cells change over time, in the simulated tissue, for control (no
+therapy) and conventional therapy. For the 10 therapeutic
+simulations, the tumor cell number declines dramatically following each drug bolus, and then recovers before the next
+treatment. The drug dose is insufficient to eliminate all tumor
+cells, and hence the tumor eventually colonizes the entire
+domain after the final round of therapy. For these examples
+(of control and unsuccessful conventional therapy) the number
+of normal cells drops to zero, and the total tumor cell number is
+limited. These outcomes are artifacts of the limited size of the in
+silico tissue domain: in vivo the tumor would be embedded in a
+larger tissue and surrounded by more normal cells.
+Figure 5A illustrates dose–response data (at 100 days after
+tumor implantation, i.e., 2 days after the twelfth treatment)
+as the maximal concentration of active drug in the blood
+(Qbolus) varies. As the dose increases, the tumor burden
+decreases, with a half maximal effective concentration
+(EC50) of Qbolus  12. For smaller doses, the quiescent fraction
+
+Conventional chemotherapy
+Figure 2A shows snapshots from a typical simulation in
+which conventional chemotherapy is applied in weekly
+boluses beginning 3 weeks after tumor implantation. After
+each bolus, the active drug concentration is maximal close
+to blood vessels, but otherwise relatively homogeneously
+distributed throughout the tissue. A significant number
+of cells are killed following each treatment in locations
+where cell proliferation coincides with a high drug concentration. Cancer cells are preferentially targeted because
+their rates of proliferation are higher than those for normal
+cells, but the tumor recovers after each treatment. Figure
+2B shows the average rate of cell division, drug concentration, and rate of cell kill from day 21 (the start of
+therapy) to day 100 and reinforces the perception that
+the drug distribution and cell kill are widespread and
+indiscriminate.
+
+A
+
+Figure 3. Typical simulation of
+macrophage therapy via a single
+bolus of engineered macrophages
+3 weeks after tumor implantation,
+coincident with the first of 20
+weekly boluses of the prodrug
+cyclophosphamide (Pbolus ¼ 250).
+A, the state of the simulated tissue
+before and 2 days after treatments
+at t ¼ 21, 28, 35, and 84 days, and
+the average rate of cell division,
+drug concentration, and rate of
+cell kill over each 2-day period. B,
+the average macrophage density,
+rate of cell division, drug
+concentration, and rate of cell kill
+over days 21 to 100.
+
+t = 21 days
+
+t = 23 days
+
+Cell divisions
+over days 21−23
+
+Mean drug
+over days 21−23
+
+Cells killed
+over days 21−23
+
+t = 28 days
+
+t = 30 days
+
+over days 28−30
+
+over days 28−30
+
+over days 28−30
+
+t = 42 days
+
+t = 44 days
+
+over days 42−44
+
+over days 42−44
+
+over days 42−44
+
+t = 84 days
+
+t = 86 days
+
+over days 84−86
+
+over days 84−86
+
+over days 84−86
+
+normal quiescent
+cancer
+
+B
+
+Flow, nL/min
+0
+
+0.5
+
+1
+
+1.5
+
+Cell divisions / day
+
+20 40
+
+Macrophage density
+
+0
+
+www.aacrjournals.org
+
+Mφ
+
+sprout
+
+0
+
+1
+
+Cell divisions / day
+
+0
+
+0.2
+
+0.4
+
+0.6
+
+2
+
+Drug
+0
+
+Cells killed / day
+
+2
+
+4
+
+Mean drug
+
+0
+
+0.2
+
+0.4
+
+0
+
+1
+
+2
+
+Cells killed / day
+
+0.6
+
+0
+
+0.1
+
+0.2
+
+Cancer Res; 71(8) April 15, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+2831
+
+Published OnlineFirst March 1, 2011; DOI: 10.1158/0008-5472.CAN-10-2834
+Owen et al.
+
+A Cyclophosphamide therapy
+
+Control (mean, n = 10 simulations)
+Therapy (mean, n = 10 simulations)
+Therapy, individual simulations
+
+Tumor cells
+
+Normal
+
+2000
+
+1000
+
+0
+
+20
+
+40
+
+60
+
+0
+
+20
+
+40
+
+60
+
+80
+
+100
+
+120
+
+140
+
+160
+
+180
+
+200
+
+80
+
+100
+
+120
+
+140
+
+160
+
+180
+
+200
+
+4000
+3000
+2000
+1000
+
+Time, t (days)
+
+B Macrophage therapy
+1500
+1000
+500
+0
+
+20
+
+40
+
+60
+
+80
+
+100
+
+120
+
+140
+
+160
+
+180
+
+200
+
+0
+
+20
+
+40
+
+60
+
+80
+
+100
+
+120
+
+140
+
+160
+
+180
+
+200
+
+0
+
+20
+
+40
+
+60
+
+80
+
+100
+
+120
+
+140
+
+160
+
+180
+
+200
+
+4000
+3000
+2000
+1000
+
+Macrophages
+
+Tumor cells
+
+Normal
+
+2000
+
+400
+300
+200
+100
+
+Time, t (days)
+
+C Combined cyclophosphamide + macrophage therapy
+1500
+1000
+500
+0
+
+20
+
+40
+
+60
+
+80
+
+100
+
+120
+
+140
+
+160
+
+180
+
+200
+
+0
+
+20
+
+40
+
+60
+
+80
+
+100
+
+120
+
+140
+
+160
+
+180
+
+200
+
+0
+
+20
+
+40
+
+60
+
+80
+
+100
+
+120
+
+140
+
+160
+
+180
+
+200
+
+4000
+3000
+2000
+1000
+
+Macrophages
+
+Tumor cells
+
+Normal
+
+2000
+
+400
+300
+200
+100
+
+Time, t (days)
+
+Figure 4. The response to therapy over time. A, conventional therapy,
+Qbolus ¼ 12. Each bolus leads initially to tumor regression and then
+regrowth. B, engineered macrophages accumulate after injection on day
+21. Weekly prodrug boluses (Pbolus ¼ 250) cause the tumor to shrink
+initially and then to regrow. C, engineered macrophages and conventional
+therapy (Pbolus ¼ 250, Qbolus ¼ 12). In 10 of 10 simulations the tumor is
+eliminated and normal tissue recovers in 8 of 10 cases. (Color version:
+Supplementary Fig. S4).
+
+increases relative to control. For sufficiently large doses the
+tumor is eliminated, although too large a dose prevents
+normal tissue recovery.
+Macrophage therapy
+Figure 3A shows snapshots from a typical simulation
+of macrophage therapy (Supplementary Movie S1). Three
+
+2832
+
+weeks after tumor implantation a single bolus of macrophages
+is applied, together with the first of 20 weekly doses of
+prodrug. The individual snapshots and cumulative data
+(Fig. 3B) show that the macrophage therapy targets hypoxic
+cells but does not kill them when they are hypoxic (macrophages and drug are colocated, but cell kill occurs in a band
+outside this area). Nevertheless, cell kill is predominantly in a
+region that is complementary to that for conventional therapy,
+and macrophage therapy preferentially targets tumor cells
+rather than normal cells.
+Figure 4B shows the temporal dynamics of cell numbers in
+the simulated tissue. We show the mean in the control case,
+and the mean and 10 simulations for macrophage therapy.
+Each therapeutic simulation follows a similar temporal pattern. In some cases the tumor is almost eliminated at t  23
+days. At intermediate times (60–90 days) the impact of
+successive treatments diminishes, because the tumor does
+not develop the degree of hypoxia seen for the first round of
+treatment, and hence prodrug activation is less extensive. At
+about 90 days the macrophages begin to die, and the therapeutic effect declines until after day 130 it is negligible.
+For this prodrug dose (Pbolus ¼ 250) the reduction in
+overall tumor burden (compared with untreated control) is
+similar to that for conventional therapy with Qbolus ¼ 12
+(compare the tumor cell numbers in Fig. 4A and B), and both
+cases correspond approximately to half-maximal efficacy
+(Fig. 5). However, the quiescent fraction at 100 days is lower
+with this example of macrophage therapy (6  0.48%) than
+with the equivalent conventional therapy (11.3  1.7%),
+indicating that the macrophage therapy preferentially targets hypoxic tumor cells. In addition, at early times (21–50
+days) the normal cell population declines more slowly with
+macrophage therapy than in either the control or conventionally treated cases. Figure 5B illustrates dose–response
+data for macrophage therapy, showing half-maximal efficacy
+at Pbolus  250. For Pbolus > 50, the quiescent fraction
+decreases with prodrug dose. For sufficiently large doses
+the tumor is eliminated, although too large a dose is harmful
+to normal tissue.
+
+Cancer Res; 71(8) April 15, 2011
+
+Effect of magnetic nanoparticles on macrophage
+extravasation
+Experiments in vivo have shown a 3-fold enhancement in
+the infiltration of macrophages loaded with magnetic nanoparticles (macrophage proportion of tumor mass: 4.9%
+without, and 16.9% with, a magnetic field; ref. 5). We determined parameter values so that simulated infiltration into
+10 established tumors, with differing emergent vascular networks, gave the same degree of magnetic enhancement.
+Figure 6A shows that, at 5 hours, the mean proportion of
+macrophages (over 10 simulations) is 4.9  0.6% in the
+absence of the magnetic field. This increases to 15.8  1.3%
+(17.9  1.5%) with the field in the horizontal (vertical) direction. Over 1 week we see a pattern of rapid infiltration
+followed by a gradual settling to a steady density in the
+tissue, as the level of macrophages in the bloodstream falls
+to zero. This infiltration has a weak effect on the size of the
+tumor (Fig. 6A). Figure 6B shows the cumulative locations of
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst March 1, 2011; DOI: 10.1158/0008-5472.CAN-10-2834
+Mathematical Modeling of Macrophage-Based Gene Therapy
+
+Normal
+cells
+
+A
+1500
+1000
+500
+0
+
+Tumor
+cells
+
+4000
+2000
+
+Quiescent
+fraction
+
+0
+0.6
+0.4
+0.2
+0
+
+Control
+
+10
+
+11
+
+12
+
+13
+
+15
+
+17
+
+18
+
+20
+
+25
+
+30
+
+1000
+
+1500
+
+2000
+
+Conventional therapy − Drug dose
+
+Normal
+cells
+
+B
+1000
+500
+0
+
+Tumor
+cells
+
+4000
+2000
+0
+
+Quiescent
+fraction
+
+Figure 5. Dose–response data at
+100 days for tumor growth with
+conventional and macrophage
+therapy. A, response to
+conventional therapy across a
+range of drug doses (Qbolus). Halfmaximal efficacy is reached at
+Qbolus  12. B, response to
+macrophage therapy across a
+range of prodrug doses (Pbolus).
+Half-maximal efficacy is reached
+at Pbolus  250. A and B, drug–
+prodrug doses above the EC50
+can promote recovery of normal
+tissue, but if the dose is too large
+normal tissue is also damaged
+further. Bars represent mean
+values (n ¼ 10) and individual
+simulations are indicated by
+points. The point style indicates
+whether or not the tumor and/or
+normal cells persist at the end of
+each simulation (at 200 days).
+
+0.15
+0.1
+0.05
+0
+
+Control
+
+50
+
+100
+
+120
+
+150
+
+250
+
+300
+
+500
+
+Macrophage therapy − Prodrug dose
+Mean (n = 10)
+
+macrophage extravasation after 5 hours, illustrating that the
+magnetic field increases the extravasation rate at specific
+vessels according to their orientation relative to the magnetic
+field. Nevertheless, Fig. 6C shows that the overall pattern of
+macrophage localization within the tissue is similar for both
+orientations of the field.
+Combination therapies
+Figure 4C summarizes results from simulations combining
+the conventional and macrophage therapies illustrated in
+Figs. 2 and 3. Three weeks after tumor implantation a single
+bolus of macrophages is applied, together with the first of 20
+weekly doses of prodrug and active drug. In all 10 simulations,
+the combined treatment eliminates the tumor, and in 8 of 10
+cases the normal tissue recovers. This might be expected, as
+
+www.aacrjournals.org
+
+Tumor persists
+
+Tumor and normal
+cells eliminated
+
+Tumor eliminated,
+normal cells recover
+
+the individual conventional and macrophage therapies gave
+54% and 45% reductions in tumor size, respectively. Therefore,
+we consider whether there are synergistic benefits of combination therapies where the individual therapies have smaller
+efficacies.
+Figure 7A summarizes the results for the control case and
+7 therapeutic combinations (conventional alone, Qbolus ¼ 11;
+macrophages alone, Pbolus ¼ 120; and combinations with and
+without magnetic enhancement). The conventional and
+macrophage therapies have a limited effect on the tumor
+size (average reductions of 27% and 21%, respectively),
+but combining them gives an average reduction of 94%.
+However, the outcome is highly variable (see Supplementary
+Fig. S5 for time courses). In 6 of 10 cases the tumor is
+eliminated (Supplementary Movie S2 shows an example of
+
+Cancer Res; 71(8) April 15, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+2833
+
+Published OnlineFirst March 1, 2011; DOI: 10.1158/0008-5472.CAN-10-2834
+Owen et al.
+
+before conventional therapy is beneficial, with tumor elimination in 7 of 10 cases (rather than 6 of 10 with simultaneous delivery). However, greater timing differences again
+give worse outcomes. Additional examples of combination
+therapy and altered timing can be found in Supplementary
+Fig. S6.
+
+A
+Tumor cells
+
+4600
+4500
+4400
+4300
+4200
+
+Macrophage fraction
+
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+0.15
+
+No magnetic field
+Magnetic field: x−direction
+
+0.1
+
+Magnetic field: y−direction
+
+0.05
+0
+
+Experiment
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+Time, t (days)
+
+Mφ extravasation
+
+B
+8
+6
+4
+2
+0
+
+No magnetic field
+
+x direction
+
+y direction
+
+Vessel
+
+quiescent
+
+Mφ
+
+C
+
+Figure 6. A, series of curves showing dependence on the magnetic field of
+macrophage infiltration into a tumor, where the macrophages have been
+loaded with magnetic nanoparticles. Each curve is the mean of 10
+simulations. The macrophage fractions after 5 hours, without and with a
+magnetic field, are in agreement with experimental data in ref. 5. B,
+cumulative macrophage extravasation at 5 hours, without a magnetic field,
+and with a magnetic field oriented in the x- and y-directions. The magnetic
+field increases the extravasation rate at specific vessels according to their
+orientation relative to the magnetic field. C, the distribution of quiescent
+cancer cells, infiltrated macrophages, and the vascular network at 5 hours.
+The overall pattern of macrophage localization is similar for both
+orientations of the field.
+
+tumor elimination); in the remaining 4 cases the tumor is
+reduced in size during treatment, but regrows after the last
+round of therapy. Combining macrophages with magnetic
+nanoparticles and a magnetic field gives a significant
+improvement over macrophages alone, due to the increased
+macrophage infiltration and consequently higher levels of
+prodrug activation within the tumor. The results with Qbolus
+¼ 11, Pbolus ¼ 120 (tumor elimination in 6 of 10 cases) can be
+improved further by combining conventional drug delivery
+with macrophages and enhancing macrophage extravasation using magnetic nanoparticles; the tumor is eliminated
+in 10 of 10 simulations, for both directions of the magnetic
+field (Fig. 7A).
+Finally, delivering macrophage after conventional
+therapy gives worse outcomes over a range of lags from 1
+hour up to 4 days (Fig. 7B). Macrophage therapy 1 or 6 hours
+
+2834
+
+Discussion
+
+0.2
+
+Cancer Res; 71(8) April 15, 2011
+
+We have extended a multiscale mathematical model of
+vascular tumor growth to simulate the response to conventional chemotherapy and a new, macrophage-based gene
+therapy that targets hypoxic tumor regions. We also use
+the model to investigate the potential for enhancing the
+delivery of such macrophage-based therapies by preloading
+macrophages with magnetic nanoparticles and applying a
+magnetic field near the tumor. The overarching aim of
+this work is to build upon data from in vitro and in vivo
+experiments (3, 5) in order to generate experimentally
+testable predictions and hypotheses about a novel therapeutic
+strategy.
+Our model simulations indicate that the macrophage-based
+therapy, with hypoxia-inducible cytochrome P450 activating
+cyclophosphamide, targets hypoxic cells but does not kill
+them when they are hypoxic. The macrophage-based therapy
+is more effective against tumor cells than normal ones,
+because of the greater degree of hypoxia found in tumor
+compared with normal tissue. Whereas both conventional
+and macrophage-based approaches may yield similar reductions in tumor volume, the hypoxic volume fraction of the
+macrophage-treated tumor is typically smaller than that of its
+conventionally treated counterpart, making the tumor more
+responsive to follow-up treatment with drugs that target
+rapidly proliferating cells. Consequently, it is unsurprising
+that combination therapy is synergistic, yielding reductions
+in tumor volume in excess of those expected if the treatments
+act independently. When macrophage treatment is successful,
+it is self-limiting in nature, because elimination of the tumor
+also eliminates the hypoxia that drives the therapeutic effect.
+Magnetically loading the macrophages enhances their effect,
+and for the relatively isotropic vascular networks studied here,
+the increase in delivery does not depend strongly on the
+direction of the magnetic field. Because tumor blood vessels
+are often highly disorganized (34), this result may be important for nonsuperficial tumors, for which it may be difficult to
+generate a magnetic field with a specific orientation. In many
+cases, we find considerable variability in outcomes—the same
+treatment applied to different simulated tissues may either
+successfully eliminate the tumor or allow it to persist. Hence it
+is essential to consider, as in this article, multiple virtual tissue
+simulations in order to capture average behavior and the
+degree of variation that can be expected. Finally, we find that,
+for combination therapies, timing can be crucial—it is best to
+apply macrophage therapy slightly in advance of conventional
+therapy.
+We have investigated the sensitivity of the antitumor
+response to variations in key therapeutic parameters. Our
+simulations reveal that the response to conventional and
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst March 1, 2011; DOI: 10.1158/0008-5472.CAN-10-2834
+Mathematical Modeling of Macrophage-Based Gene Therapy
+
+A
+Normal
+cells
+
+1500
+1000
+500
+0
+
+Tumor
+cells
+
+4000
+2000
+0
+
+Control
+
+Drug
+Mac
+
+Normal
+cells
+
+B
+
+Mac
+mag (x)
+
+Mac
+mag (y)
+
+Drug
+Mac
+
+Drug
+Mac
+mag (x)
+
+Drug
+Mac
+mag (y)
+
+1500
+1000
+500
+0
+
+Tumor
+cells
+
+4000
+2000
+0
+
+Control
+−4 d
+Mean (n = 10)
+
+−2 d
+
+−1 d
+
+−6 h
+
+Tumor persists
+
+−1 h
+
+Drug
+Mac
+
++1 h
+
+Tumor and normal
+cells eliminated
+
++6 h
+
++1 d
+
++2 d
+
++4 d
+
+Tumor eliminated,
+normal cells recover
+
+Figure 7. Summary data, showing the state at 100 days, for combination therapies starting 3 weeks after tumor implantation. A, comparison of
+conventional therapy (Qbolus ¼ 11), macrophage therapy (Pbolus ¼ 120), magnetically enhanced macrophage therapy, and simultaneously delivered
+combinations. For combined conventional and macrophage therapy, the average reduction in tumor size is greater than would be expected from the
+sum of the individual effects. The results also illustrate the variability in response that can occur. B, one combination (Pbolus ¼ 120, Qbolus ¼ 11), which
+gives tumor elimination in 6 of 10 cases, with various timing shifts of macrophage therapy relative to conventional therapy. "1 h" indicates
+macrophage therapy is 1 hour before conventional therapy, etc. Macrophage therapy 1 or 6 hours prior to conventional therapy gives a small advantage
+(tumor elimination in 7 of 10 cases). All other tested timing shifts give worse responses. A and B, bars represent mean values (n ¼ 10) and individual
+simulations are indicated by points. The point style indicates whether or not the tumor and/or normal cells persist at the end of each simulation
+(at 200 days).
+
+macrophage-based therapies is nonlinear: close to the EC50,
+small changes in drug–prodrug dose produce large changes in
+the antitumor response, but away from the EC50 the dose–
+response relationship is relatively flat (Fig. 5). Our major
+findings about the predicted synergy and timing dependence
+of combination therapy persist for different drug and prodrug
+doses (compare Fig. 7 and Supplementary Fig. S6). Our results
+are also robust to changes in cell-cycle times, and in the order
+in which the components of the computational algorithm are
+executed (see Supplementary Figs. S7 and S8 and Section D of
+Supplementary Text).
+A major advantage of simulations such as those used here is
+that it is possible to interrogate closely the state of the system
+as it develops over time, in order to identify key features that
+regulate the therapeutic response. Here we have used this
+approach to go beyond macroscopic measures (such as tumor
+
+www.aacrjournals.org
+
+size and hypoxic fraction) and to characterize where within
+the tissue the therapy is active, and how this relates to, for
+example, regions of hypoxia, macrophage localization, and cell
+proliferation. In future work it would be interesting to track
+the positions of cells when they intercalate drug (i.e., when
+they became committed to drug-induced cell death), to assess
+the extent to which cells move out of hypoxic regions and then
+die, and to compare this with the extent to which they
+intercalate drug outside of the hypoxic region. We anticipate
+that this balance will depend on the degree of tumor cell
+motility.
+Our results suggest many directions for future experimental research in this area. For example, the simulations
+reveal that the enzyme–prodrug combination considered
+here produces high levels of active drug in hypoxic regions,
+but kills cells in surrounding, nonhypoxic zones [similar
+
+Cancer Res; 71(8) April 15, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+2835
+
+Published OnlineFirst March 1, 2011; DOI: 10.1158/0008-5472.CAN-10-2834
+Owen et al.
+
+results were obtained from a PDE model for macrophage
+gene therapy (6)]. This feature arises because cell kill
+requires attempted cell division, which occurs preferentially
+at higher oxygen concentrations. It should be feasible experimentally to test our predictions about the locations of drug
+production and therapeutic tumor cell lysis by, for example,
+immunohistochemical staining of tissue sections to locate
+active drug, sites of DNA replication, and apoptotic cells.
+Supplementary staining for hypoxia and endothelial cells
+would provide additional spatial information against which
+to test our model predictions.
+A number of model extensions are possible to investigate
+alternative therapies and to improve the applicability of our
+model. For example, we could investigate the efficacy of
+macrophages engineered to deliver antiangiogenic or other
+vascular-targeting agents. Alternatively, we could simulate the
+effect of combining cytotoxic macrophage-based therapy (e.g.,
+using cyclophosphamide) with vascular-disrupting agents
+such as combretastatin A-4 (35), which we would expect to
+increase tumor hypoxia (and hence enhance prodrug activation). Our model could also be used to investigate whether
+application of an alternating field to the tissue containing the
+magnetically loaded macrophages can generate a sufficiently
+large (and localized) heating effect to stimulate cell death in
+that region (36). On the other hand, it may be important to
+consider the potential protumor effects of macrophages (such
+as the secretion of angiogenic factors; ref. 37), and how a
+patient's blood monocytes and resident tissue macrophages
+might compete with the introduced genetically modified
+macrophages. Other related therapies that our model could
+be adapted to study include gene transfer of cytochrome p450
+into tumor cells (38), and the use of macrophages to target
+a therapeutic virus to hypoxic tumor regions, under the
+control of a tumor tissue specific promoter (39). The latter
+avoids potential problems of prodrug activation at nontumor
+sites of hypoxia, such as may be found in patients with
+atherosclerotic plaques or rheumatoid arthritis (40). In the
+
+future we will extend our model to 3 space dimensions. Based
+on results comparing untreated tumor growth in 2D and 3D
+(41), we anticipate that the qualitative behavior will be
+unchanged for the various individual and combined therapies
+studied here.
+In conclusion, we have demonstrated how our state-of-theart mathematical model of vascular tumor growth can be used
+to test the efficacy of a new anticancer treatment and to
+support a program of experimental work to optimize its
+efficacy. Our model provides insight into the in vivo mechanism of action of macrophage-based therapy, and can be used
+to generate experimentally testable predictions (e.g., that
+using macrophage therapy in combination with standard
+chemotherapy will provide synergistic benefits, and that such
+therapies should be administered near-simultaneously to
+achieve the best response). Our modeling can help to identify
+the most productive avenues for using macrophages as a novel
+system to deliver gene therapy, and can be extended to
+consider a variety of alternative therapeutic strategies.
+Disclosure of Potential Conflicts of Interest
+J. Dobson is a consultant to and shareholder in nanoTherics Limited, which
+is commercializing magnetic nanoparticle-based gene transfection technology.
+J. Dobson, C.E. Lewis, and H.M. Byrne are coinventors of a relevant patent
+applied for by Keele University: Targeted Therapy. Patent Pending (Application
+Nos. 60/789,185; P112277GB; WO2007113572–Filed: 2006).
+
+Grant Support
+Biotechnology and Biological Sciences Research Council, UK, BB/C506113/1,
+E18414 (C.E. Lewis), BB/C506156/1 (G.W. Richardson, H.M. Byrne, J. Stamper),
+BB/C506172/1 (J. Dobson), and E18413 (M.R. Owen, H.M. Byrne). Engineering and
+Physical Science Research Council, UK, EP/D501083/1 (M.R. Owen).
+The costs of publication of this article were defrayed in part by the
+payment of page charges. This article must therefore be hereby marked
+advertisement in accordance with 18 U.S.C. Section 1734 solely to indicate this
+fact.
+Received August 2, 2010; revised February 21, 2011; accepted February 22,
+2011; published OnlineFirst March 1, 2011.
+
+References
+1.
+2.
+3.
+
+4.
+5.
+
+6.
+
+7.
+
+8.
+
+2836
+
+Vaupel P, Mayer A. Hypoxia in cancer: significance and impact on
+clinical outcome. Cancer Metastasis Rev 2007;26:225–39.
+Vaupel P. Hypoxia and aggressive tumor phenotype: implications for
+therapy and prognosis. Oncologist 2008;13:21–6.
+Griffiths L, Binley K, Iqball S, Kan O, Maxwell P, Ratcliffe P, et al. The
+macrophage—a novel system to deliver gene therapy to pathological
+hypoxia. Gene Therapy 2000;7:255–62.
+Murdoch C, Lewis CE. Macrophage migration and gene expression in
+response to tumor hypoxia. Int J Cancer 2005;117:701–8.
+Muthana M, Scott SD, Farrow N, Morrow F, Murdoch C, Grubb S, et al.
+A novel magnetic approach to enhance the efficacy of cell-based gene
+therapies. Gene Therapy 2008;15:902–10.
+Webb SD, Owen MR, Byrne HM, Murdoch C, Lewis CE. Macrophagebased anti-cancer therapy: modelling different modes of tumour
+targeting. Bull Math Biol 2007;69:1747–76.
+Araujo RP, McElwain DL. A history of the study of solid tumour growth:
+the contribution of mathematical modelling. Bull Math Biol
+2004;66:1039–91.
+Byrne HM. Dissecting cancer through mathematics: from the cell to
+the animal model. Nat Rev Cancer 2010;10:221–30.
+
+Cancer Res; 71(8) April 15, 2011
+
+9.
+
+10.
+11.
+
+12.
+
+13.
+14.
+15.
+
+Lowengrub JS, Frieboes HB, Jin F, Chuang Y-L, Li X, Macklin P, et al.
+Nonlinear modelling of cancer: bridging the gap between cells and
+tumours. Nonlinearity 2010;23:R1.
+Tracqui P. Biophysical models of tumour growth. Rep Prog Phys
+2009;72:056701.
+Arakelyan L, Vainstein V, Agur Z. A computer algorithm describing the
+process of vessel formation and maturation, and its use for predicting
+the effects of anti-angiogenic and anti-maturation therapy on vascular
+tumor growth. Angiogenesis 2002;5:203–14.
+Arakelyan L, Merbl Y, Agur Z. Vessel maturation effects on tumour
+growth: validation of a computer model in implanted human ovarian
+carcinoma spheroids. Eur J Cancer 2005;41:159–67.
+Greenspan HP. On the growth and stability of cell cultures and solid
+tumors. J Theor Biol 1976;56:229–42.
+Breward CJW, Byrne HM, Lewis CE. A multiphase model describing
+vascular tumour growth. Bull Math Biol 2003;65:609–40.
+McDougall SR, Anderson ARA, Chaplain MAJ. Mathematical modelling of dynamic adaptive tumour-induced angiogenesis: clinical implications and therapeutic targeting strategies. J Theor Biol 2006;241:
+564–89.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+Published OnlineFirst March 1, 2011; DOI: 10.1158/0008-5472.CAN-10-2834
+Mathematical Modeling of Macrophage-Based Gene Therapy
+
+16. Macklin P, McDougall S, Anderson AR, Chaplain MAJ, Cristini V,
+Lowengrub J. Multiscale modelling and nonlinear simulation of vascular tumour growth. J Math Biol 2009;58:765–98.
+17. Drasdo D, Jagiella N, Ramis-Conde I, Vignon-Clementel I, Weens W.
+Modeling steps from a benign tumor to an invasive cancer: examples
+of intrinsically multi-scale problems. In: Chauviere A, Preziosi L,
+Verdier C, editors. Cell mechanics: from single scale-based models
+to multiscale modeling. Boca Raton (FL), London, New York: Chapman & Hall/CRC; 2010. p. 379–417.
+18. Shirinifard A, Gens JS, Zaitlen BL, Poplawski NJ, Swat M, Glazier JA.
+3D Multi-cell simulation of tumor growth and angiogenesis. PLoS One
+2009;4:e7190.
+ n T, Byrne HM, Maini PK. A cellular automaton model for tumour
+19. Alarco
+growth in inhomogeneous environment. J Theor Biol 2003;225:257–74.
+ n T, Byrne HM, Maini PK. A multiple scale model for tumor
+20. Alarco
+growth. Multiscale Model Sim 2005;3:440–75.
+ n T, Owen MR, Byrne HM, Maini PK. Multiscale modelling of
+21. Alarco
+tumour growth and therapy: the influence of vessel normalisation on
+chemotherapy. Comput Math Methods Med 2006;7:85–119.
+ n T, Maini PK, Byrne HM. Angiogenesis and vascular
+22. Owen MR, Alarco
+remodelling in normal and cancerous tissues. J Math Biol 2009;58:
+689–721.
+23. Castorina P, Carcò D, Guiot C, Deisboeck TS. Tumor growth instability and its implications for chemotherapy. Cancer Res 2009;69:
+8507–15.
+24. Cappuccio A, Elishmereni M, Agur Z. Cancer immunotherapy by
+interleukin-21: potential treatment strategies evaluated in a mathematical model. Cancer Res 2006;66:7293–300.
+€ r JE, Jackson TL. Quantification of endothelial cell-tar25. Jain HV, No
+geted anti-Bcl-2 therapy and its suppression of tumor growth and
+vascularization. Mol Cancer Ther 2009;8:2926–36.
+26. Wein LM, Wu JT, Kirn DH. Validation and analysis of a mathematical
+model of a replication-competent oncolytic virus for cancer treatment:
+implications for virus design and delivery. Cancer Res 2003;63:1317–24.
+27. Billy F, Ribba B, Saut O, Morre-Trouilhet H, Colin T, Bresch D, et al. A
+pharmacologically based multiscale mathematical model of angiogenesis and its use in investigating the efficacy of a new cancer
+treatment strategy. J Theor Biol 2009;260:545–62.
+28. Frieboes HB, Edgerton ME, Fruehauf JP, Rose FR, Worrall LK, Gatenby RA, et al. Prediction of drug response in breast cancer using
+
+www.aacrjournals.org
+
+29.
+
+30.
+
+31.
+
+32.
+33.
+
+34.
+35.
+36.
+
+37.
+
+38.
+
+39.
+
+40.
+41.
+
+integrative experimental/computational modeling. Cancer Res
+2009;69:4484–92.
+Pries AR, Reglin B, Secomb TW. Structural adaptation of microvascular networks: functional roles of adaptive responses. Am J Physiol
+Heart Circ Physiol 2001;281:H1015–25.
+Jackson T, Zheng X. A cell-based model of endothelial cell migration,
+proliferation and maturation during corneal angiogenesis. Bull Math
+Biol 2010;72:830–68.
+Clauss M, Gerlach M, Gerlach H, Brett J, Wang F, Familletti PC, et al.
+Vascular permeability factor: a tumor-derived polypeptide that
+induces endothelial cell and monocyte procoagulant activity, and
+promotes monocyte migration. J Exp Med 1990;172:1535–45.
+Grief AD, Richardson G. Mathematical modelling of magnetically
+targeted drug delivery. J Magn Magn Mater 2005;293:455–63.
+Barleon B, Sozzani S, Zhou D, Weich H, Mantovani A, Marme D.
+Migration of human monocytes in response to vascular endothelial
+growth factor (VEGF) is mediated via the VEGF receptor flt-1. Blood
+1996;87:3336–43.
+Munn LL. Aberrant vascular architecture in tumors and its importance
+in drug-based therapies. Drug Discov Today 2003;8:396–403.
+Tozer GM, Kanthou C, Baguley BC. Disrupting tumour blood vessels.
+Nat Rev Cancer 2005;5:423–35.
+Ito A, Tanaka K, Kondo K, Shinkai M, Honda H, Matsumoto K, et al.
+Tumor regression by combined immunotherapy and hyperthermia
+using magnetic nanoparticles in an experimental subcutaneous murine melanoma. Cancer Sci 2003;94:308–13.
+Coffelt SB, Hughes R, Lewis CE. Tumor-associated macrophages:
+effectors of angiogenesis and tumor progression. Biochim Biophys
+Acta 2009;1796:11–8.
+Gunther M, Waxman D, Wagner E, Ogris M. Effects of hypoxia and
+limited diffusion in tumor cell microenvironment on bystander effect of
+P450 prodrug therapy. Cancer Gene Ther 2006;13:771–9.
+Muthana M, Giannoudis A, Scott S, Fang H-Y, Coffelt S, Morrow F,
+et al. Use of macrophages to target therapeutic adenovirus to human
+prostate tumors. Cancer Res 2011;71:1805–15.
+Murdoch C, Muthana M, Lewis CE. Hypoxia regulates macrophage
+functions in inflammation. J Immunol 2005;175:6257–63.
+Perfahl H, Byrne HM, Chen T, Estrella V, Alarcón T, Lapin A, et al.
+Multiscale modelling of vascular tumor growth in 3D: the roles of
+domain size and boundary conditions. PLoS ONE. In Press.
+
+Cancer Res; 71(8) April 15, 2011
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+2837
+
+Published OnlineFirst March 1, 2011; DOI: 10.1158/0008-5472.CAN-10-2834
+
+Mathematical Modeling Predicts Synergistic Antitumor
+Effects of Combining a Macrophage-Based,
+Hypoxia-Targeted Gene Therapy with Chemotherapy
+Markus R. Owen, I. Johanna Stamper, Munitta Muthana, et al.
+Cancer Res 2011;71:2826-2837. Published OnlineFirst March 1, 2011.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-10-2834
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2011/03/01/0008-5472.CAN-10-2834.DC1
+
+This article cites 39 articles, 11 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/71/8/2826.full#ref-list-1
+This article has been cited by 1 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/71/8/2826.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications
+Department at pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications
+Department at permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2011 American Association for Cancer
+Research.
+
+

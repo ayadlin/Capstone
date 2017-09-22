@@ -1,0 +1,991 @@
+Published OnlineFirst April 14, 2009; DOI: 10.1158/0008-5472.CAN-08-3740
+
+Research Article
+
+Mathematical Oncology
+Prediction of Drug Response in Breast Cancer Using Integrative
+Experimental/Computational Modeling
+1
+
+4
+
+9
+
+10
+
+10
+
+Hermann B. Frieboes, Mary E. Edgerton, John P. Fruehauf, Felicity R.A.J. Rose, Lisa K. Worrall,
+11
+2,3,5,7
+1,3,6,8
+Robert A. Gatenby, Mauro Ferrari,
+and Vittorio Cristini
+1
+School of Health Information Sciences and 2Division of Nanomedicine, and 3Department of Biomedical Engineering, University of Texas
+Health Science Center, Houston, Texas; Departments of 4Anatomic Pathology and 5Experimental Therapeutics, and 6Systems Biology,
+The University of Texas M. D. Anderson Cancer Center, Houston, Texas; 7Department of Bioengineering, Rice University, Houston,
+Texas; 8Department of Biomedical Engineering, The University of Texas, Austin Texas; 9Division of Hematology/Oncology,
+Department of Medicine, University of California, Irvine Medical Center, Orange, California; 10School of Pharmacy, Centre
+for Biomolecular Sciences, University Park, University of Nottingham, United Kingdom; 11Departments of Radiology
+and Integrated Mathematical Oncology, Moffitt Cancer Center, Tampa, Florida
+
+Abstract
+
+Introduction
+
+Nearly 30% of women with early-stage breast cancer develop
+recurrent disease attributed to resistance to systemic therapy.
+Prevailing models of chemotherapy failure describe three
+resistant phenotypes: cells with alterations in transmembrane
+drug transport, increased detoxification and repair pathways,
+and alterations leading to failure of apoptosis. Proliferative
+activity correlates with tumor sensitivity. Cell-cycle status, controlling proliferation, depends on local concentration of oxygen
+and nutrients. Although physiologic resistance due to diffusion
+gradients of these substances and drugs is a recognized
+phenomenon, it has been difficult to quantify its role with any
+accuracy that can be exploited clinically. We implement a
+mathematical model of tumor drug response that hypothesizes
+specific functional relationships linking tumor growth and
+regression to the underlying phenotype. The model incorporates
+the effects of local drug, oxygen, and nutrient concentrations
+within the three-dimensional tumor volume, and includes the
+experimentally observed resistant phenotypes of individual cells.
+We conclude that this integrative method, tightly coupling
+computational modeling with biological data, enhances the
+value of knowledge gained from current pharmacokinetic
+measurements, and, further, that such an approach could
+predict resistance based on specific tumor properties and thus
+improve treatment outcome. [Cancer Res 2009;69(10):4484–92]
+
+We implement a novel quantitative approach that links growth and
+regression of a tumor mass to the underlying phenotype to study the
+effect of drug and nutrient delivery as mediators of physiologic
+resistance. It is well known that inefficient vascularization may
+prevent optimal transport of oxygen, nutrients, and therapeutics to
+cancer cells in solid tumors (1). As a result, the drug agent must diffuse
+through the tumor volume to reach the entire tumor cell population,
+and there is mounting evidence to indicate that these diffusion
+gradients may significantly limit drug access (2–5). Both hypoxia and
+hypoglycemia contribute to physiologic resistance through various
+mechanisms, including induction of oxidative stress and a decrease in
+the number of proliferating cells (6–12). The myriad of stresses can
+lead to selection of cells that resist apoptotic conditions, thus adding
+to pathologic resistance in tumors (13). This evidence strongly
+suggests that the diffusion process alone can lead to the evolution of
+drug resistance in tumor cells that exceeds predictions based on
+individual cell phenotype (5). It has not been easy to quantify the
+resistance effects of diffusion gradients with any accuracy that can be
+exploited in a clinical setting. The different physical scales in a tumor
+spanning from the nanometer to the centimeter scale present a
+complex system that, to be better understood, could benefit from
+appropriate mathematical models and computer simulations in
+addition to laboratory and clinical observations.
+In particular, biocomputational modeling of tumor drug response
+has endeavored in the last two decades to address this need. Space
+limitations preclude a full description (see refs. 5, 14, 15, references
+therein). Doxorubicin cellular pharmacodynamics has been modeled; for example, ref. 16 presented a model providing good fits to
+in vitro cytotoxicity data. Drug transport was modeled in spheroids
+versus monolayers (17). A model capable of predicting intracellular
+doxorubicin accumulation that matched experimental observations
+was described in ref. 18. Different drug kinetic effects in vitro were
+compared in ref. 19, showing that a single drug infusion could be
+more effective than repeated short applications. Models using
+multiscale approaches [i.e., linking events at subcellular, cellular,
+and tumor scales (e.g., ref. 20); studying vascularized tumor
+treatment (e.g., ref. 21); and simulating nanoparticle effects (e.g.,
+ref. 3)] have also been developed. Existing mathematical models are
+often limited to radially symmetrical tumor representations and not
+fully constrained through experimentally set parameters.
+Here, we use a multiscale computational model, extending a
+previous formulation of tumor growth founded in cancer biology
+
+Major Findings
+By extracting mathematical model parameter values
+for drug and nutrient delivery from monolayer (onedimensional) experiments and using the functional
+relationships to compute drug delivery in MCF-7
+spheroid (three-dimensional) experiments, we use the
+model to quantify the diffusion barrier effect, which alone
+can result in poor response to chemotherapy both from
+diminished drug delivery and from lack of nutrients
+required to maintain proliferative conditions.
+
+Requests for reprints: Vittorio Cristini, School of Health Information Sciences,
+University of Texas Health Science Center, 7000 Fannin #600, Houston, TX 77030.
+Phone: 713-500-3965; Fax: 713-500-3929; E-mail: vittorio.cristini@uth.tmc.edu.
+I2009 American Association for Cancer Research.
+doi:10.1158/0008-5472.CAN-08-3740
+
+Cancer Res 2009; 69: (10). May 15, 2009
+
+4484
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst April 14, 2009; DOI: 10.1158/0008-5472.CAN-08-3740
+Prediction of Drug Response Using Integrative Modeling
+
+Quick Guide to Equations and Assumptions
+Equation 1:
+
+@$V =@t þ r  ðuV $V Þ ¼ Mr  ð$V ðdE=d$V ÞÞ þ SV
+@$D =@t þ r  ðuD $D Þ ¼ Mr  ð$D ðdE=d$D ÞÞ þ SD
+
+The three-dimensional in vitro environment is modeled as a mixture of viable tumor tissue (volume fraction
+$ V), dead tumor tissue ($ D), and interstitial fluid [$ W, given indirectly by 1  ($ V + $ D) and assumed to move
+freely] flowing through the ECM, which we treat as a porous medium. These partial differential equations are
+derived from the conservation of mass of these quantities (22, 23). From left to right in each equation, the terms
+represent change of volume fraction with respect to time; tissue advection (bulk transport) by the overall
+mixture as it moves with local velocity u; net tissue diffusion due to the balance of mechanical forces, including
+cell-cell adhesion (related to mobility constant M; refs. 22, 23) and cell-cell adhesion and repulsion (oncotic
+pressure), modeled using the variational derivative of the adhesion energy E ( for specific forms of this energy, see
+ref. 22); and net source of tissue due to the balance of mitosis, apoptosis, and necrosis.
+In Words: The temporal rate of change in viable and dead tumor tissue at any location within the tumor
+equals the amount of mass that is pushed, transported, and pulled due to cell motion, adhesion, and tissue
+pressure, plus the net result of production and destruction of mass due to cell proliferation and death.
+
+Major Assumptions of the Model
+The tumor is a mixture of cells, interstitial fluid, and ECM, and we treat the motion of interstitial fluid
+and cells through the ECM as fluid flow in a porous medium. Therefore, no distinction between interstitial
+fluid hydrostatic pressure and mechanical pressure due to cell-cell interactions is made. Cell velocity is a
+function of cell mobility and tissue oncotic (solid) pressure (Darcy’s law); cell-cell adhesion is modeled
+using an energy approach from continuum thermodynamics (22).
+
+Equation 2:
+
+SV ¼ ðkM ðr; dÞ  kA ðr; dÞ  kN H ½rN  r	Þ$V
+SD ¼ ðkA ð; dÞ þ kN H ½rN  r	Þ$V  kL $D
+
+These equations specify net sources S V and S D of mass for viable and dead tumor tissue, respectively. This
+directly links the conservation of mass equations, Eq. 1, to the cell phenotype through hypothesized phenomenological functional relationships that include diffusion of cell substrates and drug (of local concentration
+r and d, respectively) through tumor interstitium (see ref. 22 and references therein). For the viable tissue ( first
+equation), the terms on the right-hand side represent, from left to right, volume fraction gained from cell mitosis
+(rate k M) and lost to cell apoptosis (k A) and necrosis (k N). For the dead tissue (second equation), the terms on
+the right-hand side represent, from left to right, increase in volume fraction from cell apoptosis and necrosis and
+decrease in volume fraction from cell disintegration by lysis (k L). All rates are inverse time.
+In Words: Mass of viable tumor tissue increases through cell proliferation and decreases through cell
+apoptosis and necrosis. Mass of dead tumor tissue increases through cell apoptosis and necrosis and
+decreases through cell lysing. These equations provide a means of incorporating the biology of the problem
+into the physical conservation laws in Eq. 1.
+
+Major Assumptions of the Model
+Cells are composed entirely of water, which is a reasonable first approximation in terms of volume
+fraction (see discussion in ref. 22). Cell mitosis is proportional to substrates present (47). As mitosis occurs,
+an appropriate amount of water from the interstitial fluid is converted into cell mass. Substrate depletion
+below a level r N leads to necrosis (26, 7). Cell lysis represents a loss of mass as cellular membranes are
+degraded and the mass is converted into water that is absorbed into the interstitial fluid. The simulated
+interface between viable and necrotic tissue is forced to be of biologically realistic thickness (10–100 Am)
+through the Heaviside function H (see refs. 22, 23). Mitosis and apoptosis rates are functions of drug (d)
+and substrate (r) concentrations. Note that the assumption that parameters measured for drug sensitivity
+in monolayer, modulated by diffusion gradients, can adequately represent response in vivo may not be
+correct for real tumors (e.g., it disregards drug resistance from growing with an ECM).
+
+Equation 3: g1 @r=@t ¼ L2 r2 r  r
+This is a partial differential equation that describes cell substrate concentration r across the tumor
+viable region. The first term on the right-hand side models diffusion of the substrates into the tumor
+spheroid with penetration length L. The second term models substrate uptake by the cells (with rate g). An
+analogous equation is posed for drug concentration d.
+
+www.aacrjournals.org
+
+4485
+
+(22–25), to enable more rigorous
+quantification of diffusion effects
+on tumor drug response. This
+model can represent nonsymmetrical solid tumor morphologies
+three-dimensionally, thus providing the capability to capture the
+physical complexity and heterogeneity of the cancer microenvironment. More significantly, we
+fully constrain the model through
+functional relationships with
+parameters set from experiments.
+We hypothesize the simplest relationships that would at the same
+time be biologically founded and
+which could be calibrated by the
+experimental data. These relationships link tumor mass growth and
+regression to the underlying phenotype. They provide the mathematical basis for describing cell
+mitosis, apoptosis, and necrosis
+modulated by diffusion gradients
+of oxygen, nutrients, and cytotoxic
+drugs, and enable quantification
+of the physiologic resistance introduced by these gradients. Input
+parameters include the diffusion
+coefficients for these substances
+and the rate constants for proliferation, apoptosis, and necrosis.
+We measure parameter values
+from independent experiments
+done under conditions with no
+gradients (i.e., with cells grown as
+one-dimensional monolayers) and
+then use these values to calculate
+cell survival in three-dimensional
+tumor geometry. These values
+are compared with experiments
+in which cells are grown as in vitro
+tumor spheroids, representing a
+three-dimensional tumor environment with diffusion gradients.
+This approach allows us (a) to
+fully constrain the computational
+model, using experimentally
+obtained parameter values, and
+(b) to validate the hypothesized
+functional relationships by comparing the computed threedimensional tumor viability with
+the spheroid tumor growth
+experiments. By quantifying the
+link between tumor growth and
+regression and the underlying
+phenotype, the work presented
+here provides a quantitative tool
+to study tumor drug response and
+treatment.
+
+Cancer Res 2009; 69: (10). May 15, 2009
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst April 14, 2009; DOI: 10.1158/0008-5472.CAN-08-3740
+Cancer Research
+detection and counterstaining
+reagents. Images were captured using
+an Olympus BX50 camera with an RT
+In Words: The temporal rate of change of cell substrates or drug across the tumor viable region equals
+SPOT (Diagnostic Instruments, Inc.)
+the net amount that diffuses into the region minus the amount taken up by the tumor cells.
+and standardized for light intensity.
+Major Assumptions of the Model
+Drug response. MCF-7 WT
+(drug-sensitive) and MCF-7 40F
+Diffusion of cell substrates and drug into the tumor, combined with uptake in the tumor interior, creates
+(drug-resistant) cell lines were
+and maintains a gradient of these substances through the three-dimensional tumor tissue, which is
+cultured in RPMI medium 1640
+assumed to be fairly compact (noninvasive/infiltrative).
+(Life Technologies Invitrogen) supplemented with 3% fetal bovine
+serum (Life Technologies Invitrogen),
+2 mmol/L L-glutamine, and 1% penicillin/streptomycin in humidified 7.5% CO2
+Although in vitro spheroids are a gross simplification of the
+at 37jC. Cells for monolayer culture were seeded at 20,000 per well in 24-well
+complex in vivo condition, they allow capturing the effect of threeCostar 3527 cell culture plates (Corning). Cells for spheroids were seeded at
+dimensional tissue architecture in generating diffusion gradients of
+50,000 per well in 24-well Costar 3473 cytophobic plates and shaken at 100 rpm
+drug and cell substrates under controlled conditions without the
+for 10 min on day 1. Both the cells in monolayer and spheroids were incubated
+complicating effects of blood flow (1). Spheroids develop a layer of
+for 3 d and then exposed to doxorubicin (Bristol-Myers Squibb) concentrations
+viable cells surrounding a necrotic core (26). The thickness of this
+ranging from 0 to 16,384 nmol/L in 4
+ nanomolar increments (0, 4, 16, 64, etc.)
+layer (f100 Am), maintained by substrate diffusion gradients,
+for 96 h, representing at 256 nmol/L a typical area under the curve (AUC)12 in
+‘‘mimics’’ the viable tissue thickness supported by diffusion from
+vivo (29). Negative controls were seeded and incubated under the same
+surrounding blood vessels in vivo (26). This provides a more
+conditions without drug. Three end points were concurrently measured as
+controllable experimental model than in vivo, which is necessary to
+fraction of negative control: proliferation using tritiated thymidine (Amersham) incorporation assay (31), viability using trypan blue exclusion counts,
+test and calibrate the computational model parameters. In turn,
+and metabolic activity using XTT (sodium 3¶-[1-[(phenylamino)-carbonyl]-3,4computer simulations of the model enable formulating and testing
+tetrazolium]-bis(4-methoxy-6-nitro)benzene-sulfonic acid hydrate) assay (32).
+the functional relationships that quantify the dependence of drug
+All experiments were done in triplicate. Photographs were taken with a digital
+resistance on diffusion gradients and particular tissue charactercamera through a Zeiss microscope (
+100 magnification).
+istics (e.g., tissue compactness as a function of cell packing density;
+Mathematical model of tumor growth and drug response. Briefly, the
+ref. 27). We conclude that computational modeling tightly
+equations (22, 23) are formulations of mathematical models used in enintegrated with tumor biology extends the information that can
+gineering to describe phase separation of two partially miscible components
+be learned from pharmacokinetic experiments (28–30), offering a
+(viable and necrotic tumor tissue), diffusion of small molecules (cell
+promising possibility of ultimately quantifying and predicting
+substrates and drug), and conservation of mass (Quick Guide, Supplementreatment response from individual tumor characteristics.
+tary Fig. S1; refs. 33–36). Mass conservation equations describe growth
+(proliferation as a function of total number of cycling cells) and death from
+the cytotoxic effects of the drug (apoptosis as a function of a rate constant
+Materials and Methods
+dependent on the unique cell sensitivity and as a function of cycling cells).
+These are combined with diffusion of small molecules to a reactionDoxorubicin was used as the cytotoxic drug in the experiments.
+diffusion equation. Rate constants for proliferation and apoptosis are
+Experiments used MCF-7 wild-type (WT) breast cancer cell lines to represent
+modified by functions that represent their dependence on cell nutrients and
+drug-sensitive tumor cells and MCF-7 40F breast cancer cell lines to represent
+oxygen (proliferation) and drug concentration (death), along with a
+drug-resistant tumor cells. Details of experimental methods are given below.
+dependence on spatial diffusion of these substances. By dimensional
+Observation of cell substrate gradients. Confluent MCF-7 WT (breast
+analysis of the reaction-diffusion equation, the diffusion penetration length
+cancer) cell monolayers were incubated with 0.25% (w/v) trypsin (Sigma) and
+L = (D/g)1/2, where D is the corresponding diffusion constant and g is a
+0.02% (w/v) EDTA (Sigma) for 4 min at 37jC. Complete medium was added
+characteristic cellular uptake rate. Large differences in concentration will
+to this mixture to inhibit enzyme activity, and the cell suspension was passed
+occur if L is much smaller than the tumor radius (linear dimension) in the
+through a 24-gauge needle six times to ensure a single-cell population.
+absence of blood vessels, creating a steep gradient. By using L and knowing
+A 10-mL High Aspect Ratio Vessel (HARV; Synthecon) was seeded at 2 
+ 106
+the spheroid size, one can determine the steepness of these gradients by
+cells/mL and rotated at 15 rpm at 37jC in a humidified atmosphere of 5%
+solving the reaction-diffusion equation. We note that gradients are affected
+CO2 in air. Aggregates formed within 6 h and were maintained in RCCS
+by cell packing density, intracellular uptake, and duration of drug exposure,
+culture for a total of 30 d. During this time, medium in the HARVs was
+as well as conditions specific to particular experiments.
+replenished 50:50 every other day. Spheroids were fixed in formalin,
+Estimation of mathematical model parameters. In our model, cell
+embedded in paraffin, and 5-Am sections cut for immunohistochemistry.
+substrates are represented by glucose and oxygen, with L estimated from
+To observe hypoxia, unfixed spheroids were incubated in 200 Amol/L
+independent measurements taken from the literature. For glucose, D f 1 
+
+pimonidazole (Chemicon) in complete medium for 2 h at 37jC before
+107 cm2/s (37) and uptake rate may be as large as 1 
+ 103 s1 (38),
+fixation as above. Proteinase K digestion was used for antigen retrieval
+whereas
+for oxygen, the corresponding values are f1 
+ 105 cm2/s (39)
+before primary antibody incubation. The mouse IgG primary antibody was
+and 1 
+ 101 s1 (40). Diffusion penetration lengths thus calculated (L 
+used at 1:600 dilution and incubated with 4-Am sections for immunoloc100 Am) are consistent with our experimental observations (immunohisalization of hypoxia through detection of pimonidazole protein adducts.
+tochemistry) and with previous (murine mammary tumor EMT6/Ro
+Immunohistochemical staining for GLUT-1 was done with rabbit polyclonal
+spheroid) observations showing glucose concentration decreasing by 65%
+antibody against the COOH-terminal portion (Abcam). The NHE-1 antibody
+(41) and oxygen decreasing by 90% (42) across the tumor viable region.
+is a rabbit polyclonal antibody (Santa Cruz). Immunohistochemistry was
+Although gradients of drug into tumor tissue have been observed with a
+done with the Discovery XT Automated Staining platform (Ventana Medical
+number of different cell types, many of these observations have been
+Systems, Inc.). Deparaffinization and antigen retrieval of tissue sections were
+done online. Antigen retrieval was done on the Ventana instrument with a
+borate buffer (pH 8) for 40 min at 95jC. Once the tissue was conditioned in
+12
+In pharmacokinetics, the AUC is a calculation to evaluate the total exposure of
+this way, primary antibody was applied manually at 1:800 dilution (60-min
+the body to a given drug. In a graph plotting plasma drug concentration versus time,
+incubation at 37jC). Primary antibodies were visualized using VMSI validated
+the area under this curve is the AUC.
+
+Cancer Res 2009; 69: (10). May 15, 2009
+
+4486
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst April 14, 2009; DOI: 10.1158/0008-5472.CAN-08-3740
+Prediction of Drug Response Using Integrative Modeling
+
+Figure 1. Computational model
+parameters. Functional relationships
+linking tumor mass growth and regression
+to the underlying phenotype are based on
+these parameters, with values derived
+from experimental observations (obtained
+previously and in this study). (*) Value
+shown is an example, corresponding to
+drug-sensitive MCF-7 WT cells at 256
+nmol/L doxorubicin (Dox ).
+
+qualitative. Thus, published values for diffusion constants and uptake rates
+can vary considerably. We estimate doxorubicin diffusion length by
+considering that the distance at which the penetrating concentration will
+be 50% of the source is ln 2 times the diffusion length—equivalent L here is
+f90 Am for a 2/3 drop across the spheroid viable region (f100 Am). This is
+consistent with in vitro doxorubicin penetration into Chinese hamster lung
+cell spheroids at 24 h (43) reporting an average 2/3 drop of external
+concentration across the viable region. Other studies have shown doxorubicin
+penetration in vivo (mouse model) decreasing by half within 40 to 50 Am of
+blood vessels by 3 h (4), as well as penetration in humans (biopsies)
+decreasing by half within 50 Am of blood vessels after 2 h of a bolus and within
+60 to 80 Am after 24 h in breast cancer tissue (2). By fitting the solution of the
+unsteady Eq. 3 to these data, we could indirectly estimate average cellular
+uptake rates g of doxorubicin by breast cancer cells in three-dimensional
+tissue of f1 day1, consistent with the independent penetration length
+estimate L = (D/g)1/2 from the steady-state profiles.
+The rate k M (inverse time) measures the change in cell number in a
+population due to mitosis, normalized by total cell number (control = cells
+with no drug), and thus was calibrated by matching proliferation data from
+our experiments, using as initial guess for k M/k M,C, the in vitro cell
+proliferation as fraction of control divided by in vitro cell viability (total
+number of cells N in monolayer) as fraction of control, yielding an estimate
+of cell proliferation f1 day1.
+Apoptosis rate k A (inverse time) over the period 0 < t < T (total experiment time) was estimated as a function of local concentrations of
+substrate r and drug d as kA ðr; dÞ ¼ k¶A ðr1 ; dÞ þ k¶¶A ðrÞ , where k¶A ¼
+T 1 logðN ðdÞ=NC Þ and k00A ¼ T 1 logð1 þ að1  r=r1 ÞÞ. Death rate k A¶
+was calculated from measurements of cell viability N as fraction of negative
+control N C over time in monolayer cell cultures at various drug concentrations. Physiologic resistance based on cell cycle status was modeled
+with k A00. Decreased substrate concentration in three dimensions results in
+cell populations that cycle less and therefore have reduced sensitivity to
+doxorubicin.13 In the above formula, enhanced survival was assumed to be
+
+13
+Cytotoxicity of MCF-7 cells to doxorubicin may be affected more by glucose
+deprivation than by hypoxia (6, 44). The glucose-regulated stress response (10) has
+been correlated with resistance to topoisomerase II–directed chemotherapeutic drugs
+such as doxorubicin (10, 11) through a decreased expression of topoisomerase II in
+MCF-7 cells (12).
+
+www.aacrjournals.org
+
+linearly dependent on substrate concentration with a fitting constant
+calibrated from previous observations (12) showing an average MCF-7
+viability increase 2.2 to 4 times for glucose deprivation of up to 50% at drug
+concentrations similar to our study (i.e., 2.2 V 1 + a/2 V 4.0). In our
+experiments, glucose concentration in the medium was r 1 = 2.0 g/L. Note
+that for r = r 1, the above formula gives k A00 = 0 and thus k A00 = k A¶.
+Necrosis parameters for diffusion-limited growth k N (rate of necrosis)
+and r N (substrate limit for cell viability) were calibrated by matching
+simulation results to in vitro spheroid growth curves and histologic data
+under conditions with no drug, as described previously (45), so that the
+simulated spheroid radius and viable region thickness matched in vitro
+observations. These parameters are directly responsible for the steady
+spheroid size (and extent of necrosis) after a growth period because they
+regulate the balance of mass growth due to cell proliferation in the viable
+region and mass loss due to cell disintegration in the necrotic center (45).
+Based on our in vitro measurements of spheroid and necrotic volumes, we
+found a stationary average spheroid radius of f0.8 mm, with viable region
+of thickness f0.1 mm (see also ref. 46). The latter is consistent with the
+estimated cell substrate penetration length L calculated above. The model
+calibration based on these quantities consistently yielded k N/k N = 0.7 and
+r N/r 1 = 0.5.
+Higher cell densities were observed for resistant spheroids, which had a
+more compact morphology (27). Based on these observations, higher cell
+adhesion parameter values (22) were used in the model equations to
+simulate resistant spheroids than for sensitive ones. We used a recently
+presented calibration procedure (45) to determine the relative values for
+sensitive and resistant cell cultures. This observation and the resulting
+different parameters for the two cell phenotypes underscore the need to
+explicitly model cell adhesion forces when constructing models of cancer
+growth.
+
+Results
+The hypothesized functional relationships of the computational
+model link growth and regression of the tumor mass to the
+underlying phenotype as described in Eqs. 1–3 (Quick Guide). The
+model is fully constrained (Materials and Methods) through
+experimentally based parameters (Fig. 1). To quantify physiologic
+resistance in three-dimensional tumor tissue, diffusion gradients
+
+4487
+
+Cancer Res 2009; 69: (10). May 15, 2009
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst April 14, 2009; DOI: 10.1158/0008-5472.CAN-08-3740
+Cancer Research
+
+Figure 2. Diffusion gradients are
+incorporated in the model functional
+relationships to simulate the experimental
+conditions. Clockwise from top left:
+Immunohistochemical staining of tumor
+spheroids showing increasing positivity
+for pimonidazole protein adducts
+(darker brown ) in the direction of the
+center, indicating a decrease in oxygen
+across the viable rim of f100 Am
+(v.r., viable rim; n, necrotic region); NHE-1
+staining showing up-regulation of Na+/H+
+transporters (darker brown) toward the
+necrotic region in response to a decrease
+in pH; increasing positivity for GLUT-1
+staining (brown ) in the perinecrotic
+region showing cellular adaptation to
+hypoglycemic and hypoxic stress due to
+decreasing concentration of glucose
+and oxygen across the spheroid radius;
+increasing positivity of TUNEL staining
+(dark brown ) toward the center indicating
+correlation of apoptosis with hypoxia;
+Ki-67 nuclear staining (dark gray ) showing
+cell proliferation correlating with substrate
+availability. Bar, 50 Am.
+
+are incorporated in the functional relationships and the model is
+calibrated to compute these gradients. Accordingly, immunohistochemical measurements were done on drug-sensitive tumor
+spheroids cultured in vitro (Fig. 2) to confirm that in our experiments (a) cell substrate concentration decreases across the
+radius of the spheroid, (b) apoptosis correlates with hypoxia, and
+(c) proliferation correlates with substrate availability (43, 47).
+Increasing positivity for pimonidazole protein adducts across the
+viable rim (f100 Am) in the direction of the spheroid center indicates a gradient of oxygen. Across the viable region, up-regulation
+of Na+/H+ transporters detected by increasing positivity for NHE-1
+is observed, showing a gradient of pH. Na+/H+ transporters are upregulated in response to acidosis. Up-regulation of GLUT-1
+transporters (adaptation to hypoxic/hypoglycemic stress) is shown
+in the increasing positivity for GLUT-1 (48) in perinecrotic regions,
+indicating gradients of glucose and oxygen. The frequency of
+apoptotic cells increases toward the center as shown by increasing
+positivity of terminal deoxyribonucleotidyl transferase–mediated
+dUTP nick end labeling (TUNEL) staining. End-stage apoptotic
+bodies are concentrated at the perinecrotic necrotic regions, with
+most cells in the center being apoptotic or necrotic. Cell proliferation is limited to the viable rim, as shown by Ki-67 nuclear staining.
+According to the computational model, the solution of the
+reaction-diffusion, Eq. 3, yields substrate gradients (Fig. 3A) developing across a viable region of width f0.1 mm. The computed
+width of this region is consistent with previous observations by
+other investigators (e.g., ref. 26). Both glucose and oxygen substrate
+concentrations were calculated in the model to drop by at least
+50% across the spheroid viable region, with an average concentration hr/r 1i  0.7 in the living tumor tissue. This is in agreement
+with measurements of glucose (41) and oxygen (e.g., ref. 42) in
+spheroid viable regions from previously reported in vitro measurements (Materials and Methods).
+Similarly, the model computes the drug gradients that develop
+within the viable tumor spheroid tissue. The calculated drug
+concentration profile reaches steady state in f24 hours and decays
+by 2/3 across the viable region to yield an average drug
+concentration of 50% that of outside the spheroid (Fig. 3B). Note
+that the drug penetration length is comparable to the penetration
+
+Cancer Res 2009; 69: (10). May 15, 2009
+
+length of substrates (Fig. 2). Because doxorubicin is a cell cycle–
+specific drug and the proportion of cells that are cycling correlates
+with the substrate availability, the drug would be less effective as
+the proportion of cycling cells is diminished. Not only is its concentration decreased by the diffusion barrier but also its efficacy is
+impaired as a result of the substrate gradients. The physiologic
+resistance predicted by the model based on the hypothesized
+functional relationships would, in principle, apply to any cell cycle–
+specific drug.
+Cell proliferation (ratio of proliferation-to-viability counts) in vitro
+under conditions with diffusion gradients (i.e., in spheroids) versus
+monolayers was lower by at least 50% for both cell lines at drug concentrations d > 64 nmol/L representing clinically relevant dosages14
+(Fig. 4A). Further, increased viability for drug-sensitive cells in three
+dimensions corresponded with f50% lower cell metabolic activity
+(ratio of metabolic-to-viability counts) in vitro (data not shown).
+These data indicate that cell quiescence was significant at drug
+dosages similar to in vivo conditions. The cell apoptosis parameter of
+the computational model calculated from the monolayer cell
+viability data increases with drug concentration (Fig. 4B).
+The functional relationships of the computational model (Eqs.
+1–3) linking growth and regression of the tumor mass to the
+underlying phenotype are validated by quantifying the physiologic
+resistance introduced by the diffusion gradients. Cell viabilities
+predicted by the model agree well with the ones observed experimentally in three-dimensional spheroids (Fig. 5). In contrast,
+monolayer cell viability data are a poor prognosticator of drug
+resistance in three-dimensional tumors. An average survival
+increase (as fraction of control) of 250% over monolayer was
+predicted for drug-sensitive (MCF-7 WT) spheroids under various
+drug concentrations (Fig. 5A), whereas for drug-resistant (MCF-7
+40F) spheroids, the corresponding increase was 280% (Fig. 5B).
+The median dose15 for MCF-7 40F was f20% higher in spheroid
+versus monolayer than for MCF-WT, implying not only that the
+14
+In vitro exposure to 256 nmol/L for 96 h yields an AUC of f2.5 
+ 105 mol/L h,
+whereas for a typical patient doxorubicin plasma levels after a bolus injection
+represent an exposure of f3 
+ 105mol/L h.
+15
+Median dose is the drug concentration required to achieve 50% cell kill.
+
+4488
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst April 14, 2009; DOI: 10.1158/0008-5472.CAN-08-3740
+Prediction of Drug Response Using Integrative Modeling
+
+Figure 3. Computational model computes the gradients in three-dimensional (3-D ) tissue. Cross section of a tumor spheroid in the computational model (A; dotted
+line, tumor boundary; dashed line, perinecrotic area) showing calculated diffusion gradients (arrow ) of cell substrate concentration r/r 1 (as fraction of external
+concentration in the medium) using diffusion penetration length parameter L  100 Am. Necrosis becomes significant at substrate level r/r 1 < 0.5. B, doxorubicin
+concentration d/d 1 in tumor tissue (normalized with concentration in the medium) versus distance from the tumor/medium interface, estimated for the model to be
+consistent with data in refs. 2, 43 and others (Materials and Methods). By solving the unsteady Eq. 3, the drug gradient across the viable region can be calculated at
+various times: bottom curve, 2 h; middle curve, 24 h; topmost curve, steady-state, showing f2/3 drop from the tumor edge to the perinecrotic region.
+
+three-dimensional morphology promoted the net survival for both
+cell types but also that the resistant phenotype was further favored
+by the three-dimensional configuration.
+We noted that drug-resistant spheroids maintained more
+compact, nearly spherical shapes (Fig. 6A) that simply decreased
+in size as cells were killed, whereas drug-sensitive spheroids
+formed irregular, looser shapes (Fig. 6B ) that fragmented,
+particularly at higher drug concentrations. The tumor morphology
+may depend on the competition between heterogeneous cell
+proliferation caused by diffusion gradients of cell substrates,
+driving shape instability, and stabilizing mechanical forces such as
+cell-cell and cell-matrix adhesion, as we quantitatively showed in
+previous work (45). Here, we observe a similar instability for drugsensitive cells, indicating that their adhesion is below the threshold
+
+necessary to maintain tumor shape stability. This is confirmed
+through the computational model, where variation in the
+parameter values for cell adhesion (22) reproduces these morphologies (Fig. 6C and D).
+
+Discussion
+We have used an integrative method that tightly couples
+computational modeling with biological data to quantify physiologic resistance in three-dimensional tumor tissue in vitro. The
+model hypothesizes functional relationships that mechanistically
+link the growth and regression of a tumor mass to the underlying
+phenotype. These relationships incorporate the complex interplay
+between tumor growth, cell phenotype, and diffusion gradients,
+
+Figure 4. Cell proliferation and apoptosis. A, cell proliferation (ratio of proliferation-to-viability counts; n = 3) in vitro was lower by at least 50% under conditions
+with diffusion gradients (spheroids) versus monolayers for both cell lines at drug concentrations d > 64 nmol/L representing clinically relevant dosages. B, drug-induced
+cell apoptosis death rate parameter k A¶(r 1, d) (inverse time) versus doxorubicin concentrations d calculated (Materials and Methods) from measured in vitro
+monolayer viability counts (n = 3); glucose concentration r 1 = 2.0 g/L.
+
+www.aacrjournals.org
+
+4489
+
+Cancer Res 2009; 69: (10). May 15, 2009
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst April 14, 2009; DOI: 10.1158/0008-5472.CAN-08-3740
+Cancer Research
+
+Figure 5. Validation of the hypothesized functional relationships. This is done by the computational model quantifying the physiologic resistance introduced by the
+diffusion gradients. Cell viabilities as fraction of control N/N C versus doxorubicin concentrations d; glucose concentration r 1 = 2.0 g/L; time T = 96 h of drug exposure;
+n = 3. A, MCF-7 WT drug-sensitive cells. B, MCF-7 40F drug-resistant cells. White columns, three-dimensional in vitro tumor spheroids (dark gray columns,
+in vitro monolayer data reported for comparison); light gray columns, predictions of the computational model (error bars reflect variation in the apoptosis rate
+parameter—see Materials and Methods).
+
+caused by heterogeneous delivery of oxygen and cell substrates and
+removal of metabolites, and are thus able to calculate tumor drug
+response as a predictable process dependent on biophysical laws.
+The results underscore the importance of a quantitative approach
+in evaluating chemotherapeutic agents that takes into consideration diffusion in addition to such chemoprotective effects as cell
+phenotypic properties and cell-cell and cell-extracellular matrix
+(ECM) adhesion (49). Although the model was calibrated with in
+vitro data for breast cancer, this approach may also apply to drug
+response of other tissues.
+By modeling transport of drug and cell substrates, this work
+creates a quantitative tool that could in the future be used to
+
+Figure 6. Correlation of tumor morphologic stability with drug resistance. A,
+compact, nearly spherical morphology of a drug-resistant MCF-7 40F tumor
+spheroid in vitro is contrasted with the looser, irregular morphology of a drugsensitive MCF-7 WT spheroid (B ). In the model, stable (C ) and unstable (D )
+morphologies depend on variation in the parameter values for cell adhesion
+forces (45). Bar, 100 Am.
+
+Cancer Res 2009; 69: (10). May 15, 2009
+
+predict resistance in patients based on their tumor cell properties,
+thus improving treatment outcome. In particular, the proposed
+functional relationships help to quantify resistance in human
+breast cancer due to local cell substrate depletion. Our integrative
+experimental/computational approach provides insight into the
+physical dynamics of solid tumors and validates the hypothesized
+functional relationships as adequate to describe the observed
+phenomena. Although more complex functional forms could
+conceivably also provide a reasonable match between model and
+experimental results, quantifying the diffusion effect with a
+minimal mathematical description is the preferred approach,
+unless it is known to be wrong, as it facilitates insight into the
+system and provides for more economical simulations. We
+explicitly chose not to use complex relationships that would
+contain more parameters than the number of independent
+measurements available for calibration, thus resulting in an
+underdetermined problem.
+Cell packing density affects the magnitude of diffusion gradients
+and may pose a barrier to effective drug penetration (27). This
+density can vary between cell lines and tumors and reflect
+variations in drug resistance (compare Fig. 6). How this relates to
+cell adhesion molecule expression (e.g., integrin and E-cadherin) is
+unclear. Mechanisms of cell packing may include stronger cell
+adhesion forces due to higher E-cadherin expression; this should
+also limit proliferation, which does not seem to be the case here for
+the drug-resistant cells at lower drug concentrations. Additionally,
+cellular stress affects the quantity and strength of cell adhesion
+molecules. We have previously investigated the effect of the tumor
+microenvironment on tissue morphology (45, 50), suggesting that
+marginally stable environmental conditions could directly affect
+morphogenesis and present an additional challenge to therapy
+(45, 48) in vivo by increasing tumor cell invasiveness and leading to
+complex infiltrative morphologies, depending on the magnitude of
+cell adhesion forces that tend to maintain compact, noninvasive
+tumors (50). Diffusion gradients combined with higher cell packing
+density augment drug resistance synergistically, as observed in our
+experiments with the higher median dose for the more compact,
+drug-resistant spheroids, yet it may be difficult to deterministically
+gauge their combined effect (5). Synergism may be due to increased
+
+4490
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst April 14, 2009; DOI: 10.1158/0008-5472.CAN-08-3740
+Prediction of Drug Response Using Integrative Modeling
+
+drug binding to ECM in tumor areas proximal to the drug source,
+whereas substrate and drug penetration to distal areas is
+significantly reduced due to higher cell packing, thus exacerbating
+the resistance effect of the diffusion barrier.
+Note that the presumption that the necrotic region is not a risk
+factor for progression may not be necessarily true because
+selection pressures for resistance and induction of mutation are
+strongest in hypoxic, perinecrotic areas. Thus, inducing a large
+necrotic fraction during treatment may paradoxically further select
+for drug resistance.
+The class of prediction modeling presented in this article, based
+on an assimilation of complex processes with a fully threedimensional physical environment, offers the capability of complementing current pharmacokinetic measurements. A more
+expansive integration of theoretical model parameters with
+biological data could help to move toward prediction of treatment
+response based on in vitro and in vivo tumor information, and
+determine the correspondence between in vitro measurements and
+the in vivo condition to refine and validate the assumption that this
+approach can describe in vivo tumors. Incorporation of patientspecific tumor phenotypic and microenvironmental parameters
+
+References
+1. Trédan O, Galmarini CM, Patel K, Tannock IF. Drug
+resistance and the solid tumor microenvironment. J Nat
+Cancer Inst 2007;99:1441–54.
+2. Lankelma J, Dekker H, Luque RF, et al. Doxorubicin
+gradients in human breast cancer. Clin Cancer Res 1999;
+5:1703–7.
+3. Sinek J, Frieboes HB, Zheng X, Cristini V. Twodimensional chemotherapy simulations demonstrate
+fundamental transport and tumor response limitations involving nanoparticles. Biomed Microdev 2004;
+6:297–309.
+4. Primeau AJ, Rendon A, Hedley D, Lilge L, Tannock IF.
+The distribution of the anticancer drug doxorubicin in
+relation to blood vessels in solid tumors. Clin Cancer Res
+2005;11:8782–8.
+5. Sinek JP, Sanga S, Zheng X, Frieboes HB, Ferrari M,
+Cristini V. Predicting drug pharmacokinetics and effect
+in vascularized tumors using computer simulation. J
+Math Biol 2009;58:485–510.
+6. Greijer AE, de Jong MC, Scheffer GL, Shvarts A, van
+Diest PJ, van der Wall E. Hypoxia-induced acidification
+causes mitoxantrone resistance not mediated by drug
+transporters in human breast cancer cells. Cell Oncol
+2005;27:43–9.
+7. Spitz DR, Sim JE, Ridnour LA, Galoforo SS, Lee YJ.
+Glucose deprivation-induced oxidative stress in human
+tumor cells. Ann N Y Acad Sci 2000;899:349–62.
+8. Lee YJ, Galoforo SS, Berns CM, et al. Glucose
+deprivation-induced cytotoxicity and alterations in
+mitogen-activated protein kinase activation are mediated by oxidative stress in multidrug-resistant human
+breast carcinoma cells. J Biol Chem 1998;273:5294–9.
+9. Brown NS, Bicknell R. Hypoxia and oxidative stress in
+breast cancer. Oxidative stress: its effects on the growth,
+metastatic potential and response to therapy of breast
+cancer. Breast Can Res 2001;3:323–7.
+10. Li J, Lee AS. Stress induction of GRP78/BiP and its
+role in cancer. Curr Mol Med 2006;6:45–54.
+11. Tomida A, Tsuruo T. Drug resistance mediated
+by cellular stress response to the microenvironment
+of solid tumors. Anti Cancer Drug Design 1999;14:
+169–77.
+12. Yun J, Tomida A, Nagata K, Tsuruo T. Glucoseregulated stresses confer resistance to VP-16 in human
+
+www.aacrjournals.org
+
+into the model could enhance clinical strategies and prognosis
+evaluation. We further envision that these methods will enhance
+current pharmacokinetic models used in designing and interpreting phase II clinical trials.
+
+Disclosure of Potential Conflicts of Interest
+No potential conflicts of interest were disclosed.
+
+Acknowledgments
+Received 9/25/08; revised 1/26/09; accepted 2/25/09; published OnlineFirst 4/14/09.
+Grant support: National Cancer Institute, NIH grants U56CA113004 and R01
+CA093650 and National Science Foundation, The Cullen Trust of Health Care, NSFDMS 0818104, National Cancer Institute, Department of Defense.
+The costs of publication of this article were defrayed in part by the payment of page
+charges. This article must therefore be hereby marked advertisement in accordance
+with 18 U.S.C. Section 1734 solely to indicate this fact.
+We acknowledge John Sinek and Steven Wise (Mathematics, University of
+California-Irvine), Sandeep Sanga (Biomedical-Engineering, University of TexasAustin), Paul Macklin (School of Health Information Sciences, University of TexasHouston), Ernest Han (Obstetrics/Gynecology, University of California-Irvine), Hoa
+Nguyen (Medicine, University of California-Irvine) for helpful comments and
+discussions, and the reviewers for their valuable input.
+
+cancer cells through a decreased expression of DNA
+topoisomerase II. Oncol Res 1995;7:583–90.
+13. Pusztai L, Hortobagyi GN. High-dose chemotherapy:
+how resistant is breast cancer? Drug Resist Updat 1998;
+1:62–72.
+14. Sanga S, Sinek JP, Frieboes HB, Ferrari M, Fruehauf JP,
+Cristini V. Mathematical modeling of cancer progression
+and response to chemotherapy. Expert Rev Anticancer
+Ther 2006;6:1361–76.
+15. Sanga S, Frieboes HB, Zheng X, Bearer E, Cristini V.
+Predictive oncology: a review of multidisciplinary, multiscale in-silico modeling linking phenotype, morphology
+and growth. Neuroimage 2007;37:S120–34.
+16. El-Kareh AW, Secomb TW. Two-mechanism peak
+concentration model for cellular pharmacodynamics of
+doxorubicin. Neoplasia 2005;7:705–13.
+17. Ward JP, King JR. Mathematical modeling of drug
+transport in tumour multicell spheroids and monolayer
+cultures. Math Biosci 2003;181:177–207.
+18. Jackson TL. Intracellular accumulation and mechanism of action of doxorubicin in a spatio-temporal
+tumor model. J Theor Biol 2003;220:201–13.
+19. Norris ES, King JR, Byrne HM. Modelling the response
+of spatially structured tumours to chemotherapy: drug
+kinetics. Math Comp Model 2006;43:820–37.
+20. Byrne HM, Owen MR, Alarcón T, Murphy J, Maini PK.
+Modelling the response of vascular tumours to chemotherapy: a multiscale approach. Math Models Meth Appl
+Sci 2005;16:1219–41.
+21. Panovska J, Byrne HM, Maini PK. A theoretical study
+of the response of vascular tumours to different types of
+chemotherapy. Math Comp Model 2007;47:560–79.
+22. Wise SM, Lowengrub JS, Frieboes HB, Cristini V.
+Nonlinear simulations of three-dimensional multispecies tumor growth-I. Model and numerical method.
+J Theor Biol 2008;253:524–43.
+23. Frieboes HB, Lowengrub JS, Wise S, et al. Computer
+simulation of glioma growth and morphology. NeuroImage 2007;37:S59–70.
+24. Zheng X, Wise S, Cristini V. Nonlinear simulation of
+tumor necrosis, neo-vascularization and tissue invasion
+via an adaptive finite-element/level-set method. Bull
+Math Biol 2005;67:211–59.
+25. Cristini V, Lowengrub J, Nie Q. Nonlinear simulation
+of tumor growth. J Math Biol 2003;46:191–224.
+26. Sutherland RM. Cell and environment interactions in
+
+4491
+
+tumor microregions: the multicell spheroid model.
+Science 1988;240:177–84.
+27. Grantab R, Sivananthan S, Tannock IF. The penetration of anticancer drugs through tumor tissue as a
+function of cellular adhesion and packing density of
+tumor cells. Cancer Res 2006;66:1033–9.
+28. Fruehauf JP, Brem H, Brem S, et al. In vitro drug
+response and molecular markers associated with drug
+resistance in malignant gliomas. Clin Cancer Res 2006;
+12:4523–32.
+29. Fruehauf JP. In vitro assay-assisted treatment selection for women with breast or ovarian cancer. Endocr
+Relat Cancer 2002;9:171–82.
+30. Mehta RS, Bornstein R, Yu IR, et al. Breast cancer
+survival and in vitro tumor response in the Extreme
+Drug Resistance Assay. Breast Cancer Res Treat 2001;66:
+225–37.
+31. Kern DH, Weisenthal LM. Highly specific prediction
+of antineoplastic drug resistance with an in vitro assay
+using suprapharmacologic drug doses. J Nat Cancer Inst
+1990;82:582–88.
+32. Roehm NW, Rodgers GH, Hatfield SM, Glasebrook AL.
+An improved colorimetric assay for cell proliferation and
+viability utilizing the tetrazolium salt XTT. J Immunol
+Meth 1991;142:257–65.
+33. Kim J, Kang K, Lowengrub J. Conservative multigrid
+methods for ternary Cahn-Hilliard systems. Comm Math
+Sci 2004;2:53–77.
+34. Jiang GS, Shu CW. Effcient implementation of
+weighted ENO schemes. J Comput Phys 1996;126:202–28.
+35. Trottenberg U, Oosterlee C, Schüller A. Multigrid.
+New York: Academic Press; 2001.
+36. Isaacson E, Keller H. Analysis of numerical methods.
+New York: Wiley; 1966.
+37. Casciari JJ, Sotirchos SV, Sutherland RM. Glucose
+diffusivity in multicellular tumor spheroids. Cancer Res
+1988;48:3905–9.
+38. Kallinowski F, Vaupel F, Runkel S, et al. Glucose
+uptake, lactate release, ketone body turnover, metabolic
+micromilieu, and pH distributions in human breast
+cancer xenografts in nude rats. Cancer Res 1988;48:
+7264–72.
+39. Nugent LJ, Jain RK. Extravascular diffusion in normal
+and neoplastic tissues. Cancer Res 1984;44:238–44.
+40. Casciari JJ, Sotirchos SV, Sutherland RM. Variations in
+tumor cell growth rates and metabolism with oxygen
+
+Cancer Res 2009; 69: (10). May 15, 2009
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst April 14, 2009; DOI: 10.1158/0008-5472.CAN-08-3740
+Cancer Research
+concentration, glucose concentration, and extracellular
+pH. J Cell Physiol 1992;151:386–94.
+41. Teutsch HF, Goellner A, Mueller-Klieser W. Glucose
+levels and succinate and lactate dehydrogenase activity
+in EMT6/Ro tumor spheroids. Eur J Cell Biol 1995;66:
+302–7.
+42. Acker H, Carlsson J, Mueller-Klieser W, Sutherland
+RM. Comparative p O2 measurements in cell spheroids
+cultured with different techniques. Br J Cancer 1987;56:
+325–7.
+43. Durand RE. Slow penetration of anthracyclines into
+spheroids and tumors: a therapeutic advantage? Cancer
+Chemother Pharmacol 1990;26:198–204.
+
+Cancer Res 2009; 69: (10). May 15, 2009
+
+44. Kalra R, Jones A-M, Kirk J, Adams GE, Stratford IJ.
+The effect of hypoxia on acquired drug resistance and
+response to epidermal growth factor in Chinese hamster
+lung fibroblasts and human breast-cancer cells in vitro .
+Int J Cancer 1993;54:650–5.
+45. Frieboes HB, Zheng X, Sun C-H, Tromberg B,
+Gatenby R, Cristini V. An integrated computational/
+experimental model of tumor invasion. Cancer Res 2006;
+66:1597–604.
+46. Freyer JP, Sutherland RM. Regulation of growth
+saturation and development of necrosis in EMT6/Ro
+multicellular spheroids by the glucose and oxygen
+supply. Cancer Res 1986;46:3504–12.
+
+4492
+
+47. Carlsson J. A proliferation gradient in three-dimensional
+colonies of cultured human glioma cells. Int J Cancer 1977;
+20:129–36.
+48. Gatenby RA, Smallbone K, Maini PK, et al.
+Cellular adaptations to hypoxia and acidosis during
+somatic evolution of breast cancer. Br J Cancer
+2007;97:646–53.
+49. Morin PJ. Drug resistance and the microenvironment: nature and nurture. Drug Resist Updates 2003;6:
+169–72.
+50. Cristini V, Frieboes HB, Gatenby R, Caserta S, Ferrari
+M, Sinek J. Morphologic instability and cancer invasion.
+Clin Cancer Res 2005;11:6772–9.
+
+www.aacrjournals.org
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2009 American Association for Cancer
+Research.
+
+Published OnlineFirst April 14, 2009; DOI: 10.1158/0008-5472.CAN-08-3740
+
+Prediction of Drug Response in Breast Cancer Using
+Integrative Experimental/Computational Modeling
+Hermann B. Frieboes, Mary E. Edgerton, John P. Fruehauf, et al.
+Cancer Res 2009;69:4484-4492. Published OnlineFirst April 14, 2009.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-08-3740
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2009/11/24/0008-5472.CAN-08-3740.DC1
+
+This article cites 48 articles, 13 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/69/10/4484.full#ref-list-1
+This article has been cited by 3 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/69/10/4484.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications
+Department at pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications
+Department at permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 5, 2017. © 2009 American Association for Cancer
+Research.
+
+

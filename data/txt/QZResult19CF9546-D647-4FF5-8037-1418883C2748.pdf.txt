@@ -1,0 +1,1233 @@
+Published OnlineFirst October 23, 2013; DOI: 10.1158/0008-5472.CAN-13-1528
+
+Integrated Systems and Technologies: Mathematical Oncology
+
+Cancer
+Research
+
+A Circadian Clock Transcription Model for the
+Personalization of Cancer Chronotherapy
+Xiao-Mei Li1,4, Ali Mohammad-Djafari5, Mircea Dumitru5, Sandrine Dulong1,4, Elisabeth Filipski1,4,
+Sandrine Siffroi-Fernandez6, Ali Mteyrek1,4, Francesco Scaglione7, Catherine Guettier2,
+vi1,3,4
+Franck Delaunay6, and Francis Le
+
+Abstract
+Circadian timing of anticancer medications has improved treatment tolerability and efﬁcacy several fold, yet
+with intersubject variability. Using three C57BL/6-based mouse strains of both sexes, we identiﬁed three
+chronotoxicity classes with distinct circadian toxicity patterns of irinotecan, a topoisomerase I inhibitor active
+against colorectal cancer. Liver and colon circadian 24-hour expression patterns of clock genes Rev-erba and
+Bmal1 best discriminated these chronotoxicity classes, among 27 transcriptional 24-hour time series, according to
+sparse linear discriminant analysis. An 8-hour phase advance was found both for Rev-erba and Bmal1 mRNA
+expressions and for irinotecan chronotoxicity in clock-altered Per2m/m mice. The application of a maximum-aposteriori Bayesian inference method identiﬁed a linear model based on Rev-erba and Bmal1 circadian
+expressions that accurately predicted for optimal irinotecan timing. The assessment of the Rev-erba and Bmal1
+regulatory transcription loop in the molecular clock could critically improve the tolerability of chemotherapy
+through a mathematical model–based determination of host-speciﬁc optimal timing. Cancer Res; 73(24); 7176–88.
+2013 AACR.
+
+Major Findings
+The optimal circadian timing of an anticancer drug was
+predicted despite its variation by up to 8-hour along the 24
+hours among six mouse categories. This prediction relied
+on a mathematical model using liver circadian expression
+of clock genes Rev-erba and Bmal1 as input data and
+treatment tolerability as output parameter.
+
+Introduction
+A signiﬁcant improvement in the safety of cancer therapies
+could result from adequate drug timing within the 24 hours, as
+Authors' Afﬁliations: 1INSERM UMRS 776 «Rythmes biologiques et
+^ pitaux de Paris, Laboratoire d'Anatocancers», 2Assistance Publique-Ho
+^ pitaux de Paris,
+mie et Cytologie Pathologiques, 3Assistance Publique-Ho
+ de Chronothe
+rapie, De
+partement d'Oncologie Me
+dicale, Ho
+^ pital Paul
+Unite
+ Paris-Sud, Orsay; 5Laboratoire des Signaux
+Brousse, Villejuif; 4Universite
+mes, UMR8506 CNRS-SUPELEC-UNIV PARIS-SUD, Gif-suret Syste
+Yvette; 6University de Nice-Sophia-Antipolis, Institute de Biologie Valrose,
+CNRS UMR 7277, INSERM 1091, Nice, France; and 7Department of
+Medical Biotechnology and Translational Medicine, University of Milan,
+Milan, Italy
+Note: Supplementary data for this article are available at Cancer Research
+Online (http://cancerres.aacrjournals.org/).
+vi, INSERM UMRS 776, Rythmes
+Corresponding Author: Francis Le
+^ quet, Villejuif
+Biologiques et Cancers, Campus CNRS, 7 rue Guy Mo
+94800, France. Phone: 33149583483; Fax: 33149583459; E-mail:
+francis.levi@inserm.fr
+doi: 10.1158/0008-5472.CAN-13-1528
+2013 American Association for Cancer Research.
+
+7176
+
+shown in international randomized trials (1). Indeed a ﬁxed
+circadian delivery schedule—so-called chronotherapy—
+improved tolerability of 5-ﬂuorouracil/leucovorin/oxaliplatin
+up to 5-fold as compared with constant rate or differently
+timed chronomodulated infusions of the same drugs over the
+same infusion duration (2, 3). In experimental models, systemic
+and organ-speciﬁc toxicities of forty anticancer medications
+varied up to 10-fold according to circadian timing, supporting
+the concept of chronotoxicity (1). Strikingly, the timing of best
+drug tolerability coincided with that of best efﬁcacy (1, 4–6).
+This puzzling ﬁnding was best explained both by the disruption
+of circadian clocks and by cell-cycle variability in cancer cells
+(7). Indeed the delivery of medications according to circadian
+timing could shift the current cancer treatment paradigm from
+"the worse the toxicity, the better the efﬁcacy" toward "the
+better the tolerability, the better the efﬁcacy" (1, 6, 8). Chronotherapy effects resulted from the rhythmic control of drug
+absorption, transport, metabolism, detoxiﬁcation, drug targets, cell cycle, and apoptosis by circadian clocks (1, 9–16).
+Indeed, a molecular clock ticks within most body cells through
+3 main interwoven transcriptional/posttranslational feedback
+loops. These molecular clocks are coordinated by a central
+pacemaker in the hypothalamic suprachiasmatic nuclei,
+through diffusible and neurophysiologic signals (17, 18). Recent
+extensive clinical data showed that male patients on a ﬁxed
+chronotherapy schedule survived signiﬁcantly longer than
+both female patients on the same schedule and male patients
+on conventional delivery (19, 20). We assumed that the ﬁxed
+chronotherapy schedule was optimal in male patients, as it was
+developed on the basis of results from experiments in male
+mice and humans (19). Thus, it so happened that most
+
+Cancer Res; 73(24) December 15, 2013
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+Published OnlineFirst October 23, 2013; DOI: 10.1158/0008-5472.CAN-13-1528
+
+Clock Genes Expression for Personalized Chemotherapy Timing
+
+Quick Guide to Equations and Assumptions
+Here, we present the mathematical model that was designed for predicting the circadian rhythm in drug toxicity, using body
+weight loss (BWL) as main toxicity endpoint, based on circadian clock gene expression data. The inputs of this linear system model
+are the circadian clock gene expressions data, whereas outputs are BWL data. The model matrix is trained to respond to each input
+(gene expression data) with the corresponding output (BWL data) for a ﬁnite number of cases (training set). Then, another set of
+data (validating set) is used for measuring model performance. For the training part, we adopt a Bayesian estimation approach that
+is summarized as follows: considering the linear model gk ¼ Hf k þ "k , k ¼ 1, 2, . . ., K, where gk represents the output vector (BWL),
+H is the model matrix, fk represents the input data (gene expression data, Reverb-a and Bmal1), "k represents modeling and
+measurements errors, and K is the number of cases. We assign a normal distribution for the errors "k , which gives the possibility to
+deﬁne the likelihood of all sets of data, and we also assign a normal distribution to the unknown elements of the matrix H to
+translate our prior knowledge about it:
+(
+)
+
+
+K
+2
+1X
+1
+1
+
+
+pð gjH ; f ; v" Þ / exp 
+; pðHÞ / exp 
+ðAÞ
+g k  Hf k
+kH k2
+2 k¼1 v"
+2vH
+where ve is the variance of the noise, vH represents the a priori variance of the elements of the matrix H, and / represents
+"proportional to." Using the likelihood and the prior, we use the Bayes rule to obtain the expression of the posterior law:
+(
+"
+#)
+K
+2
+1 X
+1
+1
+2
+
+
+ðBÞ
+g  Hf k þ kH k
+pðH jg; f ; v" ; vH Þ / exp 
+2 k¼1 v" k
+vH
+Finally, we propose to use the maximum-a-posteriori (MAP) estimate deﬁned as:
+
+
+^ ¼ arg maxfpðH jg; f ; v" ; vH Þg ¼ arg min 1 J ðH Þ
+H
+H
+H
+2
+which leads to the optimization of the criterion:
+1
+J ðH Þ ¼
+v"
+
+K
+X
+
+ðCÞ
+
+!
+2
+
+kg k  Hf k k þ lkH k
+
+ðDÞ
+
+2
+
+i¼1
+
+where l ¼ vv" . This criterion is a quadratic function of H and the argument of its optimum obtained analytically as:
+H
+
+^ ¼
+H
+
+K
+X
+i¼1
+
+"
+g i f Ti
+
+K
+X
+
+#1
+f i f Ti þ lI
+
+ðEÞ
+
+i¼1
+
+The proposed model is a simple linear one. The assigned prior laws are Gaussian (A). This simpliﬁes the expression of the
+posterior law, which is also Gaussian (B), and both MAP and posterior mean (PM) estimators become the same, so that we have an
+analytical expression for it (E). No other assumption was added to the model. An interesting extension would involve the use a prior
+law that could enforce the sparsity of the elements of the model matrix. However, the limited numbers of training and validating
+experimental data sets (4 and 2, respectively) call for caution regarding a broad generalization of model predictions.
+
+scientiﬁc investigations have been usually conducted in male
+experimental models and humans, besides reproductive tract
+studies.
+In the current study, a systems biology approach combined
+in vivo and in silico studies to concurrently address the issue of
+sex and genetic dependencies of optimal chemotherapy timing
+using irinotecan as a model drug. This anticancer agent is a
+topoisomerase I inhibitor with proven efﬁcacy against colorectal and other cancers. Yet it can produce severe neutropenia,
+diarrhea, and fatigue, and compromise quality of life, and even
+survival (21–23). Previous mouse studies showed that circadian
+timing signiﬁcantly modiﬁed hematologic and/or intestinal
+toxicities of irinotecan. However its optimal drug timing varied
+
+www.aacrjournals.org
+
+by up to 8 hours in mice under similar light/dark synchronization according to the different publication reports (24–26).
+Here, we prospectively identiﬁed 3 distinct chronotoxicity
+classes according to sex and genetic background, despite the
+same photoperiodic synchronization, using both pharmacologic and molecular endpoints. We conﬁrmed the role of
+molecular clock function for irinotecan chronotoxicity in mice
+with clock gene Per2 mutation. The data helped us design a
+mathematical model that accurately predicted for optimal
+irinotecan timing according to both clock gene circadian
+expressions and recapitulated sex and genetic differences. We
+discuss the implications of this new concept for improving
+treatment outcomes through personalized chronotherapy.
+
+Cancer Res; 73(24) December 15, 2013
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+7177
+
+Published OnlineFirst October 23, 2013; DOI: 10.1158/0008-5472.CAN-13-1528
+
+Li et al.
+
+Materials and Methods
+Animals and synchronization
+All procedures were conducted in accordance with the
+French guidelines for animal care and experimentation
+(Decree 87-843). The studies were carried out in male and
+female mice of C57BL/6J, B6D2F1 (female C57BL/6 x male
+DBA2) and B6CBAF1 (female C57BL/6 x male CBA), 7 weeks of
+age, were purchased from Janvier. Mice were synchronized
+with an alternation of 12 hours of light (L) and 12 hours of
+darkness (D) (LD 12:12), with food and water ad libitum for 3
+weeks before any intervention. Zeitgeber Time 0 (ZT0) and
+ZT12 corresponded to L onset and D onset, respectively. All
+manipulations during the dark span were conducted under
+dim red light (<7 lux).
+Drug
+Hydrochloride irinotecan powder was purchased from Chemos Gmbh and diluted in sterile water every 2 days on each
+study day, before injections. The ﬁnal drug solution was
+injected intravenously into the retro-orbital venous sinus of
+the mice (10 mL/kg of body weight).
+Experimental designs
+For the systemic chronotoxicity experiments, irinotecan was
+administered daily at ZT3, ZT7, ZT11, ZT15, ZT19, or ZT23 for 4
+consecutive days. Overall 720 mice received a daily dose level of
+50 mg/kg for C57BL/6J and B6D2F1 or 80 mg/kg for B6CBAF1,
+according to previous equitoxicity data (27). For the target
+organ chronotoxicity experiments, mice in each potential
+chronotoxicity class (total N ¼ 198) received daily irinotecan
+(50 mg/kg/d) for 4 consecutive days at the ZT corresponding to
+their respective best and worst tolerability, that is, ZT15 and
+ZT3 for class 1, ZT11 and ZT23 for class 2, and ZT15 and ZT7 for
+class 3. Blood cell counts and bone marrow and intestinal
+damage were assessed 2, 4, and 6 days after irinotecan treatment completion.
+For the pharmacokinetic experiment, mice in each class
+(total N ¼ 240) received a single irinotecan dose (50 mg/kg) at
+the ZT corresponding to its respective best and worst tolerability. Iterative blood sampling was conducted in separate
+groups of mice, from 1 minute to 12 hours postdose, according
+to a transverse design.
+For the molecular characterization of the 3 chronotoxicity
+classes, we determined the mRNA expressions of selected
+genes in liver and/or in colon mucosa using a total of 72 mice
+from 3 chronotoxicity classes through tissue sampling at ZT0,
+ZT3, ZT6, ZT9, ZT12, ZT15, ZT18, or ZT21. We studied clock
+genes Rev-erba, Per2, and Bmal1 and clock-controlled genes
+involved in irinotecan metabolism—CES2, Top1, UGT1A1, and
+DBP; cell cycle—Wee1, Ccna2, Ccnb2, and p21; and apoptosis—
+Bcl2, Mdm2, Bax, and p53.
+The 24-hour patterns in Rev-erba and Bmal1 mRNA expression were documented in the liver of male wild type (WT) and
+male and female Per2m/m (129SvEvBrd  C57BL/6-Tyrc-Brd
+background). Five mice were studied in each group at each
+of 6 time points staggered by 4 hours (ZT3, 7, 11, 15, 19, or 23).
+To probe the critical role of the molecular clock for irinotecan
+
+7178
+
+Cancer Res; 73(24) December 15, 2013
+
+chronotoxicity, we used mice with Per2m/m (Per2brdm1 on
+129SvEvBrd  C57BL/6-Tyrc-Brd background and 7 backcross
+generation in C57BL/6J) in 2 consecutive experiments. This
+clock-defective model reportedly displayed gradual suppression of the circadian activity rhythm in constant darkness (28),
+altered corticosterone rhythm, and deregulated cell cycle (29).
+Irinotecan (50 mg/kg/d  4 days) was ﬁrst injected at 1 of 6 ZT
+in 41 male and 30 female Per2m/m mice, with body weight
+change being the primary endpoint. To probe the effect of
+molecular clock disruption on irinotecan target organ toxicities, we administered irinotecan (50 mg/kg/d  4 days at ZT7)
+to 16 male Per2m/m or wide type WT mice and obtained blood,
+femoral bone marrow, and ileum and colon mucosae 48 hours
+after treatment completion. The circadian molecular clocks
+were investigated in male corresponding WT and Per2m/m of
+both sexes (129SvEvBrd  C57BL/6-Tyrc-Brd background).
+Hematologic toxicity
+Blood and 2 femurs were sampled from each mouse. Bone
+marrow cells were collected by repeatedly ﬂushing the femurs
+with PBS through a 26-gauge needle. Circulating leukocytes
+and lymphocytes and bone marrow nucleated cells were
+counted with Cell-Dyn 3500R (Abbott Diagnostic).
+Histopathology
+The ileum and colon were obtained following treatment at 2
+ZT's, respectively, corresponding to "best" or "worst" tolerability of each class, or at optimal ZT for Per2m/m mice and ﬁxed
+into 4% paraformaldehyde. Twenty-four hours later, the samples were dehydrated and embedded into parafﬁn. Sections
+were stained with hemalun/erythrosine/safran. Each slide was
+examined by the same histopathologist, and lesions were
+graded in a blind manner. Ileum and colon lesions were scored
+as 1 for each of the following items: surface epithelial cells, villi
+structure, and crypt gland cells. The sum of all 3 scores was
+computed as being a toxicity grade, ranging from 0 (normal) to
+3 (alteration for each item). Apoptotic cells per 10 crypts were
+counted in ileum mucosa by a senior pathologist.
+Plasma irinotecan and SN-38 pharmacokinetic
+Blood was collected at 1, 15, 30, 60, 120, 240, 360, and 720
+minutes after irinotecan injection. Plasma was obtained by
+centrifugation at 850  g for 10 minutes at 4 C and then kept at
+80 C until analyses.
+Plasma concentrations of irinotecan and SN-38 were determined by high-performance liquid chromatography (HPLC;
+ref. 30). Plasma concentrations versus time data were analyzed
+by noncomparmental methods. Kinetica program was used to
+calculate area under the concentration curve (AUC), maximum
+concentration (Cmax), clearance, volume of distribution (Vd),
+and elimination t1/2 values. AUC for 0 to 12 hours (AUC0–12h)
+was calculated by using plasma concentration–time curves of
+irinotecan and SN-38. The AUC calculations were based on
+the linear trapezoidal rule. Plasma concentration of irinotecan
+and SN-38 determined in ﬁrst minute was accepted as Cmax
+parameter. The metabolic ratio was computed as AUC0–12 of
+SN-38/AUC0–12 of irinotecan.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+Published OnlineFirst October 23, 2013; DOI: 10.1158/0008-5472.CAN-13-1528
+
+Clock Genes Expression for Personalized Chemotherapy Timing
+
+Quantitative reverse transcription PCR
+Colon was sectioned and the colon lumen was washed with
+PBS and then cut open longitudinally. Colon mucosa was
+harvested by lightly scraping the surface, then suspended in
+PBS, and stored at 80 C until RNA extraction.
+Total RNA from liver and colon mucosa were puriﬁed (31)
+and stored at 80 C until use. Total RNA was converted to
+cDNA using random primers and Superscript II (Invitrogen).
+Quantitative PCR was carried out with a Light Cycler 480
+(Roche Diagnostics) using SYBR Green I dye detection. Expression levels were normalized to the levels of the constitutively
+and nonrhythmically expressed housekeeping gene 36B4, as
+previously described (32). All primers were obtained from
+Invitrogen Life Technologies.
+Statistical analyses
+Means and SEM were calculated and plotted for each set of
+parameters. Intergroup differences were statistically validated
+by multiple-way ANOVA with Scheffe post hoc tests.
+Rhythm parameters were computed for each group by using
+standard population Cosinor procedures. Cosinor analysis
+provided mesor (rhythm-adjusted mean), double amplitude
+(difference between minimum and maximum of ﬁtted cosine
+function), and acrophase (time of maximum in best-ﬁtting
+cosine function, with light onset as phase reference), with their
+respective 95% conﬁdence limits when P < 0.05. Cosinorcomputed parameters were compared using the Hotelling t
+test. All statistical analyses were conducted with dedicated
+tools developed under SPSS.
+Signal and systems analyses
+Factor analysis and principal component analysis (PCA)
+were used to identify the number of factors or principal
+components best needed to describe the 27 gene expression
+time series, using FACTORAN and PCA programs for
+MATLAB. Modiﬁed sparse PCA was then used to minimize
+the number of non-zero elements and select relevant variables in the loading matrix (33). Linear discriminant analysis (LDA) was applied to identify those factors that best
+discriminated the 3 chronotoxicity classes. This process was
+complemented by the use of sparse LDA, which jointly
+searched for the most discriminating and the sparsest
+loading matrix (34, 35).
+The degree of dependencies between 2 variables was robustly measured using Spearman correlation coefﬁcient, without
+any assumption of a Gaussian distribution (Spearman correlation coefﬁcients were computed between the circadian
+expressions waveforms). The adjacency tables between the
+variables and their respective graphical displays were constructed for each organ in each chronotoxicity class.
+Mathematical modeling for predicting irinotecan
+chronotoxicity pattern and optimal timing
+The time series of 2 clock gene expressions were used for
+predicting the chronotoxicity pattern (BWL). The relation
+between the input data (here, Rev-erba and Bmal1) and the
+output data (BWL) was assumed to be linear (Supplementary
+Fig. S1).
+
+www.aacrjournals.org
+
+The mathematical equations relating the inputs and the
+outputs for different classes were written as
+g k ¼ Hf k þ "k ; k ¼ 1; . . . ; K
+where fk represented the input vectors, gk represented the
+output vectors, H was the model matrix, and K was the number
+of classes. The MAP criterion used was equivalent to the
+minimization of the following criterion:
+K
+X
+J ðH Þ ¼
+kg k  Hf k k2 þ lkH k2
+k¼1
+
+where l was the regularization parameter. Minimizing this
+criterion:
+^ ¼ arg min J ðH Þ
+H
+H
+
+resulted in the following solution:
+"
+#1
+K
+K
+X
+X
+^ ¼
+H
+g i f Ti
+f i f Ti þ lI
+i¼1
+
+i¼1
+
+The data representing the input had been sampled every 3
+hours, from ZT0 to ZT21, in the non-mutant case, and every 4
+hours, from ZT3 to ZT21 in the mutant case. Therefore, the Reverba data and Bmal1 data were represented as vectors having
+the length 8 (an extrapolation is used for the mutant case), so
+the input vector had the length 16. The data representing the
+output were sampled every 4 hours, from ZT3 to ZT23, so the
+BWL data, was represented as a vector having the length 6.
+Both input and output data represented the mean values of the
+measured data at every point. The matrix H thus had the
+dimension 6  16.
+The method was implemented on mean data. The matrix
+was built using 3 pairs of data representing the non-mutant
+case and 1 pair of data representing the mutant case (training).
+For checking the accuracy of prediction, one pair of data
+representing the non-mutant case and one pair of data representing the mutant case were used (testing).
+
+Results
+Chronotoxicity classes
+The dosing time dependency of irinotecan tolerability was
+ﬁrst investigated in mice according to sex and genetic background, so as to possibly deﬁne distinct chronotoxicity classes.
+Mice on irinotecan lost weight, with a nadir occurring 1 to 3
+days after the fourth daily dose and fully recovered pretreatment weight within 1 to 7 days. Maximum BWL varied as a
+function of circadian timing, sex and strain (ANOVA, P < 0.001
+for each factor; Fig. 1A and B; Supplementary Fig. S2A–S2C).
+Overall, irinotecan was best tolerated in female rather than
+male mice (P < 0.001). Tolerability was best in B6CBAF1 rather
+than C57BL/6 or B6D2F1 (P < 0.001). BWL was most prominent
+in mice treated at ZT23, that is, near the end of the nocturnal
+activity span, or at ZT3 or at ZT7 pending upon sex and strain
+(P < 0.001). The relative circadian improvement in irinotecan
+tolerability ranged from 4.2- to 8.4-fold in female mice and from
+1.9- to 3.6-fold in male mice, according to genetic background.
+
+Cancer Res; 73(24) December 15, 2013
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+7179
+
+Published OnlineFirst October 23, 2013; DOI: 10.1158/0008-5472.CAN-13-1528
+
+Li et al.
+
+Figure 1. BWL as a function of irinotecan circadian timing in male or female mice from 3 mouse strains. Equitoxic doses of irinotecan were administered daily for
+4 days to C57BL/6 or B6D2F1 (50 mg/kg/d) or B6CBAF1 (80 mg/kg/d) at 1 of 6 ZT. Top row, histograms of mean body weight change  SEM according to
+irinotecan timing (n ¼ 15–45 per ZT for each sex and hybrid background) in B6D2F1 (A) and B6CBAF1 (B). Bottom row, identiﬁcation of 3 chronotoxicity classes
+based on the reconstructed circadian patterns with statistically validated 24-hour  12-hour rhythmic components according to Cosinor analysis class 1,
+female B6D2F1 and C57BL/6 (C); class 2, male B6D2F1 and C57BL/6 (D); class 3, female and male B6CBAF1 (E). Dashed lines, 24-hour mesor value;
+triangle symbol, mean ( SEM) according to ZT for the respective representatives of each class (class 1, female B6D2F1; class 2, male B6D2F1; class 3, female
+B6CBA1). Horizontal axis, white and black rectangles indicate light and dark spans of photoperiodic cycle, respectively. Statistically signiﬁcant differences as
+a function of ZT, sex, and strain (P from 2-way ANOVA, <0.001). Modeled circadian maximum and minimum BWL at ZT3 and ZT15 for class 1, at ZT23
+and ZT11 for class 2, and at ZT7 and ZT15 for class 3, respectively. See Supplementary Table S1 for results from Cosinor analyses.
+
+Chronotoxicity patterns were similar in C57BL/6 and B6D2F1
+mice of the same sex, but they differed in B6CBAF1. Sex-related
+differences were most obvious in B6D2F1 (Supplementary Fig.
+S2A and S2B and Supplementary Table S1).
+The accuracy of optimal irinotecan timing was further
+determined among ZT7, ZT11, or ZT15 through adequately
+powered additional experiments in male and female B6D2F1
+and B6CBAF1 mice. The optimal dosing time of irinotecan was
+conﬁrmed to be ZT11 in male B6D2F1 (ANOVA, P ¼ 0.034; post
+hoc Scheffe test, ZT7 < ZT11, P ¼ 0.041; Supplementary Fig.
+S2D). In contrast, treatment at ZT15 achieved best tolerability
+in female B6D2F1 mice (P < 0.001) and in male and female
+B6CBAF1 (P ¼ 0.01 and 0.04, respectively; Supplementary Fig.
+S2D and S2E).
+The circadian waveform of the toxicity pattern displayed a
+unimodal 24-hour pattern, with a single fundamental period of
+24 hours, both in male and female B6D2F1 (P < 0.00001) and
+C57BL/6 (P < 0.001), without any signiﬁcant 12-hour harmonic
+component (Supplementary Table S1). Conversely, both 24and 12-hour periodic components were validated in male and
+female B6CBAF1. Distinct 24-hour patterns characterized the
+reconstructed circadian signals as a function of sex and genetic
+background (Fig. 1C–E).
+
+7180
+
+Cancer Res; 73(24) December 15, 2013
+
+These results supported the identiﬁcation of 3 chronotoxicity classes and their underlined representatives for subsequent studies to be conducted: female B6D2F1 and C57BL/6 as
+class 1, male B6D2F1 and C57BL/6 as class 2, and male and
+female B6CBAF1 as class 3. These representatives displayed
+statistically validated differences regarding chronotoxicity
+mesor, amplitude, timing, and reconstructed waveform (Fig.
+1C–E; Supplementary Table S1).
+In addition, the extents of both hematologic and intestinal
+toxicities also depended upon irinotecan timing, in good
+agreement with body weight change data (Fig. 2A–D). However, no consistent relation-linked drug toxicities and irinotecan or SN-38 plasma pharmacokinetics. The expected positive
+relation between chronotoxicity and plasma exposure to irinotecan and SN-38 was found for class 1, but not for classes 2 or
+3 (Fig. 2E and F; Supplementary Tables S2 and S3). These
+ﬁndings called for investigations of molecular clock and clockcontrolled pathways in liver, where irinotecan was bioactivated
+and detoxiﬁed, and in colon, an important toxicity target.
+Class-dependent peripheral clocks
+To identify molecular markers discriminating the 3 chronotoxicity classes, we determined the circadian patterns in the
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+Published OnlineFirst October 23, 2013; DOI: 10.1158/0008-5472.CAN-13-1528
+
+Clock Genes Expression for Personalized Chemotherapy Timing
+
+Figure 2. Class-dependent circadian control of hematologic and intestinal toxicities and pharmacokinetics. A, leukopenia: the rebound over baseline found for
+leukocyte count in class 3 treated at ZT15 (best ZT) most likely reﬂected accelerated hematologic recovery. B, bone marrow nucleated cell depletion, C,
+histologic score of ileum mucosa damage. D, histologic score of colon mucosa damage. E, plasma AUC of irinotecan. F, plasma AUC of bioactive metabolite
+SN-38. Irinotecan was administered at class-speciﬁc timing of best or worst tolerability (ZT15 or ZT3 for class 1, ZT11 or ZT23 for class 2, and ZT15
+or ZT7 for class 3). Data are mean  SEM for A, B, E, F, and percentages for C and D. Bone marrow and intestinal toxicities were signiﬁcantly reduced following
+treatment at the class-speciﬁc best timing according to ANOVA (leukopenia, P ¼ 0.014; bone marrow hypoplasia, P ¼ 0.005), 2-sided Fisher exact test (ileum
+and colon lesions, P ¼ 0.044). Statistically signiﬁcant differences in AUCs consistent with chronotoxicity pattern for class 1 only (2-way ANOVA and
+multiple comparisons;  , P < 0.05;   , P < 0.01). Also note large class-related differences in SN-38 bioactivation following irinotecan administration at
+the least toxic time, with SN-38 AUC (mean  SEM, mg min/mL) ranging from 329  85 in class 2 to 498  154 in class 1, and 630  64 in class 3. All
+pharmacokinetic parameters analyses in Supplementary Tables S2 and S3.
+
+mRNA expression of relevant genes in liver and colon mucosa
+(Fig.3).Thelargestpeak-to-troughdifferenceswerefoundforReverba, both in liver (by 360- to 380-fold according to class) and in
+colon (by 65- to 118-fold). Per2 expression varied 13- to 17-fold in
+liver and 7.5- to 15-fold in colon, whereas Bmal1 ranges 19- to 109fold in liver and 10- to 15-fold in colon according to class. Cosinor
+analysis documented sinusoidal circadian rhythms for the
+expression of all 3 genes, with acrophases occurring near midlight for Rev-erba, near mid-dark for Per2, and near the end of the
+dark span for Bmal1. The expression of Rev-erba during the light
+span and that Bmal1 at night mostly differentiated the 3 classes.
+The circadian peak of clock-controlled gene Wee1 in liver
+occurred at ZT9 in classes 1 and 3, as compared with ZT15 in
+class 2 (Fig. 3). In colon, Wee1 peaked at ZT12 in class 1 and ZT15
+in classes 2 and 3. For DBP, a key clock controlled transcription
+factor driving circadian drug metabolism, the largest peak-totrough differences varied 35- to 61-fold in liver and 4- to 18-fold in
+colon according to class. Circadian peak time occurred at ZT12 in
+classes 1 and 2 but at ZT9 in class 3 in colon (Fig. 3).
+
+www.aacrjournals.org
+
+Main molecular patterns differentiating chronotoxicity
+classes
+This issue was investigated through the application of PCA,
+independent component analysis, and factor analysis on the
+spectral patterns of the 24-hour liver and colon gene expression
+time series. The maximized log-likelihood ratio increased by 20 to
+30 decibels, which corresponded to a 100- to 1,000-fold increase,
+as a result of the number of factors increasing from 1 to 7.
+Similarly, the error degrees of freedom decreased by about 60
+following an increase in the number of factors from 1 to 7 (Fig. 4A
+and B). The minimum number of factors best describing the data
+ranged from 4 to 7 according to organ or class. This result was
+conﬁrmed with a sparse PCA method, which further identiﬁed
+the most critical gene expression patterns within each factor.
+An LDA based on a sparse representation (sparse LDA)
+helped determine which gene expression patterns best
+discriminate the 3 classes. The 3 most discriminant gene
+expression patterns were Rev-erba, Bmal1 and Top1 in liver,
+and Rev-erba, Bmal1 and UGT1A1 in colon as shown on a
+
+Cancer Res; 73(24) December 15, 2013
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+7181
+
+Published OnlineFirst October 23, 2013; DOI: 10.1158/0008-5472.CAN-13-1528
+
+Li et al.
+
+Figure 3. Circadian gene
+expression patterns according to
+chronotoxicity class. Mean (SEM)
+mRNA expression of each gene
+of interest at each ZT for each
+chronotoxicity class
+representative. Horizontal axis,
+white and black rectangles indicate
+light and dark spans of
+photoperiodic cycle, respectively.
+Statistically signiﬁcant differences
+as a function of ZT (P < 0.001), class
+(P < 0.001) and organ (P < 0.001),
+with signiﬁcant ZT and class
+interaction terms (P < 0.05), except
+for Bmal1 in colon. Circadian
+rhythms conﬁrmed with Cosinor.
+
+Hinton display (Fig. 4C). Thus, the 3 classes were mostly
+differentiated by the circadian clock (Rev-erba and Bmal1)
+and the drug metabolism (Top1, UGT1A1) molecular markers.
+Other genes such as p53, Bax, DBP, and CES2 in liver and p53,
+Mdm2, and Bax in colon also contributed yet to a much lower
+degree (Supplementary Fig. S3).
+Spearman correlations estimated dependency relations
+between circadian gene expression patterns in liver and colon.
+Tight reciprocal interdependencies linked circadian clock gene
+expression and metabolism, proliferation and apoptosis markers in class 2. This was not the case for classes 1 or 3, a ﬁnding
+
+7182
+
+Cancer Res; 73(24) December 15, 2013
+
+supporting class-speciﬁc clock-controlled molecular pathways
+(Supplementary Fig. S4).
+Experimental validation of clock-dependent irinotecan
+chronotoxicity
+The respective roles of sex and molecular clock for irinotecan chronotoxicity were then investigated in Per2m/m mice.
+Moreover, the circadian rhythms in Rev-erba and Bmal1 mRNA
+expression was found here to be phase-advanced by 3 to 4
+hours in male Per2m/m as compared both with corresponding
+WT, and with the 3 chronotoxicity classes. Although the
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+Published OnlineFirst October 23, 2013; DOI: 10.1158/0008-5472.CAN-13-1528
+
+Clock Genes Expression for Personalized Chemotherapy Timing
+
+Figure 4. Signal and systems
+analyses for discriminating
+chronotoxicity classes based on
+selected circadian mRNA gene
+expressions in liver and colon
+mucosa. A, Hinton representation
+of the loading matrix of the factors
+according to factor analysis of
+gene expressions. The display
+illustrates the importance of each
+gene expression as a colored
+rectangle with dimensions being
+proportional to the absolute values
+of the corresponding coefﬁcients in
+the loading matrix (an intensity
+colored scale ranging from dark
+blue for lowest value to brown for
+highest value). B, error degrees of
+freedom (DFE) and the maximized
+log likelihood (-log L) as a function
+of number of components,
+according to factor analysis. C,
+results from sparse LDA of gene
+expression spectra, with most
+important variables corresponding
+to largest rectangle size and
+"warmest" (red) or "coolest" (blue)
+color.
+
+Rev-erba 24-hour patterns were similar in male and female
+Per2m/m, this was not the case for the Bmal1, whose amplitude
+was decreased by 36% and acrophase was advanced by 1:40 in
+males (Fig. 5A).
+The administration of irinotecan to Per2m/m mice resulted in
+about 3-fold variation in BWL according to circadian timing and
+sex. Least toxicity occurred at ZT7 both in male and in female
+mice. In contrast, worst toxicity occurred following dosing at
+ZT19 in males or ZT15, ZT19, or ZT23 in females (Fig. 5B).
+Cosinor analysis and Hotelling t test revealed a statistically
+signiﬁcant increase in mean toxicity (P < 0.0001) and a 4-hour
+phase advance in females as compared with males (P ¼ 0.00008;
+Supplementary Table S1). Thus, the molecular clock, sex, and
+
+www.aacrjournals.org
+
+genetic background were independent determinants of irinotecan chronotoxicity. Following irinotecan dosing at ZT7, hematologic toxicity was signiﬁcantly worse in Per2m/m as compared
+with WT, with regard to counts in circulating leukocytes (4,961 
+2,864 vs. 2,937  290, P ¼ 0.035) and lymphocytes (1,450  185 vs.
+2,556  283, P ¼ 0.006), as well as nucleated cell counts in bone
+marrow (2,550  324 vs. 3,270  263, P ¼ 0.10). Furthermore, the
+toxic damage for the ileum mucosa was also more severe in
+Per2m/m than in WT mice (P ¼ 0.03). Similarly, the count of mean
+apoptotic cells increased by 41% in Per2m/m as compared with
+WT in the ileum mucosa (Fig. 5C–E). In contrast, no signiﬁcant
+genotype-related difference was found for toxic lesions or rate of
+apoptotic cells in colon mucosa. Thus, the critical role of Per2 for
+
+Cancer Res; 73(24) December 15, 2013
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+7183
+
+Published OnlineFirst October 23, 2013; DOI: 10.1158/0008-5472.CAN-13-1528
+
+Li et al.
+
+Figure 5. Irinotecan chronotoxicity in mice with disrupted clock. A, twenty-four hour changes in mean (SEM) mRNA expression of clock genes Rev-erba and
+m/m
+Brd
+c-Brd
+Bmal1 in male WT and in male or female Per2
+mice (129SvEv  C57BL/6-Tyr
+background) kept in LD 12:12. Statistically signiﬁcant differences as a
+function of ZT for each sex (P from ANOVA <0.001) and conﬁrmed sinusoidal rhythmic patterns (P from Cosinor <0.001). B, mean BWL as a function of
+m/m
+m/m
+irinotecan circadian timing (50 mg/kg/d  4 days) in male or female Per2
+mice (C57BL/6 background). Top row, real data in Per2
+mice. Bottom row,
+m/m
+and WT littermates (C57BL/6)
+reconstructed circadian patterns with statistically validated 24-hour rhythm according to Cosinor analysis for Per2
+mice. Horizontal axis, white and black rectangles indicate light and dark spans of photoperiodic cycle, respectively. Circadian rhythms and sex effects
+validated with 2-way ANOVA (ZT, P < 0.001; sex, P ¼ 0.04) and Cosinor (P ¼ 0.006 in females and P ¼ 0.0001 in males). C and D, representative
+m/m
+hemalun/erythrosine/safran histologic slides illustrating irinotecan-induced lesions and apoptosis in the ileum mucosa of WT or Per2
+(C57BL/6),
+respectively (microscopic objective 40 and magniﬁcation 250). Arrows indicate typical apoptotic cells. E, mean count of apoptotic cells per 10 crypts in ileum
+m/m
+mucosa of WT versus Per2
+mice receiving irinotecan at ZT7 (P from t test ¼ 0.058).
+
+the hematologic and ileum toxicities of irinotecan was shown
+here for the ﬁrst time. Given the different 24-hour patterns in
+Rev-erba and Bmal1 expression in Per2m/m and in the 3 chronotoxicity classes, and the associated distinct irinotecan chronotoxicity patterns, a mathematical model was then sought to
+attempt predict for optimal irinotecan timing according to clock
+genes as input data.
+A Rev-erba and Bmal1 model for predicting irinotecan
+chronotoxicity
+A linear model was inferred using a MAP Bayesian inference
+method. It was ﬁrst trained and validated on the mean circadian time series from 3 chronotoxicity classes (classes 1, 2, and
+3) and from female Per2m/m (M1). The prediction was then
+tested using data from male B6CBAF1, which belonged to class
+3, and male Per2m/m (M2).
+The prediction matrix related the toxicity values on the yaxis to the values of Rev-erba and Bmal1 on the x-axis accord-
+
+7184
+
+Cancer Res; 73(24) December 15, 2013
+
+ing to ZT. Most of the critical information derived from gene
+expression was obtained at ZT3 to ZT9 for Rev-erba and at
+ZT18 to ZT24 for Bmal1 consistently with raw data displayed
+in Fig. 3 (Fig. 6A). The predicted time series clearly overlapped
+the real-time series in the 4 groups of the training set (Fig. 6B).
+Moreover, an accurate prediction of optimal irinotecan timing
+was obtained for the 4 WT strains, through any permutation
+between the training set and the validation set. However, the
+model did not ﬁt all the real data for M2, as a single representative of a clock mutation was available in the training set.
+Nevertheless, the model reliably predicted the dosing time
+associated with minimum toxicity for both WT male BCBAF1
+at ZT15 and male Per2m/m at ZT7 in the validation set (Fig. 6C).
+
+Discussion
+Our study is the ﬁrst one that showed that optimal chemotherapy timing could be predicted by clock gene expression
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+Published OnlineFirst October 23, 2013; DOI: 10.1158/0008-5472.CAN-13-1528
+
+Clock Genes Expression for Personalized Chemotherapy Timing
+
+Figure 6. Mathematical model for
+irinotecan optimal timing
+prediction according to circadian
+mRNA expressions of Rev-erba
+and Bmal1. A, prediction matrix
+developed on the training set using
+input data from female and male
+B6D2F1 and female B6CBAF1
+(classes 1, 2, and 3, respectively).
+y-axis, toxicity values at different
+ZT. x-axis, Rev-erba and Bmal1
+mean expressions according to ZT.
+The relative importance of gene
+expression at ZTi (abscissa) versus
+BWL at ZTj (ordinate) is visualized
+using an intensity gray scale
+ranging from darkest for lowest
+value to lightest for highest value.
+B, results in the training set using
+m/m
+classes 1, 2, 3, and female Per2
+(M1). C, validation set using male
+B6CBAF1 (class 3) and male
+m/m
+Per2
+(M2). The accurate
+prediction of optimal irinotecan
+timing (ZT associated with
+minimum BWL) in each of the 6
+mouse categories.
+
+patterns irrespective of sex and genotype. Different circadian
+toxicity proﬁles were shown for irinotecan in 3 C57BL/6-based
+mouse strains of both sexes despite synchronization with the
+same light/dark cycle. Three chronotoxicity classes were identiﬁed. The overall toxicity pattern had a single 24-hour periodic
+component for classes 1 and 2, whereas both 24- and 12-hour
+components were found for class 3. Optimal timing occurred 4
+hours earlier in class 2 as compared with classes 1 and 3. The
+magnitude of timing-related improvement in tolerability was
+twice as large in class 1 as compared with classes 2 or 3.
+Prominent target organ toxicities were hematologic for class 1,
+intestinal for class 2, and both hematologic and intestinal for
+
+www.aacrjournals.org
+
+class 3. No consistent relation was found here between drug
+plasma disposition and toxicity according to circadian timing
+among the 3 classes, in agreement with prior reports in male
+ICR mice and in patients with cancer (24, 36). Plasma exposure
+to irinotecan and other anticancer drugs varied more than 10fold among individual patients with cancer despite the administration of the same dose level, without debated consistent
+consequences for adverse events (37, 38). Moreover, a positive
+relationship between irinotecan and SN-38 plasma AUCs was
+reported for neutropenia but an opposite one for diarrhea in
+patients with cancer (22, 39). Indeed, neutropenia was severely
+worsened in the patients whose UGT1A1 genotype resulted in
+
+Cancer Res; 73(24) December 15, 2013
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+7185
+
+Published OnlineFirst October 23, 2013; DOI: 10.1158/0008-5472.CAN-13-1528
+
+Li et al.
+
+Figure 7. Scheme describing the critical role of the circadian clock in its
+interaction pathways with metabolism, cell cycle, and apoptosis for the
+determination of irinotecan chronotoxicity. Regulations identiﬁed in the
+present work (solid line) or in separate studies (dashed line).
+
+impaired glucuronidation of SN-38 by hepatic UGT1A1
+enzymes (40). However, ATP-binding cassette transporters, as
+well as sex and race also contributed signiﬁcantly to neutropenia in patients with cancer, with less hematologic toxicity
+being reported in female patients (41). In our study, mathematical analysis of 27 genomic circadian time series
+pinpointed Rev-erba and Bmal1 clock markers as critical
+determinants for both optimal timing and amplitude of the
+tolerability rhythm. The relevance of these molecular clock
+markers was then validated experimentally in Per2m/m mice
+kept under usual photoperiodic synchronization. Furthermore, the circadian amplitude and phase of the mRNA expression of clock-controlled genes Wee1 and DBP varied not only
+according to tissue, as earlier reported (42, 43), but also
+according to chronotoxicity class. Clock genes Clock, Bmal1,
+or Cry and clock-controlled genes DBP, Tef, and Hlf reportedly
+moderated cyclophosphamide and/or mitoxantrone toxicities
+at 1 or 2 selected times of day (11, 44). However, no prior study
+systematically investigated whether clock genes expression
+patterns could predict optimal drug timing and the respective
+roles of sex and genotype on such prediction.
+The preclinical models here placed circadian clocks and
+gene expression dynamics at the forefront of the personalization of anticancer therapies. Indeed the predictive value of
+genetic signatures about toxicity outcomes was moderated by
+host factors, such as sex and race (20, 45, 46). Moreover,
+the usefulness of a single genomic tumor assessment for the
+identiﬁcation of the most effective drugs was tempered by the
+clonal heterogeneity of cancer cells and the dynamic changes
+both in gene mutations and epigenetics (47). Our data support
+the need for the integration of the molecular clock jointly with
+sex and genetic background as critical players in the regulation
+of metabolism, cell cycle, and apoptosis events (Fig. 7). Indeed,
+
+7186
+
+Cancer Res; 73(24) December 15, 2013
+
+tailoring treatment delivery to the circadian clocks of an
+individual has the potential to increase treatment tolerability
+several fold. Anticancer drugs, such as irinotecan, not only
+target cancer cells but also damage rapidly renewing tissues,
+including bone marrow and gut mucosa, sometimes resulting
+in life-threatening neutropenia, asthenia, or diarrhea (48, 49). It
+is thus crucial to minimize toxicities through personalized
+drug timing. Indeed treatment toxicities not only deteriorate
+the quality of life of patients with cancer but also impair the
+successful development of new anticancer therapies. Recent
+clinical data further revealed that the minimization of toxicity
+optimized the anticancer efﬁcacy of circadian chronotherapy.
+This was not the case for conventional chemotherapy delivery,
+where the occurrence of hematologic toxicity usually predicted
+for improved efﬁcacy (4, 5, 8).
+In summary, the current study showed that the circadian
+clock was a critical determinant for achieving several fold
+improvements in irinotecan tolerability through its delivery at
+an optimal circadian time. However, optimal drug timing ranged
+over an 8-hour span according to sex and genetic background
+despite exposure to the same light/dark schedule. Mathematical
+modeling using circadian expression of clock genes Rev-erba and
+Bmal1 as input data enabled accurate prediction of optimal
+irinotecan timing, a novel ﬁnding whose relevance now deserves
+testing both in experimental settings for other anticancer agents
+and in clinical situations for irinotecan.
+Disclosure of Potential Conﬂicts of Interest
+No potential conﬂicts of interest were disclosed.
+
+Authors' Contributions
+Conception and design: X.-M. Li, A. Mohammad-Djafari, S. Dulong, E. Filipski,
+F. Delaunay, F. Levi
+Development of methodology: A. Mohammad-Djafari, M. Dumitru, S. Dulong
+Acquisition of data (provided animals, acquired and managed patients,
+provided facilities, etc.): S. Dulong, E. Filipski, S. Siffroi-Fernandez, A. Mteyrek,
+F. Scaglione
+Analysis and interpretation of data (e.g., statistical analysis, biostatistics,
+computational analysis): X.-M. Li, A. Mohammad-Djafari, M. Dumitru,
+S. Dulong, E. Filipski, F. Scaglione, F. Delaunay, F. Levi
+Writing, review, and/or revision of the manuscript: X.-M. Li, A. Mohammad-Djafari, S. Dulong, F. Scaglione, F. Delaunay, F. Levi
+Administrative, technical, or material support (i.e., reporting or organizing data, constructing databases): X.-M. Li, A. Mohammad-Djafari,
+M. Dumitru, E. Filipski
+Study supervision: X.-M. Li, A. Mohammad-Djafari, E. Filipski, F. Levi
+Pathologic analysis: C. Guettier
+
+Acknowledgments
+The authors thank C. Ahowesso, V. Hossard (INSERM) and S. Brangolo (IBV)
+for technical assistance in experimental studies and U. Albrecht (University of
+Freiburg, Freiburg, Switzerland) for the gift of Per2m/m mice.
+
+Grant Support
+This work was supported in part by grant LSHG-CT-2006-037543 from the
+European Union through STREP TEMPO (Temporal genomics for tailored
+chronotherapeutics) to F. Levi, F. Delaunay, and F. Scalione; and C5Sys project
+through grant ANR 2009-SYSB-002-01-04 (ERASySBioþ and FP7) to F. Levi, F.
+Delaunay, and A. Mohammed-Dafari; and the Association pour la Recherche sur
+le Temps Biologique et la Chronotherapie (ARTBC International, hospital Paul
+Brousse, Villejuif, France) to X.-M. Li.
+The costs of publication of this article were defrayed in part by the payment of
+page charges. This article must therefore be hereby marked advertisement in
+accordance with 18 U.S.C. Section 1734 solely to indicate this fact.
+Received May 31, 2013; revised October 18, 2013; accepted October 18, 2013;
+published OnlineFirst October 23, 2013.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+Published OnlineFirst October 23, 2013; DOI: 10.1158/0008-5472.CAN-13-1528
+
+Clock Genes Expression for Personalized Chemotherapy Timing
+
+References
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+17.
+
+18.
+
+19.
+
+vi F, Okyar A, Dulong S, Innominato PF, Clairambault J. Circadian
+Le
+timing in cancer treatments. Annu Rev Pharmacol Toxicol 2010;
+50:377–421.
+vi F, Zidani R, Misset JL. Randomised multicentre trial of chronoLe
+therapy with oxaliplatin, ﬂuorouracil, and folinic acid in metastatic
+colorectal cancer. International Organization for Cancer Chronotherapy. Lancet 1997;350:681–6.
+vi F, Focan C, Karaboue
+ A, de la Valette V, Focan-Henrard D, Baron
+Le
+B, et al. Implications of circadian clocks for the rhythmic delivery of
+cancer therapeutics. Adv Drug Deliv Rev 2007;59:1015–35.
+Innominato PF, Giacchetti S, Moreau T, Smaaland R, Focan C, Bjarnason GA, et al. Prediction of survival by neutropenia according to
+delivery schedule of oxaliplatin-5-Fluorouracil-leucovorin for metastatic colorectal cancer in a randomized international trial (EORTC
+05963). Chronobiol Int 2011;28:586–600.
+Innominato PF, Giacchetti S, Bjarnason GA, Focan C, Garuﬁ C,
+Coudert B, et al. Prediction of overall survival through circadian
+rest-activity monitoring during chemotherapy for metastatic colorectal
+cancer. Int J Cancer 2012;131:2684–92.
+vi F. Cancer
+Ortiz-Tudela E, Mteyrek A, Ballesta A, Innominato PF, Le
+chronotherapeutics: experimental, theoretical, and clinical aspects.
+Handb Exp Pharmacol 2013;217:261–88.
+vi F, Altinok A, Goldbeter A. Circadian rhythms and cancer
+Le
+chronotherapeutics. In:Marcus F, Cesario A, editors. Cancer systems biology, bioinformatics and medicine: research and clinical
+applications. Heidelberg, London, New York: Springer Dordrecht;
+2011: p. 381–407.
+Innominato PF, Giacchetti S, Moreau T, Bjarnason GA, Smaaland R,
+Focan C, et al. Fatigue and weight loss predict survival on circadian
+chemotherapy for metastatic colorectal cancer. Cancer 2013;119:
+2564–73.
+Levi F, Schibler U. Circadian rhythms: mechanisms and therapeutic
+implications. Annu Rev Pharmacol Toxicol 2007;47:593–628.
+Matsuo T, Yamaguchi S, Mitsui S, Emi A, Shimoda F, Okamura H.
+Control mechanism of the circadian clock for timing of cell division in
+vivo. Science 2003;302:255–9.
+Gorbacheva VY, Kondratov RV, Zhang R, Cherukuri S, Gudkov AV,
+Takahashi JS, et al. Circadian sensitivity to the chemotherapeutic
+agent cyclophosphamide depends on the functional status of the
+CLOCK/BMAL1 transactivation complex. Proc Natl Acad Sci U S A
+2005;102:3407–12.
+chez-Cassiau A, Rayet B, Guillaumond F, Teboul M, Delaunay F.
+Gre
+The circadian clock component BMAL1 is a critical regulator of p21
+WAF1/CIP1 expression and hepatocyte proliferation. J Biol Chem
+2008;283:4535–42.
+Oklejewicz M, Destici E, Tamanini F, Hut RA, Janssens R, van der Horst
+GT. Phase resetting of the mammalian circadian clock by DNA damage. Curr Biol 2008;18:286–91.
+Lee JH, Sancar A. Regulation of apoptosis by the circadian clock
+through NF-kappaB signaling. Proc Natl Acad Sci U S A 2011;108:
+12036–41.
+Zmrzljak UP, Rozman D. Circadian regulation of endobiotic and xenobitoic detoxiﬁcation pathways: the time matters. Chem Res Toxicol
+2012;25:811–24.
+Dallmann R, Viola AU, Tarokh L, Cajochen C, Brown SA. The human
+circadian metabolome. Proc Natl Acad Sci U S A 2012;109:2625–9.
+Hastings MH, Reddy AB, Maywood ES. A clockwork web: circadian
+timing in brain and periphery, in health and disease. Nat Rev Neurosci
+2003;4:649–61.
+Dibner C, Schibler U, Albrecht U. The mammalian circadian timing
+system: organization and coordination of central and peripheral
+clocks. Annu Rev Physiol 2010;72:517–49.
+Giacchetti S, Bjarnason G, Garuﬁ C, Genet D, Iacobelli S, Tampellini M,
+et al. Phase III trial of 4-day chronomodulated versus 2-day conventional delivery of ﬂuorouracil, leucovorin and oxaliplatin as ﬁrst line
+chemotherapy of metastatic colorectal cancer: the European Organisation for Research and Treatment of Cancer Chronotherapy Group.
+J Clin Oncol 2006;24:3562–9.
+
+www.aacrjournals.org
+
+ PA, Innominato PF, Bjarnason GA, Focan C,
+20. Giacchetti S, Dugue
+Garuﬁ C, et al. Sex moderates circadian chemotherapy effects on
+survival of patients with metastatic colorectal cancer: a meta-analysis.
+Ann Oncol 2012;23:3110–6.
+21. Pommier Y. Topoisomerase I inhibitors: camptothecins and beyond.
+Nat Rev Cancer 2006;6:789–802.
+22. Kweekel D, Guchelaar HJ, Gelderblom H. Clinical and pharmacogenetic factors associated with irinotecan toxicity. Cancer Treat Rev
+2008;34:656–69.
+23. Wallace BD, Wang H, Lane KT, Scott JE, Orans J, Koo JS, et al.
+Alleviating cancer drug toxicity by inhibiting a bacterial enzyme.
+Science 2010;330:831–5.
+24. Ohdo S, Makinosumi T, Ishizaki T, Yukawa E, Higuchi S, Nakano S,
+et al. Cell cycle-dependent chronotoxicity of irinotecan hydrochloride
+in mice. J Pharmacol Exp Ther 1997;283:1383–8.
+ry-Mignard D, Mahjoubi M, Le
+vi F.
+25. Filipski E, Lemaigre G, Liu XH, Me
+Circadian rhythm of irinotecan tolerability in mice. Chronobiol Int
+2004;21:613–30.
+26. Granda TG, D'Attino RM, Filipski E, Vrignaud P, Garuﬁ C, Terzoli E, et al.
+Circadian optimization of irinotecan and oxaliplatin efﬁcacy in mice
+with Glasgow osteosarcoma. Br J Cancer 2002;86:999–1005.
+27. Ahowesso C, Piccolo E, Li XM, Dulong S, Hossard V, La Sorda R, et al.
+Relations between strain and gender dependencies of irinotecan
+toxicity and UGT1A1, CES2 and TOP1 expressions in mice. Toxicol
+Lett 2010;192:395–401.
+28. Zheng B, Larkin DW, Albrecht U, Sun ZS, Sage M, Eichele G, et al. The
+mPer2 gene encodes a functional component of the mammalian
+circadian clock. Nature 1999;400:169–73.
+29. Fu L, Pelicano H, Liu J, Huang P, Lee C. The circadian gene Period2
+plays an important role in tumor suppression and DNA damage
+response in vivo. Cell 2002;111:41–50.
+30. Schoemaker NE, Rosing H, Jansen S, Schellens JH, Beijnen JH. Ther
+Drug Monit. High-performance liquid chromatographic analysis of the
+anticancer drug irinotecan (CPT-11) and its active metabolite SN-38 in
+human plasma. Ther Drug Monit 2003;25:120–4.
+31. Chomczynski P, Sacchi N. Single-step method of RNA isolation by
+acid guanidinium thiocyanate-phenol-chloroform extraction. Anal Biochem 1987;162:156–9.
+32. Iurisci I, Filipski E, Reinhardt J, Bach S, Gianella-Borradori A, Iacobelli
+S, et al. Improved tumor control through circadian clock induction by
+Seliciclib, a cyclin-dependent kinase inhibitor. Cancer Res 2006;66:
+10720–8.
+33. Zou H, Hastie T, Tibshirani R. Sparse principal component analysis.
+J Comput Graph Stat 2006;15:265–86.
+34. Qiao Z, Zhou L, Huang JZ. Sparse linear discriminant analysis with
+applications to high dimensional low sample size data. Int J Appl Math
+2008;39:48–60.
+35. Mohammad-Djafari A. Bayesian approach with prior models which
+enforce sparsity in signal and image processing. J Adv Signal Processing 2012:52.
+36. Toffoli G, Cecchin E, Corona G, Russo A, Buonadonna A, D'Andrea M,
+et al. The role of UGT1A1 28 polymorphism in the pharmacodynamics
+and pharmacokinetics of irinotecan in patients with metastatic colorectal cancer. J Clin Oncol 2006;24:3061–8.
+37. Chabot GG, Abigerges D, Catimel G, Culine S, de Forni M, Extra JM,
+et al. Population pharmacokinetics and pharmacodynamics of irinotecan (CPT-11) and active metabolite SN-38 during phase I trials. Ann
+Oncol 1995;6:141–51.
+38. Saif MW, Choma A, Salamone SJ, Chu E. Pharmacokinetically
+guided dose adjustment of 5-ﬂuorouracil: a rational approach to
+improving therapeutic outcomes. J Natl Cancer Inst 2009;101:
+1543–52.
+39. Mathijssen RH, van Alphen RJ, Verweij J, Loos WJ, Nooter K, Stoter G,
+et al. Clinical pharmacokinetics and metabolism of irinotecan (CPT11). Clin Cancer Res 2001;7:2182–94.
+40. Hu ZY, Yu Q, Pei Q, Guo C. Dose-dependent association between
+UGT1A1 28 genotype and irinotecan-induced neutropenia: low doses
+also increase risk. Clin Cancer Res 2010;16:3832–42.
+
+Cancer Res; 73(24) December 15, 2013
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+7187
+
+Published OnlineFirst October 23, 2013; DOI: 10.1158/0008-5472.CAN-13-1528
+
+Li et al.
+
+41. Innocenti F, Kroetz DL, Schuetz E, Dolan ME, Ramírez J, Relling
+M, et al. Comprehensive pharmacogenetic analysis of irinotecan neutropenia and pharmacokinetics. J Clin Oncol 2009;27:
+2604–14.
+42. Storch KF, Lipan O, Leykin I, Viswanathan N, Davis FC, Wong WH, et al.
+Extensive and divergent circadian gene expression in liver and heart.
+Nature 2002;417:78–83.
+ L, Sota
+k M, Sla
+dek M, Pacha J, Sumova
+ A. Temporal
+43. Polidarova
+gradient in the clock gene and cell-cycle checkpoint kinase Wee1
+expression along the gut. Chronobiol Int 2009;26:607–20.
+44. Gachon F, Olela FF, Schaad O, Descombes P, Schibler U. The
+circadian PAR-domain basic leucine zipper transcription factors DBP,
+TEF, and HLF modulate basal and inducible xenobiotic detoxiﬁcation.
+Cell Metab 2006;4:25–36.
+
+7188
+
+Cancer Res; 73(24) December 15, 2013
+
+45. Ma BB, Hui EP, Mok TS. Population-based differences in treatment
+outcome following anticancer drug therapies. Lancet Oncol 2010;11:
+75–84.
+46. Wettergren Y, Carlsson G, Odin E, Gustavsson B. Pretherapeutic uracil
+and dihydrouracil levels of colorectal cancer patients are associated
+with sex and toxic side effects during adjuvant 5-ﬂuorouracil-based
+chemotherapy. Cancer 2012;118:2935–43.
+47. You JS, Jones PA. Cancer genetics and epigenetics: two sides of the
+same coin? Cancer Cell 2012;22:9–20.
+48. Eng C. Toxic effects and their management: daily clinical challenges in
+the treatment of colorectal cancer. Nat Rev Clin Oncol 2009;6:207–18.
+49. Cleeland CS, Allen JD, Roberts SA, Brell JM, Giralt SA, Khakoo AY,
+et al. Reducing the toxicity of cancer therapy: recognizing needs,
+taking action. Nat Rev Clin Oncol 2012;9:471–8.
+
+Cancer Research
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+Published OnlineFirst October 23, 2013; DOI: 10.1158/0008-5472.CAN-13-1528
+
+A Circadian Clock Transcription Model for the Personalization of
+Cancer Chronotherapy
+Xiao-Mei Li, Ali Mohammad-Djafari, Mircea Dumitru, et al.
+Cancer Res 2013;73:7176-7188. Published OnlineFirst October 23, 2013.
+
+Updated version
+Supplementary
+Material
+
+Cited articles
+Citing articles
+
+E-mail alerts
+Reprints and
+Subscriptions
+Permissions
+
+Access the most recent version of this article at:
+doi:10.1158/0008-5472.CAN-13-1528
+Access the most recent supplemental material at:
+http://cancerres.aacrjournals.org/content/suppl/2013/10/22/0008-5472.CAN-13-1528.DC1
+
+This article cites 47 articles, 13 of which you can access for free at:
+http://cancerres.aacrjournals.org/content/73/24/7176.full#ref-list-1
+This article has been cited by 5 HighWire-hosted articles. Access the articles at:
+http://cancerres.aacrjournals.org/content/73/24/7176.full#related-urls
+
+Sign up to receive free email-alerts related to this article or journal.
+To order reprints of this article or to subscribe to the journal, contact the AACR Publications Department at
+pubs@aacr.org.
+To request permission to re-use all or part of this article, contact the AACR Publications Department at
+permissions@aacr.org.
+
+Downloaded from cancerres.aacrjournals.org on September 2, 2017. © 2013 American Association for Cancer Research.
+
+
